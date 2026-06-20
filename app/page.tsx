@@ -20,7 +20,7 @@ export default function Home() {
       let done = guidesRead[m.id] ? 1 : 0;
       const prefixes = [`quiz-mcq:${m.id}`, `quiz-qa:${m.id}`, `bank:${m.id}:`];
       for (const key of Object.keys(attempts)) {
-        if (prefixes.some((p) => key.startsWith(p)) && attempts[key].completed) done++;
+        if (prefixes.some((p) => key.startsWith(p)) && (attempts[key] as { completed?: boolean }).completed) done++;
       }
       map[m.id] = Math.min(100, Math.round((done / 11) * 100));
     }

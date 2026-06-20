@@ -1,8 +1,12 @@
 "use client";
 
-// Global progress + rewards store, persisted to localStorage.
-// Everything the app remembers (stars, which guides were read, in-progress
-// papers, the "resume where you left off" pointer) lives here.
+// Global progress + rewards store.
+//
+// Progress is now per-LEARNER-PROFILE and synced to the cloud (Vercel Blob)
+// so it follows the learner across devices. localStorage is kept only as a
+// fast offline cache. The provider also records lightweight usage analytics
+// (time on task, questions answered/correct, per-topic activity) for the
+// PIN-protected parent dashboard.
 
 import {
   createContext,
@@ -13,21 +17,11 @@ import {
   useRef,
   useState,
 } from "react";
+import type { Analytics, AttemptState, Profile, ProgressDoc, TopicStat } from "./profileTypes";
+import { emptyAnalytics, emptyProgress } from "./profileTypes";
+import { lookup } from "./questionIndex";
 
-const STORAGE_KEY = "year8science.v1";
-
-/** State of a single paper / quiz attempt, used for autosave + resume. */
-export interface AttemptState {
-  /** Index of the question currently being viewed. */
-  index: number;
-  /** MCQ: chosen option index per question id. QA: typed text per id. */
-  answers: Record<string, number | string>;
-  /** QA self-assessment results per question id: 0..1 coverage. */
-  scores: Record<string, number>;
-  /** Whether the attempt has been finished at least once. */
-  completed: boolean;
-  updatedAt: number;
-}
+export type { AttemptState } from "./profileTypes";
 
 export interface LastActivity {
   href: string;
@@ -38,48 +32,28 @@ export interface LastActivity {
 
 export interface Streak {
   count: number;
-  /** ISO date (YYYY-MM-DD) of the last active day. */
   last: string;
-  /** Best streak ever reached. */
   best: number;
 }
 
-interface StoreData {
-  stars: number;
-  /** Idempotency keys for already-granted rewards. */
-  awarded: Record<string, true>;
-  /** Per-attempt saved state, keyed by a stable storage key. */
-  attempts: Record<string, AttemptState>;
-  /** Topic ids whose guide has been marked as read. */
-  guidesRead: Record<string, true>;
-  /** Question ids the learner has got wrong and not yet re-mastered. */
-  missed: Record<string, true>;
-  /** Best challenge score (0–100) per topic id. */
-  challengeBest: Record<string, number>;
-  streak: Streak;
-  last?: LastActivity;
+export interface PublicAccount {
+  id: string;
+  displayName: string;
+  profiles: Profile[];
 }
 
-const EMPTY: StoreData = {
-  stars: 0,
-  awarded: {},
-  attempts: {},
-  guidesRead: {},
-  missed: {},
-  challengeBest: {},
-  streak: { count: 0, last: "", best: 0 },
-};
+type Status = "loading" | "anon" | "no-profile" | "ready";
+
+type StoreData = ProgressDoc;
+
+const HEARTBEAT_MS = 20000;
 
 function todayISO(): string {
   return new Date().toISOString().slice(0, 10);
 }
-
 function dayDiff(a: string, b: string): number {
-  const da = Date.parse(a + "T00:00:00");
-  const db = Date.parse(b + "T00:00:00");
-  return Math.round((db - da) / 86400000);
+  return Math.round((Date.parse(b + "T00:00:00") - Date.parse(a + "T00:00:00")) / 86400000);
 }
-
 function bumpStreak(s: Streak): Streak {
   const today = todayISO();
   if (s.last === today) return s;
@@ -87,69 +61,230 @@ function bumpStreak(s: Streak): Streak {
   if (s.last && dayDiff(s.last, today) === 1) count = s.count + 1;
   return { count, last: today, best: Math.max(s.best, count) };
 }
+function defTopic(): TopicStat {
+  return { timeMs: 0, answered: 0, correct: 0, guideRead: false, challengeBest: 0 };
+}
+function pushLog(a: Analytics, type: string, topicId?: string, detail?: string): Analytics {
+  const log = [...a.log, { at: Date.now(), type, topicId, detail }].slice(-120);
+  return { ...a, log, lastActiveAt: Date.now() };
+}
+function normalize(d: Partial<ProgressDoc> | null): ProgressDoc {
+  const base = emptyProgress();
+  if (!d) return base;
+  return {
+    ...base,
+    ...d,
+    streak: { ...base.streak, ...(d.streak || {}) },
+    analytics: { ...emptyAnalytics(), ...(d.analytics || {}), days: { ...(d.analytics?.days || {}) }, topics: { ...(d.analytics?.topics || {}) }, log: d.analytics?.log || [] },
+  };
+}
 
 interface StoreContextValue extends StoreData {
-  /** Grant `amount` stars once for `key`. Returns stars actually added. */
+  status: Status;
+  account: PublicAccount | null;
+  activeProfile: Profile | null;
+  // auth / profile actions
+  signup: (username: string, password: string, pin: string) => Promise<{ ok: boolean; error?: string }>;
+  login: (username: string, password: string) => Promise<{ ok: boolean; error?: string }>;
+  logout: () => Promise<void>;
+  createProfile: (name: string, emoji: string) => Promise<{ ok: boolean; error?: string }>;
+  selectProfile: (profileId: string) => Promise<void>;
+  switchProfile: () => void;
+  // progress actions
   award: (key: string, amount: number) => number;
   hasAward: (key: string) => boolean;
   saveAttempt: (key: string, state: AttemptState) => void;
   getAttempt: (key: string) => AttemptState | undefined;
   markGuideRead: (topicId: string) => void;
   setLast: (a: Omit<LastActivity, "at">) => void;
-  /** Record a question result; updates the review queue and the streak. */
   recordResult: (qid: string, correct: boolean) => void;
   setChallengeBest: (topicId: string, score: number) => void;
-  /** Touch today's streak (call on any meaningful activity). */
   touchStreak: () => void;
   resetAll: () => void;
 }
 
 const StoreContext = createContext<StoreContextValue | null>(null);
 
-function load(): StoreData {
-  if (typeof window === "undefined") return EMPTY;
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return EMPTY;
-    const parsed = JSON.parse(raw) as Partial<StoreData>;
-    return { ...EMPTY, ...parsed };
-  } catch {
-    return EMPTY;
-  }
+const cacheKey = (acc: string, prof: string) => `y8cache:${acc}:${prof}`;
+const lastProfileKey = (acc: string) => `y8last:${acc}`;
+
+function currentTopicId(): string | undefined {
+  if (typeof window === "undefined") return undefined;
+  const m = window.location.pathname.match(/\/(?:topic|challenge|certificate)\/([^/]+)/);
+  return m ? m[1] : undefined;
 }
 
 export function ProgressProvider({ children }: { children: React.ReactNode }) {
-  const [data, setData] = useState<StoreData>(EMPTY);
-  const [hydrated, setHydrated] = useState(false);
+  const [status, setStatus] = useState<Status>("loading");
+  const [account, setAccount] = useState<PublicAccount | null>(null);
+  const [activeProfile, setActiveProfile] = useState<Profile | null>(null);
+  const [data, setData] = useState<StoreData>(emptyProgress());
+
   const dataRef = useRef(data);
   dataRef.current = data;
+  const accountRef = useRef(account);
+  accountRef.current = account;
+  const activeRef = useRef(activeProfile);
+  activeRef.current = activeProfile;
+  const canSaveRef = useRef(false);
+  const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Hydrate from localStorage on mount (client only).
+  // ---- bootstrap: who is signed in? ----
   useEffect(() => {
-    setData(load());
-    setHydrated(true);
+    (async () => {
+      try {
+        const r = await fetch("/api/auth/me", { cache: "no-store" });
+        const j = await r.json();
+        if (j.account) {
+          setAccount(j.account);
+          const lastId = localStorage.getItem(lastProfileKey(j.account.id));
+          const prof = j.account.profiles.find((p: Profile) => p.id === lastId);
+          if (prof) {
+            await loadProfile(j.account.id, prof);
+            return;
+          }
+          setStatus("no-profile");
+        } else {
+          setStatus("anon");
+        }
+      } catch {
+        setStatus("anon");
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Persist on every change once hydrated.
-  useEffect(() => {
-    if (!hydrated) return;
+  async function loadProfile(accountId: string, prof: Profile) {
+    canSaveRef.current = false;
+    setActiveProfile(prof);
+    // instant paint from cache
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      const cached = localStorage.getItem(cacheKey(accountId, prof.id));
+      if (cached) setData(normalize(JSON.parse(cached)));
+    } catch {}
+    setStatus("ready");
+    try {
+      const r = await fetch(`/api/progress?profileId=${prof.id}`, { cache: "no-store" });
+      const j = await r.json();
+      const doc = normalize(j.progress);
+      // register a new session
+      doc.analytics = pushLog({ ...doc.analytics, sessionCount: doc.analytics.sessionCount + 1 }, "start");
+      setData(doc);
     } catch {
-      /* storage full or unavailable — ignore */
+      /* keep cache */
     }
-  }, [data, hydrated]);
+    localStorage.setItem(lastProfileKey(accountId), prof.id);
+    canSaveRef.current = true;
+  }
 
+  // ---- persist (debounced) ----
+  useEffect(() => {
+    if (status !== "ready" || !accountRef.current || !activeRef.current || !canSaveRef.current) return;
+    const acc = accountRef.current.id;
+    const pid = activeRef.current.id;
+    try {
+      localStorage.setItem(cacheKey(acc, pid), JSON.stringify(data));
+    } catch {}
+    if (saveTimer.current) clearTimeout(saveTimer.current);
+    saveTimer.current = setTimeout(() => {
+      fetch("/api/progress", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ profileId: pid, progress: dataRef.current }),
+      }).catch(() => {});
+    }, 1800);
+  }, [data, status]);
+
+  // ---- heartbeat: time on task ----
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (status !== "ready" || document.visibilityState !== "visible") return;
+      const tid = currentTopicId();
+      setData((d) => {
+        const today = todayISO();
+        const days = { ...d.analytics.days };
+        const day = { ...(days[today] || { timeMs: 0, answered: 0, correct: 0 }) };
+        day.timeMs += HEARTBEAT_MS;
+        days[today] = day;
+        const topics = { ...d.analytics.topics };
+        if (tid) {
+          const t = { ...(topics[tid] || defTopic()) };
+          t.timeMs += HEARTBEAT_MS;
+          topics[tid] = t;
+        }
+        return { ...d, analytics: { ...d.analytics, totalTimeMs: d.analytics.totalTimeMs + HEARTBEAT_MS, lastActiveAt: Date.now(), days, topics } };
+      });
+    }, HEARTBEAT_MS);
+    return () => clearInterval(id);
+  }, [status]);
+
+  // ---- auth / profile actions ----
+  const signup = useCallback(async (username: string, password: string, pin: string) => {
+    const r = await fetch("/api/auth/signup", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ username, password, pin }) });
+    const j = await r.json();
+    if (!r.ok) return { ok: false, error: j.error };
+    setAccount(j.account);
+    setStatus("no-profile");
+    return { ok: true };
+  }, []);
+
+  const login = useCallback(async (username: string, password: string) => {
+    const r = await fetch("/api/auth/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ username, password }) });
+    const j = await r.json();
+    if (!r.ok) return { ok: false, error: j.error };
+    setAccount(j.account);
+    setStatus("no-profile");
+    return { ok: true };
+  }, []);
+
+  const logout = useCallback(async () => {
+    await fetch("/api/auth/logout", { method: "POST" }).catch(() => {});
+    setAccount(null);
+    setActiveProfile(null);
+    setData(emptyProgress());
+    canSaveRef.current = false;
+    setStatus("anon");
+  }, []);
+
+  const createProfile = useCallback(async (name: string, emoji: string) => {
+    const r = await fetch("/api/profiles", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, emoji }) });
+    const j = await r.json();
+    if (!r.ok) return { ok: false, error: j.error };
+    const prof: Profile = j.profile;
+    setAccount((a) => (a ? { ...a, profiles: [...a.profiles, prof] } : a));
+    const accId = accountRef.current?.id;
+    if (accId) await loadProfile(accId, prof);
+    return { ok: true };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const selectProfile = useCallback(async (profileId: string) => {
+    const acc = accountRef.current;
+    const prof = acc?.profiles.find((p) => p.id === profileId);
+    if (acc && prof) await loadProfile(acc.id, prof);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const switchProfile = useCallback(() => {
+    // flush pending save immediately
+    const acc = accountRef.current?.id;
+    const pid = activeRef.current?.id;
+    if (acc && pid && canSaveRef.current) {
+      fetch("/api/progress", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ profileId: pid, progress: dataRef.current }) }).catch(() => {});
+    }
+    canSaveRef.current = false;
+    setActiveProfile(null);
+    setData(emptyProgress());
+    setStatus("no-profile");
+  }, []);
+
+  // ---- progress mutations ----
   const award = useCallback((key: string, amount: number) => {
     let added = 0;
     setData((d) => {
       if (d.awarded[key]) return d;
       added = amount;
-      return {
-        ...d,
-        stars: d.stars + amount,
-        awarded: { ...d.awarded, [key]: true },
-      };
+      return { ...d, stars: d.stars + amount, awarded: { ...d.awarded, [key]: true } };
     });
     return added;
   }, []);
@@ -160,30 +295,60 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     setData((d) => ({ ...d, attempts: { ...d.attempts, [key]: state }, streak: bumpStreak(d.streak) }));
   }, []);
 
-  const getAttempt = useCallback(
-    (key: string) => dataRef.current.attempts[key],
-    [],
-  );
+  const getAttempt = useCallback((key: string) => dataRef.current.attempts[key] as AttemptState | undefined, []);
 
   const markGuideRead = useCallback((topicId: string) => {
-    setData((d) => ({ ...d, guidesRead: { ...d.guidesRead, [topicId]: true }, streak: bumpStreak(d.streak) }));
+    setData((d) => {
+      const topics = { ...d.analytics.topics };
+      topics[topicId] = { ...(topics[topicId] || defTopic()), guideRead: true };
+      const analytics = pushLog({ ...d.analytics, topics }, "guide", topicId);
+      return { ...d, guidesRead: { ...d.guidesRead, [topicId]: true }, streak: bumpStreak(d.streak), analytics };
+    });
   }, []);
 
   const recordResult = useCallback((qid: string, correct: boolean) => {
+    const topicId = lookup(qid)?.topicId;
     setData((d) => {
       const missed = { ...d.missed };
       if (correct) delete missed[qid];
       else missed[qid] = true;
-      return { ...d, missed, streak: bumpStreak(d.streak) };
+      const today = todayISO();
+      const days = { ...d.analytics.days };
+      const day = { ...(days[today] || { timeMs: 0, answered: 0, correct: 0 }) };
+      day.answered += 1;
+      if (correct) day.correct += 1;
+      days[today] = day;
+      const topics = { ...d.analytics.topics };
+      if (topicId) {
+        const t = { ...(topics[topicId] || defTopic()) };
+        t.answered += 1;
+        if (correct) t.correct += 1;
+        topics[topicId] = t;
+      }
+      const analytics: Analytics = {
+        ...d.analytics,
+        answered: d.analytics.answered + 1,
+        correct: d.analytics.correct + (correct ? 1 : 0),
+        lastActiveAt: Date.now(),
+        days,
+        topics,
+      };
+      return { ...d, missed, streak: bumpStreak(d.streak), analytics };
     });
   }, []);
 
   const setChallengeBest = useCallback((topicId: string, score: number) => {
-    setData((d) => ({
-      ...d,
-      challengeBest: { ...d.challengeBest, [topicId]: Math.max(d.challengeBest[topicId] ?? 0, score) },
-      streak: bumpStreak(d.streak),
-    }));
+    setData((d) => {
+      const topics = { ...d.analytics.topics };
+      topics[topicId] = { ...(topics[topicId] || defTopic()), challengeBest: Math.max(topics[topicId]?.challengeBest ?? 0, score) };
+      const analytics = pushLog({ ...d.analytics, topics }, "challenge", topicId, `${score}%`);
+      return {
+        ...d,
+        challengeBest: { ...d.challengeBest, [topicId]: Math.max(d.challengeBest[topicId] ?? 0, score) },
+        streak: bumpStreak(d.streak),
+        analytics,
+      };
+    });
   }, []);
 
   const touchStreak = useCallback(() => {
@@ -194,11 +359,24 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     setData((d) => ({ ...d, last: { ...a, at: Date.now() } }));
   }, []);
 
-  const resetAll = useCallback(() => setData(EMPTY), []);
+  const resetAll = useCallback(() => {
+    const fresh = emptyProgress();
+    fresh.analytics.sessionCount = dataRef.current.analytics.sessionCount;
+    setData(fresh);
+  }, []);
 
   const value = useMemo<StoreContextValue>(
     () => ({
       ...data,
+      status,
+      account,
+      activeProfile,
+      signup,
+      login,
+      logout,
+      createProfile,
+      selectProfile,
+      switchProfile,
       award,
       hasAward,
       saveAttempt,
@@ -210,7 +388,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       touchStreak,
       resetAll,
     }),
-    [data, award, hasAward, saveAttempt, getAttempt, markGuideRead, setLast, recordResult, setChallengeBest, touchStreak, resetAll],
+    [data, status, account, activeProfile, signup, login, logout, createProfile, selectProfile, switchProfile, award, hasAward, saveAttempt, getAttempt, markGuideRead, setLast, recordResult, setChallengeBest, touchStreak, resetAll],
   );
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
@@ -222,7 +400,6 @@ export function useStore(): StoreContextValue {
   return ctx;
 }
 
-/** Star "levels" so the header can show a friendly rank. */
 export interface Rank {
   min: number;
   name: string;
@@ -236,7 +413,6 @@ export const RANKS: Rank[] = [
   { min: 300, name: "Master Investigator", emoji: "🧠" },
   { min: 500, name: "Professor", emoji: "🎓" },
 ];
-
 export function rankFor(stars: number) {
   let r = RANKS[0];
   for (const rank of RANKS) if (stars >= rank.min) r = rank;
