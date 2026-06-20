@@ -9,9 +9,13 @@ const SUBJECTS = ["Biology", "Chemistry", "Physics"] as const;
 const SUBJECT_ICON = { Biology: "🧬", Chemistry: "⚗️", Physics: "⚡" } as const;
 
 export default function Home() {
-  const { stars, last, guidesRead, attempts, streak, missed } = useStore();
+  const { stars, last, guidesRead, attempts, streak, srs, goalMinutes, analytics, setGoalMinutes } = useStore();
   const rank = rankFor(stars);
-  const missedCount = Object.keys(missed).length;
+  const today = new Date().toISOString().slice(0, 10);
+  const missedCount = Object.values(srs).filter((s) => s.due <= today).length;
+  const todayStat = analytics.days[today] ?? { timeMs: 0, answered: 0, correct: 0 };
+  const minsToday = Math.floor(todayStat.timeMs / 60000);
+  const goalPct = Math.min(100, Math.round((minsToday / goalMinutes) * 100));
 
   // total "pieces" of a topic: guide + 2 quiz runners + 8 bank papers = 11
   const topicProgress = useMemo(() => {
@@ -80,7 +84,27 @@ export default function Home() {
       </section>
 
       {/* daily strip */}
-      <section className="mt-6 grid gap-4 sm:grid-cols-3">
+      <section className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold uppercase tracking-wide text-emerald-700">🎯 Today's goal</span>
+            <select
+              value={goalMinutes}
+              onChange={(e) => setGoalMinutes(Number(e.target.value))}
+              className="rounded-md border border-emerald-200 bg-white px-1 py-0.5 text-xs font-semibold text-emerald-700"
+              aria-label="Daily goal in minutes"
+            >
+              {[5, 10, 15, 20, 30].map((m) => (
+                <option key={m} value={m}>{m} min</option>
+              ))}
+            </select>
+          </div>
+          <p className="mt-1 text-right text-xs font-semibold text-emerald-700/80">{minsToday}/{goalMinutes} min today</p>
+          <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-emerald-100">
+            <div className="h-full rounded-full bg-emerald-500 transition-all" style={{ width: `${goalPct}%` }} />
+          </div>
+          <p className="mt-2 text-xs font-medium text-emerald-700/80">{goalPct >= 100 ? "Goal smashed today! 🎉" : "Keep going — you've got this!"}</p>
+        </div>
         <div className="flex items-center gap-3 rounded-2xl border border-orange-200 bg-orange-50 p-4">
           <span className="text-3xl">🔥</span>
           <div>
@@ -92,7 +116,7 @@ export default function Home() {
           <span className="text-3xl">🔁</span>
           <div>
             <p className="text-2xl font-extrabold tabular-nums text-rose-600">{missedCount}</p>
-            <p className="text-xs font-medium text-rose-700/80">{missedCount === 0 ? "Nothing to review — nice!" : "Questions to master →"}</p>
+            <p className="text-xs font-medium text-rose-700/80">{missedCount === 0 ? "Nothing due — nice!" : "Due for review →"}</p>
           </div>
         </Link>
         <Link href="/progress" className="flex items-center gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 transition hover:bg-amber-100">

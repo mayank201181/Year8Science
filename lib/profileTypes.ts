@@ -37,6 +37,16 @@ export interface ActivityEntry {
   detail?: string;
 }
 
+/** Spaced-repetition schedule entry for a missed question. */
+export interface SrsItem {
+  /** ISO date (YYYY-MM-DD) the item is next due for review. */
+  due: string;
+  /** Successful reviews in a row (index into the interval ladder). */
+  reps: number;
+  /** Current interval in days. */
+  interval: number;
+}
+
 export interface Analytics {
   firstActiveAt: number;
   lastActiveAt: number;
@@ -58,6 +68,10 @@ export interface ProgressDoc {
   missed: Record<string, true>;
   challengeBest: Record<string, number>;
   streak: { count: number; last: string; best: number };
+  /** Spaced-repetition schedule for missed questions, keyed by question id. */
+  srs: Record<string, SrsItem>;
+  /** Daily study goal in minutes. */
+  goalMinutes: number;
   last?: { href: string; label: string; topicId?: string; at: number };
   analytics: Analytics;
 }
@@ -76,6 +90,8 @@ export function emptyProgress(): ProgressDoc {
     missed: {},
     challengeBest: {},
     streak: { count: 0, last: "", best: 0 },
+    srs: {},
+    goalMinutes: 10,
     analytics: emptyAnalytics(),
   };
 }

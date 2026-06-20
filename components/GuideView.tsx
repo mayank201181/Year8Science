@@ -6,6 +6,7 @@ import { useStore } from "@/lib/store";
 import { getExtras } from "@/lib/extras";
 import { EXPLORABLES } from "./Explorables";
 import { ListenButton } from "./ListenButton";
+import { AskAI } from "./AskAI";
 import { MarkdownLite } from "./MarkdownLite";
 
 export function GuideView({ topic }: { topic: Topic }) {
@@ -44,7 +45,17 @@ export function GuideView({ topic }: { topic: Topic }) {
       <div className="flex items-center justify-between gap-3">
         <p className="flex-1 rounded-2xl border border-indigo-100 bg-indigo-50/60 p-4 text-slate-700">{topic.intro}</p>
       </div>
-      <div className="-mt-2"><ListenButton getText={fullText} label="Read this guide aloud" /></div>
+      <div className="-mt-2 flex flex-wrap gap-2">
+        <ListenButton getText={fullText} label="Read this guide aloud" />
+        <AskAI
+          topic={topic.title}
+          context={`${topic.intro} ${topic.guide.map((s) => s.heading).join(", ")}`}
+          presets={[
+            { kind: "explain", label: "Explain simply" },
+            { kind: "example", label: "Give an example" },
+          ]}
+        />
+      </div>
 
       {Widget && <Widget />}
 

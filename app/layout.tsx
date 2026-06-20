@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ProgressProvider } from "@/lib/store";
@@ -13,6 +13,11 @@ export const metadata: Metadata = {
   title: "Year 8 Science Lab",
   description:
     "An interactive Year 8 science course: illustrated guides, memory tricks, quizzes and practice papers across Biology, Chemistry and Physics.",
+  appleWebApp: { capable: true, statusBarStyle: "default", title: "Science Lab" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#4f46e5",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -6,6 +6,7 @@ import type { MCQ, QA } from "@/lib/types";
 import { useStore, type AttemptState } from "@/lib/store";
 import { gradeQA, VERDICT_META, type Verdict } from "@/lib/grade";
 import { MarkdownLite } from "./MarkdownLite";
+import { AskAI } from "./AskAI";
 
 type Props = {
   storageKey: string;
@@ -299,6 +300,26 @@ export function PaperRunner(props: Props) {
               )}
             </p>
             <p className="font-normal">{(q as MCQ).explanation}</p>
+          </div>
+        )}
+
+        {/* AI tutor — available once the answer has been checked */}
+        {checked && (
+          <div className="mt-3">
+            <AskAI
+              topic={title}
+              context={
+                kind === "mcq"
+                  ? `Question: ${(q as MCQ).question}\nCorrect answer: ${(q as MCQ).options[(q as MCQ).answerIndex]}\nExplanation: ${(q as MCQ).explanation}`
+                  : `Question: ${(q as QA).question}\nModel answer: ${(q as QA).modelAnswer}`
+              }
+              presets={[
+                { kind: "why", label: "Explain why" },
+                { kind: "example", label: "Give an example" },
+              ]}
+              buttonLabel="✨ Still confused? Ask the AI tutor"
+              placeholder="Ask why, or anything about this question…"
+            />
           </div>
         )}
       </div>
