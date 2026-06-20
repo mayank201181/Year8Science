@@ -6,7 +6,7 @@ import { useStore } from "@/lib/store";
 
 // "Professor Photon" — a small, dismissible guide that offers contextual nudges.
 export function Mascot() {
-  const { stars, streak, missed, guidesRead } = useStore();
+  const { stars, streak, srs, guidesRead, goalMinutes, analytics } = useStore();
   const [open, setOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
@@ -17,20 +17,27 @@ export function Mascot() {
     setOpen(!dismissed);
   }, []);
 
-  const missedCount = Object.keys(missed).length;
+  const today = new Date().toISOString().slice(0, 10);
+  const missedCount = Object.values(srs).filter((s) => s.due <= today).length;
   const guidesCount = Object.keys(guidesRead).length;
+  const minsToday = Math.floor((analytics.days[today]?.timeMs ?? 0) / 60000);
+  const goalMet = minsToday >= goalMinutes;
 
   const msg = useMemo<{ text: string; cta?: { href: string; label: string } }>(() => {
     if (stars === 0 && guidesCount === 0)
       return { text: "Hi, I'm Professor Photon! 🧑‍🔬 Pick any topic and start your guide — I'll cheer you on.", cta: { href: "/topic/photosynthesis", label: "Start here" } };
     if (missedCount >= 3)
-      return { text: `You've got ${missedCount} tricky questions waiting. A quick review now will lock them in! 🔁`, cta: { href: "/review", label: "Review now" } };
-    if (streak.count >= 2)
+      return { text: `You've got ${missedCount} questions due for review. A quick session now will lock them into memory! 🔁`, cta: { href: "/review", label: "Review now" } };
+    if (!goalMet && minsToday > 0)
+      return { text: `You're ${goalMinutes - minsToday} min from today's goal — so close! Keep going. 🎯` };
+    if (streak.count >= 2 && minsToday === 0)
       return { text: `🔥 ${streak.count}-day streak! Do something today to keep the flame alive.`, cta: { href: "/review", label: "Quick review" } };
+    if (goalMet)
+      return { text: `🎉 Daily goal smashed — ${minsToday} minutes today! You're on fire.` };
     if (guidesCount >= 1 && guidesCount < 12)
       return { text: `Nice work — ${guidesCount} guide${guidesCount > 1 ? "s" : ""} down! Try a timed Challenge to earn bonus stars. ⭐`, cta: { href: "/", label: "Pick a topic" } };
     return { text: "Looking great! Keep exploring — every star counts. 🌟" };
-  }, [stars, streak.count, missedCount, guidesCount]);
+  }, [stars, streak.count, missedCount, guidesCount, goalMet, minsToday, goalMinutes]);
 
   function dismiss() {
     setOpen(false);

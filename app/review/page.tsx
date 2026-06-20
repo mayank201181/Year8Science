@@ -8,9 +8,16 @@ import type { MCQ, QA } from "@/lib/types";
 import { MarkdownLite } from "@/components/MarkdownLite";
 
 export default function ReviewPage() {
-  const { missed, recordResult, award } = useStore();
-  // Snapshot the queue once on mount so the list doesn't reshuffle as you answer.
-  const initialIds = useMemo(() => Object.keys(missed).filter((id) => lookup(id)), []);
+  const { srs, recordResult, award } = useStore();
+  // Snapshot the due queue once on mount so the list doesn't reshuffle as you answer.
+  const initialIds = useMemo(() => {
+    const today = new Date().toISOString().slice(0, 10);
+    return Object.entries(srs)
+      .filter(([id, s]) => s.due <= today && lookup(id))
+      .sort((a, b) => a[1].due.localeCompare(b[1].due))
+      .map(([id]) => id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [i, setI] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const [done, setDone] = useState(0);
@@ -108,8 +115,8 @@ export default function ReviewPage() {
               <button onClick={gotIt} className="flex-1 rounded-xl bg-emerald-600 px-4 py-2.5 font-semibold text-white hover:bg-emerald-700">
                 ✅ Got it now (⭐1)
               </button>
-              <button onClick={next} className="flex-1 rounded-xl border border-slate-200 bg-white px-4 py-2.5 font-semibold text-slate-600 hover:bg-slate-50">
-                Still tricky — keep it
+              <button onClick={() => { recordResult(q.id, false); next(); }} className="flex-1 rounded-xl border border-slate-200 bg-white px-4 py-2.5 font-semibold text-slate-600 hover:bg-slate-50">
+                Still tricky — see again soon
               </button>
             </div>
           </div>

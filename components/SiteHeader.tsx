@@ -5,9 +5,10 @@ import { useEffect, useRef, useState } from "react";
 import { rankFor, useStore } from "@/lib/store";
 
 export function SiteHeader() {
-  const { stars, streak, missed, activeProfile, switchProfile, logout } = useStore();
+  const { stars, streak, srs, activeProfile, switchProfile, logout } = useStore();
   const rank = rankFor(stars);
-  const missedCount = Object.keys(missed).length;
+  const today = new Date().toISOString().slice(0, 10);
+  const missedCount = Object.values(srs).filter((s) => s.due <= today).length;
   const [menu, setMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 

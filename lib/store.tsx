@@ -47,6 +47,14 @@ type Status = "loading" | "anon" | "no-profile" | "ready";
 type StoreData = ProgressDoc;
 
 const HEARTBEAT_MS = 20000;
+/** Spaced-repetition interval ladder (days). Graduate after the last step. */
+const SRS_STEPS = [1, 3, 7, 16, 35];
+
+function addDaysISO(days: number): string {
+  const d = new Date();
+  d.setDate(d.getDate() + days);
+  return d.toISOString().slice(0, 10);
+}
 
 function todayISO(): string {
   return new Date().toISOString().slice(0, 10);
@@ -101,6 +109,7 @@ interface StoreContextValue extends StoreData {
   setLast: (a: Omit<LastActivity, "at">) => void;
   recordResult: (qid: string, correct: boolean) => void;
   setChallengeBest: (topicId: string, score: number) => void;
+  setGoalMinutes: (minutes: number) => void;
   touchStreak: () => void;
   resetAll: () => void;
 }
@@ -336,8 +345,26 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     const topicId = lookup(qid)?.topicId;
     setData((d) => {
       const missed = { ...d.missed };
-      if (correct) delete missed[qid];
-      else missed[qid] = true;
+      const srs = { ...d.srs };
+      if (correct) {
+        // Advance the spaced-repetition schedule if this was a review item.
+        const cur = srs[qid];
+        if (cur) {
+          const reps = cur.reps + 1;
+          if (reps >= SRS_STEPS.length) {
+            delete srs[qid]; // graduated — mastered
+            delete missed[qid];
+          } else {
+            const interval = SRS_STEPS[reps];
+            srs[qid] = { due: addDaysISO(interval), reps, interval };
+            delete missed[qid]; // not due again until `due`
+          }
+        }
+      } else {
+        // Missed: schedule for review today, reset the ladder.
+        srs[qid] = { due: todayISO(), reps: 0, interval: 1 };
+        missed[qid] = true;
+      }
       const today = todayISO();
       const days = { ...d.analytics.days };
       const day = { ...(days[today] || { timeMs: 0, answered: 0, correct: 0 }) };
@@ -359,8 +386,12 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
         days,
         topics,
       };
-      return { ...d, missed, streak: bumpStreak(d.streak), analytics };
+      return { ...d, missed, srs, streak: bumpStreak(d.streak), analytics };
     });
+  }, []);
+
+  const setGoalMinutes = useCallback((minutes: number) => {
+    setData((d) => ({ ...d, goalMinutes: Math.max(5, Math.min(60, Math.round(minutes))) }));
   }, []);
 
   const setChallengeBest = useCallback((topicId: string, score: number) => {
@@ -413,10 +444,11 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       setLast,
       recordResult,
       setChallengeBest,
+      setGoalMinutes,
       touchStreak,
       resetAll,
     }),
-    [data, status, account, activeProfile, signup, login, logout, createProfile, updateProfile, deleteProfile, selectProfile, switchProfile, award, hasAward, saveAttempt, getAttempt, markGuideRead, setLast, recordResult, setChallengeBest, touchStreak, resetAll],
+    [data, status, account, activeProfile, signup, login, logout, createProfile, updateProfile, deleteProfile, selectProfile, switchProfile, award, hasAward, saveAttempt, getAttempt, markGuideRead, setLast, recordResult, setChallengeBest, setGoalMinutes, touchStreak, resetAll],
   );
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
