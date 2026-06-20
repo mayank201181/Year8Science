@@ -9,8 +9,9 @@ const SUBJECTS = ["Biology", "Chemistry", "Physics"] as const;
 const SUBJECT_ICON = { Biology: "🧬", Chemistry: "⚗️", Physics: "⚡" } as const;
 
 export default function Home() {
-  const { stars, last, guidesRead, attempts } = useStore();
+  const { stars, last, guidesRead, attempts, streak, missed } = useStore();
   const rank = rankFor(stars);
+  const missedCount = Object.keys(missed).length;
 
   // total "pieces" of a topic: guide + 2 quiz runners + 8 bank papers = 11
   const topicProgress = useMemo(() => {
@@ -76,6 +77,31 @@ export default function Home() {
             </Link>
           </div>
         </div>
+      </section>
+
+      {/* daily strip */}
+      <section className="mt-6 grid gap-4 sm:grid-cols-3">
+        <div className="flex items-center gap-3 rounded-2xl border border-orange-200 bg-orange-50 p-4">
+          <span className="text-3xl">🔥</span>
+          <div>
+            <p className="text-2xl font-extrabold tabular-nums text-orange-600">{streak.count} day{streak.count === 1 ? "" : "s"}</p>
+            <p className="text-xs font-medium text-orange-700/80">Daily streak{streak.best > 0 ? ` · best ${streak.best}` : ""}</p>
+          </div>
+        </div>
+        <Link href="/review" className="flex items-center gap-3 rounded-2xl border border-rose-200 bg-rose-50 p-4 transition hover:bg-rose-100">
+          <span className="text-3xl">🔁</span>
+          <div>
+            <p className="text-2xl font-extrabold tabular-nums text-rose-600">{missedCount}</p>
+            <p className="text-xs font-medium text-rose-700/80">{missedCount === 0 ? "Nothing to review — nice!" : "Questions to master →"}</p>
+          </div>
+        </Link>
+        <Link href="/progress" className="flex items-center gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 transition hover:bg-amber-100">
+          <span className="text-3xl">⭐</span>
+          <div>
+            <p className="text-2xl font-extrabold tabular-nums text-amber-600">{stars}</p>
+            <p className="text-xs font-medium text-amber-700/80">Stars · {rank.name} →</p>
+          </div>
+        </Link>
       </section>
 
       {/* topics by subject */}

@@ -143,3 +143,42 @@ export interface ComprehensiveExam {
   mcqPapers: Paper<MCQ>[];
   qaPapers: Paper<QA>[];
 }
+
+// ---- Engagement extras (kept separate from the audited topic content) ----
+
+/** A safe at-home / classroom mini-experiment. */
+export interface Experiment {
+  title: string;
+  emoji: string;
+  materials: string[];
+  steps: string[];
+  /** The science: what happens and why. */
+  science: string;
+  /** Optional safety note. */
+  safety?: string;
+}
+
+export interface BonusDiagram {
+  title: string;
+  /** Inline SVG markup. */
+  svg: string;
+  caption?: string;
+}
+
+/**
+ * Per-topic engagement add-ons. Stored in a registry keyed by topic id so the
+ * core (audited) topic modules never need editing.
+ */
+export interface TopicExtras {
+  /** A 1–2 sentence curiosity hook shown at the top of the guide. */
+  hook?: string;
+  /** Surprising "Did you know?" wow-facts. */
+  didYouKnow?: string[];
+  /** At-home experiments. */
+  experiments?: Experiment[];
+  /** Extra labelled diagrams to enrich the guide. */
+  bonusDiagrams?: BonusDiagram[];
+  /** Key of an interactive explorable widget to feature in the guide. */
+  interactive?: string;
+}
+

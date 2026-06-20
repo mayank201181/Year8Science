@@ -22,7 +22,7 @@ type Props = {
 
 export function PaperRunner(props: Props) {
   const { storageKey, title, topicId, guideHref, kind, questions } = props;
-  const { getAttempt, saveAttempt, award } = useStore();
+  const { getAttempt, saveAttempt, award, recordResult } = useStore();
 
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number | string>>({});
@@ -122,7 +122,9 @@ export function PaperRunner(props: Props) {
     const nextAnswers = { ...answers, [mcq.id]: selected };
     setAnswers(nextAnswers);
     setChecked(true);
-    if (selected === mcq.answerIndex) {
+    const isRight = selected === mcq.answerIndex;
+    recordResult(mcq.id, isRight);
+    if (isRight) {
       award(`ans:${storageKey}:${mcq.id}`, 1);
     }
     saveAttempt(storageKey, { index, answers: nextAnswers, scores, completed, updatedAt: Date.now() });
@@ -140,6 +142,7 @@ export function PaperRunner(props: Props) {
     const nextScores = { ...scores, [qa.id]: res.coverage };
     setAnswers(nextAnswers);
     setScores(nextScores);
+    recordResult(qa.id, res.verdict === "correct");
     if (res.verdict === "correct") award(`ans:${storageKey}:${qa.id}`, 2);
     else if (res.verdict === "partial") award(`ans:${storageKey}:${qa.id}`, 1);
     saveAttempt(storageKey, { index, answers: nextAnswers, scores: nextScores, completed, updatedAt: Date.now() });

@@ -36,6 +36,14 @@ export interface LastActivity {
   at: number;
 }
 
+export interface Streak {
+  count: number;
+  /** ISO date (YYYY-MM-DD) of the last active day. */
+  last: string;
+  /** Best streak ever reached. */
+  best: number;
+}
+
 interface StoreData {
   stars: number;
   /** Idempotency keys for already-granted rewards. */
@@ -44,6 +52,11 @@ interface StoreData {
   attempts: Record<string, AttemptState>;
   /** Topic ids whose guide has been marked as read. */
   guidesRead: Record<string, true>;
+  /** Question ids the learner has got wrong and not yet re-mastered. */
+  missed: Record<string, true>;
+  /** Best challenge score (0–100) per topic id. */
+  challengeBest: Record<string, number>;
+  streak: Streak;
   last?: LastActivity;
 }
 
@@ -52,7 +65,28 @@ const EMPTY: StoreData = {
   awarded: {},
   attempts: {},
   guidesRead: {},
+  missed: {},
+  challengeBest: {},
+  streak: { count: 0, last: "", best: 0 },
 };
+
+function todayISO(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function dayDiff(a: string, b: string): number {
+  const da = Date.parse(a + "T00:00:00");
+  const db = Date.parse(b + "T00:00:00");
+  return Math.round((db - da) / 86400000);
+}
+
+function bumpStreak(s: Streak): Streak {
+  const today = todayISO();
+  if (s.last === today) return s;
+  let count = 1;
+  if (s.last && dayDiff(s.last, today) === 1) count = s.count + 1;
+  return { count, last: today, best: Math.max(s.best, count) };
+}
 
 interface StoreContextValue extends StoreData {
   /** Grant `amount` stars once for `key`. Returns stars actually added. */
@@ -62,6 +96,11 @@ interface StoreContextValue extends StoreData {
   getAttempt: (key: string) => AttemptState | undefined;
   markGuideRead: (topicId: string) => void;
   setLast: (a: Omit<LastActivity, "at">) => void;
+  /** Record a question result; updates the review queue and the streak. */
+  recordResult: (qid: string, correct: boolean) => void;
+  setChallengeBest: (topicId: string, score: number) => void;
+  /** Touch today's streak (call on any meaningful activity). */
+  touchStreak: () => void;
   resetAll: () => void;
 }
 
@@ -118,7 +157,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const hasAward = useCallback((key: string) => !!dataRef.current.awarded[key], []);
 
   const saveAttempt = useCallback((key: string, state: AttemptState) => {
-    setData((d) => ({ ...d, attempts: { ...d.attempts, [key]: state } }));
+    setData((d) => ({ ...d, attempts: { ...d.attempts, [key]: state }, streak: bumpStreak(d.streak) }));
   }, []);
 
   const getAttempt = useCallback(
@@ -127,7 +166,28 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   );
 
   const markGuideRead = useCallback((topicId: string) => {
-    setData((d) => ({ ...d, guidesRead: { ...d.guidesRead, [topicId]: true } }));
+    setData((d) => ({ ...d, guidesRead: { ...d.guidesRead, [topicId]: true }, streak: bumpStreak(d.streak) }));
+  }, []);
+
+  const recordResult = useCallback((qid: string, correct: boolean) => {
+    setData((d) => {
+      const missed = { ...d.missed };
+      if (correct) delete missed[qid];
+      else missed[qid] = true;
+      return { ...d, missed, streak: bumpStreak(d.streak) };
+    });
+  }, []);
+
+  const setChallengeBest = useCallback((topicId: string, score: number) => {
+    setData((d) => ({
+      ...d,
+      challengeBest: { ...d.challengeBest, [topicId]: Math.max(d.challengeBest[topicId] ?? 0, score) },
+      streak: bumpStreak(d.streak),
+    }));
+  }, []);
+
+  const touchStreak = useCallback(() => {
+    setData((d) => ({ ...d, streak: bumpStreak(d.streak) }));
   }, []);
 
   const setLast = useCallback((a: Omit<LastActivity, "at">) => {
@@ -145,9 +205,12 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       getAttempt,
       markGuideRead,
       setLast,
+      recordResult,
+      setChallengeBest,
+      touchStreak,
       resetAll,
     }),
-    [data, award, hasAward, saveAttempt, getAttempt, markGuideRead, setLast, resetAll],
+    [data, award, hasAward, saveAttempt, getAttempt, markGuideRead, setLast, recordResult, setChallengeBest, touchStreak, resetAll],
   );
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;

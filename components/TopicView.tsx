@@ -49,11 +49,23 @@ export function TopicView({ topic }: { topic: Topic }) {
         <div className={`grid h-16 w-16 place-items-center rounded-2xl bg-white text-4xl shadow-sm ring-1 ${accent.ring}`}>
           {topic.icon}
         </div>
-        <div>
+        <div className="flex-1">
           <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${accent.chip}`}>{topic.subject}</span>
           <h1 className="mt-1 text-2xl font-extrabold text-slate-900">{topic.title}</h1>
         </div>
+        <Link
+          href={`/challenge/${topic.id}`}
+          className="hidden shrink-0 items-center gap-1.5 rounded-xl bg-amber-500 px-4 py-2.5 font-bold text-white shadow-sm hover:bg-amber-600 sm:flex"
+        >
+          ⏱️ Challenge
+        </Link>
       </div>
+      <Link
+        href={`/challenge/${topic.id}`}
+        className="mt-3 flex items-center justify-center gap-1.5 rounded-xl bg-amber-500 px-4 py-2.5 font-bold text-white shadow-sm hover:bg-amber-600 sm:hidden"
+      >
+        ⏱️ Take the timed Challenge
+      </Link>
 
       {/* tabs */}
       <div className="sticky top-[57px] z-30 -mx-4 mt-5 border-b border-slate-200 bg-[var(--background)]/95 px-4 backdrop-blur">
