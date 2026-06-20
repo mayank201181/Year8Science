@@ -173,7 +173,7 @@ export const respiration: Topic = {
       topic: "Anaerobic products: humans vs yeast",
       device: "Lazy Athletes, Energetic Yeast",
       explanation:
-        "Lactic acid for Athletes (humans/animals); Ethanol (+ CO2) for Yeast. Match the first letters: L for Athletes (lactic), E for Yeast (ethanol).",
+        "Lactic acid for Athletes (humans/animals); Ethanol (+ CO2) for Yeast. Match the first letters: Lazy → Lactic acid (athletes/humans), Energetic → Ethanol (yeast).",
     },
     {
       topic: "Respiration is not breathing",
