@@ -1,4 +1,4 @@
-import { readJson, writeJson } from "./blob";
+import { readJson, writeJson, deleteJson } from "./blob";
 import { hashSecret, toAccountId } from "./auth";
 import type { Profile, ProgressDoc } from "../profileTypes";
 import { emptyProgress } from "../profileTypes";
@@ -66,6 +66,32 @@ export async function addProfile(accountId: string, name: string, emoji: string)
   await saveAccount(acc);
   await saveProgress(accountId, profile.id, emptyProgress());
   return profile;
+}
+
+export async function updateProfile(
+  accountId: string,
+  profileId: string,
+  patch: { name?: string; emoji?: string },
+): Promise<Profile | null> {
+  const acc = await getAccount(accountId);
+  if (!acc) return null;
+  const p = acc.profiles.find((x) => x.id === profileId);
+  if (!p) return null;
+  if (typeof patch.name === "string" && patch.name.trim()) p.name = patch.name.trim().slice(0, 30);
+  if (typeof patch.emoji === "string" && patch.emoji) p.emoji = patch.emoji;
+  await saveAccount(acc);
+  return p;
+}
+
+export async function deleteProfile(accountId: string, profileId: string): Promise<boolean> {
+  const acc = await getAccount(accountId);
+  if (!acc) return false;
+  const before = acc.profiles.length;
+  acc.profiles = acc.profiles.filter((x) => x.id !== profileId);
+  if (acc.profiles.length === before) return false;
+  await saveAccount(acc);
+  await deleteJson(progressKey(accountId, profileId));
+  return true;
 }
 
 export async function getProgress(accountId: string, profileId: string): Promise<ProgressDoc> {

@@ -1,4 +1,4 @@
-import { put, head } from "@vercel/blob";
+import { put, head, del } from "@vercel/blob";
 
 const token = process.env.BLOB_READ_WRITE_TOKEN;
 
@@ -24,4 +24,14 @@ export async function writeJson(key: string, data: unknown): Promise<void> {
     addRandomSuffix: false,
     cacheControlMaxAge: 0,
   });
+}
+
+/** Delete a JSON document by key (ignores missing). */
+export async function deleteJson(key: string): Promise<void> {
+  try {
+    const meta = await head(key, { token });
+    await del(meta.url, { token });
+  } catch {
+    /* already gone */
+  }
 }
