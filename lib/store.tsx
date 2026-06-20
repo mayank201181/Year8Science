@@ -88,6 +88,8 @@ interface StoreContextValue extends StoreData {
   login: (username: string, password: string) => Promise<{ ok: boolean; error?: string }>;
   logout: () => Promise<void>;
   createProfile: (name: string, emoji: string) => Promise<{ ok: boolean; error?: string }>;
+  updateProfile: (profileId: string, name: string, emoji: string) => Promise<{ ok: boolean; error?: string }>;
+  deleteProfile: (profileId: string) => Promise<{ ok: boolean; error?: string }>;
   selectProfile: (profileId: string) => Promise<void>;
   switchProfile: () => void;
   // progress actions
@@ -258,6 +260,30 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const updateProfile = useCallback(async (profileId: string, name: string, emoji: string) => {
+    const r = await fetch("/api/profiles", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ profileId, name, emoji }) });
+    const j = await r.json();
+    if (!r.ok) return { ok: false, error: j.error };
+    const prof: Profile = j.profile;
+    setAccount((a) => (a ? { ...a, profiles: a.profiles.map((p) => (p.id === prof.id ? prof : p)) } : a));
+    setActiveProfile((p) => (p && p.id === prof.id ? prof : p));
+    return { ok: true };
+  }, []);
+
+  const deleteProfile = useCallback(async (profileId: string) => {
+    const r = await fetch("/api/profiles", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ profileId }) });
+    const j = await r.json();
+    if (!r.ok) return { ok: false, error: j.error };
+    setAccount((a) => (a ? { ...a, profiles: a.profiles.filter((p) => p.id !== profileId) } : a));
+    if (activeRef.current?.id === profileId) {
+      canSaveRef.current = false;
+      setActiveProfile(null);
+      setData(emptyProgress());
+      setStatus("no-profile");
+    }
+    return { ok: true };
+  }, []);
+
   const selectProfile = useCallback(async (profileId: string) => {
     const acc = accountRef.current;
     const prof = acc?.profiles.find((p) => p.id === profileId);
@@ -375,6 +401,8 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       login,
       logout,
       createProfile,
+      updateProfile,
+      deleteProfile,
       selectProfile,
       switchProfile,
       award,
@@ -388,7 +416,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       touchStreak,
       resetAll,
     }),
-    [data, status, account, activeProfile, signup, login, logout, createProfile, selectProfile, switchProfile, award, hasAward, saveAttempt, getAttempt, markGuideRead, setLast, recordResult, setChallengeBest, touchStreak, resetAll],
+    [data, status, account, activeProfile, signup, login, logout, createProfile, updateProfile, deleteProfile, selectProfile, switchProfile, award, hasAward, saveAttempt, getAttempt, markGuideRead, setLast, recordResult, setChallengeBest, touchStreak, resetAll],
   );
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
