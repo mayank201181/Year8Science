@@ -1,5 +1,7 @@
 # Year 8 Science Lab
 
+**▶ Live app: https://year8science.vercel.app**
+
 An interactive Year 8 (Cambridge Lower Secondary / IGCSE foundations) science course covering Biology, Chemistry and Physics.
 
 ## Features
