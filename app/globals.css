@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f6f7fb;
+  --foreground: #0f172a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, Arial, Helvetica, sans-serif;
+}
+
+/* Diagrams authored as inline SVG: keep them responsive. */
+.diagram svg {
+  width: 100%;
+  height: auto;
+  max-width: 480px;
+  display: block;
+  margin: 0 auto;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-pop { animation: pop 0.35s ease-out; }
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.animate-floaty { animation: floaty 3s ease-in-out infinite; }
+
+/* Thin custom scrollbar for the question navigator. */
+.nav-scroll::-webkit-scrollbar { height: 8px; }
+.nav-scroll::-webkit-scrollbar-thumb { background: #c7d2fe; border-radius: 9999px; }
