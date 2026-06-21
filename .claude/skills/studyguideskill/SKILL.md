@@ -5,9 +5,11 @@ description: >-
   (e.g. Year 11 Maths, Year 11 English, GCSE Biology, KS3 History). Generates illustrated
   guides, quizzes, full exam papers, a gamified learning engine, multi-learner profiles with
   cross-device cloud sync, a PIN-protected parent dashboard, PWA install, an AI tutor, and
-  spaced-repetition review — then deploys to Vercel. Use whenever the user wants to create a
-  learning/revision/exam-practice app for a child or student. Reference implementation:
-  the "Year 8 Science Lab" (Year8Science repo).
+  spaced-repetition review — then deploys to Vercel. Built around Art of Problem Solving (AoPS)
+  pedagogy by default: problem-first discovery, derive-don't-decree, laddered hints, multiple
+  solution paths, tiered difficulty with genuine challenge problems, and explicitly-taught
+  problem-solving strategies. Use whenever the user wants to create a learning/revision/
+  exam-practice app for a child or student. Reference implementation: the "Year 8 Science Lab".
 ---
 
 # Study Guide App Builder
@@ -36,12 +38,33 @@ training data.
 - Keep **audited exam content** completely separate from **engagement extras** (hooks, fun facts, experiments, interactive widgets) so content edits never risk the answer keys. Extras live in `lib/extras/<id>.ts` keyed by topic id; the store/guide look them up — the audited topic files are never touched to add engagement.
 - Inline SVG for diagrams (no binary assets). Render via `dangerouslySetInnerHTML` into a `.diagram` wrapper. SVGs must include `viewBox`, `xmlns`, `role="img"`, `aria-label`, and contain **no backticks or `${`** (they're authored inside template strings).
 
+## 2.5 Core teaching philosophy — Art of Problem Solving (AoPS) style  ← apply to ALL content by default
+This pedagogy is the **default for every app built with this skill** (unless the user opts out). It matters most for Maths and other problem-based subjects, but the spirit — curiosity and reasoning over memorisation — applies to every subject.
+
+Principles:
+- **Problem-first / discovery.** Open each topic — and ideally each section — with an intriguing problem or puzzle the learner attempts *before* the method is explained. Let them feel the need for the idea, then develop it. Don't lead with the formula.
+- **Derive, don't decree.** Show *where* a rule/formula comes from (a short derivation or visual), not just the statement. Include a "Why does this work?" note.
+- **Productive struggle + laddered hints.** Never hand the answer immediately. Provide a **hint ladder** (gentle nudge → bigger hint → key step → full solution) the learner unlocks one step at a time.
+- **Multiple solution paths.** Where natural, give two approaches (e.g. algebraic vs visual) and point out the *elegant* one — maths rewards insight, not just grinding.
+- **Tiered difficulty incl. genuine challenge.** Every topic has **Warm-up → Core → Challenge**. Challenge problems must actually stretch a strong student (AoPS-hard), not just "more of the same".
+- **Strategies, explicitly taught.** Name the moves: work backwards, find a pattern, try small cases, exploit symmetry, consider extremes, draw a diagram, introduce a variable, look for invariants. Surface a relevant **strategy tag** and a short "How to think about this" note.
+- **Mistakes are data.** Make common misconceptions explicit (`commonError`); wrong answers feed spaced repetition and become teachable moments.
+- **Understanding over memorisation; reward reasoning.** Mark schemes/explanations reward *method and reasoning*, not only the final answer. Celebrate clever thinking.
+- **Reveal-after-attempt.** Solutions sit behind an "I've tried — show me" reveal so learners attempt first.
+
+How the engine enforces it:
+- **PaperRunner**: a "Try first" state; model solution and hint ladder reveal *progressively*, not all at once. Award **bonus stars for solving with fewer hints used**.
+- **GuideView**: render the section's `discovery` problem at the top with a reveal for the idea; render `strategies` and a "Why does this work?" callout.
+- **AI tutor**: AoPS-style system prompt — ask a guiding question back, give only the *next* hint, never the full solution to a posed problem unless the learner explicitly gives up; praise good reasoning.
+
+Data-model additions that make this real (reflected in §3): `GuideSection.discovery?` / `strategies?` / `whyItWorks?`; `MCQ`/`QA` gain `difficulty?` (`warmup`|`core`|`challenge`), `hints?` (the ladder), and `solutions?` (one or more worked methods); each topic surfaces a separate **Challenge set**.
+
 ## 3. Data model (generalise per subject)
 `lib/types.ts`:
 - `Topic { id, title, subject, icon, intro, guide: GuideSection[], learn: LearnSmart, quiz: {mcq:MCQ[], qa:QA[]}, questionBank: {mcqPapers, qaPapers} }`
-- `GuideSection { heading, body (markdown-lite), diagrams?, keyPoints?, thinkDeeper? }`
-- `MCQ { id, question, options[], answerIndex, explanation, guideRef? }`
-- `QA { id, question, modelAnswer, markScheme: string[], commonError?, guideRef? }`
+- `GuideSection { heading, body (markdown-lite), diagrams?, keyPoints?, thinkDeeper?, discovery?: {problem, idea}, strategies?: string[], whyItWorks? }`
+- `MCQ { id, question, options[], answerIndex, explanation, guideRef?, difficulty?: "warmup"|"core"|"challenge", hints?: string[], strategy? }`
+- `QA { id, question, modelAnswer, markScheme: string[], commonError?, guideRef?, difficulty?, hints?: string[], strategy?, solutions?: {label, steps}[] }`
 - `Paper<T> { id, title, questions: T[] }`; `ComprehensiveExam { mcqPapers, qaPapers }`
 - Engagement extras (`TopicExtras`): `hook?`, `didYouKnow?[]`, `experiments?[]`, `bonusDiagrams?[]`, `interactive?` (widget key).
 - **Every question `id` must be globally unique** across all topics + the exam (e.g. `photo-mcq-b1-q03`). A global `QUESTION_INDEX` (built from all topics) powers review + challenge by id alone.
@@ -50,13 +73,13 @@ training data.
 
 ## 4. Content generation pipeline (the big lift)
 1. Build the **app skeleton** first (types, store, routing, one sample topic) and get it rendering.
-2. **Generate content with parallel subagents** — one agent per topic (or per 2-3 topics), each writing a complete `lib/topics/<id>.ts` (guide + learn-smart + quiz + question bank). Give every agent the exact `types.ts`, the id-uniqueness rule, and the house style. Run them concurrently (background agents).
+2. **Generate content with parallel subagents** — one agent per topic (or per 2-3 topics), each writing a complete `lib/topics/<id>.ts` (guide + learn-smart + quiz + question bank). Give every agent the exact `types.ts`, the id-uniqueness rule, the house style, **and the §2.5 AoPS requirements**: a `discovery` opener + `whyItWorks` + `strategies` per section; every question tagged `difficulty` with a genuine spread of warmup/core/**challenge** (≥2-3 real challenge problems per topic); a `hints` ladder (3-4 steps) on core/challenge questions; and ≥1 multi-method `solutions` entry where a second approach is illuminating. Run them concurrently (background agents).
 3. **Fresh-eyes correctness audit**: after generation, run a second agent pass per topic that re-verifies every answer key literally, checks each explanation matches the keyed answer, and validates model answers/mark-schemes. This catches the ~5-10% of LLM-authored questions with subtle key errors. Treat it as mandatory.
 4. Engagement extras (hooks, fun facts, at-home activities, bonus diagrams, interactive widget keys) via a separate agent pass writing `lib/extras/<id>.ts` — never edit audited files.
 5. After every batch: `npm run build` must be green (Type check + static generation) before moving on.
 
 ## 5. Learning-engine components (reuse these)
-- **PaperRunner**: one component for MCQ or QA papers — autosave & resume, question navigator, hidden hints, instant self-assessment of written answers (keyword mark-scheme → correct / partial / needs-work via `lib/grade.ts`), model answer + mark-scheme reveal, "back to the guide" deep links, star awards. Calls `recordResult(qid, correct)` so wrong answers feed the review queue.
+- **PaperRunner**: one component for MCQ or QA papers — autosave & resume, question navigator, instant self-assessment of written answers (keyword mark-scheme → correct / partial / needs-work via `lib/grade.ts`), "back to the guide" deep links, star awards. Calls `recordResult(qid, correct)` so wrong answers feed the review queue. **AoPS behaviour:** start in a "Try first" state; reveal the `hints` ladder **one step at a time** on request, and the worked `solutions` only after an attempt; award **bonus stars for fewer hints used**; show the `difficulty` badge and a `strategy` tag.
 - **GuideView**: renders intro, sections, diagrams; mark-as-read; plus extras (hook banner, "Did you know?" cards, "Try this at home" experiments, bonus diagrams), a **Read-aloud** button (Web Speech API), an **interactive explorable** widget, and the **AI tutor** widget.
 - **Explorables** (`components/Explorables.tsx`): small self-contained interactive SVG widgets keyed by string, mapped from a topic's `extras.interactive`. (Science examples: pH slider, circuit lab, ray diagram, convection, sound wave, photosynthesis-rate. For Maths: function grapher, fraction bar, probability spinner; for English: sentence-structure highlighter.)
 - **Gamification**: stars + ranks (`RANKS`), daily **streak**, **daily goal** (minutes) with progress + mascot nudges, timed **Challenge** mode per topic, printable **Certificate** of mastery.
@@ -71,7 +94,7 @@ training data.
 - **UI**: `AppGate` (loading → AuthGate → ProfilePicker → app), `ProfilePicker` ("Who's studying?" with add/edit/delete + avatar), header profile menu (switch/parent/logout), and `/parent` (PIN-gated) with per-learner time-on-task, accuracy, per-topic table, this-week chart, recent-activity log.
 
 ## 7. AI tutor (optional; needs an Anthropic key)
-- `app/api/ai/route.ts` using `@anthropic-ai/sdk` (`import Anthropic from "@anthropic-ai/sdk"`), **gated behind `currentAccount()`**. Kid-safe system prompt: warm tutor, short answers, age-appropriate, gives **hints not answers** for quiz questions, refuses/redirects off-topic.
+- `app/api/ai/route.ts` using `@anthropic-ai/sdk` (`import Anthropic from "@anthropic-ai/sdk"`), **gated behind `currentAccount()`**. **AoPS-style kid-safe system prompt**: warm Socratic tutor — respond to a posed problem with a guiding question or the *single next* hint, never the full solution unless the learner says they give up; nudge them to try; reward and build on their reasoning; explain *why*, show an elegant alternative when apt; short, age-appropriate; refuses/redirects off-topic.
 - Model default `claude-opus-4-8`; allow `AI_MODEL` env override (e.g. `claude-haiku-4-5` for ~5× lower cost). `max_tokens` ~800, no thinking needed for short explanations. Handle `Anthropic.RateLimitError`.
 - If `ANTHROPIC_API_KEY` is unset → return 503 with a friendly "ask a grown-up" message; the `AskAI` widget shows it gracefully.
 - `components/AskAI.tsx`: a reusable button → panel with preset actions ("Explain simply", "Give an example", "Explain why", "Hint") + a free-text box. Wire into GuideView (topic context) and PaperRunner (after an answer is checked).
@@ -96,7 +119,7 @@ training data.
 - **Don't over-trust generated answer keys** — always run the fresh-eyes audit pass.
 
 ## 11. Subject adaptations
-- **Maths**: worked **step-by-step** solutions (not just final answer); formula/identity sheets; numeric-answer questions with tolerance; explorables = function grapher, fraction/area visualiser, probability spinner; grading accepts equivalent forms. Consider plain-text math (avoid LaTeX unless you add a renderer).
+- **Maths (lean hard into §2.5 AoPS)**: discovery openers that motivate each idea with a problem; derivations over stated formulas; multi-method worked `solutions` (e.g. algebra vs picture); a hint ladder on every non-trivial problem; a real **Challenge set** per topic (competition-flavoured: invariants, extremal cases, clever counting); explicit strategy tags. Plus: formula/identity sheets, numeric answers with tolerance, equivalent-form grading; explorables = function grapher, fraction/area visualiser, probability spinner. Consider plain-text math (avoid LaTeX unless you add a renderer).
 - **English**: include **text extracts/passages**; comprehension MCQs + extended-response with a points-based mark scheme; model paragraphs (PEE/PEEL); quote banks; explorables = sentence-structure or language-device highlighter; grading leans on keyword/mark-scheme coverage for longer answers.
 - **History/Geography/Languages**: source analysis, timelines/maps as SVG, vocab flashcards + SRS, case-study model answers.
 - Keep the engine identical; only the content shape and a few widgets change.
