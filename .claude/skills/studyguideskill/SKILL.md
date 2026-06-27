@@ -4,8 +4,9 @@ description: >-
   Build a complete interactive study/revision web app for ANY school subject and year group
   (e.g. Year 11 Maths, Year 11 English, GCSE Biology, KS3 History). Generates illustrated
   guides, quizzes, full exam papers, a gamified learning engine, multi-learner profiles with
-  cross-device cloud sync, a PIN-protected parent dashboard, PWA install, an AI tutor, and
-  spaced-repetition review — then deploys to Vercel. Built around Art of Problem Solving (AoPS)
+  cross-device cloud sync, a PIN-protected parent dashboard, PWA install, an AI tutor,
+  per-topic interactive dashboards (change inputs, watch outputs), and spaced-repetition
+  review — then deploys to Vercel. Built around Art of Problem Solving (AoPS)
   pedagogy by default: problem-first discovery, derive-don't-decree, laddered hints, multiple
   solution paths, tiered difficulty with genuine challenge problems, and explicitly-taught
   problem-solving strategies. Use whenever the user wants to create a learning/revision/
@@ -80,8 +81,9 @@ Data-model additions that make this real (reflected in §3): `GuideSection.disco
 
 ## 5. Learning-engine components (reuse these)
 - **PaperRunner**: one component for MCQ or QA papers — autosave & resume, question navigator, instant self-assessment of written answers (keyword mark-scheme → correct / partial / needs-work via `lib/grade.ts`), "back to the guide" deep links, star awards. Calls `recordResult(qid, correct)` so wrong answers feed the review queue. **AoPS behaviour:** start in a "Try first" state; reveal the `hints` ladder **one step at a time** on request, and the worked `solutions` only after an attempt; award **bonus stars for fewer hints used**; show the `difficulty` badge and a `strategy` tag.
-- **GuideView**: renders intro, sections, diagrams; mark-as-read; plus extras (hook banner, "Did you know?" cards, "Try this at home" experiments, bonus diagrams), a **Read-aloud** button (Web Speech API), an **interactive explorable** widget, and the **AI tutor** widget.
-- **Explorables** (`components/Explorables.tsx`): small self-contained interactive SVG widgets keyed by string, mapped from a topic's `extras.interactive`. (Science examples: pH slider, circuit lab, ray diagram, convection, sound wave, photosynthesis-rate. For Maths: function grapher, fraction bar, probability spinner; for English: sentence-structure highlighter.)
+- **GuideView**: renders intro, sections, diagrams; mark-as-read; plus extras (hook banner, "Did you know?" cards, "Try this at home" experiments, bonus diagrams), a **Read-aloud** button (Web Speech API), a link to the Interactive tab, and the **AI tutor** widget.
+- **Interactive tab (default — every topic gets one).** A dedicated tab on each topic (a `<TopicView>` tab beside Guide/Quiz/Papers) holding one or more **parameter-driven explorables**: the learner changes inputs and watches the output change live. This is core to the AoPS discovery pedagogy — prioritise it. Build a genuinely useful widget per topic, not a token one. Marquee example (Science): an **Atom & Element Builder** — steppers for protons/neutrons/electrons that live-update the element, symbol, mass number, and whether it's a neutral atom or an ion (with the charge), plus a Bohr-model SVG. Others built: molecule builder, reaction-rate (collision theory), exercise/respiration, breathing mechanics, digestion journey, pH slider, circuit lab, ray diagram, convection, sound wave, photosynthesis rate.
+- **Explorables** (`components/Explorables.tsx` + `InteractiveWidgets.tsx`): small self-contained interactive widgets keyed by string in a registry (`EXPLORABLES_ALL`), mapped from a topic's `extras.interactive` (or `extras.interactives[]`) and rendered by the Interactive tab. Pattern: local state from steppers/sliders → compute → render result + a plain-language caption explaining the science. **Per subject:** Maths → function grapher, fraction/area visualiser, probability spinner, equation balance scale; English → sentence-structure / language-device highlighter, word-class sorter; Geography → population pyramid, climate-graph builder.
 - **Gamification**: stars + ranks (`RANKS`), daily **streak**, **daily goal** (minutes) with progress + mascot nudges, timed **Challenge** mode per topic, printable **Certificate** of mastery.
 - **Mascot** ("Professor Photon"): fixed, dismissible guide that reads store state (streak, due reviews, goal, progress) and shows one contextual nudge.
 - **Spaced repetition**: missed questions schedule on a ladder `[1,3,7,16,35]` days; `recordResult` advances on correct (graduates after the last step) and resets to "due today" on wrong; the Review page surfaces only **due** items.

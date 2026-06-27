@@ -3,6 +3,7 @@ import type { TopicExtras } from "../types";
 // Engagement extras for digestion. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const digestionExtras: TopicExtras = {
+  interactive: "digestion-lab",
   hook: "Right now, coiled up inside you, is a tube about the length of a small car turned on its end — and a sandwich you ate at lunch is being taken apart, molecule by molecule, by acid strong enough to dissolve metal. So why doesn't your stomach simply digest itself?",
   didYouKnow: [
     "Your small intestine is about 6–7 metres long, but it folds up to fit inside you — and its inner wall has so many tiny finger-like folds that, spread flat, the lining would cover an area roughly the size of a tennis court.",

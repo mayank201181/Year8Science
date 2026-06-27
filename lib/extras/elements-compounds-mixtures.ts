@@ -3,6 +3,7 @@ import type { TopicExtras } from "../types";
 // Engagement extras for elements-compounds-mixtures. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const elementsCompoundsMixturesExtras: TopicExtras = {
+  interactive: "molecule-builder",
   hook: "Two of the most dangerous substances on Earth are a metal that bursts into flame in water and a poisonous green gas used as a weapon in war — yet when they join together, you sprinkle the result on your chips. How can two deadly elements make something you eat every day?",
   didYouKnow: [
     "Sodium is a metal that explodes in water and chlorine is a poisonous green gas, but bonded together as a compound they become ordinary, harmless table salt — proof that a compound is completely different from the elements inside it.",
