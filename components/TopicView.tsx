@@ -6,13 +6,15 @@ import type { Topic } from "@/lib/types";
 import { ACCENT, metaById } from "@/lib/topics/_meta";
 import { useStore } from "@/lib/store";
 import { GuideView } from "./GuideView";
+import { InteractiveTab } from "./InteractiveTab";
 import { LearnSmart } from "./LearnSmart";
 import { QuizTab } from "./QuizTab";
 import { QuestionBank } from "./QuestionBank";
 
-type Tab = "guide" | "smart" | "quiz" | "papers";
+type Tab = "guide" | "interactive" | "smart" | "quiz" | "papers";
 const TABS: { id: Tab; label: string; emoji: string }[] = [
   { id: "guide", label: "Guide", emoji: "📖" },
+  { id: "interactive", label: "Interactive", emoji: "🧪" },
   { id: "smart", label: "Learn Smart", emoji: "🧠" },
   { id: "quiz", label: "Quick Quiz", emoji: "⚡" },
   { id: "papers", label: "Practice Papers", emoji: "📝" },
@@ -89,6 +91,7 @@ export function TopicView({ topic }: { topic: Topic }) {
 
       <div className="mt-6">
         {tab === "guide" && <GuideView topic={topic} />}
+        {tab === "interactive" && <InteractiveTab topic={topic} />}
         {tab === "smart" && <LearnSmart topic={topic} />}
         {tab === "quiz" && <QuizTab topic={topic} />}
         {tab === "papers" && (

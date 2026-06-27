@@ -3,6 +3,7 @@ import type { TopicExtras } from "../types";
 // Engagement extras for chemical-reactions. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const chemicalReactionsExtras: TopicExtras = {
+  interactive: "reaction-rate",
   hook: "Strike a match and a tiny stick of wood releases light and heat it was never given — where was that energy hiding all along? Every reaction is a secret swap of partners between atoms, and once you spot the rules, you can predict the magic.",
   didYouKnow: [
     "When wood burns, almost nothing actually disappears — the missing mass floats away as invisible carbon dioxide and water vapour, which is why a 'closed' reaction weighs exactly the same before and after.",

@@ -3,6 +3,7 @@ import type { TopicExtras } from "../types";
 // Engagement extras for periodic-table. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const periodicTableExtras: TopicExtras = {
+  interactive: "atom-builder",
   hook: "In 1869 a Russian chemist arranged the known elements into a grid and left gaps where no element existed yet — then dared to predict the exact weight and colour of things nobody had ever seen. A few years later, those mystery elements were found, matching his guesses almost perfectly. How could a table predict the future?",
   didYouKnow: [
     "When Dmitri Mendeleev drew his table he left empty boxes for elements not yet discovered, and predicted gallium and germanium so accurately that when they were found years later his guesses were nearly spot on.",

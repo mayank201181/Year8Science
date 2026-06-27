@@ -180,5 +180,7 @@ export interface TopicExtras {
   bonusDiagrams?: BonusDiagram[];
   /** Key of an interactive explorable widget to feature in the guide. */
   interactive?: string;
+  /** Optional: multiple interactive widget keys for the Interactive tab. */
+  interactives?: string[];
 }
 

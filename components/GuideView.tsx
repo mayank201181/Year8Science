@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import type { Topic } from "@/lib/types";
 import { useStore } from "@/lib/store";
+import Link from "next/link";
 import { getExtras } from "@/lib/extras";
-import { EXPLORABLES } from "./Explorables";
 import { ListenButton } from "./ListenButton";
 import { AskAI } from "./AskAI";
 import { MarkdownLite } from "./MarkdownLite";
@@ -13,7 +13,7 @@ export function GuideView({ topic }: { topic: Topic }) {
   const { guidesRead, markGuideRead, award } = useStore();
   const read = !!guidesRead[topic.id];
   const extras = getExtras(topic.id);
-  const Widget = extras.interactive ? EXPLORABLES[extras.interactive] : undefined;
+  const hasInteractive = !!(extras.interactive || extras.interactives?.length);
 
   const fullText = () =>
     `${topic.title}. ${topic.intro} ` +
@@ -57,7 +57,12 @@ export function GuideView({ topic }: { topic: Topic }) {
         />
       </div>
 
-      {Widget && <Widget />}
+      {hasInteractive && (
+        <Link href={`/topic/${topic.id}?tab=interactive`} className="flex items-center gap-3 rounded-2xl border-2 border-indigo-200 bg-indigo-50/70 p-4 transition hover:bg-indigo-100">
+          <span className="text-3xl">🧪</span>
+          <span className="flex-1 font-semibold text-indigo-800">Try the interactive for this topic — change things and see what happens →</span>
+        </Link>
+      )}
 
       {topic.guide.map((s) => (
         <section
