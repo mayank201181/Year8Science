@@ -138,6 +138,22 @@ export const heat: Topic = {
       thinkDeeper:
         "Why is a thin capillary tube better than a wide one for making a thermometer that can show small temperature changes clearly?",
     },
+    {
+      id: "evaporation-cooling",
+      heading: "Evaporation as a cooling effect",
+      body:
+        "In a liquid, particles move at a range of speeds — some slow, some fast. **Evaporation** happens when the **fastest-moving particles** near the surface have enough energy to escape and become a gas, even though the liquid is well below its boiling point.\n\nHere is the clever part. When the fastest particles leave, the ones **left behind have a lower average kinetic energy**. Since temperature measures the average kinetic energy of the particles, the liquid that remains is now **cooler**. So evaporation is a **cooling effect** — it removes energy from whatever is left.\n\nThis is exactly why **sweating cools you down**: as sweat evaporates from your skin, it carries away the highest-energy particles and lowers the temperature of your skin. It is also why **wet skin feels cold**, especially in a breeze (the moving air carries the escaped particles away, so even more can evaporate). Stepping out of a swimming pool on a windy day feels freezing for the same reason.\n\nEvaporation is faster when it is **warmer**, **windier**, **drier**, or the liquid has a **larger surface area** — which is why washing dries quickly on a warm, breezy day.",
+      diagram:
+        '<svg viewBox="0 0 260 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The fastest particles escaping the surface of a liquid, cooling the liquid left behind"><rect x="40" y="60" width="120" height="45" rx="4" fill="#bae6fd" stroke="#0369a1"/><text x="100" y="88" font-size="9" text-anchor="middle" fill="#075985">cooler liquid left behind</text><circle cx="60" cy="75" r="4" fill="#0369a1"/><circle cx="90" cy="90" r="4" fill="#0369a1"/><circle cx="120" cy="78" r="4" fill="#0369a1"/><circle cx="140" cy="92" r="4" fill="#0369a1"/><circle cx="70" cy="40" r="4" fill="#ef4444"/><circle cx="110" cy="28" r="4" fill="#ef4444"/><circle cx="150" cy="35" r="4" fill="#ef4444"/><line x1="70" y1="58" x2="70" y2="46" stroke="#dc2626" stroke-width="1.5" marker-end="url(#ev1)"/><line x1="110" y1="58" x2="110" y2="34" stroke="#dc2626" stroke-width="1.5" marker-end="url(#ev1)"/><line x1="150" y1="58" x2="150" y2="41" stroke="#dc2626" stroke-width="1.5" marker-end="url(#ev1)"/><defs><marker id="ev1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#dc2626"/></marker></defs><text x="200" y="36" font-size="9" fill="#991b1b">fastest particles</text><text x="200" y="48" font-size="9" fill="#991b1b">escape</text></svg>',
+      diagramCaption: "The fastest particles escape the surface, lowering the average energy (and temperature) of those left behind.",
+      keyPoints: [
+        "Evaporation: the fastest particles escape the liquid's surface and become a gas.",
+        "The particles left behind have a lower average energy, so the liquid cools.",
+        "Sweating cools us, and wet skin feels cold, because evaporation removes energy.",
+      ],
+      thinkDeeper:
+        "After a hot bath you feel cold standing in the air, even though the room has not changed temperature. Using the idea of the fastest particles escaping, explain why you feel colder wet than dry.",
+    },
   ],
 
   mnemonics: [

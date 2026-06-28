@@ -138,6 +138,54 @@ export const sound: Topic = {
       thinkDeeper:
         "A ship sends an ultrasound pulse straight down and the echo returns 4 seconds later. Sound travels at about 1500 m/s in water. How deep is the sea here — and why must you halve something to get the right answer?",
     },
+    {
+      id: "wave-properties",
+      heading: "Describing a wave: wavelength, period and speed",
+      body:
+        "Scientists describe any wave with a few key measurements.\n\n- **Wavelength** is the length of one complete wave — for example the distance from one compression to the next compression. It is a *distance*, so it is measured in **metres (m)**. Its symbol is the Greek letter lambda (λ).\n- **Frequency** is the number of complete waves made each second, measured in **hertz (Hz)** (you met this for pitch).\n- **Time period (T)** is the *time* for one complete wave to pass, measured in **seconds (s)**. Period and frequency are opposites of each other: if a wave repeats 5 times per second (5 Hz), each wave takes one fifth of a second. We write this as **T = 1 ÷ f** (period equals one divided by the frequency).\n- **Amplitude** is the size of the vibration (you met this for loudness).\n\nThese link together through the **wave equation**:\n\n**speed = frequency × wavelength**\n\nIn words: how fast a wave travels equals how many waves pass each second multiplied by the length of each wave. So if the speed stays the same (as it does for sound in a given material), a *higher* frequency must mean a *shorter* wavelength, and a *lower* frequency a longer one.",
+      diagram:
+        '<svg viewBox="0 0 260 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A wave with its wavelength and amplitude labelled"><line x1="10" y1="60" x2="250" y2="60" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3"/><path d="M10,60 Q40,15 70,60 T130,60 T190,60 T250,60" fill="none" stroke="#2563eb" stroke-width="2"/><line x1="10" y1="95" x2="70" y2="95" stroke="#16a34a" stroke-width="1.5" marker-start="url(#ws)" marker-end="url(#we)"/><text x="40" y="110" font-size="9" text-anchor="middle" fill="#166534">one wavelength</text><line x1="40" y1="60" x2="40" y2="33" stroke="#dc2626" stroke-width="1.5" marker-end="url(#we)"/><text x="48" y="40" font-size="9" fill="#991b1b">amplitude</text><defs><marker id="we" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#16a34a"/></marker><marker id="ws" markerWidth="8" markerHeight="8" refX="2" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 Z" fill="#16a34a"/></marker></defs></svg>',
+      diagramCaption: "Wavelength is the length of one full wave; amplitude is the height of the vibration.",
+      keyPoints: [
+        "Wavelength is the length of one complete wave, measured in metres.",
+        "Time period T is the time for one wave: T = 1 ÷ frequency.",
+        "Wave equation: speed = frequency × wavelength.",
+      ],
+      thinkDeeper:
+        "Sound travels at the same speed in a room whatever its pitch. Using speed = frequency × wavelength, explain what must happen to the wavelength when a singer slides from a low note up to a high one.",
+    },
+    {
+      id: "longitudinal-vs-transverse",
+      heading: "Longitudinal and transverse waves",
+      body:
+        "Waves come in two families, depending on the direction the particles vibrate compared with the direction the wave travels.\n\n- In a **longitudinal wave**, the particles vibrate **back and forth along the same direction** the wave travels. The wave is made of compressions and rarefactions. **Sound is a longitudinal wave.** A good model is a stretched spring (a 'slinky') pushed in and out at one end — you see squashes and stretches travelling along it.\n- In a **transverse wave**, the particles vibrate **up and down (at right angles) to the direction** the wave travels. The wave is made of crests and troughs. **Light, all electromagnetic waves, and ripples on water are transverse.** A good model is a rope flicked up and down at one end — the wobble travels along while each bit of rope only moves up and down.\n\nBoth kinds carry *energy* without carrying the material along with them. The key difference to remember is the **direction of the vibration**: along the wave (longitudinal, like sound) or across it (transverse, like light and water ripples).",
+      diagram:
+        '<svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A longitudinal wave compared with a transverse wave"><text x="130" y="14" font-size="9" text-anchor="middle" fill="#475569">longitudinal (sound): vibrate along the wave</text><g fill="#1e3a8a"><circle cx="20" cy="32" r="2.5"/><circle cx="25" cy="32" r="2.5"/><circle cx="30" cy="32" r="2.5"/><circle cx="50" cy="32" r="2.5"/><circle cx="75" cy="32" r="2.5"/><circle cx="100" cy="32" r="2.5"/><circle cx="105" cy="32" r="2.5"/><circle cx="110" cy="32" r="2.5"/><circle cx="135" cy="32" r="2.5"/><circle cx="160" cy="32" r="2.5"/><circle cx="185" cy="32" r="2.5"/><circle cx="190" cy="32" r="2.5"/><circle cx="195" cy="32" r="2.5"/><circle cx="220" cy="32" r="2.5"/><circle cx="245" cy="32" r="2.5"/></g><line x1="20" y1="46" x2="250" y2="46" stroke="#475569" stroke-width="1" marker-end="url(#lt)"/><text x="130" y="78" font-size="9" text-anchor="middle" fill="#475569">transverse (light, ripples): vibrate across the wave</text><path d="M20,100 Q45,80 70,100 T120,100 T170,100 T220,100 T260,100" fill="none" stroke="#dc2626" stroke-width="2"/><line x1="20" y1="118" x2="250" y2="118" stroke="#475569" stroke-width="1" marker-end="url(#lt)"/><defs><marker id="lt" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#475569"/></marker></defs></svg>',
+      diagramCaption: "Longitudinal waves (sound) vibrate along the wave; transverse waves (light, water ripples) vibrate across it.",
+      keyPoints: [
+        "Longitudinal: particles vibrate along the wave's direction — sound is longitudinal.",
+        "Transverse: particles vibrate across the wave's direction — light and water ripples are transverse.",
+        "Both transfer energy without the material itself travelling along.",
+      ],
+      thinkDeeper:
+        "Flick a slinky in and out along its length, then flick it side to side. One models sound and the other models light. Which is which, and how can you tell from the way the coils move?",
+    },
+    {
+      id: "infrasound",
+      heading: "Infrasound: below human hearing",
+      body:
+        "Just as **ultrasound** is sound *above* 20,000 Hz (too high for us), **infrasound** is sound with a frequency **below 20 Hz** — too *low* for the human ear to hear. It sits just under the bottom of our hearing range.\n\nEven though we cannot hear it, infrasound is real sound and is all around us:\n\n- **Elephants** make deep infrasound rumbles that travel many kilometres through the ground and air to communicate with distant herds.\n- **Whales** use very low-frequency calls that carry across huge distances in the ocean.\n- **Earthquakes, volcanoes and large storms** produce powerful infrasound; scientists use special detectors to pick it up and give early warnings.\n\nSome animals seem to sense infrasound from earthquakes before humans notice anything, which may be why they sometimes act strangely just before one strikes. Infrasound pairs neatly with ultrasound: together they show that the **20 Hz to 20,000 Hz** range we hear is only a slice of all the sound that exists.",
+      diagram:
+        '<svg viewBox="0 0 260 90" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A frequency line showing infrasound below 20 hertz, human hearing, and ultrasound above 20000 hertz"><rect x="10" y="35" width="60" height="20" fill="#c7d2fe"/><rect x="70" y="35" width="120" height="20" fill="#86efac"/><rect x="190" y="35" width="60" height="20" fill="#fca5a5"/><text x="40" y="49" font-size="8" text-anchor="middle" fill="#3730a3">infrasound</text><text x="130" y="49" font-size="8" text-anchor="middle" fill="#166534">we can hear</text><text x="220" y="49" font-size="8" text-anchor="middle" fill="#991b1b">ultrasound</text><text x="70" y="70" font-size="8" text-anchor="middle" fill="#475569">20 Hz</text><text x="190" y="70" font-size="8" text-anchor="middle" fill="#475569">20,000 Hz</text><text x="40" y="28" font-size="7" text-anchor="middle" fill="#3730a3">elephants, whales, earthquakes</text></svg>',
+      diagramCaption: "Infrasound (below 20 Hz) and ultrasound (above 20,000 Hz) lie just outside the human hearing range.",
+      keyPoints: [
+        "Infrasound is sound below 20 Hz — too low for humans to hear.",
+        "Elephants and whales use it to communicate over long distances.",
+        "Earthquakes, volcanoes and storms produce infrasound that detectors can pick up.",
+      ],
+      thinkDeeper:
+        "Ultrasound is used for medical scans and sonar, but infrasound is mostly something we *detect* rather than *use*. Suggest why very low-frequency sound is good for travelling long distances but hard to use for making detailed images.",
+    },
   ],
 
   mnemonics: [
