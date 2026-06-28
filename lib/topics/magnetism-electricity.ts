@@ -155,6 +155,71 @@ export const magnetismElectricity: Topic = {
       thinkDeeper:
         "An ammeter is designed to let current pass through it almost unchanged, while a voltmeter is designed so almost no current flows through it. Why must each meter be built that way for it to measure correctly without disturbing the circuit?",
     },
+    {
+      id: "resistance",
+      heading: "Resistance and resistors",
+      body:
+        "**Resistance** is a measure of how hard it is for current to flow through a component. The higher the resistance, the harder it is for charge to get through — so for the same cell, **more resistance means a smaller current**, and less resistance means a bigger current.\n\nResistance is measured in a unit called the **ohm**, whose symbol is the Greek letter omega: **Ω**.\n\nEven a plain wire has some resistance, and its value depends on the wire itself:\n\n- A **longer** wire has **more** resistance (the charge has further to push through).\n- A **thinner** wire has **more** resistance (there is less room for the charge to flow).\n\nSo a long, thin wire resists current most, while a short, thick wire resists it least.\n\nA **resistor** is a component made specially to add a fixed, known resistance to a circuit. It is used to limit the current and protect other components from too much current. A **variable resistor** (also called a **rheostat**) is a resistor whose value you can change by sliding a contact. Turning it up adds resistance and dims a bulb or slows a motor; turning it down lets more current through. This is exactly how a **dimmer switch** for lights and a **volume control** work.",
+      diagram:
+        '<svg viewBox="0 0 260 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A thin long wire with high resistance and small current beside a thick short wire with low resistance and large current"><text x="65" y="16" font-size="9" text-anchor="middle" fill="#334155">long, thin wire</text><line x1="15" y1="40" x2="120" y2="40" stroke="#9ca3af" stroke-width="2"/><text x="65" y="58" font-size="8" text-anchor="middle" fill="#991b1b">high resistance</text><text x="65" y="72" font-size="8" text-anchor="middle" fill="#991b1b">small current</text><line x1="15" y1="84" x2="120" y2="84" stroke="#16a34a" stroke-width="1" marker-end="url(#rc)"/><text x="195" y="16" font-size="9" text-anchor="middle" fill="#334155">short, thick wire</text><line x1="160" y1="40" x2="230" y2="40" stroke="#6b7280" stroke-width="7"/><text x="195" y="58" font-size="8" text-anchor="middle" fill="#166534">low resistance</text><text x="195" y="72" font-size="8" text-anchor="middle" fill="#166534">large current</text><line x1="160" y1="84" x2="230" y2="84" stroke="#16a34a" stroke-width="4" marker-end="url(#rc)"/><defs><marker id="rc" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#16a34a"/></marker></defs></svg>',
+      diagramCaption: "Longer, thinner wires have more resistance, so less current flows for the same cell.",
+      keyPoints: [
+        "Resistance = how hard it is for current to flow; measured in ohms (Ω).",
+        "More resistance → smaller current; longer and thinner wires have more resistance.",
+        "A resistor adds a fixed resistance; a variable resistor (rheostat) can be adjusted to control the current.",
+      ],
+      thinkDeeper:
+        "A dimmer switch slides a variable resistor in series with a lamp. Explain, using resistance and current, exactly what happens inside the circuit as you turn the lamp from bright down to dim.",
+    },
+    {
+      id: "conventional-current",
+      heading: "The direction of the current",
+      body:
+        "Which way does the current actually go around a circuit? There are two answers, and it is important to keep them straight.\n\n**Conventional current** is the direction we *agree* to use on circuit diagrams: it flows from the **positive (+) terminal** of the cell, around the circuit, and back to the **negative (−) terminal**. Whenever you draw an arrow for current in an exam, draw it this way: + to −.\n\nBut the particles that really move in a metal wire are **electrons**, and electrons carry a **negative** charge. They are pushed *away* from the negative terminal and flow towards the positive one — that is, **electrons flow from − to +**, which is the **opposite** direction to conventional current.\n\nWhy the mismatch? Scientists chose the direction of current (+ to −) long before anyone knew that electrons existed or that they were the things actually moving. By the time electrons were discovered, the convention was already in every book, so we kept it. For working out how a circuit behaves it makes no difference which description you use, as long as you are consistent.",
+      diagram:
+        '<svg viewBox="0 0 240 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A circuit loop showing conventional current from plus to minus and electron flow from minus to plus in the opposite direction"><rect x="40" y="30" width="160" height="60" fill="none" stroke="#333" stroke-width="2"/><line x1="110" y1="30" x2="110" y2="22" stroke="#333" stroke-width="2"/><line x1="130" y1="30" x2="130" y2="38" stroke="#333" stroke-width="4"/><text x="104" y="20" font-size="9" fill="#334155">+</text><text x="132" y="22" font-size="9" fill="#334155">&#8722;</text><polygon points="40,55 44,49 44,61" fill="#dc2626"/><text x="20" y="58" font-size="8" fill="#991b1b">I (+ to &#8722;)</text><polygon points="200,68 196,62 196,74" fill="#2563eb"/><text x="158" y="108" font-size="8" fill="#1e3a8a">electrons (&#8722; to +)</text></svg>',
+      diagramCaption: "Conventional current flows + to −; the electrons that really move flow the other way, − to +.",
+      keyPoints: [
+        "Conventional current (what we draw) flows from + to − around the circuit.",
+        "Electrons are negative and actually flow the opposite way, from − to +.",
+        "The convention was fixed before electrons were discovered, so we still use it.",
+      ],
+      thinkDeeper:
+        "It seems odd that physics keeps using a 'current direction' that is the opposite of how the electrons really move. Why does it not cause wrong answers when we work out how a circuit behaves?",
+    },
+    {
+      id: "series-parallel-rules",
+      heading: "Current and voltage rules in series and parallel",
+      body:
+        "Once you know whether components are in series or parallel, two simple rules tell you how the current and the voltage behave.\n\n**In a series circuit (one single loop):**\n\n- The **current is the same everywhere** in the loop — an ammeter reads the same wherever you put it.\n- The **voltage is shared** between the components. If two identical bulbs are in series across a cell, each gets half the cell's voltage. The separate voltages add up to the cell's voltage.\n\n**In a parallel circuit (separate branches):**\n\n- Each branch gets the **full voltage** of the cell — every branch has the same voltage across it.\n- The **current splits** between the branches. The current from the cell divides up as it reaches the junction, so the branch currents add up to the total current leaving the cell.\n\nA quick way to remember: **series shares the voltage and keeps the current the same; parallel keeps the voltage the same and splits the current.** This is why house lights, wired in parallel, all run at the full mains voltage and each draws its own share of the current.",
+      diagram:
+        '<svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Series circuit sharing voltage with the same current, and parallel circuit with full voltage on each branch and the current splitting"><text x="75" y="14" font-size="10" text-anchor="middle" fill="#334155">series</text><rect x="25" y="25" width="100" height="70" fill="none" stroke="#333" stroke-width="2"/><line x1="68" y1="25" x2="68" y2="18" stroke="#333" stroke-width="2"/><line x1="82" y1="25" x2="82" y2="32" stroke="#333" stroke-width="4"/><circle cx="55" cy="95" r="8" fill="#fef9c3" stroke="#333"/><circle cx="95" cy="95" r="8" fill="#fef9c3" stroke="#333"/><text x="75" y="118" font-size="8" text-anchor="middle" fill="#166534">same current, voltage shared</text><text x="225" y="14" font-size="10" text-anchor="middle" fill="#334155">parallel</text><rect x="175" y="25" width="110" height="70" fill="none" stroke="#333" stroke-width="2"/><line x1="218" y1="25" x2="218" y2="18" stroke="#333" stroke-width="2"/><line x1="232" y1="25" x2="232" y2="32" stroke="#333" stroke-width="4"/><line x1="205" y1="60" x2="255" y2="60" stroke="#333" stroke-width="2"/><line x1="205" y1="60" x2="205" y2="95" stroke="#333" stroke-width="2"/><line x1="255" y1="60" x2="255" y2="95" stroke="#333" stroke-width="2"/><circle cx="205" cy="95" r="8" fill="#fef9c3" stroke="#333"/><circle cx="255" cy="95" r="8" fill="#fef9c3" stroke="#333"/><text x="230" y="118" font-size="8" text-anchor="middle" fill="#1e3a8a">full voltage, current splits</text></svg>',
+      diagramCaption: "Series: current the same, voltage shared. Parallel: each branch has full voltage, the current splits.",
+      keyPoints: [
+        "Series: current is the same everywhere; the voltage is shared between components.",
+        "Parallel: each branch gets the full cell voltage; the current splits between branches.",
+        "Remember: series shares voltage; parallel splits current.",
+      ],
+      thinkDeeper:
+        "Two identical bulbs are connected first in series, then in parallel, to the same cell. Using the current and voltage rules, explain why each bulb is brighter in the parallel arrangement.",
+    },
+    {
+      id: "static-electricity",
+      heading: "Static electricity in more detail",
+      body:
+        "**Static electricity** is electric charge that builds up and stays on an object, rather than flowing as a current.\n\nIt is made by **charging by friction**. When two insulators are rubbed together, tiny negatively-charged particles called **electrons** are transferred from one to the other. The object that **gains** electrons becomes **negatively charged**; the object that **loses** them is left **positively charged**. Only the electrons move — the positive charge cannot flow in an insulator.\n\nCharges follow the same rule as magnetic poles:\n\n- **Like charges repel** (two negatives, or two positives, push apart).\n- **Unlike charges attract** (a positive and a negative pull together).\n\nA charged object can even attract a **small neutral object** (like tiny pieces of paper or a thin stream of water). The charge pulls the opposite charges in the neutral object slightly closer and pushes the like charges away, so the near side is attracted more strongly than the far side is repelled. This effect is called **induction**.\n\nWe can remove unwanted charge by **earthing**: connecting the charged object to the ground with a conductor lets the extra electrons flow safely away (or be topped up), leaving the object neutral.\n\nStatic electricity is all around us, sometimes useful and sometimes dangerous:\n\n- **Lightning** is a huge static discharge between charged clouds and the ground.\n- **Refuelling sparks**: a fuel tanker can build up charge as fuel flows; a spark could ignite the fuel, so tankers are earthed before refuelling.\n- **Photocopiers and laser printers** use charged drums to attract powder (toner) onto the page.\n- **Shocks**: walking on a carpet can charge you up, and you feel a small shock when you touch a metal door handle and the charge jumps across.",
+      diagram:
+        '<svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Rubbing a rod with a cloth transfers electrons, leaving the rod negative and the cloth positive"><rect x="20" y="55" width="90" height="14" rx="6" fill="#cbd5e1" stroke="#475569"/><text x="65" y="86" font-size="9" text-anchor="middle" fill="#1e3a8a">rod: negative (gains e&#8722;)</text><text x="38" y="50" font-size="9" fill="#1e3a8a">&#8722; &#8722; &#8722;</text><rect x="150" y="50" width="60" height="30" rx="4" fill="#fde68a" stroke="#b45309"/><text x="180" y="100" font-size="9" text-anchor="middle" fill="#991b1b">cloth: positive (loses e&#8722;)</text><text x="162" y="45" font-size="9" fill="#991b1b">+ + +</text><path d="M112 55 q15 -10 35 0" fill="none" stroke="#16a34a" stroke-width="1.5" marker-end="url(#se)"/><defs><marker id="se" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 Z" fill="#16a34a"/></marker></defs><text x="130" y="38" font-size="8" text-anchor="middle" fill="#166534">electrons move</text></svg>',
+      diagramCaption: "Friction transfers electrons: the object that gains them is negative, the one that loses them is positive.",
+      keyPoints: [
+        "Charging by friction transfers electrons (negative); gainer becomes −, loser becomes +.",
+        "Like charges repel; unlike charges attract. A charged object attracts small neutral objects (induction).",
+        "Earthing removes charge by letting electrons flow to/from the ground.",
+        "Examples: lightning, refuelling sparks, photocopiers and the shock from a door handle.",
+      ],
+      thinkDeeper:
+        "A charged balloon picks up tiny pieces of paper even though the paper has no overall charge. Using the idea of induction, explain how an object with zero net charge can still be attracted.",
+    },
   ],
 
   mnemonics: [
