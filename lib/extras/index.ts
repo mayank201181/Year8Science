@@ -11,6 +11,8 @@ import { heatExtras } from "./heat";
 import { lightExtras } from "./light";
 import { soundExtras } from "./sound";
 import { magnetismElectricityExtras } from "./magnetism-electricity";
+import { forcesExtras } from "./forces";
+import { energyExtras } from "./energy";
 
 export const EXTRAS: Record<string, TopicExtras> = {
   "photosynthesis": photosynthesisExtras,
@@ -25,6 +27,8 @@ export const EXTRAS: Record<string, TopicExtras> = {
   "light": lightExtras,
   "sound": soundExtras,
   "magnetism-electricity": magnetismElectricityExtras,
+  "forces": forcesExtras,
+  "energy": energyExtras,
 };
 
 const EMPTY: TopicExtras = {};
