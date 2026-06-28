@@ -28,6 +28,8 @@ export const TOPIC_META: TopicMeta[] = [
   { id: "light", title: "Light & Optics", subject: "Physics", icon: "💡", summary: "Reflection, refraction, colour and how we see.", accent: "sky" },
   { id: "sound", title: "Sound", subject: "Physics", icon: "🔊", summary: "How sound waves travel, and pitch and loudness.", accent: "sky" },
   { id: "magnetism-electricity", title: "Magnetism & Electricity", subject: "Physics", icon: "🧲", summary: "Magnets, circuits, current and electromagnets.", accent: "sky" },
+  { id: "forces", title: "Forces & Motion", subject: "Physics", icon: "🏋️", summary: "Pushes and pulls, balanced forces, speed, springs and pressure.", accent: "sky" },
+  { id: "energy", title: "Energy: Stores & Transfers", subject: "Physics", icon: "⚡", summary: "The eight energy stores, transfers, efficiency and resources.", accent: "sky" },
 ];
 
 export const ACCENT: Record<string, { card: string; chip: string; bar: string; text: string; ring: string }> = {

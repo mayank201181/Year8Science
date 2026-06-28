@@ -13,6 +13,8 @@ import { heat } from "./heat";
 import { light } from "./light";
 import { sound } from "./sound";
 import { magnetismElectricity } from "./magnetism-electricity";
+import { forces } from "./forces";
+import { energy } from "./energy";
 
 const REGISTRY: Record<string, Topic> = {
   photosynthesis,
@@ -27,6 +29,8 @@ const REGISTRY: Record<string, Topic> = {
   light,
   sound,
   "magnetism-electricity": magnetismElectricity,
+  forces,
+  energy,
 };
 
 /** All topics in curriculum order. */

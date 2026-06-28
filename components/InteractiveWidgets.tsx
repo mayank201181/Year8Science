@@ -283,8 +283,72 @@ function DigestionLab() {
   );
 }
 
+// ---- 7) Forces: resultant force ------------------------------------------
+function ForcesLab() {
+  const [left, setLeft] = useState(6);
+  const [right, setRight] = useState(6);
+  const res = right - left;
+  const balanced = res === 0;
+  const dir = res > 0 ? "right" : "left";
+  const caption = balanced
+    ? "The forces are balanced (resultant = 0 N). The object stays still, or keeps moving at a steady speed — its motion does not change."
+    : `Unbalanced! There's a resultant force of ${Math.abs(res)} N to the ${dir}, so the object accelerates (speeds up) to the ${dir}. Bigger resultant → bigger acceleration.`;
+  return (
+    <Frame title="Balanced vs unbalanced forces" caption={caption}>
+      <svg viewBox="0 0 240 80" className="w-full rounded-lg bg-slate-900">
+        <rect x="100" y="28" width="40" height="28" rx="3" fill="#fbbf24" />
+        {left > 0 && <line x1={100} y1="42" x2={100 - left * 4} y2="42" stroke="#f87171" strokeWidth="4" markerEnd="url(#al)" />}
+        {right > 0 && <line x1={140} y1="42" x2={140 + right * 4} y2="42" stroke="#34d399" strokeWidth="4" markerEnd="url(#ar)" />}
+        <defs>
+          <marker id="al" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M8,0 L0,4 L8,8" fill="#f87171" /></marker>
+          <marker id="ar" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#34d399" /></marker>
+        </defs>
+        <text x="120" y="72" fontSize="9" textAnchor="middle" fill="#94a3b8">{balanced ? "balanced — no change in motion" : `resultant ${Math.abs(res)} N → ${dir}`}</text>
+      </svg>
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <Stepper label="Push left (N)" value={left} min={0} max={20} onChange={setLeft} color="#ef4444" />
+        <Stepper label="Push right (N)" value={right} min={0} max={20} onChange={setRight} color="#10b981" />
+      </div>
+    </Frame>
+  );
+}
+
+// ---- 8) Energy stores & transfers ----------------------------------------
+const SCENARIOS: { emoji: string; label: string; stores: string; transfer: string }[] = [
+  { emoji: "🚗", label: "Moving car", stores: "kinetic (+ chemical in fuel)", transfer: "chemical store (fuel) → kinetic store, by heating & mechanically" },
+  { emoji: "🏹", label: "Stretched bow", stores: "elastic potential", transfer: "elastic store → kinetic store of the arrow (mechanically)" },
+  { emoji: "☕", label: "Hot drink", stores: "thermal (internal)", transfer: "thermal store of the drink → thermal store of the room (by heating)" },
+  { emoji: "🔦", label: "Battery torch", stores: "chemical → electrical", transfer: "chemical store → (electrically) → light + thermal stores" },
+  { emoji: "⬆️", label: "Ball held up high", stores: "gravitational potential", transfer: "gravitational store → kinetic store as it falls" },
+  { emoji: "💨", label: "Wind turbine", stores: "kinetic → electrical", transfer: "kinetic store of the wind → electrical (generator, mechanically)" },
+  { emoji: "☀️", label: "The Sun", stores: "nuclear", transfer: "nuclear store → radiation (light) → thermal store of the Earth" },
+  { emoji: "🧲", label: "Two magnets", stores: "magnetic", transfer: "magnetic store → kinetic store as they snap together" },
+];
+function EnergyStores() {
+  const [i, setI] = useState(0);
+  const s = SCENARIOS[i];
+  return (
+    <Frame title="Energy stores & transfers" caption={`${s.label}: energy is held in the ${s.stores} store(s). Transfer: ${s.transfer}. Remember — energy is never created or destroyed, only shifted between stores (measured in joules, J).`}>
+      <div className="flex flex-wrap gap-2">
+        {SCENARIOS.map((sc, idx) => (
+          <button key={idx} onClick={() => setI(idx)} className={`rounded-lg px-2.5 py-1.5 text-sm font-semibold ${i === idx ? "bg-indigo-600 text-white" : "bg-white text-slate-600 ring-1 ring-slate-200"}`}>
+            {sc.emoji} {sc.label}
+          </button>
+        ))}
+      </div>
+      <div className="mt-3 rounded-xl bg-white p-4 text-center">
+        <div className="text-4xl">{s.emoji}</div>
+        <p className="mt-2 font-bold text-indigo-700">{s.stores}</p>
+        <p className="mt-1 text-sm text-slate-600">{s.transfer}</p>
+      </div>
+    </Frame>
+  );
+}
+
 export const EXPLORABLES_ALL: Record<string, React.FC> = {
   ...EXPLORABLES,
+  "forces-lab": ForcesLab,
+  "energy-stores": EnergyStores,
   "atom-builder": AtomBuilder,
   "molecule-builder": MoleculeBuilder,
   "reaction-rate": ReactionRate,
