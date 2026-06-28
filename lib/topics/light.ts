@@ -138,6 +138,70 @@ export const light: Topic = {
       thinkDeeper:
         "Walking from bright sunshine into a dark cinema, you can barely see at first but improve after a minute. Use the job of the iris and pupil to explain what is happening to your eye.",
     },
+    {
+      id: "eye-focusing-detail",
+      heading: "Focusing the eye: the lens and more parts",
+      body:
+        "The eye does not just take in light — it **changes the shape of its lens** to keep things in focus whether they are near or far. This adjustment is called **accommodation**, and two structures do the work:\n\n- The **ciliary muscles** are a ring of muscle around the lens.\n- The **suspensory ligaments** are fine fibres joining the ciliary muscles to the edge of the lens.\n\nTo focus on a **near** object the ciliary muscles **contract**, which slackens the suspensory ligaments and lets the lens become **fatter and more curved**, bending the light more strongly. To focus on a **distant** object the ciliary muscles **relax**, the suspensory ligaments pull tight, and the lens is stretched **thinner and flatter**, bending the light less.\n\nA few more parts complete the picture:\n\n- The **sclera** is the tough, white outer coat of the eyeball. It protects the eye and holds its shape (the front of it is the 'white' of your eye).\n- The **optic nerve** carries the electrical signals from the retina to the **brain**, which interprets them as the image you 'see'. The small spot where the optic nerve leaves the retina has no light-sensitive cells, so it forms a **blind spot**.",
+      diagram:
+        '<svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The eye lens with ciliary muscles, suspensory ligaments, sclera and optic nerve labelled"><circle cx="130" cy="65" r="55" fill="#eff6ff" stroke="#1e3a8a" stroke-width="3"/><text x="130" y="128" font-size="8" text-anchor="middle" fill="#1e3a8a">sclera (tough outer coat)</text><ellipse cx="95" cy="65" rx="7" ry="20" fill="#bfdbfe" stroke="#2563eb"/><text x="75" y="40" font-size="7" fill="#2563eb">lens</text><line x1="95" y1="45" x2="80" y2="40" stroke="#7c3aed" stroke-width="1"/><line x1="95" y1="85" x2="80" y2="92" stroke="#7c3aed" stroke-width="1"/><text x="60" y="100" font-size="6" fill="#7c3aed">suspensory ligaments</text><path d="M86 40 A20 25 0 0 0 86 90" fill="none" stroke="#dc2626" stroke-width="3"/><text x="64" y="58" font-size="6" fill="#dc2626">ciliary muscle</text><path d="M185 60 L215 58 L215 72 L185 70" fill="#fde68a" stroke="#b45309"/><text x="225" y="68" font-size="7" fill="#92400e">optic nerve</text><text x="225" y="80" font-size="6" fill="#92400e">to brain</text></svg>',
+      diagramCaption: "Ciliary muscles and suspensory ligaments reshape the lens (accommodation); the optic nerve carries signals to the brain.",
+      keyPoints: [
+        "Accommodation: the lens changes shape to focus near or far objects.",
+        "Ciliary muscles + suspensory ligaments make the lens fatter (near) or thinner (far).",
+        "The sclera is the tough outer coat; the optic nerve carries signals to the brain.",
+      ],
+      thinkDeeper:
+        "After reading a book for a long time your eyes can feel tired, and far-away things look briefly blurry. Using the ciliary muscles, explain why holding a focus on something close is more 'effort' than looking into the distance.",
+    },
+    {
+      id: "secondary-colours",
+      heading: "Mixing coloured light: the secondary colours",
+      body:
+        "The three **primary colours of light** are **red, green and blue**. They are called primary because they cannot be made by mixing other lights, but mixing them in pairs makes new colours.\n\nWhen two primary lights overlap they **add** together (this is why mixing light is called *additive* mixing). The three **secondary colours of light** are:\n\n- **Red + Green = Yellow**\n- **Green + Blue = Cyan** (a greenish-blue)\n- **Red + Blue = Magenta** (a pinkish-purple)\n\nAnd if all **three primaries overlap, you get white light** again.\n\nThis is exactly how a TV, phone or computer screen works: it has no yellow, cyan or white lights at all — only tiny red, green and blue dots. By switching them on in different amounts and letting them add together, the screen can make every colour you see, including white. Remember this is the opposite of mixing **paints**, where colours *subtract* light and mixing makes things darker and muddier.",
+      diagram:
+        '<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three overlapping circles of red, green and blue light making yellow, cyan, magenta and white"><circle cx="100" cy="60" r="45" fill="#ef4444" fill-opacity="0.7"/><circle cx="75" cy="100" r="45" fill="#22c55e" fill-opacity="0.7"/><circle cx="125" cy="100" r="45" fill="#3b82f6" fill-opacity="0.7"/><text x="100" y="40" font-size="9" text-anchor="middle" fill="#ffffff">red</text><text x="55" y="120" font-size="9" text-anchor="middle" fill="#ffffff">green</text><text x="150" y="120" font-size="9" text-anchor="middle" fill="#ffffff">blue</text><text x="78" y="78" font-size="7" text-anchor="middle" fill="#1f2937">yellow</text><text x="125" y="78" font-size="7" text-anchor="middle" fill="#1f2937">magenta</text><text x="100" y="118" font-size="7" text-anchor="middle" fill="#1f2937">cyan</text><text x="100" y="92" font-size="7" text-anchor="middle" fill="#1f2937">white</text></svg>',
+      diagramCaption: "Adding primary lights: red+green=yellow, green+blue=cyan, red+blue=magenta, all three=white.",
+      keyPoints: [
+        "Primary colours of light: red, green, blue.",
+        "Secondary colours: red+green=yellow, green+blue=cyan, red+blue=magenta.",
+        "All three primaries together make white; screens use only red, green and blue dots.",
+      ],
+      thinkDeeper:
+        "A screen makes a bright yellow patch using only red and green light — there is no yellow lamp behind it. If you looked at that patch through a powerful magnifier, what would you actually see, and why does your eye read it as yellow?",
+    },
+    {
+      id: "total-internal-reflection",
+      heading: "Total internal reflection and the critical angle",
+      body:
+        "Normally, when light travels from a dense material (like glass or water) out into air, most of it refracts (bends) and escapes, while a little reflects back. But if you increase the angle at which the light hits the boundary, something remarkable happens.\n\nAs the **angle of incidence inside the glass** grows, the refracted ray bends further and further away from the normal, until at one special angle — the **critical angle** — the refracted ray runs right along the surface. For glass the critical angle is about 42°.\n\nBeyond the critical angle, the light can no longer escape at all: **all of it reflects back inside** the material, obeying the law of reflection (angle of incidence = angle of reflection). This is called **total internal reflection (TIR)**.\n\nFor TIR to happen, **two conditions** must both be met:\n\n- The light must be travelling in the **denser** material (e.g. glass or water), heading towards the less dense one (air).\n- The angle of incidence must be **greater than the critical angle**.\n\nThis is the secret behind **optical fibres**: a thin, flexible thread of very pure glass. Light shone in at one end hits the sides at an angle larger than the critical angle, so it totally internally reflects again and again, zig-zagging along the fibre and staying trapped inside until it reaches the far end. Because almost no light leaks out, fibres can carry telephone calls, internet data and television over huge distances at the speed of light, and doctors use bundles of them (endoscopes) to see inside the body.",
+      diagram:
+        '<svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Light totally internally reflecting and zig-zagging along an optical fibre"><rect x="10" y="45" width="240" height="35" fill="#bae6fd" stroke="#0369a1"/><text x="130" y="98" font-size="8" text-anchor="middle" fill="#075985">glass core of an optical fibre (light cannot escape)</text><polyline points="12,78 55,47 100,78 145,47 190,78 235,47" fill="none" stroke="#dc2626" stroke-width="2" marker-end="url(#tir)"/><defs><marker id="tir" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#dc2626"/></marker></defs><text x="40" y="30" font-size="8" fill="#991b1b">light zig-zags by total internal reflection</text></svg>',
+      diagramCaption: "Above the critical angle, light reflects fully inside the glass and zig-zags along an optical fibre.",
+      keyPoints: [
+        "Critical angle: the angle of incidence at which the refracted ray runs along the surface (about 42° in glass).",
+        "Above the critical angle, light is totally internally reflected — none escapes.",
+        "TIR needs the denser material AND an angle bigger than the critical angle; it makes optical fibres work.",
+      ],
+      thinkDeeper:
+        "A diamond sparkles far more than a glass copy of the same shape. Diamond has a very small critical angle. Use total internal reflection to explain why a small critical angle traps light and makes a gem flash with so much light.",
+    },
+    {
+      id: "rectangular-block",
+      heading: "Light through a rectangular glass block",
+      body:
+        "A useful case of refraction is a ray passing through a flat-sided **rectangular glass block**.\n\nThe ray refracts **twice**:\n\n- As it **enters** the glass (air → glass), it slows down and bends **towards the normal**.\n- As it **leaves** the glass (glass → air), it speeds up and bends **away from the normal** by exactly the same amount.\n\nBecause the two faces of the block are **parallel**, these two bends are equal and opposite. The result is that the ray coming out the other side travels in the **same direction as the ray that went in** — the emerging ray is **parallel** to the original ray. It has not changed direction overall; it has simply been shifted **sideways** a little. This small sideways shift is called *lateral displacement*.\n\nThe block does not bend the light's final direction — it just moves the line of the ray across. If you removed the block, the ray would carry straight on; with the block in place, the exit ray is parallel but offset.",
+      diagram:
+        '<svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A ray entering and leaving a rectangular glass block, emerging parallel to the entering ray"><rect x="80" y="25" width="100" height="80" fill="#bae6fd" stroke="#0369a1"/><text x="130" y="70" font-size="9" text-anchor="middle" fill="#075985">glass block</text><line x1="20" y1="35" x2="80" y2="55" stroke="#dc2626" stroke-width="2" marker-end="url(#rb)"/><line x1="80" y1="55" x2="180" y2="80" stroke="#dc2626" stroke-width="2"/><line x1="180" y1="80" x2="240" y2="100" stroke="#dc2626" stroke-width="2" marker-end="url(#rb)"/><line x1="180" y1="80" x2="240" y2="60" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3"/><defs><marker id="rb" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#dc2626"/></marker></defs><text x="30" y="28" font-size="7" fill="#991b1b">incoming ray</text><text x="195" y="118" font-size="7" fill="#991b1b">emerges parallel (shifted)</text></svg>',
+      diagramCaption: "The block bends the ray twice; because its faces are parallel, the ray emerges parallel to the original, just shifted sideways.",
+      keyPoints: [
+        "Light refracts twice in a rectangular block: towards the normal entering, away leaving.",
+        "The two parallel faces make the bends equal and opposite.",
+        "The emerging ray is parallel to the entering ray, only shifted sideways (lateral displacement).",
+      ],
+      thinkDeeper:
+        "Through a thick glass block, words on a page seem shifted to one side. Using the idea that the ray emerges parallel but displaced, explain why the text looks moved but not bent or blurred.",
+    },
   ],
 
   mnemonics: [
