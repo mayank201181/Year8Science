@@ -1,9 +1,7 @@
 "use client";
 
-import { DiagnosticScreen } from "@/components/DiagnosticScreen";
-import { classifyDiagnostic } from "@/lib/clientDiagnostic";
+import { ErrorFallback } from "@/components/ErrorFallback";
 
-// Only classify the allowlisted name; ignore message, digest, and component details.
-export default function ErrorPage({ error }: { error: unknown }) {
-  return <DiagnosticScreen code="SCI-ROUTE" kind={classifyDiagnostic(error)} />;
+export default function ErrorPage({ error, unstable_retry, reset }: { error: Error; unstable_retry?: () => void; reset: () => void }) {
+  return <ErrorFallback error={error} onRetry={unstable_retry ?? reset} />;
 }

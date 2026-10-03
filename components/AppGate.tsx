@@ -4,25 +4,18 @@ import { usePathname } from "next/navigation";
 import { useStore } from "@/lib/store";
 import { AuthGate } from "./AuthGate";
 import { ProfilePicker } from "./ProfilePicker";
-import { RecoveryLearning } from "./RecoveryLearning";
 
 export function AppGate({ children }: { children: React.ReactNode }) {
-  const { status, recoveryHints, activeProfile, selectProfile, switchProfile, logout } = useStore();
+  const { status, activeProfile, selectProfile, logout } = useStore();
   const pathname = usePathname();
   const isParent = pathname?.startsWith("/parent");
-
-  if (status === "recovery") {
-    return <RecoveryLearning key={activeProfile?.id} hints={recoveryHints}
-      onRetry={() => { if (activeProfile) void selectProfile(activeProfile.id); }}
-      onSwitch={switchProfile} />;
-  }
 
   if (status === "load-error") {
     return (
       <div className="grid min-h-screen place-items-center p-6">
         <div className="max-w-md text-center space-y-4">
-          <h1 className="text-xl font-bold">We couldn&apos;t safely load your progress</h1>
-          <p>Your cloud progress has not been replaced. Try again before continuing.</p>
+          <h1 className="text-xl font-bold">We couldn&apos;t load your progress</h1>
+          <p>Check your internet connection, then try again. Your saved progress has not been changed.</p>
           <div className="flex justify-center gap-3">
             {activeProfile && <button onClick={() => selectProfile(activeProfile.id)}
               className="rounded-xl bg-indigo-600 px-5 py-3 font-semibold text-white">Try again</button>}

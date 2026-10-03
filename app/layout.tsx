@@ -5,9 +5,7 @@ import { ProgressProvider } from "@/lib/store";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Mascot } from "@/components/Mascot";
 import { AppGate } from "@/components/AppGate";
-import { ClientDiagnosticBoundary } from "@/components/ClientDiagnosticBoundary";
-import { DiagnosticStatus } from "@/components/DiagnosticStatus";
-import { DiagnosticSectionBoundary } from "@/components/DiagnosticSectionBoundary";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -27,19 +25,19 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-[var(--background)]">
-        <ClientDiagnosticBoundary>
+        {/* Errors in this layout bypass app/error.tsx, so the provider gets its own boundary. */}
+        <ErrorBoundary>
         <ProgressProvider>
-          <DiagnosticStatus />
           <AppGate>
-            <DiagnosticSectionBoundary section="SiteHeader"><SiteHeader /></DiagnosticSectionBoundary>
+            <ErrorBoundary silent><SiteHeader /></ErrorBoundary>
             <main className="flex-1">{children}</main>
-            <DiagnosticSectionBoundary section="Mascot"><Mascot /></DiagnosticSectionBoundary>
+            <ErrorBoundary silent><Mascot /></ErrorBoundary>
             <footer className="border-t border-slate-200 bg-white py-6 text-center text-sm text-slate-500">
               Year 8 Science Lab · Built for curious minds 🔬 · Progress syncs across devices.
             </footer>
           </AppGate>
         </ProgressProvider>
-        </ClientDiagnosticBoundary>
+        </ErrorBoundary>
       </body>
     </html>
   );

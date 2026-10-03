@@ -18,11 +18,9 @@ import {
   useState,
 } from "react";
 import type { Analytics, AttemptState, Profile, ProgressDoc, TopicStat } from "./profileTypes";
-import { emptyAnalytics, emptyProgress } from "./profileTypes";
+import { emptyProgress, normalizeProgress } from "./profileTypes";
 import { lookup } from "./questionIndex";
 import { createProgressSaveQueue, withProgressTimeout } from "./progressSaveQueue";
-import { captureProgressRenderHint, clearProgressRenderHint, knownRecoveryHints, type RecoveryHint } from "./progressRenderHint";
-import { classifyDiagnostic, diagnosticBlocked, reportDiagnostic, subscribeDiagnosticBlock } from "./clientDiagnostic";
 
 export type { AttemptState } from "./profileTypes";
 
@@ -45,7 +43,7 @@ export interface PublicAccount {
   profiles: Profile[];
 }
 
-type Status = "loading" | "anon" | "no-profile" | "ready" | "load-error" | "recovery";
+type Status = "loading" | "anon" | "no-profile" | "ready" | "load-error";
 
 type StoreData = ProgressDoc;
 
@@ -79,20 +77,21 @@ function pushLog(a: Analytics, type: string, topicId?: string, detail?: string):
   const log = [...a.log, { at: Date.now(), type, topicId, detail }].slice(-120);
   return { ...a, log, lastActiveAt: Date.now() };
 }
-function normalize(d: Partial<ProgressDoc> | null): ProgressDoc {
-  const base = emptyProgress();
-  if (!d) return base;
-  return {
-    ...base,
-    ...d,
-    streak: { ...base.streak, ...(d.streak || {}) },
-    analytics: { ...emptyAnalytics(), ...(d.analytics || {}), days: { ...(d.analytics?.days || {}) }, topics: { ...(d.analytics?.topics || {}) }, log: d.analytics?.log || [] },
-  };
+/** Network or server failures become a message, never an unhandled rejection. */
+const OFFLINE = "Couldn't reach the server. Check your internet connection and try again.";
+async function postJson(url: string, method: string, body: unknown): Promise<{ ok: boolean; data: Record<string, unknown> }> {
+  try {
+    const r = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    const data = await r.json().catch(() => ({}));
+    return { ok: r.ok, data: (data && typeof data === "object" ? data : {}) as Record<string, unknown> };
+  } catch {
+    return { ok: false, data: { error: OFFLINE } };
+  }
 }
+const errorOf = (data: Record<string, unknown>) => (typeof data.error === "string" ? data.error : "Something went wrong. Please try again.");
 
 interface StoreContextValue extends StoreData {
   status: Status;
-  recoveryHints: RecoveryHint[];
   account: PublicAccount | null;
   activeProfile: Profile | null;
   // auth / profile actions
@@ -131,7 +130,6 @@ function currentTopicId(): string | undefined {
 
 export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const [status, setStatus] = useState<Status>("loading");
-  const [recoveryHints, setRecoveryHints] = useState<RecoveryHint[]>([]);
   const [account, setAccount] = useState<PublicAccount | null>(null);
   const [activeProfile, setActiveProfile] = useState<Profile | null>(null);
   const [data, setData] = useState<StoreData>(emptyProgress());
@@ -147,10 +145,11 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const saveRevision = useRef(0);
   const saver = useRef<ReturnType<typeof createProgressSaveQueue> | null>(null);
   if (!saver.current) saver.current = createProgressSaveQueue(async (snapshot) => {
-    if (diagnosticBlocked()) throw new Error("Progress saves are paused");
     if (accountRef.current?.id !== snapshot.accountId) throw new Error("Account changed before save");
     const response = await withProgressTimeout((signal) => fetch("/api/progress", {
       method: "POST", headers: { "Content-Type": "application/json" }, body: snapshot.body, signal,
+      // Lets a save started as the app is closed finish; browsers cap keepalive bodies at 64 KB.
+      keepalive: snapshot.body.length < 60000,
     }));
     if (!response.ok) throw new Error("Progress could not be saved");
     try {
@@ -160,16 +159,23 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     } catch {}
   }, 1800);
 
-  // Cancel unsent work when a diagnostic blocks the UI or this provider unmounts.
-  // The existing cache and dirty marker are retained for a later safe reload.
+  // Send pending work as soon as the app is hidden (switching apps, locking the
+  // phone) so another device sees it. On unmount, unsent work is cancelled; the
+  // local cache and its dirty marker keep it for the next load.
   useEffect(() => {
+    const onHide = () => {
+      if (document.visibilityState === "hidden") void saver.current?.flush().catch(() => {});
+    };
     const stop = () => {
       canSaveRef.current = false;
       ++loadVersion.current;
       saver.current?.cancel();
     };
-    const unsubscribe = subscribeDiagnosticBlock(stop);
-    return () => { unsubscribe(); stop(); };
+    document.addEventListener("visibilitychange", onHide);
+    return () => {
+      document.removeEventListener("visibilitychange", onHide);
+      stop();
+    };
   }, []);
 
   // ---- bootstrap: who is signed in? ----
@@ -179,12 +185,13 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
         const r = await fetch("/api/auth/me", { cache: "no-store" });
         const j = await r.json();
         if (j.account) {
-          setAccount(j.account);
-          const lastId = localStorage.getItem(lastProfileKey(j.account.id));
-          const prof = j.account.profiles.find((p: Profile) => p.id === lastId);
+          const acc: PublicAccount = { ...j.account, profiles: Array.isArray(j.account.profiles) ? j.account.profiles : [] };
+          setAccount(acc);
+          let lastId: string | null = null;
+          try { lastId = localStorage.getItem(lastProfileKey(acc.id)); } catch {}
+          const prof = acc.profiles.find((p) => p.id === lastId);
           if (prof) {
-            try { await loadProfile(j.account.id, prof); }
-            catch (error) { reportDiagnostic("SCI-PROMISE", classifyDiagnostic(error), "ProgressProvider"); }
+            await selectLoaded(acc.id, prof);
             return;
           }
           setStatus("no-profile");
@@ -198,10 +205,17 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Unexpected failures while loading show the retry screen rather than crashing.
+  async function selectLoaded(accountId: string, prof: Profile) {
+    try { await loadProfile(accountId, prof); }
+    catch (error) {
+      console.error("Could not load learner progress", error);
+      canSaveRef.current = false;
+      setStatus("load-error");
+    }
+  }
+
   async function loadProfile(accountId: string, prof: Profile) {
-    if (diagnosticBlocked()) return;
-    clearProgressRenderHint();
-    setRecoveryHints([]);
     const version = ++loadVersion.current;
     canSaveRef.current = false;
     setStatus("loading");
@@ -212,7 +226,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     let dirty = false;
     try {
       const raw = localStorage.getItem(cacheKey(accountId, prof.id));
-      if (raw) cached = normalize(JSON.parse(raw));
+      if (raw) cached = normalizeProgress(JSON.parse(raw));
       dirty = !!localStorage.getItem(`${cacheKey(accountId, prof.id)}:dirty`);
     } catch {}
     let doc = cached ?? emptyProgress();
@@ -225,7 +239,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       });
       if (version !== loadVersion.current) return;
       // Unsynced local work takes precedence over an older remote copy.
-      if (!cached || !dirty) doc = normalize(j.progress);
+      if (!cached || !dirty) doc = normalizeProgress(j.progress);
     } catch {
       if (version !== loadVersion.current) return;
       // An unreadable remote document is not evidence of empty progress.
@@ -235,16 +249,6 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       }
     }
     if (version !== loadVersion.current) return;
-    const recovery = knownRecoveryHints(doc);
-    captureProgressRenderHint(doc);
-    if (recovery.length > 0) {
-      // Preserve the selected document as-is; readers below never consume it.
-      canSaveRef.current = false;
-      setData(doc);
-      setRecoveryHints(recovery);
-      setStatus("recovery");
-      return;
-    }
     doc = { ...doc, analytics: pushLog({ ...doc.analytics, sessionCount: doc.analytics.sessionCount + 1 }, "start") };
     setData(doc);
     try { localStorage.setItem(lastProfileKey(accountId), prof.id); } catch {}
@@ -254,7 +258,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
 
   // ---- persist an immutable, learner-bound snapshot (debounced) ----
   useEffect(() => {
-    if (diagnosticBlocked() || status !== "ready" || !accountRef.current || !activeRef.current || !canSaveRef.current) return;
+    if (status !== "ready" || !accountRef.current || !activeRef.current || !canSaveRef.current) return;
     const acc = accountRef.current.id;
     const pid = activeRef.current.id;
     const key = cacheKey(acc, pid);
@@ -270,10 +274,10 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   // ---- heartbeat: time on task ----
   useEffect(() => {
     const id = setInterval(() => {
-      if (!canSaveRef.current || diagnosticBlocked() || status !== "ready" || document.visibilityState !== "visible") return;
+      if (!canSaveRef.current || status !== "ready" || document.visibilityState !== "visible") return;
       const tid = currentTopicId();
       setData((d) => {
-        if (!canSaveRef.current || diagnosticBlocked()) return d;
+        if (!canSaveRef.current) return d;
         const today = todayISO();
         const days = { ...d.analytics.days };
         const day = { ...(days[today] || { timeMs: 0, answered: 0, correct: 0 }) };
@@ -293,19 +297,17 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
 
   // ---- auth / profile actions ----
   const signup = useCallback(async (username: string, password: string, pin: string) => {
-    const r = await fetch("/api/auth/signup", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ username, password, pin }) });
-    const j = await r.json();
-    if (!r.ok) return { ok: false, error: j.error };
-    setAccount(j.account);
+    const { ok, data } = await postJson("/api/auth/signup", "POST", { username, password, pin });
+    if (!ok) return { ok: false, error: errorOf(data) };
+    setAccount(data.account as PublicAccount);
     setStatus("no-profile");
     return { ok: true };
   }, []);
 
   const login = useCallback(async (username: string, password: string) => {
-    const r = await fetch("/api/auth/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ username, password }) });
-    const j = await r.json();
-    if (!r.ok) return { ok: false, error: j.error };
-    setAccount(j.account);
+    const { ok, data } = await postJson("/api/auth/login", "POST", { username, password });
+    if (!ok) return { ok: false, error: errorOf(data) };
+    setAccount(data.account as PublicAccount);
     setStatus("no-profile");
     return { ok: true };
   }, []);
@@ -324,31 +326,28 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const createProfile = useCallback(async (name: string, emoji: string) => {
-    const r = await fetch("/api/profiles", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, emoji }) });
-    const j = await r.json();
-    if (!r.ok) return { ok: false, error: j.error };
-    const prof: Profile = j.profile;
+    const { ok, data } = await postJson("/api/profiles", "POST", { name, emoji });
+    if (!ok || !data.profile) return { ok: false, error: errorOf(data) };
+    const prof = data.profile as Profile;
     setAccount((a) => (a ? { ...a, profiles: [...a.profiles, prof] } : a));
     const accId = accountRef.current?.id;
-    if (accId) await loadProfile(accId, prof);
+    if (accId) await selectLoaded(accId, prof);
     return { ok: true };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const updateProfile = useCallback(async (profileId: string, name: string, emoji: string) => {
-    const r = await fetch("/api/profiles", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ profileId, name, emoji }) });
-    const j = await r.json();
-    if (!r.ok) return { ok: false, error: j.error };
-    const prof: Profile = j.profile;
+    const { ok, data } = await postJson("/api/profiles", "PATCH", { profileId, name, emoji });
+    if (!ok || !data.profile) return { ok: false, error: errorOf(data) };
+    const prof = data.profile as Profile;
     setAccount((a) => (a ? { ...a, profiles: a.profiles.map((p) => (p.id === prof.id ? prof : p)) } : a));
     setActiveProfile((p) => (p && p.id === prof.id ? prof : p));
     return { ok: true };
   }, []);
 
   const deleteProfile = useCallback(async (profileId: string) => {
-    const r = await fetch("/api/profiles", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ profileId }) });
-    const j = await r.json();
-    if (!r.ok) return { ok: false, error: j.error };
+    const { ok, data } = await postJson("/api/profiles", "DELETE", { profileId });
+    if (!ok) return { ok: false, error: errorOf(data) };
     setAccount((a) => (a ? { ...a, profiles: a.profiles.filter((p) => p.id !== profileId) } : a));
     if (activeRef.current?.id === profileId) {
       canSaveRef.current = false;
@@ -362,10 +361,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const selectProfile = useCallback(async (profileId: string) => {
     const acc = accountRef.current;
     const prof = acc?.profiles.find((p) => p.id === profileId);
-    if (acc && prof) {
-      try { await loadProfile(acc.id, prof); }
-      catch (error) { reportDiagnostic("SCI-PROMISE", classifyDiagnostic(error), "ProgressProvider"); }
-    }
+    if (acc && prof) await selectLoaded(acc.id, prof);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -379,10 +375,10 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     setStatus("no-profile");
   }, []);
 
-  // Recheck inside the React updater so stale callbacks cannot modify recovery data.
+  // Recheck inside the React updater so stale callbacks cannot modify an unloaded learner.
   const updateProgress = useCallback((update: (current: StoreData) => StoreData) => {
-    if (!canSaveRef.current || diagnosticBlocked()) return;
-    setData(current => !canSaveRef.current || diagnosticBlocked() ? current : update(current));
+    if (!canSaveRef.current) return;
+    setData(current => !canSaveRef.current ? current : update(current));
   }, []);
 
   // ---- progress mutations ----
@@ -489,7 +485,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   }, [updateProgress]);
 
   const resetAll = useCallback(() => {
-    if (!canSaveRef.current || diagnosticBlocked()) return;
+    if (!canSaveRef.current) return;
     const fresh = emptyProgress();
     fresh.analytics.sessionCount = dataRef.current.analytics.sessionCount;
     updateProgress(() => fresh);
@@ -499,7 +495,6 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     () => ({
       ...data,
       status,
-      recoveryHints,
       account,
       activeProfile,
       signup,
@@ -522,7 +517,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       touchStreak,
       resetAll,
     }),
-    [data, status, recoveryHints, account, activeProfile, signup, login, logout, createProfile, updateProfile, deleteProfile, selectProfile, switchProfile, award, hasAward, saveAttempt, getAttempt, markGuideRead, setLast, recordResult, setChallengeBest, setGoalMinutes, touchStreak, resetAll],
+    [data, status, account, activeProfile, signup, login, logout, createProfile, updateProfile, deleteProfile, selectProfile, switchProfile, award, hasAward, saveAttempt, getAttempt, markGuideRead, setLast, recordResult, setChallengeBest, setGoalMinutes, touchStreak, resetAll],
   );
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
