@@ -407,7 +407,7 @@ export const acidsMetals: Topic = {
         answerIndex: 1,
         hint: "Magnesium is high up; gold is right at the bottom.",
         explanation:
-          "The order runs Mg > Fe > Cu > Au, so option B is most-to-least reactive. Option A has it reversed (gold first is least reactive).",
+          "The order runs Mg > Fe > Cu > Au, so Magnesium, Iron, Copper, Gold is most-to-least reactive. Gold, Copper, Iron, Magnesium is the same list reversed (gold is the least reactive).",
         guideRef: "reactivity-series",
       },
       {
@@ -567,7 +567,7 @@ export const acidsMetals: Topic = {
           { id: "acids-metals-mcq-p3-q13", question: "Which metal would NOT displace copper from copper sulfate?", options: ["Magnesium", "Zinc", "Iron", "Silver"], answerIndex: 3, hint: "It must be less reactive than copper.", explanation: "Silver is less reactive than copper, so it cannot displace it. The others are more reactive.", guideRef: "displacement" },
           { id: "acids-metals-mcq-p3-q14", question: "Which acid is found in the stomach?", options: ["Sulfuric acid", "Hydrochloric acid", "Nitric acid", "Citric acid"], answerIndex: 1, hint: "It makes chlorides.", explanation: "The stomach contains hydrochloric acid. Citric acid is in fruit.", guideRef: "acids-bases-alkalis" },
           { id: "acids-metals-mcq-p3-q15", question: "Which best describes 'concentrated'?", options: ["Little acid, much water", "Much acid, little water", "No acid", "A weak acid"], answerIndex: 1, hint: "Crowded particles.", explanation: "Concentrated means lots of acid in little water. Dilute is the opposite.", guideRef: "properties-safety" },
-          { id: "acids-metals-mcq-p3-q16", question: "Which is the correct order, most to least reactive?", options: ["Na, Mg, Zn, Cu", "Cu, Zn, Mg, Na", "Mg, Na, Cu, Zn", "Zn, Cu, Na, Mg"], answerIndex: 0, hint: "Sodium is very reactive.", explanation: "Na > Mg > Zn > Cu is correct. Option B is reversed.", guideRef: "reactivity-series" },
+          { id: "acids-metals-mcq-p3-q16", question: "Which is the correct order, most to least reactive?", options: ["Na, Mg, Zn, Cu", "Cu, Zn, Mg, Na", "Mg, Na, Cu, Zn", "Zn, Cu, Na, Mg"], answerIndex: 0, hint: "Sodium is very reactive.", explanation: "Na > Mg > Zn > Cu is correct. Cu, Zn, Mg, Na is the same list reversed.", guideRef: "reactivity-series" },
           { id: "acids-metals-mcq-p3-q17", question: "Carbon dioxide from a carbonate reaction makes limewater:", options: ["Clear blue", "Milky white", "Bright green", "Red"], answerIndex: 1, hint: "Cloudy.", explanation: "Limewater turns milky white with carbon dioxide. No colour like green or red appears.", guideRef: "acid-carbonate" },
           { id: "acids-metals-mcq-p3-q18", question: "Which metal needs electrolysis to extract?", options: ["Iron", "Copper", "Aluminium", "Gold"], answerIndex: 2, hint: "Very reactive metal.", explanation: "Aluminium is too reactive for carbon, so electrolysis is used. Iron can use carbon.", guideRef: "displacement" },
           { id: "acids-metals-mcq-p3-q19", question: "An acid + alkali reaction is called:", options: ["Displacement", "Neutralisation", "Combustion", "Corrosion"], answerIndex: 1, hint: "It cancels acidity.", explanation: "Acid + alkali is neutralisation. Displacement involves metals, not acids and alkalis.", guideRef: "neutralisation" },

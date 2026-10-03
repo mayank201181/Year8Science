@@ -322,7 +322,7 @@ export const elementsCompoundsMixtures: Topic = {
         ],
         answerIndex: 0,
         hint: "Think about how many types of atom are present.",
-        explanation: "An element contains only one type of atom. Option B describes a compound, option C a mixture, and option D a solution.",
+        explanation: "An element contains only one type of atom. Elements chemically bonded together make a compound, substances mixed but not bonded make a mixture, and a solid dissolved in a liquid is a solution.",
         guideRef: "atoms-elements",
       },
       {

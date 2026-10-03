@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { MCQ, QA } from "@/lib/types";
 import { useStore, type AttemptState } from "@/lib/store";
 import { scoreSelfAssessment, claimAssessment } from "@/lib/selfAssessment";
+import { optionOrder } from "@/lib/optionOrder";
 import { MarkdownLite } from "./MarkdownLite";
 import { AskAI } from "./AskAI";
 
@@ -391,9 +392,11 @@ function McqBody({
   checked: boolean;
   onSelect: (i: number) => void;
 }) {
+  // Options are shown in a per-question order; `i` stays the authored index.
   return (
     <div className="space-y-2">
-      {mcq.options.map((opt, i) => {
+      {optionOrder(mcq).map((i, position) => {
+        const opt = mcq.options[i];
         const isSel = selected === i;
         const isCorrect = i === mcq.answerIndex;
         let cls = "border-slate-200 bg-white hover:border-indigo-300";
@@ -412,7 +415,7 @@ function McqBody({
             className={`flex w-full items-center gap-3 rounded-xl border-2 px-4 py-3 text-left transition ${cls}`}
           >
             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-slate-300 bg-white text-sm font-bold text-slate-600">
-              {String.fromCharCode(65 + i)}
+              {String.fromCharCode(65 + position)}
             </span>
             <span className="text-slate-800">{opt}</span>
             {checked && isCorrect && <span className="ml-auto">✅</span>}

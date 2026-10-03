@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { TOPIC_META } from "@/lib/topics/_meta";
 import { RANKS, rankFor, useStore } from "@/lib/store";
 
@@ -27,7 +27,7 @@ export default function ProgressPage() {
   const achievements: Achievement[] = [
     { id: "first-guide", name: "First Steps", emoji: "👣", done: guidesDone >= 1, hint: "Read your first guide" },
     { id: "five-guides", name: "Bookworm", emoji: "📚", done: guidesDone >= 5, hint: "Read 5 topic guides" },
-    { id: "all-guides", name: "Curriculum Crusher", emoji: "🏰", done: guidesDone >= TOPIC_META.length, hint: "Read all 12 guides" },
+    { id: "all-guides", name: "Curriculum Crusher", emoji: "🏰", done: guidesDone >= TOPIC_META.length, hint: `Read all ${TOPIC_META.length} guides` },
     { id: "first-paper", name: "Paper Rookie", emoji: "📝", done: completedAttempts >= 1, hint: "Finish any quiz or paper" },
     { id: "ten-papers", name: "Practice Machine", emoji: "⚙️", done: completedAttempts >= 10, hint: "Finish 10 quizzes/papers" },
     { id: "stars-100", name: "Century", emoji: "💯", done: stars >= 100, hint: "Collect 100 stars" },
@@ -89,16 +89,70 @@ export default function ProgressPage() {
       </div>
 
       <div className="mt-10 text-center">
-        <button
-          onClick={() => {
-            if (confirm("Reset all progress, stars and saved answers? This cannot be undone.")) resetAll();
-          }}
-          className="text-sm font-medium text-rose-500 hover:underline"
-        >
-          Reset all progress
-        </button>
+        <ResetProgress onReset={resetAll} />
       </div>
     </div>
+  );
+}
+
+/** Wiping a learner's progress also overwrites the cloud copy, so a grown-up must confirm with the parent PIN. */
+function ResetProgress({ onReset }: { onReset: () => void }) {
+  const [open, setOpen] = useState(false);
+  const [pin, setPin] = useState("");
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  async function confirmReset(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true);
+    setError("");
+    try {
+      const r = await fetch("/api/parent", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ pin, verifyOnly: true }) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) {
+        setError(j.error || "Could not check the PIN.");
+        return;
+      }
+      onReset();
+      setOpen(false);
+      setPin("");
+    } catch {
+      setError("Couldn't reach the server. Check your internet connection.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  if (!open) {
+    return (
+      <button onClick={() => setOpen(true)} className="text-sm font-medium text-rose-500 hover:underline">
+        Reset all progress
+      </button>
+    );
+  }
+  return (
+    <form onSubmit={confirmReset} className="mx-auto max-w-xs space-y-3 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-left">
+      <p className="text-sm text-rose-800">
+        This deletes all stars, scores and saved answers for this learner and can&apos;t be undone. A grown-up needs to enter the parent PIN.
+      </p>
+      <input
+        inputMode="numeric"
+        value={pin}
+        onChange={(e) => setPin(e.target.value.replace(/\D/g, "").slice(0, 8))}
+        aria-label="Parent PIN"
+        placeholder="Parent PIN"
+        className="w-full rounded-xl border border-rose-200 bg-white px-3 py-2 text-center tracking-widest outline-none focus:border-rose-400"
+      />
+      {error && <p className="text-sm text-rose-700">{error}</p>}
+      <div className="flex gap-2">
+        <button type="submit" disabled={busy || pin.length < 4} className="flex-1 rounded-xl bg-rose-600 px-3 py-2 text-sm font-semibold text-white disabled:opacity-50">
+          {busy ? "Checking…" : "Reset progress"}
+        </button>
+        <button type="button" onClick={() => { setOpen(false); setPin(""); setError(""); }} className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-600">
+          Cancel
+        </button>
+      </div>
+    </form>
   );
 }
 

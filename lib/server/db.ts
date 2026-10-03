@@ -1,7 +1,7 @@
 import { readJson, writeJson, deleteJson } from "./blob";
 import { hashSecret, toAccountId } from "./auth";
 import type { Profile, ProgressDoc } from "../profileTypes";
-import { emptyProgress } from "../profileTypes";
+import { emptyProgress, normalizeProgress } from "../profileTypes";
 import { randomBytes } from "crypto";
 
 export interface Account {
@@ -95,8 +95,8 @@ export async function deleteProfile(accountId: string, profileId: string): Promi
 }
 
 export async function getProgress(accountId: string, profileId: string): Promise<ProgressDoc> {
-  const doc = await readJson<ProgressDoc>(progressKey(accountId, profileId));
-  return doc ?? emptyProgress();
+  const doc = await readJson<unknown>(progressKey(accountId, profileId));
+  return doc ? normalizeProgress(doc) : emptyProgress();
 }
 
 export async function saveProgress(accountId: string, profileId: string, doc: ProgressDoc): Promise<void> {

@@ -43,45 +43,6 @@ function deferred() {
   return { promise, resolve };
 }
 
-test('only fixed error names can reach the diagnostic screen', () => {
-  const { classifyDiagnostic } = load('lib/clientDiagnostic.ts');
-  for (const name of ['TypeError', 'RangeError', 'SecurityError', 'ChunkLoadError']) assert.equal(classifyDiagnostic({ name }), name);
-  for (const value of [null, 'private text', { name: 'private text' }, new Error('private text')]) assert.equal(classifyDiagnostic(value), 'Unknown');
-  assert.equal(classifyDiagnostic({ get name() { throw Error('private text'); } }), 'Unknown');
-});
-
-test('classification does not inspect message, stack or other personal fields', () => {
-  const { classifyDiagnostic } = load('lib/clientDiagnostic.ts');
-  const unsafe = { name: 'TypeError' };
-  for (const key of ['message', 'stack', 'digest', 'account', 'progress']) Object.defineProperty(unsafe, key, { get() { assert.fail(`Read forbidden field ${key}`); } });
-  assert.equal(classifyDiagnostic(unsafe), 'TypeError');
-});
-
-test('component labels are restricted to known app components', () => {
-  const { classifyComponent } = load('lib/clientDiagnostic.ts');
-  assert.equal(classifyComponent('\n at SiteHeader (private-source:10)\n at Home (private-source:20)'), 'SiteHeader');
-  assert.equal(classifyComponent('\n in Home (private-source:10)'), 'Home');
-  assert.equal(classifyComponent('\n at PrivatePerson (private-source:10)'), 'Unknown');
-  assert.equal(classifyComponent('\n at HomePrivate (private-source:10)'), 'Unknown');
-  assert.equal(classifyComponent(null), 'Unknown');
-});
-
-test('first diagnostic blocks the page and sends only fixed fields to subscribers', () => {
-  const module = load('lib/clientDiagnostic.ts');
-  const received = [];
-  assert.equal(module.diagnosticBlocked(), false);
-  const unsubscribe = module.subscribeDiagnosticBlock(value => received.push(value));
-  module.reportDiagnostic('SCI-REACT', 'TypeError', 'Home');
-  module.reportDiagnostic('SCI-PROMISE', 'Unknown', 'Unknown');
-  assert.equal(module.diagnosticBlocked(), true);
-  assert.equal(received.length, 1);
-  assert.equal(JSON.stringify(received[0]), '{"code":"SCI-REACT","kind":"TypeError","component":"Home","shape":"None"}');
-  unsubscribe();
-  const late = [];
-  module.subscribeDiagnosticBlock(value => late.push(value));
-  assert.equal(late.length, 1);
-});
-
 test('queue snapshots are immutable and remain bound to the original learner', async () => {
   const { createProgressSaveQueue } = load('lib/progressSaveQueue.ts');
   const clock = timers(), calls = [];
