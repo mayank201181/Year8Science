@@ -128,6 +128,30 @@ test('cancellation does not claim to abort an already-started request; later sch
   assert.deepEqual(calls, ['1', '3']);
 });
 
+test('default timers work with browser-style setTimeout that rejects method calls', async () => {
+  // Browsers throw "Illegal invocation" when window.setTimeout is called with
+  // another object as `this`; Node does not, so emulate the browser here.
+  const strict = native => function (callback, delay) {
+    'use strict';
+    if (this !== undefined) throw new TypeError('Illegal invocation');
+    return native(callback, delay);
+  };
+  const filename = path.join(__dirname, '..', 'lib/progressSaveQueue.ts');
+  const source = ts.transpileModule(readFileSync(filename, 'utf8'), {
+    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
+  }).outputText;
+  const context = { exports: {}, setTimeout: strict(setTimeout), clearTimeout: strict(clearTimeout), AbortController };
+  vm.runInNewContext(source, context, { filename });
+  const calls = [];
+  const queue = context.exports.createProgressSaveQueue(async value => calls.push(value.revision), 1);
+  queue.schedule(snapshot('A', '1')); queue.schedule(snapshot('A', '2'));
+  await new Promise(resolve => setTimeout(resolve, 20));
+  assert.deepEqual(calls, ['2']);
+  queue.schedule(snapshot('A', '3')); queue.cancel();
+  await new Promise(resolve => setTimeout(resolve, 20));
+  assert.deepEqual(calls, ['2']);
+});
+
 test('a rejected send does not poison future saves', async () => {
   const { createProgressSaveQueue } = load('lib/progressSaveQueue.ts');
   let calls = 0;
