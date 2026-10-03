@@ -1,10 +1,12 @@
+import { currentProgressRenderHint, type ProgressRenderHint } from "./progressRenderHint";
+
 /** Only fixed, non-identifying values may enter the diagnostic UI. */
-export const SCIENCE_DIAGNOSTIC_BUILD = "SCI-20261003-02";
+export const SCIENCE_DIAGNOSTIC_BUILD = "SCI-20261003-03";
 export const DIAGNOSTIC_CODES = ["SCI-REACT", "SCI-JS", "SCI-PROMISE", "SCI-ROUTE", "SCI-ROOT"] as const;
 export type DiagnosticCode = typeof DIAGNOSTIC_CODES[number];
 export type DiagnosticKind = "TypeError" | "RangeError" | "SecurityError" | "ChunkLoadError" | "Unknown";
 export type DiagnosticComponent = "Home" | "SiteHeader" | "Mascot" | "ProgressProvider" | "AppGate" | "ProfilePicker" | "Unknown";
-export interface DiagnosticFailure { code: DiagnosticCode; kind: DiagnosticKind; component: DiagnosticComponent }
+export interface DiagnosticFailure { code: DiagnosticCode; kind: DiagnosticKind; component: DiagnosticComponent; shape: ProgressRenderHint }
 const COMPONENTS = ["Home", "SiteHeader", "Mascot", "ProgressProvider", "AppGate", "ProfilePicker"] as const;
 /** Stack text is inspected only to select a fixed label, never retained or shown.
  * Production minification may leave this Unknown; the code/category remain useful.
@@ -33,7 +35,7 @@ export function classifyDiagnostic(error: unknown): DiagnosticKind {
 export function diagnosticBlocked(): boolean { return blocked !== null; }
 export function reportDiagnostic(code: DiagnosticCode, kind: DiagnosticKind = "Unknown", component: DiagnosticComponent = "Unknown"): void {
   if (blocked !== null) return;
-  blocked = { code, kind, component };
+  blocked = { code, kind, component, shape: currentProgressRenderHint() };
   for (const listener of listeners) listener(blocked);
 }
 export function subscribeDiagnosticBlock(listener: (failure: DiagnosticFailure) => void): () => void {

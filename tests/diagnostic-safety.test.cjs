@@ -5,12 +5,21 @@ const path = require('node:path');
 const vm = require('node:vm');
 const ts = require('typescript');
 
-function load(relative) {
+function load(relative, modules = new Map()) {
   const filename = path.join(__dirname, '..', relative);
+  if (modules.has(filename)) return modules.get(filename);
   const source = ts.transpileModule(readFileSync(filename, 'utf8'), {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
   }).outputText;
-  const context = { exports: {}, setTimeout, clearTimeout, AbortController };
+  const exports = {};
+  modules.set(filename, exports);
+  const context = { exports, setTimeout, clearTimeout, AbortController,
+    require: name => {
+      if (!name.startsWith('.')) throw Error('Unexpected test dependency');
+      const target = path.relative(path.join(__dirname, '..'), path.resolve(path.dirname(filename), name + '.ts'));
+      return load(target, modules);
+    },
+  };
   vm.runInNewContext(source, context, { filename });
   return context.exports;
 }
@@ -66,7 +75,7 @@ test('first diagnostic blocks the page and sends only fixed fields to subscriber
   module.reportDiagnostic('SCI-PROMISE', 'Unknown', 'Unknown');
   assert.equal(module.diagnosticBlocked(), true);
   assert.equal(received.length, 1);
-  assert.equal(JSON.stringify(received[0]), '{"code":"SCI-REACT","kind":"TypeError","component":"Home"}');
+  assert.equal(JSON.stringify(received[0]), '{"code":"SCI-REACT","kind":"TypeError","component":"Home","shape":"None"}');
   unsubscribe();
   const late = [];
   module.subscribeDiagnosticBlock(value => late.push(value));

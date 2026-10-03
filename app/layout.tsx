@@ -7,6 +7,7 @@ import { Mascot } from "@/components/Mascot";
 import { AppGate } from "@/components/AppGate";
 import { ClientDiagnosticBoundary } from "@/components/ClientDiagnosticBoundary";
 import { DiagnosticStatus } from "@/components/DiagnosticStatus";
+import { DiagnosticSectionBoundary } from "@/components/DiagnosticSectionBoundary";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -30,9 +31,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ProgressProvider>
           <DiagnosticStatus />
           <AppGate>
-            <SiteHeader />
+            <DiagnosticSectionBoundary section="SiteHeader"><SiteHeader /></DiagnosticSectionBoundary>
             <main className="flex-1">{children}</main>
-            <Mascot />
+            <DiagnosticSectionBoundary section="Mascot"><Mascot /></DiagnosticSectionBoundary>
             <footer className="border-t border-slate-200 bg-white py-6 text-center text-sm text-slate-500">
               Year 8 Science Lab · Built for curious minds 🔬 · Progress syncs across devices.
             </footer>

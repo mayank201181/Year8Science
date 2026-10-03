@@ -4,11 +4,18 @@ import { usePathname } from "next/navigation";
 import { useStore } from "@/lib/store";
 import { AuthGate } from "./AuthGate";
 import { ProfilePicker } from "./ProfilePicker";
+import { RecoveryLearning } from "./RecoveryLearning";
 
 export function AppGate({ children }: { children: React.ReactNode }) {
-  const { status, activeProfile, selectProfile, logout } = useStore();
+  const { status, recoveryHints, activeProfile, selectProfile, switchProfile, logout } = useStore();
   const pathname = usePathname();
   const isParent = pathname?.startsWith("/parent");
+
+  if (status === "recovery") {
+    return <RecoveryLearning key={activeProfile?.id} hints={recoveryHints}
+      onRetry={() => { if (activeProfile) void selectProfile(activeProfile.id); }}
+      onSwitch={switchProfile} />;
+  }
 
   if (status === "load-error") {
     return (

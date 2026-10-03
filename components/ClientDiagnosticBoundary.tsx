@@ -1,6 +1,7 @@
 "use client";
 
 import { Component, type ErrorInfo, type ReactNode } from "react";
+import { currentProgressRenderHint } from "@/lib/progressRenderHint";
 import { DiagnosticScreen } from "./DiagnosticScreen";
 import { classifyComponent, classifyDiagnostic, reportDiagnostic, subscribeDiagnosticBlock, type DiagnosticFailure } from "@/lib/clientDiagnostic";
 
@@ -9,10 +10,10 @@ export class ClientDiagnosticBoundary extends Component<{ children: ReactNode },
   state: { failure: DiagnosticFailure | null } = { failure: null };
   private unsubscribe: (() => void) | undefined;
   static getDerivedStateFromError(error: unknown) {
-    return { failure: { code: "SCI-REACT" as const, kind: classifyDiagnostic(error), component: "Unknown" as const } };
+    return { failure: { code: "SCI-REACT" as const, kind: classifyDiagnostic(error), component: "Unknown" as const, shape: currentProgressRenderHint() } };
   }
   componentDidCatch(error: unknown, info: ErrorInfo) {
-    const failure: DiagnosticFailure = { code: "SCI-REACT", kind: classifyDiagnostic(error), component: classifyComponent(info.componentStack) };
+    const failure: DiagnosticFailure = { code: "SCI-REACT", kind: classifyDiagnostic(error), component: classifyComponent(info.componentStack), shape: currentProgressRenderHint() };
     reportDiagnostic(failure.code, failure.kind, failure.component);
     this.setState({ failure });
   }
