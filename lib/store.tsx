@@ -149,7 +149,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     const response = await withProgressTimeout((signal) => fetch("/api/progress", {
       method: "POST", headers: { "Content-Type": "application/json" }, body: snapshot.body, signal,
       // Lets a save started as the app is closed finish; browsers cap keepalive bodies at 64 KB.
-      keepalive: snapshot.body.length < 60000,
+      keepalive: new TextEncoder().encode(snapshot.body).length < 60000,
     }));
     if (!response.ok) throw new Error("Progress could not be saved");
     try {
