@@ -21,6 +21,7 @@ import type { Analytics, AttemptState, Profile, ProgressDoc, TopicStat } from ".
 import { emptyAnalytics, emptyProgress } from "./profileTypes";
 import { lookup } from "./questionIndex";
 import { createProgressSaveQueue, withProgressTimeout } from "./progressSaveQueue";
+import { classifyDiagnostic, diagnosticBlocked, reportDiagnostic, subscribeDiagnosticBlock } from "./clientDiagnostic";
 
 export type { AttemptState } from "./profileTypes";
 
@@ -143,6 +144,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const saveRevision = useRef(0);
   const saver = useRef<ReturnType<typeof createProgressSaveQueue> | null>(null);
   if (!saver.current) saver.current = createProgressSaveQueue(async (snapshot) => {
+    if (diagnosticBlocked()) throw new Error("Progress saves are paused");
     if (accountRef.current?.id !== snapshot.accountId) throw new Error("Account changed before save");
     const response = await withProgressTimeout((signal) => fetch("/api/progress", {
       method: "POST", headers: { "Content-Type": "application/json" }, body: snapshot.body, signal,
@@ -155,6 +157,18 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     } catch {}
   }, 1800);
 
+  // Cancel unsent work when a diagnostic blocks the UI or this provider unmounts.
+  // The existing cache and dirty marker are retained for a later safe reload.
+  useEffect(() => {
+    const stop = () => {
+      canSaveRef.current = false;
+      ++loadVersion.current;
+      saver.current?.cancel();
+    };
+    const unsubscribe = subscribeDiagnosticBlock(stop);
+    return () => { unsubscribe(); stop(); };
+  }, []);
+
   // ---- bootstrap: who is signed in? ----
   useEffect(() => {
     (async () => {
@@ -166,7 +180,8 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
           const lastId = localStorage.getItem(lastProfileKey(j.account.id));
           const prof = j.account.profiles.find((p: Profile) => p.id === lastId);
           if (prof) {
-            await loadProfile(j.account.id, prof);
+            try { await loadProfile(j.account.id, prof); }
+            catch (error) { reportDiagnostic("SCI-PROMISE", classifyDiagnostic(error), "ProgressProvider"); }
             return;
           }
           setStatus("no-profile");
@@ -181,6 +196,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   async function loadProfile(accountId: string, prof: Profile) {
+    if (diagnosticBlocked()) return;
     const version = ++loadVersion.current;
     canSaveRef.current = false;
     setStatus("loading");
@@ -223,7 +239,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
 
   // ---- persist an immutable, learner-bound snapshot (debounced) ----
   useEffect(() => {
-    if (status !== "ready" || !accountRef.current || !activeRef.current || !canSaveRef.current) return;
+    if (diagnosticBlocked() || status !== "ready" || !accountRef.current || !activeRef.current || !canSaveRef.current) return;
     const acc = accountRef.current.id;
     const pid = activeRef.current.id;
     const key = cacheKey(acc, pid);
@@ -239,7 +255,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   // ---- heartbeat: time on task ----
   useEffect(() => {
     const id = setInterval(() => {
-      if (status !== "ready" || document.visibilityState !== "visible") return;
+      if (diagnosticBlocked() || status !== "ready" || document.visibilityState !== "visible") return;
       const tid = currentTopicId();
       setData((d) => {
         const today = todayISO();
@@ -330,7 +346,10 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const selectProfile = useCallback(async (profileId: string) => {
     const acc = accountRef.current;
     const prof = acc?.profiles.find((p) => p.id === profileId);
-    if (acc && prof) await loadProfile(acc.id, prof);
+    if (acc && prof) {
+      try { await loadProfile(acc.id, prof); }
+      catch (error) { reportDiagnostic("SCI-PROMISE", classifyDiagnostic(error), "ProgressProvider"); }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -5,6 +5,8 @@ import { ProgressProvider } from "@/lib/store";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Mascot } from "@/components/Mascot";
 import { AppGate } from "@/components/AppGate";
+import { ClientDiagnosticBoundary } from "@/components/ClientDiagnosticBoundary";
+import { DiagnosticStatus } from "@/components/DiagnosticStatus";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -24,7 +26,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-[var(--background)]">
+        <ClientDiagnosticBoundary>
         <ProgressProvider>
+          <DiagnosticStatus />
           <AppGate>
             <SiteHeader />
             <main className="flex-1">{children}</main>
@@ -34,6 +38,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             </footer>
           </AppGate>
         </ProgressProvider>
+        </ClientDiagnosticBoundary>
       </body>
     </html>
   );
