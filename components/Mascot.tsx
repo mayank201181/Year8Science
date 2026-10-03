@@ -13,8 +13,13 @@ export function Mascot() {
   useEffect(() => {
     setHydrated(true);
     // Show on first mount unless dismissed earlier this session.
-    const dismissed = sessionStorage.getItem("mascotDismissed");
-    setOpen(!dismissed);
+    try {
+      const dismissed = sessionStorage.getItem("mascotDismissed");
+      setOpen(!dismissed);
+    } catch {
+      // Storage can be unavailable in restricted browsers; the guide is optional.
+      setOpen(true);
+    }
   }, []);
 
   const today = new Date().toISOString().slice(0, 10);
@@ -41,7 +46,7 @@ export function Mascot() {
 
   function dismiss() {
     setOpen(false);
-    sessionStorage.setItem("mascotDismissed", "1");
+    try { sessionStorage.setItem("mascotDismissed", "1"); } catch {}
   }
 
   if (!hydrated) return null;
@@ -73,3 +78,4 @@ export function Mascot() {
     </div>
   );
 }
+
