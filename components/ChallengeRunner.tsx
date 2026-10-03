@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { MCQ, Topic } from "@/lib/types";
 import { topicMcqPool } from "@/lib/questionIndex";
+import { optionOrder } from "@/lib/optionOrder";
 import { useStore } from "@/lib/store";
 
 const ROUND = 10;
@@ -27,6 +28,8 @@ export function ChallengeRunner({ topic }: { topic: Topic }) {
   const [correct, setCorrect] = useState(0);
   const [time, setTime] = useState(SECONDS);
   const [picked, setPicked] = useState<number | null>(null);
+  // The timer and the last answer can both try to finish a round; only the first counts.
+  const finished = useRef(false);
 
   useEffect(() => {
     if (phase !== "play") return;
@@ -42,6 +45,7 @@ export function ChallengeRunner({ topic }: { topic: Topic }) {
   const best = challengeBest[topic.id] ?? 0;
 
   function start() {
+    finished.current = false;
     setPhase("play");
     setIdx(0);
     setCorrect(0);
@@ -65,10 +69,13 @@ export function ChallengeRunner({ topic }: { topic: Topic }) {
   }
 
   function finish(finalCorrect?: number) {
+    if (finished.current) return;
+    finished.current = true;
     const c = finalCorrect ?? correct;
     const score = Math.round((c / questions.length) * 100);
     setChallengeBest(topic.id, score);
-    award(`challenge-done:${topic.id}:${Date.now()}`, 5);
+    // Effort stars once per topic per day, so rapid-fire guessing can't farm them.
+    award(`challenge-done:${topic.id}:${new Date().toISOString().slice(0, 10)}`, 5);
     if (score === 100) award(`challenge-perfect:${topic.id}`, 15);
     else if (score >= 80) award(`challenge-pass:${topic.id}`, 8);
     setPhase("done");
@@ -123,7 +130,8 @@ export function ChallengeRunner({ topic }: { topic: Topic }) {
       <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <p className="text-lg font-medium text-slate-900">{q.question}</p>
         <div className="mt-4 space-y-2">
-          {q.options.map((opt, i) => {
+          {optionOrder(q).map((i, position) => {
+            const opt = q.options[i];
             let cls = "border-slate-200 bg-white hover:border-indigo-300";
             if (picked !== null) {
               if (i === q.answerIndex) cls = "border-emerald-400 bg-emerald-50";
@@ -132,7 +140,7 @@ export function ChallengeRunner({ topic }: { topic: Topic }) {
             }
             return (
               <button key={i} onClick={() => choose(i)} disabled={picked !== null} className={`flex w-full items-center gap-3 rounded-xl border-2 px-4 py-3 text-left transition ${cls}`}>
-                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-slate-300 text-sm font-bold text-slate-600">{String.fromCharCode(65 + i)}</span>
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-slate-300 text-sm font-bold text-slate-600">{String.fromCharCode(65 + position)}</span>
                 <span className="text-slate-800">{opt}</span>
               </button>
             );

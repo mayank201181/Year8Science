@@ -317,7 +317,7 @@ export const breathing: Topic = {
         ],
         answerIndex: 2,
         hint: "Exhaled air has much more CO2 than inhaled air — about 100 times more.",
-        explanation: "Carbon dioxide rises from about 0.04% in to about 4% out. Option A is the oxygen figures, and 78% is nitrogen, which is unchanged.",
+        explanation: "Carbon dioxide rises from about 0.04% in to about 4% out. 21% in and 16% out are the oxygen figures, and 78% is nitrogen, which is unchanged.",
         guideRef: "inhaled-vs-exhaled",
       },
     ],
