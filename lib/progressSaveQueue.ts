@@ -13,7 +13,11 @@ interface TimerApi {
 export function createProgressSaveQueue(
   send: (snapshot: ProgressSaveSnapshot) => Promise<void>,
   delay: number,
-  timers: TimerApi = { set: setTimeout, clear: clearTimeout },
+  timers: TimerApi = {
+    // Native browser timers must not be called with this TimerApi as receiver.
+    set: (callback, delay) => setTimeout(callback, delay),
+    clear: (timer) => clearTimeout(timer),
+  },
 ) {
   let pending: ProgressSaveSnapshot | null = null;
   let timer: ReturnType<typeof setTimeout> | null = null;

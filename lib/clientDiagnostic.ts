@@ -1,7 +1,7 @@
 import { currentProgressRenderHint, type ProgressRenderHint } from "./progressRenderHint";
 
 /** Only fixed, non-identifying values may enter the diagnostic UI. */
-export const SCIENCE_DIAGNOSTIC_BUILD = "SCI-20261003-03";
+export const SCIENCE_DIAGNOSTIC_BUILD = "SCI-20261003-04";
 export const DIAGNOSTIC_CODES = ["SCI-REACT", "SCI-JS", "SCI-PROMISE", "SCI-ROUTE", "SCI-ROOT"] as const;
 export type DiagnosticCode = typeof DIAGNOSTIC_CODES[number];
 export type DiagnosticKind = "TypeError" | "RangeError" | "SecurityError" | "ChunkLoadError" | "Unknown";
