@@ -7,7 +7,7 @@ export const acidsMetalsExtras: TopicExtras = {
   hook: "Chop a red cabbage and you have accidentally made a spy gadget: a liquid that flashes pink, purple or green depending on what secret it touches. What is it actually detecting, and could you use it to unmask the hidden chemicals in your own kitchen?",
   didYouKnow: [
     "Your stomach is full of hydrochloric acid strong enough to dissolve metal, yet it does not dissolve you because your stomach lining grows a fresh protective coat every few days.",
-    "Bee stings are acidic and wasp stings are alkaline, which is why people once treated them with opposite remedies to try to neutralise the pain.",
+    "Diluting an acid and neutralising it are different: adding water lowers its concentration, while adding a suitable base causes a chemical reaction.",
     "The pH scale is logarithmic: lemon juice (pH 2) is about ten times more acidic than orange juice (pH 3) and a hundred times more acidic than tomato juice (pH 4).",
     "Some metals are so reactive that they fizz, hiss or even catch fire in plain water — caesium can explode the instant it touches a puddle.",
     "Indicators like the dye in red cabbage are made by plants partly to attract insects, but they happen to change colour when acids or alkalis tweak their molecular shape.",
