@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { MCQ, QA } from "@/lib/types";
 import { useStore, type AttemptState } from "@/lib/store";
-import { gradeQA, VERDICT_META, type Verdict } from "@/lib/grade";
+import { scoreSelfAssessment, claimAssessment } from "@/lib/selfAssessment";
 import { MarkdownLite } from "./MarkdownLite";
 import { AskAI } from "./AskAI";
 
@@ -37,15 +37,23 @@ export function PaperRunner(props: Props) {
   const [showHint, setShowHint] = useState(false);
   const [checked, setChecked] = useState(false); // current question has been checked
   const [showSummary, setShowSummary] = useState(false);
+  const [selfMarks, setSelfMarks] = useState<boolean[]>([]);
+  const claimedResults = useRef(new Set<string>());
 
   // ---- hydrate saved attempt ----
   useEffect(() => {
+    claimedResults.current.clear();
     const saved = getAttempt(storageKey);
     if (saved) {
       setIndex(Math.min(saved.index, questions.length - 1));
       setAnswers(saved.answers);
       setScores(saved.scores);
       setCompleted(saved.completed);
+    } else {
+      setIndex(0);
+      setAnswers({});
+      setScores({});
+      setCompleted(false);
     }
     setHydrated(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -73,17 +81,18 @@ export function PaperRunner(props: Props) {
     if (!q) return;
     const committed = answers[q.id];
     setShowHint(false);
+    setSelfMarks(kind === "qa" ? (q as QA).markScheme.map(() => false) : []);
     if (kind === "mcq") {
       setSelected(typeof committed === "number" ? committed : null);
       setChecked(typeof committed === "number");
       setDraft("");
     } else {
       setDraft(typeof committed === "string" ? committed : "");
-      setChecked(scores[q.id] !== undefined);
+      setChecked(typeof committed === "string");
       setSelected(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index, hydrated]);
+  }, [index, hydrated, storageKey, answers, scores, kind, q?.id]);
 
   const go = (i: number) => {
     if (i < 0 || i >= questions.length) return;
@@ -120,6 +129,7 @@ export function PaperRunner(props: Props) {
   function checkMcq() {
     if (selected === null) return;
     const mcq = q as MCQ;
+    if (!claimAssessment(claimedResults.current, mcq.id, answers[mcq.id] !== undefined)) return;
     const nextAnswers = { ...answers, [mcq.id]: selected };
     setAnswers(nextAnswers);
     setChecked(true);
@@ -132,39 +142,36 @@ export function PaperRunner(props: Props) {
     props.onProgress?.();
   }
 
-  // ---- checking a QA ----
-  const [qaResult, setQaResult] = useState<ReturnType<typeof gradeQA> | null>(null);
+  // Written answers are explicitly self-assessed against the model and mark points.
+  // Keyword overlap cannot validate the meaning or negation of an explanation.
   function checkQa() {
+    if (checked || !draft.trim()) return;
     const qa = q as QA;
-    const res = gradeQA(qa, draft);
-    setQaResult(res);
     setChecked(true);
     const nextAnswers = { ...answers, [qa.id]: draft };
-    const nextScores = { ...scores, [qa.id]: res.coverage };
     setAnswers(nextAnswers);
+    saveAttempt(storageKey, { index, answers: nextAnswers, scores, completed, updatedAt: Date.now() });
+  }
+
+  function submitQaAssessment() {
+    const qa = q as QA;
+    if (!checked || !claimAssessment(claimedResults.current, qa.id, scores[qa.id] !== undefined)) return;
+    const result = scoreSelfAssessment(selfMarks);
+    const nextScores = { ...scores, [qa.id]: result.coverage };
     setScores(nextScores);
-    recordResult(qa.id, res.verdict === "correct");
-    if (res.verdict === "correct") award(`ans:${storageKey}:${qa.id}`, 2);
-    else if (res.verdict === "partial") award(`ans:${storageKey}:${qa.id}`, 1);
-    saveAttempt(storageKey, { index, answers: nextAnswers, scores: nextScores, completed, updatedAt: Date.now() });
+    recordResult(qa.id, result.verdict === "correct");
+    if (result.verdict === "correct") award(`ans:${storageKey}:${qa.id}`, 2);
+    else if (result.verdict === "partial") award(`ans:${storageKey}:${qa.id}`, 1);
+    saveAttempt(storageKey, { index, answers, scores: nextScores, completed, updatedAt: Date.now() });
     props.onProgress?.();
   }
 
-  // recompute qaResult when navigating to an already-answered QA
-  useEffect(() => {
-    if (kind === "qa" && q && typeof answers[q.id] === "string" && scores[q.id] !== undefined) {
-      setQaResult(gradeQA(q as QA, answers[q.id] as string));
-    } else {
-      setQaResult(null);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index, hydrated]);
-
   function finish() {
-    setCompleted(true);
+    const fullyAnswered = questions.length > 0 && answeredCount === questions.length;
+    setCompleted(fullyAnswered);
     setShowSummary(true);
-    award(`done:${storageKey}`, 10);
-    saveAttempt(storageKey, { index, answers, scores, completed: true, updatedAt: Date.now() });
+    if (fullyAnswered) award(`done:${storageKey}`, 10);
+    saveAttempt(storageKey, { index, answers, scores, completed: fullyAnswered, updatedAt: Date.now() });
   }
 
   if (!questions.length) {
@@ -232,7 +239,16 @@ export function PaperRunner(props: Props) {
             onSelect={setSelected}
           />
         ) : (
-          <QaBody draft={draft} checked={checked} onChange={setDraft} result={qaResult} qa={q as QA} />
+          <QaBody
+            draft={draft}
+            checked={checked}
+            onChange={setDraft}
+            selfMarks={selfMarks}
+            onMarkChange={(i, value) => setSelfMarks((marks) => marks.map((mark, j) => j === i ? value : mark))}
+            onSubmit={submitQaAssessment}
+            savedCoverage={scores[q.id]}
+            qa={q as QA}
+          />
         )}
 
         {/* hint */}
@@ -257,18 +273,18 @@ export function PaperRunner(props: Props) {
           {kind === "mcq" ? (
             <button
               onClick={checkMcq}
-              disabled={selected === null}
+              disabled={selected === null || checked}
               className="rounded-xl bg-indigo-600 px-5 py-2.5 font-semibold text-white shadow-sm transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-40"
             >
-              {checked ? "Re-check" : "Check answer"}
+              {checked ? "Answer checked" : "Check answer"}
             </button>
           ) : (
             <button
               onClick={checkQa}
-              disabled={draft.trim().length < 2}
+              disabled={checked || draft.trim().length === 0}
               className="rounded-xl bg-indigo-600 px-5 py-2.5 font-semibold text-white shadow-sm transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-40"
             >
-              {checked ? "Re-check my answer" : "Check my answer"}
+              {checked ? "Compare below" : "Compare with model answer"}
             </button>
           )}
 
@@ -351,6 +367,7 @@ export function PaperRunner(props: Props) {
       {showSummary && (
         <SummaryCard
           questions={questions}
+          selfAssessed={kind === "qa"}
           statusOf={statusOf}
           onClose={() => setShowSummary(false)}
           onReview={(i) => {
@@ -408,54 +425,68 @@ function McqBody({
 }
 
 function QaBody({
-  draft,
-  checked,
-  onChange,
-  result,
-  qa,
+  draft, checked, onChange, selfMarks, onMarkChange, onSubmit, savedCoverage, qa,
 }: {
   draft: string;
   checked: boolean;
   onChange: (v: string) => void;
-  result: ReturnType<typeof gradeQA> | null;
+  selfMarks: boolean[];
+  onMarkChange: (i: number, value: boolean) => void;
+  onSubmit: () => void;
+  savedCoverage: number | undefined;
   qa: QA;
 }) {
+  const submitted = savedCoverage !== undefined;
   return (
     <div className="space-y-4">
       <textarea
         value={draft}
         onChange={(e) => onChange(e.target.value)}
+        disabled={checked}
         rows={5}
+        aria-label="Your original written answer"
         placeholder="Write your answer here…"
         className="w-full rounded-xl border border-slate-300 bg-slate-50 p-3 text-slate-800 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
       />
-
-      {checked && result && (
+      {checked && (
         <div className="space-y-3">
-          <Verdict result={result} />
-          {/* mark scheme breakdown */}
+          <p className="text-sm text-slate-600">
+            Compare your original answer with the model. Tick only points your answer
+            explained correctly, not words it happened to include. If unsure, leave
+            the point unticked and ask a grown-up or teacher. This is self-assessment.
+          </p>
+          <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
+            <p className="mb-1 text-sm font-bold text-indigo-800">Model answer</p>
+            <MarkdownLite text={qa.modelAnswer} className="text-indigo-900/90" />
+          </div>
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-            <p className="mb-2 text-sm font-bold text-slate-700">Mark scheme — did you mention…</p>
-            <ul className="space-y-1.5 text-sm">
+            <p className="mb-2 text-sm font-bold text-slate-700">Mark scheme</p>
+            <ul className="space-y-2 text-sm">
               {qa.markScheme.map((mp, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <span>{result.creditedPoints[i] ? "✅" : "⬜"}</span>
-                  <span className={result.creditedPoints[i] ? "text-slate-700" : "text-slate-500"}>
-                    {mp.point}
-                  </span>
+                <li key={i}>
+                  {submitted ? <span>{mp.point}</span> : (
+                    <label className="flex items-start gap-2 cursor-pointer">
+                      <input type="checkbox" checked={selfMarks[i] ?? false}
+                        onChange={(e) => onMarkChange(i, e.target.checked)} className="mt-1" />
+                      <span>{mp.point}</span>
+                    </label>
+                  )}
                 </li>
               ))}
             </ul>
           </div>
-          {/* model answer */}
-          <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
-            <p className="mb-1 text-sm font-bold text-indigo-800">⭐ Model answer</p>
-            <MarkdownLite text={qa.modelAnswer} className="text-indigo-900/90" />
-          </div>
-          {/* common error */}
+          {submitted ? (
+            <p className="rounded-xl border border-indigo-200 bg-indigo-50 p-3 text-sm text-indigo-900">
+              Saved written-practice score: {Math.round((savedCoverage ?? 0) * qa.markScheme.length)} / {qa.markScheme.length} points.
+              This is an unverified practice score. Earlier saved scores may have used the old automatic checker.
+            </p>
+          ) : (
+            <button onClick={onSubmit} className="rounded-xl bg-indigo-600 px-5 py-2.5 font-semibold text-white">
+              Save my self-assessment
+            </button>
+          )}
           <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
-            <span className="font-bold">Watch out: </span>
-            {qa.commonError}
+            <span className="font-bold">Watch out: </span>{qa.commonError}
           </div>
         </div>
       )}
@@ -463,27 +494,15 @@ function QaBody({
   );
 }
 
-function Verdict({ result }: { result: ReturnType<typeof gradeQA> }) {
-  const meta = VERDICT_META[result.verdict as Verdict];
-  return (
-    <div className={`flex items-center justify-between rounded-xl border p-4 ${meta.className}`}>
-      <span className="font-bold">
-        {meta.emoji} {meta.label}
-      </span>
-      <span className="text-sm font-medium">
-        You covered {result.hitCount} / {result.total} key points
-      </span>
-    </div>
-  );
-}
-
 function SummaryCard({
   questions,
+  selfAssessed,
   statusOf,
   onClose,
   onReview,
 }: {
   questions: (MCQ | QA)[];
+  selfAssessed: boolean;
   statusOf: (i: number) => "unanswered" | "correct" | "partial" | "incorrect";
   onClose: () => void;
   onReview: (i: number) => void;
@@ -498,7 +517,7 @@ function SummaryCard({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-2 text-5xl">{pct >= 80 ? "🏆" : pct >= 50 ? "👍" : "💪"}</div>
-        <h3 className="text-xl font-bold text-slate-900">You scored {pct}%</h3>
+        <h3 className="text-xl font-bold text-slate-900">{selfAssessed ? "Written practice score (unverified)" : "You scored"} {pct}%</h3>
         <p className="mt-1 text-slate-500">
           {correct} correct{partial > 0 ? `, ${partial} partial` : ""} out of {questions.length}
         </p>
@@ -529,3 +548,4 @@ function SummaryCard({
     </div>
   );
 }
+

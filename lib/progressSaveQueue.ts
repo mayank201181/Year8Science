@@ -1,0 +1,52 @@
+/** Each save binds its immutable payload to the account and learner that produced it. */
+export interface ProgressSaveSnapshot {
+  accountId: string;
+  profileId: string;
+  body: string;
+  cacheKey: string;
+  revision: string;
+}
+interface TimerApi {
+  set: (callback: () => void, delay: number) => ReturnType<typeof setTimeout>;
+  clear: (timer: ReturnType<typeof setTimeout>) => void;
+}
+export function createProgressSaveQueue(
+  send: (snapshot: ProgressSaveSnapshot) => Promise<void>,
+  delay: number,
+  timers: TimerApi = { set: setTimeout, clear: clearTimeout },
+) {
+  let pending: ProgressSaveSnapshot | null = null;
+  let timer: ReturnType<typeof setTimeout> | null = null;
+  let tail: Promise<void> = Promise.resolve();
+  function flush(): Promise<void> {
+    if (timer !== null) timers.clear(timer);
+    timer = null;
+    const snapshot = pending;
+    pending = null;
+    if (!snapshot) return tail;
+    const request = tail.then(() => send(snapshot));
+    tail = request.catch(() => {}); // Keep the queue usable after a failed save.
+    return request;
+  }
+  function schedule(snapshot: ProgressSaveSnapshot) {
+    // A different learner must not replace another learner's queued save.
+    if (pending && (pending.accountId !== snapshot.accountId || pending.profileId !== snapshot.profileId)) {
+      void flush().catch(() => {});
+    }
+    pending = { ...snapshot };
+    if (timer !== null) timers.clear(timer);
+    timer = timers.set(() => { void flush().catch(() => {}); }, delay);
+  }
+  return { schedule, flush };
+}
+
+/** Keep a stalled request from blocking profile switching or sign-out indefinitely. */
+export async function withProgressTimeout<T>(request: (signal: AbortSignal) => Promise<T>, timeoutMs = 10000): Promise<T> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await request(controller.signal);
+  } finally {
+    clearTimeout(timeout);
+  }
+}

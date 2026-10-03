@@ -20,6 +20,7 @@ import {
 import type { Analytics, AttemptState, Profile, ProgressDoc, TopicStat } from "./profileTypes";
 import { emptyAnalytics, emptyProgress } from "./profileTypes";
 import { lookup } from "./questionIndex";
+import { createProgressSaveQueue, withProgressTimeout } from "./progressSaveQueue";
 
 export type { AttemptState } from "./profileTypes";
 
@@ -42,7 +43,7 @@ export interface PublicAccount {
   profiles: Profile[];
 }
 
-type Status = "loading" | "anon" | "no-profile" | "ready";
+type Status = "loading" | "anon" | "no-profile" | "ready" | "load-error";
 
 type StoreData = ProgressDoc;
 
@@ -138,7 +139,21 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const activeRef = useRef(activeProfile);
   activeRef.current = activeProfile;
   const canSaveRef = useRef(false);
-  const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const loadVersion = useRef(0);
+  const saveRevision = useRef(0);
+  const saver = useRef<ReturnType<typeof createProgressSaveQueue> | null>(null);
+  if (!saver.current) saver.current = createProgressSaveQueue(async (snapshot) => {
+    if (accountRef.current?.id !== snapshot.accountId) throw new Error("Account changed before save");
+    const response = await withProgressTimeout((signal) => fetch("/api/progress", {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: snapshot.body, signal,
+    }));
+    if (!response.ok) throw new Error("Progress could not be saved");
+    try {
+      if (localStorage.getItem(`${snapshot.cacheKey}:dirty`) === snapshot.revision) {
+        localStorage.removeItem(`${snapshot.cacheKey}:dirty`);
+      }
+    } catch {}
+  }, 1800);
 
   // ---- bootstrap: who is signed in? ----
   useEffect(() => {
@@ -166,44 +181,59 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   async function loadProfile(accountId: string, prof: Profile) {
+    const version = ++loadVersion.current;
     canSaveRef.current = false;
+    setStatus("loading");
+    await saver.current!.flush().catch(() => {});
+    if (version !== loadVersion.current) return;
     setActiveProfile(prof);
-    // instant paint from cache
+    let cached: ProgressDoc | null = null;
+    let dirty = false;
     try {
-      const cached = localStorage.getItem(cacheKey(accountId, prof.id));
-      if (cached) setData(normalize(JSON.parse(cached)));
+      const raw = localStorage.getItem(cacheKey(accountId, prof.id));
+      if (raw) cached = normalize(JSON.parse(raw));
+      dirty = !!localStorage.getItem(`${cacheKey(accountId, prof.id)}:dirty`);
     } catch {}
-    setStatus("ready");
+    let doc = cached ?? emptyProgress();
+    setData(doc); // A fresh/offline profile must never inherit the prior learner's state.
     try {
-      const r = await fetch(`/api/progress?profileId=${prof.id}`, { cache: "no-store" });
-      const j = await r.json();
-      const doc = normalize(j.progress);
-      // register a new session
-      doc.analytics = pushLog({ ...doc.analytics, sessionCount: doc.analytics.sessionCount + 1 }, "start");
-      setData(doc);
+      const j = await withProgressTimeout(async (signal) => {
+        const r = await fetch(`/api/progress?profileId=${prof.id}`, { cache: "no-store", signal });
+        if (!r.ok) throw new Error("Progress unavailable");
+        return await r.json();
+      });
+      if (version !== loadVersion.current) return;
+      // Unsynced local work takes precedence over an older remote copy.
+      if (!cached || !dirty) doc = normalize(j.progress);
     } catch {
-      /* keep cache */
+      if (version !== loadVersion.current) return;
+      // An unreadable remote document is not evidence of empty progress.
+      if (!cached) {
+        setStatus("load-error");
+        return; // canSave remains false; retry before accepting new work.
+      }
     }
-    localStorage.setItem(lastProfileKey(accountId), prof.id);
+    if (version !== loadVersion.current) return;
+    doc = { ...doc, analytics: pushLog({ ...doc.analytics, sessionCount: doc.analytics.sessionCount + 1 }, "start") };
+    setData(doc);
+    try { localStorage.setItem(lastProfileKey(accountId), prof.id); } catch {}
     canSaveRef.current = true;
+    setStatus("ready");
   }
 
-  // ---- persist (debounced) ----
+  // ---- persist an immutable, learner-bound snapshot (debounced) ----
   useEffect(() => {
     if (status !== "ready" || !accountRef.current || !activeRef.current || !canSaveRef.current) return;
     const acc = accountRef.current.id;
     const pid = activeRef.current.id;
+    const key = cacheKey(acc, pid);
+    const revision = `${Date.now()}:${++saveRevision.current}`;
     try {
-      localStorage.setItem(cacheKey(acc, pid), JSON.stringify(data));
+      localStorage.setItem(key, JSON.stringify(data));
+      localStorage.setItem(`${key}:dirty`, revision);
     } catch {}
-    if (saveTimer.current) clearTimeout(saveTimer.current);
-    saveTimer.current = setTimeout(() => {
-      fetch("/api/progress", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ profileId: pid, progress: dataRef.current }),
-      }).catch(() => {});
-    }, 1800);
+    saver.current!.schedule({ accountId: acc, profileId: pid, cacheKey: key, revision,
+      body: JSON.stringify({ profileId: pid, progress: data }) });
   }, [data, status]);
 
   // ---- heartbeat: time on task ----
@@ -249,6 +279,10 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const logout = useCallback(async () => {
+    ++loadVersion.current;
+    canSaveRef.current = false;
+    setStatus("loading");
+    await saver.current!.flush().catch(() => {});
     await fetch("/api/auth/logout", { method: "POST" }).catch(() => {});
     setAccount(null);
     setActiveProfile(null);
@@ -301,13 +335,10 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const switchProfile = useCallback(() => {
-    // flush pending save immediately
-    const acc = accountRef.current?.id;
-    const pid = activeRef.current?.id;
-    if (acc && pid && canSaveRef.current) {
-      fetch("/api/progress", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ profileId: pid, progress: dataRef.current }) }).catch(() => {});
-    }
+    ++loadVersion.current;
     canSaveRef.current = false;
+    // flush() cancels the timer; its body is already bound to the old learner.
+    void saver.current!.flush().catch(() => {});
     setActiveProfile(null);
     setData(emptyProgress());
     setStatus("no-profile");
@@ -478,3 +509,4 @@ export function rankFor(stars: number) {
   for (const rank of RANKS) if (stars >= rank.min) r = rank;
   return r;
 }
+
