@@ -55,8 +55,9 @@ test('correct answers are spread evenly across displayed positions', () => {
   }
 });
 
-test('explanations and hints do not refer to options by letter', () => {
-  // Display letters no longer match authored positions, so quote option text instead.
-  const offenders = allMcqs.filter(q => /\b(?:[Oo]ptions?|[Aa]nswer|[Cc]hoice) [A-D]\b/.test(`${q.explanation} ${q.hint}`));
+test('explanations and hints do not refer to options by letter or position', () => {
+  // Displayed order no longer matches authored order, so quote option text instead.
+  const byPosition = /\b(?:[Oo]ptions?|[Aa]nswer|[Cc]hoice) [A-D]\b|\b(?:first|second|third|fourth|last|top|bottom) (?:option|choice)s?\b/i;
+  const offenders = allMcqs.filter(q => byPosition.test(`${q.explanation} ${q.hint}`));
   assert.deepEqual(offenders.map(q => q.id), []);
 });

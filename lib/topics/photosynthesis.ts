@@ -298,7 +298,7 @@ export const photosynthesis: Topic = {
         ],
         answerIndex: 1,
         hint: "Leaves look the colour of the light they bounce back, not the light they use.",
-        explanation: "Chlorophyll reflects green light to our eyes while absorbing red and blue. The first option is the classic trap: if chlorophyll absorbed green, leaves would not look green.",
+        explanation: "Chlorophyll reflects green light to our eyes while absorbing red and blue. 'Chlorophyll absorbs green light strongly' is the classic trap: if chlorophyll absorbed green, leaves would not look green.",
         guideRef: "chloroplasts",
       },
       {
@@ -471,10 +471,10 @@ export const photosynthesis: Topic = {
           {
             id: "photosynthesis-mcq-p1-q9",
             question: "In the symbol equation, why is 'light' written above the arrow?",
-            options: ["It is the energy source, needed but not used up", "It is a product", "It is a reactant that is used up", "It is a type of catalyst made by the plant"],
+            options: ["It is the energy source, not a chemical substance (reactant)", "It is a product", "It is a reactant that is used up", "It is a type of catalyst made by the plant"],
             answerIndex: 0,
             hint: "Is light a substance that gets turned into glucose?",
-            explanation: "Light is the energy source; it is needed but not consumed as a reactant, so it goes over the arrow.",
+            explanation: "Light is energy, not a substance, so it is not a reactant and goes over the arrow. Chlorophyll absorbs it and the energy is transferred to the chemical store of glucose.",
             guideRef: "equations",
           },
           {
@@ -1308,10 +1308,10 @@ export const photosynthesis: Topic = {
           {
             id: "photosynthesis-mcq-p4-q25",
             question: "Which everyday product most directly depends on photosynthesis having happened in the past?",
-            options: ["A plastic toy", "A glass bottle", "An iron nail", "Coal burned in a power station"],
+            options: ["A copper wire", "A glass bottle", "An iron nail", "Coal burned in a power station"],
             answerIndex: 3,
             hint: "Which formed from ancient living things?",
-            explanation: "Coal formed from ancient plants whose energy came from photosynthesis. Glass, plastic and iron are not formed from photosynthesising organisms in this way.",
+            explanation: "Coal formed from the remains of ancient plants, so burning it releases energy those plants stored by photosynthesis. Glass, copper and iron are made from rocks and minerals, not from the remains of living things.",
             guideRef: "importance-respiration",
           },
         ],

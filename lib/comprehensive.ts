@@ -44,7 +44,7 @@ export const COMPREHENSIVE: ComprehensiveExam = {
           options: ["glucose + oxygen gives carbon dioxide + water", "carbon dioxide + water gives glucose + oxygen", "glucose gives lactic acid", "water gives hydrogen + oxygen"],
           answerIndex: 0,
           hint: "It is the reverse of photosynthesis and releases energy.",
-          explanation: "Aerobic respiration uses glucose and oxygen to release energy, making carbon dioxide and water. The second option is wrong because that is photosynthesis.",
+          explanation: "Aerobic respiration uses glucose and oxygen to release energy, making carbon dioxide and water. 'Carbon dioxide + water gives glucose + oxygen' is wrong because that is photosynthesis.",
         },
         {
           id: "exam-mcq-p1-q6",
@@ -1238,7 +1238,7 @@ export const COMPREHENSIVE: ComprehensiveExam = {
           options: ["glucose + oxygen gives carbon dioxide + water", "carbon dioxide + water gives glucose + oxygen", "glucose gives ethanol + carbon dioxide", "salt + water gives acid"],
           answerIndex: 1,
           hint: "It builds glucose using light.",
-          explanation: "Photosynthesis combines carbon dioxide and water to make glucose and oxygen. The first option is wrong because that is respiration.",
+          explanation: "Photosynthesis combines carbon dioxide and water to make glucose and oxygen. 'Glucose + oxygen gives carbon dioxide + water' is wrong because that is respiration.",
         },
         {
           id: "exam-mcq-p4-q3",
@@ -3099,8 +3099,8 @@ export const COMPREHENSIVE: ComprehensiveExam = {
           hint: "Think about neutralisation and crops.",
           modelAnswer: "Lime is a base, so it neutralises the excess acid in the soil, raising the pH towards neutral. Many crops grow poorly in acidic soil, so neutralising it helps the crops grow better.",
           markScheme: [
-            { point: "Lime neutralises the acid", keywords: ["neutralise", "base", "raises pH"] },
-            { point: "Helps crops grow", keywords: ["crops grow", "better growth", "suitable pH"] },
+            { point: "Lime neutralises the acid", keywords: ["neutralise", "base", "raises ph"] },
+            { point: "Helps crops grow", keywords: ["crops grow", "better growth", "suitable ph"] },
           ],
           commonError: "Saying lime makes the soil more acidic; as a base it reduces acidity.",
         },
