@@ -21,6 +21,7 @@ import type { Analytics, AttemptState, Profile, ProgressDoc, TopicStat } from ".
 import { emptyAnalytics, emptyProgress } from "./profileTypes";
 import { lookup } from "./questionIndex";
 import { createProgressSaveQueue, withProgressTimeout } from "./progressSaveQueue";
+import { captureProgressRenderHint, clearProgressRenderHint, knownRecoveryHints, type RecoveryHint } from "./progressRenderHint";
 import { classifyDiagnostic, diagnosticBlocked, reportDiagnostic, subscribeDiagnosticBlock } from "./clientDiagnostic";
 
 export type { AttemptState } from "./profileTypes";
@@ -44,7 +45,7 @@ export interface PublicAccount {
   profiles: Profile[];
 }
 
-type Status = "loading" | "anon" | "no-profile" | "ready" | "load-error";
+type Status = "loading" | "anon" | "no-profile" | "ready" | "load-error" | "recovery";
 
 type StoreData = ProgressDoc;
 
@@ -91,6 +92,7 @@ function normalize(d: Partial<ProgressDoc> | null): ProgressDoc {
 
 interface StoreContextValue extends StoreData {
   status: Status;
+  recoveryHints: RecoveryHint[];
   account: PublicAccount | null;
   activeProfile: Profile | null;
   // auth / profile actions
@@ -129,6 +131,7 @@ function currentTopicId(): string | undefined {
 
 export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const [status, setStatus] = useState<Status>("loading");
+  const [recoveryHints, setRecoveryHints] = useState<RecoveryHint[]>([]);
   const [account, setAccount] = useState<PublicAccount | null>(null);
   const [activeProfile, setActiveProfile] = useState<Profile | null>(null);
   const [data, setData] = useState<StoreData>(emptyProgress());
@@ -197,6 +200,8 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
 
   async function loadProfile(accountId: string, prof: Profile) {
     if (diagnosticBlocked()) return;
+    clearProgressRenderHint();
+    setRecoveryHints([]);
     const version = ++loadVersion.current;
     canSaveRef.current = false;
     setStatus("loading");
@@ -230,6 +235,16 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       }
     }
     if (version !== loadVersion.current) return;
+    const recovery = knownRecoveryHints(doc);
+    captureProgressRenderHint(doc);
+    if (recovery.length > 0) {
+      // Preserve the selected document as-is; readers below never consume it.
+      canSaveRef.current = false;
+      setData(doc);
+      setRecoveryHints(recovery);
+      setStatus("recovery");
+      return;
+    }
     doc = { ...doc, analytics: pushLog({ ...doc.analytics, sessionCount: doc.analytics.sessionCount + 1 }, "start") };
     setData(doc);
     try { localStorage.setItem(lastProfileKey(accountId), prof.id); } catch {}
@@ -255,9 +270,10 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   // ---- heartbeat: time on task ----
   useEffect(() => {
     const id = setInterval(() => {
-      if (diagnosticBlocked() || status !== "ready" || document.visibilityState !== "visible") return;
+      if (!canSaveRef.current || diagnosticBlocked() || status !== "ready" || document.visibilityState !== "visible") return;
       const tid = currentTopicId();
       setData((d) => {
+        if (!canSaveRef.current || diagnosticBlocked()) return d;
         const today = todayISO();
         const days = { ...d.analytics.days };
         const day = { ...(days[today] || { timeMs: 0, answered: 0, correct: 0 }) };
@@ -363,37 +379,43 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     setStatus("no-profile");
   }, []);
 
+  // Recheck inside the React updater so stale callbacks cannot modify recovery data.
+  const updateProgress = useCallback((update: (current: StoreData) => StoreData) => {
+    if (!canSaveRef.current || diagnosticBlocked()) return;
+    setData(current => !canSaveRef.current || diagnosticBlocked() ? current : update(current));
+  }, []);
+
   // ---- progress mutations ----
   const award = useCallback((key: string, amount: number) => {
     let added = 0;
-    setData((d) => {
+    updateProgress((d) => {
       if (d.awarded[key]) return d;
       added = amount;
       return { ...d, stars: d.stars + amount, awarded: { ...d.awarded, [key]: true } };
     });
     return added;
-  }, []);
+  }, [updateProgress]);
 
   const hasAward = useCallback((key: string) => !!dataRef.current.awarded[key], []);
 
   const saveAttempt = useCallback((key: string, state: AttemptState) => {
-    setData((d) => ({ ...d, attempts: { ...d.attempts, [key]: state }, streak: bumpStreak(d.streak) }));
-  }, []);
+    updateProgress((d) => ({ ...d, attempts: { ...d.attempts, [key]: state }, streak: bumpStreak(d.streak) }));
+  }, [updateProgress]);
 
   const getAttempt = useCallback((key: string) => dataRef.current.attempts[key] as AttemptState | undefined, []);
 
   const markGuideRead = useCallback((topicId: string) => {
-    setData((d) => {
+    updateProgress((d) => {
       const topics = { ...d.analytics.topics };
       topics[topicId] = { ...(topics[topicId] || defTopic()), guideRead: true };
       const analytics = pushLog({ ...d.analytics, topics }, "guide", topicId);
       return { ...d, guidesRead: { ...d.guidesRead, [topicId]: true }, streak: bumpStreak(d.streak), analytics };
     });
-  }, []);
+  }, [updateProgress]);
 
   const recordResult = useCallback((qid: string, correct: boolean) => {
     const topicId = lookup(qid)?.topicId;
-    setData((d) => {
+    updateProgress((d) => {
       const missed = { ...d.missed };
       const srs = { ...d.srs };
       if (correct) {
@@ -438,14 +460,14 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       };
       return { ...d, missed, srs, streak: bumpStreak(d.streak), analytics };
     });
-  }, []);
+  }, [updateProgress]);
 
   const setGoalMinutes = useCallback((minutes: number) => {
-    setData((d) => ({ ...d, goalMinutes: Math.max(5, Math.min(60, Math.round(minutes))) }));
-  }, []);
+    updateProgress((d) => ({ ...d, goalMinutes: Math.max(5, Math.min(60, Math.round(minutes))) }));
+  }, [updateProgress]);
 
   const setChallengeBest = useCallback((topicId: string, score: number) => {
-    setData((d) => {
+    updateProgress((d) => {
       const topics = { ...d.analytics.topics };
       topics[topicId] = { ...(topics[topicId] || defTopic()), challengeBest: Math.max(topics[topicId]?.challengeBest ?? 0, score) };
       const analytics = pushLog({ ...d.analytics, topics }, "challenge", topicId, `${score}%`);
@@ -456,26 +478,28 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
         analytics,
       };
     });
-  }, []);
+  }, [updateProgress]);
 
   const touchStreak = useCallback(() => {
-    setData((d) => ({ ...d, streak: bumpStreak(d.streak) }));
-  }, []);
+    updateProgress((d) => ({ ...d, streak: bumpStreak(d.streak) }));
+  }, [updateProgress]);
 
   const setLast = useCallback((a: Omit<LastActivity, "at">) => {
-    setData((d) => ({ ...d, last: { ...a, at: Date.now() } }));
-  }, []);
+    updateProgress((d) => ({ ...d, last: { ...a, at: Date.now() } }));
+  }, [updateProgress]);
 
   const resetAll = useCallback(() => {
+    if (!canSaveRef.current || diagnosticBlocked()) return;
     const fresh = emptyProgress();
     fresh.analytics.sessionCount = dataRef.current.analytics.sessionCount;
-    setData(fresh);
-  }, []);
+    updateProgress(() => fresh);
+  }, [updateProgress]);
 
   const value = useMemo<StoreContextValue>(
     () => ({
       ...data,
       status,
+      recoveryHints,
       account,
       activeProfile,
       signup,
@@ -498,7 +522,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       touchStreak,
       resetAll,
     }),
-    [data, status, account, activeProfile, signup, login, logout, createProfile, updateProfile, deleteProfile, selectProfile, switchProfile, award, hasAward, saveAttempt, getAttempt, markGuideRead, setLast, recordResult, setChallengeBest, setGoalMinutes, touchStreak, resetAll],
+    [data, status, recoveryHints, account, activeProfile, signup, login, logout, createProfile, updateProfile, deleteProfile, selectProfile, switchProfile, award, hasAward, saveAttempt, getAttempt, markGuideRead, setLast, recordResult, setChallengeBest, setGoalMinutes, touchStreak, resetAll],
   );
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
