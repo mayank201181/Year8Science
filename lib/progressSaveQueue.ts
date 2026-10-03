@@ -10,10 +10,16 @@ interface TimerApi {
   set: (callback: () => void, delay: number) => ReturnType<typeof setTimeout>;
   clear: (timer: ReturnType<typeof setTimeout>) => void;
 }
+/** Wrapped, not `{ set: setTimeout }`: browsers throw "Illegal invocation" when
+ * window timers are called as methods of another object. */
+const browserTimers: TimerApi = {
+  set: (callback, delay) => setTimeout(callback, delay),
+  clear: (timer) => clearTimeout(timer),
+};
 export function createProgressSaveQueue(
   send: (snapshot: ProgressSaveSnapshot) => Promise<void>,
   delay: number,
-  timers: TimerApi = { set: setTimeout, clear: clearTimeout },
+  timers: TimerApi = browserTimers,
 ) {
   let pending: ProgressSaveSnapshot | null = null;
   let timer: ReturnType<typeof setTimeout> | null = null;
