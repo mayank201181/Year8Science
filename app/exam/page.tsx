@@ -20,7 +20,7 @@ export default function ExamPage() {
           <div className="grid h-16 w-16 place-items-center rounded-2xl bg-white text-4xl shadow-sm">🏁</div>
           <div>
             <h1 className="text-2xl font-extrabold text-slate-900">The Big Exam</h1>
-            <p className="text-slate-600">Everything, all at once — across all twelve topics.</p>
+            <p className="text-slate-600">Everything, all at once — Biology, Chemistry and Physics mixed together.</p>
           </div>
         </div>
         <p className="mt-4 text-sm text-slate-600">

@@ -9,10 +9,12 @@ export const dynamic = "force-dynamic";
 export async function POST(req: Request) {
   const acc = await currentAccount();
   if (!acc) return NextResponse.json({ error: "Not signed in." }, { status: 401 });
-  const { pin } = await req.json().catch(() => ({}));
+  const { pin, verifyOnly } = await req.json().catch(() => ({}));
   if (!pin || !verifySecret(String(pin), acc.pinSalt, acc.pinHash)) {
     return NextResponse.json({ error: "Incorrect parent PIN." }, { status: 401 });
   }
+  // Lets the app confirm a grown-up is present (e.g. before resetting progress).
+  if (verifyOnly) return NextResponse.json({ ok: true });
 
   const learners = await Promise.all(
     acc.profiles.map(async (profile) => {
@@ -24,6 +26,7 @@ export async function POST(req: Request) {
         streak: d.streak,
         guidesRead: Object.keys(d.guidesRead).length,
         toReview: Object.keys(d.missed).length,
+        reviewIds: Object.keys(d.srs),
         answered: a.answered,
         correct: a.correct,
         totalTimeMs: a.totalTimeMs,

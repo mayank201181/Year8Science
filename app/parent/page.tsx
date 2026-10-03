@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { getTopic } from "@/lib/topics";
+import { TOPIC_META } from "@/lib/topics/_meta";
+import { lookup } from "@/lib/questionIndex";
 import type { Analytics, Profile } from "@/lib/profileTypes";
 
 interface Learner {
@@ -11,6 +13,8 @@ interface Learner {
   streak: { count: number; best: number };
   guidesRead: number;
   toReview: number;
+  /** Questions on the spaced-repetition list (missed and not yet mastered). */
+  reviewIds?: string[];
   answered: number;
   correct: number;
   totalTimeMs: number;
@@ -51,14 +55,16 @@ export default function ParentPage() {
     e.preventDefault();
     setError("");
     setBusy(true);
-    const r = await fetch("/api/parent", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ pin }) });
-    const j = await r.json();
-    setBusy(false);
-    if (!r.ok) {
-      setError(j.error || "Could not unlock.");
-      return;
+    try {
+      const r = await fetch("/api/parent", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ pin }) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) setError(j.error || "Could not unlock.");
+      else setData(j);
+    } catch {
+      setError("Couldn't reach the server. Check your internet connection.");
+    } finally {
+      setBusy(false);
     }
-    setData(j);
   }
 
   if (!data) {
@@ -129,9 +135,11 @@ export default function ParentPage() {
                 <Stat label="Accuracy" value={`${acc}%`} />
                 <Stat label="Stars" value={`⭐ ${l.stars}`} />
                 <Stat label="Day streak" value={`🔥 ${l.streak.count}`} />
-                <Stat label="Guides read" value={`${l.guidesRead} / 12`} />
+                <Stat label="Guides read" value={`${l.guidesRead} / ${TOPIC_META.length}`} />
                 <Stat label="To review" value={String(l.toReview)} />
               </div>
+
+              <FocusAreas learner={l} />
 
               {/* last 7 days */}
               <div className="mt-6">
@@ -200,6 +208,58 @@ export default function ParentPage() {
           );
         })}
       </div>
+    </div>
+  );
+}
+
+/** Where to help next: lowest-accuracy topics and questions still being re-learnt. */
+function FocusAreas({ learner }: { learner: Learner }) {
+  const weakest = Object.entries(learner.topics)
+    .filter(([, t]) => t.answered >= 5)
+    .map(([id, t]) => ({ id, title: getTopic(id)?.title ?? id, answered: t.answered, acc: Math.round((t.correct / t.answered) * 100) }))
+    .filter((t) => t.acc < 80)
+    .sort((a, b) => a.acc - b.acc)
+    .slice(0, 3);
+  const byTopic = new Map<string, string[]>();
+  for (const id of learner.reviewIds ?? []) {
+    const item = lookup(id);
+    if (!item) continue;
+    byTopic.set(item.topicTitle, [...(byTopic.get(item.topicTitle) ?? []), item.q.question]);
+  }
+  const reviewTopics = [...byTopic.entries()].sort((a, b) => b[1].length - a[1].length).slice(0, 3);
+
+  return (
+    <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50/60 p-4">
+      <p className="text-sm font-bold text-amber-900">🎯 Focus areas</p>
+      {weakest.length === 0 && reviewTopics.length === 0 ? (
+        <p className="mt-1 text-sm text-amber-900/80">Nothing stands out yet. Weak spots appear here once a topic has 5+ answered questions below 80% accuracy, or questions are waiting for review.</p>
+      ) : (
+        <div className="mt-2 grid gap-4 sm:grid-cols-2">
+          {weakest.length > 0 && (
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-amber-800">Lowest accuracy</p>
+              <ul className="mt-1 space-y-1 text-sm text-slate-700">
+                {weakest.map((t) => (
+                  <li key={t.id}><span className="font-semibold">{t.title}</span> · {t.acc}% of {t.answered} answered</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {reviewTopics.length > 0 && (
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-amber-800">Still to master (review list)</p>
+              <ul className="mt-1 space-y-2 text-sm text-slate-700">
+                {reviewTopics.map(([title, questions]) => (
+                  <li key={title}>
+                    <span className="font-semibold">{title}</span> · {questions.length} question{questions.length === 1 ? "" : "s"}
+                    <span className="block text-xs text-slate-500">e.g. “{questions[0]}”</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

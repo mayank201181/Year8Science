@@ -10,7 +10,7 @@ export interface TopicMeta {
   accent: string;
 }
 
-// The full Year 8 science curriculum, four topics per science.
+// The full Year 8 science curriculum: four Biology, four Chemistry and six Physics topics.
 // Order here is the order shown on the home page.
 export const TOPIC_META: TopicMeta[] = [
   // Biology

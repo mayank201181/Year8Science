@@ -44,7 +44,7 @@ export default function Home() {
               Welcome to your <span className="text-indigo-600">Science Lab</span>
             </h1>
             <p className="mt-3 text-slate-600">
-              Twelve topics across Biology, Chemistry and Physics — each with an illustrated guide,
+              {TOPIC_META.length} topics across Biology, Chemistry and Physics — each with an illustrated guide,
               memory tricks, flashcards, quizzes and full practice papers. Learn deeply, then prove it.
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-3">

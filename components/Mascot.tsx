@@ -1,14 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useStore } from "@/lib/store";
+import { TOPIC_META } from "@/lib/topics/_meta";
 
 // "Professor Photon" — a small, dismissible guide that offers contextual nudges.
 export function Mascot() {
   const { stars, streak, srs, guidesRead, goalMinutes, analytics } = useStore();
   const [open, setOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     setHydrated(true);
@@ -39,7 +42,7 @@ export function Mascot() {
       return { text: `🔥 ${streak.count}-day streak! Do something today to keep the flame alive.`, cta: { href: "/review", label: "Quick review" } };
     if (goalMet)
       return { text: `🎉 Daily goal smashed — ${minsToday} minutes today! You're on fire.` };
-    if (guidesCount >= 1 && guidesCount < 12)
+    if (guidesCount >= 1 && guidesCount < TOPIC_META.length)
       return { text: `Nice work — ${guidesCount} guide${guidesCount > 1 ? "s" : ""} down! Try a timed Challenge to earn bonus stars. ⭐`, cta: { href: "/", label: "Pick a topic" } };
     return { text: "Looking great! Keep exploring — every star counts. 🌟" };
   }, [stars, streak.count, missedCount, guidesCount, goalMet, minsToday, goalMinutes]);
@@ -49,7 +52,8 @@ export function Mascot() {
     try { sessionStorage.setItem("mascotDismissed", "1"); } catch {}
   }
 
-  if (!hydrated) return null;
+  // The guide talks to the learner, so it stays off the parent dashboard.
+  if (!hydrated || pathname?.startsWith("/parent")) return null;
 
   return (
     <div className="fixed bottom-4 right-4 z-50 print:hidden">
