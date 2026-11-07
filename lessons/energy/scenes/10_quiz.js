@@ -151,7 +151,7 @@ scene('quiz', S => {
     const rcol = col(30, 'renewable', '#123526', C.good, C.good);
     [['coal', -184, 112], ['oil', -82, 112], ['wind', 82, 108], ['solar', 184, 116]].forEach(([k, x, y]) => { const r = enResource(g, k, { label: false }); tr(r, x, y, 0.58); });
     const rod = enResource(g, 'uranium', { label: false });
-    const rl = T(g, 30, -98, 'uranium', { size: 26, weight: 700, fill: '#8CF5A8' });
+    const rl = T(g, 30, -98, 'uranium', { size: 26, weight: 700, fill: '#DCCFFF' });
     const xR = cross(g, 22), tkL = tick(g, 18);
     return (t, ta) => {
       const d = P(t, ta + 0.1, 0.8, linear);

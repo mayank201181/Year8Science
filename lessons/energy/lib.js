@@ -495,9 +495,10 @@ function enResource(parent, kind, o) {
     E('path', { d: 'M0,-14 C8,-2 13,6 12,16 C11,26 6,30 0,30 C-6,30 -11,26 -12,16 C-13,6 -8,-2 0,-14 Z', fill: '#BFE0FF' }, fl);
     upd = t => fl.setAttribute('transform', `translate(0 34) scale(${(1 + 0.03 * Math.sin(t * 9)).toFixed(3)} ${(1 + 0.06 * Math.sin(t * 7 + 1)).toFixed(3)}) translate(0 -34)`);
   } else if (kind === 'uranium') {
-    E('circle', { r: 58, fill: glow('#7CF29A'), opacity: 0.55 }, k);
-    E('rect', { x: -15, y: -46, width: 30, height: 92, rx: 13, fill: ball('#8CF5A8', '#2E8F4C'), stroke: '#D4FFE0', 'stroke-width': 2.5 }, k);
-    [-24, -2, 20].forEach(y => E('line', { x1: -14, y1: y, x2: 14, y2: y, stroke: '#2E8F4C', 'stroke-width': 3 }, k));
+    // violet, the nuclear store's colour (green would read as gravitational or renewable)
+    E('circle', { r: 58, fill: glow(C.ethanol), opacity: 0.55 }, k);
+    E('rect', { x: -15, y: -46, width: 30, height: 92, rx: 13, fill: ball('#DCCFFF', C.ethanolDk), stroke: '#F1EBFF', 'stroke-width': 2.5 }, k);
+    [-24, -2, 20].forEach(y => E('line', { x1: -14, y1: y, x2: 14, y2: y, stroke: C.ethanolDk, 'stroke-width': 3 }, k));
   } else if (kind === 'solar') {
     P('M-50,16 L38,16 L52,-24 L-36,-24 Z', '#1D3D78', '#A9C8FF', 2.5);
     for (let i = 1; i < 4; i++) { const f = i / 4; P(`M${-50 + 88 * f},16 L${-36 + 88 * f},-24`, null, '#7FA6E8', 1.5); }
