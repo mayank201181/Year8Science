@@ -3,6 +3,7 @@ import type { TopicExtras } from "../types";
 // Engagement extras for digestion. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const digestionExtras: TopicExtras = {
+  lesson: { href: "/lessons/digestion.html", minutes: 15, chapters: 12 },
   interactive: "digestion-lab",
   hook: "Right now, coiled up inside you, is a tube about as long as two cars parked end to end — and a sandwich you ate at lunch is being taken apart, molecule by molecule, in acid strong enough to dissolve metal. So why doesn't your stomach simply digest itself?",
   didYouKnow: [
