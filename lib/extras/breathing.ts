@@ -39,7 +39,7 @@ export const breathingExtras: TopicExtras = {
       emoji: "🌬️",
       materials: [
         "A large bowl of water",
-        "A clear 1.5–2 litre bottle filled with water",
+        "A clear 3–5 litre plastic bottle filled with water (most Year 8 lungs can empty a 2-litre bottle in one breath)",
         "A length of bendy tube or a long straw",
         "A marker pen",
       ],

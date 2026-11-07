@@ -10,7 +10,7 @@ export const photosynthesisExtras: TopicExtras = {
     "A single large tree can pull more than 20 kilograms of carbon dioxide out of the air in one year and lock it away as wood.",
     "Leaves look green because chlorophyll throws AWAY green light — it absorbs red and blue and reflects the green it can't use, so green is the colour a plant rejects.",
     "Photosynthesis is incredibly slow to capture energy: a leaf turns less than about 1% of the sunlight that lands on it into chemical energy, yet that tiny fraction feeds nearly all life on Earth.",
-    "The first organisms to release oxygen poisoned the early planet — the build-up of this 'waste gas' billions of years ago caused one of the biggest mass extinctions ever, the Great Oxidation Event.",
+    "The first organisms to release oxygen poisoned the early planet — the build-up of this 'waste gas' billions of years ago, the Great Oxidation Event, may have caused one of the biggest mass extinctions ever.",
   ],
   experiments: [
     {
