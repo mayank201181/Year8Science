@@ -23,6 +23,8 @@ interface Learner {
   lastActiveAt: number;
   days: Analytics["days"];
   topics: Analytics["topics"];
+  /** Animated-lesson progress per topic (absent from older servers). */
+  lessons?: Record<string, { chapters: number; done: boolean }>;
   log: Analytics["log"];
 }
 
@@ -103,7 +105,7 @@ export default function ParentPage() {
       </div>
 
       {data.learners.length === 0 && (
-        <p className="rounded-2xl border border-slate-200 bg-white p-6 text-center text-slate-500">No learners yet. Add one from the “Who's studying?” screen.</p>
+        <p className="rounded-2xl border border-slate-200 bg-white p-6 text-center text-slate-500">No learners yet. Add one from the “Who&apos;s studying?” screen.</p>
       )}
 
       <div className="space-y-8">
@@ -165,9 +167,10 @@ export default function ParentPage() {
                       <tr>
                         <th className="py-1 pr-3">Topic</th>
                         <th className="py-1 pr-3">Time</th>
-                        <th className="py-1 pr-3">Q's</th>
+                        <th className="py-1 pr-3">Q&apos;s</th>
                         <th className="py-1 pr-3">Accuracy</th>
                         <th className="py-1 pr-3">Guide</th>
+                        <th className="py-1 pr-3">Lesson</th>
                         <th className="py-1">Challenge</th>
                       </tr>
                     </thead>
@@ -181,6 +184,9 @@ export default function ParentPage() {
                             <td className="py-1.5 pr-3 tabular-nums text-slate-600">{t.answered}</td>
                             <td className="py-1.5 pr-3 tabular-nums text-slate-600">{t.answered ? `${tacc}%` : "—"}</td>
                             <td className="py-1.5 pr-3">{t.guideRead ? "✅" : "—"}</td>
+                            <td className="py-1.5 pr-3 tabular-nums text-slate-600">
+                              {l.lessons?.[id]?.done ? "✅" : l.lessons?.[id]?.chapters ? `${l.lessons[id].chapters} ch` : "—"}
+                            </td>
                             <td className="py-1.5 tabular-nums text-slate-600">{t.challengeBest ? `${t.challengeBest}%` : "—"}</td>
                           </tr>
                         );

@@ -9,7 +9,7 @@ import { ListenButton } from "./ListenButton";
 import { AskAI } from "./AskAI";
 import { MarkdownLite } from "./MarkdownLite";
 
-export function GuideView({ topic }: { topic: Topic }) {
+export function GuideView({ topic, onWatch }: { topic: Topic; onWatch?: () => void }) {
   const { guidesRead, markGuideRead, award } = useStore();
   const read = !!guidesRead[topic.id];
   const extras = getExtras(topic.id);
@@ -42,11 +42,11 @@ export function GuideView({ topic }: { topic: Topic }) {
         </div>
       )}
 
-      {extras.lesson && (
-        // A static page in /public, so a plain link rather than next/link.
-        <a
-          href={extras.lesson.href}
-          className="flex items-center gap-4 rounded-2xl border-2 border-emerald-200 bg-emerald-50/70 p-4 transition hover:bg-emerald-100"
+      {extras.lesson && onWatch && (
+        <button
+          type="button"
+          onClick={onWatch}
+          className="flex w-full items-center gap-4 rounded-2xl border-2 border-emerald-200 bg-emerald-50/70 p-4 text-left transition hover:bg-emerald-100"
         >
           <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-emerald-600 text-white" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>
@@ -58,7 +58,7 @@ export function GuideView({ topic }: { topic: Topic }) {
             </span>
           </span>
           <span className="font-semibold text-emerald-800" aria-hidden="true">→</span>
-        </a>
+        </button>
       )}
 
       <div className="flex items-center justify-between gap-3">

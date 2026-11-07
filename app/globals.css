@@ -47,3 +47,8 @@ body {
 /* Thin custom scrollbar for the question navigator. */
 .nav-scroll::-webkit-scrollbar { height: 8px; }
 .nav-scroll::-webkit-scrollbar-thumb { background: #c7d2fe; border-radius: 9999px; }
+
+/* The Watch tab hides the mascot so it never covers the lesson controls. */
+body.lesson-watching [data-mascot] {
+  display: none;
+}
