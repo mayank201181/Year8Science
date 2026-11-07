@@ -353,15 +353,15 @@ small picture; outro sparks.
 ## Suggested split for the animators
 
 Four groups of three, balanced by length and difficulty (chapter lengths from
-`timeline.json`; the whole lesson is 14.6 minutes). Chapters that share art stay
+`timeline.json`; the whole lesson is 14.7 minutes). Chapters that share art stay
 together.
 
 | Group | Chapters | Length | Shared art and difficulty |
 | --- | --- | --- | --- |
-| A | intro (28 s), diet (93 s), deficiency (84 s) | 3.4 min | food icons, kit `person`/`sun`, charts; medium |
-| B | tests (64 s), why (67 s), enzymes (103 s) | 3.9 min | kit glassware; the molecule set and enzyme blobs (draw once, use in `why` and `enzymes`); medium-hard |
-| C | canal (82 s), villi (100 s), egestion (56 s) | 4.0 min | the gut diagram and villus (draw once); hardest art, fewest new ideas per line |
-| D | teeth (71 s), recap (60 s), quiz (71 s) | 3.4 min | new teeth; recap and quiz follow the Respiration pattern; easiest |
+| A | intro (29 s), diet (93 s), deficiency (84 s) | 3.4 min | food icons, kit `person`/`sun`, charts; medium |
+| B | tests (64 s), why (67 s), enzymes (104 s) | 3.9 min | kit glassware; the molecule set and enzyme blobs (draw once, use in `why` and `enzymes`); medium-hard |
+| C | canal (82 s), villi (100 s), egestion (57 s) | 4.0 min | the gut diagram and villus (draw once); hardest art, fewest new ideas per line |
+| D | teeth (71 s), recap (61 s), quiz (71 s) | 3.4 min | new teeth; recap and quiz follow the Respiration pattern; easiest |
 
 `intro` needs a simple version of the gut tube: group A can draw a plain coiled
 tube, or borrow group C's once it exists.
