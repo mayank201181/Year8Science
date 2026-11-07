@@ -286,7 +286,7 @@
    "short": "Electromagnets",
    "card": true,
    "start": 283.381,
-   "end": 364.928,
+   "end": 364.651,
    "lines": [
     {
      "id": "wire",
@@ -351,13 +351,13 @@
     {
      "id": "try",
      "start": 349.555,
-     "end": 358.92,
-     "cap": "Try it: coil insulated wire thirty times round an iron nail, and touch the bare ends to a **1.5 V** battery. Count the paperclips it lifts!"
+     "end": 358.643,
+     "cap": "Try it: coil insulated wire thirty times round an iron nail, and touch the bare ends to a **1.5 V** cell. Count the paperclips it lifts!"
     },
     {
      "id": "safe",
-     "start": 359.42,
-     "end": 364.028,
+     "start": 359.143,
+     "end": 363.751,
      "cap": "Never use the mains, and disconnect between tries, as the wire gets warm."
     }
    ]
@@ -367,55 +367,55 @@
    "title": "Current, conductors and insulators",
    "short": "Current",
    "card": true,
-   "start": 364.928,
-   "end": 417.952,
+   "start": 364.651,
+   "end": 417.675,
    "lines": [
     {
      "id": "current",
-     "start": 366.728,
-     "end": 372.488,
+     "start": 366.451,
+     "end": 372.211,
      "cap": "Now for electricity. **Electric current** is the flow of electric **charge** around a circuit."
     },
     {
      "id": "needs",
-     "start": 372.988,
-     "end": 380.199,
+     "start": 372.711,
+     "end": 379.921,
      "cap": "It needs two things: a **complete loop**, with no gaps, and a **cell** to push the charge round. Two or more cells make a **battery**."
     },
     {
      "id": "pump",
-     "start": 380.699,
-     "end": 383.856,
+     "start": 380.421,
+     "end": 383.579,
      "cap": "Think of the cell as a **pump**, pushing charge round the loop."
     },
     {
      "id": "gap",
-     "start": 384.856,
-     "end": 389.272,
+     "start": 384.579,
+     "end": 388.995,
      "cap": "Open a switch or break a wire, and the current stops **everywhere**, instantly."
     },
     {
      "id": "instant",
-     "start": 390.272,
-     "end": 398.059,
+     "start": 389.995,
+     "end": 397.781,
      "cap": "Close the switch, and the bulb lights at once. The charges drift slowly, but they fill the wire, so they all start moving together."
     },
     {
      "id": "conductors",
-     "start": 398.559,
-     "end": 405.001,
+     "start": 398.281,
+     "end": 404.724,
      "cap": "**Conductors** let current flow: all **metals**, like copper, gold and aluminium, and **carbon**, as graphite."
     },
     {
      "id": "insulators",
-     "start": 405.501,
-     "end": 409.384,
+     "start": 405.224,
+     "end": 409.107,
      "cap": "**Insulators** don't: **plastic**, **rubber**, **glass**, **wood** and **dry air**."
     },
     {
      "id": "wire",
-     "start": 409.884,
-     "end": 417.052,
+     "start": 409.607,
+     "end": 416.775,
      "cap": "So wires are **copper** inside **plastic**: the copper carries the current, and the plastic keeps it in, and keeps you safe."
     }
    ]
@@ -425,79 +425,79 @@
    "title": "Circuit symbols and diagrams",
    "short": "Circuit symbols",
    "card": true,
-   "start": 417.952,
-   "end": 487.684,
+   "start": 417.675,
+   "end": 487.407,
    "lines": [
     {
      "id": "why",
-     "start": 419.752,
-     "end": 426.109,
+     "start": 419.475,
+     "end": 425.832,
      "cap": "Scientists draw circuits with **circuit symbols**: a universal language that anyone, anywhere can read."
     },
     {
      "id": "cell",
-     "start": 426.609,
-     "end": 433.415,
+     "start": 426.332,
+     "end": 433.137,
      "cap": "A **cell** is a long thin line and a short thick line. The **long** line is **positive**; the short one is **negative**."
     },
     {
      "id": "battery",
-     "start": 433.915,
-     "end": 436.261,
+     "start": 433.637,
+     "end": 435.984,
      "cap": "Join two or more, and you have a **battery**."
     },
     {
      "id": "lamp",
-     "start": 436.761,
-     "end": 440.836,
+     "start": 436.484,
+     "end": 440.559,
      "cap": "A **lamp** is a circle with a cross inside, and a **buzzer** is a little dome."
     },
     {
      "id": "switch",
-     "start": 441.336,
-     "end": 445.219,
+     "start": 441.059,
+     "end": 444.941,
      "cap": "A **switch** is a line that lifts to make a gap, or drops to close it."
     },
     {
      "id": "meters",
-     "start": 445.719,
-     "end": 451.969,
+     "start": 445.441,
+     "end": 451.692,
      "cap": "A circle with a letter is a meter or a motor: **A** for **ammeter**, **V** for **voltmeter**, **M** for **motor**."
     },
     {
      "id": "resistor",
-     "start": 452.469,
-     "end": 457.291,
+     "start": 452.192,
+     "end": 457.013,
      "cap": "A **rectangle** is a **resistor**. With an arrow through it, it's a **variable resistor**."
     },
     {
      "id": "fuse",
-     "start": 457.791,
-     "end": 463.167,
+     "start": 457.513,
+     "end": 462.889,
      "cap": "With a line through it, it's a **fuse**, which **melts** to break the circuit if the current gets too high."
     },
     {
      "id": "diode",
-     "start": 463.667,
-     "end": 468.787,
+     "start": 463.389,
+     "end": 468.509,
      "cap": "A **diode** is a triangle pointing at a line. It lets current flow only **one way**."
     },
     {
      "id": "led",
-     "start": 469.287,
-     "end": 473.553,
+     "start": 469.009,
+     "end": 473.276,
      "cap": "Add two arrows for light, and it's an **LED**: a **light-emitting diode**."
     },
     {
      "id": "draw",
-     "start": 474.053,
-     "end": 481.392,
+     "start": 473.776,
+     "end": 481.115,
      "cap": "Draw wires as **straight lines** with neat right-angle corners. A solid **dot** marks a **junction**, where wires join."
     },
     {
      "id": "build",
-     "start": 481.892,
-     "end": 485.284,
+     "start": 481.615,
+     "end": 485.007,
      "cap": "So here's a cell, a switch and a lamp, in one complete loop."
     }
    ]
@@ -507,73 +507,73 @@
    "title": "Series and parallel circuits",
    "short": "Series & parallel",
    "card": true,
-   "start": 487.684,
-   "end": 563.283,
+   "start": 487.407,
+   "end": 563.731,
    "lines": [
     {
      "id": "two",
-     "start": 489.484,
-     "end": 496.375,
+     "start": 489.207,
+     "end": 496.097,
      "cap": "Components can be joined in two ways. In a **series** circuit, they're all on **one single loop**, one after another."
     },
     {
      "id": "same",
-     "start": 496.875,
-     "end": 503.424,
-     "cap": "The current is the **same everywhere** in the loop. It isn't used up: as much flows back into the cell as flows out."
+     "start": 496.597,
+     "end": 503.296,
+     "cap": "The current is the **same everywhere** in the loop. It isn't used up: as much flows back into the battery as flows out."
     },
     {
      "id": "shared",
-     "start": 504.424,
-     "end": 512.275,
-     "cap": "But the cell's push, its **voltage**, is **shared**. Two identical bulbs get **half** each, and the shares add up to the cell's voltage."
+     "start": 504.296,
+     "end": 512.339,
+     "cap": "But the battery's push, its **voltage**, is **shared**. Two identical bulbs get **half** each, and the shares add up to the battery's voltage."
     },
     {
      "id": "dimmer",
-     "start": 512.775,
-     "end": 516.124,
+     "start": 512.839,
+     "end": 516.188,
      "cap": "So the more bulbs you add in series, the **dimmer** they all get."
     },
     {
      "id": "break",
-     "start": 517.424,
-     "end": 526.085,
+     "start": 517.488,
+     "end": 526.149,
      "cap": "And if one bulb breaks, the gap stops the current, so they **all go out**. Old Christmas lights did this: one dud bulb, and the whole string went dark."
     },
     {
      "id": "parallel",
-     "start": 527.385,
-     "end": 533.124,
-     "cap": "In a **parallel** circuit, components sit on **separate branches**, each with its own path through the cell."
+     "start": 527.449,
+     "end": 533.401,
+     "cap": "In a **parallel** circuit, components sit on **separate branches**, each with its own path through the battery."
     },
     {
      "id": "full",
-     "start": 533.624,
-     "end": 540.301,
+     "start": 533.901,
+     "end": 540.579,
      "cap": "Each branch gets the **full voltage**, so the bulbs are **brighter** than in series, and stay bright even when you add more."
     },
     {
      "id": "split",
-     "start": 541.301,
-     "end": 546.08,
-     "cap": "The current **splits** at a junction, and the branch currents **add up** to the total from the cell."
+     "start": 541.579,
+     "end": 546.528,
+     "cap": "The current **splits** at a junction, and the branch currents **add up** to the total from the battery."
     },
     {
      "id": "keep",
-     "start": 546.58,
-     "end": 549.353,
+     "start": 547.028,
+     "end": 549.801,
      "cap": "And if one branch breaks, the others **keep working**."
     },
     {
      "id": "house",
-     "start": 550.853,
-     "end": 557.787,
+     "start": 551.301,
+     "end": 558.235,
      "cap": "That's why homes are wired in **parallel**: each light and socket gets the full mains voltage, and works on its own."
     },
     {
      "id": "rhyme",
-     "start": 558.287,
-     "end": 562.383,
+     "start": 558.735,
+     "end": 562.831,
      "cap": "Remember: **series shares the voltage**, and **parallel splits the current**."
     }
    ]
@@ -583,61 +583,61 @@
    "title": "Measuring current and voltage",
    "short": "Meters",
    "card": true,
-   "start": 563.283,
-   "end": 625.883,
+   "start": 563.731,
+   "end": 626.715,
    "lines": [
     {
      "id": "ammeter",
-     "start": 565.083,
-     "end": 572.016,
+     "start": 565.531,
+     "end": 572.464,
      "cap": "To measure **current**, you need an **ammeter**. It reads in **amps (A)**, and goes **in series**, in the loop, so the current flows through it."
     },
     {
      "id": "anywhere",
-     "start": 572.516,
-     "end": 578.745,
+     "start": 572.964,
+     "end": 579.193,
      "cap": "In a series loop, it reads the **same wherever you put it**, since the current is the same all the way round."
     },
     {
      "id": "branches",
-     "start": 580.045,
-     "end": 584.696,
-     "cap": "In a parallel circuit, the readings on the branches **add up** to the reading by the cell."
+     "start": 580.493,
+     "end": 585.4,
+     "cap": "In a parallel circuit, the readings on the branches **add up** to the reading by the battery."
     },
     {
      "id": "voltmeter",
-     "start": 586.196,
-     "end": 591.977,
+     "start": 586.9,
+     "end": 592.681,
      "cap": "To measure **voltage**, also called **potential difference**, you need a **voltmeter**. It reads in **volts (V)**."
     },
     {
      "id": "push",
-     "start": 592.477,
-     "end": 597.811,
-     "cap": "Voltage is the **push** the cell gives the charge, or the energy transferred by a component."
+     "start": 593.181,
+     "end": 598.643,
+     "cap": "Voltage is the **push** the battery gives the charge, or the energy transferred by a component."
     },
     {
      "id": "across",
-     "start": 598.311,
-     "end": 603.665,
+     "start": 599.143,
+     "end": 604.497,
      "cap": "A voltmeter goes **in parallel**: **across** a component, on its own little branch beside it."
     },
     {
      "id": "readings",
-     "start": 604.665,
-     "end": 612.879,
+     "start": 605.497,
+     "end": 613.711,
      "cap": "Across two identical bulbs in series on a **3 V** battery, each voltmeter reads **1.5 V**. Together, that's **3 V**."
     },
     {
      "id": "mnemonic",
-     "start": 614.179,
-     "end": 618.467,
+     "start": 615.011,
+     "end": 619.299,
      "cap": "Remember: **A**mmeter, **A**lways in a line. **V**oltmeter, **V**erily across."
     },
     {
      "id": "wrong",
-     "start": 618.967,
-     "end": 624.983,
+     "start": 619.799,
+     "end": 625.815,
      "cap": "Almost no current gets through a voltmeter, so one put in series by mistake nearly stops the current."
     }
    ]
@@ -647,61 +647,61 @@
    "title": "Resistance and resistors",
    "short": "Resistance",
    "card": true,
-   "start": 625.883,
-   "end": 681.248,
+   "start": 626.715,
+   "end": 682.229,
    "lines": [
     {
      "id": "what",
-     "start": 627.683,
-     "end": 631.373,
+     "start": 628.515,
+     "end": 632.205,
      "cap": "**Resistance** is how hard it is for current to flow through something."
     },
     {
      "id": "less",
-     "start": 631.873,
-     "end": 635.287,
-     "cap": "For the same cell, **more resistance** means a **smaller current**."
+     "start": 632.705,
+     "end": 636.268,
+     "cap": "For the same battery, **more resistance** means a **smaller current**."
     },
     {
      "id": "ohm",
-     "start": 635.787,
-     "end": 639.52,
+     "start": 636.768,
+     "end": 640.501,
      "cap": "It's measured in **ohms**. The symbol is the Greek letter omega, **Ω**."
     },
     {
      "id": "long",
-     "start": 640.02,
-     "end": 646.121,
+     "start": 641.001,
+     "end": 647.103,
      "cap": "Even wires have resistance. A **longer** wire has **more**, because the charge has further to push through."
     },
     {
      "id": "thin",
-     "start": 646.621,
-     "end": 653.256,
+     "start": 647.603,
+     "end": 654.237,
      "cap": "A **thinner** wire has more too, with less room for the charge to flow. So **long, thin** wires resist the most."
     },
     {
      "id": "resistor",
-     "start": 654.256,
-     "end": 660.101,
+     "start": 655.237,
+     "end": 661.083,
      "cap": "A **resistor** adds a fixed resistance, to **limit the current** and protect parts like an **LED**."
     },
     {
      "id": "variable",
-     "start": 660.601,
-     "end": 665.38,
+     "start": 661.583,
+     "end": 666.361,
      "cap": "A **variable resistor**, or **rheostat**, can be adjusted by sliding a contact."
     },
     {
      "id": "slide",
-     "start": 665.88,
-     "end": 673.539,
+     "start": 666.861,
+     "end": 674.52,
      "cap": "Slide it to add resistance, and the current falls: a bulb dims, or a motor slows. Slide back, and the current rises."
     },
     {
      "id": "uses",
-     "start": 676.039,
-     "end": 680.348,
+     "start": 677.02,
+     "end": 681.329,
      "cap": "Variable resistors are used in **dimmer switches** and **volume controls**."
     }
    ]
@@ -711,43 +711,43 @@
    "title": "Which way does the current flow?",
    "short": "Current direction",
    "card": true,
-   "start": 681.248,
-   "end": 725.151,
+   "start": 682.229,
+   "end": 726.132,
    "lines": [
     {
      "id": "which",
-     "start": 683.048,
-     "end": 687.528,
+     "start": 684.029,
+     "end": 688.509,
      "cap": "Which way does current flow round a circuit? There are two answers, and you need both."
     },
     {
      "id": "conv",
-     "start": 688.028,
-     "end": 696.327,
+     "start": 689.009,
+     "end": 697.308,
      "cap": "**Conventional current**, the direction we draw, flows out of the **positive** terminal, round the circuit, and back to the **negative**: **+ to −**."
     },
     {
      "id": "electrons",
-     "start": 697.827,
-     "end": 702.371,
+     "start": 698.808,
+     "end": 703.352,
      "cap": "But the particles that really move in a wire are **electrons**, and they're **negative**."
     },
     {
      "id": "opposite",
-     "start": 702.871,
-     "end": 709.015,
+     "start": 703.852,
+     "end": 709.996,
      "cap": "They're pushed away from the negative terminal, so **electrons flow from − to +**: the **opposite** way!"
     },
     {
      "id": "why",
-     "start": 711.015,
-     "end": 716.412,
+     "start": 711.996,
+     "end": 717.393,
      "cap": "Scientists picked the direction of current long before anyone knew about electrons, and it stuck."
     },
     {
      "id": "works",
-     "start": 716.912,
-     "end": 724.251,
+     "start": 717.893,
+     "end": 725.232,
      "cap": "It makes no difference to how a circuit works. Just be consistent: in exams, draw current arrows from **+ to −**."
     }
    ]
@@ -757,79 +757,79 @@
    "title": "Static electricity",
    "short": "Static",
    "card": true,
-   "start": 725.151,
-   "end": 820.044,
+   "start": 726.132,
+   "end": 821.025,
    "lines": [
     {
      "id": "what",
-     "start": 726.951,
-     "end": 734.567,
+     "start": 727.932,
+     "end": 735.548,
      "cap": "Finally, electricity that **stays put**. **Static electricity** is charge that builds up on an object, instead of flowing."
     },
     {
      "id": "rub",
-     "start": 735.067,
-     "end": 743.643,
+     "start": 736.048,
+     "end": 744.624,
      "cap": "Rub two **insulators** together, like a balloon on your hair, and **friction** moves tiny negative particles called **electrons** from one to the other."
     },
     {
      "id": "gain",
-     "start": 744.643,
-     "end": 751.661,
+     "start": 745.624,
+     "end": 752.643,
      "cap": "Whatever **gains** electrons becomes **negative**. Whatever **loses** them is left **positive**. Only the electrons move."
     },
     {
      "id": "rule",
-     "start": 752.161,
-     "end": 758.156,
+     "start": 753.143,
+     "end": 759.137,
      "cap": "And charges follow the same rule as poles: **like charges repel**, **unlike charges attract**."
     },
     {
      "id": "hair",
-     "start": 758.656,
-     "end": 763.669,
+     "start": 759.637,
+     "end": 764.651,
      "cap": "That's why your hair stands on end: every strand has the same charge, so they repel."
     },
     {
      "id": "neutral",
-     "start": 764.669,
-     "end": 770.088,
+     "start": 765.651,
+     "end": 771.069,
      "cap": "A charged balloon even attracts things with **no charge**, like bits of paper, or a wall."
     },
     {
      "id": "induction",
-     "start": 770.588,
-     "end": 781.084,
+     "start": 771.569,
+     "end": 782.065,
      "cap": "It pulls their opposite charges a little closer and pushes like charges away, so the near side is attracted more strongly than the far side is repelled. That's **induction**."
     },
     {
      "id": "earthing",
-     "start": 782.584,
-     "end": 789.859,
+     "start": 783.565,
+     "end": 790.84,
      "cap": "**Earthing** removes charge: a conductor to the ground lets electrons flow away, or in, until the object is neutral."
     },
     {
      "id": "lightning",
-     "start": 790.359,
-     "end": 798.124,
+     "start": 791.34,
+     "end": 799.105,
      "cap": "**Lightning** is a giant static spark between clouds and the ground, heating the air to about five times hotter than the Sun's surface."
     },
     {
      "id": "fuel",
-     "start": 798.624,
-     "end": 805.131,
+     "start": 799.605,
+     "end": 806.112,
      "cap": "Flowing fuel can build up charge, and a spark could ignite it, so fuel tankers are **earthed** before refuelling."
     },
     {
      "id": "useful",
-     "start": 805.631,
-     "end": 812.628,
+     "start": 806.612,
+     "end": 813.609,
      "cap": "But static is useful in **photocopiers** and **laser printers**: a charged drum attracts **toner** powder onto the page."
     },
     {
      "id": "shock",
-     "start": 813.128,
-     "end": 819.144,
+     "start": 814.109,
+     "end": 820.125,
      "cap": "And that zap from a door handle? Walking on carpet charges you up, then the charge jumps to the metal."
     }
    ]
@@ -839,79 +839,79 @@
    "title": "Recap: memory hooks and exam traps",
    "short": "Recap",
    "card": true,
-   "start": 820.044,
-   "end": 870.42,
+   "start": 821.025,
+   "end": 871.401,
    "lines": [
     {
      "id": "lock",
-     "start": 821.844,
-     "end": 823.188,
+     "start": 822.825,
+     "end": 824.169,
      "cap": "Let's lock it all in."
     },
     {
      "id": "lroa",
-     "start": 823.688,
-     "end": 827.635,
+     "start": 824.669,
+     "end": 828.616,
      "cap": "**Likes Repel, Opposites Attract**: for poles, and for charges."
     },
     {
      "id": "cobwebs",
-     "start": 828.135,
-     "end": 831.655,
+     "start": 829.116,
+     "end": 832.636,
      "cap": "**I See No Cobwebs**: iron, steel, nickel and cobalt."
     },
     {
      "id": "tic",
-     "start": 832.155,
-     "end": 835.632,
+     "start": 833.136,
+     "end": 836.613,
      "cap": "**TIC**: more **T**urns, **I**ncrease the current, add an iron **C**ore."
     },
     {
      "id": "meters",
-     "start": 836.132,
-     "end": 839.78,
+     "start": 837.113,
+     "end": 840.761,
      "cap": "**Ammeter, Always in a line. Voltmeter, Verily across.**"
     },
     {
      "id": "shares",
-     "start": 840.28,
-     "end": 843.587,
+     "start": 841.261,
+     "end": 844.568,
      "cap": "**Series shares the voltage; parallel splits the current.**"
     },
     {
      "id": "traps",
-     "start": 844.087,
-     "end": 846.348,
+     "start": 845.068,
+     "end": 847.329,
      "cap": "Now, five exam traps to avoid."
     },
     {
      "id": "t1",
-     "start": 846.848,
-     "end": 850.496,
+     "start": 847.829,
+     "end": 851.477,
      "cap": "One: field lines go from **north to south**, and **never cross**."
     },
     {
      "id": "t2",
-     "start": 850.996,
-     "end": 855.092,
+     "start": 851.977,
+     "end": 856.073,
      "cap": "Two: the Earth's **magnetic south pole** is near the geographic North."
     },
     {
      "id": "t3",
-     "start": 855.592,
-     "end": 860.413,
+     "start": 856.573,
+     "end": 861.395,
      "cap": "Three: an electromagnet's magnetism **vanishes** when the current is switched off."
     },
     {
      "id": "t4",
-     "start": 860.913,
-     "end": 864.796,
+     "start": 861.895,
+     "end": 865.777,
      "cap": "Four: more bulbs in **series** means **dimmer** bulbs, not brighter ones."
     },
     {
      "id": "t5",
-     "start": 865.296,
-     "end": 869.52,
+     "start": 866.277,
+     "end": 870.501,
      "cap": "Five: measure current in **amps**, and voltage in **volts**. Don't swap them."
     }
    ]
@@ -921,83 +921,83 @@
    "title": "Quick-fire quiz",
    "short": "Quiz",
    "card": true,
-   "start": 870.42,
-   "end": 938.067,
+   "start": 871.401,
+   "end": 939.048,
    "lines": [
     {
      "id": "intro",
-     "start": 872.22,
-     "end": 875.868,
+     "start": 873.201,
+     "end": 876.849,
      "cap": "Quick-fire quiz! Say each answer out loud before it appears."
     },
     {
      "id": "q1",
-     "start": 876.368,
-     "end": 879.888,
+     "start": 877.349,
+     "end": 880.869,
      "cap": "Which magnetic pole of the Earth is near the geographic North?"
     },
     {
      "id": "a1",
-     "start": 884.388,
-     "end": 888.484,
+     "start": 885.369,
+     "end": 889.465,
      "cap": "Its magnetic **south** pole. That's what attracts the north end of a compass."
     },
     {
      "id": "q2",
-     "start": 888.984,
-     "end": 891.821,
+     "start": 889.965,
+     "end": 892.803,
      "cap": "Give three ways to make an electromagnet stronger."
     },
     {
      "id": "a2",
-     "start": 896.321,
-     "end": 898.817,
+     "start": 897.303,
+     "end": 899.799,
      "cap": "More **turns**, more **current**, and an **iron core**."
     },
     {
      "id": "q3",
-     "start": 899.317,
-     "end": 901.813,
+     "start": 900.299,
+     "end": 902.795,
      "cap": "How should a voltmeter be connected to a bulb?"
     },
     {
      "id": "a3",
-     "start": 906.313,
-     "end": 908.191,
+     "start": 907.295,
+     "end": 909.172,
      "cap": "In **parallel**: **across** the bulb."
     },
     {
      "id": "q4",
-     "start": 908.691,
-     "end": 912.467,
+     "start": 909.672,
+     "end": 913.448,
      "cap": "Two bulbs are in series, and one breaks. What happens to the other?"
     },
     {
      "id": "a4",
-     "start": 916.967,
-     "end": 919.377,
+     "start": 917.948,
+     "end": 920.359,
      "cap": "It **goes out**: the single loop is broken."
     },
     {
      "id": "q5",
-     "start": 919.877,
-     "end": 924.272,
+     "start": 920.859,
+     "end": 925.253,
      "cap": "A rubbed plastic rod becomes negatively charged. What has it gained?"
     },
     {
      "id": "a5",
-     "start": 928.772,
-     "end": 930.372,
+     "start": 929.753,
+     "end": 931.353,
      "cap": "**Electrons**, from the cloth."
     },
     {
      "id": "outro",
-     "start": 930.872,
-     "end": 936.867,
+     "start": 931.853,
+     "end": 937.848,
      "cap": "Brilliant work. Now try the Magnetism & Electricity quiz in your Science Lab, to lock it in."
     }
    ]
   }
  ],
- "total": 938.067
+ "total": 939.048
 }

@@ -3,6 +3,7 @@ import type { TopicExtras } from "../types";
 // Engagement extras for magnetism-electricity. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const magnetismElectricityExtras: TopicExtras = {
+  lesson: { href: "/lessons/magnetism-electricity.html", minutes: 16, chapters: 15 },
   interactive: "circuit-lab",
   hook: "Wrap a plain iron nail in some wire, connect a single battery, and suddenly the nail can grab a fistful of paperclips. Disconnect the battery and they all clatter to the floor. How can a piece of wire switch magnetism on and off?",
   didYouKnow: [
