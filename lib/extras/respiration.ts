@@ -7,10 +7,10 @@ export const respirationExtras: TopicExtras = {
   lesson: { href: "/lessons/respiration.html", minutes: 14, chapters: 12 },
   hook: "Right now, inside trillions of your cells, something is quietly burning your breakfast — without any flames, smoke or heat that could cook you. How does your body release the energy locked inside a piece of toast as gently as a candle, and what happens to that energy when you sprint until your legs burn?",
   didYouKnow: [
-    "Every cell in your body has hundreds of tiny 'power stations' called mitochondria — laid end to end, the mitochondria in one person would stretch tens of thousands of kilometres.",
+    "Most of your cells contain hundreds of tiny 'power stations' called mitochondria, and a busy liver cell can have more than a thousand. Red blood cells are the odd ones out: they have none at all, so they rely on anaerobic respiration.",
     "Respiration and burning are almost the same chemical reaction (glucose + oxygen → carbon dioxide + water + energy) — your cells just do it in tiny, controlled steps instead of one fiery burst.",
     "The burning ache in your muscles during a hard sprint isn't from lactic acid alone, as people used to think — it's a build-up of several chemicals when your cells respire WITHOUT enough oxygen (anaerobic respiration).",
-    "Yeast carries out anaerobic respiration too, but it makes alcohol and carbon dioxide instead — the same process raises bread dough and fizzes up every fizzy drink and beer ever made.",
+    "Yeast carries out anaerobic respiration too, but it makes alcohol and carbon dioxide instead. That carbon dioxide is what makes bread dough rise.",
     "Your brain is only about 2% of your body weight but uses roughly 20% of all the energy your respiration releases, even while you sleep.",
   ],
   experiments: [
