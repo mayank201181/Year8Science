@@ -18,15 +18,41 @@ scene('recap', S => {
   const initials = (str, col) => str.split(/(\s+|,\s*)/).filter(Boolean).flatMap(w => (/^[A-Za-z]/.test(w) ? [[w[0], C.energy, 800], [w.slice(1), col]] : [w]));
   const Y = C.energy;
   const BLUE = ball(C.water, C.waterDk), ORANGE = ball(C.heat, C.heatDk);
-  /* a small wavy infrared arrow from (x1,y1) to (x2,y2); g.upd(t) */
+  /* Infrared radiation, drawn as in the radiation chapter: a tapered wavy arrow from (x1,y1) to (x2,y2).
+     r.upd(time, front 0..1): crests travel towards the head; the front grows from the source. */
+  function irRay(parent, x1, y1, x2, y2, o) {
+    o = o || {};
+    const g = G(parent), L = Math.hypot(x2 - x1, y2 - y1);
+    tr(g, x1, y1, 1, Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI);
+    const col = o.color || C.heat, wd = o.width || 5, wl = o.wl || 50, amp0 = o.amp || 12, sp = o.speed || 160;
+    const hs = o.hs || wd * 3.2;
+    const path = E('path', { fill: 'none', stroke: col, 'stroke-width': wd, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);
+    const head = E('path', { d: `M0,0 L${-hs},${(-hs * 0.62).toFixed(1)} L${(-hs * 0.72).toFixed(1)},0 L${-hs},${(hs * 0.62).toFixed(1)} Z`, fill: col }, g);
+    g.L = L; g.sp = sp;
+    g.upd = (t, rv) => {
+      rv = rv === undefined ? 1 : clamp(rv);
+      const show = rv > 0.004;
+      op(path, show ? 1 : 0); op(head, show ? 1 : 0);
+      if (!show) return;
+      const tip = rv * L, front = Math.max(2, tip - hs * 0.55), ph = t * sp / wl, tp = Math.min(wl * 0.55, front / 2);
+      let d = 'M0,0';
+      for (let x = 4; x < front + 4; x += 4) {
+        const xx = Math.min(x, front), e = Math.min(1, xx / tp, (front - xx) / tp);
+        d += 'L' + xx.toFixed(1) + ',' + (-amp0 * e * Math.sin(TAU * (xx / wl - ph))).toFixed(1);
+      }
+      path.setAttribute('d', d);
+      tr(head, tip, 0);
+    };
+    g.upd(0, 1);
+    return g;
+  }
+  const grow = (t, t0, r) => clamp((t - t0) * r.sp * calm / r.L);
+  /* a small infrared arrow, always fully drawn; g.upd(t) */
   function irArrow(parent, x1, y1, x2, y2, o) {
     o = o || {};
-    const g = G(parent), L = Math.hypot(x2 - x1, y2 - y1), ang = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
-    const inner = G(g); inner.setAttribute('transform', `translate(${x1} ${y1}) rotate(${ang.toFixed(1)})`);
-    const w = sineWave(inner, { w: Math.max(8, L - 12), amp: o.amp || 5, wl: o.wl || 16, color: o.color || C.heat, width: o.width || 3.5 });
-    E('path', { d: `M${L},0 L${L - 12},-7 L${L - 9},0 L${L - 12},7 Z`, fill: o.color || C.heat }, inner);
-    g.upd = t => w.set({ phase: -t * 1.6 });
-    return g;
+    const wl = o.wl || 16, r = irRay(parent, x1, y1, x2, y2, { amp: o.amp || 5, wl, width: o.width || 3.5, speed: 1.6 * wl, color: o.color });
+    const u = r.upd; r.upd = t => u(t * calm, 1);
+    return r;
   }
 
   /* ---------- padlock ---------- */
@@ -59,26 +85,44 @@ scene('recap', S => {
   const h2 = hookCard(630, 115);
   const WORDX = [95, 260, 425], WORDS = ['Cats', 'Can’t', 'Radiate'];
   const words = WORDS.map((w, i) => { const g = G(h2); tr(g, WORDX[i], 56); rich(g, 0, 0, initials(w, C.ink), { size: 36, weight: 700, anchor: 'middle' }); return g; });
+  /* the radiation chapter's three mini panels (heated bar, convection loop, Sun waves), drawn in that
+     chapter's coordinates and shrunk into these smaller cards; anim(t, t0) with t0 when the panel lands */
+  const MS = 0.46;
+  const FLAME = 'M0,0 C-16,-10 -18,-34 0,-60 C18,-34 16,-10 0,0 Z', FLAME_IN = 'M0,0 C-8,-6 -9,-18 0,-32 C9,-18 8,-6 0,0 Z';
   function miniPanel(parent, kind) {
     const g = G(parent);
     card(g, -75, -72, 150, 144, { fill: C.card2, stroke: C.line, rx: 16 });
-    const art = G(g); tr(art, 0, -20);
+    const art = G(g);
     let anim = () => {};
     if (kind === 0) {
-      E('rect', { x: -52, y: -13, width: 104, height: 26, rx: 7, fill: linGrad('#B3BEC8', '#5A6672', true), stroke: '#D3DBE2', 'stroke-width': 2 }, art);
-      const cols = [C.bad, C.heat, '#E7A26C', '#8FB9CF', C.water];
-      const dots = cols.map((c, k) => E('circle', { cx: -40 + k * 20, cy: 0, r: 7, fill: c }, art));
-      arrow(art, -42, 30, 42, 30, { color: C.heat, width: 5 });
-      anim = t => dots.forEach((d, k) => attr(d, 'cx', -40 + k * 20 + (2.5 - k * 0.5) * calm * Math.sin(t * 17 + k)));
+      art.setAttribute('transform', `translate(0 -17) scale(${MS}) translate(-240 -441)`);
+      E('rect', { x: 120, y: 410, width: 240, height: 44, rx: 8, fill: linGrad(C.heat, C.carbonDk, false), stroke: '#B9C6D2', 'stroke-width': 3 }, art);
+      const dots = []; for (let i = 0; i < 8; i++) dots.push(E('circle', { r: 9, fill: ball(i < 3 ? '#FFB37A' : C.carbon, i < 3 ? C.heatDk : C.carbonDk) }, art));
+      E('path', { d: FLAME, fill: '#FF8A3D', transform: 'translate(150 516)' }, art);
+      E('path', { d: FLAME_IN, fill: '#FFE07A', transform: 'translate(150 514)' }, art);
+      const ar = arrow(art, 150, 378, 340, 378, { color: C.heat, width: 6 });
+      anim = (t, t0) => {
+        dots.forEach((d, i) => { const a = Math.max(0.6, 6 - i * 0.7) * calm; attr(d, 'cx', 135 + i * 30 + Math.sin(t * 17 + i) * a); attr(d, 'cy', 432 + Math.cos(t * 21 + i * 1.3) * a * 0.6); });
+        ar.set(P(t, t0 + 0.2, 0.8));
+      };
     } else if (kind === 1) {
-      E('rect', { x: -48, y: -32, width: 96, height: 64, rx: 8, fill: 'rgba(76,201,240,0.25)', stroke: C.water, 'stroke-width': 2.5 }, art);
-      arrow(art, -20, 22, -20, -20, { color: C.heat, width: 4.5, bend: -9 });
-      arrow(art, 20, -20, 20, 22, { color: C.water, width: 4.5, bend: -9 });
-      E('path', { d: 'M-4,52 C-12,44 -10,36 -4,28 C-2,36 4,38 4,44 C4,50 0,52 -4,52 Z M8,52 C2,46 4,40 8,34 C12,40 14,46 8,52 Z', fill: C.heat }, art);
+      art.setAttribute('transform', `translate(0 -17) scale(${MS}) translate(-597 -461)`);
+      const bk = beaker(art, 180, 150, { level: 0.82, liquid: '#2C7FB0' }); tr(bk, 600, 430);
+      E('path', { d: FLAME, fill: '#FF8A3D', transform: 'translate(560 568)' }, art);
+      E('path', { d: FLAME_IN, fill: '#FFE07A', transform: 'translate(560 566)' }, art);
+      arrow(art, 560, 488, 560, 410, { color: C.bad, width: 5, bend: -10 });
+      arrow(art, 640, 410, 640, 488, { color: '#7FD3FF', width: 5, bend: -10 });
+      const dots = []; for (let i = 0; i < 6; i++) dots.push(E('circle', { r: 6, fill: C.ink }, art));
+      anim = t => dots.forEach((d, i) => {
+        const th = (t * 0.9 * calm + i / 6) * TAU, x = 600 + Math.cos(th) * 52, y = 450 + Math.sin(th) * 30;   // up over the flame, down the far side
+        attr(d, 'cx', x); attr(d, 'cy', y); d.setAttribute('fill', Math.cos(th) < 0 ? '#FF9A6A' : '#9FE0FF');
+      });
     } else {
-      const s = sun(art, 14); tr(s, -38, 0);
-      const w = sineWave(art, { w: 62, amp: 7, wl: 20, color: C.heat, width: 3.5 }); tr(w, -16, 0);
-      anim = t => { s.upd(t); w.set({ phase: -t * 1.5 }); };
+      art.setAttribute('transform', `translate(0 -17) scale(${MS}) translate(-956 -432)`);
+      const s = sun(art, 30); tr(s, 862, 432);
+      { const r = rng(8); let d = ''; for (let i = 0; i < 12; i++) d += `M${(918 + r() * 180).toFixed(1)},${(352 + r() * 160).toFixed(1)} l0.1,0 `; E('path', { d, stroke: '#DCEBFF', 'stroke-width': 3.5, 'stroke-linecap': 'round', opacity: 0.6 }, art); }
+      const rays = [[910, 400, 1092, 396], [912, 432, 1096, 432], [910, 464, 1092, 468]].map(([a, b, c, d]) => irRay(art, a, b, c, d, { amp: 9, wl: 36, width: 5, speed: 200, hs: 14 }));
+      anim = (t, t0) => { s.upd(t * calm); rays.forEach((r, i) => r.upd(t * calm, grow(t, t0 + 0.2 + i * 0.1, r))); };
     }
     const nm = ['conduction', 'convection', 'radiation'][kind];
     rich(g, 0, 56, [[nm[0], Y, 800], [nm.slice(1), C.ink]], { size: 26, anchor: 'middle' });
@@ -164,7 +208,7 @@ scene('recap', S => {
       const bad = arrow(g, 172, 26, -172, 26, { color: C.faint, width: 5 });
       const tk = tick(g, 13); tr(tk, 0, -46);
       const cx = cross(g, 12); tr(cx, 0, 58);
-      const hw = heatWaves(g, { n: 3, h: 30, spacing: 22, color: '#FFB47A', width: 4 }); tr(hw, -90, -30);
+      const hw = heatWaves(g, { n: 3, h: 30, spacing: 22, color: '#FFB067', width: 4 }); tr(hw, -90, -30);
       return t => { hw.upd(t); good.set(1); bad.set(1); };
     }),
     trapGroup('Convection happens in solids', ['Convection needs a ', ['fluid', Y, 800], ': a liquid or gas'], g => {
@@ -251,7 +295,7 @@ scene('recap', S => {
         const t0 = mid('cats', 0.3 + i * 0.2), p = P(t, t0, 0.6, pop);
         tr(pn.g, WORDX[i], lerp(70, 160, clamp(p)), Math.max(0.01, lerp(0.15, 1, p)));
         op(pn.g, clamp(p * 3));
-        pn.anim(t);
+        pn.anim(t, t0);
         const pulse = Math.sin(Math.PI * P(t, t0 + 0.55, 0.45, linear));
         tr(words[i], WORDX[i], 56, 1 + 0.16 * pulse);
       });

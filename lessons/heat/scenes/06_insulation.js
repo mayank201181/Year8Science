@@ -23,7 +23,7 @@ scene('insulation', S => {
     const g = G(parent), col = o.color || HOT;
     const line = E('path', { fill: 'none', stroke: col, 'stroke-linecap': 'round' }, g);
     const head = E('path', { fill: col }, g);
-    const hw = o.waves === false ? null : heatWaves(g, { n: 2, h: 40, spacing: 30, width: 4, color: o.wcol || '#FFC27A', speed: 0.7 });
+    const hw = o.waves === false ? null : heatWaves(g, { n: 2, h: 40, spacing: 30, width: 4, color: o.wcol || '#FFB067', speed: 0.7 });
     g.set = (x1, y1, x2, y2, w, t, bend) => {
       const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1, hs = w * 2.5;
       let ang, d, mx = x1 + dx * 0.42, my = y1 + dy * 0.42;
@@ -75,15 +75,6 @@ scene('insulation', S => {
     let d = clamp(u) * L;
     for (let i = 0; i < segs.length; i++) { if (d <= segs[i] || i === segs.length - 1) { const f = segs[i] ? Math.min(1, d / segs[i]) : 0; return [lerp(pts[i][0], pts[i + 1][0], f), lerp(pts[i][1], pts[i + 1][1], f)]; } d -= segs[i]; }
     return pts[pts.length - 1];
-  }
-  function wayPill(parent, n, text, size) {
-    const g = G(parent), h = Math.round(size * 1.8), w = Math.ceil(textWidth(text, size, FD, 700) + h * 1.05 + size * 0.8);
-    g.box = E('rect', { x: -w / 2, y: -h / 2, width: w, height: h, rx: h / 2, fill: C.card, stroke: C.line, 'stroke-width': 2.5 }, g);
-    E('circle', { cx: -w / 2 + h / 2, cy: 0, r: h * 0.33, fill: HOT }, g);
-    T(g, -w / 2 + h / 2, size * 0.29, String(n), { size: Math.round(size * 0.78), weight: 700, fill: C.bg0, anchor: 'middle' });
-    T(g, -w / 2 + h * 0.95, size * 0.35, text, { size, weight: 700 });
-    g.w = w;
-    return g;
   }
   /* small thermometer icon for temperature tags (bulb at 0,8); g.set(level 0..1) */
   function thermoIcon(parent) {
@@ -331,8 +322,8 @@ scene('insulation', S => {
   const clockHand = E('line', { x1: 0, y1: 0, x2: 0, y2: -15, stroke: Y, 'stroke-width': 4, 'stroke-linecap': 'round' }, clock);
   T(clock, 34, 10, 'hours', { size: 26, weight: 600, fill: C.muted });
   const scoreHdr = T(gFlask, 920, 232, 'beats all three:', { size: 30, weight: 700, anchor: 'middle', fill: C.muted });
-  const score = [[1, 'Conduction', 300], [2, 'Convection', 380], [3, 'Radiation', 460]].map(([n, txt, y]) => {
-    const g = wayPill(gFlask, n, txt, 28); tr(g, 920, y);
+  const score = [['Conduction', 300], ['Convection', 380], ['Radiation', 460]].map(([txt, y]) => {
+    const g = chip(gFlask, txt, { size: 28, fill: C.card, stroke: C.line, sw: 2.5 }); tr(g, 920, y);
     const x = cross(g, 14); tr(x, g.w / 2 + 28, 0);
     return { g, x, y };
   });

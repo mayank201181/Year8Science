@@ -73,25 +73,39 @@ scene('quiz', S => {
     };
   }
   function picMetal(g) {
-    const fl = G(g); tr(fl, -150, 142);
-    E('path', { d: 'M0,0 C-22,-14 -26,-48 0,-84 C26,-48 22,-14 0,0 Z', fill: '#FF8A3D' }, fl);
-    E('path', { d: 'M0,-2 C-11,-8 -12,-26 0,-46 C12,-26 11,-8 0,-2 Z', fill: '#FFE07A' }, fl);
-    E('rect', { x: -210, y: -46, width: 420, height: 92, rx: 16, fill: linGrad('#C3CED8', '#6B7886', true), stroke: '#DCE6ED', 'stroke-width': 3 }, g);
-    E('rect', { x: -210, y: -46, width: 110, height: 92, rx: 16, fill: HOT, opacity: 0.3 }, g);
-    for (let r = 0; r < 2; r++) for (let i = 0; i < 9; i++) E('circle', { cx: -176 + i * 44, cy: r ? 20 : -20, r: 13, fill: ball(C.carbon, C.carbonDk) }, g);
+    // the conduction chapter's metal bar: a row of particles, warmest over the Bunsen, and free electrons
+    // drifting in two channels above and below them
+    const BW = 420, BH = 70, NP = 7, SP = BW / NP, PR = 18;
+    const bn = bunsen(g, 0.5); tr(bn, -160, 162);
+    E('rect', { x: -BW / 2, y: -BH / 2, width: BW, height: BH, rx: 12, fill: linGrad('#B3BEC8', '#5A6672', true), stroke: '#D3DBE2', 'stroke-width': 3 }, g);
+    E('rect', { x: -BW / 2 + 12, y: -BH / 2 + 5, width: BW - 24, height: 5, rx: 2.5, fill: '#FFFFFF', opacity: 0.3 }, g);
+    const pr = rng(404), parts = [];
+    [1, 0.7, 0.4, 0.15, 0, 0, 0].forEach((h, i) => {
+      const pg = G(g);
+      E('path', { d: `M${-PR - 5},-9 Q${-PR - 10},0 ${-PR - 5},9 M${PR + 5},-9 Q${PR + 10},0 ${PR + 5},9`, fill: 'none', stroke: '#FFE2B8', 'stroke-width': 3, 'stroke-linecap': 'round', opacity: clamp((h - 0.15) * 1.6) }, pg);
+      E('circle', { r: PR, fill: ball(C.water, C.waterDk) }, pg);
+      E('circle', { r: PR, fill: ball(C.heat, C.heatDk), opacity: clamp(h / 0.55) }, pg);
+      E('circle', { r: PR, fill: ball(C.bad, '#B8323F'), opacity: 0.85 * clamp((h - 0.72) / 0.28) }, pg);
+      parts.push({ pg, h, x: -BW / 2 + SP * (i + 0.5), w1: 17 + pr() * 5, w2: 19 + pr() * 6, ph1: pr() * TAU, ph2: pr() * TAU });
+    });
     const rr = rng(5), es = [];
-    for (let i = 0; i < 10; i++) es.push({ el: E('circle', { r: 6.5, fill: C.air, stroke: '#E6F5FF', 'stroke-width': 1.5 }, g), x0: -195 + rr() * 390, y0: (rr() - 0.5) * 70, off: i / 10, ph: rr() * TAU });
-    const sps = [0, 1, 2, 3, 4].map(k => spark(g, 11, { seed: k }));
-    const lb = labelLine(g, 60, -100, 18, -42, 'free electrons', { size: 28, anchor: 'start', fill: C.air });
+    for (let i = 0; i < 10; i++) {
+      const sp = i < 5 ? spark(g, 13, { seed: i }) : null;
+      es.push({ sp, el: E('circle', { r: 5.5, fill: C.air, stroke: '#0A1B27', 'stroke-width': 1.5 }, g), x0: -195 + rr() * 390, y0: i % 2 ? 26 : -26, off: i / 10, ph: rr() * TAU });
+    }
+    const lb = labelLine(g, 60, -100, 18, -30, 'free electrons', { size: 28, anchor: 'start', fill: C.air, line: C.air });
     T(g, 0, 96, 'metal', { size: 28, weight: 700, anchor: 'middle', fill: C.muted });
     return (t, ta) => {
+      bn.upd(t);
+      parts.forEach(p => { const a = (1.2 + 7.5 * p.h) * calm; tr(p.pg, p.x + a * Math.sin(t * p.w1 + p.ph1), a * 0.45 * Math.cos(t * p.w2 + p.ph2)); });
       const z = P(t, ta + 0.1, 0.6, linear), tz = Math.max(0, t - ta - 0.1);
-      es.forEach((e, i) => {
-        const wx = e.x0 + Math.sin(t * 0.9 * calm + e.ph) * 14, wy = e.y0 + Math.cos(t * 1.1 * calm + e.ph) * 6;
-        const zx = -195 + ((tz * 300 * calm + e.off * 390) % 390), zy = e.y0 * 0.8 + Math.sin(tz * 9 + e.ph) * 4;
-        const x = lerp(wx, zx, z), y = lerp(wy, zy, z);
+      es.forEach(e => {
+        const wx = e.x0 + Math.sin(t * 0.9 * calm + e.ph) * 14, zx = -195 + ((tz * 300 * calm + e.off * 390) % 390);
+        const x = lerp(wx, zx, z), y = e.y0 + 3 * Math.sin(t * 3 + e.ph);
         attr(e.el, 'cx', x); attr(e.el, 'cy', y);
-        if (i < 5) { tr(sps[i], x, y - 14); op(sps[i], z * clamp((x + 195) / 40) * clamp((195 - x) / 40)); sps[i].upd(t); }
+        const edge = Math.min(1, (x + BW / 2) / 40, (BW / 2 - x) / 40);
+        op(e.el, z > 0 ? lerp(1, Math.max(0.15, edge), z) : 1);
+        if (e.sp) { tr(e.sp, x, y - 1); op(e.sp, z * clamp((x + 195) / 40) * clamp((195 - x) / 40)); e.sp.upd(t); }
       });
       lb.set(P(t, ta + 0.3, 0.4, linear));
     };
@@ -132,20 +146,31 @@ scene('quiz', S => {
   function picFlask(g) {
     const halo = E('ellipse', { cx: -40, cy: 0, rx: 150, ry: 200, fill: glow(C.air) }, g);
     const f = G(g); tr(f, -40, 0, 0.62);
+    // the insulation chapter's flask, in its vacuum-and-silvered state: case with collar and support pad,
+    // the empty gap between silvered double walls, the red drink, the stopper
     const VO = 'M-58,-232 L-58,-200 C-58,-176 -118,-170 -118,-120 L-118,196 Q-118,232 -82,232 L82,232 Q118,232 118,196 L118,-120 C118,-170 58,-176 58,-200 L58,-232 Z';
     const VI = 'M-36,-232 L-36,-196 C-36,-160 -96,-156 -96,-110 L-96,178 Q-96,210 -64,210 L64,210 Q96,210 96,178 L96,-110 C96,-156 36,-160 36,-196 L36,-232 Z';
-    E('rect', { x: -150, y: -214, width: 300, height: 476, rx: 36, fill: linGrad('#4F7C99', '#2B5068', false), stroke: '#8FB4CC', 'stroke-width': 4 }, f);
+    const VOline = VO.slice(0, -2), VIline = VI.slice(0, -2);
+    E('rect', { x: -150, y: -214, width: 300, height: 476, rx: 36, fill: linGrad('#4F7C99', '#2B5068', false), stroke: '#8FB4CC', 'stroke-width': 3 }, f);
     E('rect', { x: -134, y: -198, width: 268, height: 444, rx: 26, fill: '#0C1F2B' }, f);
-    E('path', { d: VO, fill: '#050E16', stroke: '#F4F8FB', 'stroke-width': 6 }, f);
+    E('rect', { x: -40, y: 232, width: 80, height: 14, rx: 4, fill: '#55606B' }, f);
+    E('rect', { x: -76, y: -214, width: 152, height: 16, rx: 4, fill: '#3E5568' }, f);
+    E('path', { d: VO, fill: '#050E16' }, f);
     const gapGlow = E('path', { d: VO, fill: '#9FD8FF' }, f);
     E('path', { d: VI, fill: '#0A1822' }, f);
     E('clipPath', { id: 'quizDrinkClip' }, defs()).appendChild(E('path', { d: VI }));
-    E('rect', { x: -100, y: -112, width: 200, height: 330, fill: '#D93A48', 'clip-path': 'url(#quizDrinkClip)' }, f);
-    E('path', { d: VI, fill: 'none', stroke: '#F4F8FB', 'stroke-width': 6 }, f);
-    E('rect', { x: -38, y: -236, width: 76, height: 50, rx: 8, fill: linGrad('#9AA8B4', '#5E6C78', false), stroke: '#C9D6DE', 'stroke-width': 3 }, f);
-    E('rect', { x: -54, y: -258, width: 108, height: 26, rx: 9, fill: linGrad('#B9C6D2', '#7D8C99', false), stroke: '#DCE6ED', 'stroke-width': 3 }, f);
+    const drink = G(f, { 'clip-path': 'url(#quizDrinkClip)' });
+    E('rect', { x: -100, y: -122, width: 200, height: 340, fill: '#D93A48' }, drink);
+    E('rect', { x: -100, y: -124, width: 200, height: 5, fill: '#FFFFFF', opacity: 0.35 }, drink);
+    E('path', { d: 'M-58,-232 L-36,-232 M36,-232 L58,-232', stroke: '#BFD9E6', 'stroke-width': 5, 'stroke-linecap': 'round' }, f);
+    E('path', { d: VOline, fill: 'none', stroke: '#F4F8FB', 'stroke-width': 8, 'stroke-linejoin': 'round' }, f);
+    E('path', { d: VIline, fill: 'none', stroke: '#F4F8FB', 'stroke-width': 8, 'stroke-linejoin': 'round' }, f);
+    E('path', { d: 'M-118,-80 L-118,150 M118,-80 L118,150', stroke: '#FFFFFF', 'stroke-width': 4, opacity: 0.9, 'stroke-dasharray': '24 30' }, f);
+    E('rect', { x: -38, y: -236, width: 76, height: 50, rx: 8, fill: linGrad('#9AA8B4', '#5E6C78', false), stroke: '#C9D6DE', 'stroke-width': 2.5 }, f);
+    E('rect', { x: -54, y: -258, width: 108, height: 26, rx: 9, fill: linGrad('#B9C6D2', '#7D8C99', false), stroke: '#DCE6ED', 'stroke-width': 2.5 }, f);
+    // conduction and convection arrows hit the empty gap and stop, as in the insulation chapter
     const arr = G(f);
-    const aC = arrow(arr, -20, 40, -94, 40, { color: '#FFC27A', width: 12 }), aV = arrow(arr, -14, 170, -94, 120, { color: '#FFC27A', width: 12, bend: -20 });
+    const aC = arrow(arr, -30, 60, -96, 60, { color: HOT, width: 12 }), aV = arrow(arr, -20, 190, -96, 150, { color: HOT, width: 12, bend: -18 });
     const xC = cross(arr, 22), xV = cross(arr, 22);
     const lb = G(g);
     E('path', { d: 'M60,-98 L27,-62', stroke: C.air, 'stroke-width': 3 }, lb);
@@ -159,7 +184,7 @@ scene('quiz', S => {
       op(arr, P(t, ta + 0.5, 0.3, linear));
       aC.set(p1); aV.set(p2);
       const x1 = popIn(t, ta + 1.1), x2 = popIn(t, mid('a4', 0.55) + 0.5);
-      op(xC, clamp(x1 * 2)); tr(xC, -107, 40, Math.max(0.01, x1)); op(xV, clamp(x2 * 2)); tr(xV, -107, 118, Math.max(0.01, x2));
+      op(xC, clamp(x1 * 2)); tr(xC, -107, 60, Math.max(0.01, x1)); op(xV, clamp(x2 * 2)); tr(xV, -107, 150, Math.max(0.01, x2));
     };
   }
   function picSweat(g) {

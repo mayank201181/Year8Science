@@ -39,7 +39,7 @@ scene('convection', S => {
     const n = o.waves === false ? 0 : Math.max(1, Math.round(L / 210)), seg = L / n, hh = Math.min(seg * 0.5, 80), ws = [];
     for (let k = 0; k < n; k++) {
       const f = (k * seg + seg * 0.18) / L;
-      const hw = heatWaves(g, { n: 2, h: hh, spacing: 11, width: 4.5, color: o.wcol || '#FFB47A', speed: 0.75 });
+      const hw = heatWaves(g, { n: 2, h: hh, spacing: 11, width: 4.5, color: o.wcol || '#FFB067', speed: 0.75 });
       hw.setAttribute('transform', `translate(${(x1 + ca * L * f + nx * off).toFixed(1)} ${(y1 + sa * L * f + ny * off).toFixed(1)}) rotate(${(ang * 180 / Math.PI + 90).toFixed(1)})`);
       ws.push({ hw, f: f + hh * 1.2 / L });
     }
@@ -263,7 +263,7 @@ scene('convection', S => {
   E('rect', { x: 750, y: 270, width: 110, height: 120, rx: 6, fill: 'rgba(159,216,255,0.16)', stroke: '#BFD9E6', 'stroke-width': 5 }, win_);
   E('path', { d: 'M805,272 L805,388 M752,330 L858,330', stroke: '#BFD9E6', 'stroke-width': 4 }, win_);
   const rad = radiatorArt(D, 120, 92); tr(rad, 275, 584);
-  const radWaves = heatWaves(D, { n: 3, h: 70, spacing: 18, color: '#FFB47A' }); tr(radWaves, 258, 484);
+  const radWaves = heatWaves(D, { n: 3, h: 70, spacing: 18, color: '#FFB067' }); tr(radWaves, 258, 484);
   const loopRoom = convLoop(D, 300, 228, 930, 562, { rise: 'left', rc: 80, n: 10, speed: 150, track: 34 });
   const radLbl = T(D, 275, 660, 'radiator', { size: 28, anchor: 'middle' });
   const roomUp = T(D, 330, 318, 'warm air rises', { size: 28, fill: C.heat });
@@ -278,8 +278,8 @@ scene('convection', S => {
   const surf = sineWave(Ec, { w: 580, amp: 4, wl: 60, color: '#A8E6F8', width: 3 }); tr(surf, 620, 538);
   const sunG = sun(Ec, 46); tr(sunG, 680, 165);
   const rayL = G(Ec), rayS = G(Ec);
-  const wL = sineWave(rayL, { w: 300, amp: 9, wl: 42, color: C.heat, width: 4 }); rayL.setAttribute('transform', `translate(626 216) rotate(${(Math.atan2(240, -250) * 180 / Math.PI).toFixed(1)})`);
-  const wS = sineWave(rayS, { w: 270, amp: 9, wl: 42, color: C.heat, width: 4 }); rayS.setAttribute('transform', `translate(730 216) rotate(${(Math.atan2(260, 160) * 180 / Math.PI).toFixed(1)})`);
+  const wL = sineWave(rayL, { w: 430, amp: 9, wl: 42, color: C.heat, width: 4 }); rayL.setAttribute('transform', `translate(626 216) rotate(${(Math.atan2(240, -250) * 180 / Math.PI).toFixed(1)})`);
+  const wS = sineWave(rayS, { w: 370, amp: 9, wl: 42, color: C.heat, width: 4 }); rayS.setAttribute('transform', `translate(730 216) rotate(${(Math.atan2(260, 160) * 180 / Math.PI).toFixed(1)})`);
   const thLand = thermometer(Ec, 160, C.bad); tr(thLand, 150, 552);
   const thSea = thermometer(Ec, 160, C.bad); tr(thSea, 1050, 576);
   const landFast = T(Ec, 150, 366, 'warms faster', { size: 28, anchor: 'middle', fill: C.heat });
@@ -299,7 +299,7 @@ scene('convection', S => {
   const homeChip = chip(F, 'Try it at home', { size: 30, fill: C.card2, stroke: C.energy, color: C.energy });
   tr(homeChip, 600, 160);
   const radF = radiatorArt(F, 320, 116); tr(radF, 600, 612);
-  const fWaves = heatWaves(F, { n: 3, h: 48, spacing: 30, color: '#FFB47A' }); tr(fWaves, 600, 486);
+  const fWaves = heatWaves(F, { n: 3, h: 48, spacing: 30, color: '#FFB067' }); tr(fWaves, 600, 486);
   const fArrows = [520, 680].map(x => flowArrow(F, x, 484, x, 430, { width: 8, waves: false }));
   E('line', { x1: 600, y1: 200, x2: 600, y2: 242, stroke: '#E9EEF2', 'stroke-width': 2.5 }, F);
   E('circle', { cx: 600, cy: 200, r: 5, fill: '#E9EEF2' }, F);
@@ -465,7 +465,7 @@ scene('convection', S => {
     if (aE > 0) {
       sunG.upd(t); surf.set({ phase: -t * 0.4 });
       const rays = win(t, mid('land', 0.4), at('breeze') + 0.3, 0.4);
-      op(rayL, rays); op(rayS, rays); wL.set({ phase: -t * 1.2 }); wS.set({ phase: -t * 1.2 });
+      op(rayL, rays); op(rayS, rays); wL.set({ phase: t * 1.2 }); wS.set({ phase: t * 1.2 });
       const warm = P(t, mid('land', 0.5), end('land') - mid('land', 0.5) + 0.3, linear);
       thLand.set(0.25 + 0.55 * warm); thSea.set(0.25 + 0.12 * warm);
       op(landGlow, 0.45 * warm);

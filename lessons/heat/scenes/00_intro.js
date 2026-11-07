@@ -181,14 +181,26 @@ scene('intro', S => {
   /* ---------- roadmap: three cards ---------- */
   const road = G(root);
   const CARD_Y = 462, CARD_X = [230, 600, 970];
-  /* a vacuum flask in cross-section: outer case, vacuum gap, silvered wall, hot drink, stopper and cup lid */
+  /* a small vacuum flask in cross-section, drawn as in the insulation chapter: case with collar and support
+     pad, the empty gap between silvered double walls, the hot red drink, the stopper */
   function miniFlask(g) {
-    E('rect', { x: -42, y: -70, width: 84, height: 170, rx: 16, fill: linGrad('#C9D6DF', '#7D93A2'), stroke: '#EEF4F7', 'stroke-width': 2.5 }, g);
-    E('rect', { x: -34, y: -62, width: 68, height: 154, rx: 11, fill: '#0B1C27' }, g);
-    E('rect', { x: -27, y: -55, width: 54, height: 140, rx: 8, fill: '#E9F0F5' }, g);
-    E('rect', { x: -21, y: -30, width: 42, height: 109, rx: 6, fill: ball('#FF6B5C', '#B5372D') }, g);
-    E('rect', { x: -15, y: -64, width: 30, height: 30, rx: 5, fill: ball('#B08A62', '#6E5034'), stroke: '#D9BC98', 'stroke-width': 2 }, g);
-    E('path', { d: 'M-46,-72 L-46,-90 Q-46,-102 -34,-102 L34,-102 Q46,-102 46,-90 L46,-72 Z', fill: ball('#7C93A6', '#4C6070'), stroke: '#C9D6DF', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, g);
+    const f = G(g); tr(f, 0, 1.4, 0.4);
+    const VO = 'M-58,-232 L-58,-200 C-58,-176 -118,-170 -118,-120 L-118,196 Q-118,232 -82,232 L82,232 Q118,232 118,196 L118,-120 C118,-170 58,-176 58,-200 L58,-232 Z';
+    const VI = 'M-36,-232 L-36,-196 C-36,-160 -96,-156 -96,-110 L-96,178 Q-96,210 -64,210 L64,210 Q96,210 96,178 L96,-110 C96,-156 36,-160 36,-196 L36,-232 Z';
+    E('rect', { x: -150, y: -214, width: 300, height: 476, rx: 36, fill: linGrad('#4F7C99', '#2B5068', false), stroke: '#8FB4CC', 'stroke-width': 3 }, f);
+    E('rect', { x: -134, y: -198, width: 268, height: 444, rx: 26, fill: '#0C1F2B' }, f);
+    E('rect', { x: -40, y: 232, width: 80, height: 14, rx: 4, fill: '#55606B' }, f);
+    E('rect', { x: -76, y: -214, width: 152, height: 16, rx: 4, fill: '#3E5568' }, f);
+    E('path', { d: VO, fill: '#050E16' }, f);
+    E('path', { d: VI, fill: '#0A1822' }, f);
+    E('clipPath', { id: 'heatIntroDrink' }, defs()).appendChild(E('path', { d: VI }));
+    const drink = G(f, { 'clip-path': 'url(#heatIntroDrink)' });
+    E('rect', { x: -100, y: -122, width: 200, height: 340, fill: '#D93A48' }, drink);
+    E('rect', { x: -100, y: -124, width: 200, height: 5, fill: '#FFFFFF', opacity: 0.35 }, drink);
+    E('path', { d: VO.slice(0, -2), fill: 'none', stroke: '#F4F8FB', 'stroke-width': 8, 'stroke-linejoin': 'round' }, f);
+    E('path', { d: VI.slice(0, -2), fill: 'none', stroke: '#F4F8FB', 'stroke-width': 8, 'stroke-linejoin': 'round' }, f);
+    E('rect', { x: -38, y: -236, width: 76, height: 50, rx: 8, fill: linGrad('#9AA8B4', '#5E6C78', false), stroke: '#C9D6DE', 'stroke-width': 2.5 }, f);
+    E('rect', { x: -54, y: -258, width: 108, height: 26, rx: 9, fill: linGrad('#B9C6D2', '#7D8C99', false), stroke: '#DCE6ED', 'stroke-width': 2.5 }, f);
     const hw = heatWaves(g, { n: 2, h: 34, spacing: 14, width: 3.5, color: '#FFE0C4', speed: 0.5 }); tr(hw, 0, 52);
     return hw;
   }

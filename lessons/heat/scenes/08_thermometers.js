@@ -420,7 +420,7 @@ scene('thermometers', S => {
     if (aI > 0) {
       panWaves.upd(t); op(panGlow, 0.5 + 0.2 * wave(t, 1.6));
       const bw2 = P(t, mid('infrared', 0.22), 0.6, linear); op(beam, bw2);
-      irw.forEach((w, k) => w.set({ phase: -(t * 1.4 * calm) + k * 0.25 }));
+      irw.forEach((w, k) => w.set({ phase: t * 1.4 * calm + k * 0.25 }));   // from the hot pan to the sensor
       op(irLbl, P(t, mid('infrared', 0.3), 0.4, linear));
       setText(IR.disp, Math.round(lerp(21, 185, P(t, mid('infrared', 0.36), 0.6, easeOut))) + ' °C');
       op(chTouch, P(t, mid('infrared', 0.6), 0.4, linear)); op(chFar, P(t, mid('infrared', 0.76), 0.4, linear));

@@ -44,7 +44,7 @@ scene('conduction', S => {
     const n = o.waves === false ? 0 : Math.max(1, Math.round(L / 210)), seg = L / n, hh = Math.min(seg * 0.5, 80), ws = [];
     for (let k = 0; k < n; k++) {
       const f = (k * seg + seg * 0.18) / L;
-      const hw = heatWaves(g, { n: 2, h: hh, spacing: 11, width: 4.5, color: '#FFB47A', speed: 0.75 });
+      const hw = heatWaves(g, { n: 2, h: hh, spacing: 11, width: 4.5, color: '#FFB067', speed: 0.75 });
       hw.setAttribute('transform', `translate(${(x1 + Math.cos(ang) * L * f + nx * off).toFixed(1)} ${(y1 + Math.sin(ang) * L * f + ny * off).toFixed(1)}) rotate(${(ang * 180 / Math.PI + 90).toFixed(1)})`);
       ws.push({ hw, f: f + hh * 1.2 / L });          // shown once the arrow has been drawn past it
     }
@@ -177,68 +177,113 @@ scene('conduction', S => {
   const trapGlows = [INS[3], INS[4]].map(o => { const e = E('ellipse', { cx: o.x, cy: IY, rx: 112, ry: 74, fill: glow(C.air) }, o.g); o.g.insertBefore(e, o.g.firstChild); return e; });
 
   /* ================= C. the mystery: tiles vs wood ================= */
+  // the floor slab and the bare foot are the intro's, drawn the same way
   const Cf = G(root);
-  const BK = 470, FR = 600, FF = 640;
-  function floorSlab(parent) {
-    const g = G(parent), q = y => (y - BK) / (FR - BK);
-    const lx = y => lerp(120, 60, q(y));
-    E('path', { d: `M120,${BK} L600,${BK} L600,${FR} L60,${FR} Z`, fill: linGrad('#AFC2D0', '#8199AB', true) }, g);
-    E('path', { d: `M600,${BK} L1080,${BK} L1140,${FR} L600,${FR} Z`, fill: linGrad('#D9A062', '#B97B40', true) }, g);
-    E('path', { d: `M60,${FR} L600,${FR} L600,${FF} L60,${FF} Z`, fill: '#5E7586' }, g);
-    E('path', { d: `M600,${FR} L1140,${FR} L1140,${FF} L600,${FF} Z`, fill: '#8A5629' }, g);
+  const f1 = v => (+v).toFixed(1);
+  const quad = (a, b, c, d) => `M${f1(a[0])},${f1(a[1])} L${f1(b[0])},${f1(b[1])} L${f1(c[0])},${f1(c[1])} L${f1(d[0])},${f1(d[1])} Z`;
+  const YH = 70, Y1 = 640, Y0 = 500, XL = 110, XR = 1090, CXF = 600, TH = 30;
+  const xAt = (xn, y) => CXF + (xn - CXF) * (y - YH) / (Y1 - YH);    // perspective: near-edge x -> x at depth y
+  const QF = (Y1 - YH) / (Y0 - YH) - 1, rowY = k => YH + (Y1 - YH) / (1 + QF * k / 5);
+  const slab = G(Cf);
+  E('ellipse', { cx: CXF, cy: Y1 + TH + 14, rx: 540, ry: 22, fill: 'rgba(0,0,0,0.35)' }, slab);
+  // tiles
+  E('path', { d: quad([XL, Y1], [CXF, Y1], [CXF, Y0], [xAt(XL, Y0), Y0]), fill: linGrad('#7E93A6', '#AFC2D1', true) }, slab);
+  {
     let d = '';
-    [0.25, 0.5, 0.75].forEach(f => { d += `M${lerp(120, 600, f).toFixed(1)},${BK} L${lerp(60, 600, f).toFixed(1)},${FR} M${lerp(60, 600, f).toFixed(1)},${FR} L${lerp(60, 600, f).toFixed(1)},${FF} `; });
-    [506, 549].forEach(y => { d += `M${lx(y).toFixed(1)},${y} L600,${y} `; });
-    E('path', { d, stroke: '#DCE6EC', 'stroke-width': 3, fill: 'none', opacity: 0.9 }, g);
-    const rr = rng(23);
-    let p = '', gr = '';
-    const pxAt = (f, y) => lerp(lerp(600, 1080, f), lerp(600, 1140, f), q(y));
-    for (let k = 1; k < 6; k++) p += `M${pxAt(k / 6, BK).toFixed(1)},${BK} L${pxAt(k / 6, FR).toFixed(1)},${FR} M${pxAt(k / 6, FR).toFixed(1)},${FR} L${pxAt(k / 6, FR).toFixed(1)},${FF} `;
-    for (let k = 0; k < 6; k++) {
-      const yj = BK + 18 + rr() * 90;
-      p += `M${pxAt(k / 6, yj).toFixed(1)},${yj.toFixed(1)} L${pxAt((k + 1) / 6, yj).toFixed(1)},${yj.toFixed(1)} `;
-      [0.33, 0.68].forEach(f => {
-        const y0 = BK + 8 + rr() * 40, y1 = y0 + 50 + rr() * 30, pts = [];
-        for (let s = 0; s <= 4; s++) { const y = lerp(y0, y1, s / 4); pts.push([pxAt((k + f) / 6, y) + Math.sin(s * 1.7 + k) * 3, y]); }
-        gr += openPath(pts) + ' ';
+    for (let k = 1; k < 6; k++) { const xn = XL + k * (CXF - XL) / 6; d += `M${f1(xn)},${Y1} L${f1(xAt(xn, Y0))},${Y0} `; }
+    for (let k = 1; k < 5; k++) { const y = rowY(k); d += `M${f1(xAt(XL, y))},${f1(y)} L${CXF},${f1(y)} `; }
+    E('path', { d, fill: 'none', stroke: '#DCE7EF', 'stroke-width': 2.5, opacity: 0.85 }, slab);
+    let gl = '';
+    [[1, 0.6], [3, 2.5], [4, 1.4]].forEach(([c, r]) => {
+      const xa = XL + (c + 0.25) * (CXF - XL) / 6, xb = XL + (c + 0.6) * (CXF - XL) / 6, y = rowY(r);
+      gl += `M${f1(xAt(xa, y))},${f1(y)} L${f1(xAt(xb, y - 6))},${f1(y - 6)} `;
+    });
+    E('path', { d: gl, fill: 'none', stroke: '#ffffff', 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.35 }, slab);
+  }
+  // wooden planks
+  {
+    const shades = ['#C88843', '#D69A52', '#BD7D3B', '#CF9149'];
+    for (let k = 0; k < 8; k++) {
+      const a = CXF + k * (XR - CXF) / 8, b = CXF + (k + 1) * (XR - CXF) / 8;
+      E('path', { d: quad([a, Y1], [b, Y1], [xAt(b, Y0), Y0], [xAt(a, Y0), Y0]), fill: shades[k % 4] }, slab);
+    }
+    let seams = '', joints = '', grain = '';
+    const JR = [1.6, 3.3, 0.9, 2.6, 4.1, 1.3, 3.7, 2.2];
+    for (let k = 0; k < 8; k++) {
+      const a = CXF + k * (XR - CXF) / 8, b = CXF + (k + 1) * (XR - CXF) / 8;
+      if (k) seams += `M${f1(a)},${Y1} L${f1(xAt(a, Y0))},${Y0} `;
+      const y = rowY(JR[k]);
+      joints += `M${f1(xAt(a, y))},${f1(y)} L${f1(xAt(b, y))},${f1(y)} `;
+      [0.32, 0.7].forEach((fr, i) => {
+        const xn = lerp(a, b, fr), w = (i ? -1 : 1) * 3;
+        const ym = rowY(2.4);
+        grain += `M${f1(xn)},${Y1 - 3} Q${f1(xAt(xn, ym) + w)},${f1(ym)} ${f1(xAt(xn, Y0 + 2))},${Y0 + 2} `;
       });
     }
-    E('path', { d: gr, stroke: '#A0682F', 'stroke-width': 2, fill: 'none', opacity: 0.85 }, g);
-    E('path', { d: p, stroke: '#77461D', 'stroke-width': 3, fill: 'none' }, g);
-    E('path', { d: `M120,${BK} L1080,${BK} L1140,${FR} L1140,${FF} L60,${FF} L60,${FR} Z`, fill: 'none', stroke: '#21384A', 'stroke-width': 3, 'stroke-linejoin': 'round' }, g);
-    E('line', { x1: 60, y1: FR, x2: 1140, y2: FR, stroke: '#21384A', 'stroke-width': 2.5 }, g);
-    E('line', { x1: 600, y1: BK, x2: 600, y2: FF, stroke: '#21384A', 'stroke-width': 4 }, g);
-    return g;
+    E('path', { d: grain, fill: 'none', stroke: '#9C6128', 'stroke-width': 1.8, opacity: 0.55 }, slab);
+    E('path', { d: seams, fill: 'none', stroke: '#7E4A1D', 'stroke-width': 2.5 }, slab);
+    E('path', { d: joints, fill: 'none', stroke: '#7E4A1D', 'stroke-width': 2 }, slab);
   }
-  /* a bare foot (side view, toes to the right) under a pyjama leg; sole on y=0, heel at x=0, ~160 long */
-  function foot(parent) {
-    const g = G(parent);
-    E('ellipse', { cx: 82, cy: 2, rx: 92, ry: 9, fill: '#000000', opacity: 0.25 }, g);
-    E('path', { d: 'M6,-186 L46,-186 L46,-96 C50,-68 66,-52 92,-42 C120,-32 152,-30 161,-17 C167,-7 160,0 148,0 L14,0 C1,0 -7,-9 -7,-24 C-7,-44 3,-64 6,-96 Z', fill: linGrad('#F4CBA6', '#D29A6E', true), stroke: '#B57E55', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, g);
-    E('path', { d: 'M150,-27 Q157,-33 163,-24 M136,-31 Q143,-37 149,-30 M122,-34 Q129,-40 135,-34 M26,-74 q8,-7 15,1', fill: 'none', stroke: '#B57E55', 'stroke-width': 2.5, 'stroke-linecap': 'round' }, g);
-    E('rect', { x: -10, y: -258, width: 70, height: 82, rx: 8, fill: '#7FA6F2' }, g);
-    E('path', { d: 'M-10,-240 L60,-240 M-10,-214 L60,-214 M-10,-188 L60,-188', stroke: '#E8EFFD', 'stroke-width': 6, opacity: 0.8 }, g);
-    return g;
+  // front faces and the near edge
+  E('path', { d: quad([XL, Y1], [CXF, Y1], [CXF, Y1 + TH], [XL, Y1 + TH]), fill: '#5B7083' }, slab);
+  E('path', { d: quad([CXF, Y1], [XR, Y1], [XR, Y1 + TH], [CXF, Y1 + TH]), fill: '#8A5524' }, slab);
+  {
+    let d = '';
+    for (let k = 1; k < 6; k++) { const x = XL + k * (CXF - XL) / 6; d += `M${f1(x)},${Y1} L${f1(x)},${Y1 + TH} `; }
+    E('path', { d, stroke: '#C6D4DF', 'stroke-width': 2.5, opacity: 0.7 }, slab);
+    let w = '';
+    for (let k = 1; k < 8; k++) { const x = CXF + k * (XR - CXF) / 8; w += `M${f1(x)},${Y1} L${f1(x)},${Y1 + TH} `; }
+    E('path', { d: w, stroke: '#5E3612', 'stroke-width': 2.5 }, slab);
+    E('path', { d: `M${XL},${Y1} L${XR},${Y1}`, stroke: '#ffffff', 'stroke-width': 2.5, opacity: 0.35 }, slab);
+    E('path', { d: `M${CXF},${Y0} L${CXF},${Y1 + TH}`, stroke: '#3C4C59', 'stroke-width': 4 }, slab);
   }
-  const slab = floorSlab(Cf);
+  const labTiles = labelLine(slab, 228, 716, 300, 662, 'tiles', { size: 30, fill: '#C9D8E4' });
+  const labWood = labelLine(slab, 972, 716, 900, 662, 'wood', { size: 30, fill: '#F0C48C' });
   const mystery = chip(Cf, 'the mystery from the start', { size: 28, fill: C.card2, stroke: C.energy, color: C.energy });
   tr(mystery, 600, 165);
-  const thG = G(Cf);
-  const thT = thermometer(thG, 180, C.bad); tr(thT, 200, 512); thT.set(0.38);
-  const thW = thermometer(thG, 180, C.bad); tr(thW, 1000, 512); thW.set(0.38);
-  const rdT = chip(thG, '20 °C', { size: 30, fill: C.card2, stroke: C.line }); tr(rdT, 200, 290);
-  const rdW = chip(thG, '20 °C', { size: 30, fill: C.card2, stroke: C.line }); tr(rdW, 1000, 290);
+  // two thermometers on the floor, as in the intro
+  const thG = G(Cf), TH_Y = 556;
+  const thLg = G(thG), thRg = G(thG);
+  const thT = thermometer(thLg, 230, C.bad), thW = thermometer(thRg, 230, C.bad);
+  const rdT = chip(thG, '20 °C', { size: 34, fill: C.card2, stroke: C.bad }), rdW = chip(thG, '20 °C', { size: 34, fill: C.card2, stroke: C.bad });
+  tr(rdT, 355, 262); tr(rdW, 845, 262);
   const eqG = G(Cf);
-  T(eqG, 600, 312, '=', { size: 72, weight: 700, anchor: 'middle', fill: C.good });
-  T(eqG, 600, 372, 'same temperature', { size: 32, weight: 700, anchor: 'middle' });
-  const betterLbl = rich(Cf, 330, 692, ['much ', ['better conductor', C.energy, 800]], { size: 30, anchor: 'middle' });
-  const footT = foot(Cf), footW = foot(Cf);
-  const shiver = E('path', { d: 'M222,452 q-7,9 0,18 t0,18 M206,466 q-7,9 0,18 t0,18 M438,440 q7,9 0,18 t0,18 M454,454 q7,9 0,18 t0,18', fill: 'none', stroke: C.air, 'stroke-width': 4, 'stroke-linecap': 'round' }, Cf);
-  const tileArrows = [290, 333, 376].map(x => flowArrow(Cf, x, 554, x, 636, { width: 11, side: x === 333 ? 1 : -1 }));
-  const woodArrow = dotArrow(Cf, 870, 554, 870, 604, { width: 6 });
-  const fastLbl = rich(Cf, 330, 692, ['heat escapes ', ['fast', C.heat, 800]], { size: 30, anchor: 'middle' });
-  const slowLbl = rich(Cf, 870, 692, ['only a ', ['trickle', C.muted, 800]], { size: 30, anchor: 'middle' });
-  const chillLbl = rich(Cf, 600, 248, ['the chill is ', ['your own heat escaping', C.heat, 800]], { size: 32, anchor: 'middle' });
+  const eqSign = T(eqG, 600, 288, '=', { size: 96, weight: 700, anchor: 'middle', fill: C.energy });
+  const sameT = T(eqG, 600, 345, 'same temperature', { size: 32, weight: 700, anchor: 'middle' });
+  const betterLbl = rich(Cf, 355, 716, ['much ', ['better conductor', C.energy, 800]], { size: 30, anchor: 'middle' });
+  // the intro's bare foot (side view, facing right; sole at y = 0) under a pyjama leg
+  const FOOT_Y = 578;
+  const PJ = (() => {
+    const lg = E('linearGradient', { id: 'heatCondPj', x1: 0, y1: 0, x2: 0, y2: 1 }, defs());
+    [[0, 0], [0.55, 1], [1, 1]].forEach(([o, a]) => E('stop', { offset: o, 'stop-color': '#6F86D6', 'stop-opacity': a }, lg));
+    return 'url(#heatCondPj)';
+  })();
+  const FOOT = 'M-48,0 C-20,2 30,2 58,0 C72,-1 88,0 94,-5 C100,-10 99,-20 90,-23 C78,-26 64,-22 50,-28 C24,-38 2,-52 -14,-70 L-16,-122 L-58,-122 L-57,-72 C-57,-52 -66,-36 -70,-20 C-74,-6 -64,0 -48,0 Z';
+  function bareFoot(parent, x) {
+    const g = G(parent);
+    g.x = x;
+    g.shadow = E('ellipse', { rx: 92, ry: 11, fill: 'rgba(0,0,0,0.4)' }, g);
+    const b = G(g); g.body = b;
+    E('path', { d: 'M-70,-128 L-6,-128 L-4,-330 L-72,-330 Z', fill: PJ }, b);
+    E('rect', { x: -74, y: -148, width: 72, height: 30, rx: 8, fill: '#5A70C2', stroke: '#93A6EA', 'stroke-width': 2 }, b);
+    E('path', { d: FOOT, fill: ball('#EDBB93', '#B9825A'), stroke: '#F7D9C2', 'stroke-width': 3, 'stroke-linejoin': 'round' }, b);
+    g.tint = E('path', { d: FOOT, fill: C.air, opacity: 0 }, b);
+    E('path', { d: 'M66,-24 C72,-30 84,-30 90,-22', fill: 'none', stroke: '#C98D64', 'stroke-width': 2.5, 'stroke-linecap': 'round' }, b);
+    E('ellipse', { cx: 84, cy: -19, rx: 6, ry: 3.5, fill: '#FBE3D2', transform: 'rotate(-14 84 -19)' }, b);
+    E('path', { d: 'M-40,-62 Q-32,-56 -26,-62', fill: 'none', stroke: '#C98D64', 'stroke-width': 2.5, 'stroke-linecap': 'round' }, b);
+    return g;
+  }
+  const footT = bareFoot(Cf, 312), footW = bareFoot(Cf, 842);
+  // the intro's shiver lines, round the foot on the tiles
+  const shiver = G(Cf), shivers = [];
+  [[-112, -70, 1], [-120, -30, 1], [-104, -110, 1], [134, -64, -1], [140, -24, -1], [124, -104, -1]].forEach(([x, y, s]) => {
+    shivers.push({ el: E('path', { d: `M0,-16 L${8 * s},-8 L${-2 * s},0 L${8 * s},8 L0,16`, fill: 'none', stroke: C.air, 'stroke-width': 4.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, shiver), x, y });
+  });
+  const tileArrows = [280, 322, 364].map((x, i) => flowArrow(Cf, x, 584, x, 664, { width: 10, head: 30, waves: i < 2 }));
+  const woodArrow = dotArrow(Cf, 860, 584, 860, 636, { width: 6 });
+  const fastLbl = rich(Cf, 355, 716, ['heat escapes ', ['fast', C.heat, 800]], { size: 30, anchor: 'middle' });
+  const slowLbl = rich(Cf, 845, 716, ['only a ', ['trickle', C.muted, 800]], { size: 30, anchor: 'middle' });
+  const chillLbl = rich(Cf, 600, 200, ['the chill is ', ['your own heat escaping', C.heat, 800]], { size: 32, anchor: 'middle' });
 
   /* ================= D. metal spoon vs wooden spoon ================= */
   const Ds = G(root);
@@ -477,24 +522,39 @@ scene('conduction', S => {
     if (aC > 0) {
       op(slab, P(t, at('floor') - 0.2, 0.5, linear)); tr(slab, 0, (1 - P(t, at('floor') - 0.2, 0.7, easeOut)) * 40);
       op(mystery, win(t, at('floor') - 0.1, at('feet') - 0.1, 0.4));
-      const thIn = P(t, mid('floor', 0.3), 0.5, linear), thOut = 1 - P(t, at('feet') - 0.2, 0.5, linear);
-      op(thG, thIn * thOut);
-      const rise = P(t, mid('floor', 0.3), 1.2, easeOut);
-      thT.set(0.38 * rise + 0.05); thW.set(0.38 * rise + 0.05);
-      op(rdT, P(t, mid('floor', 0.42), 0.4, linear)); op(rdW, P(t, mid('floor', 0.42), 0.4, linear));
-      op(eqG, P(t, mid('floor', 0.5), 0.4, linear) * thOut);
+      labTiles.set(P(t, at('floor') + 0.2, 0.4, linear) * (1 - P(t, mid('floor', 0.68), 0.4, linear)));
+      labWood.set(P(t, at('floor') + 0.3, 0.4, linear) * (1 - P(t, at('feet') - 0.2, 0.4, linear)));
+      // the two thermometers climb in step to the same reading, as in the intro
+      const thOut = 1 - P(t, at('feet') - 0.45, 0.35, linear);           // gone before the feet arrive
+      op(thG, thOut); op(eqG, thOut);
+      const pL = P(t, mid('floor', 0.26), 0.5, pop), pR = P(t, mid('floor', 0.3), 0.5, pop);
+      tr(thLg, 355, TH_Y + (1 - clamp(pL)) * 24, Math.max(0.01, 0.8 + 0.2 * pL)); op(thLg, clamp(pL * 2));
+      tr(thRg, 845, TH_Y + (1 - clamp(pR)) * 24, Math.max(0.01, 0.8 + 0.2 * pR)); op(thRg, clamp(pR * 2));
+      const lvl = lerp(0.04, 0.44, P(t, mid('floor', 0.32), 1.5, ease));
+      thT.set(lvl); thW.set(lvl);
+      const cL = P(t, mid('floor', 0.42), 0.45, pop), cR = P(t, mid('floor', 0.46), 0.45, pop);
+      op(rdT, clamp(cL * 2)); tr(rdT, 355, 262, Math.max(0.01, 0.7 + 0.3 * cL));
+      op(rdW, clamp(cR * 2)); tr(rdW, 845, 262, Math.max(0.01, 0.7 + 0.3 * cR));
+      const pe = P(t, mid('floor', 0.5), 0.45, pop); op(eqSign, clamp(pe * 2));
+      eqSign.setAttribute('transform', `translate(600 262) scale(${Math.max(0.01, 0.6 + 0.4 * pe).toFixed(3)}) translate(-600 -262)`);
+      op(sameT, P(t, mid('floor', 0.54), 0.4, linear));
       op(betterLbl, win(t, mid('floor', 0.72), at('feet') + 0.4, 0.4));
+      // a bare foot steps onto each floor
       [footT, footW].forEach((f, i) => {
-        const p = P(t, at('feet') - 0.1 + i * 0.25, 0.6, easeOut);
-        op(f, clamp(p * 3)); tr(f, i ? 790 : 250, 554 - (1 - p) * 70);
+        const p = P(t, at('feet') + 0.05 + i * 0.25, 0.6, easeOut);
+        op(f, clamp(p * 3));
+        tr(f.body, f.x, FOOT_Y - (1 - p) * 70);
+        tr(f.shadow, f.x + 10, FOOT_Y + 2, 0.4 + 0.6 * p); op(f.shadow, 0.9 * p);
       });
       const on = P(t, mid('feet', 0.12), 0.4, linear);
       tileArrows.forEach((a, i) => { a.draw(t, P(t, mid('feet', 0.12 + i * 0.05), 0.6, easeOut)); op(a, on); });
       woodArrow.set(P(t, mid('feet', 0.35), 0.8, easeOut));
       op(fastLbl, P(t, mid('feet', 0.3), 0.4, linear)); op(slowLbl, P(t, mid('feet', 0.42), 0.4, linear));
       op(chillLbl, P(t, mid('feet', 0.6), 0.5, linear));
-      const sh = P(t, mid('feet', 0.62), 0.5, linear);
-      op(shiver, sh); tr(shiver, Math.sin(t * 40) * 1.6 * calm, 0);
+      // the chill: the foot on the tiles turns blue and shivers
+      const cold = P(t, mid('feet', 0.55), 0.6, linear);
+      op(footT.tint, cold * 0.3); op(shiver, cold);
+      if (cold > 0) shivers.forEach((s, i) => tr(s.el, footT.x + s.x + calm * 2.5 * Math.sin(t * 47 + i * 1.7), FOOT_Y + s.y + calm * 1.5 * Math.cos(t * 39 + i)));
     }
 
     /* ---- D. spoons ---- */

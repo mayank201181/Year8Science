@@ -52,15 +52,6 @@ scene('radiation', S => {
     const q = t < t0 ? 0 : t < t0 + d ? (t - t0) * (t - t0) / (2 * d) : d / 2 + (t - t0 - d);
     return f0 * t + (f1 - f0) * q;
   }
-  function wayPill(parent, n, text, size, bright) {
-    const g = G(parent), h = Math.round(size * 1.8), tw = textWidth(text, size, FD, 700), w = Math.ceil(tw + h * 1.05 + size * 0.8);
-    E('rect', { x: -w / 2, y: -h / 2, width: w, height: h, rx: h / 2, fill: bright ? 'rgba(255,138,61,0.16)' : C.card, stroke: bright ? HOT : C.line, 'stroke-width': bright ? 3.5 : 2.5 }, g);
-    E('circle', { cx: -w / 2 + h / 2, cy: 0, r: h * 0.33, fill: bright ? HOT : C.faint }, g);
-    T(g, -w / 2 + h / 2, size * 0.29, String(n), { size: Math.round(size * 0.78), weight: 700, fill: C.bg0, anchor: 'middle' });
-    T(g, -w / 2 + h * 0.95, size * 0.35, text, { size, weight: 700, fill: bright ? HOT : C.muted });
-    g.w = w;
-    return g;
-  }
   function earth(parent, r) {
     const g = G(parent);
     const halo = E('circle', { cx: -r * 0.6, cy: 0, r: r * 1.55, fill: glow(HOT) }, g);
@@ -156,10 +147,18 @@ scene('radiation', S => {
   const beat = (t, a, b) => win(t, a, b, 0.45);
   const popIn = (t, t0) => P(t, t0, 0.5, pop);
 
+  /* ================= title: the three ways, Radiation lit (as in conduction and convection) ================= */
+  const top = G(root);
+  const WAYS = ['Conduction', 'Convection', 'Radiation'], WX = [330, 600, 870], WY = 190, ME = 2;
+  const ways = WAYS.map(w => {
+    const g = G(top);
+    const dim = chip(g, w, { size: 30, fill: C.card, stroke: C.line, color: C.muted });
+    const lit = chip(g, w, { size: 30, fill: C.card2, stroke: C.energy, color: C.energy });
+    return { g, dim, lit, w: lit.w };
+  });
+
   /* ================= A. waves, and the vacuum ================= */
   const gA = G(root);
-  const ways = [[1, 'Conduction', 26, false], [2, 'Convection', 26, false], [3, 'Radiation', 40, true]].map(([n, txt, sz, b]) => ({ g: wayPill(gA, n, txt, sz, b) }));
-  { const GAP = 24; let tot = 0; ways.forEach((w, i) => { tot += w.g.w + (i ? GAP : 0); }); let x = 600 - tot / 2; ways.forEach((w, i) => { if (i) x += GAP; w.x = x + w.g.w / 2; x += w.g.w; }); }
   const RY = [350, 420, 490];
   const raysA = RY.map(y => irRay(gA, 70, y, 1130, y, { amp: 18, wl: 76, width: 6, speed: 280 }));
   const lightRay = irRay(gA, 70, 262, 1130, 262, { amp: 10, wl: 36, width: 5, color: Y, speed: 280 });
@@ -351,7 +350,7 @@ scene('radiation', S => {
     const lit = G(g);
     E('circle', { cx: x0 + textWidth(c.title[0], 40, FD, 700) / 2, cy: 284, r: 36, fill: glow(Y) }, lit);
     T(lit, x0, 298, c.title[0], { size: 40, weight: 700, fill: Y });
-    T(g, c.x, 584, c.sub, { size: 26, weight: 600, fill: C.muted, anchor: 'middle' });
+    T(g, c.x, 596, c.sub, { size: 26, weight: 600, fill: C.muted, anchor: 'middle' });
     return Object.assign(c, { g, lit, art: G(g) });
   });
   // conduction: a bar heated at one end, its particles passing the vibration along
@@ -396,10 +395,24 @@ scene('radiation', S => {
     op(gA, aA); op(gB, aB); op(gFire, aC); op(gAll, aD); op(gFloor, beat(t, tC0, tE0 + 0.35)); op(gSurf, aE); op(gMnem, aF); op(gUse, aH); op(gFoil, aI); op(gThree, aJ);
     const tc = t * calm;
 
+    /* --- title chips: the three ways, Radiation lit, then parked top right --- */
+    ways.forEach((o, i) => {
+      const p = P(t, mid('third', 0.02 + i * 0.07), 0.45, pop);
+      if (i !== ME) {
+        op(o.lit, 0);
+        op(o.g, clamp(p * 2) * (1 - P(t, mid('third', 0.38), 0.5, linear)));
+        tr(o.g, WX[i], WY, 0.85 + 0.15 * clamp(p));
+        return;
+      }
+      const lit = P(t, mid('third', 0.2), 0.4, linear);
+      op(o.g, clamp(p * 2)); op(o.lit, lit); op(o.dim, 1 - lit);
+      const c = P(t, mid('third', 0.36), 0.8), h = P(t, at('waves') - 0.7, 0.8);
+      tr(o.g, lerp(lerp(WX[i], 600, c), 1160 - o.w * 0.45, h), lerp(WY, 60, h), lerp(lerp(1, 1.5, c), 0.9, h) * (0.85 + 0.15 * clamp(p)));
+    });
+
     /* --- A: infrared waves; electromagnetic like light; across a vacuum --- */
     if (aA > 0) {
       const t0 = at('third');
-      ways.forEach((w, i) => { const p = popIn(t, t0 + [-0.3, -0.1, 0.25][i]); op(w.g, clamp(p * 2)); tr(w.g, w.x, 165 + (1 - clamp(p)) * 14, i === 2 ? 0.8 + 0.2 * p : 1); });
       raysA.forEach((r, i) => r.upd(tc, grow(t, t0 + 0.35 + i * 0.2, r)));
       op(chTh, P(t, mid('third', 0.3), 0.4, linear) * (1 - P(t, at('waves') - 0.1, 0.4, linear)));
       op(alsoT, P(t, mid('third', 0.47), 0.4, linear) * (1 - P(t, at('waves') - 0.1, 0.4, linear)));
@@ -536,7 +549,7 @@ scene('radiation', S => {
       barDots.forEach((d, i) => { const a = Math.max(0.6, 6 - i * 0.7) * calm; attr(d, 'cx', 135 + i * 30 + Math.sin(t * 17 + i) * a); attr(d, 'cy', 432 + Math.cos(t * 21 + i * 1.3) * a * 0.6); });
       cArrow.set(P(t, mid('three', 0.27), 0.8));
       loopDots.forEach((d, i) => {
-        const th = -(t * 0.9 * calm + i / 6) * TAU, x = 600 + Math.cos(th) * 52, y = 450 + Math.sin(th) * 30;
+        const th = (t * 0.9 * calm + i / 6) * TAU, x = 600 + Math.cos(th) * 52, y = 450 + Math.sin(th) * 30;   // up over the flame, down the far side
         attr(d, 'cx', x); attr(d, 'cy', y); d.setAttribute('fill', Math.cos(th) < 0 ? '#FF9A6A' : '#9FE0FF');
       });
       sunJ.upd(tc);
