@@ -69,11 +69,12 @@ def main(topic, out_dir):
             a, _ = sf.read(path, dtype="float32")
             return a
         if kok is None:
-            # One synthesis at a time per machine: several at once thrash the CPU and all run slower.
-            # Queued runs wait here (asleep, not spinning); fully cached runs never get this far.
-            lock = open(os.path.join(model_dir, ".tts.lock"), "w")
-            print("  waiting for the synthesis lock...", flush=True)
-            fcntl.flock(lock, fcntl.LOCK_EX)
+            # Optional: LESSON_TTS_LOCK=1 runs one synthesis at a time per machine (several at once thrash
+            # the CPU). Queued runs wait here asleep; fully cached runs never get this far.
+            if os.environ.get("LESSON_TTS_LOCK") == "1":
+                lock = open(os.path.join(model_dir, ".tts.lock"), "w")
+                print("  waiting for the synthesis lock...", flush=True)
+                fcntl.flock(lock, fcntl.LOCK_EX)
             kok = Kokoro(os.path.join(model_dir, "kokoro-v1.0.onnx"),
                          os.path.join(model_dir, "voices-v1.0.bin"))
         a, sr = kok.create(text, voice=VOICE, speed=SPEED, lang="en-us")
