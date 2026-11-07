@@ -13,19 +13,42 @@ one colour and one icon, used in every chapter:
 | gravitational potential | `C.good` green | a book on a shelf, with an up arrow |
 | elastic potential | `C.lactic` pink | a coiled spring |
 | chemical | `C.glucose` amber | a battery |
-| thermal | `C.heat` orange | `heatWaves()` |
+| thermal | `C.heat` orange | rising heat waves |
 | nuclear | `C.ethanol` violet | a glowing nucleus |
 | electrostatic | `C.air` pale blue | + and − charges |
-| magnetic | red and blue | a small kit `magnet()` |
+| magnetic | split red and blue, like kit `magnet()` | a bar-magnet outline marked N and S |
 
-**Shared art** (no `lessons/energy/lib.js`, so every group draws these to the same spec):
-- *Store badge*: a circle about 44 px radius filled with `ball(colour)`, its white icon inside and a
-  26 px label below.
-- *Store jar*: kit `beaker(…, { marks: false })` filled with the store's colour, its badge on the
-  front; `g.set(level, colour)` shows how full the store is. Sparks leave one jar and enter another.
-- *Pathway arrows*: mechanically, a white lib `arrow()` with a pushing hand; electrically, kit
-  `wire()` with moving current dots; by heating, an orange arrow carrying `heatWaves()`; by
-  radiation, kit `sineWave()` (yellow for light, `C.heat` for infrared, white for sound).
+**Shared art** lives in `lessons/energy/lib.js`. Use these helpers rather than redrawing them; the
+header of that file gives every option.
+- `EN`: the stores in mnemonic order (`EN.order`), each store's colour, name and letter
+  (`EN.store[kind]`), the useful and wasted colours (`EN.useful` yellow, `EN.wasted` orange), the
+  pathway labels, and the resource lists `EN.nonRenewable` and `EN.renewable`.
+- `enBadge(parent, kind, o)`: a store badge (disc about 44 px radius, white icon, 26 px label).
+  `set({ flip, glow, label })`; `flip` turns it over like a coin to its letter face, for the
+  gorillas showpiece.
+- `enJar(parent, kind, o)`: kit `beaker()` filled with the store's colour, its badge on the front.
+  `set(level)`, plus `mouth` and `surface(level)` for spark paths in and out.
+- `enSparkFlow(parent, pts, o)`: sparks along a path, yellow or (`color: EN.wasted`) orange.
+  `set(t, amount)` gives a steady stream; `batch(p)` sends one batch from one jar to another.
+- `enPathway(parent, kind, x1, y1, x2, y2, o)`: `'mech'`, a white lib `arrow()` pushed by a hand;
+  `'elec'`, kit `wire()` with moving current dots; `'heat'`, an orange arrow carrying `heatWaves()`;
+  `'rad'`, a travelling wave in kit `sineWave()`'s stroke that tapers into an arrowhead (`wave:`
+  `'light'` yellow, `'ir'` orange, `'sound'` white). Each has an optional label chip.
+  `set(p)` draws it in; `upd(t)` runs its motion.
+- `enFlowChain(parent, items, o)`: an energy flow diagram, boxes edged in store colours with arrows
+  between (conservation.flow, generating.chain). `set(p)` builds it box by box.
+- `enDissipate(parent, w, h, o)`: orange sparks spreading thinly through a room as it takes a faint
+  warm tint (what.useup, wasted.dissipate, recap.t1, quiz.a5). `set(p, t)`.
+- `enSankey(parent, o)`: a Sankey diagram whose band widths show energy; useful carries straight on,
+  wasted peels off downwards. `set({ grow, split, useful, labels })`; `geo` gives the band edges
+  for the width bracket.
+- `enGrid100(parent, o)`: the 100-square grid (efficiency.percent and rest, quiz.a3).
+  `set({ useful, wasted })`.
+- `enBulb(parent, 'filament' | 'led', o)`: the light bulbs (wasted, efficiency, generating.appliances,
+  quiz.q5). `set(on)`.
+- `enResource(parent, kind, o)`: the 11 resource icons: coal, oil, gas, uranium, solar, wind, hydro,
+  tidal, wave, geothermal and biomass (resources, recap.horses, recap.t4, quiz.q4). `upd(t)` adds
+  idle motion.
 
 ---
 
@@ -181,8 +204,8 @@ with icons; pros get `tick()` chips, cons `cross()` chips.
 - **nuclear**: the uranium rod is pinned firmly in the non-renewable column; chip "low-carbon, but
   non-renewable".
 - **renew**: the right column gets a looping "replaced" arrow and a chip "little or no CO₂".
-- **seven**: seven icons pop in: solar panel with kit `sun()`, wind turbine, dam, tide, kit
-  `sineWave()`, hot rocks with steam (geothermal), logs and kit `leaf()` (biomass).
+- **seven**: the seven `enResource` icons pop in, in mnemonic order: solar (with a kit `sun()`),
+  wind, hydro, tidal, wave, geothermal and biomass.
 - **horses**: **Showpiece**: the seven icons line up under S, W, H, T, W, G, B as the mnemonic
   forms, while a horse silhouette gallops across.
 - **rcons**: day turns to night and the solar panel stops; the wind drops and the turbine stops.
@@ -258,7 +281,7 @@ quiz 77 s.
 
 | Group | Chapters | About | Notes |
 | --- | --- | --- | --- |
-| 1 | intro, what, stores | 3.1 min | Defines the store badges and jars everyone reuses; build these first. Medium-hard. |
+| 1 | intro, what, stores | 3.1 min | Badges, jars and spark flows from `lib.js`; the gorillas flip is `enBadge`'s `flip`. Medium. |
 | 2 | pathways, conservation, recap | 3.6 min | Pathway arrows, falling ball, roller-coaster swap; the recap reuses badges and arrows. Hard. |
 | 3 | wasted, efficiency, quiz | 3.9 min | Bulb, dissipation, 100-square grid and Sankey; the quiz reuses the grid and jars. Medium. |
 | 4 | resources, generating | 3.2 min | Many icons and the power-station cutaway. Medium-hard. |
