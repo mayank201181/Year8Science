@@ -244,7 +244,7 @@ CHAPTERS = [
             {"id": "t1", "cap": "One: equations use an **arrow**, never an equals sign."},
             {"id": "t2", "cap": "Two: balance with **big numbers** in front. Never change a subscript."},
             {"id": "t3", "cap": "Three: mass is never destroyed. If it seems to drop, a **gas has escaped**."},
-            {"id": "t4", "cap": "Four: rusting needs **both** oxygen **and** water."},
+            {"id": "t4", "cap": "Four: iron needs **oxygen and water** to rust; dry air alone won't do it."},
             {"id": "t5", "cap": "Five: incomplete combustion makes **carbon monoxide** and soot. Don't just write carbon dioxide."},
         ],
     },

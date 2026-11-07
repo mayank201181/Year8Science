@@ -754,7 +754,7 @@
    "short": "Recap",
    "card": true,
    "start": 757.857,
-   "end": 810.123,
+   "end": 812.043,
    "lines": [
     {
      "id": "lock",
@@ -813,13 +813,13 @@
     {
      "id": "t4",
      "start": 799.528,
-     "end": 802.344,
-     "cap": "Four: rusting needs **both** oxygen **and** water."
+     "end": 804.264,
+     "cap": "Four: iron needs **oxygen and water** to rust; dry air alone won't do it."
     },
     {
      "id": "t5",
-     "start": 802.844,
-     "end": 809.223,
+     "start": 804.764,
+     "end": 811.143,
      "cap": "Five: incomplete combustion makes **carbon monoxide** and soot. Don't just write carbon dioxide."
     }
    ]
@@ -829,83 +829,83 @@
    "title": "Quick-fire quiz",
    "short": "Quiz",
    "card": true,
-   "start": 810.123,
-   "end": 885.577,
+   "start": 812.043,
+   "end": 887.497,
    "lines": [
     {
      "id": "intro",
-     "start": 811.923,
-     "end": 815.571,
+     "start": 813.843,
+     "end": 817.491,
      "cap": "Quick-fire quiz! Say each answer out loud before it appears."
     },
     {
      "id": "q1",
-     "start": 816.071,
-     "end": 820.999,
+     "start": 817.991,
+     "end": 822.919,
      "cap": "Which is a chemical change: ice melting, sugar dissolving, or iron rusting?"
     },
     {
      "id": "a1",
-     "start": 825.499,
-     "end": 828.507,
+     "start": 827.419,
+     "end": 830.427,
      "cap": "**Iron rusting.** It makes a new substance: rust."
     },
     {
      "id": "q2",
-     "start": 829.007,
-     "end": 833.337,
+     "start": 830.927,
+     "end": 835.257,
      "cap": "Magnesium burns in a sealed container. What happens to the total mass?"
     },
     {
      "id": "a2",
-     "start": 837.837,
-     "end": 840.675,
+     "start": 839.757,
+     "end": 842.595,
      "cap": "It **stays the same**. Nothing can get in or out."
     },
     {
      "id": "q3",
-     "start": 841.175,
-     "end": 844.033,
+     "start": 843.095,
+     "end": 845.953,
      "cap": "How many hydrogen atoms are there in **2H₂O**?"
     },
     {
      "id": "a3",
-     "start": 848.533,
-     "end": 852.373,
+     "start": 850.453,
+     "end": 854.293,
      "cap": "**Four**: two water molecules, each with two hydrogen atoms."
     },
     {
      "id": "q4",
-     "start": 852.873,
-     "end": 857.865,
+     "start": 854.793,
+     "end": 859.785,
      "cap": "A reaction makes a test tube feel cold. Is it exothermic or endothermic?"
     },
     {
      "id": "a4",
-     "start": 862.365,
-     "end": 865.779,
+     "start": 864.285,
+     "end": 867.699,
      "cap": "It's **endothermic**: it's taking in heat from its surroundings."
     },
     {
      "id": "q5",
-     "start": 866.279,
-     "end": 869.905,
+     "start": 868.199,
+     "end": 871.825,
      "cap": "True or false: a catalyst gets used up in a reaction."
     },
     {
      "id": "a5",
-     "start": 874.405,
-     "end": 878.565,
+     "start": 876.325,
+     "end": 880.485,
      "cap": "**False.** It speeds the reaction up, and is left unchanged at the end."
     },
     {
      "id": "outro",
-     "start": 879.065,
-     "end": 884.377,
+     "start": 880.985,
+     "end": 886.297,
      "cap": "Brilliant work. Now try the Chemical Reactions quiz in your Science Lab, to lock it in."
     }
    ]
   }
  ],
- "total": 885.577
+ "total": 887.497
 }

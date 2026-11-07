@@ -2,45 +2,57 @@
 
 What the screen shows for every narration line in `script.py`. One main idea on
 screen per line; the previous beat fades as the next one arrives. Each chapter
-names the lib (`lessons/engine/lib.js`) and kit (`lessons/engine/kit.js`) art to
-reuse, and any new art it needs.
+names the art to reuse from the engine lib (`lessons/engine/lib.js`), the kit
+(`lessons/engine/kit.js`) and this topic's lib (`lessons/chemical-reactions/lib.js`,
+helpers named `rx…`), and any new art it needs.
 
-## Shared conventions (all chapters)
+## Shared art: `lessons/chemical-reactions/lib.js` (all chapters)
 
-- **Atoms and molecules.** lib `atom()` for C (grey), H (white) and O (red);
-  lib `molO2`, `molCO2`, `molH2O`. Other elements use one helper per scene
-  file, `elAtom(parent, sym, r)`: a `ball()` sphere with its symbol in white.
-  Use the same colours as the Elements, Compounds & Mixtures lesson: Mg pale
-  green `#9FE3B0`, Fe rust-brown `#C27A4A`, Cu copper `#E08A4F`, Na violet
-  `#B48CFF`, Cl green `#6FD96F`. New small molecules (draw them the same way
-  everywhere):
-  - methane CH₄: a grey C with four small white H around it;
-  - carbon monoxide CO: a grey C touching one red O;
-  - magnesium oxide MgO: a pale-green Mg touching a red O;
-  - hydrogen peroxide H₂O₂: H–O–O–H in a short zigzag.
-- **Formulae.** Real subscripts, with the `formula()` helper copied from
-  `respiration/scenes/02_aerobic.js`. Big numbers (coefficients) are amber
-  `C.energy`, so they stand out from subscripts.
-- **Atom tallies.** Small counters under each side of an equation ("H 4 | O 2"),
-  used in equations, mass and balance. Green when the two sides match,
-  red when they don't.
-- **Lab kit.** kit `beaker`, `testTube`, `flask`, `bunsen` (`set('yellow')`
-  or `set('blue')`); lib `thermometer`, `bubbles`, `heatWaves`, `spark`,
-  `meter`. Exothermic is warm (`C.heat` orange, heat waves out); endothermic
-  is cold (`C.water` blue arrows pointing in, with a little frost).
-- **Top-pan balance** (new): a grey block with a green digital readout,
-  the same design as in Elements, Compounds & Mixtures. Use **rigid sealed
-  flasks with a bung** for "closed system" beats, never balloons: a growing
-  balloon changes the reading through buoyancy.
-- Ticks and crosses: lib `tick`, `cross`. Labels: kit `labelLine`.
+The topic lib is bundled after the engine's lib.js and kit.js. Use its `rx…` helpers wherever they fit,
+so the same thing looks the same in every chapter and every animator group. Usage notes for each helper
+are in the lib's header comments.
+
+- **Atoms.** `rxAtom(parent, sym, r)`: a ball with its symbol. C, H and O are lib's `atom()` (grey, white,
+  red); Mg, Fe, Cu, Na, Cl, N, S and Zn use the colours in `RX.atom`, the same as in Elements, Compounds &
+  Mixtures.
+- **Molecules.** `rxMol(parent, kind, { r })` builds them from `rxAtom` balls: H2, O2, N2, H2O, CO2, CO,
+  CH4, MgO, CuO, H2O2, CuCO3, Fe2O3, and NaCl (a four-ion piece of salt crystal; never call it a
+  molecule). `m.atoms[i]` gives each atom's group and position, for beats where atoms change partners.
+- **Formulae.** `rxFormula(parent, x, y, '2H2 + O2 → 2H2O', { size })` draws real subscripts, with the
+  big numbers (coefficients) in amber `RX.coef`, so they stand out from subscripts.
+- **Atom tallies.** `rxTally(parent, ['H', 'O'])`, then `set({ H: 4, O: 2 }, { H: 1, O: -1 })`: one pill
+  per element under each side of an equation, green when the two sides match and red when they don't.
+  Used in equations, mass and balance.
+- **Top-pan balance.** `rxBalance(parent)`, then `set({ reading: 50 })`, shows "50.00 g". Its (0,0) is
+  the pan's top surface. For "closed system" beats, seal a kit `flask` with `rxBung(flask, s)`, or a kit
+  `testTube` with `rxBung(tube, 1, { neck: 46, y: -100 })`. Never use balloons: a growing balloon changes
+  the reading through buoyancy.
+- **Iron nail.** `rxNail(parent, len)`, then `set({ rust, copper })`: rust spreads as `rust` goes from 0
+  to 1, and `copper` coats the dipped part for displacement.
+- **Flames.** `rxFlame(parent, s, { smoke })`, then `set(mode, size)` and `upd(t)`. The modes are
+  'yellow' (smoky: incomplete combustion), 'blue' (complete), 'white' (burning magnesium) and 'candle'.
+  The Bunsen itself is kit `bunsen`.
+- **Catalyst.** `rxCatalyst(parent, s, { label })`, then `set({ glow })`: the gold square.
+- **The five signs.** `rxSignTile(parent, 'colour' | 'gas' | 'temp' | 'precip' | 'light')`, then
+  `set({ lit, letter, dim })`. `letter` shows the C G T P L badge for "Cool Guys Take Pretty Lasses".
+  Used in signs, energy (temperature) and recap.
+- **EXIT and ENTER signs.** `rxSignBoard(parent, 'EXO = EXIT')` is green with an arrow leaving a
+  doorway; `rxSignBoard(parent, 'ENDO = ENTER', { kind: 'enter' })` is blue with an arrow going in.
+- **Material colours** in `RX`: `rust`, `copper`, `cuCarbonate` (green), `cuOxide` (black), `cuSulfate`
+  (blue), `feSulfate` (pale green), `mgOxide` (white), `soot`, `precip` (yellow). Use them as the
+  liquid or powder colour of kit `testTube` and `beaker`.
+- **Engine and kit art.** kit `beaker`, `testTube`, `flask`, `bunsen`, `particleBox`, `sineWave`,
+  `labelLine`; lib `thermometer`, `bubbles`, `heatWaves`, `spark`, `meter`, `ring`, `tick`, `cross`,
+  `chip`, `card`, `arrow`. Exothermic is warm (`C.heat` orange, heat waves out); endothermic is cold
+  (`C.water` blue arrows pointing in, with a little frost).
 
 ---
 
 ## intro: Where was the energy hiding?
 
 A single match on a dark stage, then a zoom into its molecules. Art: lib
-`heatWaves`, `spark`, `atom`, `molO2`, `molCO2`, `molH2O`, `chip`. New:
-matchstick, small flame, fried egg, rusty nail and fuel can icons.
+`heatWaves`, `spark`, `atom`, `molO2`, `molCO2`, `molH2O`, `chip`; `rxFlame`,
+`rxNail`. New: matchstick, fried egg and fuel can icons.
 
 - `hook`: A match strikes and a flame flares, with light rays, lib
   `heatWaves` and a lib `spark`. A large "?" drifts up: where was that energy?
@@ -56,7 +68,8 @@ matchstick, small flame, fried egg, rusty nail and fuel can icons.
 
 Two columns: **physical** (blue, left) and **chemical** (red, right). Art:
 kit `particleBox` ('solid' to 'liquid'), kit `beaker`, kit `bunsen`, lib
-`bubbles`, `arrow`, `tick`, `cross`, `molH2O`. New: ice cube, sugar cube,
+`bubbles`, `arrow`, `tick`, `cross`, `molH2O`; `rxFlame` for the burning log.
+New: ice cube, sugar cube,
 log, ash pile, smoke, egg, frying pan, protein chains.
 
 - `two`: The two column headers drop in: "physical" and "chemical".
@@ -82,8 +95,8 @@ log, ash pile, smoke, egg, frying pan, protein chains.
 Five icon tiles along the top light up one by one, each with a short demo
 below. Art: kit `testTube`, `beaker`, `bunsen` (off), lib `bubbles`,
 `thermometer`, `spark`, `heatWaves`, `tick`, `cross`; kit `sineWave` for the
-"bang" sound ripples; lib `molCO2`. New: eye/hand/ear icons, iron nail,
-precipitate cloud, glow stick, kettle, dye drop, bottle and balloon.
+"bang" sound ripples; lib `molCO2`; `rxSignTile` for the five tiles, `rxNail`,
+`rxFlame`. New: eye/hand/ear icons, precipitate cloud, glow stick, kettle, dye drop, bottle and balloon.
 
 - `evidence`: Eye, hand and ear icons: see, feel, hear.
 - `colour`: Tile 1 lights. A shiny grey nail turns orange-brown with rust.
@@ -113,8 +126,8 @@ precipitate cloud, glow stick, kettle, dye drop, bottle and balloon.
 
 A big equation line across the middle: reactants card on the left (blue),
 products card on the right (green). Art: lib `arrow`, `cross`, `chip`,
-`atom`, `molO2`, `molCO2`, `molH2O`; `elAtom` (Mg); the atom tallies. New:
-magnesium ribbon, white MgO powder, charcoal lump.
+`atom`, `molO2`, `molCO2`, `molH2O`; `rxAtom` (Mg), `rxMol` ('MgO'),
+`rxFormula`, `rxTally`, `rxFlame` ('white'). New: magnesium ribbon, white MgO powder, charcoal lump.
 
 - `rp`: Two cards: "reactants" and "products".
 - `arrow`: A lib `arrow` draws between the cards, labelled "turns into". An
@@ -136,8 +149,9 @@ magnesium ribbon, white MgO powder, charcoal lump.
 
 A top-pan balance centre stage, with its readout always visible. Art: kit
 `flask`, `testTube`, `bunsen`; lib `atom`, `molO2`, `molCO2`, `molH2O`,
-`spark`, `tick`; `elAtom` (Mg); the balance. New: rigid sealed flask with a
-bung, crucible, candle, steel wool, copper carbonate powder (green to black).
+`spark`, `tick`; `rxAtom` (Mg), `rxMol` ('MgO', 'CO2'), `rxBalance`, `rxBung`
+(on a kit `flask`), `rxFlame` ('white', 'candle'), `RX.cuCarbonate` and
+`RX.cuOxide` for the powder. New: crucible, candle, steel wool.
 
 - `rearr`: A cluster of reactant atoms rearranges into product groups. A
   counter reads "atoms before: 6, after: 6".
@@ -166,8 +180,8 @@ bung, crucible, candle, steel wool, copper carbonate powder (green to black).
 The equation along the top, each formula's molecules beneath it, atom tallies
 below them, and a see-saw (new) that tips while the sides differ and levels
 when they match. Art: lib `atom`, `molO2`, `molH2O`, `chip`, `tick`,
-`cross`, `ring` (3-second countdown on `try`); `elAtom` (Mg); the tallies.
-New: see-saw, H₂O₂ molecule, MgO pairs.
+`cross`, `ring` (3-second countdown on `try`); `rxAtom`, `rxMol` ('H2', 'O2',
+'H2O', 'H2O2', 'MgO'), `rxFormula`, `rxTally`. New: see-saw.
 
 - `same`: A level see-saw with identical atom piles on each side. Label:
   "same atoms each side".
@@ -197,10 +211,11 @@ New: see-saw, H₂O₂ molecule, MgO pairs.
 A "family album" of six frames, one per family, each with its pattern and a
 short demo. Finished frames shrink into a strip along the bottom. Art: kit
 `bunsen`, `testTube`, `beaker`, `flask`; lib `atom`, `molO2`, `molCO2`,
-`molH2O`, `spark`, `heatWaves`, `bubbles`, `tick`, `cross`; `elAtom` (Fe, Cu,
-Na, Cl). New: methane molecule, gas hob, iron nails, rust flakes, drying
-agent, oil layer, paint brush and oil can, zinc-coated bucket, copper
-carbonate powder, acid and alkali bottles, blue copper sulfate solution.
+`molH2O`, `spark`, `heatWaves`, `bubbles`, `tick`, `cross`; `rxAtom` (Fe, Cu,
+Na, Cl), `rxMol` ('CH4', 'Fe2O3', 'CuCO3', 'CuO', 'NaCl'), `rxNail`, `rxFlame`,
+and `RX` colours for copper carbonate, copper oxide and the copper sulfate
+solution. New: gas hob, drying agent, oil layer, paint brush and oil can,
+zinc-coated bucket, acid and alkali bottles.
 
 - `families`: Six empty frames in an album.
 - `combust`: Frame 1, a gas-cooker flame. Methane and O₂ molecules rearrange
@@ -232,8 +247,8 @@ carbonate powder, acid and alkali bottles, blue copper sulfate solution.
 A split stage: warm left (exothermic, orange glow) and cold right
 (endothermic, blue frost), each with a reaction beaker and a lib
 `thermometer`. Art: kit `beaker`, `testTube`, `bunsen`; lib `thermometer`,
-`heatWaves`, `spark`, `arrow`, `atom`. New: EXIT and ENTER signs, hand-warmer
-pouch, cold pack on an ankle, frost sparkles, bond "springs" between atoms.
+`heatWaves`, `spark`, `arrow`, `atom`; `rxSignBoard` for the EXIT and ENTER
+signs, `rxSignTile` ('temp'). New: hand-warmer pouch, cold pack on an ankle, frost sparkles, bond "springs" between atoms.
 
 - `energy`: One flask in the middle, with energy arrows to and from the
   surroundings.
@@ -262,8 +277,8 @@ Centre stage, a kit `bunsen`. Comparison panels: complete (blue, left) and
 incomplete (yellow, right). Art: kit `bunsen` (`set('blue')` /
 `set('yellow')`), lib `meter`, `atom`, `molO2`, `molCO2`, `molH2O`, `spark`,
 `heatWaves`, `thermometer`, and lib `animalCell`, `mitochondrion`,
-`molGlucose` for the last line. New: petrol can, log, methane molecule, CO
-molecule, soot specks, red blood cell, boiler, CO alarm.
+`molGlucose` for the last line; `rxMol` ('CH4', 'CO'), `rxFlame`. New: petrol
+can, log, soot specks, red blood cell, boiler, CO alarm.
 
 - `fuel`: Three fuels: a petrol can, a gas flame (with methane) and a log,
   each with small C and H chips.
@@ -295,7 +310,7 @@ A particle arena (a rounded box) in the centre, with two colours of moving
 reactant particles. Factor tiles collect down the right side. Art: kit
 `particleBox` motion for the arena (or the same bounce maths), lib `spark`
 (collision flashes), `meter`, `bubbles`, `thermometer`; kit `bunsen`,
-`flask`. New: firework burst, rusty car, speed dial, marble chip, marble
+`flask`; `rxCatalyst`. New: firework burst, rusty car, speed dial, marble chip, marble
 powder, gas-volume graph, energy hill.
 
 - `range`: A firework bursts in an instant. A car rusts over a timeline of
@@ -323,9 +338,9 @@ powder, gas-volume graph, energy hill.
 
 Three short scenes (body, kitchen, car), then the catalyst test on the
 balance. Art: lib `animalCell`, `thermometer`, `meter`, `tick`; kit `beaker`,
-`flask`; the balance. New: enzyme blob with a notch, starch chain splitting
-into sugar units, yeast cells, loaf, car exhaust, honeycomb converter, gold
-catalyst square.
+`flask`; `rxBalance`, `rxCatalyst` (label 'platinum' in the converter),
+`rxMol` ('CO', 'O2', 'CO2'). New: enzyme blob with a notch, starch chain
+splitting into sugar units, yeast cells, loaf, car exhaust, honeycomb converter.
 
 - `reuse`: One gold catalyst square helps pair after pair of reactants join,
   with a counter ticking up. The square never changes.
@@ -349,7 +364,8 @@ catalyst square.
 
 Cards stack up like the Respiration recap: memory hooks first, then numbered
 trap cards. Reuse each chapter's icons at small size. Art: lib `card`,
-`chip`, `tick`, `cross`, `thermometer`.
+`chip`, `tick`, `cross`, `thermometer`; `rxSignTile`, `rxSignBoard`,
+`rxBalance`, `rxNail`, `rxFlame`, `rxFormula`.
 
 - `lock`: Title: "Memory hooks".
 - `cgtpl`: The five sign tiles with **C G T P L** lit.
@@ -366,7 +382,8 @@ trap cards. Reuse each chapter's icons at small size. Art: lib `card`,
 ## quiz: Quick-fire quiz
 
 Respiration-style: a question card with a lib `ring` countdown during each
-4-second pause, then the answer card with a small piece of art.
+4-second pause, then the answer card with a small piece of art. Art: `rxNail`,
+`rxBalance`, `rxBung`, `rxFormula`, `rxMol` ('H2O'), `rxCatalyst`.
 
 - `intro`: Title "Quick-fire quiz!" with five empty answer dots.
 - `q1`: The three options as icons: ice cube, sugar cube, iron nail.
