@@ -98,14 +98,17 @@ scene('uses', S => {
   // 1. movement: a flexing arm
   const F1 = focus('Movement', 'muscles contract');
   const arm = G(F1);
-  const S0 = [640, 470], E0 = [840, 470], FL = 170;
+  const S0 = [628, 470], E0 = [840, 470], FL = 170;
   E('line', { x1: S0[0], y1: S0[1], x2: E0[0], y2: E0[1], stroke: SKIN_DK, 'stroke-width': 62, 'stroke-linecap': 'round' }, arm);
+  E('circle', { cx: S0[0] - 6, cy: S0[1] - 6, r: 46, fill: SKIN, stroke: SKIN_DK, 'stroke-width': 5 }, arm);
   E('line', { x1: S0[0], y1: S0[1], x2: E0[0], y2: E0[1], stroke: SKIN, 'stroke-width': 54, 'stroke-linecap': 'round' }, arm);
+  const bump = E('ellipse', { cx: 728, cy: 452, rx: 74, ry: 20, fill: SKIN, stroke: SKIN_DK, 'stroke-width': 4 }, arm);
+  const biceps = E('ellipse', { cx: 728, cy: 456, rx: 54, ry: 12, fill: ball('#EE7D8C', '#B8466A'), opacity: 0.9 }, arm);
+  const bicepsLab = T(F1, 734, 560, 'the biceps muscle contracts', { size: 26, weight: 700, anchor: 'middle', fill: '#EE7D8C' });
   const fore0 = E('line', { stroke: SKIN_DK, 'stroke-width': 54, 'stroke-linecap': 'round' }, arm);
   const fore1 = E('line', { stroke: SKIN, 'stroke-width': 46, 'stroke-linecap': 'round' }, arm);
   const fist = E('circle', { r: 32, fill: SKIN, stroke: SKIN_DK, 'stroke-width': 5 }, arm);
-  const biceps = E('ellipse', { cx: 735, cy: 452, rx: 78, ry: 18, fill: ball('#EE7D8C', '#B8466A'), stroke: '#FFC2CC', 'stroke-width': 3 }, arm);
-  const armSparks = [[690, 410], [760, 404], [820, 420], [700, 492], [780, 500], [650, 440], [740, 380], [835, 470]].map((p, i) => { const s = spark(F1, 11, { seed: i }); tr(s, p[0], p[1]); return { s, p, i }; });
+  const armSparks = [[680, 404], [770, 396], [812, 420], [700, 500], [784, 504], [650, 436], [730, 392], [828, 456]].map((p, i) => { const s = spark(F1, 11, { seed: i }); tr(s, p[0], p[1]); return { s, p, i }; });
   const rateM = meter(F1, { w: 300, h: 26, color: C.energy, label: 'respiration rate in the muscle', labelSize: 25 }); tr(rateM, 560, 640);
   const faster = T(F1, 880, 662, 'faster!', { size: 32, weight: 700, fill: C.energy });
 
@@ -279,7 +282,9 @@ scene('uses', S => {
       const hx = E0[0] + Math.cos(th) * FL, hy = E0[1] + Math.sin(th) * FL;
       [fore0, fore1].forEach(l => { attr(l, 'x1', E0[0]); attr(l, 'y1', E0[1]); attr(l, 'x2', hx); attr(l, 'y2', hy); });
       attr(fist, 'cx', hx); attr(fist, 'cy', hy);
-      attr(biceps, 'ry', 16 + 24 * w); attr(biceps, 'cy', 452 - 8 * w);
+      attr(bump, 'ry', 18 + 26 * w); attr(bump, 'cy', 458 - 22 * w); attr(bump, 'rx', 74 - 8 * w);
+      attr(biceps, 'ry', 9 + 20 * w); attr(biceps, 'cy', 460 - 20 * w); attr(biceps, 'rx', 52 - 6 * w);
+      op(bicepsLab, P(t, tMove + 0.8, 0.4, linear));
       const fast = P(t, mid('move', 0.45), 2.0);
       armSparks.forEach(o => { const on = o.i < 4 ? 1 : fast; const tw = wave(t, o.i < 4 ? 1.1 : 0.6, o.i * 0.17); op(o.s, on * (0.25 + 0.75 * tw) * P(t, tMove + 0.2, 0.5, linear)); o.s.upd(t); });
       rateM.set(0.32 + 0.6 * fast);

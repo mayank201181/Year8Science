@@ -54,10 +54,10 @@ scene('aerobic', S => {
   const aMito = mitochondrion(aCell.inner, 190, 82, { glow: true }); tr(aMito, 40, 10, 1, -6);
   const aLblL = T(bA, 120, 400, 'oxygen', { size: 30, weight: 600, anchor: 'middle', fill: '#FF9A8F' });
   const aLblR = T(bA, 1080, 400, 'oxygen', { size: 30, weight: 600, anchor: 'middle', fill: '#FF9A8F' });
-  const aFlow = G(bA), aPops = G(bA), ar = rng(41), aO2 = [];
-  for (let k = 0; k < 13; k++) {
+  const aFlow = G(bA), ar = rng(41), aO2 = [];
+  for (let k = 0; k < 10; k++) {
     const side = k % 2 ? 1 : -1;
-    aO2.push({ g: molO2(aFlow, 15), sp: spark(aPops, 13, { seed: k }), t0: 1.6 + k * 0.62, x0: side < 0 ? -40 : 1240, y0: 430 + ar() * 170, a2: ar() * TAU });
+    aO2.push({ g: molO2(aFlow, 15), t0: 1.6 + k * 0.8, x0: side < 0 ? -40 : 1240, y0: 430 + ar() * 170 });
   }
   const aT = [640, 515];
 
@@ -161,7 +161,7 @@ scene('aerobic', S => {
   recs.forEach((r, i) => { r.i = i; r.d = (Math.hypot(r.x0 - 300, r.y0 - 385) / 300) * 0.5; });
   const rxArrow = arrow(atG, 568, 385, 646, 385, { color: C.ink, width: 9 });
   const lbGlu = T(atG, 205, 562, '1 glucose', { size: 28, weight: 600, anchor: 'middle', fill: C.glucoseLt });
-  const lbO2 = T(atG, 449, 562, '6 oxygen', { size: 28, weight: 600, anchor: 'middle', fill: '#FF9A8F' });
+  const lbO2 = T(atG, 449, 562, '6 O₂ molecules', { size: 28, weight: 600, anchor: 'middle', fill: '#FF9A8F' });
   const lbCO2 = T(atG, 782, 562, '6 carbon dioxide', { size: 28, weight: 600, anchor: 'middle', fill: C.co2 });
   const lbH2O = T(atG, 1028, 562, '6 water', { size: 28, weight: 600, anchor: 'middle', fill: C.water });
   // tallies
@@ -185,9 +185,9 @@ scene('aerobic', S => {
   /* ===== a large amount of energy ===== */
   const bL = G(root);
   const rays = G(bL);
-  for (let i = 0; i < 16; i++) { const a = i / 16 * TAU; E('line', { x1: Math.cos(a) * 92, y1: Math.sin(a) * 92, x2: Math.cos(a) * (i % 2 ? 140 : 165), y2: Math.sin(a) * (i % 2 ? 140 : 165), stroke: C.energy, 'stroke-width': 7, 'stroke-linecap': 'round', opacity: 0.8 }, rays); }
+  for (let i = 0; i < 12; i++) { const a = i / 12 * TAU; E('line', { x1: Math.cos(a) * 92, y1: Math.sin(a) * 92, x2: Math.cos(a) * (i % 2 ? 140 : 165), y2: Math.sin(a) * (i % 2 ? 140 : 165), stroke: C.energy, 'stroke-width': 7, 'stroke-linecap': 'round', opacity: 0.8 }, rays); }
   const core = spark(bL, 62, { seed: 3 });
-  const flyers = []; for (let i = 0; i < 14; i++) flyers.push({ sp: spark(bL, 14, { seed: i }), a: i / 14 * TAU + 0.2, ph: (i * 0.37) % 1 });
+  const flyers = []; for (let i = 0; i < 10; i++) flyers.push({ sp: spark(bL, 14, { seed: i }), a: i / 10 * TAU + 0.2, ph: (i * 0.37) % 1 });
   const bigTxt = T(bL, 600, 508, 'a large amount of energy', { size: 50, weight: 700, anchor: 'middle', fill: C.energy });
   const enMeter = meter(bL, { w: 540, h: 30, color: C.energy }); tr(enMeter, 330, 534);
   const who = [[440, person, 'humans'], [600, paw, 'animals'], [760, potPlant, 'plants']].map(([x, fn, label]) => {
@@ -206,10 +206,10 @@ scene('aerobic', S => {
   const bCell = animalCell(bB, 140, 112, { sw: 5, seed: 12, nr: 26, nx: -55, ny: -28 }); tr(bCell, 962, 400);
   const bMito = mitochondrion(bCell.inner, 104, 48, { glow: true }); tr(bMito, 30, 30, 1, -10);
   const rbcT = [], rbcB = [];
-  for (let i = 0; i < 8; i++) { rbcT.push(E('ellipse', { rx: 9, ry: 6, fill: '#FF8A94', stroke: '#FFD0D5', 'stroke-width': 1.5 }, bB)); rbcB.push(E('ellipse', { rx: 9, ry: 6, fill: '#C2577A', stroke: '#E9A4BA', 'stroke-width': 1.5 }, bB)); }
+  for (let i = 0; i < 6; i++) { rbcT.push(E('ellipse', { rx: 9, ry: 6, fill: '#FF8A94', stroke: '#FFD0D5', 'stroke-width': 1.5 }, bB)); rbcB.push(E('ellipse', { rx: 9, ry: 6, fill: '#C2577A', stroke: '#E9A4BA', 'stroke-width': 1.5 }, bB)); }
   const ridersO2 = [], ridersCO2 = [], exhale = [];
-  for (let i = 0; i < 5; i++) { ridersO2.push(molO2(bB, 10)); ridersCO2.push(molCO2(bB, 8.5)); }
-  for (let i = 0; i < 3; i++) exhale.push(molCO2(bB, 10));
+  for (let i = 0; i < 4; i++) { ridersO2.push(molO2(bB, 10)); ridersCO2.push(molCO2(bB, 8.5)); }
+  for (let i = 0; i < 2; i++) exhale.push(molCO2(bB, 10));
   const airUp = arrow(bB, 292, 300, 292, 218, { color: C.air, width: 6 });
   const lbOut = T(bB, 314, 236, 'breathed out', { size: 28, weight: 600, fill: C.air });
   const lbOx = T(bB, 584, 216, 'oxygen', { size: 30, weight: 700, anchor: 'middle', fill: '#FF9A8F' });
@@ -232,9 +232,6 @@ scene('aerobic', S => {
         const u = (t - o.t0) / 2.4;
         if (u <= 0 || u >= 1) op(o.g, 0);
         else { const p = ease(u); tr(o.g, lerp(o.x0, aT[0], p), lerp(o.y0, aT[1], p) - Math.sin(p * Math.PI) * 40, 1 - 0.35 * p, u * 90); op(o.g, Math.min(1, u * 5, (1 - u) * 6)); }
-        const v = (t - o.t0 - 2.4) / 1.2;
-        if (v <= 0 || v >= 1) op(o.sp, 0);
-        else { const d = easeOut(v) * 120; tr(o.sp, aT[0] + Math.cos(o.a2) * d, aT[1] + Math.sin(o.a2) * d * 0.6, 0.6 + 0.5 * Math.sin(v * Math.PI)); op(o.sp, Math.sin(v * Math.PI)); o.sp.upd(t); }
       });
     }
 
@@ -326,14 +323,14 @@ scene('aerobic', S => {
       lg.set(wave(t, 3.4) * AMP);
       bCell.upd(t); bMito.upd(t);
       const flow = t * 0.11;
-      rbcT.forEach((e, i) => { const [x, y] = cubic(TP[0], TP[1], TP[2], TP[3], (flow + i / 8) % 1); attr(e, 'cx', x); attr(e, 'cy', y); });
-      rbcB.forEach((e, i) => { const [x, y] = cubic(BP[0], BP[1], BP[2], BP[3], (flow + i / 8 + 0.06) % 1); attr(e, 'cx', x); attr(e, 'cy', y); });
+      rbcT.forEach((e, i) => { const [x, y] = cubic(TP[0], TP[1], TP[2], TP[3], (flow + i / 6) % 1); attr(e, 'cx', x); attr(e, 'cy', y); });
+      rbcB.forEach((e, i) => { const [x, y] = cubic(BP[0], BP[1], BP[2], BP[3], (flow + i / 6 + 0.06) % 1); attr(e, 'cx', x); attr(e, 'cy', y); });
       const oIn = P(t, mid('blood', 0.04), 0.5, linear), cOut = P(t, mid('blood', 0.42), 0.5, linear);
-      ridersO2.forEach((g, i) => { const u = (flow + i / 5 + 0.03) % 1, [x, y] = cubic(TP[0], TP[1], TP[2], TP[3], u); tr(g, x, y - 2); op(g, oIn * Math.min(1, u * 8, (1 - u) * 8)); });
-      ridersCO2.forEach((g, i) => { const u = (flow + i / 5 + 0.09) % 1, [x, y] = cubic(BP[0], BP[1], BP[2], BP[3], u); tr(g, x, y - 2); op(g, cOut * Math.min(1, u * 8, (1 - u) * 8)); });
+      ridersO2.forEach((g, i) => { const u = (flow + i / 4 + 0.03) % 1, [x, y] = cubic(TP[0], TP[1], TP[2], TP[3], u); tr(g, x, y - 2); op(g, oIn * Math.min(1, u * 8, (1 - u) * 8)); });
+      ridersCO2.forEach((g, i) => { const u = (flow + i / 4 + 0.13) % 1, [x, y] = cubic(BP[0], BP[1], BP[2], BP[3], u); tr(g, x, y - 2); op(g, cOut * Math.min(1, u * 8, (1 - u) * 8)); });
       op(lbOx, oIn); op(lbCd, cOut);
       const ex = P(t, mid('blood', 0.74), 0.4, linear);
-      exhale.forEach((g, i) => { const q = ((t - mid('blood', 0.74)) * 0.55 + i / 3) % 1; tr(g, 230 + Math.sin(q * 5 + i) * 8, 300 - q * 120, 0.8 + 0.3 * q); op(g, ex * Math.sin(q * Math.PI)); });
+      exhale.forEach((g, i) => { const q = ((t - mid('blood', 0.74)) * 0.55 + i / 2) % 1; tr(g, 230 + Math.sin(q * 5 + i) * 8, 300 - q * 120, 0.8 + 0.3 * q); op(g, ex * Math.sin(q * Math.PI)); });
       airUp.set(P(t, mid('blood', 0.76), 0.6)); op(airUp, ex); op(lbOut, P(t, mid('blood', 0.8), 0.4, linear));
     }
   };

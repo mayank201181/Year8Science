@@ -97,7 +97,7 @@
   function drawCard(i, t) {
     const ch = CH[i], S = scenes[i].S;
     if (!ch.card) { op(cardG, 0); return; }
-    const a = win(t, 0, S.first - 0.12, 0.35);
+    const a = Math.min(P(t, 0.2, 0.3, linear), 1 - P(t, S.first - 0.35, 0.3, linear));
     op(cardG, a);
     if (a <= 0) return;
     if (cardFor !== i) {
@@ -106,10 +106,10 @@
       setText(cardTitle, ch.title);
       setText(cardSub, NUM[i] === '★' ? 'RECAP' : NUM[i] === '?' ? 'QUIZ' : `CHAPTER ${NUM[i]} OF ${CORE}`);
     }
-    const p = P(t, 0, 0.7, easeOut);
+    const p = P(t, 0.2, 0.7, easeOut);
     tr(cardInner, 600, 380 + (1 - p) * 24, 0.94 + 0.06 * p);
     tr(cardHalo, 0, 0, 0.9 + 0.12 * wave(t, 1.4));
-    cardDisc.setAttribute('r', (74 * pop(clamp(t / 0.5))).toFixed(1));
+    cardDisc.setAttribute('r', (74 * pop(clamp((t - 0.2) / 0.5))).toFixed(1));
   }
 
   let shown = [];
@@ -120,9 +120,9 @@
     gt = clamp(gt, 0, TOTAL);
     drawBg(gt);
     const i = chapterAt(gt), ch = CH[i], t = gt - ch.start, sc = scenes[i];
-    const a = ch.card ? clamp((t - (sc.S.first - 0.6)) / 0.55) : 1;
+    const a = ch.card ? clamp((t - (sc.S.first - 0.1)) / 0.4) : 1;
     const vis = [];
-    if (i > 0 && ch.card && t < 0.4) { const pv = scenes[i - 1]; drawScene(pv, gt - pv.ch.start); op(pv.root, 1 - t / 0.4); vis.push(pv); }
+    if (i > 0 && ch.card && t < 0.3) { const pv = scenes[i - 1]; drawScene(pv, gt - pv.ch.start); op(pv.root, 1 - t / 0.3); vis.push(pv); }
     if (a > 0) { drawScene(sc, t); op(sc.root, a); vis.push(sc); }
     shown.forEach(s => { if (vis.indexOf(s) < 0) op(s.root, 0); });
     shown = vis;
@@ -191,7 +191,7 @@
   function seek(t) {
     t = clamp(t, 0, TOTAL);
     if (posterT !== null) { posterT = null; lastLine = undefined; }
-    endcard.hidden = true;
+    bigplay.hidden = true; endcard.hidden = true;
     if (mode === 'audio') { try { audio.currentTime = t; } catch (e) { pending = t; } lastA = -1; if (audio.paused) pending = t; }
     else if (mode === 'loading') pending = t;
     else { sT = t; sLast = performance.now(); }
@@ -351,7 +351,8 @@
   btnPlay.addEventListener('click', toggle);
   btnPrev.addEventListener('click', prevChapter);
   btnNext.addEventListener('click', nextChapter);
-  bigplay.querySelector('.bp-main').addEventListener('click', () => { if (!resumeAt() && pending === null && !startAt) seek(0); play(); });
+  // From the untouched poster, start at 0:00; after a scrub or chapter pick, play from there.
+  bigplay.querySelector('.bp-main').addEventListener('click', () => { if (posterT !== null && !resumeAt() && !startAt) seek(0); play(); });
   $('#bp-restart').addEventListener('click', () => { seek(0); play(); });
   $('#end-replay').addEventListener('click', () => { seek(0); play(); });
   btnSpeed.addEventListener('click', () => {
@@ -424,7 +425,7 @@
   kick();
   loadAudio();
 
-  window.__lesson = { ready: true, TL, scenes, renderAt: t => { posterT = null; render(t); ui(t); }, seek, play, pause, now, audio, mode: () => mode };
+  window.__lesson = { ready: true, TL, scenes, renderAt: t => { posterT = null; lastLine = undefined; render(t); ui(t); }, seek, play, pause, now, audio, mode: () => mode };
   }
   waitFonts().then(boot, boot);
 })();

@@ -12,6 +12,16 @@ scene('mito', S => {
     E('circle', { cx: x2, cy: y2, r: 6, fill: color || C.muted }, g);
     return g;
   }
+  /* small mitochondrion in 2 elements (the lib one uses 4); same look at this size */
+  function miniMito(parent, w, h) {
+    const g = G(parent);
+    E('rect', { x: -w / 2, y: -h / 2, width: w, height: h, rx: h / 2, fill: ball(C.mitoIn, C.mito), stroke: C.mitoDk, 'stroke-width': Math.max(1.6, h * 0.11) }, g);
+    const n = Math.max(3, Math.round(w / h * 2)), x0 = -w / 2 + h * 0.42, span = w - h * 0.84;
+    let d = `M${x0.toFixed(1)},0`;
+    for (let i = 1; i <= n; i++) d += ` L${(x0 + i * span / n).toFixed(1)},${((i % 2 ? -1 : 1) * h * 0.27).toFixed(1)}`;
+    E('path', { d, fill: 'none', stroke: C.mitoDk, 'stroke-width': Math.max(1.3, h * 0.1), 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
+    return g;
+  }
   function dnaLoop(parent, r, color) {
     const pts = [];
     for (let i = 0; i < 28; i++) { const a = i / 28 * TAU, k = r * (1 + 0.16 * Math.sin(a * 6)); pts.push([Math.cos(a) * k, Math.sin(a) * k]); }
@@ -29,7 +39,7 @@ scene('mito', S => {
   const ringG = G(cell.inner); tr(ringG, MP[ONE][0], MP[ONE][1], 1, MP[ONE][2]);
   E('ellipse', { rx: 74, ry: 44, fill: 'none', stroke: C.energy, 'stroke-width': 5, 'stroke-dasharray': '12 9' }, ringG);
   const sparkG = G(cell.inner), sr = rng(31), sparks = [];
-  for (let j = 0; j < 18; j++) sparks.push({ el: spark(sparkG, 12, { seed: j }), k: j % MP.length, ang: sr() * TAU, ph: sr(), dist: 55 + sr() * 45 });
+  for (let j = 0; j < 14; j++) sparks.push({ el: spark(sparkG, 12, { seed: j }), k: j % MP.length, ang: sr() * TAU, ph: sr(), dist: 55 + sr() * 45 });
 
   const labMany = G(A);
   [0, 1, 7].forEach(k => leader(labMany, 862, 246, CX + MP[k][0], CY + MP[k][1]));
@@ -108,7 +118,7 @@ scene('mito', S => {
     const c = animalCell(g, 100, 88, { sw: 4, nucleus: false, seed: 40 + i, amp: 0.03 });
     const pos = n === 1 ? [[0, 0]] : n === 4 ? [[-30, -24], [30, -24], [-30, 24], [30, 24]]
       : [[-48, -36], [0, -38], [48, -36], [-50, 0], [0, 0], [50, 0], [-48, 36], [0, 38], [48, 36]];
-    pos.forEach(([px, py], k) => { const mg = G(c.inner); tr(mg, px, py, 1, (k % 2 ? 1 : -1) * 15); mitochondrion(mg, 40, 19); });
+    pos.forEach(([px, py], k) => { const mg = G(c.inner); tr(mg, px, py, 1, (k % 2 ? 1 : -1) * 15); miniMito(mg, 40, 19); });
     return { g, c, x };
   });
   const actArrow = arrow(Cg, 210, 520, 990, 520, { color: C.energy, width: 7 });
@@ -124,7 +134,7 @@ scene('mito', S => {
     const rr = rng(77);
     for (let i = 0; i < 14; i++) for (const yy of [-27, 27]) {
       const mg = G(body); tr(mg, -306 + i * 47 + (rr() - 0.5) * 6, yy + (rr() - 0.5) * 8, 1, (rr() - 0.5) * 24);
-      mitochondrion(mg, 38, 19);
+      miniMito(mg, 38, 19);
     }
     g.upd = (t, a) => { const w = wave(t, 1.3); body.setAttribute('transform', `scale(${(1 - 0.1 * a * w).toFixed(4)} ${(1 + 0.08 * a * w).toFixed(4)})`); };
     return g;
@@ -133,7 +143,7 @@ scene('mito', S => {
     const g = G(parent), bob = G(g);
     const tail = E('path', { fill: 'none', stroke: C.cell, 'stroke-width': 7, 'stroke-linecap': 'round' }, bob);
     E('rect', { x: -195, y: -22, width: 160, height: 44, rx: 22, fill: 'rgba(255,148,102,0.18)', stroke: C.cell, 'stroke-width': 5 }, bob);
-    for (let i = 0; i < 6; i++) { const mg = G(bob); tr(mg, -167 + i * 24, 0, 1, i % 2 ? 32 : -32); mitochondrion(mg, 30, 15); }
+    for (let i = 0; i < 6; i++) { const mg = G(bob); tr(mg, -167 + i * 24, 0, 1, i % 2 ? 32 : -32); miniMito(mg, 30, 15); }
     E('ellipse', { cx: -265, cy: 0, rx: 78, ry: 52, fill: 'rgba(247,168,200,0.16)', stroke: C.cell, 'stroke-width': 5 }, bob);
     E('ellipse', { cx: -258, cy: 0, rx: 52, ry: 34, fill: 'rgba(150,120,220,0.45)', stroke: '#B79CF0', 'stroke-width': 3 }, bob);
     E('path', { d: 'M-316,-36 Q-352,0 -316,36', fill: 'none', stroke: '#F9C7DA', 'stroke-width': 6, 'stroke-linecap': 'round' }, bob);
@@ -155,7 +165,7 @@ scene('mito', S => {
       const a = rr() * TAU, r = 45 + rr() * 60, x = Math.cos(a) * r, y = Math.sin(a) * r;
       if (Math.hypot(x + 18, y + 8) < 70 || spots.some(s => Math.hypot(s[0] - x, s[1] - y) < 40)) continue;
       spots.push([x, y]);
-      const mg = G(g); tr(mg, x, y, 1, rr() * 180); mitochondrion(mg, 38, 19);
+      const mg = G(g); tr(mg, x, y, 1, rr() * 180); miniMito(mg, 38, 19);
     }
     g.upd = () => {};
     return g;
@@ -166,7 +176,7 @@ scene('mito', S => {
     E('circle', { cx: 10, cy: 4, r: 124, fill: 'rgba(255,226,154,0.5)', stroke: '#F0CF7A', 'stroke-width': 3 }, g);
     E('ellipse', { cx: -128, cy: -30, rx: 12, ry: 36, fill: 'rgba(150,120,220,0.5)', stroke: '#B79CF0', 'stroke-width': 3, transform: 'rotate(12 -128 -30)' }, g);
     T(g, 10, 14, 'fat droplet', { size: 28, weight: 600, anchor: 'middle', fill: '#7A5B12' });
-    [145, 235, 115].forEach(deg => { const a = deg * Math.PI / 180, mg = G(g); tr(mg, Math.cos(a) * 136, Math.sin(a) * 136, 1, deg + 90); mitochondrion(mg, 30, 14); });
+    [145, 235, 115].forEach(deg => { const a = deg * Math.PI / 180, mg = G(g); tr(mg, Math.cos(a) * 136, Math.sin(a) * 136, 1, deg + 90); miniMito(mg, 30, 14); });
     g.upd = () => {};
     return g;
   }
