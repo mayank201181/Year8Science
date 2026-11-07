@@ -41,16 +41,18 @@ scene('distil', S => {
   function bung(parent, x, y, w, h) {
     return E('path', { d: `M${x - w / 2},${y} L${x + w / 2},${y} L${x + w * 0.4},${y + h} L${x - w * 0.4},${y + h} Z`, fill: ball('#B0543F', '#6E2A21'), stroke: '#D27A66', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, parent);
   }
-  // black tripod with a wire-gauze square; gauze top at y=0, feet at y=h
+  // black tripod with a wire gauze, drawn like the evaporating-basin rig's (07_filter); w = width of its top ring,
+  // gauze top at y=0, feet at y=h. The back leg would be hidden behind the Bunsen burner, so it is left out.
   function tripod(parent, w, h) {
-    const g = G(parent);
-    const legs = `M${w * 0.06},8 L${w * 0.1},${h - 6} M${-w * 0.4},8 L${-w * 0.56},${h} M${w * 0.4},8 L${w * 0.56},${h}`;
-    E('path', { d: legs, fill: 'none', stroke: '#6E808E', 'stroke-width': 10, 'stroke-linecap': 'round' }, g);
-    E('path', { d: legs, fill: 'none', stroke: '#1B242B', 'stroke-width': 6, 'stroke-linecap': 'round' }, g);
-    E('rect', { x: -w / 2, y: 2, width: w, height: 10, rx: 4, fill: '#1B242B', stroke: '#6E808E', 'stroke-width': 2 }, g);
-    E('rect', { x: -w * 0.62, y: -6, width: w * 1.24, height: 8, rx: 2, fill: '#97A6B2', stroke: '#C9D4DC', 'stroke-width': 1.5 }, g);
-    let d = ''; for (let x = -w * 0.62 + 5; x < w * 0.62 - 3; x += 9) d += `M${x.toFixed(1)},-6 l3,8 `;
-    E('path', { d, stroke: '#5A6874', 'stroke-width': 1.5 }, g);
+    const g = G(parent), k = w / 168, sw = Math.max(0.6, k), lt = 66 * k, lf = 88 * k, top = 26 * k;
+    E('path', { d: `M${-lf},${h} L${-lt},${top} M${lf},${h} L${lt},${top}`, fill: 'none', stroke: '#1C2126', 'stroke-width': 9 * sw, 'stroke-linecap': 'round' }, g);
+    E('path', { d: `M${-lf + 2 * k},${h - 6 * k} L${-lt},${top + 6 * k} M${lf - 2 * k},${h - 6 * k} L${lt},${top + 6 * k}`, fill: 'none', stroke: '#56626C', 'stroke-width': 2.5 * sw, 'stroke-linecap': 'round' }, g);
+    E('rect', { x: -84 * k, y: 18 * k, width: 168 * k, height: 12 * k, rx: 5 * k, fill: '#1C2126', stroke: '#56626C', 'stroke-width': 2 * sw }, g);
+    E('path', { d: `M${-106 * k},${16 * k} L${106 * k},${16 * k} L${86 * k},0 L${-86 * k},0 Z`, fill: '#76808A', stroke: '#C9D1D8', 'stroke-width': 2 * sw, 'stroke-linejoin': 'round' }, g);
+    let mesh = '';
+    for (let i = 1; i < 8; i++) mesh += `M${((-106 + i * 26.5) * k).toFixed(1)},${(16 * k).toFixed(1)} L${((-86 + i * 21.5) * k).toFixed(1)},0 `;
+    for (let j = 1; j < 3; j++) { const y = 16 * k * (1 - j / 3), dx = 20 * k * j / 3; mesh += `M${(-106 * k + dx).toFixed(1)},${y.toFixed(1)} L${(106 * k - dx).toFixed(1)},${y.toFixed(1)} `; }
+    E('path', { d: mesh, stroke: '#C9D1D8', 'stroke-width': 1.2 * sw, opacity: 0.7 }, g);
     return g;
   }
   /* Liebig condenser along +x from (0,0) to (L,0): inner glass tube inside a pale-blue water jacket (j0..j1),
@@ -83,17 +85,20 @@ scene('distil', S => {
     Object.assign(g, { j0, j1, jw, a0, a1, arm });
     return g;
   }
-  // shallow white porcelain evaporating basin, rim centre at (0,0); g.set(liquid 0..1, crust 0..1)
+  // white porcelain evaporating basin, drawn like the evaporating-basin rig's (07_filter); rim centre at (0,0), w wide.
+  // g.set(liquid 0..1, crust 0..1); g.depth: rim to bottom
   function basin(parent, w) {
-    const g = G(parent), hw = w / 2, d = w * 0.3;
-    const bowl = `M${-hw},0 C${-hw},${d * 1.25} ${hw},${d * 1.25} ${hw},0 Z`;
-    const clip = _clipUrl(bowl);
-    E('path', { d: bowl, fill: ball('#FFFFFF', '#AFBDC8'), stroke: '#E8EEF2', 'stroke-width': 3 }, g);
-    const liq = E('rect', { x: -hw, y: 0, width: w, height: d * 1.3, fill: C.water, opacity: 0.85, 'clip-path': clip }, g);
-    const crust = E('path', { d: `M${-hw * 0.6},${d * 0.62} Q${-hw * 0.42},${d * 0.5} ${-hw * 0.24},${d * 0.6} Q${-hw * 0.05},${d * 0.46} ${hw * 0.16},${d * 0.58} Q${hw * 0.38},${d * 0.48} ${hw * 0.6},${d * 0.62} Q${hw * 0.3},${d * 1.05} 0,${d * 0.98} Q${-hw * 0.3},${d * 1.05} ${-hw * 0.6},${d * 0.62} Z`, fill: '#FFFFFF', stroke: '#C9D4DC', 'stroke-width': 1.5, 'clip-path': clip }, g);
-    E('ellipse', { cx: 0, cy: 0, rx: hw, ry: 5, fill: 'none', stroke: '#FFFFFF', 'stroke-width': 3 }, g);
-    g.set = (lv, cr) => { lv = clamp(lv); attr(liq, 'y', d * 0.94 - d * 0.82 * lv); op(liq, lv > 0.01 ? 1 : 0); op(crust, cr); };
+    const g = G(parent), k = w / 192, b = G(g); tr(b, 0, 0, k);
+    E('path', { d: 'M-96,0 Q-92,51 0,54 Q92,51 96,0 Z', fill: ball('#FFFFFF', '#AEBAC4'), stroke: '#E9EEF2', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, b);
+    E('ellipse', { cx: 0, cy: 0, rx: 96, ry: 17, fill: '#8E9AA5', stroke: '#FFFFFF', 'stroke-width': 3 }, b);
+    const liq = E('ellipse', { cx: 0, cy: 2, rx: 88, ry: 13, fill: C.water, opacity: 0.9 }, b);
+    const crust = G(b);
+    E('ellipse', { cx: 0, cy: 10, rx: 66, ry: 9, fill: '#FFFFFF', stroke: '#E4EDF2', 'stroke-width': 2 }, crust);
+    { const r = rng(9); let d = ''; for (let i = 0; i < 16; i++) { const a = r() * TAU, q = Math.sqrt(r()); d += `M${(Math.cos(a) * 58 * q).toFixed(1)},${(10 + Math.sin(a) * 6 * q).toFixed(1)} h0.1 `; } E('path', { d, stroke: '#B5C3CE', 'stroke-width': 4, 'stroke-linecap': 'round' }, crust); }
+    E('circle', { cx: 0, cy: 8, r: 46, fill: glow('#FFFFFF'), opacity: 0.6 }, crust);
+    g.set = (lv, cr) => { lv = clamp(lv); attr(liq, 'rx', 26 + 62 * lv); attr(liq, 'ry', 4 + 9 * lv); attr(liq, 'cy', 13 - 11 * lv); op(liq, lv > 0.03 ? 0.9 : lv * 30); op(crust, cr || 0); };
     g.set(0.6, 0);
+    g.depth = 54 * k;
     return g;
   }
   // felt-tip pen, tip at (0,0), barrel pointing up
@@ -108,15 +113,24 @@ scene('distil', S => {
   }
   function saltCube(parent, s) { return E('rect', { x: -s / 2, y: -s / 2, width: s, height: s, rx: s * 0.2, fill: SALT, stroke: SALTDK, 'stroke-width': Math.max(1, s * 0.1) }, parent); }
   function drop(parent, r, color) { return E('path', { d: `M0,${-r * 1.55} C${r * 0.55},${-r * 0.7} ${r},${-r * 0.15} ${r},${r * 0.3} A${r},${r} 0 0 1 ${-r},${r * 0.3} C${-r},${-r * 0.15} ${-r * 0.55},${-r * 0.7} 0,${-r * 1.55} Z`, fill: color || C.water }, parent); }
+  // bond lines as in 03_molecules: a short line across the joint of two touching atoms (centres a, b; radii ra, rb)
+  function bondD(ax, ay, ra, bx, by, rb, len) {
+    const dx = bx - ax, dy = by - ay, d = Math.hypot(dx, dy) || 1, ux = dx / d, uy = dy / d;
+    const s = (d * d + ra * ra - rb * rb) / (2 * d), L = (len || 0.6) * Math.min(ra, rb);
+    return `M${(ax + ux * (s - L / 2)).toFixed(1)},${(ay + uy * (s - L / 2)).toFixed(1)} L${(ax + ux * (s + L / 2)).toFixed(1)},${(ay + uy * (s + L / 2)).toFixed(1)} `;
+  }
+  const bonds = (parent, d, rmin) => E('path', { d, fill: 'none', stroke: '#F4FAFD', 'stroke-width': Math.max(2.4, 0.2 * rmin).toFixed(1), 'stroke-linecap': 'round', opacity: 0.9 }, parent);
   function h2o(parent, r) {
     const g = G(parent);
     [-1, 1].forEach(k => E('circle', { cx: k * r * 0.98, cy: r * 0.72, r: r * 0.62, fill: ball(C.hydrogen, C.hydrogenDk), stroke: C.hydrogenDk, 'stroke-width': 1.5 }, g));
     E('circle', { r, fill: ball(C.oxygen, C.oxygenDk), stroke: C.oxygenDk, 'stroke-width': 1.5 }, g);
+    bonds(g, bondD(0, 0, r, -r * 0.98, r * 0.72, r * 0.62, 0.5) + bondD(0, 0, r, r * 0.98, r * 0.72, r * 0.62, 0.5), r * 0.62);
     return g;
   }
   function o2Pair(parent, r) {
     const g = G(parent);
     [-1, 1].forEach(k => E('circle', { cx: k * r * 0.72, cy: 0, r, fill: ball(C.oxygen, C.oxygenDk), stroke: C.oxygenDk, 'stroke-width': 1.5 }, g));
+    bonds(g, bondD(-r * 0.72, 0, r, r * 0.72, 0, r), r);
     return g;
   }
   // many small static dots or squares as one path
@@ -124,7 +138,8 @@ scene('distil', S => {
   const squaresD = pts => pts.map(([x, y, h]) => `M${(x - h).toFixed(1)},${(y - h).toFixed(1)} h${2 * h} v${2 * h} h${-2 * h} Z`).join('');
   function nPair(parent, r) {
     const g = G(parent);
-    [-1, 1].forEach(k => E('circle', { cx: k * r * 0.72, cy: 0, r, fill: ball('#5B8CFF', '#2F55B8'), stroke: '#2F55B8', 'stroke-width': Math.max(1.5, r * 0.08) }, g));
+    [-1, 1].forEach(k => E('circle', { cx: k * r * 0.72, cy: 0, r, fill: ball('#5B8CFF', '#355194'), stroke: '#355194', 'stroke-width': Math.max(1.5, r * 0.08) }, g));
+    bonds(g, bondD(-r * 0.72, 0, r, r * 0.72, 0, r), r);
     return g;
   }
   // a rounded card with two centred lines, drawn around (0,0)
@@ -234,8 +249,8 @@ scene('distil', S => {
   const dArtL = G(dL);
   const eb = bunsen(dArtL, 0.62); tr(eb, 320, 560);
   tr(tripod(dArtL, 130, 571 - 432), 320, 432);
-  const bas = basin(dArtL, 190); tr(bas, 320, 372);
-  const dSteam = heatWaves(dArtL, { n: 3, h: 90, spacing: 30, color: '#CFE7F5', width: 4 }); tr(dSteam, 320, 354);
+  const bas = basin(dArtL, 190); tr(bas, 320, 436 - bas.depth);       // sitting on the gauze
+  const dSteam = heatWaves(dArtL, { n: 3, h: 90, spacing: 30, color: '#CFE7F5', width: 4 }); tr(dSteam, 320, 366);
   const dKeepL = T(dL, 320, 640, 'keeps the **solid**', { size: 36, weight: 600, anchor: 'middle', boldFill: C.energy });
   const dTickL = tick(dL, 16); tr(dTickL, 440, 432);
   const dArtR = G(dR);

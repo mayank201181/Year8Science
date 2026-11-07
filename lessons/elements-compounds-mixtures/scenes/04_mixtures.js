@@ -183,12 +183,12 @@ scene('mixtures', S => {
   const readT = rich(readG, 880, 482, [['12', BLUE_T, 700], [' : ', C.muted], ['6', YEL_T, 700]], { size: 44, anchor: 'middle' });
   const readY = readT.lastChild;
   const lockG = G(ratG);
-  card(lockG, 660, 528, 440, 118, { fill: C.card, stroke: C.line });
-  const lockW = water(lockG, 25); tr(lockW, 730, 580);
-  T(lockG, 800, 570, 'a compound’s ratio:', { size: 27, weight: 600, fill: C.muted });
-  { const rt = E('text', { x: 800, y: 624, 'font-size': 42, 'font-weight': 700, 'font-family': FD, fill: C.ink }, lockG);   // "2 H : 1 O", spaced out
-    [['2', C.ink, 0], ['H', '#E9F1F6', 11], [':', C.muted, 16], ['1', C.ink, 16], ['O', '#FF9A8F', 11]].forEach(([s, f, dx]) => { E('tspan', { fill: f, dx }, rt).textContent = s; }); }
-  const lockP = padlock(lockG); tr(lockP, 1058, 604, 1.5);
+  card(lockG, 650, 528, 460, 118, { fill: C.card, stroke: C.line });
+  const lockW = water(lockG, 25); tr(lockW, 712, 580);
+  T(lockG, 768, 570, 'a compound’s ratio:', { size: 27, weight: 600, fill: C.muted });
+  // spelled out, as in the compounds chapter (in Fredoka "1 O" reads as "10")
+  rich(lockG, 768, 620, [['2 hydrogen', '#FFFFFF', 700], [' : ', C.muted, 600], ['1 oxygen', '#FF9A8F', 700]], { size: 28 });
+  const lockP = padlock(lockG); tr(lockP, 1074, 600, 1.5);
   // separate: an arrow, two piles, no reaction
   const sepArrow = arrow(A, 440, 286, 905, 486, { color: C.energy, width: 6, bend: -290 });
   const sepLbl = T(A, 660, 206, 'physical methods', { size: 34, weight: 700, anchor: 'middle', fill: C.energy });
@@ -264,12 +264,13 @@ scene('mixtures', S => {
     [9, 26].forEach(k => { let j = inner[(k * 5 + 3) % inner.length]; while (saltIdx.has(j)) j = inner[(inner.indexOf(j) + 1) % inner.length]; otherIdx.add(j); });
     pts.forEach(([x, y], i) => {
       const kind = saltIdx.has(i) ? 'salt' : otherIdx.has(i) ? 'other' : 'water';
-      const el = kind === 'salt' ? sphere(seaL.inner, '#F4F7FA', 15) : kind === 'other' ? sphere(seaL.inner, '#9FE3B0', 15) : sphere(seaL.inner, C.water, 21);
+      // dissolved salt: small white cubes, as in the purity, filtration and distillation chapters
+      const el = kind === 'salt' ? E('rect', { x: -12, y: -12, width: 24, height: 24, rx: 4.8, fill: '#F4F7FA', stroke: '#9FB2C1', 'stroke-width': 2.4 }, seaL.inner) : kind === 'other' ? sphere(seaL.inner, '#9FE3B0', 15) : sphere(seaL.inner, C.water, 21);
       seaParts.push({ el, x, y, kind, ph: i * 1.9 });
     });
   }
   const seaKey = G(Cg);
-  { let x = 600; [['water', C.water, 20], ['salt', '#F4F7FA', 15], ['other substances', '#9FE3B0', 15]].forEach(([w, col, r]) => { const c = sphere(seaKey, col, 13); attr(c, 'cx', x + 13); attr(c, 'cy', 693); T(seaKey, x + 36, 703, w, { size: 28, weight: 600 }); x += 36 + textWidth(w, 28, FD, 600) + 34; }); seaKey.setAttribute('transform', `translate(${((842 - (x - 34 + 600) / 2)).toFixed(1)} 0)`); }
+  { let x = 600; [['water', C.water, 20], ['salt', '#F4F7FA', 15], ['other substances', '#9FE3B0', 15]].forEach(([w, col, r]) => { if (w === 'salt') E('rect', { x: x + 2, y: 682, width: 22, height: 22, rx: 4.4, fill: col, stroke: '#9FB2C1', 'stroke-width': 2.2 }, seaKey); else { const c = sphere(seaKey, col, 13); attr(c, 'cx', x + 13); attr(c, 'cy', 693); } T(seaKey, x + 36, 703, w, { size: 28, weight: 600 }); x += 36 + textWidth(w, 28, FD, 600) + 34; }); seaKey.setAttribute('transform', `translate(${((842 - (x - 34 + 600) / 2)).toFixed(1)} 0)`); }
 
   /* ===================== D. alloys: brass and steel ===================== */
   const Dg = G(root);
@@ -364,8 +365,10 @@ scene('mixtures', S => {
     row(1, RY[0], g => { tr(sphere(g, BLUE, 16), -26, 0); tr(sphere(g, YEL, 16), 26, 0); }, 'not bonded'),
     row(1, RY[1], g => { E('rect', { x: -40, y: -6, width: 80, height: 12, rx: 6, fill: linGrad('#3A4C6E', '#7A6A2A'), stroke: C.line, 'stroke-width': 2 }, g); E('circle', { cx: 14, r: 13, fill: ball('#FFFFFF', '#A9B5C0'), stroke: '#DCE6EE', 'stroke-width': 2 }, g); }, 'any ratio'),
     row(1, RY[2], g => {
-      E('path', { d: 'M-32,-30 L32,-30 L7,4 L7,30 L-7,30 L-7,4 Z', fill: GLASS.fill, stroke: GLASS.stroke, 'stroke-width': 3.5, 'stroke-linejoin': 'round' }, g);
-      E('path', { d: 'M-25,-26 L25,-26 L0,0 Z', fill: '#F4F7FA', stroke: '#C9D6DE', 'stroke-width': 1.5, 'stroke-linejoin': 'round' }, g);
+      const f = G(g); tr(f, 0, -2, 0.66);                     // 07_filter's funnel icon: glass cone, filter paper, sand
+      E('path', { d: 'M-48,-44 L-6,10 L-6,46 L6,52 L6,10 L48,-44 Z', fill: 'rgba(200,230,250,0.14)', stroke: GLASS.stroke, 'stroke-width': 4, 'stroke-linejoin': 'round' }, f);
+      E('path', { d: 'M-40,-40 L0,6 L40,-40 Z', fill: '#F4F7FA', stroke: '#C9D3DC', 'stroke-width': 2, 'stroke-linejoin': 'round' }, f);
+      E('path', { d: 'M-16,-12 Q0,-22 16,-12 L0,6 Z', fill: '#D9B77E' }, f);
     }, 'physical methods', 'to separate it'),
   ];
 
@@ -419,8 +422,8 @@ scene('mixtures', S => {
         tr(knob, lerp(SL[0] + 40, SL[1] - 20, (nY - 6) / 12), SL[2], 1 + 0.15 * pulse(mid('ratio', 0.18), 0.3));
         slideIn(readG, P(t, mid('ratio', 0.1), 0.4, linear), 0, 10);
         const lp = P(t, mid('ratio', 0.64), 0.5, pop); op(lockG, clamp(lp * 2)); lockG.setAttribute('transform', `translate(0 ${((1 - clamp(lp)) * 20).toFixed(1)})`);
-        tr(lockW, 730, 580, 1, Math.sin(tt * 1.2) * 8);
-        tr(lockP, 1058, 604, 1.5 * (1 + 0.18 * pulse(mid('ratio', 0.84), 0.45)));
+        tr(lockW, 712, 580, 1, Math.sin(tt * 1.2) * 8);
+        tr(lockP, 1074, 600, 1.5 * (1 + 0.18 * pulse(mid('ratio', 0.84), 0.45)));
       }
       // separate
       const sp = P(t, at('separate') - 0.05, 0.4, linear);
@@ -473,8 +476,9 @@ scene('mixtures', S => {
       op(seaCon, zp); seaCon.set(SB[0] + 30, 540, 36, lerp(SB[0] + 30, ZC[0], zp), lerp(540, ZC[1], zp), (ZR + 8) * Math.max(0.05, zp));
       const sg = pulse(mid('sea', 0.56), 1.2);
       seaParts.forEach(o => {
-        attr(o.el, 'cx', o.x + Math.sin(tt * 1.1 + o.ph) * 4 + Math.sin(tt * 0.3 + o.ph) * 6);
-        attr(o.el, 'cy', o.y + Math.cos(tt * 1.3 + o.ph) * 4);
+        const x = o.x + Math.sin(tt * 1.1 + o.ph) * 4 + Math.sin(tt * 0.3 + o.ph) * 6, y = o.y + Math.cos(tt * 1.3 + o.ph) * 4;
+        if (o.kind === 'salt') { tr(o.el, x, y, 1 + 0.25 * sg, 18 + (o.ph * 40) % 30); return; }
+        attr(o.el, 'cx', x); attr(o.el, 'cy', y);
         if (o.kind !== 'water') attr(o.el, 'r', (15 * (1 + 0.25 * sg)).toFixed(2));
       });
       op(seaKey, P(t, mid('sea', 0.5), 0.5, linear));

@@ -14,6 +14,23 @@ scene('quiz', S => {
   const EL = { N: '#5B8CFF', Ar: '#C9B8FF' };
   const shade = (hex, k) => '#' + [1, 3, 5].map(i => Math.round(parseInt(hex.slice(i, i + 2), 16) * k).toString(16).padStart(2, '0')).join('');
   const Y = C.energy;
+  /* bond lines as in 03_molecules: a short line across the joint of two touching atoms (centres a, b; radii ra, rb) */
+  function bondD(ax, ay, ra, bx, by, rb, len) {
+    const dx = bx - ax, dy = by - ay, d = Math.hypot(dx, dy) || 1, ux = dx / d, uy = dy / d;
+    const s = (d * d + ra * ra - rb * rb) / (2 * d), L = (len || 0.6) * Math.min(ra, rb);
+    return `M${(ax + ux * (s - L / 2)).toFixed(1)},${(ay + uy * (s - L / 2)).toFixed(1)} L${(ax + ux * (s + L / 2)).toFixed(1)},${(ay + uy * (s + L / 2)).toFixed(1)} `;
+  }
+  const bonds = (parent, d, rmin) => E('path', { d, fill: 'none', stroke: '#F4FAFD', 'stroke-width': Math.max(2.4, 0.2 * rmin).toFixed(1), 'stroke-linecap': 'round', opacity: 0.9 }, parent);
+  /* table sugar as in the solutions chapter: a glucose hexagon joined to a fructose pentagon, amber, as one path */
+  function sugarMol(parent, s) {
+    const polyD = pts => 'M' + pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' L');
+    const hex = [], pen = [];
+    for (let i = 0; i < 6; i++) { const a = Math.PI / 6 + i * Math.PI / 3; hex.push([-s + Math.cos(a) * s, Math.sin(a) * s]); }
+    for (let i = 0; i < 5; i++) { const a = Math.PI + i * TAU / 5; pen.push([s * 1.02 + Math.cos(a) * s * 0.86, Math.sin(a) * s * 0.86]); }
+    const x0 = -s * 0.134, x1 = s * 0.17, hy = s * 0.12;
+    const link = `M${x0.toFixed(1)},${(-hy).toFixed(1)} L${x1.toFixed(1)},${(-hy).toFixed(1)} L${x1.toFixed(1)},${hy.toFixed(1)} L${x0.toFixed(1)},${hy.toFixed(1)} Z`;
+    return E('path', { d: polyD(hex) + 'Z' + polyD(pen) + 'Z' + link, fill: ball(C.glucose, C.glucoseDk), stroke: C.glucoseDk, 'stroke-width': Math.max(1.4, s * 0.12), 'stroke-linejoin': 'round' }, parent);
+  }
 
   /* ---------- progress dots (top right) ---------- */
   const dotsG = G(root);
@@ -37,6 +54,7 @@ scene('quiz', S => {
   function picWater(g) {
     const r = 50, H1 = atom(g, 'H', r * 0.62, { letter: true }), H2 = atom(g, 'H', r * 0.62, { letter: true }), O = atom(g, 'O', r, { letter: true });
     tr(H1, -r * 0.98, r * 0.72); tr(H2, r * 0.98, r * 0.72); tr(O, 0, -6);
+    bonds(g, bondD(0, -6, r, -r * 0.98, r * 0.72, r * 0.62, 0.5) + bondD(0, -6, r, r * 0.98, r * 0.72, r * 0.62, 0.5), r * 0.62);
     const t0 = at('a1');
     return t => {
       const p1 = Math.sin(Math.PI * P(t, mid('a1', 0.36), 0.45, linear)), p2 = Math.sin(Math.PI * P(t, mid('a1', 0.44), 0.45, linear)), p3 = Math.sin(Math.PI * P(t, mid('a1', 0.78), 0.5, linear));
@@ -52,8 +70,8 @@ scene('quiz', S => {
     const spots = [[-58, -52], [8, -70], [62, -34], [-72, 10], [-14, -6], [52, 26], [-40, 58], [20, 62], [74, -84]];
     spots.forEach(([x, y], i) => {
       const m = G(inner), kind = i === 1 || i === 5 ? 'O' : 'N';
-      if (kind === 'O') molO2(m, 13);
-      else { [-1, 1].forEach(s => E('circle', { cx: s * 10, cy: 0, r: 13, fill: ball(EL.N, shade(EL.N, 0.58)), stroke: shade(EL.N, 0.58), 'stroke-width': 1.5 }, m)); }
+      if (kind === 'O') { molO2(m, 13); bonds(m, bondD(-9.36, 0, 13, 9.36, 0, 13), 13); }
+      else { [-1, 1].forEach(s => E('circle', { cx: s * 10, cy: 0, r: 13, fill: ball(EL.N, shade(EL.N, 0.58)), stroke: shade(EL.N, 0.58), 'stroke-width': 1.5 }, m)); bonds(m, bondD(-10, 0, 13, 10, 0, 13), 13); }
       ps.push({ m, x, y, ph: ar() * TAU, a0: ar() * 180, sp: (ar() - 0.5) * 60 });
     });
     T(g, -56, 150, 'N₂', { size: 28, weight: 700, anchor: 'middle', fill: '#8FB0FF' });
@@ -86,10 +104,11 @@ scene('quiz', S => {
     tr(g, 300, 556);
     const b = beaker(g, 150, 170, { level: 0.22, liquid: '#8FD3F0', marks: false }); tr(b, 0, 30);
     E('line', { x1: -86, y1: -78, x2: 86, y2: -78, stroke: '#8C9AA6', 'stroke-width': 6, 'stroke-linecap': 'round' }, g);
-    E('rect', { x: -26, y: -78, width: 52, height: 172, fill: '#F4F7FA', stroke: '#C9D6DE', 'stroke-width': 1.5 }, g);
-    E('line', { x1: -22, y1: 70, x2: 22, y2: 70, stroke: '#6E7B86', 'stroke-width': 2.5 }, g);
+    E('rect', { x: -26, y: -78, width: 52, height: 172, fill: '#F6F3EC', stroke: '#D8D2C4', 'stroke-width': 1.5 }, g);
+    E('line', { x1: -22, y1: 70, x2: 22, y2: 70, stroke: '#8A949C', 'stroke-width': 2.5 }, g);
     const front = E('rect', { x: -26, y: 0, width: 52, height: 0, fill: 'rgba(143,211,240,0.35)' }, g);
-    const spots = [['#3B6BFF', 6], ['#F5C400', -26], ['#FF4F9A', -56]].map(([c, y]) => ({ el: E('ellipse', { cx: 0, cy: 70, rx: 11, ry: 8, fill: c }, g), y }));
+    // the same split as in the chromatography chapter: yellow travels furthest, then pink, then blue
+    const spots = [['#3F7BFF', 6], ['#FF4FA0', -26], ['#FFD23F', -56]].map(([c, y]) => ({ el: E('ellipse', { cx: 0, cy: 70, rx: 11, ry: 8, fill: c }, g), y }));
     const ink = E('circle', { cx: 0, cy: 70, r: 10, fill: '#1B1B1B' }, g);
     return t => {
       const u = P(t, at('a4') - 0.1, 1.3, easeOut);
@@ -108,7 +127,7 @@ scene('quiz', S => {
       const x = i * 27 + (j % 2 ? 13 : 0) + (sr() - 0.5) * 6, y = j * 25 + (sr() - 0.5) * 6;
       if (Math.hypot(x, y) > 112) continue;
       const sugar = [[-1, -2], [2, -1], [0, 1], [-2, 2], [1, 3]].some(([a, b]) => a === i && b === j);
-      if (sugar) sg.push({ el: E('circle', { cx: x, cy: y, r: 12, fill: ball(C.glucose, C.glucoseDk), stroke: C.glucoseDk, 'stroke-width': 1.5 }, inner), halo: null, x, y, ph: sr() * TAU });
+      if (sugar) sg.push({ el: sugarMol(inner, 8), halo: null, x, y, ph: sr() * TAU, rot: ((i * 37 + j * 23) % 50) - 25 });
       else ws.push({ el: E('circle', { cx: x, cy: y, r: 10.5, fill: ball(C.water, C.waterDk) }, inner), x, y, ph: sr() * TAU });
     }
     const halos = G(inner); inner.insertBefore(halos, inner.firstChild);
@@ -120,7 +139,7 @@ scene('quiz', S => {
     return t => {
       ws.forEach(w => { attr(w.el, 'cx', w.x + Math.sin(t * 1.3 * calm + w.ph) * 2.5); attr(w.el, 'cy', w.y + Math.cos(t * 1.1 * calm + w.ph) * 2.5); });
       const gl = P(t, mid('a5', 0.2), 0.6, linear);
-      sg.forEach(s => { const x = s.x + Math.sin(t * 1.2 * calm + s.ph) * 2.5, y = s.y + Math.cos(t * calm + s.ph) * 2.5; attr(s.el, 'cx', x); attr(s.el, 'cy', y); attr(s.halo, 'cx', x); attr(s.halo, 'cy', y); op(s.halo, gl * (0.7 + 0.3 * wave(t, 1.3, s.ph))); });
+      sg.forEach(s => { const x = s.x + Math.sin(t * 1.2 * calm + s.ph) * 2.5, y = s.y + Math.cos(t * calm + s.ph) * 2.5; tr(s.el, x, y, 1, s.rot); attr(s.halo, 'cx', x); attr(s.halo, 'cy', y); op(s.halo, gl * (0.7 + 0.3 * wave(t, 1.3, s.ph))); });
       const sp = P(t, at('a5') - 0.05, 0.45, pop), out = P(t, mid('a5', 0.14), 0.5, linear);
       op(stamp, clamp(sp * 2) * (1 - out)); tr(stamp, 0, -10, 1.5 - 0.5 * clamp(sp), -12);
     };

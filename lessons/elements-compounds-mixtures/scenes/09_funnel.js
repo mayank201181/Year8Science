@@ -36,38 +36,46 @@ scene('funnel', S => {
   }
   function saltCube(parent, s) { return E('rect', { x: -s / 2, y: -s / 2, width: s, height: s, rx: s * 0.2, fill: SALT, stroke: SALTDK, 'stroke-width': Math.max(1, s * 0.1) }, parent); }
   function filing(parent, s) { return E('rect', { x: -6.5 * s, y: -1.8 * s, width: 13 * s, height: 3.6 * s, rx: 1.6 * s, fill: IRON, stroke: IRONLT, 'stroke-width': 1 }, parent); }
-  function tripod(parent, w, h) {
-    const g = G(parent);
-    const legs = `M${w * 0.06},8 L${w * 0.1},${h - 6} M${-w * 0.4},8 L${-w * 0.56},${h} M${w * 0.4},8 L${w * 0.56},${h}`;
-    E('path', { d: legs, fill: 'none', stroke: '#6E808E', 'stroke-width': 10, 'stroke-linecap': 'round' }, g);
-    E('path', { d: legs, fill: 'none', stroke: '#1B242B', 'stroke-width': 6, 'stroke-linecap': 'round' }, g);
-    E('rect', { x: -w / 2, y: 2, width: w, height: 10, rx: 4, fill: '#1B242B', stroke: '#6E808E', 'stroke-width': 2 }, g);
-    E('rect', { x: -w * 0.62, y: -6, width: w * 1.24, height: 8, rx: 2, fill: '#97A6B2', stroke: '#C9D4DC', 'stroke-width': 1.5 }, g);
-    let d = ''; for (let x = -w * 0.62 + 5; x < w * 0.62 - 3; x += 9) d += `M${x.toFixed(1)},-6 l3,8 `;
-    E('path', { d, stroke: '#5A6874', 'stroke-width': 1.5 }, g);
+  // black tripod with a wire gauze, drawn like the evaporating-basin rig's (07_filter); w = width of its top ring,
+  // gauze top at y=0, feet at y=h. back: draw the back leg too (leave it out when a Bunsen burner stands in front of it)
+  function tripod(parent, w, h, back) {
+    const g = G(parent), k = w / 168, sw = Math.max(0.6, k), lt = 66 * k, lf = 88 * k, top = 26 * k;
+    if (back) E('path', { d: `M0,${top} L0,${h - 8 * k}`, stroke: '#1C2126', 'stroke-width': 8 * sw, 'stroke-linecap': 'round' }, g);
+    E('path', { d: `M${-lf},${h} L${-lt},${top} M${lf},${h} L${lt},${top}`, fill: 'none', stroke: '#1C2126', 'stroke-width': 9 * sw, 'stroke-linecap': 'round' }, g);
+    E('path', { d: `M${-lf + 2 * k},${h - 6 * k} L${-lt},${top + 6 * k} M${lf - 2 * k},${h - 6 * k} L${lt},${top + 6 * k}`, fill: 'none', stroke: '#56626C', 'stroke-width': 2.5 * sw, 'stroke-linecap': 'round' }, g);
+    E('rect', { x: -84 * k, y: 18 * k, width: 168 * k, height: 12 * k, rx: 5 * k, fill: '#1C2126', stroke: '#56626C', 'stroke-width': 2 * sw }, g);
+    E('path', { d: `M${-106 * k},${16 * k} L${106 * k},${16 * k} L${86 * k},0 L${-86 * k},0 Z`, fill: '#76808A', stroke: '#C9D1D8', 'stroke-width': 2 * sw, 'stroke-linejoin': 'round' }, g);
+    let mesh = '';
+    for (let i = 1; i < 8; i++) mesh += `M${((-106 + i * 26.5) * k).toFixed(1)},${(16 * k).toFixed(1)} L${((-86 + i * 21.5) * k).toFixed(1)},0 `;
+    for (let j = 1; j < 3; j++) { const y = 16 * k * (1 - j / 3), dx = 20 * k * j / 3; mesh += `M${(-106 * k + dx).toFixed(1)},${y.toFixed(1)} L${(106 * k - dx).toFixed(1)},${y.toFixed(1)} `; }
+    E('path', { d: mesh, stroke: '#C9D1D8', 'stroke-width': 1.2 * sw, opacity: 0.7 }, g);
     return g;
   }
-  // shallow white porcelain evaporating basin, rim centre at (0,0); g.set(liquid 0..1, crust 0..1)
+  // white porcelain evaporating basin, drawn like the evaporating-basin rig's (07_filter); rim centre at (0,0), w wide.
+  // g.set(liquid 0..1); g.depth: rim to bottom
   function basin(parent, w) {
-    const g = G(parent), hw = w / 2, d = w * 0.3;
-    const bowl = `M${-hw},0 C${-hw},${d * 1.25} ${hw},${d * 1.25} ${hw},0 Z`;
-    const clip = _clipUrl(bowl);
-    E('path', { d: bowl, fill: ball('#FFFFFF', '#AFBDC8'), stroke: '#E8EEF2', 'stroke-width': 3 }, g);
-    const liq = E('rect', { x: -hw, y: 0, width: w, height: d * 1.3, fill: C.water, opacity: 0.85, 'clip-path': clip }, g);
-    E('ellipse', { cx: 0, cy: 0, rx: hw, ry: 5, fill: 'none', stroke: '#FFFFFF', 'stroke-width': 3 }, g);
-    g.set = lv => { lv = clamp(lv); attr(liq, 'y', d * 0.94 - d * 0.82 * lv); op(liq, lv > 0.01 ? 1 : 0); };
+    const g = G(parent), k = w / 192, b = G(g); tr(b, 0, 0, k);
+    E('path', { d: 'M-96,0 Q-92,51 0,54 Q92,51 96,0 Z', fill: ball('#FFFFFF', '#AEBAC4'), stroke: '#E9EEF2', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, b);
+    E('ellipse', { cx: 0, cy: 0, rx: 96, ry: 17, fill: '#8E9AA5', stroke: '#FFFFFF', 'stroke-width': 3 }, b);
+    const liq = E('ellipse', { cx: 0, cy: 2, rx: 88, ry: 13, fill: C.water, opacity: 0.9 }, b);
+    g.set = lv => { lv = clamp(lv); attr(liq, 'rx', 26 + 62 * lv); attr(liq, 'ry', 4 + 9 * lv); attr(liq, 'cy', 13 - 11 * lv); op(liq, lv > 0.03 ? 0.9 : lv * 30); };
     g.set(0);
-    g.depth = d * 0.94;
+    g.depth = 54 * k;
     return g;
   }
-  // glass filter funnel with a white filter-paper cone; rim at y=-60, stem tip at y=62 (unscaled)
+  // glass filter funnel with a white filter-paper cone, drawn like 07_filter's at 0.58 scale: rim at y=-60, stem tip
+  // at y=56 (unscaled); g.inside is clipped to the paper cone and uses 07's coordinates (paper apex at 0,112)
   function filterFunnel(parent) {
-    const g = G(parent);
-    E('path', { d: 'M-64,-60 L-7,16 L7,16 L64,-60 Z', fill: GLASS.fill }, g);
-    E('path', { d: 'M-55,-63 L0,12 L55,-63 Z', fill: '#FFFFFF', opacity: 0.93 }, g);
-    g.inside = G(g);
-    E('path', { d: 'M-55,-63 L0,12 L20,-63', fill: 'none', stroke: '#D5DEE5', 'stroke-width': 2 }, g);
-    E('path', { d: 'M-64,-60 L-7,16 L-7,62 M7,62 L7,16 L64,-60', fill: 'none', stroke: GLASS.stroke, 'stroke-width': 4, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
+    const g = G(parent), f = G(g); tr(f, 0, -60, 0.58);
+    const paperD = 'M-98,7 L0,112 L98,7 Z';
+    E('path', { d: 'M-110,0 L-11,120 L11,120 L110,0 Z', fill: GLASS.fill }, f);
+    E('rect', { x: -7, y: 120, width: 14, height: 76, fill: GLASS.fill }, f);
+    E('path', { d: paperD, fill: '#F4F7FA', stroke: '#C9D3DC', 'stroke-width': 3, 'stroke-linejoin': 'round' }, f);
+    E('path', { d: 'M-20,7 L0,112 M-62,7 L-34,37', stroke: '#C9D3DC', 'stroke-width': 3, fill: 'none', opacity: 0.85 }, f);
+    g.inside = G(f, { 'clip-path': _clipUrl(paperD) });
+    E('path', { d: 'M-110,0 L-11,120 L-7,126 L-7,192 L7,200 L7,126 L11,120 L110,0', fill: 'none', stroke: GLASS.stroke, 'stroke-width': 6, 'stroke-linejoin': 'round' }, f);
+    E('ellipse', { cx: 0, cy: 0, rx: 110, ry: 8, fill: 'none', stroke: GLASS.stroke, 'stroke-width': 4.5 }, f);
+    E('path', { d: 'M80,9 L22,84', stroke: GLASS.shine, 'stroke-width': 7, 'stroke-linecap': 'round' }, f);
     return g;
   }
   // Liebig condenser along +x (same look as the distillation chapter)
@@ -86,9 +94,10 @@ scene('funnel', S => {
   function crystals(parent, n, s, seed) {
     const g = G(parent), r = rng(seed || 3), list = [];
     for (let i = 0; i < n; i++) {
-      const c = G(g), z = s * (0.6 + r() * 0.6);
-      E('rect', { x: -z / 2, y: -z / 2, width: z, height: z, rx: z * 0.12, fill: ball('#FFFFFF', '#B9D3E2'), stroke: '#E9F4FA', 'stroke-width': 1.5 }, c);
-      list.push({ g: c, x: (r() - 0.5) * s * 3.2, y: (r() - 0.5) * s * 1.1, rot: r() * 40 - 20, d: r() });
+      const c = G(g), z = s * (0.6 + r() * 0.6), q = z * 0.55, k = q * 0.87;   // 07_filter's crystal: a small cube seen corner-on
+      E('path', { d: `M0,${-q} L${k},${-q / 2} L${k},${q / 2} L0,${q} L${-k},${q / 2} L${-k},${-q / 2} Z`, fill: linGrad('#FFFFFF', '#B9D3E4', true), stroke: '#FFFFFF', 'stroke-width': Math.max(1.2, q * 0.08), 'stroke-linejoin': 'round' }, c);
+      E('path', { d: `M${-k},${-q / 2} L0,0 L${k},${-q / 2} M0,0 L0,${q}`, fill: 'none', stroke: '#8FB2C8', 'stroke-width': Math.max(1, q * 0.07), 'stroke-linejoin': 'round' }, c);
+      list.push({ g: c, x: (r() - 0.5) * s * 3.2, y: (r() - 0.5) * s * 1.1, rot: (r() * 40 - 20) * 0.3, d: r() });
     }
     list.forEach(o => tr(o.g, o.x, o.y, 1, o.rot));
     g.list = list;
@@ -310,7 +319,7 @@ scene('funnel', S => {
   const TX = [195, 465, 735, 1005], TY = 420;
   const tiles = [
     { L: 'F', word: 'Filter', note: 'an insoluble solid', draw: g => { const k = flask(g, 0.42, { level: 0.35, liquid: C.water }); tr(k, 0, 34); const f = filterFunnel(g); tr(f, 0, -22, 0.5); } },
-    { L: 'E', word: 'Evaporate', note: 'a dissolved solid', draw: g => { tr(tripod(g, 92, 40), 0, 34); const b = basin(g, 120); tr(b, 0, 34 - 120 * 0.3 * 0.94 - 6); b.set(0.4); const h = heatWaves(g, { n: 3, h: 34, spacing: 22, color: '#CFE7F5', width: 3.5 }); tr(h, 0, -10); g.anim = h; } },
+    { L: 'E', word: 'Evaporate', note: 'a dissolved solid', draw: g => { tr(tripod(g, 92, 40, true), 0, 34); const b = basin(g, 120); tr(b, 0, 37 - b.depth); b.set(0.4); const h = heatWaves(g, { n: 3, h: 34, spacing: 22, color: '#CFE7F5', width: 3.5 }); tr(h, 0, -10); g.anim = h; } },
     { L: 'C', word: 'Crystallise', note: 'a dissolved solid', draw: g => { crystals(g, 7, 27, 5); } },
     { L: 'D', word: 'Distil', note: 'keeps the liquid', draw: g => { const c = condenser(g, 170, 26, 144, 18); c.setAttribute('transform', 'translate(-82 -30) rotate(18)'); const b = beaker(g, 60, 64, { level: 0.4, liquid: C.water, marks: false }); tr(b, 76, 44); } },
   ].map((o, i) => {
@@ -376,15 +385,15 @@ scene('funnel', S => {
   const s3 = G(steps[2].g);
   const s3fl = flask(s3, 0.62, { level: 0, liquid: C.water }); tr(s3fl, 0, 70);
   const s3fu = filterFunnel(s3); tr(s3fu, 0, -20, 0.7);
-  const s3sand = E('path', { d: 'M-24,-30 Q0,-50 24,-30 L0,4 Z', fill: ball(SANDLT, SAND), stroke: SANDDK, 'stroke-width': 1.2 }, s3fu.inside);
+  const s3sand = E('path', { d: 'M-41,52 Q0,17 41,52 L0,110 Z', fill: ball(SANDLT, SAND), stroke: SANDDK, 'stroke-width': 2 }, s3fu.inside);
   const s3drip = E('circle', { r: 3.5, fill: C.water }, s3);
   // step 4: evaporating basin on a tripod over a Bunsen; crystals form
   const s4 = G(steps[3].g);
   const s4b = bunsen(s4, 0.45); tr(s4b, 0, 120);
-  tr(tripod(s4, 96, 128 - 58), 0, 58);
-  const s4bas = basin(s4, 130); tr(s4bas, 0, 58 - 130 * 0.3 * 0.94 - 6);
-  const s4cr = crystals(s4, 6, 12, 9); tr(s4cr, 0, 58 - 22);
-  const s4heat = heatWaves(s4, { n: 3, h: 46, spacing: 22, color: '#CFE7F5', width: 3.5 }); tr(s4heat, 0, 4);
+  tr(tripod(s4, 96, 128 - 28), 0, 28);                 // tall enough for the flame to show under the gauze, as in 07/08
+  const s4bas = basin(s4, 130); tr(s4bas, 0, 31 - s4bas.depth);
+  const s4cr = crystals(s4, 6, 12, 9); tr(s4cr, 0, 28 - 22);
+  const s4heat = heatWaves(s4, { n: 3, h: 46, spacing: 22, color: '#CFE7F5', width: 3.5 }); tr(s4heat, 0, -26);
   // the three piles
   const PILY = 600;
   const piles = [

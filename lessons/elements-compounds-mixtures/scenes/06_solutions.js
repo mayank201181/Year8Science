@@ -64,8 +64,8 @@ scene('solutions', S => {
      g.set(level 0..1) the liquid in the basin; g.crust(p) the solid left behind; g.burner is the kit bunsen. */
   function basinRig(parent) {
     const g = G(parent);
+    E('path', { d: 'M0,-8 L0,-226', stroke: '#1C2126', 'stroke-width': 8, 'stroke-linecap': 'round' }, g);   // back leg, behind the burner
     g.burner = bunsen(g);
-    E('path', { d: 'M0,-8 L0,-226', stroke: '#1C2126', 'stroke-width': 8, 'stroke-linecap': 'round' }, g);
     E('path', { d: 'M-88,0 L-66,-226 M88,0 L66,-226', stroke: '#1C2126', 'stroke-width': 9, 'stroke-linecap': 'round' }, g);
     E('path', { d: 'M-86,-6 L-66,-220 M86,-6 L66,-220', stroke: '#56626C', 'stroke-width': 2.5, 'stroke-linecap': 'round' }, g);
     E('rect', { x: -84, y: -234, width: 168, height: 12, rx: 5, fill: '#1C2126', stroke: '#56626C', 'stroke-width': 2 }, g);

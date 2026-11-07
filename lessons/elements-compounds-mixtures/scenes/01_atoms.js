@@ -129,7 +129,7 @@ scene('atoms', S => {
   for (let z = 1; z <= 118; z++) {
     const [x, y] = cxy(z);
     const box = E('rect', { x: x - TS / 2, y: y - TS / 2, width: TS, height: TS, rx: 7, fill: C.card2, stroke: C.line, 'stroke-width': 2 }, tilesG);
-    const sym = E('text', { x, y: y + 8, 'font-size': 22, 'font-weight': 700, 'font-family': FD, 'text-anchor': 'middle', fill: '#C9D8E2' }, tilesG);
+    const sym = E('text', { x, y: y + 8, 'font-size': 24, 'font-weight': 700, 'font-family': FD, 'text-anchor': 'middle', fill: '#C9D8E2' }, tilesG);
     sym.textContent = SYM[z - 1];
     tiles.push({ z, x, y, box, sym, last: -1 });
   }
@@ -141,7 +141,7 @@ scene('atoms', S => {
     const [x, y] = cxy(n.z), g = G(tab);
     E('circle', { r: 46, fill: glow(n.col) }, g);
     E('rect', { x: -TS / 2, y: -TS / 2, width: TS, height: TS, rx: 7, fill: n.col, stroke: '#FFFFFF', 'stroke-width': 2.5 }, g);
-    E('text', { x: 0, y: 7, 'font-size': 21, 'font-weight': 800, 'font-family': FD, 'text-anchor': 'middle', fill: lum(n.col) > 0.55 ? C.bg0 : '#FFFFFF' }, g).textContent = SYM[n.z - 1];
+    E('text', { x: 0, y: 8, 'font-size': 24, 'font-weight': 800, 'font-family': FD, 'text-anchor': 'middle', fill: lum(n.col) > 0.55 ? C.bg0 : '#FFFFFF' }, g).textContent = SYM[n.z - 1];
     return Object.assign(n, { g, x, y });
   });
   const counter = G(root);
@@ -239,9 +239,10 @@ scene('atoms', S => {
   const lumpL = lump(cardCo); tr(lumpL, 330, 430);
   const lumpR = lump(cardCO); tr(lumpR, 870, 430);
   const coMol = G(cardCO); tr(coMol, 870, 430);
-  E('line', { x1: -40, y1: 0, x2: 40, y2: 0, stroke: '#CBD8E0', 'stroke-width': 10, 'stroke-linecap': 'round' }, coMol);
-  const coC = atom(coMol, 'C', 44, { letter: true }); tr(coC, -50, 0);
-  const coO = atom(coMol, 'O', 44, { letter: true }); tr(coO, 50, 0);
+  const CK = 0.72 * 44;                                    // touching atoms with a short bond line, as in 03_molecules
+  const coC = atom(coMol, 'C', 44, { letter: true }); tr(coC, -CK, 0);
+  const coO = atom(coMol, 'O', 44, { letter: true }); tr(coO, CK, 0);
+  E('line', { x1: -13.2, y1: 0, x2: 13.2, y2: 0, stroke: '#F4FAFD', 'stroke-width': 8.8, 'stroke-linecap': 'round', opacity: 0.9 }, coMol);
   const nameCo = rich(cardCo, 330, 560, [['cobalt', C.ink, 700], [', a metal', C.muted, 600]], { size: 32, anchor: 'middle' });
   const nameCo2 = rich(cardCO, 870, 560, [['cobalt', C.ink, 700], [', a metal', C.muted, 600]], { size: 32, anchor: 'middle' });
   const nameCO = rich(cardCO, 870, 560, [['carbon monoxide', C.ink, 700]], { size: 32, anchor: 'middle' });
@@ -427,7 +428,7 @@ scene('atoms', S => {
       op(coMol, mo); tr(coMol, 870, 430, 0.7 + 0.3 * mo);
       op(nameCO, P(t, mid('cobalt', 0.72), 0.5, linear));
       const pc = 0.12 * Math.sin(Math.PI * P(t, mid('cobalt', 0.86), 0.5, linear)), po = 0.12 * Math.sin(Math.PI * P(t, mid('cobalt', 0.94), 0.5, linear));
-      tr(coC, -50, 0, 1 + pc); tr(coO, 50, 0, 1 + po);
+      tr(coC, -CK, 0, 1 + pc); tr(coO, CK, 0, 1 + po);
       const np = P(t, mid('cobalt', 0.8), 0.5, linear); op(noteCO, np); tr(noteCO, 0, (1 - np) * 12);
     }
   };

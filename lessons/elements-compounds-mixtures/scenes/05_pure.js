@@ -56,11 +56,18 @@ scene('pure', S => {
     else { E('circle', { cx: -s * 0.55, r: s * 0.72, fill: ball('#FFAE5C', '#C9661C') }, g); E('circle', { cx: s * 0.55, r: s * 0.72, fill: ball('#FFAE5C', '#C9661C') }, g); }
     return g;
   }
-  /* lib molH2O's exact look (same atoms, sizes and shading) in 4 elements instead of 7, for the crowded zoom */
+  /* bond lines as in 03_molecules: a short line across the joint of two touching atoms (centres a, b; radii ra, rb) */
+  function bondD(ax, ay, ra, bx, by, rb, len) {
+    const dx = bx - ax, dy = by - ay, d = Math.hypot(dx, dy) || 1, ux = dx / d, uy = dy / d;
+    const s = (d * d + ra * ra - rb * rb) / (2 * d), L = (len || 0.6) * Math.min(ra, rb);
+    return `M${(ax + ux * (s - L / 2)).toFixed(1)},${(ay + uy * (s - L / 2)).toFixed(1)} L${(ax + ux * (s + L / 2)).toFixed(1)},${(ay + uy * (s + L / 2)).toFixed(1)} `;
+  }
+  /* lib molH2O's exact look (same atoms, sizes and shading) plus its two bond lines in one path, for the crowded zoom */
   function water3(parent, r) {
     const g = G(parent), rh = r * 0.62;
     [-1, 1].forEach(sx => E('circle', { cx: sx * r * 0.98, cy: r * 0.72, r: rh, fill: ball(C.hydrogen, C.hydrogenDk), stroke: C.hydrogenDk, 'stroke-width': Math.max(1.5, rh * 0.08) }, g));
     E('circle', { r, fill: ball(C.oxygen, C.oxygenDk), stroke: C.oxygenDk, 'stroke-width': Math.max(1.5, r * 0.08) }, g);
+    E('path', { d: bondD(0, 0, r, -r * 0.98, r * 0.72, rh, 0.5) + bondD(0, 0, r, r * 0.98, r * 0.72, rh, 0.5), fill: 'none', stroke: '#F4FAFD', 'stroke-width': Math.max(2.4, 0.2 * rh).toFixed(1), 'stroke-linecap': 'round', opacity: 0.9 }, g);
     return g;
   }
   /* a salt particle: small white cube-ish square */
@@ -91,12 +98,19 @@ scene('pure', S => {
     E('ellipse', { cx: 0, cy: 0, rx: 13, ry: 6, fill: C.plant, transform: 'translate(15 -103) rotate(-30)' }, g);
     return g;
   }
+  /* the intro's salt shaker (glass body full of salt, metal cap with three holes), at 0.6 scale: holes at (0,-60) */
   function shaker(parent) {
-    const g = G(parent);
-    E('rect', { x: -30, y: -42, width: 60, height: 92, rx: 14, fill: linGrad('#F4F7FA', '#BCCAD4'), stroke: '#FFFFFF', 'stroke-width': 2 }, g);
-    E('rect', { x: -30, y: 2, width: 60, height: 20, fill: '#4CC9F0', opacity: 0.8 }, g);
-    E('rect', { x: -32, y: -70, width: 64, height: 30, rx: 10, fill: linGrad('#E1E8EE', '#8A9BA8'), stroke: '#EEF4F7', 'stroke-width': 2 }, g);
-    [-13, 0, 13].forEach(x => E('circle', { cx: x, cy: -56, r: 3.2, fill: '#44525E' }, g));
+    const g = G(parent), k = G(g); tr(k, 0, 0, 0.6);
+    E('path', { d: 'M-40,-58 L-46,62 Q-46,74 -34,74 L34,74 Q46,74 46,62 L40,-58 Z', fill: 'rgba(200,230,250,0.14)' }, k);
+    E('path', { d: 'M-42.5,-8 L-45,62 Q-45,72 -34,72 L34,72 Q45,72 45,62 L42.5,-8 Z', fill: '#F2F5F8' }, k);
+    const sr = rng(5); let d = '';
+    for (let i = 0; i < 12; i++) d += `M${(-34 + sr() * 66).toFixed(1)},${(sr() * 62).toFixed(1)} h4 v4 h-4 Z `;
+    E('path', { d, fill: '#C9D6DE' }, k);
+    E('path', { d: 'M-40,-58 L-46,62 Q-46,74 -34,74 L34,74 Q46,74 46,62 L40,-58', fill: 'none', stroke: GLASS.stroke, 'stroke-width': 4, 'stroke-linejoin': 'round' }, k);
+    E('rect', { x: 26, y: -46, width: 7, height: 104, rx: 3.5, fill: GLASS.shine }, k);
+    E('path', { d: 'M-45,-56 L-41,-92 Q-39,-100 -29,-100 L29,-100 Q39,-100 41,-92 L45,-56 Z', fill: linGrad('#E4EBF0', '#8C9AA6'), stroke: '#F2F7FA', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, k);
+    E('ellipse', { cx: 0, cy: -100, rx: 29, ry: 6, fill: '#B9C6D2', stroke: '#F2F7FA', 'stroke-width': 2 }, k);
+    [-13, 0, 13].forEach(x => E('circle', { cx: x, cy: -100, r: 2.6, fill: '#3B4A57' }, k));
     return g;
   }
   function capsule(parent, s) {
@@ -435,7 +449,7 @@ scene('pure', S => {
       // headings and labels
       const impSwap = P(t, mid('impure', 0.28), 0.4, linear);
       op(hdrPure, P(t, at('def') + 0.1, 0.5, linear) * (1 - impSwap));
-      op(subPure, P(t, mid('def', 0.2), 0.5, linear) * (1 - impSwap));
+      op(subPure, P(t, mid('def', 0.2), 0.5, linear) * (1 - P(t, at('impure') - 0.25, 0.35, linear)));   // gone before the shaker swings in over it
       op(lblPure, P(t, mid('def', 0.55), 0.4, linear) * (1 - P(t, mid('impure', 0.42), 0.4, linear)));
       op(onlyG, P(t, mid('def', 0.62), 0.5, linear) * (1 - P(t, mid('impure', 0.5), 0.4, linear)));
       op(plusG, P(t, mid('impure', 0.55), 0.4, linear));

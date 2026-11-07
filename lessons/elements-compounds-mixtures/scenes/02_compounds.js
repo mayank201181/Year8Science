@@ -54,11 +54,21 @@ scene('compounds', S => {
     g.cells = cells;
     return g;
   }
+  /* bond lines as in 03_molecules: a short line across the joint of two touching atoms (centres a, b; radii ra, rb).
+     Several joints of one molecule go into one path. */
+  function bondD(ax, ay, ra, bx, by, rb, len) {
+    const dx = bx - ax, dy = by - ay, d = Math.hypot(dx, dy) || 1, ux = dx / d, uy = dy / d;
+    const s = (d * d + ra * ra - rb * rb) / (2 * d), L = (len || 0.6) * Math.min(ra, rb);
+    return `M${(ax + ux * (s - L / 2)).toFixed(1)},${(ay + uy * (s - L / 2)).toFixed(1)} L${(ax + ux * (s + L / 2)).toFixed(1)},${(ay + uy * (s + L / 2)).toFixed(1)} `;
+  }
+  const bonds = (parent, d, rmin) => E('path', { d, fill: 'none', stroke: '#F4FAFD', 'stroke-width': Math.max(2.4, 0.2 * rmin).toFixed(1), 'stroke-linecap': 'round', opacity: 0.9 }, parent);
+  /* the two O-H bonds of a water molecule in lib's geometry (O at 0,0); sx, sy pull the H atoms apart */
+  const waterD = (r, sx, sy) => bondD(0, 0, r, -r * 0.98 - (sx || 0), r * 0.72 + (sy || 0), r * 0.62, 0.5) + bondD(0, 0, r, r * 0.98 + (sx || 0), r * 0.72 + (sy || 0), r * 0.62, 0.5);
   /* padlock, about 50 x 66; g.set(closed 0..1) lowers the shackle */
   function padlock(parent, s, col) {
     const g = G(parent), k = G(g); tr(k, 0, 0, s || 1);
     const shackle = E('path', { d: 'M-14,0 L-14,-16 A14,14 0 0 1 14,-16 L14,0', fill: 'none', stroke: '#C9D6DE', 'stroke-width': 7, 'stroke-linecap': 'round' }, k);
-    E('rect', { x: -24, y: -4, width: 48, height: 38, rx: 8, fill: ball(col || C.glucose, shade(col || C.glucose, 0.6)), stroke: '#FFF3C2', 'stroke-width': 2 }, k);
+    E('rect', { x: -24, y: -4, width: 48, height: 38, rx: 8, fill: ball(col || C.glucose, col ? shade(col, 0.6) : C.glucoseDk), stroke: '#FFF3C2', 'stroke-width': 2 }, k);
     E('circle', { cx: 0, cy: 10, r: 5, fill: '#3A2600' }, k);
     E('rect', { x: -2.5, y: 10, width: 5, height: 12, rx: 2, fill: '#3A2600' }, k);
     g.set = c => { c = clamp(c); shackle.setAttribute('transform', `translate(${(6 * (1 - c)).toFixed(2)} ${(-12 * (1 - c)).toFixed(2)}) rotate(${(-28 * (1 - c)).toFixed(1)} 14 0)`); };
@@ -70,7 +80,8 @@ scene('compounds', S => {
     const g = G(parent);
     const H1 = atom(g, 'H', r * 0.62, { letter: letters }), H2 = atom(g, 'H', r * 0.62, { letter: letters }), O = atom(g, 'O', r, { letter: letters });
     tr(H1, -r * 0.98, r * 0.72); tr(H2, r * 0.98, r * 0.72);
-    return { g, O, H1, H2, r };
+    const b = bonds(g, waterD(r), r * 0.62);
+    return { g, O, H1, H2, r, b };
   }
   const halo = (parent, r, col) => { const h = E('circle', { r, fill: glow(col || '#FFF3A0') }, parent); op(h, 0); return h; };
   const pulse = (t, t0, d) => Math.sin(Math.PI * P(t, t0, d || 0.5, linear));
@@ -80,6 +91,7 @@ scene('compounds', S => {
   const big = G(root);
   const hH1 = halo(big, 70), hH2 = halo(big, 70), hO = halo(big, 105);
   const aH1 = atom(big, 'H', MR * 0.62, { letter: true }), aH2 = atom(big, 'H', MR * 0.62, { letter: true }), aO = atom(big, 'O', MR, { letter: true });
+  const bigBonds = bonds(big, waterD(MR), MR * 0.62);                 // appear once the atoms have snapped together
   const FIN = { H1: [-MR * 0.98, MR * 0.72], H2: [MR * 0.98, MR * 0.72], O: [0, 0] };
   const START = { H1: [-470, 170], H2: [470, 90], O: [90, -270] };
   const tags = [['hydrogen', -380, 230], ['hydrogen', 380, 160], ['oxygen', 0, -170]].map(([s, x, y]) => ({ el: T(big, x, y, s, { size: 28, weight: 600, anchor: 'middle', fill: s === 'oxygen' ? '#FF9A8F' : C.ink }), x, y }));
@@ -107,6 +119,7 @@ scene('compounds', S => {
   const hC = halo(co2, 66), hOa = halo(co2, 60), hOb = halo(co2, 60);
   const c2O1 = atom(co2, 'O', 40, { letter: true }), c2O2 = atom(co2, 'O', 40, { letter: true }), c2C = atom(co2, 'C', 44, { letter: true });
   tr(c2O1, -70, 0); tr(c2O2, 70, 0); tr(hOa, -70, 0); tr(hOb, 70, 0);
+  bonds(co2, bondD(0, 0, 44, -70, 0, 40, 0.5) + bondD(0, 0, 44, 70, 0, 40, 0.5), 40);
   const co2Name = T(O4, 330, 538, 'carbon dioxide', { size: 30, weight: 600, anchor: 'middle', fill: C.co2 });
   const fC = G(O4), fCp = fparts(fC, 330, 466, 'CO2', 96, C.ink);
   const b1 = chip(O4, '1 carbon : 2 oxygen', { size: 30, fill: C.card2, stroke: C.co2, sw: 2.5 }); tr(b1, 330, 612);
@@ -139,11 +152,12 @@ scene('compounds', S => {
   const M6 = G(root);
   const hoX = cross(M6, 40), coX = cross(M6, 40);
   const hoPair = G(M6); tr(hoPair, 330, 470);
-  E('line', { x1: -22, y1: 0, x2: 22, y2: 0, stroke: '#CBD8E0', 'stroke-width': 7, 'stroke-linecap': 'round' }, hoPair);
-  tr(atom(hoPair, 'H', 22, { letter: true }), -30, 0); tr(atom(hoPair, 'O', 32, { letter: true }), 28, 0);
+  tr(atom(hoPair, 'H', 22, { letter: true }), -22, 0); tr(atom(hoPair, 'O', 32, { letter: true }), 20, 0);
+  bonds(hoPair, bondD(-22, 0, 22, 20, 0, 32), 22);
   const hoLbl = T(M6, 330, 560, 'not water', { size: 30, weight: 700, anchor: 'middle', fill: C.bad });
   const coText = G(M6), coP = fparts(coText, 870, 380, 'CO', 150, C.ink);
   const coMol = G(M6); tr(coMol, 870, 486); molCO2(coMol, 24, { letter: true });
+  bonds(coMol, bondD(0, 0, 24, -38.4, 0, 21.6, 0.5) + bondD(0, 0, 24, 38.4, 0, 21.6, 0.5), 21.6);
   const coLbl = rich(M6, 870, 572, [['carbon dioxide is ', C.ink, 600], ['CO₂', C.good, 800]], { size: 30, anchor: 'middle' });
   const coTick = tick(M6, 16); tr(coTick, 870 + 196, 560);
 
@@ -153,11 +167,13 @@ scene('compounds', S => {
   const colE = G(P7), colC = G(P7);
   T(colE, 300, 290, 'elements', { size: 38, weight: 700, anchor: 'middle' });
   const h2m = G(colE); tr(h2m, 230, 400); tr(atom(h2m, 'H', 26, { letter: true }), -18, 0); tr(atom(h2m, 'H', 26, { letter: true }), 18, 0);
+  bonds(h2m, bondD(-18, 0, 26, 18, 0, 26), 26);
   const o2m = G(colE); tr(o2m, 370, 400); molO2(o2m, 30, { letter: true });
+  bonds(o2m, bondD(-21.6, 0, 30, 21.6, 0, 30), 30);
   T(colE, 230, 470, 'hydrogen', { size: 26, weight: 600, anchor: 'middle', fill: C.muted });
   T(colE, 370, 470, 'oxygen', { size: 26, weight: 600, anchor: 'middle', fill: C.muted });
   T(colC, 900, 290, 'compound', { size: 38, weight: 700, anchor: 'middle' });
-  const w7 = water(colC, 44, true); tr(w7.g, 900, 392);
+  const w7 = water(colC, 44, true); tr(w7.g, 900, 378);
   T(colC, 900, 470, 'water', { size: 26, weight: 600, anchor: 'middle', fill: C.muted });
   const neq = T(P7, 600, 430, '≠', { size: 130, weight: 700, anchor: 'middle', fill: C.energy });
   const diffLbl = rich(P7, 600, 594, [['completely different ', C.ink, 600], ['properties', C.energy, 800]], { size: 36, anchor: 'middle' });
@@ -196,6 +212,10 @@ scene('compounds', S => {
   const WX = [450, 550, 650, 750], WY = 236;
   Os.forEach((o, m) => { o.x1 = WX[m]; o.y1 = WY; });
   Hs.forEach((h, i) => { const m = Math.floor(i / 2), s = i % 2 ? 1 : -1; h.x1 = WX[m] + s * R8 * 0.98; h.y1 = WY + R8 * 0.72; });
+  // bonds: each H2 and O2 pair is bonded until its atoms set off; then the four new water molecules bond
+  const pairBonds = [...hHome.map((p, k) => ({ el: bonds(atomsG, bondD(p[0] - rH8 * 0.9, p[1], rH8, p[0] + rH8 * 0.9, p[1], rH8), rH8), k, h: true })),
+    ...oHome.map((p, k) => ({ el: bonds(atomsG, bondD(p[0] - R8 * 0.72, p[1], R8, p[0] + R8 * 0.72, p[1], R8), R8), k, h: false }))];
+  const newBonds = bonds(atomsG, WX.map(x => bondD(x, WY, R8, x - R8 * 0.98, WY + R8 * 0.72, rH8, 0.5) + bondD(x, WY, R8, x + R8 * 0.98, WY + R8 * 0.72, rH8, 0.5)).join(''), rH8);
   const tagH = T(F8, BAL[0], 522, 'explosive gas', { size: 30, weight: 700, anchor: 'middle', fill: '#FFB13B' });
   const nameH = T(F8, BAL[0], 160, 'hydrogen', { size: 30, weight: 600, anchor: 'middle' });
   const tagO = T(F8, CLD[0], 410, 'helps things burn', { size: 30, weight: 700, anchor: 'middle', fill: '#FF9A8F' });
@@ -230,6 +250,10 @@ scene('compounds', S => {
   const fl = flask(cCl, 1.0, { level: 0 }); tr(fl, 960, 372);
   const flIn = fl.firstChild;
   flIn.insertBefore(E('path', { d: FLASK, fill: '#D8F77E', opacity: 0.5 }, null), flIn.childNodes[1]);
+  // the gas swirls, as on the intro's chlorine card
+  const gcp = E('clipPath', { id: 'ecm-comp-gas' }, defs()); E('path', { d: FLASK }, gcp);
+  const swirlG = G(null, { 'clip-path': 'url(#ecm-comp-gas)' }); flIn.insertBefore(swirlG, flIn.childNodes[2]);
+  const swirls = [[-20, 40, 28], [22, 58, 22], [0, -2, 16]].map(([x, y, r]) => ({ el: E('path', { d: `M${-r},0 A${r},${r} 0 1 1 ${r * 0.2},${r * 0.95}`, fill: 'none', stroke: '#EFFFC2', 'stroke-width': 4, 'stroke-linecap': 'round', opacity: 0.55 }, swirlG), x, y }));
   E('path', { d: 'M-21,-112 L21,-112 L18,-86 L-18,-86 Z', fill: '#5E6B76', stroke: '#8FA0AD', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, flIn);
   const hz = G(cCl); tr(hz, 1062, 256);
   {
@@ -237,8 +261,10 @@ scene('compounds', S => {
     E('rect', { x: -s / 2, y: -s / 2, width: s, height: s, rx: s * 0.07, fill: '#FFFFFF', stroke: '#E8424F', 'stroke-width': s * 0.11, transform: 'rotate(45)' }, hz);
     const k = G(hz); tr(k, 0, 0, s / 100); const ink = '#1B1B1B';
     E('path', { d: 'M-26,16 L26,40 M26,16 L-26,40', stroke: ink, 'stroke-width': 8, 'stroke-linecap': 'round' }, k);
+    [[-27, 16], [27, 16], [-27, 40], [27, 40]].forEach(([x, y]) => E('circle', { cx: x, cy: y, r: 5.5, fill: ink }, k));
     E('circle', { cx: 0, cy: -14, r: 22, fill: ink }, k); E('rect', { x: -12, y: -2, width: 24, height: 16, rx: 4, fill: ink }, k);
     E('circle', { cx: -8.5, cy: -15, r: 6.5, fill: '#FFFFFF' }, k); E('circle', { cx: 8.5, cy: -15, r: 6.5, fill: '#FFFFFF' }, k);
+    E('path', { d: 'M0,-6 L-3.5,0 L3.5,0 Z', fill: '#FFFFFF' }, k);
   }
   const nNa = nameChip(cNa, 'sodium', 'Na', EL.Na); tr(nNa, 240, 512);
   const nCl = nameChip(cCl, 'chlorine', 'Cl', EL.Cl); tr(nCl, 960, 512);
@@ -249,10 +275,13 @@ scene('compounds', S => {
   {
     E('path', { d: 'M-40,-58 L-46,62 Q-46,74 -34,74 L34,74 Q46,74 46,62 L40,-58 Z', fill: 'rgba(200,230,250,0.14)' }, shk);
     E('path', { d: 'M-42.5,-8 L-45,62 Q-45,72 -34,72 L34,72 Q45,72 45,62 L42.5,-8 Z', fill: '#F2F5F8' }, shk);
+    const sr = rng(5);                                        // the intro's shaker: grains in the salt, holes in the cap
+    for (let i = 0; i < 12; i++) E('rect', { x: (-34 + sr() * 66).toFixed(1), y: (0 + sr() * 62).toFixed(1), width: 4, height: 4, fill: '#C9D6DE' }, shk);
     E('path', { d: 'M-40,-58 L-46,62 Q-46,74 -34,74 L34,74 Q46,74 46,62 L40,-58', fill: 'none', stroke: GLASS.stroke, 'stroke-width': 4, 'stroke-linejoin': 'round' }, shk);
     E('rect', { x: 26, y: -46, width: 7, height: 104, rx: 3.5, fill: GLASS.shine }, shk);
     E('path', { d: 'M-45,-56 L-41,-92 Q-39,-100 -29,-100 L29,-100 Q39,-100 41,-92 L45,-56 Z', fill: linGrad('#E4EBF0', '#8C9AA6'), stroke: '#F2F7FA', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, shk);
     E('ellipse', { cx: 0, cy: -100, rx: 29, ry: 6, fill: '#B9C6D2', stroke: '#F2F7FA', 'stroke-width': 2 }, shk);
+    [-13, 0, 13].forEach(x => E('circle', { cx: x, cy: -100, r: 2.6, fill: '#3B4A57' }, shk));
   }
   const harmless = G(S9);
   const hTick = tick(harmless, 20); tr(hTick, -150, -10);
@@ -305,6 +334,7 @@ scene('compounds', S => {
       tr(big, MOL[0], my + bob, sc);
       const pH1 = place(aH1, 'H1'), pH2 = place(aH2, 'H2'), pO = place(aO, 'O');
       tr(aH1, pH1[0], pH1[1]); tr(aH2, pH2[0], pH2[1]); tr(aO, pO[0], pO[1]);
+      op(bigBonds, P(t, mid('def', 0.5) + 0.4, 0.3, linear));
       tr(hH1, pH1[0], pH1[1]); tr(hH2, pH2[0], pH2[1]); tr(hO, pO[0], pO[1]);
       tags.forEach((g, i) => { op(g.el, P(t, mid('def', 0.12 + i * 0.06), 0.4, linear) * (1 - P(t, mid('def', 0.47), 0.3, linear))); const p = [pH1, pH2, pO][i]; g.el.setAttribute('x', (p[0] + (i === 2 ? 132 : 0)).toFixed(1)); g.el.setAttribute('y', (p[1] + (i === 2 ? 10 : 62)).toFixed(1)); });
       flashes.forEach((f, i) => { const v = clamp((t - mid('def', 0.5) - 0.32) / 0.6); op(f, v > 0 && v < 1 ? Math.sin(v * Math.PI) : 0); const p = i ? pH2 : pH1; tr(f, (p[0] + pO[0]) / 2, (p[1] + pO[1]) / 2, 0.5 + 0.8 * Math.sin(v * Math.PI)); f.upd(t); });
@@ -434,6 +464,12 @@ scene('compounds', S => {
       const cldDx = -30 * P(t, mid('fire', 0.32), 1.2);
       Hs.forEach((h, i) => apply(h, [shakeX + 3 * Math.sin(t * 1.7 + h.k) * calm, 3 * Math.cos(t * 1.4 + h.k) * calm]));
       Os.forEach(o => apply(o, [cldDx + 3 * Math.sin(t * 1.5 + o.k * 2) * calm, 3 * Math.cos(t * 1.2 + o.k) * calm]));
+      const brk = P(t, tF + 0.1, 0.5, linear) * (1 - P(t, tGo - 0.05, 0.25, linear));
+      pairBonds.forEach(b => {
+        tr(b.el, b.h ? shakeX + 3 * Math.sin(t * 1.7 + b.k) * calm : cldDx + 3 * Math.sin(t * 1.5 + b.k * 2) * calm, b.h ? 3 * Math.cos(t * 1.4 + b.k) * calm : 3 * Math.cos(t * 1.2 + b.k) * calm);
+        op(b.el, brk);
+      });
+      op(newBonds, P(t, tBond + 0.15, 0.25, linear) * (1 - dropT));
       op(tagW, win(t, tBond - 0.1, tSplash + 0.1, 0.3));
       drops.forEach(d => {
         const u = clamp((t - tSplash - d.dl) / 0.55);
@@ -450,6 +486,7 @@ scene('compounds', S => {
       const pc = P(t, tSa, 0.5, pop), pr = P(t, mid('salt', 0.1), 0.5, pop);
       const dim = 1 - 0.6 * P(t, mid('salt', 0.68), 0.6, linear);
       op(cNa, clamp(pc * 2) * dim); op(cCl, clamp(pr * 2) * dim);
+      swirls.forEach((s, i) => tr(s.el, s.x + 6 * Math.sin(t * 0.7 + i) * calm, s.y + 4 * Math.cos(t * 0.6 + i * 2) * calm, 1, (t * (30 + i * 12) * calm + i * 120) % 360));
       const lx = 240 + 34 * Math.sin(t * 2.1) * calm;
       tr(lumpG, lx, SURF9 - 5 + 2 * Math.sin(t * 9) * calm, 1, 30 * Math.sin(t * 1.7) * calm);
       op(fz, 1); tr(fz, lx, SURF9 - 5); fzB.upd(t, 1);
@@ -490,6 +527,7 @@ scene('compounds', S => {
     tr(wJ.g, lerp(885, 420, toPl) + shakeW, lerp(330, 380, toPl) + 3 * Math.sin(t * 1.2) * calm, Math.max(0.01, wIn));
     const split = win(t, mid('react', 0.68), mid('react', 0.88), 0.2) * 10 * calm;
     tr(wJ.H1, -50 * 0.98 - split, 50 * 0.72 + split * 0.4); tr(wJ.H2, 50 * 0.98 + split, 50 * 0.72 + split * 0.4);
+    wJ.b.setAttribute('d', waterD(50, split, split * 0.4));
     op(bondGlow, pulse(t, mid('joined', 0.86), 0.6) * 0.9);
 
     /* --- 11: a chemical reaction is needed --- */

@@ -28,6 +28,14 @@ scene('intro', S => {
     segs.forEach(s => { if (typeof s === 'string') s = [s]; E('tspan', { fill: s[1], 'font-weight': s[2] }, t).textContent = s[0]; });
     return t;
   }
+  /* bond lines as in 03_molecules: a short line across the joint of two touching atoms (centres a, b; radii ra, rb).
+     Several joints of one molecule go into one path. */
+  function bondD(ax, ay, ra, bx, by, rb, len) {
+    const dx = bx - ax, dy = by - ay, d = Math.hypot(dx, dy) || 1, ux = dx / d, uy = dy / d;
+    const s = (d * d + ra * ra - rb * rb) / (2 * d), L = (len || 0.6) * Math.min(ra, rb);
+    return `M${(ax + ux * (s - L / 2)).toFixed(1)},${(ay + uy * (s - L / 2)).toFixed(1)} L${(ax + ux * (s + L / 2)).toFixed(1)},${(ay + uy * (s + L / 2)).toFixed(1)} `;
+  }
+  const bonds = (parent, d, rmin) => E('path', { d, fill: 'none', stroke: '#F4FAFD', 'stroke-width': Math.max(2.4, 0.2 * rmin).toFixed(1), 'stroke-linecap': 'round', opacity: 0.9 }, parent);
   /* alternating Na / Cl grid centred on (0,0), with short bond sticks between neighbours */
   function saltGrid(parent, cols, rows, r, s, grouped) {
     const g = G(parent), bonds = G(g), atomsG = G(g), list = [], links = [];
@@ -184,13 +192,14 @@ scene('intro', S => {
   const tiny = (g, x, y) => { const a = G(g); tr(a, x, y); a.bx = x; a.by = y; return a; };
   const stops = [
     { x: 250, text: 'elements', col: EL.Au, draw: g => { [[-34, -14], [0, -14], [34, -14], [-17, 16], [17, 16], [51, 16]].forEach(([x, y]) => elAtom(g, 'Au', 16, { x: x - 8, y, letter: false })); } },
-    { x: 600, text: 'compounds', col: C.water, draw: g => { [[-52, 4, -10], [6, -16, 8], [52, 14, 18]].forEach(([x, y, r]) => tr(molH2O(g, 15), x, y, 1, r)); } },
+    { x: 600, text: 'compounds', col: C.water, draw: g => { [[-52, 4, -10], [6, -16, 8], [52, 14, 18]].forEach(([x, y, r]) => { const m = molH2O(g, 15); bonds(m, bondD(0, 0, 15, -14.7, 10.8, 9.3, 0.5) + bondD(0, 0, 15, 14.7, 10.8, 9.3, 0.5), 9.3); tr(m, x, y, 1, r); }); } },
     { x: 950, text: 'mixtures', col: C.plant, draw: g => {
-      const ps = [];
-      ps.push(tiny(g, -52, -18)); elAtom(ps[0], 'N', 11, { x: -9, y: 0, letter: false }); elAtom(ps[0], 'N', 11, { x: 9, y: 0, letter: false });
-      ps.push(tiny(g, 28, -26)); tr(molO2(ps[1], 12), 0, 0);
-      ps.push(tiny(g, -12, 22)); tr(molO2(ps[2], 12), 0, 0);
-      ps.push(tiny(g, 54, 18)); elAtom(ps[3], 'N', 11, { x: -9, y: 0, letter: false }); elAtom(ps[3], 'N', 11, { x: 9, y: 0, letter: false });
+      const ps = [], n2 = p => { elAtom(p, 'N', 11, { x: -9, y: 0, letter: false }); elAtom(p, 'N', 11, { x: 9, y: 0, letter: false }); bonds(p, bondD(-9, 0, 11, 9, 0, 11), 11); };
+      const o2 = p => { tr(molO2(p, 12), 0, 0); bonds(p, bondD(-8.64, 0, 12, 8.64, 0, 12), 12); };
+      ps.push(tiny(g, -52, -18)); n2(ps[0]);
+      ps.push(tiny(g, 28, -26)); o2(ps[1]);
+      ps.push(tiny(g, -12, 22)); o2(ps[2]);
+      ps.push(tiny(g, 54, 18)); n2(ps[3]);
       ps.push(tiny(g, -66, 26)); elAtom(ps[4], 'Ar', 12, { x: 0, y: 0, letter: false });
       return ps;
     } },
@@ -205,26 +214,30 @@ scene('intro', S => {
   const sepChip = T(road, 600, 486, 'then: pulling mixtures apart', { size: 30, weight: 600, anchor: 'middle', fill: C.muted });
   function iconFilter(g) {
     const f = flask(g, 0.42, { level: 0.22 }); tr(f, 0, 30);
-    E('path', { d: 'M-36,-58 L36,-58 L6,-18 L6,4 L-6,4 L-6,-18 Z', fill: GLASS.fill, stroke: GLASS.stroke, 'stroke-width': 3.5, 'stroke-linejoin': 'round' }, g);
-    E('path', { d: 'M-30,-55 L30,-55 L0,-23 Z', fill: '#F4F7FA', stroke: '#C9D6DE', 'stroke-width': 2, 'stroke-linejoin': 'round' }, g);
-    E('path', { d: 'M-18,-54 L-12,-46 L-4,-52 L4,-45 L12,-53 L18,-46', fill: 'none', stroke: '#B58A55', 'stroke-width': 3, 'stroke-linecap': 'round' }, g);
+    const fu = G(g); tr(fu, 0, -25, 0.75);                    // 07_filter's funnel icon: glass cone, filter paper, sand
+    E('path', { d: 'M-48,-44 L-6,10 L-6,46 L6,52 L6,10 L48,-44 Z', fill: 'rgba(200,230,250,0.14)', stroke: GLASS.stroke, 'stroke-width': 4, 'stroke-linejoin': 'round' }, fu);
+    E('path', { d: 'M-40,-40 L0,6 L40,-40 Z', fill: '#F4F7FA', stroke: '#C9D3DC', 'stroke-width': 2, 'stroke-linejoin': 'round' }, fu);
+    E('path', { d: 'M-16,-12 Q0,-22 16,-12 L0,6 Z', fill: '#D9B77E' }, fu);
   }
+  /* Liebig condenser (08_distil's look): glass tube in a pale-blue water jacket; cold water in at the lower end, out at the top */
   function iconCondenser(g) {
     const c = G(g); tr(c, 0, 0, 1, 28);
+    const arms = 'M-26,-13 L-26,-27 M26,13 L26,27';
+    E('path', { d: arms, stroke: GLASS.stroke, 'stroke-width': 8, 'stroke-linecap': 'round' }, c);
+    E('path', { d: arms, stroke: '#1D5D78', 'stroke-width': 3.5, 'stroke-linecap': 'round' }, c);
+    E('rect', { x: -44, y: -15, width: 88, height: 30, rx: 12, fill: 'rgba(76,201,240,0.34)', stroke: GLASS.stroke, 'stroke-width': 3 }, c);
     E('line', { x1: -66, y1: 0, x2: 66, y2: 0, stroke: GLASS.stroke, 'stroke-width': 10, 'stroke-linecap': 'round' }, c);
-    E('line', { x1: -66, y1: 0, x2: 66, y2: 0, stroke: '#0C2533', 'stroke-width': 4, 'stroke-linecap': 'round' }, c);
-    E('rect', { x: -44, y: -15, width: 88, height: 30, rx: 15, fill: 'rgba(120,200,240,0.32)', stroke: GLASS.stroke, 'stroke-width': 3 }, c);
-    E('line', { x1: -26, y1: -15, x2: -26, y2: -27, stroke: GLASS.stroke, 'stroke-width': 6, 'stroke-linecap': 'round' }, c);
-    E('line', { x1: 26, y1: 15, x2: 26, y2: 27, stroke: GLASS.stroke, 'stroke-width': 6, 'stroke-linecap': 'round' }, c);
-    arrow(c, 40, 46, 28, 32, { color: '#4CA8FF', width: 4, head: 11 });
-    arrow(c, -28, -32, -40, -46, { color: '#4CA8FF', width: 4, head: 11 });
+    E('line', { x1: -66, y1: 0, x2: 66, y2: 0, stroke: '#123848', 'stroke-width': 4, 'stroke-linecap': 'round' }, c);
+    arrow(c, 40, 46, 28, 32, { color: C.water, width: 4, head: 11 });
+    arrow(c, -28, -32, -40, -46, { color: C.water, width: 4, head: 11 });
   }
+  /* chromatography strip (08_distil's look): the black ink has split into yellow, pink and blue, top to bottom */
   function iconChroma(g) {
     const b = beaker(g, 80, 96, { level: 0.2, marks: false }); tr(b, 0, 14);
     E('line', { x1: -46, y1: -40, x2: 46, y2: -40, stroke: '#8C9AA6', 'stroke-width': 5, 'stroke-linecap': 'round' }, g);
-    E('rect', { x: -14, y: -40, width: 28, height: 92, fill: '#F4F7FA', stroke: '#C9D6DE', 'stroke-width': 1.5 }, g);
-    E('line', { x1: -12, y1: 34, x2: 12, y2: 34, stroke: '#7A8792', 'stroke-width': 2 }, g);
-    [['#4C7BFF', 22], ['#FFD84A', 4], ['#FF5FA2', -18]].forEach(([c, y]) => E('ellipse', { cx: 0, cy: y, rx: 7, ry: 5, fill: c }, g));
+    E('rect', { x: -14, y: -40, width: 28, height: 92, fill: '#F6F3EC', stroke: '#D8D2C4', 'stroke-width': 1.5 }, g);
+    E('line', { x1: -12, y1: 34, x2: 12, y2: 34, stroke: '#8A949C', 'stroke-width': 2 }, g);
+    [['#3F7BFF', 22], ['#FF4FA0', 4], ['#FFD23F', -18]].forEach(([c, y]) => E('ellipse', { cx: 0, cy: y, rx: 7, ry: 5, fill: c }, g));
   }
   function iconMagnet(g) {
     const ir = rng(8);

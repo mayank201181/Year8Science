@@ -15,10 +15,10 @@ scene('molecules', S => {
     o = o || {};
     const c = EL[sym], dk = shade(c, 0.42), g = G(parent);
     E('circle', { r, fill: ball(c, dk), stroke: dk, 'stroke-width': Math.max(1.5, r * 0.08) }, g);
-    if (o.letter) {
-      const two = sym.length > 1;
-      const t = T(g, 0, r * (two ? 0.3 : 0.36), sym, { size: r * (two ? 0.82 : 1), weight: 700, fill: '#ffffff', anchor: 'middle' });
-      t.setAttribute('stroke', dk); t.setAttribute('stroke-width', Math.max(1, r * 0.1)); t.setAttribute('paint-order', 'stroke'); t.setAttribute('stroke-linejoin', 'round');
+    if (o.letter) {                                       // same lettering as the other chapters' elAtom
+      const size = r * (sym.length > 1 ? 0.92 : 1.05);
+      const t = T(g, 0, size * 0.36, sym, { size, weight: 700, fill: '#ffffff', anchor: 'middle' });
+      t.setAttribute('stroke', shade(c, 0.6)); t.setAttribute('stroke-width', Math.max(1.2, r * 0.09).toFixed(1)); t.setAttribute('paint-order', 'stroke'); t.setAttribute('stroke-linejoin', 'round');
     }
     return g;
   }

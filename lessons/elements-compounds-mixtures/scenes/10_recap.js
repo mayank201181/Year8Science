@@ -39,48 +39,63 @@ scene('recap', S => {
   const plain = segs => segs.map(s => (typeof s === 'string' ? s : s[0])).join('');
   const fit = (segs, size, maxW) => { const w = textWidth(plain(segs), size, FD, 700); return w > maxW ? Math.floor(size * maxW / w) : size; };
   const initials = (str, col) => str.split(/(\s+|,\s*)/).filter(Boolean).flatMap(w => (/^[A-Za-z]/.test(w) ? [[w[0], Y, 800], [w.slice(1), col]] : [w]));
-  /* small apparatus, drawn about 80 px tall at s = 1, centred */
-  function funnelArt(parent, s) {
-    const g = G(parent), i = G(g); tr(i, 0, 0, s);
-    E('path', { d: 'M-40,-34 L40,-34 L9,8 L9,40 L-9,40 L-9,8 Z', fill: GLASS.fill, stroke: GLASS.stroke, 'stroke-width': 4, 'stroke-linejoin': 'round' }, i);
-    E('path', { d: 'M-32,-30 L32,-30 L0,4 Z', fill: '#F4F7FA', stroke: '#C9D6DE', 'stroke-width': 2, 'stroke-linejoin': 'round' }, i);
+  /* small apparatus, drawn as in the chapters that use it (07_filter, 08_distil, 06_solutions), about 80 px tall at s = 1 */
+  // 07_filter's crystal: a small cube seen corner-on
+  function crystal(parent, s) {
+    const g = G(parent), k = s * 0.87;
+    E('path', { d: `M0,${-s} L${k},${-s / 2} L${k},${s / 2} L0,${s} L${-k},${s / 2} L${-k},${-s / 2} Z`, fill: linGrad('#FFFFFF', '#B9D3E4', true), stroke: '#FFFFFF', 'stroke-width': Math.max(1.2, s * 0.08), 'stroke-linejoin': 'round' }, g);
+    E('path', { d: `M${-k},${-s / 2} L0,0 L${k},${-s / 2} M0,0 L0,${s}`, fill: 'none', stroke: '#8FB2C8', 'stroke-width': Math.max(1, s * 0.07), 'stroke-linejoin': 'round' }, g);
+    return g;
+  }
+  // 07_filter's funnel icon: glass cone, filter paper and (sand) a little sand on the paper
+  function funnelArt(parent, s, sand) {
+    const g = G(parent), i = G(g); tr(i, 0, -4 * s, s * 0.8);
+    E('path', { d: 'M-48,-44 L-6,10 L-6,46 L6,52 L6,10 L48,-44 Z', fill: 'rgba(200,230,250,0.14)', stroke: GLASS.stroke, 'stroke-width': 4, 'stroke-linejoin': 'round' }, i);
+    E('path', { d: 'M-40,-40 L0,6 L40,-40 Z', fill: '#F4F7FA', stroke: '#C9D3DC', 'stroke-width': 2, 'stroke-linejoin': 'round' }, i);
+    if (sand) E('path', { d: 'M-16,-12 Q0,-22 16,-12 L0,6 Z', fill: '#D9B77E' }, i);
     g.inner = i;
     return g;
   }
+  // 07_filter's evaporating-basin icon (basin on a black tripod with gauze); crust: crystals left in it, else water;
+  // flame: a blue Bunsen flame under the gauze
   function basinArt(parent, s, crust, flame) {
-    const g = G(parent), i = G(g); tr(i, 0, 0, s);
-    E('path', { d: 'M-34,34 L-24,-2 M34,34 L24,-2 M0,34 L0,-2', stroke: '#7F8C99', 'stroke-width': 5, 'stroke-linecap': 'round' }, i);
-    E('rect', { x: -40, y: -6, width: 80, height: 6, rx: 2, fill: '#8E9CA9', stroke: '#B9C6D2', 'stroke-width': 1.5 }, i);
-    E('path', { d: 'M-42,-24 Q-38,-6 0,-6 Q38,-6 42,-24 Z', fill: ball('#FFFFFF', '#C9D3DA'), stroke: '#DCE6EE', 'stroke-width': 2 }, i);
-    if (crust) [[-18, -17, 9, -8], [-4, -19, 11, 14], [11, -17, 8, 4], [22, -16, 6, -18]].forEach(([x, y, w, r]) => E('rect', { x: -w / 2, y: -w / 2, width: w, height: w, rx: 1.5, fill: '#EAF6FC', stroke: '#8FBCD4', 'stroke-width': 1.5, transform: `translate(${x} ${y}) rotate(${r})` }, i));
-    else E('path', { d: 'M-34,-20 Q0,-12 34,-20 L30,-14 Q0,-8 -30,-14 Z', fill: C.water, opacity: 0.85 }, i);
-    if (flame) E('path', { d: 'M0,4 C6,12 10,20 8,26 C6,33 -6,33 -8,26 C-10,20 -6,12 0,4 Z', fill: '#5AA8FF', stroke: '#BFE3FF', 'stroke-width': 1.5 }, i);
+    const g = G(parent), i = G(g); tr(i, 0, -8 * s, s * 0.8);
+    if (flame) E('path', { d: 'M0,12 C8,22 12,32 9,40 C6,48 -6,48 -9,40 C-12,32 -8,22 0,12 Z', fill: '#5AA8FF', stroke: '#BFE3FF', 'stroke-width': 2 }, i);
+    E('path', { d: 'M-34,50 L-24,6 M34,50 L24,6', stroke: '#1C2126', 'stroke-width': 6, 'stroke-linecap': 'round' }, i);
+    E('rect', { x: -40, y: 2, width: 80, height: 7, rx: 3, fill: '#76808A' }, i);
+    E('path', { d: 'M-46,-18 Q-44,6 0,7 Q44,6 46,-18 Z', fill: ball('#FFFFFF', '#AEBAC4'), stroke: '#E9EEF2', 'stroke-width': 2 }, i);
+    E('ellipse', { cx: 0, cy: -18, rx: 46, ry: 8, fill: '#8E9AA5', stroke: '#FFFFFF', 'stroke-width': 2 }, i);
+    if (crust) [[-20, -21, 7], [-4, -23, 8.5], [13, -21, 6.5], [27, -19, 5]].forEach(([x, y, q]) => tr(crystal(i, q), x, y));
+    else E('ellipse', { cx: 0, cy: -17, rx: 36, ry: 5.5, fill: C.water, opacity: 0.9 }, i);
     return g;
   }
   function crystalsArt(parent, s) {
     const g = G(parent), i = G(g); tr(i, 0, 0, s);
-    [[-20, 14, 26, -8], [12, 6, 34, 12], [-4, -22, 22, 28]].forEach(([x, y, w, r]) => {
-      const c = G(i); tr(c, x, y, 1, r);
-      E('rect', { x: -w / 2, y: -w / 2, width: w, height: w, rx: 3, fill: ball('#F2FBFF', '#9FC9E0'), stroke: '#DDF2FC', 'stroke-width': 2 }, c);
-      E('path', { d: `M${-w / 2 + 4},${-w / 2 + 6} L${w / 2 - 6},${-w / 2 + 6}`, stroke: '#FFFFFF', 'stroke-width': 2, opacity: 0.8 }, c);
-    });
+    [[-20, 14, 26, -8], [12, 6, 34, 12], [-4, -22, 22, 28]].forEach(([x, y, w, r]) => { const c = G(i); tr(c, x, y, 1, r * 0.3); crystal(c, w * 0.55); });
     return g;
   }
+  // 08_distil's Liebig condenser: glass tube in a pale-blue water jacket; cold water in at the lower end, out at the top
   function condenserArt(parent, s) {
     const g = G(parent), i = G(g); tr(i, 0, 0, s, 24);
-    E('rect', { x: -46, y: -12, width: 92, height: 24, rx: 10, fill: 'rgba(127,216,245,0.28)', stroke: '#9FDCF2', 'stroke-width': 2.5 }, i);
-    E('line', { x1: -58, y1: 0, x2: 58, y2: 0, stroke: GLASS.stroke, 'stroke-width': 5, 'stroke-linecap': 'round' }, i);
-    E('path', { d: 'M34,-12 L34,-22 M-34,12 L-34,22', stroke: '#9FDCF2', 'stroke-width': 4, 'stroke-linecap': 'round' }, i);
-    E('path', { d: 'M28,-26 L34,-34 L40,-26 M-40,26 L-34,34 L-28,26', fill: 'none', stroke: '#5AA8FF', 'stroke-width': 3.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, i);
+    const arms = 'M-34,-10 L-34,-22 M34,10 L34,22';
+    E('path', { d: arms, stroke: GLASS.stroke, 'stroke-width': 8, 'stroke-linecap': 'round' }, i);
+    E('path', { d: arms, stroke: '#1D5D78', 'stroke-width': 3.5, 'stroke-linecap': 'round' }, i);
+    E('rect', { x: -46, y: -12, width: 92, height: 24, rx: 10, fill: 'rgba(76,201,240,0.34)', stroke: GLASS.stroke, 'stroke-width': 2.5 }, i);
+    E('line', { x1: -58, y1: 0, x2: 58, y2: 0, stroke: GLASS.stroke, 'stroke-width': 7, 'stroke-linecap': 'round' }, i);
+    E('line', { x1: -58, y1: 0, x2: 58, y2: 0, stroke: '#123848', 'stroke-width': 3, 'stroke-linecap': 'round' }, i);
+    E('path', { d: 'M-40,-28 L-34,-36 L-28,-28 M28,36 L34,28 L40,36', fill: 'none', stroke: C.water, 'stroke-width': 3.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, i);
     E('circle', { cx: 60, cy: 4, r: 4, fill: C.water }, i);
     return g;
   }
+  // 06_solutions' top-pan balance at 0.55 scale (origin: the centre of the pan's top); the reading stays 26 px
   function balance(parent, reading) {
-    const g = G(parent);
-    E('rect', { x: -78, y: 0, width: 156, height: 50, rx: 10, fill: linGrad('#9AA8B5', '#5E6C79', true), stroke: '#C4CFD8', 'stroke-width': 2 }, g);
-    E('rect', { x: -52, y: 12, width: 104, height: 28, rx: 5, fill: '#0E2418', stroke: '#2E5A3E', 'stroke-width': 2 }, g);
-    E('rect', { x: -62, y: -8, width: 124, height: 9, rx: 4, fill: '#C9D4DC', stroke: '#E6EDF2', 'stroke-width': 1.5 }, g);
-    T(g, 0, 35, reading, { size: 24, weight: 700, anchor: 'middle', fill: '#5CF08A' });
+    const g = G(parent), i = G(g); tr(i, 0, 3.3, 0.55);
+    E('rect', { x: -160, y: 20, width: 320, height: 96, rx: 18, fill: linGrad('#9AA8B4', '#5E6B76', true), stroke: '#C2CDD6', 'stroke-width': 3 }, i);
+    E('rect', { x: -14, y: 4, width: 28, height: 18, fill: '#56636E' }, i);
+    E('rect', { x: -130, y: -6, width: 260, height: 12, rx: 6, fill: linGrad('#EEF4F7', '#9DB0BF', true), stroke: '#FFFFFF', 'stroke-width': 1.5 }, i);
+    E('rect', { x: -86, y: 40, width: 172, height: 56, rx: 9, fill: '#0E2B1A', stroke: '#2F4A3A', 'stroke-width': 2 }, i);
+    T(i, 66, 85, reading, { size: 47, weight: 700, anchor: 'end', fill: '#7CFF9E' });
+    E('circle', { cx: 122, cy: 68, r: 9, fill: '#3A4752', stroke: '#9DB0BF', 'stroke-width': 2 }, i);
     return g;
   }
 
@@ -139,8 +154,15 @@ scene('recap', S => {
   const solSegs = [['Solute', Y, 800], ' dissolves in the ', ['solvent', CY, 800]];
   rich(h3, 30, 60, solSegs, { size: fit(solSegs, 34, 460), weight: 700 });
   const sugar = G(h3); tr(sugar, 88, 150);
-  E('rect', { x: -27, y: -27, width: 54, height: 54, rx: 8, fill: ball('#FFFFFF', '#CBD6DE'), stroke: '#E9EEF2', 'stroke-width': 2 }, sugar);
-  [[-12, -10], [8, -2], [-4, 12], [14, 14], [-16, 8]].forEach(([x, y]) => E('rect', { x: x - 3, y: y - 3, width: 6, height: 6, rx: 1, fill: '#DCE5EB' }, sugar));
+  { // the sugar cube from the solutions chapter, seen corner-on
+    const s = 27, k = s * 0.87;
+    E('path', { d: `M${-k},${-s * 0.5} L0,0 L0,${s} L${-k},${s * 0.5} Z`, fill: '#E6EBEF', stroke: '#FFFFFF', 'stroke-width': 1.5, 'stroke-linejoin': 'round' }, sugar);
+    E('path', { d: `M0,0 L${k},${-s * 0.5} L${k},${s * 0.5} L0,${s} Z`, fill: '#C9D3DC', stroke: '#FFFFFF', 'stroke-width': 1.5, 'stroke-linejoin': 'round' }, sugar);
+    E('path', { d: `M0,${-s} L${k},${-s * 0.5} L0,0 L${-k},${-s * 0.5} Z`, fill: '#FFFFFF', stroke: '#FFFFFF', 'stroke-width': 1.5, 'stroke-linejoin': 'round' }, sugar);
+    let dots = ''; const r = rng(3);
+    for (let i = 0; i < 14; i++) { const x = (r() - 0.5) * k * 1.7, y = (r() - 0.2) * s; dots += `M${x.toFixed(1)},${y.toFixed(1)} h0.1 `; }
+    E('path', { d: dots, stroke: '#AEBBC6', 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.7 }, sugar);
+  }
   T(h3, 170, 164, '+', { size: 44, weight: 600, anchor: 'middle', fill: C.muted });
   const wBk = beaker(h3, 84, 96, { level: 0.62, marks: false }); tr(wBk, 258, 150);
   const solArrow = arrow(h3, 318, 150, 370, 150, { color: C.ink, width: 5 });
@@ -155,7 +177,7 @@ scene('recap', S => {
   // 4. FECD: four tiles with their apparatus
   const h4 = hookCard(3);
   rich(h4, 30, 62, [['F', Y, 800], ['E', Y, 800], ['C', Y, 800], ['D', Y, 800]], { size: 44, ls: 8 });
-  const fecd = [['Filter', funnelArt, 0.62], ['Evaporate', (p, s) => basinArt(p, s, false, true), 0.62], ['Crystallise', crystalsArt, 0.8], ['Distil', condenserArt, 0.62]].map(([w, art, s], i) => {
+  const fecd = [['Filter', (p, s) => funnelArt(p, s, true), 0.62], ['Evaporate', (p, s) => basinArt(p, s, false, true), 0.62], ['Crystallise', crystalsArt, 0.8], ['Distil', condenserArt, 0.62]].map(([w, art, s], i) => {
     const g = G(h4), x0 = i % 2 ? 270 : 20, y0 = i < 2 ? 82 : 168;
     const hl = E('rect', { x: x0, y: y0, width: 230, height: 76, rx: 14, fill: C.card2, stroke: C.line, 'stroke-width': 2 }, g);
     const ic = art(g, s); tr(ic, x0 + 42, y0 + 36, 1);
@@ -204,7 +226,7 @@ scene('recap', S => {
       T(co, 0, 38, 'cobalt', { size: 24, weight: 600, anchor: 'middle', fill: C.muted, font: FB });
       const ne = T(g, -30, 14, '≠', { size: 54, weight: 700, anchor: 'middle', fill: C.muted });
       const mol = G(g); tr(mol, 130, -14);
-      const k = 0.78 * 30;
+      const k = 0.72 * 30;
       const cA = G(mol); tr(cA, -k, 0); atom(cA, 'C', 30, { letter: true });
       const oA = G(mol); tr(oA, k, 0); atom(oA, 'O', 30, { letter: true });
       bondLine(mol, -k, 0, 30, k, 0, 30);
@@ -219,15 +241,16 @@ scene('recap', S => {
     }),
     trapGroup('Filter the salt out of salt water', [['Evaporate', Y, 800], ' or ', ['distil', Y, 800], ' it instead'], g => {
       const f = funnelArt(g, 0.95); tr(f, -120, -22);
-      const liq = E('path', { d: 'M-27,-20 L27,-20 L0,4 Z', fill: C.water, opacity: 0.7 }, f.inner);
+      const liq = E('path', { d: 'M-29,-28 L29,-28 L0,6 Z', fill: C.water, opacity: 0.7 }, f.inner);
       const bk = beaker(g, 84, 60, { level: 0.5, marks: false }); tr(bk, -120, 50);
+      // dissolved salt as the small white cubes used in the other chapters
       const dots = [], dr = rng(19);
-      for (let k = 0; k < 5; k++) dots.push({ el: E('circle', { r: 3.2, fill: '#FFFFFF' }, g), ph: k / 5, x: -126 + dr() * 12 });
-      for (let k = 0; k < 6; k++) E('circle', { cx: (-148 + dr() * 56).toFixed(1), cy: (44 + dr() * 20).toFixed(1), r: 2.8, fill: '#FFFFFF', opacity: 0.9 }, g);
+      for (let k = 0; k < 5; k++) dots.push({ el: E('rect', { x: -3, y: -3, width: 6, height: 6, rx: 1.5, fill: '#FFFFFF' }, g), ph: k / 5, x: -126 + dr() * 12 });
+      for (let k = 0; k < 6; k++) E('rect', { x: (-150.5 + dr() * 56).toFixed(1), y: (41.5 + dr() * 20).toFixed(1), width: 5, height: 5, rx: 1.2, fill: '#FFFFFF', opacity: 0.9 }, g);
       const x = cross(g, 22); tr(x, 20, -6);
       T(g, 60, -12, 'the salt is dissolved:', { size: 26, weight: 600, fill: C.muted, font: FB });
       T(g, 60, 22, 'it slips through', { size: 30, weight: 700 });
-      return t => dots.forEach(d => { const u = (t * 0.55 * calm + d.ph) % 1; attr(d.el, 'cx', d.x); attr(d.el, 'cy', -36 + u * 74); d.el.style.opacity = Math.min(1, u * 5, (1 - u) * 5).toFixed(3); });
+      return t => dots.forEach(d => { const u = (t * 0.55 * calm + d.ph) % 1; tr(d.el, d.x, -36 + u * 74, 1, u * 160); d.el.style.opacity = Math.min(1, u * 5, (1 - u) * 5).toFixed(3); });
     }),
     trapGroup('Evaporating gets the water back', [['evaporation', Y, 800], ' keeps the solid; ', ['distillation', CY, 800], ' the liquid'], g => {
       const b = basinArt(g, 1.45, true); tr(b, -150, -10);
@@ -260,15 +283,15 @@ scene('recap', S => {
       };
     }),
     trapGroup('Dissolving destroys the solute', ['It’s still there: its mass is ', ['conserved', Y, 800]], g => {
-      const b1 = balance(g, '110 g'); tr(b1, -150, -2);
-      const k1 = beaker(g, 64, 58, { level: 0.6, marks: false }); tr(k1, -170, -40);
-      E('path', { d: 'M-134,-11 Q-120,-34 -106,-11 Z', fill: '#FFFFFF', stroke: '#DCE6EE', 'stroke-width': 1.5 }, g);
+      const b1 = balance(g, '110 g'); tr(b1, -150, -16);
+      const k1 = beaker(g, 64, 58, { level: 0.6, marks: false }); tr(k1, -170, -46);
+      E('path', { d: 'M-134,-17 Q-120,-40 -106,-17 Z', fill: '#FFFFFF', stroke: '#DCE6EE', 'stroke-width': 1.5 }, g);
       T(g, -150, 78, 'before', { size: 25, weight: 600, anchor: 'middle', fill: C.muted, font: FB });
       T(g, 0, 22, '=', { size: 60, weight: 700, anchor: 'middle', fill: C.good });
-      const b2 = balance(g, '110 g'); tr(b2, 150, -2);
-      const k2 = beaker(g, 64, 58, { level: 0.68, marks: false }); tr(k2, 150, -40);
+      const b2 = balance(g, '110 g'); tr(b2, 150, -16);
+      const k2 = beaker(g, 64, 58, { level: 0.68, marks: false }); tr(k2, 150, -46);
       const sp = rng(5);
-      for (let k = 0; k < 6; k++) E('circle', { cx: (150 - 20 + sp() * 40).toFixed(1), cy: (-46 + sp() * 22).toFixed(1), r: 2.6, fill: '#FFFFFF' }, g);
+      for (let k = 0; k < 6; k++) E('rect', { x: (150 - 22.5 + sp() * 40).toFixed(1), y: (-54.5 + sp() * 22).toFixed(1), width: 5, height: 5, rx: 1.2, fill: '#FFFFFF' }, g);
       T(g, 150, 78, 'after dissolving', { size: 25, weight: 600, anchor: 'middle', fill: C.muted, font: FB });
       return null;
     }),

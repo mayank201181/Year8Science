@@ -50,8 +50,8 @@ scene('filter', S => {
      under the burner. g.set(level 0..1) the liquid; g.crust(p) the solid left behind; g.burner the kit bunsen. */
   function basinRig(parent) {
     const g = G(parent);
+    E('path', { d: 'M0,-8 L0,-226', stroke: '#1C2126', 'stroke-width': 8, 'stroke-linecap': 'round' }, g);   // back leg, behind the burner
     g.burner = bunsen(g);
-    E('path', { d: 'M0,-8 L0,-226', stroke: '#1C2126', 'stroke-width': 8, 'stroke-linecap': 'round' }, g);
     E('path', { d: 'M-88,0 L-66,-226 M88,0 L66,-226', stroke: '#1C2126', 'stroke-width': 9, 'stroke-linecap': 'round' }, g);
     E('path', { d: 'M-86,-6 L-66,-220 M86,-6 L66,-220', stroke: '#56626C', 'stroke-width': 2.5, 'stroke-linecap': 'round' }, g);
     E('rect', { x: -84, y: -234, width: 168, height: 12, rx: 5, fill: '#1C2126', stroke: '#56626C', 'stroke-width': 2 }, g);
@@ -114,19 +114,24 @@ scene('filter', S => {
     E('path', { d: 'M-14,-30 q-6,-10 0,-20 q6,-10 0,-20 M10,-30 q-6,-10 0,-20 q6,-10 0,-20', fill: 'none', stroke: '#DDEFF8', 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
     return g;
   }
+  /* Liebig condenser (08_distil's look): glass tube in a pale-blue water jacket; cold water in at the lower end, out at the top */
   function icoCondenser(p) {
     const g = G(p); tr(g, 0, 0, 1, 22);
-    E('line', { x1: -74, x2: 74, y1: 0, y2: 0, stroke: '#CFE7F5', 'stroke-width': 6, 'stroke-linecap': 'round' }, g);
-    E('rect', { x: -52, y: -17, width: 104, height: 34, rx: 17, fill: 'rgba(91,140,255,0.22)', stroke: GLASS.stroke, 'stroke-width': 3 }, g);
-    E('path', { d: 'M30,-17 L30,-34 M-30,17 L-30,34', stroke: '#5B8CFF', 'stroke-width': 5, 'stroke-linecap': 'round' }, g);
-    E('path', { d: 'M24,-28 L30,-36 L36,-28 M-36,28 L-30,36 L-24,28', fill: 'none', stroke: '#5B8CFF', 'stroke-width': 4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);
+    const arms = 'M-30,-15 L-30,-30 M30,15 L30,30';
+    E('path', { d: arms, stroke: GLASS.stroke, 'stroke-width': 9, 'stroke-linecap': 'round' }, g);
+    E('path', { d: arms, stroke: '#1D5D78', 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
+    E('rect', { x: -52, y: -17, width: 104, height: 34, rx: 13, fill: 'rgba(76,201,240,0.34)', stroke: GLASS.stroke, 'stroke-width': 3 }, g);
+    E('line', { x1: -74, x2: 74, y1: 0, y2: 0, stroke: GLASS.stroke, 'stroke-width': 9, 'stroke-linecap': 'round' }, g);
+    E('line', { x1: -74, x2: 74, y1: 0, y2: 0, stroke: '#123848', 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
+    E('path', { d: 'M-36,-36 L-30,-44 L-24,-36 M24,44 L30,36 L36,44', fill: 'none', stroke: C.water, 'stroke-width': 4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);
     return g;
   }
+  /* chromatography strip (08_distil's look): the ink has split into yellow, pink and blue, top to bottom */
   function icoChroma(p) {
     const g = G(p);
-    E('rect', { x: -14, y: -52, width: 28, height: 92, rx: 2, fill: '#F4F7FA' }, g);
-    E('line', { x1: -14, x2: 14, y1: 26, y2: 26, stroke: '#8A9BA8', 'stroke-width': 2 }, g);
-    [[-18, '#5B8CFF'], [-2, '#FF5FA2'], [12, '#FFD84A']].forEach(([y, c]) => E('circle', { cx: 0, cy: y, r: 5.5, fill: c }, g));
+    E('rect', { x: -14, y: -52, width: 28, height: 92, rx: 2, fill: '#F6F3EC' }, g);
+    E('line', { x1: -14, x2: 14, y1: 26, y2: 26, stroke: '#8A949C', 'stroke-width': 2 }, g);
+    [[-18, '#FFD23F'], [-2, '#FF4FA0'], [12, '#3F7BFF']].forEach(([y, c]) => E('circle', { cx: 0, cy: y, r: 5.5, fill: c }, g));
     E('path', { d: 'M-36,6 L-36,46 Q-36,52 -30,52 L30,52 Q36,52 36,46 L36,6', fill: 'rgba(200,230,250,0.12)', stroke: GLASS.stroke, 'stroke-width': 3.5, 'stroke-linejoin': 'round' }, g);
     E('rect', { x: -33, y: 34, width: 66, height: 16, rx: 3, fill: C.water, opacity: 0.6 }, g);
     return g;
