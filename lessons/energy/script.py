@@ -55,7 +55,7 @@ CHAPTERS = [
         "lines": [
             {"id": "stores", "cap": "Energy is held in **stores**. When anything happens, energy moves **out of** one store and **into** another."},
             {"id": "kinetic", "cap": "There are **eight** stores. First, **kinetic**: the energy of anything **moving**. The faster and heavier it is, the more it holds."},
-            {"id": "grav", "cap": "**Gravitational potential**: energy an object has because of its **height**, like a book on a high shelf, or water behind a dam."},
+            {"id": "grav", "cap": "**Gravitational potential**: the energy something has because of its **height**, like a book on a high shelf, or water behind a dam."},
             {"id": "elastic", "cap": "**Elastic potential**: energy in something **stretched** or **squashed**, like a drawn bow or a squashed spring."},
             {"id": "chemical", "cap": "**Chemical**: energy stored in **food**, **fuels** and **batteries**, released when they react."},
             {"id": "thermal", "cap": "**Thermal**: the energy of a **warm** object's jiggling particles, like a hot drink."},
@@ -83,7 +83,7 @@ CHAPTERS = [
              "say": "Remember them as M, E, R, H: mechanically, electrically, by radiation, and by heating."},
             {"id": "where", "cap": "Keep two ideas apart. **Stores** are **where** energy is held. **Pathways** are **how** it moves between them."},
             {"id": "notstores", "cap": "So **heat**, **light**, **sound** and **electricity** are **not** stores. They're ways of transferring energy."},
-            {"id": "kettle", "cap": "Watch a kettle boil. First, energy is transferred **electrically** from the mains to the heating element.", "pause": 0.3},
+            {"id": "kettle", "cap": "When you boil water in a kettle, energy is first transferred **electrically** from the mains to the heating element.", "pause": 0.3},
             {"id": "water", "cap": "Then it's transferred **by heating** into the water's **thermal store**.", "pause": 0.6},
         ],
     },
