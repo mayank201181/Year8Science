@@ -83,7 +83,7 @@ scene('recap', S => {
     g.wall = `M${q(-88)},0 L${q(-88)},${q(-380)} A${q(88)},${q(88)} 0 0 1 ${q(88)},${q(-380)} L${q(88)},0`;
     g.loop = `M${q(-48)},0 L${q(-48)},${q(-380)} A${q(48)},${q(48)} 0 0 1 ${q(48)},${q(-380)} L${q(48)},0`;
     let links = ''; [-330, -250, -170, -90].forEach(y => { links += `M${q(-48)},${q(y)} C${q(-16)},${q(y - 16)} ${q(16)},${q(y + 16)} ${q(48)},${q(y)} `; });
-    g.halo = E('path', { d: `M0,0 L0,${q(-300)}`, stroke: '#FFE9A8', 'stroke-width': 64 * s, 'stroke-linecap': 'round', opacity: 0.3 }, g);
+    g.halo = E('path', { d: `M0,${q(-32)} L0,${q(-300)}`, stroke: '#FFE9A8', 'stroke-width': 64 * s, 'stroke-linecap': 'round', opacity: 0.3 }, g);   // its round end stops at the base
     E('path', { d: `M${q(-17)},0 L${q(-17)},${q(-300)} A${q(17)},${q(17)} 0 0 1 ${q(17)},${q(-300)} L${q(17)},0 Z`, fill: '#FFF0C8', stroke: '#E0C27A', 'stroke-width': Math.max(1.5, 2.5 * s * 1.6) }, g);
     E('path', { d: links, fill: 'none', stroke: '#D2384A', 'stroke-width': Math.max(2, 5 * s * 1.4) }, g);
     g.loopEl = E('path', { d: g.loop, fill: 'none', stroke: C.blood, 'stroke-width': Math.max(3, 10 * s * 1.3) }, g);
@@ -114,7 +114,7 @@ scene('recap', S => {
   E('circle', { r: 46, fill: '#F3F7F9', stroke: '#C9D6DE', 'stroke-width': 2 }, plate);
   const SECT = ['#F5B041', '#FF8A80', '#FFE27A', '#FF9F43', '#B48CFF', '#4FC37A', '#4CC9F0'];
   const sectors = SECT.map((c, k) => {
-    const a0 = -Math.PI / 2 + k * TAU / 7, a1 = a0 + TAU / 7, r = 41;
+    const a0 = -Math.PI / 2 - TAU / 14 + k * TAU / 7, a1 = a0 + TAU / 7, r = 41;   // carbohydrates centred at the top, as in the diet chapter
     return E('path', { d: `M0,0 L${(Math.cos(a0) * r).toFixed(1)},${(Math.sin(a0) * r).toFixed(1)} A${r},${r} 0 0 1 ${(Math.cos(a1) * r).toFixed(1)},${(Math.sin(a1) * r).toFixed(1)} Z`, fill: c, stroke: '#FFFFFF', 'stroke-width': 2 }, plate);
   });
   const nl1 = initials('carbohydrates, proteins, fats,', C.ink), nl2 = initials('vitamins, minerals, fibre, water', C.ink);
@@ -134,9 +134,9 @@ scene('recap', S => {
     { d: 'M0,0', dot: true },                                                                  // mouth
     { d: 'M0,12 L0,100' },                                                                     // oesophagus
     { d: 'M0,100 C0,128 22,150 48,146 C72,142 76,112 60,104 C46,98 40,118 26,118', fat: 1 },    // stomach (J)
-    { d: 'M40,146 L30,196 L-30,208 L30,222 L-30,238 L30,254 L-30,270 L30,286 L54,300' },     // small intestine
-    { d: 'M54,300 L64,300 L64,176 L-64,176 L-64,312', w: 26, col: ['#D79C8E', '#8C4A43'] },    // large intestine
-    { d: 'M-64,312 C-64,336 -10,334 0,352 L0,372', w: 24, col: ['#D79C8E', '#8C4A43'] },       // rectum
+    { d: 'M40,146 L30,196 L-30,208 L30,222 L-30,238 L30,254 L-30,270 L30,286 L-30,300 L-54,302' },  // small intestine, joins at the lower left
+    { d: 'M-54,302 L-64,302 L-64,176 L64,176 L64,312', w: 26, col: ['#D79C8E', '#8C4A43'] },   // large intestine: up, across, down (as in the canal chapter)
+    { d: 'M64,312 C64,336 10,334 0,352 L0,372', w: 24, col: ['#D79C8E', '#8C4A43'] },          // rectum
     { d: 'M0,384', dot: true },                                                                // anus
   ];
   const gutHalo = G(gut), gutBody = G(gut);
@@ -243,13 +243,13 @@ scene('recap', S => {
     }),
     // 3. bile emulsifies, lipase digests
     trapGroup('Bile digests fat', ['Bile ', ['emulsifies', Y, 800], ' fat: ', ['lipase', C.heat, 800], ' digests it'], g => {
-      E('circle', { cx: -280, cy: -8, r: 32, fill: ball('#FFE08A', '#C9A13A'), stroke: '#FFF3C4', 'stroke-width': 2 }, g);
-      T(g, -280, 58, 'fat', { size: 24, weight: 700, fill: '#FFE08A', anchor: 'middle' });
+      E('circle', { cx: -280, cy: -8, r: 32, fill: ball('#FFE9A8', '#D9A93A'), stroke: '#FFF3C4', 'stroke-width': 2 }, g);   // the enzymes chapter's fat globule
+      T(g, -280, 58, 'fat', { size: 24, weight: 700, fill: '#FFE9A8', anchor: 'middle' });
       const a1 = arrow(g, -234, -8, -160, -8, { color: C.muted, width: 5 });
       [[-214, -38], [-198, -46], [-182, -36]].forEach(([x, y]) => E('path', { d: `M${x},${y - 9} C${x + 5},${y - 2} ${x + 7},${y + 3} ${x + 7},${y + 6} A7,7 0 0 1 ${x - 7},${y + 6} C${x - 7},${y + 3} ${x - 5},${y - 2} ${x},${y - 9} Z`, fill: '#7FBF4D', stroke: '#C4E8A4', 'stroke-width': 1.5 }, g));
       T(g, -198, 26, 'bile', { size: 24, weight: 700, fill: '#9AD46A', anchor: 'middle' });
       const dr = rng(31), drops = [];
-      for (let k = 0; k < 9; k++) drops.push(E('circle', { cx: -117 + (k % 3) * 22 + (dr() - 0.5) * 8, cy: -30 + Math.floor(k / 3) * 22 + (dr() - 0.5) * 8, r: 7 + dr() * 3, fill: ball('#FFE08A', '#C9A13A') }, g));
+      for (let k = 0; k < 9; k++) drops.push(E('circle', { cx: -117 + (k % 3) * 22 + (dr() - 0.5) * 8, cy: -30 + Math.floor(k / 3) * 22 + (dr() - 0.5) * 8, r: 7 + dr() * 3, fill: ball('#FFE9A8', '#D9A93A') }, g));
       const dLab = T(g, -95, 58, 'tiny droplets', { size: 24, weight: 600, fill: C.muted, anchor: 'middle' });
       const a2 = arrow(g, -40, -8, 36, -8, { color: C.muted, width: 5 });
       const lp = lipase(g, 16); tr(lp, -2, -42);

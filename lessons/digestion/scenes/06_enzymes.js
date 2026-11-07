@@ -148,7 +148,8 @@ scene('enzymes', S => {
     r.flash = flash(g, 20);
     r.icons = r.where.map((w, k) => {
       const ig = G(g), x = r.where.length === 2 ? [962, 1090][k] : 1025;
-      const art = G(ig); tr(art, x, Y - 14);
+      const art = G(ig);
+      if (w[0] === 'salivary') tr(art, x, Y - 22, 0.92); else tr(art, x, Y - 14);   // the head sits clear of its two-line label
       if (w[0] === 'salivary') salivaryIcon(art); else if (w[0] === 'stomach') stomachIcon(art, 0.17); else pancreasIcon(art, 1.05);
       w.forEach((ln, j) => T(ig, x, Y + 38 + j * 28, ln, { size: 26, weight: 600, anchor: 'middle', fill: w[0] === 'pancreas' ? '#F7D06A' : w[0] === 'stomach' ? '#F7B9C8' : '#E8B48E' }));
       return ig;

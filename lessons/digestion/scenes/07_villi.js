@@ -27,12 +27,20 @@ scene('villi', S => {
   }
   const dash = (el, p) => { el.setAttribute('stroke-dashoffset', (1 - clamp(p)).toFixed(4)); op(el, p > 0.002 ? 1 : 0); };
   const dropD = r => `M0,${-r * 1.35} C${r * 0.7},${-r * 0.35} ${r},${r * 0.2} ${r},${r * 0.45} A${r},${r} 0 0 1 ${-r},${r * 0.45} C${-r},${r * 0.2} ${-r * 0.7},${-r * 0.35} 0,${-r * 1.35} Z`;
-  function enzyme(parent, r, color, dark) {
-    const g = G(parent), a = 0.373 * r, b = 0.928 * r;
-    E('path', { d: `M${-a},${-b} A${r},${r} 0 1 0 ${a},${-b} A${0.38 * r},${0.38 * r} 0 0 1 ${-a},${-b} Z`, fill: ball(color, dark), stroke: '#ffffff', 'stroke-opacity': 0.6, 'stroke-width': Math.max(1.5, r * 0.09), 'stroke-linejoin': 'round' }, g);
+  /* an enzyme as drawn in the enzymes chapter: a rounded blob whose active site (the notch on top) is
+     shaped for its molecule; only protease (magenta, round notch) appears here */
+  function enzyme(parent, r, color) {
+    const kind = color === C.lactic ? 'pro' : color === C.heat ? 'lip' : 'amy', dk = { pro: C.lacticDk, lip: C.heatDk, amy: C.waterDk }[kind];
+    const R = 1.1 * r, g = G(parent), top = -0.55 * R, bot = 0.75 * R, n = 0.34 * R;
+    let notch;
+    if (kind === 'pro') notch = `A${n.toFixed(1)},${n.toFixed(1)} 0 0 0 ${n.toFixed(1)},${top.toFixed(1)}`;
+    else if (kind === 'amy') { const s = n / 0.866; notch = `L${-n},${top + 0.5 * s} L0,${top + s} L${n},${top + 0.5 * s} L${n},${top}`; }
+    else notch = `L${-n},${top + 0.9 * n} L${n},${top + 0.9 * n} L${n},${top}`;
+    E('path', { d: `M${-n},${top} ${notch} C${0.62 * R},${top} ${R},${top + 0.1 * R} ${R},${0.1 * R} C${R},${0.55 * R} ${0.6 * R},${bot} 0,${bot} C${-0.6 * R},${bot} ${-R},${0.55 * R} ${-R},${0.1 * R} C${-R},${top + 0.1 * R} ${-0.62 * R},${top} ${-n},${top} Z`, fill: ball(color, dk), stroke: dk, 'stroke-width': Math.max(1.5, R * 0.07), 'stroke-linejoin': 'round' }, g);
     return g;
   }
-  function bead(parent, r, i) { return E('circle', { r, fill: ball(BEADS[i % 4], '#3A3A55'), stroke: '#ffffff', 'stroke-opacity': 0.5, 'stroke-width': 1.5 }, parent); }
+  const BEADK = ['#C2534C', '#1E8C85', '#6E9A26', C.ethanolDk];
+  function bead(parent, r, i) { return E('circle', { r, fill: ball(BEADS[i % 4], BEADK[i % 4]), stroke: BEADK[i % 4], 'stroke-width': Math.max(1.2, r * 0.12) }, parent); }
   function fattyAcid(parent) { const g = G(parent); E('path', { d: 'M-15,2 L-10,-4 L-5,2 L0,-4 L5,2 L10,-4 L15,1', fill: 'none', stroke: '#FFB347', 'stroke-width': 4.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g); return g; }
   function glycerol(parent) { const g = G(parent); E('rect', { x: -5, y: -13, width: 10, height: 26, rx: 4, fill: '#FFF0B8', stroke: '#D8B860', 'stroke-width': 2 }, g); return g; }
   function rich(parent, x, y, segs, o) {
@@ -341,9 +349,12 @@ scene('villi', S => {
   E('line', { x1: 588, y1: 511, x2: 414, y2: 521, stroke: C.muted, 'stroke-width': 2.5 }, smLab);
   E('circle', { cx: 414, cy: 521, r: 5, fill: C.muted }, smLab);
   T(smLab, 600, 520, 'small intestine', { size: 29, weight: 600, fill: C.muted });
-  const wChip = G(Dg); tr(wChip, 1000, 589);
-  { const c = noteChip(wChip, 'most of the water absorbed', { size: 25, color: '#9FE3F8', padX: 48 }); c.label.setAttribute('x', 13); const d = E('path', { d: dropD(8.5), fill: ball(C.water, C.waterDk) }, wChip); tr(d, -c.w / 2 + 26, 3); }
-  const fChip = noteChip(Dg, 'solid faeces', { color: '#E3C2A6' }); tr(fChip, 985, 655);
+  // the two notes stack under the label, left-aligned with it (beside it they ran off the stage)
+  const wChip = G(Dg); let WCW = 0;
+  { const c = noteChip(wChip, 'most of the water absorbed', { size: 25, color: '#9FE3F8', padX: 48 }); c.label.setAttribute('x', 13); const d = E('path', { d: dropD(8.5), fill: ball(C.water, C.waterDk) }, wChip); tr(d, -c.w / 2 + 26, 3); WCW = c.w; }
+  const fChip = noteChip(Dg, 'solid faeces', { color: '#E3C2A6' });
+  const WCX = 600 + WCW / 2, FCX = 600 + fChip.w / 2;
+  tr(wChip, WCX, 642); tr(fChip, FCX, 696);
   const LX = 990, LY = 392, LR = 160;
   const lens = G(Dg);
   { const cp = E('clipPath', { id: 'dgVilliLens' }, defs()); E('circle', { r: LR }, cp); }
@@ -636,8 +647,8 @@ scene('villi', S => {
     op(Dg, dA);
     if (dA > 0) {
       op(lgLab, P(t, mid('water', 0.12), 0.4, linear)); op(smLab, P(t, tWater + 0.6, 0.4, linear) * (1 - P(t, mid('water', 0.3), 0.6, linear)));
-      const wc = win(t, mid('water', 0.42), at('microbes') + 0.2, 0.4); op(wChip, wc); tr(wChip, 1000 + (1 - P(t, mid('water', 0.42), 0.5, easeOut)) * 20, 589);
-      const fc = win(t, mid('water', 0.8), at('microbes') + 0.2, 0.4); op(fChip, fc); tr(fChip, 985 + (1 - P(t, mid('water', 0.8), 0.5, easeOut)) * 20, 655);
+      const wc = win(t, mid('water', 0.42), at('microbes') + 0.2, 0.4); op(wChip, wc); tr(wChip, WCX + (1 - P(t, mid('water', 0.42), 0.5, easeOut)) * 20, 642);
+      const fc = win(t, mid('water', 0.8), at('microbes') + 0.2, 0.4); op(fChip, fc); tr(fChip, FCX + (1 - P(t, mid('water', 0.8), 0.5, easeOut)) * 20, 696);
       const lA = P(t, at('microbes') + 0.1, 0.5, linear);
       op(lens, lA); op(lensT, lA);
       tr(lens, LX, LY, Math.max(0.01, 0.6 + 0.4 * P(t, at('microbes') + 0.1, 0.6, pop)));

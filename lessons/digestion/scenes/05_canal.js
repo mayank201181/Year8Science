@@ -27,13 +27,20 @@ scene('canal', S => {
   }
   const dash = (el, p) => { el.setAttribute('stroke-dashoffset', (1 - clamp(p)).toFixed(4)); op(el, p > 0.002 ? 1 : 0); };
   const dropD = r => `M0,${-r * 1.35} C${r * 0.7},${-r * 0.35} ${r},${r * 0.2} ${r},${r * 0.45} A${r},${r} 0 0 1 ${-r},${r * 0.45} C${-r},${r * 0.2} ${-r * 0.7},${-r * 0.35} 0,${-r * 1.35} Z`;
-  /* an enzyme: a rounded blob with a notch on top (its active site) */
-  function enzyme(parent, r, color, dark) {
-    const g = G(parent), a = 0.373 * r, b = 0.928 * r;
-    E('path', { d: `M${-a},${-b} A${r},${r} 0 1 0 ${a},${-b} A${0.38 * r},${0.38 * r} 0 0 1 ${-a},${-b} Z`, fill: ball(color, dark), stroke: '#ffffff', 'stroke-opacity': 0.6, 'stroke-width': Math.max(1.5, r * 0.09), 'stroke-linejoin': 'round' }, g);
+  /* an enzyme as drawn in the enzymes chapter: a rounded blob whose active site (the notch on top) is
+     shaped for its molecule; the kind follows the colour (amylase blue, protease magenta, lipase orange) */
+  function enzyme(parent, r, color) {
+    const kind = color === C.lactic ? 'pro' : color === C.heat ? 'lip' : 'amy', dk = { pro: C.lacticDk, lip: C.heatDk, amy: C.waterDk }[kind];
+    const R = 1.1 * r, g = G(parent), top = -0.55 * R, bot = 0.75 * R, n = 0.34 * R;
+    let notch;
+    if (kind === 'pro') notch = `A${n.toFixed(1)},${n.toFixed(1)} 0 0 0 ${n.toFixed(1)},${top.toFixed(1)}`;
+    else if (kind === 'amy') { const s = n / 0.866; notch = `L${-n},${top + 0.5 * s} L0,${top + s} L${n},${top + 0.5 * s} L${n},${top}`; }
+    else notch = `L${-n},${top + 0.9 * n} L${n},${top + 0.9 * n} L${n},${top}`;
+    E('path', { d: `M${-n},${top} ${notch} C${0.62 * R},${top} ${R},${top + 0.1 * R} ${R},${0.1 * R} C${R},${0.55 * R} ${0.6 * R},${bot} 0,${bot} C${-0.6 * R},${bot} ${-R},${0.55 * R} ${-R},${0.1 * R} C${-R},${top + 0.1 * R} ${-0.62 * R},${top} ${-n},${top} Z`, fill: ball(color, dk), stroke: dk, 'stroke-width': Math.max(1.5, R * 0.07), 'stroke-linejoin': 'round' }, g);
     return g;
   }
-  function bead(parent, r, i) { return E('circle', { r, fill: ball(BEADS[i % 4], '#3A3A55'), stroke: '#ffffff', 'stroke-opacity': 0.5, 'stroke-width': 1.5 }, parent); }
+  const BEADK = ['#C2534C', '#1E8C85', '#6E9A26', C.ethanolDk];
+  function bead(parent, r, i) { return E('circle', { r, fill: ball(BEADS[i % 4], BEADK[i % 4]), stroke: BEADK[i % 4], 'stroke-width': Math.max(1.2, r * 0.12) }, parent); }
   function gloss(parent, r) {
     const g = G(parent);
     E('circle', { r, fill: AMBER, stroke: '#FFE2A8', 'stroke-width': Math.max(1.5, r * 0.06) }, g);
@@ -329,7 +336,9 @@ scene('canal', S => {
   E('rect', { x: -175, y: 82, width: 350, height: 46, fill: '#C93242' }, iCap);
   const iRbc = []; for (let i = 0; i < 8; i++) iRbc.push(E('ellipse', { rx: 12, ry: 7, fill: '#FF8A94', stroke: '#FFD0D5', 'stroke-width': 1.5 }, iCap));
   for (let i = 0; i < 8; i++) { const x = -176 + i * CELLW; E('rect', { x: x + 2, y: -2, width: CELLW - 4, height: 52, rx: 10, fill: '#F2A3BA', stroke: PINKDK, 'stroke-width': 2.5 }, iL); E('circle', { cx: x + CELLW / 2, cy: 30, r: 7, fill: '#9B7AD8', opacity: 0.85 }, iL); }
-  const iBonds = E('path', { fill: 'none', stroke: '#E8D9B0', 'stroke-width': 4, 'stroke-linecap': 'round' }, iL);
+  // bond colours as in the molecule chapters: amber in starch, lilac-grey in protein
+  const iBonds = E('path', { fill: 'none', stroke: '#C98F22', 'stroke-width': 4, 'stroke-linecap': 'round' }, iL);
+  const iBondsP = E('path', { fill: 'none', stroke: '#C8B6CF', 'stroke-width': 4, 'stroke-linecap': 'round' }, iL);
   const iUnits = [];
   for (let i = 0; i < 4; i++) iUnits.push({ el: molGlucose(iL, 14), x0: -112 + i * 34, y0: -98, kind: 'g', i });
   for (let i = 0; i < 4; i++) { const g = G(iL); bead(g, 12, i); iUnits.push({ el: g, x0: 22 + i * 28, y0: -60, kind: 'b', i }); }
@@ -579,11 +588,11 @@ scene('canal', S => {
       const flow = t * 70;
       iRbc.forEach((e, i) => { attr(e, 'cx', ((i * 50 + flow) % 400) - 200); attr(e, 'cy', 105 + (i % 2 ? 6 : -6)); });
       const snip = P(t, mid('small', 0.1), 1.0, linear);
-      let d = '';
+      let d = '', dp = '';
       for (let i = 0; i < 3; i++) { if (snip < (i + 1) / 3) { const a = iUnits[i], b = iUnits[i + 1]; d += `M${a.x0 + 12},${a.y0} L${b.x0 - 12},${b.y0} `; } }
-      for (let i = 4; i < 7; i++) { if (snip < (i - 3) / 3) { const a = iUnits[i], b = iUnits[i + 1]; d += `M${a.x0 + 10},${a.y0} L${b.x0 - 10},${b.y0} `; } }
-      iBonds.setAttribute('d', d || 'M0,0');
-      op(iBonds, d ? 1 : 0);
+      for (let i = 4; i < 7; i++) { if (snip < (i - 3) / 3) { const a = iUnits[i], b = iUnits[i + 1]; dp += `M${a.x0 + 10},${a.y0} L${b.x0 - 10},${b.y0} `; } }
+      iBonds.setAttribute('d', d || 'M0,0'); op(iBonds, d ? 1 : 0);
+      iBondsP.setAttribute('d', dp || 'M0,0'); op(iBondsP, dp ? 1 : 0);
       tr(iAmy, lerp(-15, -130, snip), -112, 1, -20); tr(iProt, lerp(124, 10, snip), -82, 1, 15);
       op(iAmy, 1 - P(t, mid('small', 0.4), 0.4, linear)); op(iProt, 1 - P(t, mid('small', 0.4), 0.4, linear));
       iUnits.forEach((u, k) => {

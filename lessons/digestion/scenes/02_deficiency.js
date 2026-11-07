@@ -245,7 +245,8 @@ scene('deficiency', S => {
   E('path', { d: 'M-78,30 L34,4', stroke: '#E8B48E', 'stroke-width': 34, 'stroke-linecap': 'round' }, arm);
   E('path', { d: 'M30,-14 C48,-24 74,-20 80,-6 C86,8 74,22 52,22 C40,22 30,16 28,8 Z M44,-16 C52,-34 64,-36 66,-28 C66,-22 58,-16 54,-12 Z', fill: '#E8B48E', stroke: '#B9825A', 'stroke-width': 3, 'stroke-linejoin': 'round' }, arm);
   const rays = E('path', { d: 'M-8,-104 L-24,-30 M14,-100 L10,-28 M34,-92 L42,-30', stroke: SUNY, 'stroke-width': 4, 'stroke-dasharray': '8 8', 'stroke-linecap': 'round' }, arm);
-  const dMade = [[-30, 10], [8, 4], [40, 0]].map(([x, y]) => { const g = G(arm); tr(g, x, y); E('circle', { r: 12, fill: SUNY, stroke: '#B59B12', 'stroke-width': 2 }, g); T(g, 0, 7, 'D', { size: 18, weight: 700, anchor: 'middle', fill: '#3A2E00' }); return g; });
+  const DMX = [-34, 3, 40], DMY = [12, 5, 0];     // vitamin D made in the skin (badges big enough to read)
+  const dMade = DMX.map((x, i) => { const g = G(arm); tr(g, x, DMY[i]); E('circle', { r: 16, fill: SUNY, stroke: '#B59B12', 'stroke-width': 2 }, g); T(g, 0, 9, 'D', { size: 24, weight: 700, anchor: 'middle', fill: '#3A2E00' }); return g; });
   T(arm, 0, 76, 'skin + sunlight', { size: 26, weight: 600, anchor: 'middle', fill: C.muted });
 
   // 4. anaemia
@@ -465,7 +466,7 @@ scene('deficiency', S => {
         popIn(arm, t, mid('sun', 0.78), 990, 560);
         op(rays, clamp(sp) * (0.6 + 0.4 * wave(t, 0.8)));
         rays.setAttribute('stroke-dashoffset', (-t * 30 * AMP).toFixed(1));
-        dMade.forEach((g, i) => popIn(g, t, mid('sun', 0.85 + i * 0.04), [-30, 8, 40][i], [10, 4, 0][i]));
+        dMade.forEach((g, i) => popIn(g, t, mid('sun', 0.85 + i * 0.04), DMX[i], DMY[i]));
       }
     }
     // anaemia

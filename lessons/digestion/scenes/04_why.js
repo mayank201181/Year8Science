@@ -209,11 +209,11 @@ scene('why', S => {
   const zEnz = enzyme(zIn, 'amy', 40);
   const zBonds = [], zUnits = [];
   for (let k = 0; k < 5; k++) zBonds.push(E('line', { stroke: '#C98F22', 'stroke-width': 6, 'stroke-linecap': 'round' }, zIn));
-  for (let k = 0; k < 6; k++) zUnits.push(hexU(zIn, 19));
+  for (let k = 0; k < 6; k++) zUnits.push(hexU(zIn, 17));
   const zFlash = flash(zIn, 24);
   const zBondLbl = G(panR);
-  E('line', { x1: ZX - 17, y1: ZY - 18, x2: ZX - 60, y2: ZY - 92, stroke: C.ink, 'stroke-width': 2.5 }, zBondLbl);
-  T(zBondLbl, ZX - 66, ZY - 100, 'bond', { size: 26, weight: 700, anchor: 'end', fill: C.ink });
+  E('line', { x1: ZX - 19, y1: ZY - 16, x2: ZX - 40, y2: ZY - 68, stroke: C.ink, 'stroke-width': 2.5 }, zBondLbl);
+  T(zBondLbl, ZX - 44, ZY - 76, 'bond', { size: 26, weight: 700, anchor: 'end', fill: C.ink });
   const zEnzLbl = T(panR, 0, 0, 'enzyme', { size: 26, weight: 700, anchor: 'middle', fill: C.water });
 
   /* ================= D. surface area: one cube cut into eight ================= */
@@ -414,7 +414,7 @@ scene('why', S => {
       op(zoomG, zIn_);
       const S1 = mid('chem', 0.6), S2 = mid('chem', 0.86);
       const sep1 = P(t, S1, 0.8, easeOut), sep2 = P(t, S2, 0.8, easeOut);
-      const UX = k => ZX + (k - 2.5) * 40 + (k >= 3 ? 22 * sep1 : -10 * sep1) + (k >= 5 ? 22 * sep2 : 0);
+      const UX = k => ZX - 17 + (k - 2.5) * 36 + (k >= 3 ? 22 * sep1 : -10 * sep1) + (k >= 5 ? 22 * sep2 : 0);
       const UY = k => ZY + 6 * Math.sin(k * 1.2 + t * 1.5) * calm + (k >= 3 ? 14 * sep1 : -8 * sep1) + (k >= 5 ? 16 * sep2 : 0);
       zUnits.forEach((u, k) => tr(u, UX(k), UY(k)));
       zBonds.forEach((ln, k) => { const cut = (k === 2 && t >= S1) || (k === 4 && t >= S2); op(ln, cut ? 0 : 1); attr(ln, 'x1', UX(k)); attr(ln, 'y1', UY(k)); attr(ln, 'x2', UX(k + 1)); attr(ln, 'y2', UY(k + 1)); });
@@ -423,7 +423,9 @@ scene('why', S => {
       tr(zEnz, bx, by - zEnz.top - 2);
       if (t >= S2) flashAt(zFlash, t, S2, (UX(4) + UX(5)) / 2, (UY(4) + UY(5)) / 2); else flashAt(zFlash, t, S1, (UX(2) + UX(3)) / 2, (UY(2) + UY(3)) / 2);
       op(zBondLbl, P(t, mid('chem', 0.5), 0.3, linear) * (1 - P(t, S1, 0.25, linear)));
-      op(zEnzLbl, P(t, mid('chem', 0.4), 0.4, linear) * zIn_); attr(zEnzLbl, 'x', bx); attr(zEnzLbl, 'y', by - zEnz.top + 66);
+      // the label rides under the enzyme but stays inside the lens
+      const ly = by - zEnz.top + 54, hw = Math.sqrt(Math.max(0, (ZR - 8) * (ZR - 8) - (ly - ZY) * (ly - ZY)));
+      op(zEnzLbl, P(t, mid('chem', 0.4), 0.4, linear) * zIn_); attr(zEnzLbl, 'x', clamp(bx, ZX - hw + 48, ZX + hw - 48)); attr(zEnzLbl, 'y', ly);
     }
 
     /* ----- D: surface area ----- */

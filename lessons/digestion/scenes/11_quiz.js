@@ -43,7 +43,7 @@ scene('quiz', S => {
     g.wall = `M${q(-88)},0 L${q(-88)},${q(-380)} A${q(88)},${q(88)} 0 0 1 ${q(88)},${q(-380)} L${q(88)},0`;
     const loop = `M${q(-48)},0 L${q(-48)},${q(-380)} A${q(48)},${q(48)} 0 0 1 ${q(48)},${q(-380)} L${q(48)},0`;
     let links = ''; [-330, -250, -170, -90].forEach(y => { links += `M${q(-48)},${q(y)} C${q(-16)},${q(y - 16)} ${q(16)},${q(y + 16)} ${q(48)},${q(y)} `; });
-    g.halo = E('path', { d: `M0,0 L0,${q(-300)}`, stroke: '#FFE9A8', 'stroke-width': 64 * s, 'stroke-linecap': 'round', opacity: 0.3 }, g);
+    g.halo = E('path', { d: `M0,${q(-32)} L0,${q(-300)}`, stroke: '#FFE9A8', 'stroke-width': 64 * s, 'stroke-linecap': 'round', opacity: 0.3 }, g);   // its round end stops at the base
     E('path', { d: `M${q(-17)},0 L${q(-17)},${q(-300)} A${q(17)},${q(17)} 0 0 1 ${q(17)},${q(-300)} L${q(17)},0 Z`, fill: '#FFF0C8', stroke: '#E0C27A', 'stroke-width': 2.5 }, g);
     E('path', { d: links, fill: 'none', stroke: '#D2384A', 'stroke-width': 3.5 }, g);
     g.loopEl = E('path', { d: loop, fill: 'none', stroke: C.blood, 'stroke-width': 6.5 }, g);
@@ -124,16 +124,18 @@ scene('quiz', S => {
     };
   }
   function picGut(g) {
+    // the end of the gut and a blood vessel, coloured as in the egestion chapter (large intestine, dark lumen)
     const TUBE = 'M-44,-108 L-44,84';
-    E('path', { d: TUBE, fill: 'none', stroke: '#B8466A', 'stroke-width': 58, 'stroke-linecap': 'round' }, g);
-    E('path', { d: TUBE, fill: 'none', stroke: '#F4A6B8', 'stroke-width': 46, 'stroke-linecap': 'round' }, g);
+    E('path', { d: TUBE, fill: 'none', stroke: '#8C4A43', 'stroke-width': 58, 'stroke-linecap': 'round' }, g);
+    E('path', { d: TUBE, fill: 'none', stroke: '#D79C8E', 'stroke-width': 46, 'stroke-linecap': 'round' }, g);
+    E('path', { d: TUBE, fill: 'none', stroke: '#2E1C14', 'stroke-width': 30, 'stroke-linecap': 'round' }, g);
     E('path', { d: 'M-44,84 L-44,116', fill: 'none', stroke: '#2A1A20', 'stroke-width': 12, 'stroke-linecap': 'round' }, g);
-    const pellets = [0, 1, 2, 3].map(() => E('ellipse', { rx: 12, ry: 16, fill: ball('#9A6844', '#5A3820') }, g));
+    const pellets = [0, 1, 2, 3].map(() => E('ellipse', { rx: 11, ry: 15, fill: ball('#9A6844', '#5A3820'), stroke: '#C79A72', 'stroke-width': 1.5 }, g));
     const VES = 'M66,118 L66,-108';
-    E('path', { d: VES, fill: 'none', stroke: '#7A1C28', 'stroke-width': 30, 'stroke-linecap': 'round' }, g);
-    E('path', { d: VES, fill: 'none', stroke: C.blood, 'stroke-width': 22, 'stroke-linecap': 'round' }, g);
+    E('path', { d: VES, fill: 'none', stroke: '#5E1A26', 'stroke-width': 32, 'stroke-linecap': 'round' }, g);
+    E('path', { d: VES, fill: 'none', stroke: '#C93242', 'stroke-width': 22, 'stroke-linecap': 'round' }, g);
     const cells = [0, 1, 2, 3, 4].map(() => E('ellipse', { rx: 7, ry: 5, fill: '#FF8A94', stroke: '#FFD0D5', 'stroke-width': 1.5 }, g));
-    T(g, -44, 150, 'gut', { size: 24, weight: 700, fill: '#F4A6B8', anchor: 'middle' });
+    T(g, -44, 150, 'gut', { size: 24, weight: 700, fill: '#E3B2A4', anchor: 'middle' });
     T(g, 66, 150, 'blood', { size: 24, weight: 700, fill: '#FF8A94', anchor: 'middle' });
     const no = G(g);
     const ar = arrow(no, -6, -30, 40, -30, { color: C.muted, width: 5 });

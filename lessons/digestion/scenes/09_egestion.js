@@ -139,7 +139,8 @@ scene('egestion', S => {
   const liverG = G(R); tr(liverG, 728, 584);
   E('path', { d: closedPath([[-74, -10], [-60, -40], [-20, -48], [30, -46], [70, -34], [76, -22], [40, -2], [0, 16], [-40, 34], [-68, 26]]), fill: ball('#C8444F', '#7A1F2A'), stroke: '#E37C86', 'stroke-width': 3 }, liverG);
   const lLiver = T(R, 718, 650, 'liver', { size: 27, weight: 700, anchor: 'middle', fill: '#F2A0A8' });
-  const beadsIn = [0, 1, 2, 3].map(i => E('circle', { r: 8, fill: ball(BEADS[i], '#3A3A55'), stroke: '#ffffff', 'stroke-opacity': 0.5, 'stroke-width': 1.5 }, R));
+  const BEADK = ['#C2534C', '#1E8C85', '#6E9A26', C.ethanolDk];   // amino-acid beads, as in the molecule chapters
+  const beadsIn = [0, 1, 2, 3].map(i => E('circle', { r: 8, fill: ball(BEADS[i], BEADK[i]), stroke: BEADK[i], 'stroke-width': 1.2 }, R));
   const lAmino = T(R, 728, 520, 'extra amino acids', { size: 26, weight: 700, anchor: 'middle', fill: '#FFB3AC' });
   const ureaRide = [0, 1, 2].map(() => urea(R, 6.5));
   const lUrea = T(R, 898, 556, 'urea', { size: 27, weight: 700, anchor: 'middle', fill: '#C9D6FF' });
@@ -158,7 +159,7 @@ scene('egestion', S => {
   const lUrine = T(R, 1026, 684, 'urine', { size: 27, weight: 700, anchor: 'end', fill: '#F2D24A' });
   const pee = [0, 1, 2].map(() => E('path', { d: dropD(5), fill: '#F2D24A' }, R));
   const salts = [0, 1, 2].map(i => { const g = G(R); if (i === 1) E('rect', { x: -6, y: -6, width: 12, height: 12, rx: 2, fill: '#F4F7FA', stroke: '#A9B5C0', 'stroke-width': 1.5, transform: 'rotate(20)' }, g); else E('path', { d: dropD(6), fill: ball(C.water, C.waterDk) }, g); return g; });
-  const saltChip = noteChip(R, 'extra water and salts', { size: 26, color: '#9FE3F8' }); tr(saltChip, 852, 394);
+  const saltChip = noteChip(R, 'extra water and salts', { size: 24, color: '#9FE3F8' }); tr(saltChip, 880, 402);   // clear of the cell, the lungs label and the skin
 
   /* ================= the test ================= */
   const Tq = G(root);

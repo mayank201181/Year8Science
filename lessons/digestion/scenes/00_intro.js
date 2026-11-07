@@ -5,7 +5,7 @@
 scene('intro', S => {
   const { at, mid } = S, root = S.root, R = S.reduce;
   const AMP = R ? 0.3 : 1;
-  const PINK = '#F4A6B8', PINKDK = '#B8466A', COLON = '#D9998A', COLONDK = '#8C4A3C';
+  const PINK = '#F4A6B8', PINKDK = '#B8466A', COLON = '#D79C8E', COLONDK = '#8C4A43';   // the canal chapter's gut colours
   const ACID = '#B9BE3C', ACIDLT = '#E6EA86';
 
   /* ---------- local helpers ---------- */
@@ -50,14 +50,14 @@ scene('intro', S => {
     E('path', { d: 'M-60,-36 l10,4 M-20,-40 l10,4 M22,-36 l10,4 M56,-40 l8,3', stroke: '#C98A3E', 'stroke-width': 3.5, 'stroke-linecap': 'round' }, inner);
     return g;
   }
-  // a small plate with the seven nutrient sectors (roadmap card)
+  // a small plate with the seven nutrient sectors (roadmap card), coloured and placed as in the diet chapter
   function miniPlate(parent, r) {
     const g = G(parent);
-    E('circle', { r: r + 10, fill: '#E4ECF1', stroke: '#9FB3C1', 'stroke-width': 3 }, g);
-    const cols = ['#FFC247', '#FF8A80', '#FFF0B8', '#B5E655', '#B48CFF', '#5BD27A', '#4CC9F0'];
+    E('circle', { r: r + 10, fill: '#E7EEF2', stroke: '#AFC1CC', 'stroke-width': 3 }, g);
+    const cols = ['#F5B041', '#FF8A80', '#FFE27A', '#FF9F43', '#B48CFF', '#4FC37A', '#4CC9F0'];
     g.secs = cols.map((c, i) => {
-      const a0 = -Math.PI / 2 + i * TAU / 7, a1 = a0 + TAU / 7;
-      return E('path', { d: `M0,0 L${(Math.cos(a0) * r).toFixed(1)},${(Math.sin(a0) * r).toFixed(1)} A${r},${r} 0 0 1 ${(Math.cos(a1) * r).toFixed(1)},${(Math.sin(a1) * r).toFixed(1)} Z`, fill: c, stroke: '#F4F8FA', 'stroke-width': 2.5 }, g);
+      const a0 = -Math.PI / 2 - TAU / 14 + i * TAU / 7, a1 = a0 + TAU / 7;
+      return E('path', { d: `M0,0 L${(Math.cos(a0) * r).toFixed(1)},${(Math.sin(a0) * r).toFixed(1)} A${r},${r} 0 0 1 ${(Math.cos(a1) * r).toFixed(1)},${(Math.sin(a1) * r).toFixed(1)} Z`, fill: c, stroke: '#FFFFFF', 'stroke-width': 2.5 }, g);
     });
     return g;
   }
@@ -79,6 +79,13 @@ scene('intro', S => {
     E('path', { d: BAG, fill: 'none', stroke: PINK, 'stroke-width': 28, 'stroke-linejoin': 'round' }, w);
     E('path', { d: BAG, fill: 'none', stroke: '#E58AA2', 'stroke-width': 3, 'stroke-dasharray': '3 16', 'stroke-linejoin': 'round' }, w);
     return w;
+  }
+  // the stomach seen from outside, in the body, drawn as in the canal chapter: a pink J-shaped bag with folds
+  function stomachBody(parent) {
+    const g = G(parent);
+    E('path', { d: BAG, fill: PINK, stroke: PINKDK, 'stroke-width': 22, 'stroke-linejoin': 'round' }, g);
+    E('path', { d: 'M618,190 C660,180 712,200 740,246 M626,268 C680,262 730,290 752,340 M624,360 C680,360 724,392 740,440 M592,440 C650,446 690,480 700,530 M470,484 C520,488 574,520 590,580 M384,500 C420,500 456,520 470,560', fill: 'none', stroke: '#E07F9A', 'stroke-width': 13, 'stroke-linecap': 'round' }, g);
+    return g;
   }
   const TORSO = 'M-30,-246 L-30,-228 C-84,-224 -140,-216 -160,-186 C-176,-160 -170,-90 -158,-30 C-150,20 -156,110 -164,190 C-170,240 -146,282 -100,286 L100,286 C146,282 170,240 164,190 C156,110 150,20 158,-30 C170,-90 176,-160 160,-186 C140,-216 84,-224 30,-228 L30,-246 Z';
   const ARM = 'M-170,-178 C-200,-160 -210,-96 -210,-26 C-210,44 -206,114 -200,176 C-198,198 -176,200 -174,178 C-170,116 -172,44 -170,-26 C-170,-80 -168,-130 -170,-178 Z';
@@ -128,7 +135,7 @@ scene('intro', S => {
     return s;
   });
   const bagG = G(body, { transform: BAGT });
-  stomachWall(bagG, '#7A2444');
+  stomachBody(bagG);
   let lastM = -1;
   function drawCanal(m) {
     if (m === lastM) return;
@@ -223,7 +230,7 @@ scene('intro', S => {
   for (let k = 0; k < 6; k++) units.push({ x: 190 + k * 50, y: 372 + (k % 2 ? -14 : 14), hex: true });
   for (let k = 0; k < 6; k++) units.push({ x: 690 + k * 42, y: 352 + (k % 2 ? 12 : -12), hex: false, c: BEADC[k % 4] });
   units.forEach((u, i) => {
-    if (i % 6) { const p = units[i - 1]; E('line', { x1: p.x, y1: p.y, x2: u.x, y2: u.y, stroke: u.hex ? C.glucoseDk : '#C9D6DE', 'stroke-width': 6, 'stroke-linecap': 'round' }, bonds); }
+    if (i % 6) { const p = units[i - 1]; E('line', { x1: p.x, y1: p.y, x2: u.x, y2: u.y, stroke: u.hex ? '#C98F22' : '#C8B6CF', 'stroke-width': 6, 'stroke-linecap': 'round' }, bonds); }
   });
   units.forEach((u, i) => {
     u.g = G(cut);
@@ -245,7 +252,7 @@ scene('intro', S => {
       silhouette(mb, 12);
       E('path', { d: poly(FP.slice(iL - 1)), fill: 'none', stroke: COLON, 'stroke-width': 16, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, mb);
       E('path', { d: poly(FP.slice(0, iL)), fill: 'none', stroke: PINK, 'stroke-width': 12, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, mb);
-      const bg = G(mb, { transform: BAGT }); stomachWall(bg, '#7A2444');
+      const bg = G(mb, { transform: BAGT }); stomachBody(bg);
       const sw = sandwich(mb, 0.62);
       return sw;
     } },
