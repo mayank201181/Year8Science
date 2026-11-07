@@ -8,7 +8,7 @@
 scene('electro', S => {
   const { at, end, mid } = S, root = S.root;
   const calm = S.reduce ? 0.3 : 1;
-  const COPPER = '#D9893F', COPPER_DK = '#8A5426', CLIPC = '#C3CEDA', FIELD = '#B9A6FF';
+  const COPPER = '#D9893F', COPPER_DK = '#8A5426', CLIPC = '#C3CEDA', FIELD = '#C4B5FD';
   const RED = '#E8424F', BLUE = '#3B82F6', INS = '#3FB87A', INS_DK = '#1F7A4C';
 
   /* ---------- helpers ---------- */
@@ -136,15 +136,20 @@ scene('electro', S => {
       samples: () => { const out = []; for (let th = th0; th <= th1 + 1e-6; th += Math.PI / 10) out.push([X(th), Y(th), Math.sin(th) > 0.08 ? 1 : 0]); return out; },
     };
   }
-  // plotting compass: dial r, diamond needle (north half red); g.set(deg) points the red end
-  function compass(parent, r) {
+  /* compass (the same as 02_fields and 03_earth): dial (C.card, C.line rim), diamond needle (north half
+     red), pivot. g.set(deg) points the red end */
+  function compass(parent, r, o) {
+    o = o || {};
     const g = G(parent);
-    E('circle', { r, fill: C.card, stroke: C.line, 'stroke-width': 3 }, g);
-    const nd = G(g);
-    E('path', { d: `M${r * 0.8},0 L0,${-r * 0.24} L0,${r * 0.24} Z`, fill: RED }, nd);
-    E('path', { d: `M${-r * 0.8},0 L0,${-r * 0.24} L0,${r * 0.24} Z`, fill: C.ink }, nd);
-    E('circle', { r: r * 0.13, fill: C.muted }, g);
-    g.set = deg => nd.setAttribute('transform', `rotate(${deg.toFixed(1)})`);
+    E('circle', { r, fill: C.card, stroke: o.rim || C.line, 'stroke-width': Math.max(3, r * 0.09) }, g);
+    const nd = G(g), L = r * 0.78, w = Math.max(5, r * 0.2);
+    E('path', { d: `M${L},0 L0,${-w} L0,${w} Z`, fill: RED, stroke: '#FFB3B9', 'stroke-width': 1.2, 'stroke-linejoin': 'round' }, nd);
+    E('path', { d: `M${-L},0 L0,${-w} L0,${w} Z`, fill: C.ink, stroke: '#ffffff', 'stroke-width': 1.2, 'stroke-linejoin': 'round' }, nd);
+    E('circle', { r: Math.max(3, r * 0.11), fill: C.bg0, stroke: C.ink, 'stroke-width': 2 }, g);
+    E('path', { d: `M${(-r * 0.62).toFixed(1)},${(-r * 0.5).toFixed(1)} A${(r * 0.8).toFixed(1)},${(r * 0.8).toFixed(1)} 0 0 1 ${(r * 0.1).toFixed(1)},${(-r * 0.8).toFixed(1)}`, fill: 'none', stroke: '#ffffff', 'stroke-width': Math.max(2, r * 0.06), opacity: 0.22, 'stroke-linecap': 'round' }, g);
+    g.L = L;
+    g.set = deg => nd.setAttribute('transform', `rotate(${deg.toFixed(2)})`);
+    g.set(0);
     return g;
   }
   const head = (x, y, deg, s) => { const a = deg * Math.PI / 180, c = Math.cos(a), si = Math.sin(a), pt = (u, v) => `${(x + u * c - v * si).toFixed(1)},${(y + u * si + v * c).toFixed(1)}`; return `M${pt(9 * s, 0)} L${pt(-7 * s, -7 * s)} L${pt(-7 * s, 7 * s)} Z `; };

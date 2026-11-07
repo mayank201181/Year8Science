@@ -71,7 +71,7 @@ scene('fields', S => {
   function paperclip(parent, s) {
     const g = G(parent), inner = G(g);
     inner.setAttribute('transform', `scale(${s || 1})`);
-    E('path', { d: 'M12,-26 L12,26 A12,12 0 0 1 -12,26 L-12,-30 A8,8 0 0 1 4,-30 L4,22 A4,4 0 0 1 -4,22 L-4,-14', fill: 'none', stroke: '#CFD8DF', 'stroke-width': 3.6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, inner);
+    E('path', { d: 'M5,-18 L5,22 A5,5 0 0 1 -5,22 L-5,-26 A8,8 0 0 1 11,-26 L11,26 A11,11 0 0 1 -11,26 L-11,-10', fill: 'none', stroke: '#C3CEDA', 'stroke-width': 3.6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, inner);
     return g;
   }
   /* a yellow pencil, tip at (0,0), body up and to the right */

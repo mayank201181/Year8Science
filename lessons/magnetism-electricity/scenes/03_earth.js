@@ -21,15 +21,15 @@ scene('earth', S => {
     o = o || {};
     const g = G(parent);
     if (o.glow) g.halo = E('circle', { r: r * 2.1, fill: glow(C.energy) }, g);
-    E('circle', { r, fill: C.card, stroke: o.rim || C.line, 'stroke-width': Math.max(3, r * 0.08) }, g);
+    E('circle', { r, fill: C.card, stroke: o.rim || C.line, 'stroke-width': Math.max(3, r * 0.09) }, g);
     if (o.marks) {
       for (let i = 0; i < 16; i++) { const a = i * TAU / 16, r1 = r * (i % 4 ? 0.86 : 0.8); E('line', { x1: Math.cos(a) * r1, y1: Math.sin(a) * r1, x2: Math.cos(a) * r * 0.93, y2: Math.sin(a) * r * 0.93, stroke: C.muted, 'stroke-width': i % 4 ? 2 : 3.5, 'stroke-linecap': 'round' }, g); }
     }
-    const nd = G(g), L = r * 0.76, w = Math.max(5, r * 0.18);
+    const nd = G(g), L = r * 0.78, w = Math.max(5, r * 0.2);
     E('path', { d: `M${L},0 L0,${-w} L0,${w} Z`, fill: RED, stroke: '#FFB3B9', 'stroke-width': 1.2, 'stroke-linejoin': 'round' }, nd);
     E('path', { d: `M${-L},0 L0,${-w} L0,${w} Z`, fill: C.ink, stroke: '#ffffff', 'stroke-width': 1.2, 'stroke-linejoin': 'round' }, nd);
-    E('circle', { r: Math.max(3, r * 0.1), fill: C.bg0, stroke: C.ink, 'stroke-width': 2 }, g);
-    E('path', { d: `M${(-r * 0.62).toFixed(1)},${(-r * 0.5).toFixed(1)} A${(r * 0.8).toFixed(1)},${(r * 0.8).toFixed(1)} 0 0 1 ${(r * 0.1).toFixed(1)},${(-r * 0.8).toFixed(1)}`, fill: 'none', stroke: '#ffffff', 'stroke-width': Math.max(2, r * 0.05), opacity: 0.2, 'stroke-linecap': 'round' }, g);
+    E('circle', { r: Math.max(3, r * 0.11), fill: C.bg0, stroke: C.ink, 'stroke-width': 2 }, g);
+    E('path', { d: `M${(-r * 0.62).toFixed(1)},${(-r * 0.5).toFixed(1)} A${(r * 0.8).toFixed(1)},${(r * 0.8).toFixed(1)} 0 0 1 ${(r * 0.1).toFixed(1)},${(-r * 0.8).toFixed(1)}`, fill: 'none', stroke: '#ffffff', 'stroke-width': Math.max(2, r * 0.06), opacity: 0.22, 'stroke-linecap': 'round' }, g);
     g.nd = nd; g.L = L;
     g.set = deg => nd.setAttribute('transform', `rotate(${deg.toFixed(2)})`);
     g.set(-90);
@@ -138,7 +138,7 @@ scene('earth', S => {
   arrow(attractIcon, -30, 0, -6, 0, { color: C.good, width: 6, head: 16 }); arrow(attractIcon, 30, 0, 6, 0, { color: C.good, width: 6, head: 16 });
   tr(attractIcon, 230, 470);
   const chipUnlike = chip(A, 'unlike poles attract', { size: 30, fill: C.card2, stroke: C.good }); tr(chipUnlike, 230, 548);
-  const tipX = CX + Math.cos(cDir * Math.PI / 180) * (CR * 0.76 + 8), tipY = CY + Math.sin(cDir * Math.PI / 180) * (CR * 0.76 + 8);
+  const tipX = CX + Math.cos(cDir * Math.PI / 180) * (CR * 0.78 + 8), tipY = CY + Math.sin(cDir * Math.PI / 180) * (CR * 0.78 + 8);
   const sGlow = E('ellipse', { cx: 0, cy: -earth.MH / 4, rx: 78, ry: 100, fill: glow('#6FA8FF') }, earth);
   earth.insertBefore(sGlow, earth.mag);            // behind the giant magnet, over the see-through surface
   const pullArr = arrow(A, tipX, tipY, EX - 22, EY - earth.MH / 2 + 26, { color: C.good, width: 6, bend: -18 });

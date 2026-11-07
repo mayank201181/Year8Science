@@ -80,9 +80,9 @@ scene('static', S => {
   const V1 = G(root);
   // a small circuit for contrast: charge flows
   const loop = G(V1);
-  const lw = wire(loop, [[248, 500], [140, 500], [140, 262], [440, 262], [440, 500], [332, 500]], { spacing: 44 });
-  const lCell = cellSym(loop); tr(lCell, 290, 500);
-  const lBulb = bulbSym(loop); tr(lBulb, 290, 262); lBulb.set(1);
+  const lw = wire(loop, [[231, 500], [140, 500], [140, 262], [440, 262], [440, 500], [349, 500]], { spacing: 44 });
+  const lCell = cellSym(loop, { cells: 2 }); tr(lCell, 290, 500);                  // the lesson's 3 V battery: one bulb, full brightness, 60 px/s
+  const lBulb = bulbSym(loop); lBulb.firstChild.style.display = 'none'; tr(lBulb, 290, 262); lBulb.set(1);   // the wire under it is its lead
   const lLab = rich(V1, 290, 610, [['current', C.energy, 700], ': charge ', ['flows', C.energy, 800]], { size: 32, anchor: 'middle' });
   // the balloon with charge sitting on it
   const b1 = G(V1);

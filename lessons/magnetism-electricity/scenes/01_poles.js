@@ -8,7 +8,6 @@ scene('poles', S => {
   const calm = S.reduce ? 0.3 : 1;
   const RED = '#E8424F', REDK = '#A4232E', BLUE = '#3B82F6', BLUEK = '#1E4FA8';   // kit magnet() colours
   const NLT = '#FF8F98', SLT = '#8DB9FF';                                          // the same, as text on the dark stage
-  const STEEL = '#CFD8DF';
 
   /* ---------- local art ---------- */
   function rich(parent, x, y, segs, o) {
@@ -21,7 +20,7 @@ scene('poles', S => {
   function paperclip(parent, s, upright) {
     const g = G(parent), inner = G(g);
     inner.setAttribute('transform', `rotate(${upright ? 0 : 90}) scale(${s || 1})`);
-    E('path', { d: 'M12,-26 L12,26 A12,12 0 0 1 -12,26 L-12,-30 A8,8 0 0 1 4,-30 L4,22 A4,4 0 0 1 -4,22 L-4,-14', fill: 'none', stroke: STEEL, 'stroke-width': 3.6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, inner);
+    E('path', { d: 'M5,-18 L5,22 A5,5 0 0 1 -5,22 L-5,-26 A8,8 0 0 1 11,-26 L11,26 A11,11 0 0 1 -11,26 L-11,-10', fill: 'none', stroke: '#C3CEDA', 'stroke-width': 3.6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, inner);
     return g;
   }
   /* a magnet that can turn round: g.set(x, y, turns) where turns counts half-turns (1.5 = mid-way through the second) */
@@ -296,7 +295,7 @@ scene('poles', S => {
     { k: 'al', x0: 470 }, { k: 'steel', x0: 345, xs: 468 }, { k: 'al', x0: 215 }, { k: 'steel', x0: 90, xs: 732 }, { k: 'al', x0: -30 },
   ].map((c, i) => {
     c.g = G(canG); if (c.k === 'steel') steelCan(c.g); else drinkCan(c.g, 'Al');
-    c.h = c.k === 'steel' ? 42 : 42;
+    c.h = 52.5;                                                 // half-height: the cans are drawn 1.25x, so their labels read at 24 px
     if (c.xs !== undefined) c.tj = T0 + (c.xs - c.x0) / V;      // when it reaches its spot under the magnet
     c.slot = [1040, 1082, 1124][Math.floor(i / 2)];
     return c;
@@ -464,7 +463,7 @@ scene('poles', S => {
           const over = x - BX1, f = clamp(over / 70);
           x = lerp(BX1, c.slot, f); y = BELT_Y - c.h + 110 * f * f; rot = 12 * Math.sin(Math.PI * f);
         }
-        tr(c.g, x, y, 1, rot); op(c.g, show);
+        tr(c.g, x, y, 1.25, rot); op(c.g, show);
       });
       op(recycle, P(t, mid('cans', 0.05), 0.4, linear));
       op(lblSteel, P(t, mid('cans', 0.3), 0.4, linear));

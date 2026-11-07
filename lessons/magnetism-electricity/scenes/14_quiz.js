@@ -24,27 +24,91 @@ scene('quiz', S => {
     const w = s * 0.32, f = v => (+v).toFixed(1);
     return E('path', { d: `M${f(-s)},${f(-w)} H${f(-w)} V${f(-s)} H${f(w)} V${f(-w)} H${f(s)} V${f(w)} H${f(w)} V${f(s)} H${f(-w)} V${f(w)} H${f(-s)} Z`, fill: C.bad, stroke: C.bg0, 'stroke-width': f(s * 0.3), 'stroke-linejoin': 'round', 'paint-order': 'stroke' }, parent);
   }
-  function along(pts, u) {
-    const segs = []; let L = 0;
-    for (let i = 1; i < pts.length; i++) { const l = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); segs.push(l); L += l; }
-    let d = clamp(u) * L;
-    for (let i = 0; i < segs.length; i++) { if (d <= segs[i] || i === segs.length - 1) { const q = segs[i] ? d / segs[i] : 0; return [lerp(pts[i][0], pts[i + 1][0], q), lerp(pts[i][1], pts[i + 1][1], q)]; } d -= segs[i]; }
-    return pts[pts.length - 1];
-  }
-  function coil(parent, n, w, h) {
-    const g = G(parent), p = w / n, r = h / 2;
-    let back = '', front = '';
-    for (let k = 0; k < n; k++) {
-      const x = -w / 2 + k * p;
-      front += `M${x.toFixed(1)},${-r} Q${(x + p * 0.1).toFixed(1)},0 ${(x + p * 0.5).toFixed(1)},${r} `;
-      back += `M${(x + p * 0.5).toFixed(1)},${r} Q${(x + p * 0.9).toFixed(1)},0 ${(x + p).toFixed(1)},${-r} `;
-    }
-    E('path', { d: back, fill: 'none', stroke: '#8A5A2B', 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
-    E('path', { d: front, fill: 'none', stroke: COPPER, 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
+  const noLead = el => { el.firstChild.style.display = 'none'; return el; };      // the wire under it is its lead
+  /* the compass (the same as 02_fields and 03_earth): g.set(deg) points the red end */
+  function compass(parent, r, o) {
+    o = o || {};
+    const g = G(parent);
+    E('circle', { r, fill: C.card, stroke: o.rim || C.line, 'stroke-width': Math.max(3, r * 0.09) }, g);
+    const nd = G(g), L = r * 0.78, w = Math.max(5, r * 0.2);
+    E('path', { d: `M${L},0 L0,${-w} L0,${w} Z`, fill: RED, stroke: '#FFB3B9', 'stroke-width': 1.2, 'stroke-linejoin': 'round' }, nd);
+    E('path', { d: `M${-L},0 L0,${-w} L0,${w} Z`, fill: C.ink, stroke: '#ffffff', 'stroke-width': 1.2, 'stroke-linejoin': 'round' }, nd);
+    E('circle', { r: Math.max(3, r * 0.11), fill: C.bg0, stroke: C.ink, 'stroke-width': 2 }, g);
+    E('path', { d: `M${(-r * 0.62).toFixed(1)},${(-r * 0.5).toFixed(1)} A${(r * 0.8).toFixed(1)},${(r * 0.8).toFixed(1)} 0 0 1 ${(r * 0.1).toFixed(1)},${(-r * 0.8).toFixed(1)}`, fill: 'none', stroke: '#ffffff', 'stroke-width': Math.max(2, r * 0.06), opacity: 0.22, 'stroke-linecap': 'round' }, g);
+    g.L = L;
+    g.set = deg => nd.setAttribute('transform', `rotate(${deg.toFixed(2)})`);
+    g.set(0);
     return g;
   }
-  function clipArt(parent) {
-    return E('path', { d: 'M-16,5 L12,5 A6,6 0 0 0 12,-7 L-14,-7 A4.5,4.5 0 0 0 -14,2 L8,2', fill: 'none', stroke: '#C9D6DE', 'stroke-width': 3.2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, parent);
+  /* the nail electromagnet, paperclip, clip chain and current track: copied from 05_electro */
+  const COPPER_DK = '#8A5426', CLIPC = '#C3CEDA';
+  function track(pts) {
+    const cum = [0];
+    for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+    return { pts, cum, L: cum[cum.length - 1] };
+  }
+  const TQ = [0, 0, 0];                      // trackAt's result, reused (read it straight away)
+  function trackAt(tk, s) {
+    s = ((s % tk.L) + tk.L) % tk.L;
+    let lo = 0, hi = tk.cum.length - 1;
+    while (hi - lo > 1) { const m = (lo + hi) >> 1; if (tk.cum[m] <= s) lo = m; else hi = m; }
+    const a = tk.pts[lo], b = tk.pts[hi], f = (s - tk.cum[lo]) / ((tk.cum[hi] - tk.cum[lo]) || 1);
+    TQ[0] = a[0] + (b[0] - a[0]) * f; TQ[1] = a[1] + (b[1] - a[1]) * f; TQ[2] = Math.min(a[2], b[2]);
+    return TQ;
+  }
+  const shift = (pts, dx, dy, s) => pts.map(p => [dx + (s || 1) * p[0], dy + (s || 1) * p[1], p[2]]);
+  // steel paperclip, upright: top hook about (3,-32), bottom hook (0,35)
+  const CLIP_D = 'M5,-18 L5,22 A5,5 0 0 1 -5,22 L-5,-26 A8,8 0 0 1 11,-26 L11,26 A11,11 0 0 1 -11,26 L-11,-10';
+  function clip(parent) { const g = G(parent); E('path', { d: CLIP_D, fill: 'none', stroke: CLIPC, 'stroke-width': 3.6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g); return g; }
+  // poses of a chain of n clips hanging from (px, py); s = clip scale
+  function chain(px, py, n, sway, s) {
+    const out = [];
+    for (let i = 0; i < n; i++) {
+      const r = -sway * (1 + 0.35 * i), rad = r * Math.PI / 180, co = Math.cos(rad), si = Math.sin(rad);
+      const cx = px - s * (3 * co + 32 * si), cy = py - s * (3 * si - 32 * co);
+      px = cx - s * 35 * si; py = cy + s * 35 * co;
+      out.push([cx, cy, r]);
+    }
+    return out;
+  }
+  // AA cell on its side, 150 x 52: the copper-coloured + end (with the nub) on the left (copied from 05_electro)
+  function aaCell(parent) {
+    const g = G(parent), w = 150, h = 52, x0 = -w / 2, y0 = -h / 2;
+    E('rect', { x: x0, y: y0, width: w, height: h, rx: 9, fill: linGrad('#3E4D59', '#1A232B', true), stroke: '#7D8C99', 'stroke-width': 2 }, g);
+    E('path', { d: `M${x0 + 9},${y0} L${x0 + 54},${y0} L${x0 + 54},${y0 + h} L${x0 + 9},${y0 + h} Q${x0},${y0 + h} ${x0},${y0 + h - 9} L${x0},${y0 + 9} Q${x0},${y0} ${x0 + 9},${y0} Z`, fill: linGrad('#F0B06A', '#9A5A22', true) }, g);
+    E('rect', { x: x0 - 9, y: -10, width: 11, height: 20, rx: 3, fill: '#C9D3DC', stroke: '#EEF3F6', 'stroke-width': 1.5 }, g);
+    E('rect', { x: x0 + 8, y: y0 + 6, width: w - 16, height: 6, rx: 3, fill: '#FFFFFF', opacity: 0.18 }, g);
+    T(g, x0 + 27, 11, '+', { size: 32, weight: 700, anchor: 'middle', fill: '#3A2000' });
+    T(g, x0 + w - 24, 10, '−', { size: 30, weight: 700, anchor: 'middle', fill: C.ink });
+    return g;
+  }
+  /* the nail electromagnet: an iron nail (point on the right) centred on (0,0), 420 x 26, wrapped in
+     n turns between x = c0 and c1 (back halves dimmer, behind the nail). Current entering at the
+     left end runs down the front of each turn, so the point is a north pole. */
+  function nailRig(parent, o) {
+    o = o || {};
+    const n = o.turns || 10, c0 = o.c0 !== undefined ? o.c0 : -120, c1 = o.c1 !== undefined ? o.c1 : 110;
+    const R = o.R || 21, yaw = o.yaw !== undefined ? o.yaw : 0.32, ww = o.wire || 5.5;
+    const g = G(parent);
+    const back = E('path', { fill: 'none', stroke: o.dark || COPPER_DK, 'stroke-width': ww, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);
+    const nail = G(g), steel = linGrad('#DCE4EA', '#66737F', true);
+    E('path', { d: 'M-200,-13 L168,-13 L212,0 L168,13 L-200,13 Z', fill: steel, stroke: '#EEF3F6', 'stroke-width': 2, 'stroke-linejoin': 'round' }, nail);
+    E('rect', { x: -214, y: -27, width: 16, height: 54, rx: 5, fill: steel, stroke: '#EEF3F6', 'stroke-width': 2 }, nail);
+    E('path', { d: 'M-194,-6 L160,-6', stroke: '#FFFFFF', 'stroke-width': 3, opacity: 0.4, 'stroke-linecap': 'round' }, nail);
+    const front = E('path', { fill: 'none', stroke: o.color || COPPER, 'stroke-width': ww, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);
+    const th0 = Math.PI, th1 = Math.PI + TAU * n;
+    const X = th => c0 + (c1 - c0) * (th - th0) / (th1 - th0) + R * yaw * Math.sin(th), Y = th => -R * Math.cos(th);
+    let db = '', df = '';
+    for (let k = 0; k < 2 * n; k++) {
+      const a = th0 + k * Math.PI; let d = '';
+      for (let i = 0; i <= 8; i++) { const th = a + Math.PI * i / 8; d += (i ? 'L' : 'M') + X(th).toFixed(1) + ',' + Y(th).toFixed(1); }
+      if (k % 2) df += d; else db += d;
+    }
+    back.setAttribute('d', db); front.setAttribute('d', df);
+    g.th0 = th0; g.th1 = th1; g.n = n;
+    g.start = [X(th0), Y(th0)]; g.end = [X(th1), Y(th1)];
+    g.samples = () => { const out = []; for (let th = th0; th <= th1 + 1e-6; th += Math.PI / 10) out.push([X(th), Y(th), Math.sin(th) > 0.08 ? 1 : 0]); return out; };
+    return g;
   }
   const qMark = (parent, x, y, s) => T(parent, x, y, '?', { size: s || 64, weight: 700, fill: Y, anchor: 'middle' });
 
@@ -82,51 +146,51 @@ scene('quiz', S => {
     T(mag, 0, 44, 'N', { size: 28, weight: 700, fill: '#fff', anchor: 'middle' });
     const sGlow = E('circle', { cx: 0, cy: EYc - 40, r: 44, fill: glow(BLUE) }, g);
     const q = qMark(g, 0, EYc - 18, 70);
-    const cg = G(g); tr(cg, -138, EYc - 86);
-    E('circle', { r: 32, fill: C.card, stroke: '#9FB4C3', 'stroke-width': 3 }, cg);
-    const needle = G(cg);
-    E('path', { d: 'M0,-26 L7,0 L-7,0 Z', fill: RED }, needle); E('path', { d: 'M0,26 L7,0 L-7,0 Z', fill: C.ink }, needle);
-    E('circle', { r: 3.5, fill: C.bg0 }, cg);
+    const cg = compass(g, 32); tr(cg, -138, EYc - 86);
     const toS = Math.atan2(EYc - 40 - (EYc - 86), 0 - (-138)) * 180 / Math.PI + 90;   // red end towards the magnetic S
     return (t, ta) => {
       const rv = P(t, ta - 0.05, 0.6, linear), sw = P(t, ta + 0.25, 0.9, easeOut);
       op(mag, rv); op(sGlow, rv * (0.55 + 0.45 * wave(t, 1.2))); op(q, (1 - rv) * (0.75 + 0.25 * wave(t, 1.1)));
       const wob = (1 - sw) * (Math.sin(t * 2.3) * 30 + Math.sin(t * 5.1) * 8) * calm;
-      tr(needle, 0, 0, 1, lerp(-40, toS, sw) + wob);
+      cg.set(lerp(-40, toS, sw) + wob - 90);                     // angles above are measured from straight up
     };
   }
-  // 2. an electromagnet: three ways to make it stronger
+  // 2. the nail electromagnet (drawn as in 05_electro): three ways to make it stronger
   function picNail(g) {
-    const NX0 = -150, NX1 = 104, NY = -46, BY = 80;
-    E('path', { d: `M${NX0 + 40},${NY} V${BY} H-40`, fill: 'none', stroke: COPPER, 'stroke-width': 4, 'stroke-linejoin': 'round' }, g);
-    E('path', { d: `M${NX1 - 30},${NY} V${BY} H40`, fill: 'none', stroke: COPPER, 'stroke-width': 4, 'stroke-linejoin': 'round' }, g);
-    const cell = G(g); tr(cell, 0, BY);
-    E('rect', { x: -40, y: -16, width: 80, height: 32, rx: 6, fill: ball('#3A4752', '#1C252C'), stroke: '#8DA2B3', 'stroke-width': 2 }, cell);
-    E('rect', { x: 38, y: -8, width: 8, height: 16, rx: 2, fill: COPPER }, cell);
-    T(cell, 24, 8, '+', { size: 22, weight: 700, fill: C.bad, anchor: 'middle' });
-    const tipGlow = E('ellipse', { cx: NX1 + 34, cy: NY, rx: 56, ry: 46, fill: glow(C.energy) }, g);
-    const nail = E('path', { d: `M${NX0},${NY - 11} L${NX1},${NY - 11} L${NX1 + 34},${NY} L${NX1},${NY + 11} L${NX0},${NY + 11} Z`, fill: linGrad('#B4C0CB', '#6E7C89', true), stroke: '#D5DEE5', 'stroke-width': 2, 'stroke-linejoin': 'round' }, g);
-    E('rect', { x: NX0 - 8, y: NY - 22, width: 10, height: 44, rx: 3, fill: '#8F9CAB', stroke: '#D5DEE5', 'stroke-width': 2 }, g);
-    const coreGlow = E('rect', { x: NX0 - 4, y: NY - 15, width: NX1 - NX0 + 30, height: 30, rx: 12, fill: 'none', stroke: Y, 'stroke-width': 4 }, g);
-    const c6 = G(g); tr(c6, (NX0 + NX1) / 2 + 6, NY); coil(c6, 6, 180, 42);
-    const c12 = G(g); tr(c12, (NX0 + NX1) / 2 + 6, NY); coil(c12, 12, 180, 42);
-    const loop = [[NX0 + 40, NY], [NX0 + 40, BY], [NX1 - 30, BY], [NX1 - 30, NY]];
-    const dts = [0, 1, 2, 3].map(() => E('circle', { r: 5, fill: Y }, g));
-    const clips = [0, 1, 2, 3].map(() => { const c = G(g); clipArt(c); return c; });
-    const q = qMark(g, -20, NY - 50, 60);
+    const ES = 0.8, CS = 0.75, N0 = [-30, -56], BY = 62;
+    const cL = N0[0] + ES * -120, cR = N0[0] + ES * 110, cY = N0[1] + ES * 21;          // the coil's two ends
+    const CB = (cL + cR) / 2, pE = CB - 84 * CS, nE = CB + 77 * CS;                    // the AA cell on the bottom wire: its + nub and - end
+    E('path', { d: `M${pE},${BY} L${cL},${BY} L${cL},${cY} M${cR},${cY} L${cR},${BY} L${nE},${BY}`, fill: 'none', stroke: COPPER, 'stroke-width': 5, 'stroke-linejoin': 'round' }, g);
+    const tip = [N0[0] + 212 * ES, N0[1] + 1];
+    const tipGlow = E('ellipse', { cx: tip[0], cy: tip[1], rx: 56, ry: 46, fill: glow(C.energy) }, g);
+    const coreGlow = E('rect', { x: N0[0] - 206 * ES, y: N0[1] - 17, width: 422 * ES, height: 34, rx: 14, fill: 'none', stroke: Y, 'stroke-width': 4 }, g);
+    // one nail with a 6-turn coil; the 12-turn coil's halves join it, behind and in front of the nail
+    const rig = nailRig(g, { turns: 6 }), r12 = nailRig(g, { turns: 12 });
+    tr(rig, N0[0], N0[1], ES);
+    const b6 = rig.childNodes[0], f6 = rig.childNodes[2], b12 = r12.childNodes[0], f12 = r12.childNodes[2];
+    rig.insertBefore(b12, rig.childNodes[1]); rig.appendChild(f12); r12.remove();
+    tr(aaCell(g), CB, BY, CS);
+    // the current: out of +, round through the coil (down the front of each turn), into -
+    const mk = r => track([[pE, BY, 1], [cL, BY, 1], [cL, cY, 1], ...shift(r.samples(), N0[0], N0[1], ES), [cR, cY, 1], [cR, BY, 1], [nE, BY, 1]]);
+    const t6 = mk(rig), t12 = mk(r12);
+    const dotsG = G(g), dts = []; for (let k = 0; k < Math.round(t12.L / 30); k++) dts.push(E('circle', { r: 5, fill: Y }, dotsG));
+    const clips = [0, 1, 2, 3].map(() => clip(g));
+    const q = qMark(g, N0[0], N0[1] - 52, 60);
     const CHX = [-138, -6, 142];
     const chips = ['turns', 'current', 'iron core'].map((txt, k) => { const c = G(g); tr(c, CHX[k], 156); chip(c, txt, { size: 26, fill: C.card2, stroke: Y, sw: 2 }); return c; });
     return (t, ta) => {
       const s1 = ta - 0.05, s2 = mid('a2', 0.3), s3 = mid('a2', 0.62);
       const k1 = popIn(t, s1, 0.4), k2 = popIn(t, s2, 0.4), k3 = popIn(t, s3, 0.4);
       [k1, k2, k3].forEach((k, i) => { op(chips[i], clamp(k * 2)); tr(chips[i], CHX[i], 156 + (1 - clamp(k)) * 10); });
-      const more = fade(t, s1, 0.3); op(c6, 1 - more); op(c12, more);
-      const spd = t < s2 ? 0.3 : 0.3 + 0.35 * P(t, s2, 0.4, linear);
-      const ph = t < s2 ? t * 0.3 : s2 * 0.3 + (t - s2) * spd;
-      dts.forEach((d, i) => { const p = along(loop, (ph + i / 4) % 1); attr(d, 'cx', p[0]); attr(d, 'cy', p[1]); });
+      // more turns: 6 -> 12; more current: the dots go twice as fast; the iron core glows
+      const more = fade(t, s1, 0.3); op(b6, 1 - more); op(f6, 1 - more); op(b12, more); op(f12, more);
+      const ex = t < s2 ? 0 : t < s2 + 0.3 ? (t - s2) * (t - s2) / 0.6 : t - s2 - 0.15;
+      const tk = more < 0.5 ? t6 : t12, n = Math.round(tk.L / 30), d = 60 * (t + ex);
+      dts.forEach((c, i) => { if (i >= n) { op(c, 0); return; } const p = trackAt(tk, i * tk.L / n + d); attr(c, 'cx', p[0]); attr(c, 'cy', p[1]); op(c, p[2]); });
       op(coreGlow, win(t, s3, s3 + 1.2, 0.25));
       const nOn = 1 + (t >= s1 + 0.2 ? 1 : 0) + (t >= s2 + 0.2 ? 1 : 0) + (t >= s3 + 0.2 ? 1 : 0);
-      clips.forEach((c, i) => { const on = i < nOn; tr(c, NX1 + 30 + i * 3, NY + 24 + i * 28, 1, 90 + Math.sin(t * 2 + i) * 3 * calm); op(c, on ? 1 : 0); });
+      const poses = chain(tip[0], tip[1], 4, calm * 2.4 * Math.sin(t * 2.2), ES);
+      clips.forEach((c, i) => { tr(c, poses[i][0], poses[i][1], ES, poses[i][2]); op(c, i < nOn ? 1 : 0); });
       op(tipGlow, 0.4 + 0.15 * nOn + 0.1 * wave(t, 0.9));
       op(q, (1 - fade(t, ta - 0.1, 0.3)) * (0.75 + 0.25 * wave(t, 1.1)));
     };
@@ -136,7 +200,7 @@ scene('quiz', S => {
     const L = -150, R = 150, Tp = -20, Bt = 110;
     const w = wire(g, [[-59, Bt], [L, Bt], [L, Tp], [R, Tp], [R, Bt], [59, Bt]], { spacing: 44 });
     const bat = G(g); tr(bat, 0, Bt); cellSym(bat, { cells: 2 });
-    const bl = G(g); tr(bl, 0, Tp); bulbSym(bl).set(1);
+    const bl = G(g); tr(bl, 0, Tp); noLead(bulbSym(bl)).set(1);
     const branch = E('path', { d: `M-78,${Tp} V${Tp - 84} H78 V${Tp}`, fill: 'none', stroke: WIRE, 'stroke-width': 5, 'stroke-linejoin': 'round', pathLength: 1, 'stroke-dasharray': '1 1' }, g);
     const jn = [E('circle', { cx: -78, cy: Tp, r: 7, fill: C.ink }, g), E('circle', { cx: 78, cy: Tp, r: 7, fill: C.ink }, g)];
     const vm = G(g); const V = meterSym(vm, 'V');

@@ -139,16 +139,16 @@ scene('intro', S => {
   const mg = magnet(cMag.art, 150, 44); tr(mg, 0, -20);
   const arcs = G(cMag.art);
   [['M-75,-34 C-120,-122 120,-122 75,-34', -98], ['M-75,-6 C-120,82 120,82 75,-6', 58]].forEach(([d, y]) => {
-    E('path', { d, fill: 'none', stroke: '#B9A6FF', 'stroke-width': 3.5 }, arcs);
-    E('path', { d: `M8,${y} L-6,${y - 8} L-6,${y + 8} Z`, fill: '#B9A6FF' }, arcs);
+    E('path', { d, fill: 'none', stroke: '#C4B5FD', 'stroke-width': 3.5 }, arcs);
+    E('path', { d: `M8,${y} L-6,${y - 8} L-6,${y + 8} Z`, fill: '#C4B5FD' }, arcs);
   });
   const pullClip = clip(cMag.art);
   // electricity card: a tiny loop, cell at the bottom (+ on the left), bulb at the top
   const loopG = G(cEl.art); tr(loopG, 0, -28);
-  const lw1 = wire(loopG, [[-21, 44], [-78, 44], [-78, -44], [-25, -44]], { spacing: 26, dot: 4.5 });
-  const lw2 = wire(loopG, [[25, -44], [78, -44], [78, 44], [21, 44]], { spacing: 26, dot: 4.5 });
+  const lw1 = wire(loopG, [[-29.5, 44], [-78, 44], [-78, -44], [-25, -44]], { spacing: 26, dot: 4.5 });
+  const lw2 = wire(loopG, [[25, -44], [78, -44], [78, 44], [29.5, 44]], { spacing: 26, dot: 4.5 });
   const lBulb = bulbSym(loopG); tr(lBulb, 0, -44, 0.55);
-  const lCell = cellSym(loopG, { signs: false }); tr(lCell, 0, 44, 0.5);
+  const lCell = cellSym(loopG, { cells: 2, signs: false }); tr(lCell, 0, 44, 0.5);   // the 3 V battery used in every circuit
   // the link between the cards
   const link = G(pair); tr(link, 820, 470);
   const linkLine = E('path', { d: 'M-40,0 L40,0', stroke: C.energy, 'stroke-width': 5, 'stroke-linecap': 'round', pathLength: 1, 'stroke-dasharray': '1 1' }, link);
@@ -160,9 +160,9 @@ scene('intro', S => {
   const road = G(root);
   const RX = [148, 374, 600, 826, 1052], RY = 452;
   const icons = [
-    g => { const m = magnet(g, 128, 38); tr(m, 0, 0); E('path', { d: 'M-64,-10 C-96,-74 96,-74 64,-10', fill: 'none', stroke: '#B9A6FF', 'stroke-width': 3 }, g); E('path', { d: 'M-64,10 C-96,74 96,74 64,10', fill: 'none', stroke: '#B9A6FF', 'stroke-width': 3 }, g); E('path', { d: 'M8,-58 L-5,-65 L-5,-51 Z M8,58 L-5,51 L-5,65 Z', fill: '#B9A6FF' }, g); return null; },
+    g => { const m = magnet(g, 128, 38); tr(m, 0, 0); E('path', { d: 'M-64,-10 C-96,-74 96,-74 64,-10', fill: 'none', stroke: '#C4B5FD', 'stroke-width': 3 }, g); E('path', { d: 'M-64,10 C-96,74 96,74 64,10', fill: 'none', stroke: '#C4B5FD', 'stroke-width': 3 }, g); E('path', { d: 'M8,-58 L-5,-65 L-5,-51 Z M8,58 L-5,51 L-5,65 Z', fill: '#C4B5FD' }, g); return null; },
     g => { const n = nailRig(g, { turns: 8, wire: 6.5 }); tr(n, -10, -20, 0.44); [0, 1].forEach(i => { const c = clip(g); tr(c, 82, -5 + i * 29.5, 0.44); }); return null; },
-    g => { const a = wire(g, [[-16, 38], [-62, 38], [-62, -38], [-20, -38]], { spacing: 24, dot: 4 }); const b = wire(g, [[20, -38], [62, -38], [62, 38], [16, 38]], { spacing: 24, dot: 4 }); const bl = bulbSym(g); tr(bl, 0, -38, 0.44); const c = cellSym(g, { signs: false }); tr(c, 0, 38, 0.38); return { upd: (t, on) => { a.upd(t, 40); b.upd(t, 40); a.set(on); b.set(on); bl.set(on); } }; },
+    g => { const a = wire(g, [[-22.4, 38], [-62, 38], [-62, -38], [-20, -38]], { spacing: 24, dot: 4 }); const b = wire(g, [[20, -38], [62, -38], [62, 38], [22.4, 38]], { spacing: 24, dot: 4 }); const bl = bulbSym(g); tr(bl, 0, -38, 0.44); const c = cellSym(g, { cells: 2, signs: false }); tr(c, 0, 38, 0.38); return { upd: (t, on) => { a.upd(t, 60); b.upd(t, 60); a.set(on); b.set(on); bl.set(on); } }; },
     g => { const m = meterSym(g, 'A'); tr(m, 0, 4, 1.35); return { upd: (t, on) => m.set(on > 0.5 ? '0.4 A' : '') }; },
     g => { E('path', { d: 'M-8,54 Q-18,66 -6,76 Q4,86 -4,96', fill: 'none', stroke: '#C9D6DE', 'stroke-width': 2.5 }, g); E('ellipse', { cx: -10, cy: -6, rx: 44, ry: 54, fill: ball('#FF6B7D', '#B7283C') }, g); E('path', { d: 'M-16,46 L-2,46 L-9,56 Z', fill: '#B7283C' }, g); [[-26, -24], [4, -32], [-14, 10], [12, 0]].forEach(([x, y]) => T(g, x, y + 8, '−', { size: 26, weight: 700, anchor: 'middle', fill: '#FFFFFF' })); const sp = spark(g, 18, { seed: 3 }); tr(sp, 50, -40); return { upd: t => sp.upd(t) }; },
   ];
@@ -278,7 +278,7 @@ scene('intro', S => {
       // "the flow of charge around a circuit": the dots run and the bulb lights
       const eOn = P(t, mid('def', 0.55), 0.3, linear);
       const ef = Math.max(0, t - mid('def', 0.55));
-      lw1.upd(ef, 40); lw2.upd(ef, 40); lw1.set(eOn); lw2.set(eOn); lBulb.set(eOn);
+      lw1.upd(ef, 60); lw2.upd(ef, 60); lw1.set(eOn); lw2.set(eOn); lBulb.set(eOn);
       op(cEl.nt, P(t, mid('def', 0.62), 0.5, linear));
     }
 

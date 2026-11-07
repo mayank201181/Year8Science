@@ -70,37 +70,46 @@ scene('resistance', S => {
     tr(omega(g, size * 0.79, C.ink, size * 0.1), x0 + tw + gap + ow / 2, size * 0.35);
     return g;
   }
-  // variable resistor: the kit resistor with a diagonal arrow through it, lower left to upper right
-  function varResistor(parent) {
+  /* the variable resistor and the LED, copied unchanged from 07_symbols (the owner of the extra symbols) */
+  const SYM = { fill: 'none', stroke: WIRE, 'stroke-width': 5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' };
+  const sym = (o, extra) => Object.assign({}, SYM, o, extra || {});
+  function leadsTo(g, a, b) { E('path', sym({ d: `M-54,0 L${-a},0 M${b === undefined ? a : b},0 L54,0` }), g); }
+  /* variable resistor: the resistor box with an arrow through it, from lower left to upper right */
+  function varResistorSym(parent) {
     const g = resistorSym(parent);
-    E('line', { x1: -36, y1: 26, x2: 28, y2: -20, stroke: WIRE, 'stroke-width': 5, 'stroke-linecap': 'round' }, g);
-    E('path', { d: 'M40,-29 L31.1,-13.9 L22.9,-25.3 Z', fill: WIRE, stroke: WIRE, 'stroke-width': 2, 'stroke-linejoin': 'round' }, g);
+    g.arrow = G(g);
+    E('line', sym({ x1: -36, y1: 27, x2: 25, y2: -19 }, { 'stroke-width': 4 }), g.arrow);
+    E('path', { d: 'M38,-28.5 L30,-12.5 L20.4,-25.3 Z', fill: WIRE, stroke: WIRE, 'stroke-width': 1.5, 'stroke-linejoin': 'round' }, g.arrow);
     return g;
   }
-  // LED: a diode (triangle pointing along the current at a bar) in a circle, two arrows for its light.
-  // g.set(v) lights it; g.broken(b) shows it burnt out
+  /* LED: the diode inside a circle, with two small arrows pointing up and outwards. g.set(glow 0..1); g.ring, g.arrows */
   function ledSym(parent) {
     const g = G(parent);
-    E('path', { d: 'M-54,0 L-26,0 M26,0 L54,0', stroke: WIRE, 'stroke-width': 5, 'stroke-linecap': 'round' }, g).style.display = 'none';   // it sits on a wire
-    const halo = E('circle', { r: 66, fill: glow(C.energy) }, g);
-    const body = E('circle', { r: 26, fill: C.bg0, stroke: WIRE, 'stroke-width': 5 }, g);
-    E('path', { d: 'M-26,0 L-12,0 M12,0 L26,0', stroke: WIRE, 'stroke-width': 4 }, g);
-    E('path', { d: 'M-12,-14 L-12,14 L12,0 Z', fill: WIRE, stroke: WIRE, 'stroke-width': 2, 'stroke-linejoin': 'round' }, g);
-    E('line', { x1: 13, y1: -15, x2: 13, y2: 15, stroke: WIRE, 'stroke-width': 5, 'stroke-linecap': 'round' }, g);
-    const arrowsD = 'M4,-30 L13.8,-43.9 M17,-24 L26.8,-37.9';
-    const headsD = 'M19,-51.2 L17.9,-41 L9.7,-46.7 Z M32,-45.2 L30.9,-35 L22.7,-40.7 Z';
-    const dark = G(g);
-    E('path', { d: arrowsD, stroke: WIRE, 'stroke-width': 4, 'stroke-linecap': 'round' }, dark);
-    E('path', { d: headsD, fill: WIRE, stroke: WIRE, 'stroke-width': 1.5, 'stroke-linejoin': 'round' }, dark);
-    const lit = G(g);
-    E('path', { d: arrowsD, stroke: C.energy, 'stroke-width': 4, 'stroke-linecap': 'round' }, lit);
-    E('path', { d: headsD, fill: C.energy, stroke: C.energy, 'stroke-width': 1.5, 'stroke-linejoin': 'round' }, lit);
+    g.halo = E('circle', { r: 80, fill: glow(C.energy) }, g);
+    leadsTo(g, 30);
+    g.ring = E('circle', { r: 30, fill: C.bg0, stroke: WIRE, 'stroke-width': 5 }, g);
+    E('path', sym({ d: 'M-30,0 L-12,0 M12,0 L30,0' }), g);
+    E('path', { d: 'M-12,-14 L12,0 L-12,14 Z', fill: WIRE, stroke: WIRE, 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, g);
+    E('line', sym({ x1: 12, y1: -15, x2: 12, y2: 15 }, { 'stroke-width': 4.5 }), g);
+    g.arrows = G(g);
+    [[8, -36], [24, -28]].forEach(([x, y]) => {
+      const a = G(g.arrows);
+      E('line', sym({ x1: x, y1: y, x2: x + 11, y2: y - 16 }, { 'stroke-width': 3.5 }), a);
+      E('path', { d: `M${x + 17},${y - 25} L${x + 15.5},${y - 13.9} L${x + 7.3},${y - 19.5} Z`, fill: WIRE, stroke: WIRE, 'stroke-width': 1.5, 'stroke-linejoin': 'round' }, a);
+    });
+    g.set = v => op(g.halo, clamp(v));
+    g.set(0);
+    return g;
+  }
+  // the LED on this chapter's wire (its own leads hidden; the wire under it is its lead): g.set(v, t) lights it,
+  // its arrows pulsing outwards as in 07_symbols; g.broken(b) shows it burnt out
+  function ledPart(parent) {
+    const g = ledSym(parent);
+    g.childNodes[1].style.display = 'none';
     const crack = E('path', { d: 'M-17,-19 L-6,-7 L-13,1 L1,9 L-4,19', fill: 'none', stroke: '#9DB0BF', 'stroke-width': 3.5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
-    g.set = (v, t) => {
-      v = clamp(v); halo.style.opacity = v.toFixed(3); op(lit, v); op(dark, 1 - v);
-      const k = v > 0 ? 4 * wave(t || 0, 0.8) * calm : 0; tr(lit, k * 0.6, -k);
-    };
-    g.broken = b => { op(crack, b); body.setAttribute('fill', b > 0.5 ? '#1A1F24' : C.bg0); };
+    const glowSet = g.set;
+    g.set = (v, t) => { v = clamp(v); glowSet(v); const push = v * 7 * calm * wave(t || 0, 0.9); tr(g.arrows, push * 0.57, -push * 0.82); };
+    g.broken = b => { op(crack, b); g.ring.setAttribute('fill', b > 0.5 ? '#1A1F24' : C.bg0); };
     g.set(0); g.broken(0);
     return g;
   }
@@ -181,8 +190,8 @@ scene('resistance', S => {
   /* ================= E. an LED needs a resistor ================= */
   const Eg = G(root);
   const eRes = resistorAt(Eg, 470, 270);
-  const eLed = ledSym(Eg); tr(eLed, 730, 270);
-  const eNew = ledSym(Eg); tr(eNew, 730, 270);
+  const eLed = ledPart(Eg); tr(eLed, 730, 270);
+  const eNew = ledPart(Eg); tr(eNew, 730, 270);
   const ePop = spark(Eg, 46, { color: '#FFF3B0', seed: 4 }); tr(ePop, 730, 262);
   const eFlash = E('circle', { cx: 730, cy: 270, r: 140, fill: glow('#FFFFFF') }, Eg);
   const smoke = [0, 1, 2].map(i => E('circle', { r: 12 + i * 4, fill: '#8A9BAA' }, Eg));
@@ -193,7 +202,7 @@ scene('resistance', S => {
 
   /* ================= F. the variable resistor and a real rheostat ================= */
   const F = G(root);
-  const fSym = varResistor(F); tr(fSym, 300, 330, 1.6);
+  const fSym = varResistorSym(F); tr(fSym, 300, 330, 1.6);
   const fCap1 = T(F, 300, 440, 'circuit symbol', { size: 27, weight: 500, anchor: 'middle', fill: C.muted });
   const fCap2 = T(F, 790, 440, 'the real thing', { size: 27, weight: 500, anchor: 'middle', fill: C.muted });
   const fLab = lab(root, 'a **variable resistor**, or **rheostat**', 560, 40);
