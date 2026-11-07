@@ -36,7 +36,7 @@ export const lightExtras: TopicExtras = {
         "Move the CD to spread the colours across a wall or your hand.",
       ],
       science:
-        "White light is actually a mixture of all the colours of the rainbow. The tiny grooves on a CD split that white light into its separate colours by bending each colour by a slightly different amount, a process called dispersion — the same effect a glass prism produces.",
+        "White light is actually a mixture of all the colours of the rainbow. The tiny, closely spaced grooves on a CD split that white light into its separate colours by sending each colour off at a slightly different angle. This is called diffraction — a different effect from the refraction in a glass prism, but it proves the same thing: the colours were in the white light all along.",
     },
   ],
   bonusDiagrams: [

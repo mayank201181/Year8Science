@@ -1,0 +1,981 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "intro",
+   "title": "The pencil that seems to snap",
+   "short": "Intro",
+   "card": false,
+   "start": 0.0,
+   "end": 24.589,
+   "lines": [
+    {
+     "id": "hook",
+     "start": 0.6,
+     "end": 5.016,
+     "cap": "Dip a straight pencil into a glass of water, and it suddenly looks **snapped in half**."
+    },
+    {
+     "id": "whole",
+     "start": 5.516,
+     "end": 10.444,
+     "cap": "Pull it out, and it's perfectly whole. So what is happening to the light on its way to your eye?"
+    },
+    {
+     "id": "def",
+     "start": 10.944,
+     "end": 16.149,
+     "cap": "This is the science of **light**: how it travels, bounces, bends, and splits into colours."
+    },
+    {
+     "id": "plan",
+     "start": 16.649,
+     "end": 23.689,
+     "cap": "We'll draw ray diagrams, find out why a red apple looks red, and see how your own **eye** turns light into a picture."
+    }
+   ]
+  },
+  {
+   "id": "travels",
+   "title": "How light travels and how we see",
+   "short": "How light travels",
+   "card": true,
+   "start": 24.589,
+   "end": 88.92,
+   "lines": [
+    {
+     "id": "straight",
+     "start": 26.389,
+     "end": 29.909,
+     "cap": "**Light** is a form of energy, and it travels in **straight lines**."
+    },
+    {
+     "id": "rays",
+     "start": 30.409,
+     "end": 37.855,
+     "cap": "We draw its path as a **ray**: a straight line with an arrow showing which way it goes. A wide beam is just lots of rays."
+    },
+    {
+     "id": "speed",
+     "start": 38.355,
+     "end": 47.549,
+     "cap": "And light is astonishingly fast: about **300,000 kilometres per second**, or **3 × 10⁸ m/s**."
+    },
+    {
+     "id": "earth",
+     "start": 48.049,
+     "end": 52.231,
+     "cap": "That's fast enough to circle the Earth **seven and a half times** in one second."
+    },
+    {
+     "id": "sound",
+     "start": 52.731,
+     "end": 58.789,
+     "cap": "It's about a **million times faster than sound**, which is why you see a firework burst before you hear the bang."
+    },
+    {
+     "id": "luminous",
+     "start": 59.289,
+     "end": 64.665,
+     "cap": "A **luminous** object **makes its own light**: the Sun, a lamp, a flame, a glowing screen."
+    },
+    {
+     "id": "nonlum",
+     "start": 65.165,
+     "end": 70.264,
+     "cap": "A **non-luminous** object makes no light of its own: a book, an apple, even you."
+    },
+    {
+     "id": "see",
+     "start": 70.764,
+     "end": 75.543,
+     "cap": "So how do we see it? **We see an object when light reflects off it and enters our eye.**"
+    },
+    {
+     "id": "eyes",
+     "start": 76.043,
+     "end": 82.869,
+     "cap": "Light goes from the source, to the object, into your eye. Your eyes don't send anything out; they only **receive** light."
+    },
+    {
+     "id": "moon",
+     "start": 83.369,
+     "end": 88.02,
+     "cap": "And the Moon? It looks bright, but it's **non-luminous**. It simply reflects sunlight."
+    }
+   ]
+  },
+  {
+   "id": "shadows",
+   "title": "Transparent, translucent, opaque & shadows",
+   "short": "Materials & shadows",
+   "card": true,
+   "start": 88.92,
+   "end": 149.913,
+   "lines": [
+    {
+     "id": "transparent",
+     "start": 90.72,
+     "end": 99.211,
+     "cap": "Materials treat light differently. **Transparent** ones let light pass straight through, so you can see clearly through them: clear glass, air, water."
+    },
+    {
+     "id": "translucent",
+     "start": 99.711,
+     "end": 108.095,
+     "cap": "**Translucent** ones let some light through, but **scatter** it, so you see light but not a sharp image: frosted glass, tracing paper, thin curtains."
+    },
+    {
+     "id": "opaque",
+     "start": 108.595,
+     "end": 112.904,
+     "cap": "And **opaque** ones let **no light** through at all: wood, metal, a brick wall."
+    },
+    {
+     "id": "shadow",
+     "start": 113.404,
+     "end": 122.535,
+     "cap": "Light travels in straight lines, so an opaque object **blocks** it. That leaves a **shadow**: a dark region, roughly the same shape as the object."
+    },
+    {
+     "id": "point",
+     "start": 123.035,
+     "end": 126.597,
+     "cap": "A tiny **point source** of light gives a shadow with a **sharp** edge."
+    },
+    {
+     "id": "extended",
+     "start": 127.097,
+     "end": 133.775,
+     "cap": "A large source gives a fuzzy edge: a fully dark middle, the **umbra**, and a partly lit fringe, the **penumbra**."
+    },
+    {
+     "id": "closer",
+     "start": 134.275,
+     "end": 140.419,
+     "cap": "Move the object **closer to the source**, and the shadow gets **bigger**, because it blocks a wider spread of rays."
+    },
+    {
+     "id": "sun",
+     "start": 141.419,
+     "end": 149.013,
+     "cap": "Straight-line rays also explain why your shadow is short at midday, when the Sun is high, and long at sunset, when it's low."
+    }
+   ]
+  },
+  {
+   "id": "reflection",
+   "title": "Reflection and the law of reflection",
+   "short": "Reflection",
+   "card": true,
+   "start": 149.913,
+   "end": 228.391,
+   "lines": [
+    {
+     "id": "bounce",
+     "start": 151.713,
+     "end": 154.956,
+     "cap": "When light hits a surface, it **reflects**: it bounces off."
+    },
+    {
+     "id": "normal",
+     "start": 155.456,
+     "end": 162.389,
+     "cap": "To describe it, we draw the **normal**: an imaginary line at **90°** to the surface, right where the ray hits."
+    },
+    {
+     "id": "rule",
+     "start": 162.889,
+     "end": 166.537,
+     "cap": "We always measure angles **from the normal**, never from the surface."
+    },
+    {
+     "id": "rays",
+     "start": 167.037,
+     "end": 171.837,
+     "cap": "The ray arriving is the **incident ray**. The ray leaving is the **reflected ray**."
+    },
+    {
+     "id": "inc",
+     "start": 172.337,
+     "end": 177.415,
+     "cap": "The angle between the incident ray and the normal is the **angle of incidence**, **i**."
+    },
+    {
+     "id": "ref",
+     "start": 177.915,
+     "end": 182.907,
+     "cap": "The angle between the reflected ray and the normal is the **angle of reflection**, **r**."
+    },
+    {
+     "id": "law",
+     "start": 183.407,
+     "end": 189.977,
+     "cap": "**The law of reflection: the angle of incidence equals the angle of reflection.** So i = r."
+    },
+    {
+     "id": "sweep",
+     "start": 190.477,
+     "end": 196.963,
+     "cap": "Tilt the incoming ray, and the reflected ray swings to match. Thirty degrees in, thirty degrees out."
+    },
+    {
+     "id": "draw",
+     "start": 198.663,
+     "end": 204.188,
+     "cap": "To draw it, use a dashed normal and arrows on the rays, and measure **i** and **r** from the normal."
+    },
+    {
+     "id": "regular",
+     "start": 204.688,
+     "end": 212.325,
+     "cap": "A smooth, shiny surface like a mirror gives **regular reflection**. Parallel rays stay parallel, so you see a clear image."
+    },
+    {
+     "id": "diffuse",
+     "start": 212.825,
+     "end": 220.996,
+     "cap": "A rough surface like paper gives **diffuse reflection**. Its tiny bumps face different ways, so the rays **scatter** in all directions."
+    },
+    {
+     "id": "any",
+     "start": 221.496,
+     "end": 227.491,
+     "cap": "That's why a wall isn't a mirror. Yet diffuse reflection lets you see most objects from **any angle**."
+    }
+   ]
+  },
+  {
+   "id": "mirrors",
+   "title": "Images in a plane mirror",
+   "short": "Plane mirrors",
+   "card": true,
+   "start": 228.391,
+   "end": 296.209,
+   "lines": [
+    {
+     "id": "plane",
+     "start": 230.191,
+     "end": 234.393,
+     "cap": "A **plane mirror** is just a flat mirror. So where is the image you see in it?"
+    },
+    {
+     "id": "two",
+     "start": 234.893,
+     "end": 240.973,
+     "cap": "Take two rays from the tip of a candle flame. Each one reflects off the mirror with equal angles."
+    },
+    {
+     "id": "back",
+     "start": 241.473,
+     "end": 249.729,
+     "cap": "The reflected rays spread apart. Extend them **backwards**, as dashed lines, and they meet behind the mirror. That's where the **image** is."
+    },
+    {
+     "id": "virtual",
+     "start": 251.029,
+     "end": 256.683,
+     "cap": "But no light really gets behind the mirror. The image is **virtual**: you can't catch it on a screen."
+    },
+    {
+     "id": "distance",
+     "start": 257.183,
+     "end": 260.511,
+     "cap": "It's **as far behind the mirror** as the object is in front."
+    },
+    {
+     "id": "upright",
+     "start": 261.011,
+     "end": 264.851,
+     "cap": "It's **upright**, the same way up, and the **same size** as the object."
+    },
+    {
+     "id": "lateral",
+     "start": 265.351,
+     "end": 272.732,
+     "cap": "And it's **laterally inverted**: left and right are swapped. Raise your right hand, and your reflection seems to raise its left."
+    },
+    {
+     "id": "ambulance",
+     "start": 273.232,
+     "end": 279.44,
+     "cap": "That's why **AMBULANCE** is written back-to-front on the front of the vehicle, so it reads correctly in a driver's mirror."
+    },
+    {
+     "id": "updown",
+     "start": 279.94,
+     "end": 286.767,
+     "cap": "But a mirror doesn't swap up and down. It really reverses **front to back**, and we see that as left and right swapped."
+    },
+    {
+     "id": "vusl",
+     "start": 287.267,
+     "end": 295.309,
+     "cap": "The four properties spell **VUSL**: Very Useful Smooth Looking-glass. **V**irtual, **U**pright, **S**ame size, **L**aterally inverted."
+    }
+   ]
+  },
+  {
+   "id": "refraction",
+   "title": "Refraction: light changes speed and bends",
+   "short": "Refraction",
+   "card": true,
+   "start": 296.209,
+   "end": 386.371,
+   "lines": [
+    {
+     "id": "slow",
+     "start": 298.009,
+     "end": 303.129,
+     "cap": "Light travels **more slowly** in denser materials, like glass and water, than in air."
+    },
+    {
+     "id": "bend",
+     "start": 303.629,
+     "end": 311.587,
+     "cap": "When a ray crosses into a new material, or **medium**, at an angle, that change in speed makes it **bend**. This is **refraction**."
+    },
+    {
+     "id": "why",
+     "start": 312.087,
+     "end": 317.185,
+     "cap": "So light doesn't bend because it 'wants' a shortcut. It bends because its **speed changes**."
+    },
+    {
+     "id": "towards",
+     "start": 317.685,
+     "end": 323.808,
+     "cap": "Going into a **denser** medium, like from air into glass, light **slows down** and bends **towards the normal**."
+    },
+    {
+     "id": "away",
+     "start": 324.308,
+     "end": 330.537,
+     "cap": "Going into a **less dense** medium, like from glass into air, it **speeds up** and bends **away from the normal**."
+    },
+    {
+     "id": "sloto",
+     "start": 331.037,
+     "end": 336.307,
+     "cap": "Remember: **SloTo, FastAway**. **Slo**w down, bend **to**wards. Go **fast**er, bend **away**."
+    },
+    {
+     "id": "zero",
+     "start": 336.807,
+     "end": 342.311,
+     "cap": "But a ray that hits the boundary **along the normal** doesn't bend at all. It just changes speed."
+    },
+    {
+     "id": "pencil",
+     "start": 342.811,
+     "end": 351.024,
+     "cap": "That's what 'snaps' the pencil: light from the underwater part bends as it leaves the water, so that part looks **shifted**. Try it at home!"
+    },
+    {
+     "id": "pool",
+     "start": 351.524,
+     "end": 358.884,
+     "cap": "Refraction makes a swimming pool look **shallower** than it really is, and makes stars **twinkle**, as moving air refracts their light."
+    },
+    {
+     "id": "block",
+     "start": 359.384,
+     "end": 363.629,
+     "cap": "Now send a ray through a **rectangular glass block**. It refracts **twice**."
+    },
+    {
+     "id": "inout",
+     "start": 364.129,
+     "end": 372.129,
+     "cap": "Going in, it slows down and bends **towards** the normal. Coming out, it speeds up and bends **away**, by exactly the same amount."
+    },
+    {
+     "id": "parallel",
+     "start": 372.629,
+     "end": 380.075,
+     "cap": "The block's faces are **parallel**, so the two bends are equal and opposite. The ray comes out **parallel** to the ray that went in."
+    },
+    {
+     "id": "shift",
+     "start": 381.375,
+     "end": 385.471,
+     "cap": "It's just shifted **sideways**. That shift is called **lateral displacement**."
+    }
+   ]
+  },
+  {
+   "id": "dispersion",
+   "title": "Dispersion: splitting white light",
+   "short": "Dispersion",
+   "card": true,
+   "start": 386.371,
+   "end": 452.448,
+   "lines": [
+    {
+     "id": "white",
+     "start": 388.171,
+     "end": 394.016,
+     "cap": "**White light**, like sunlight, isn't a single colour. It's a **mixture** of all the colours of the rainbow."
+    },
+    {
+     "id": "prism",
+     "start": 394.516,
+     "end": 401.727,
+     "cap": "A **prism** is a triangular block of glass that refracts light at both faces. And it can pull those colours apart."
+    },
+    {
+     "id": "speeds",
+     "start": 402.227,
+     "end": 408.861,
+     "cap": "Each colour travels at a slightly different speed inside glass, so each refracts by a slightly different amount."
+    },
+    {
+     "id": "fan",
+     "start": 409.361,
+     "end": 416.124,
+     "cap": "**Violet** bends the **most**, and **red** bends the **least**. The colours fan out into a band called the **visible spectrum**."
+    },
+    {
+     "id": "name",
+     "start": 417.624,
+     "end": 420.483,
+     "cap": "This splitting of white light is called **dispersion**."
+    },
+    {
+     "id": "order",
+     "start": 420.983,
+     "end": 426.401,
+     "cap": "From least bent to most bent: **red, orange, yellow, green, blue, indigo, violet**."
+    },
+    {
+     "id": "richard",
+     "start": 426.901,
+     "end": 430.4,
+     "cap": "To remember the order: **Richard Of York Gave Battle In Vain**."
+    },
+    {
+     "id": "notadd",
+     "start": 430.9,
+     "end": 437.172,
+     "cap": "The prism doesn't **add** any colour. The colours were in the white light all along; the prism just **separates** them."
+    },
+    {
+     "id": "rainbow",
+     "start": 437.672,
+     "end": 446.888,
+     "cap": "A **rainbow** is dispersion on a giant scale. Millions of raindrops each act like a tiny prism, refracting and reflecting sunlight back to you."
+    },
+    {
+     "id": "behind",
+     "start": 447.388,
+     "end": 451.548,
+     "cap": "That's why you only see a rainbow with the **Sun behind you** and rain in front."
+    }
+   ]
+  },
+  {
+   "id": "colour",
+   "title": "Seeing colour: objects and filters",
+   "short": "Colour & filters",
+   "card": true,
+   "start": 452.448,
+   "end": 518.82,
+   "lines": [
+    {
+     "id": "why",
+     "start": 454.248,
+     "end": 459.773,
+     "cap": "So why does a red apple look red? The colour you see depends on which colours of light **reach your eye**."
+    },
+    {
+     "id": "apple",
+     "start": 460.273,
+     "end": 468.124,
+     "cap": "White light falls on the apple. The apple **reflects** the red light and **absorbs** all the other colours, so only red reaches you."
+    },
+    {
+     "id": "leaf",
+     "start": 468.624,
+     "end": 471.632,
+     "cap": "A green leaf reflects **green** and absorbs the rest."
+    },
+    {
+     "id": "whiteblack",
+     "start": 472.132,
+     "end": 478.553,
+     "cap": "A **white** object reflects **all** the colours. A **black** object absorbs them all, and reflects almost none."
+    },
+    {
+     "id": "noglow",
+     "start": 479.053,
+     "end": 485.411,
+     "cap": "So the apple doesn't glow, or turn the light red. It just **reflects** its own colour and **absorbs** the rest."
+    },
+    {
+     "id": "filter",
+     "start": 485.911,
+     "end": 493.377,
+     "cap": "A **filter** is a piece of coloured, transparent material. It **transmits**, or lets through, its own colour, and **absorbs** the others."
+    },
+    {
+     "id": "selfish",
+     "start": 493.877,
+     "end": 500.853,
+     "cap": "Remember: **a filter is selfish**. It only lets its **own** colour through, so a red filter lets through only red light."
+    },
+    {
+     "id": "blue",
+     "start": 501.353,
+     "end": 508.863,
+     "cap": "So look at a **blue** book through a red filter. The book reflects only blue light, the filter absorbs it, and the book looks **black**."
+    },
+    {
+     "id": "shirt",
+     "start": 509.963,
+     "end": 517.92,
+     "cap": "Under pure red light, a red shirt with a green logo looks red, but the logo looks **black**: there's no green light for it to reflect."
+    }
+   ]
+  },
+  {
+   "id": "eye",
+   "title": "The human eye",
+   "short": "The eye",
+   "card": true,
+   "start": 518.82,
+   "end": 590.504,
+   "lines": [
+    {
+     "id": "instrument",
+     "start": 520.62,
+     "end": 525.633,
+     "cap": "Your **eye** is a natural optical instrument. It focuses light to form an image."
+    },
+    {
+     "id": "cornea",
+     "start": 526.133,
+     "end": 531.808,
+     "cap": "Light enters through the **cornea**, the clear, curved front layer. The cornea does **most** of the bending."
+    },
+    {
+     "id": "pupil",
+     "start": 532.308,
+     "end": 538.772,
+     "cap": "Then it passes through the **pupil**, the black hole in the middle. It's not really a part: it's a **gap** that lets light in."
+    },
+    {
+     "id": "iris",
+     "start": 539.272,
+     "end": 546.483,
+     "cap": "Around it is the **iris**, the coloured ring of muscle. It changes the pupil's size to control how much light gets in."
+    },
+    {
+     "id": "bright",
+     "start": 546.983,
+     "end": 550.951,
+     "cap": "In bright light, the pupil is **small**. In dim light, it opens **wide**."
+    },
+    {
+     "id": "cinema",
+     "start": 552.051,
+     "end": 557.683,
+     "cap": "That's why a dark cinema looks pitch black when you first walk in: your pupils need a moment to widen."
+    },
+    {
+     "id": "lens",
+     "start": 558.183,
+     "end": 561.191,
+     "cap": "Behind the pupil, the **lens** fine-tunes the focus."
+    },
+    {
+     "id": "retina",
+     "start": 561.691,
+     "end": 566.853,
+     "cap": "The light lands on the **retina**, the light-sensitive layer at the back, where the image forms."
+    },
+    {
+     "id": "inverted",
+     "start": 567.353,
+     "end": 574.671,
+     "cap": "The cornea and lens bend the light so the rays meet on the retina. The image there is **real** and **inverted**: upside-down!"
+    },
+    {
+     "id": "brain",
+     "start": 575.771,
+     "end": 580.912,
+     "cap": "Cells in the retina send signals to your **brain**, which interprets the image the right way up."
+    },
+    {
+     "id": "glasses",
+     "start": 581.412,
+     "end": 589.604,
+     "cap": "If the image focuses in front of the retina, or behind it, things look blurry. **Glasses** bend the light so it focuses on the retina."
+    }
+   ]
+  },
+  {
+   "id": "focus",
+   "title": "Focusing the eye: near and far",
+   "short": "Focusing",
+   "card": true,
+   "start": 590.504,
+   "end": 653.003,
+   "lines": [
+    {
+     "id": "shape",
+     "start": 592.304,
+     "end": 599.664,
+     "cap": "Your eye can switch focus from near to far in a moment, because its lens **changes shape**. This is called **accommodation**."
+    },
+    {
+     "id": "ciliary",
+     "start": 600.164,
+     "end": 602.788,
+     "cap": "A ring of **ciliary muscles** surrounds the lens."
+    },
+    {
+     "id": "ligaments",
+     "start": 603.288,
+     "end": 608.408,
+     "cap": "Fine fibres called **suspensory ligaments** join those muscles to the edge of the lens."
+    },
+    {
+     "id": "near",
+     "start": 608.908,
+     "end": 618.337,
+     "cap": "To focus on something **near**, the ciliary muscles **contract**. The ligaments go **slack**, and the lens becomes **fatter** and more curved, so it bends light **more**."
+    },
+    {
+     "id": "far",
+     "start": 619.637,
+     "end": 628.875,
+     "cap": "To focus on something **far away**, the ciliary muscles **relax**. The ligaments pull **tight** and stretch the lens **thinner** and flatter, so it bends light **less**."
+    },
+    {
+     "id": "sclera",
+     "start": 630.175,
+     "end": 637.684,
+     "cap": "Around it all is the **sclera**: the tough, white outer coat that protects the eye and holds its shape. It's the white of your eye."
+    },
+    {
+     "id": "optic",
+     "start": 638.184,
+     "end": 645.352,
+     "cap": "At the back, the **optic nerve** carries electrical signals from the retina to your **brain**, which turns them into the picture you see."
+    },
+    {
+     "id": "blind",
+     "start": 645.852,
+     "end": 652.103,
+     "cap": "Where the optic nerve leaves the retina, there are no light-sensitive cells. That spot is your **blind spot**."
+    }
+   ]
+  },
+  {
+   "id": "mixing",
+   "title": "Mixing coloured light: secondary colours",
+   "short": "Mixing light",
+   "card": true,
+   "start": 653.003,
+   "end": 718.228,
+   "lines": [
+    {
+     "id": "primary",
+     "start": 654.803,
+     "end": 661.779,
+     "cap": "The **primary colours of light** are **red, green and blue**. They're primary because you can't make them by mixing other lights."
+    },
+    {
+     "id": "add",
+     "start": 662.279,
+     "end": 670.023,
+     "cap": "Shine two of them onto the same spot, like stage spotlights, and they **add** together to make a new colour. This is **additive** mixing."
+    },
+    {
+     "id": "yellow",
+     "start": 670.523,
+     "end": 672.165,
+     "cap": "**Red + green = yellow.**"
+    },
+    {
+     "id": "cyan",
+     "start": 672.665,
+     "end": 675.332,
+     "cap": "**Green + blue = cyan**, a greenish-blue."
+    },
+    {
+     "id": "magenta",
+     "start": 675.832,
+     "end": 678.776,
+     "cap": "**Red + blue = magenta**, a pinkish-purple."
+    },
+    {
+     "id": "white",
+     "start": 679.276,
+     "end": 681.345,
+     "cap": "And all **three** together make **white** light."
+    },
+    {
+     "id": "secondary",
+     "start": 682.645,
+     "end": 686.315,
+     "cap": "Yellow, cyan and magenta are the **secondary colours of light**."
+    },
+    {
+     "id": "screen",
+     "start": 686.815,
+     "end": 694.495,
+     "cap": "That's how a phone or TV screen works. It has no yellow or white lights at all: just tiny **red, green and blue** dots."
+    },
+    {
+     "id": "amounts",
+     "start": 694.995,
+     "end": 699.539,
+     "cap": "By lighting them in different amounts, it makes every colour you see, even white."
+    },
+    {
+     "id": "cones",
+     "start": 700.039,
+     "end": 708.807,
+     "cap": "It works because your eye senses colour with just three kinds of cells, called **cones**: red, green and blue. Your brain mixes their signals."
+    },
+    {
+     "id": "paint",
+     "start": 709.307,
+     "end": 717.328,
+     "cap": "Mixing **paints** is the opposite. Each pigment **absorbs**, or subtracts, light, so mixing paints makes darker, muddier colours."
+    }
+   ]
+  },
+  {
+   "id": "fibres",
+   "title": "Trapped light: total internal reflection",
+   "short": "Internal reflection",
+   "card": true,
+   "start": 718.228,
+   "end": 805.367,
+   "lines": [
+    {
+     "id": "out",
+     "start": 720.028,
+     "end": 728.54,
+     "cap": "Back to glass. Light going from glass **out** into air mostly refracts out, bending away from the normal, but a little reflects back inside."
+    },
+    {
+     "id": "bigger",
+     "start": 729.04,
+     "end": 735.461,
+     "cap": "Make the angle of incidence inside the glass bigger, and the escaping ray bends further and further from the normal."
+    },
+    {
+     "id": "critical",
+     "start": 735.961,
+     "end": 744.281,
+     "cap": "At one special angle, the refracted ray runs right **along the surface**. That's the **critical angle**: about **42°** for glass."
+    },
+    {
+     "id": "total",
+     "start": 745.581,
+     "end": 755.032,
+     "cap": "Go beyond it, and no light escapes at all. **All** of it reflects back inside, obeying the law of reflection. This is **total internal reflection**."
+    },
+    {
+     "id": "one",
+     "start": 756.332,
+     "end": 764.289,
+     "cap": "It needs **two conditions**. One: the light must be inside the **denser** material, heading for a less dense one, like glass to air."
+    },
+    {
+     "id": "two",
+     "start": 764.789,
+     "end": 768.629,
+     "cap": "Two: the angle of incidence must be **bigger than the critical angle**."
+    },
+    {
+     "id": "fibre",
+     "start": 769.129,
+     "end": 774.74,
+     "cap": "This is the secret of **optical fibres**: thin, flexible threads of very pure glass."
+    },
+    {
+     "id": "zigzag",
+     "start": 775.24,
+     "end": 784.093,
+     "cap": "Light inside keeps hitting the walls at more than the critical angle, so it reflects again and again, **zig-zagging** along until it reaches the far end."
+    },
+    {
+     "id": "internet",
+     "start": 785.193,
+     "end": 795.519,
+     "cap": "Fibres carry phone calls, TV and internet data as flashes of light, even under the oceans. And doctors use them in **endoscopes**, to see inside the body."
+    },
+    {
+     "id": "diamond",
+     "start": 796.019,
+     "end": 804.467,
+     "cap": "Diamonds sparkle for the same reason. Their critical angle is very small, so light bounces around inside before flashing back out."
+    }
+   ]
+  },
+  {
+   "id": "recap",
+   "title": "Recap: memory hooks and exam traps",
+   "short": "Recap",
+   "card": true,
+   "start": 805.367,
+   "end": 861.472,
+   "lines": [
+    {
+     "id": "lock",
+     "start": 807.167,
+     "end": 808.511,
+     "cap": "Let's lock it all in."
+    },
+    {
+     "id": "richard",
+     "start": 809.011,
+     "end": 815.069,
+     "cap": "**Richard Of York Gave Battle In Vain**: red, orange, yellow, green, blue, indigo, violet."
+    },
+    {
+     "id": "sloto",
+     "start": 815.569,
+     "end": 820.732,
+     "cap": "**SloTo, FastAway**: slow down, bend towards the normal; speed up, bend away."
+    },
+    {
+     "id": "vusl",
+     "start": 821.232,
+     "end": 827.696,
+     "cap": "**VUSL**: a plane-mirror image is virtual, upright, the same size, and laterally inverted."
+    },
+    {
+     "id": "selfish",
+     "start": 828.196,
+     "end": 831.695,
+     "cap": "**A filter is selfish**: it lets through only its own colour."
+    },
+    {
+     "id": "traps",
+     "start": 832.195,
+     "end": 834.456,
+     "cap": "Now, five exam traps to avoid."
+    },
+    {
+     "id": "t1",
+     "start": 834.956,
+     "end": 838.412,
+     "cap": "One: measure angles from the **normal**, never from the surface."
+    },
+    {
+     "id": "t2",
+     "start": 838.912,
+     "end": 842.176,
+     "cap": "Two: a plane-mirror image is **virtual**, not real."
+    },
+    {
+     "id": "t3",
+     "start": 842.676,
+     "end": 850.441,
+     "cap": "Three: light bends **towards** the normal only when it slows down, entering a denser medium. Leaving one, it bends away."
+    },
+    {
+     "id": "t4",
+     "start": 850.941,
+     "end": 856.189,
+     "cap": "Four: in a prism, **violet** bends the most and **red** the least, not the other way round."
+    },
+    {
+     "id": "t5",
+     "start": 856.689,
+     "end": 860.572,
+     "cap": "Five: the Moon is **non-luminous**. It only reflects sunlight."
+    }
+   ]
+  },
+  {
+   "id": "quiz",
+   "title": "Quick-fire quiz",
+   "short": "Quiz",
+   "card": true,
+   "start": 861.472,
+   "end": 935.391,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 863.272,
+     "end": 866.92,
+     "cap": "Quick-fire quiz! Say each answer out loud before it appears."
+    },
+    {
+     "id": "q1",
+     "start": 867.42,
+     "end": 873.564,
+     "cap": "A light ray hits a mirror with an angle of incidence of 40°. What is the angle of reflection?"
+    },
+    {
+     "id": "a1",
+     "start": 878.064,
+     "end": 882.779,
+     "cap": "**40°**, because the angle of incidence equals the angle of reflection."
+    },
+    {
+     "id": "q2",
+     "start": 883.279,
+     "end": 887.481,
+     "cap": "Light passes from air into glass at an angle. Which way does it bend?"
+    },
+    {
+     "id": "a2",
+     "start": 891.981,
+     "end": 894.435,
+     "cap": "**Towards the normal**, because it slows down."
+    },
+    {
+     "id": "q3",
+     "start": 894.935,
+     "end": 897.559,
+     "cap": "What colour does a blue book look in pure red light?"
+    },
+    {
+     "id": "a3",
+     "start": 902.059,
+     "end": 906.005,
+     "cap": "**Black.** There's no blue light for it to reflect, and it absorbs the red."
+    },
+    {
+     "id": "q4",
+     "start": 906.505,
+     "end": 909.385,
+     "cap": "Which two colours of light add together to make yellow?"
+    },
+    {
+     "id": "a4",
+     "start": 913.885,
+     "end": 914.995,
+     "cap": "**Red and green.**"
+    },
+    {
+     "id": "q5",
+     "start": 915.495,
+     "end": 919.399,
+     "cap": "True or false: the image on your retina is the right way up."
+    },
+    {
+     "id": "a5",
+     "start": 923.899,
+     "end": 928.464,
+     "cap": "**False.** It's real and inverted, and your brain interprets it the right way up."
+    },
+    {
+     "id": "outro",
+     "start": 928.964,
+     "end": 934.191,
+     "cap": "Brilliant work. Now try the Light & Optics quiz in your Science Lab, to lock it in."
+    }
+   ]
+  }
+ ],
+ "total": 935.391
+}
