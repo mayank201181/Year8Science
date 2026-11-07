@@ -590,7 +590,7 @@
    "short": "Experiments",
    "card": true,
    "start": 615.615,
-   "end": 694.637,
+   "end": 694.723,
    "lines": [
     {
      "id": "detect",
@@ -631,13 +631,13 @@
     {
      "id": "respirometer",
      "start": 670.885,
-     "end": 684.624,
+     "end": 684.709,
      "cap": "Test three: oxygen. Living things in a sealed tube use up oxygen. In a **respirometer**, a chemical soaks up the carbon dioxide, so a drop of coloured liquid creeps along the tube as the oxygen is used."
     },
     {
      "id": "fair",
-     "start": 685.524,
-     "end": 693.737,
+     "start": 685.609,
+     "end": 693.823,
      "cap": "Whatever you test, make it a **fair test**: change just one variable, keep everything else the same, and include a **control** to compare with."
     }
    ]
@@ -647,73 +647,73 @@
    "title": "Recap: memory hooks and exam traps",
    "short": "Recap",
    "card": true,
-   "start": 694.637,
-   "end": 748.865,
+   "start": 694.723,
+   "end": 749.207,
    "lines": [
     {
      "id": "lock",
-     "start": 696.437,
-     "end": 697.781,
+     "start": 696.523,
+     "end": 697.867,
      "cap": "Let's lock it all in."
     },
     {
      "id": "owls",
-     "start": 698.281,
-     "end": 704.959,
+     "start": 698.367,
+     "end": 705.044,
      "cap": "**Glad Owls Carry Wet Eggs**: glucose + oxygen → carbon dioxide + water (+ energy)."
     },
     {
      "id": "an",
-     "start": 705.459,
-     "end": 708.851,
-     "cap": "**Aerobic** means with oxygen. **An**aerobic means without."
+     "start": 705.544,
+     "end": 709.192,
+     "cap": "**Aerobic** means with oxygen, while **an**aerobic means without it."
     },
     {
      "id": "lazy",
-     "start": 709.351,
-     "end": 716.497,
+     "start": 709.692,
+     "end": 716.839,
      "cap": "**Lazy Athletes, Energetic Yeast**: lactic acid in humans; ethanol and carbon dioxide in yeast."
     },
     {
      "id": "crlv",
-     "start": 716.997,
-     "end": 719.109,
+     "start": 717.339,
+     "end": 719.451,
      "cap": "**Cells Respire, Lungs Ventilate.**"
     },
     {
      "id": "traps",
-     "start": 719.609,
-     "end": 721.871,
+     "start": 719.951,
+     "end": 722.212,
      "cap": "Now, five exam traps to avoid."
     },
     {
      "id": "t1",
-     "start": 722.371,
-     "end": 725.741,
+     "start": 722.712,
+     "end": 726.083,
      "cap": "One: respiration **releases** energy. It doesn't make it."
     },
     {
      "id": "t2",
-     "start": 726.241,
-     "end": 732.108,
+     "start": 726.583,
+     "end": 732.449,
      "cap": "Two: write **(+ energy)** in your equations, and check the **sixes** in the symbol equation."
     },
     {
      "id": "t3",
-     "start": 732.608,
-     "end": 738.688,
+     "start": 732.949,
+     "end": 739.029,
      "cap": "Three: anaerobic respiration in humans makes **lactic acid only**. No carbon dioxide."
     },
     {
      "id": "t4",
-     "start": 739.188,
-     "end": 742.559,
+     "start": 739.529,
+     "end": 742.9,
      "cap": "Four: plants respire **all the time**, not just at night."
     },
     {
      "id": "t5",
-     "start": 743.059,
-     "end": 747.965,
+     "start": 743.4,
+     "end": 748.307,
      "cap": "Five: anaerobic respiration releases **less** energy than aerobic, not more."
     }
    ]
@@ -723,83 +723,83 @@
    "title": "Quick-fire quiz",
    "short": "Quiz",
    "card": true,
-   "start": 748.865,
-   "end": 813.739,
+   "start": 749.207,
+   "end": 814.08,
    "lines": [
     {
      "id": "intro",
-     "start": 750.665,
-     "end": 754.313,
+     "start": 751.007,
+     "end": 754.655,
      "cap": "Quick-fire quiz! Say each answer out loud before it appears."
     },
     {
      "id": "q1",
-     "start": 754.813,
-     "end": 757.48,
+     "start": 755.155,
+     "end": 757.821,
      "cap": "Where in the cell does aerobic respiration happen?"
     },
     {
      "id": "a1",
-     "start": 761.98,
-     "end": 763.26,
+     "start": 762.321,
+     "end": 763.601,
      "cap": "In the **mitochondria**."
     },
     {
      "id": "q2",
-     "start": 763.76,
-     "end": 766.704,
+     "start": 764.101,
+     "end": 767.045,
      "cap": "What does yeast make when it respires without oxygen?"
     },
     {
      "id": "a2",
-     "start": 771.204,
-     "end": 773.209,
+     "start": 771.545,
+     "end": 773.551,
      "cap": "**Ethanol and carbon dioxide.**"
     },
     {
      "id": "q3",
-     "start": 773.709,
-     "end": 777.443,
+     "start": 774.051,
+     "end": 777.784,
      "cap": "What happens to limewater when carbon dioxide bubbles through it?"
     },
     {
      "id": "a3",
-     "start": 781.943,
-     "end": 783.585,
+     "start": 782.284,
+     "end": 783.927,
      "cap": "It turns from clear to **milky**."
     },
     {
      "id": "q4",
-     "start": 784.085,
-     "end": 786.112,
+     "start": 784.427,
+     "end": 786.453,
      "cap": "Why do you keep panting after a sprint?"
     },
     {
      "id": "a4",
-     "start": 790.612,
-     "end": 796.116,
+     "start": 790.953,
+     "end": 796.457,
      "cap": "To take in extra oxygen and repay the **oxygen debt**, breaking down the lactic acid."
     },
     {
      "id": "q5",
-     "start": 796.616,
-     "end": 799.603,
+     "start": 796.957,
+     "end": 799.944,
      "cap": "True or false: plants only respire at night."
     },
     {
      "id": "a5",
-     "start": 804.103,
-     "end": 807.047,
+     "start": 804.444,
+     "end": 807.388,
      "cap": "**False.** Plants respire all the time, day and night."
     },
     {
      "id": "outro",
-     "start": 807.547,
-     "end": 812.539,
+     "start": 807.888,
+     "end": 812.88,
      "cap": "Brilliant work. Now try the Respiration quiz in your Science Lab, to lock it in."
     }
    ]
   }
  ],
- "total": 813.739
+ "total": 814.08
 }

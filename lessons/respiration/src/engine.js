@@ -5,6 +5,14 @@
    ========================================================================== */
 (function () {
   'use strict';
+  /* Scenes measure label widths, so build them only once the stage fonts are in (or after 3 s). */
+  function waitFonts() {
+    const f = document.fonts;
+    if (!f || !f.load) return Promise.resolve();
+    const faces = ['500 40px Fredoka', '600 40px Fredoka', '700 40px Fredoka', '400 24px "Atkinson Hyperlegible Next"', '600 24px "Atkinson Hyperlegible Next"'];
+    return Promise.race([Promise.all(faces.map(x => f.load(x).catch(() => null))), new Promise(r => setTimeout(r, 3000))]);
+  }
+  function boot() {
   const TL = JSON.parse(document.getElementById('timeline').textContent);
   const CH = TL.chapters, TOTAL = TL.total;
   const REDUCE = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -417,4 +425,6 @@
   loadAudio();
 
   window.__lesson = { ready: true, TL, scenes, renderAt: t => { posterT = null; render(t); ui(t); }, seek, play, pause, now, audio, mode: () => mode };
+  }
+  waitFonts().then(boot, boot);
 })();
