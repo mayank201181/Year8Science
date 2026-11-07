@@ -3,6 +3,7 @@ import type { TopicExtras } from "../types";
 // Engagement extras for sound. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const soundExtras: TopicExtras = {
+  lesson: { href: "/lessons/sound.html", minutes: 15, chapters: 14 },
   interactive: "sound-wave",
   hook: "Out in space, a star can explode with the force of billions of bombs and you would hear absolutely nothing. Why does the loudest event imaginable make total silence?",
   didYouKnow: [
