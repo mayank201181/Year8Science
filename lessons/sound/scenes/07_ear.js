@@ -104,14 +104,15 @@ scene('ear', S => {
     g.setEars(0); g.wag(0, 0);
     return g;
   }
-  /* loudspeaker: dark box with a grey cone facing right; g.set(push -1..1) moves the cone horizontally */
+  /* loudspeaker: the lesson's shared look (chapters 0-2: dark box, grey cone facing right), scale s;
+     g.set(push -1..1) moves the cone horizontally */
   function speaker(parent, s) {
-    const g = G(parent), k = s || 1;
-    E('rect', { x: -40 * k, y: -60 * k, width: 52 * k, height: 120 * k, rx: 10 * k, fill: '#22313D', stroke: '#5E7A8C', 'stroke-width': 3 }, g);
-    const cone = G(g);
-    E('path', { d: `M${12 * k},${-22 * k} L${34 * k},${-50 * k} L${34 * k},${50 * k} L${12 * k},${22 * k} Z`, fill: '#8FA4B3', stroke: '#C9D6DE', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, cone);
-    E('ellipse', { cx: 34 * k, cy: 0, rx: 6 * k, ry: 50 * k, fill: '#6E8494', stroke: '#C9D6DE', 'stroke-width': 2 }, cone);
-    g.set = v => tr(cone, 5 * k * v, 0);
+    const g = G(parent), k = G(g); tr(k, 0, 0, s || 1);
+    E('rect', { x: -46, y: -60, width: 56, height: 120, rx: 10, fill: ball('#36505F', '#16242D'), stroke: '#6F8B9B', 'stroke-width': 3 }, k);
+    const cone = G(k);
+    E('path', { d: 'M8,-24 L44,-58 L44,58 L8,24 Z', fill: linGrad('#7D8E9A', '#C9D5DD'), stroke: '#DCE6EC', 'stroke-width': 3, 'stroke-linejoin': 'round' }, cone);
+    E('path', { d: 'M8,-24 Q20,0 8,24', fill: '#5D707C', stroke: '#DCE6EC', 'stroke-width': 2.5 }, cone);
+    g.set = v => tr(cone, 5 * v, 0);
     return g;
   }
   /* yellow warning triangle with "!" */

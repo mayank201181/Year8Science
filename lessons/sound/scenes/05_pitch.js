@@ -8,6 +8,7 @@
 scene('pitch', S => {
   const { at, mid } = S, root = S.root;
   const calm = S.reduce ? 0.35 : 1;
+  const CF = C.good, CA = C.heat;   // frequency green, amplitude orange: the quantity colours of chapter 9
 
   /* ---------- helpers ---------- */
   function rich(parent, x, y, segs, o) {
@@ -50,17 +51,15 @@ scene('pitch', S => {
     return keys[keys.length - 1][1];
   }
 
-  /* loudspeaker: dark box with a grey cone facing right; origin = box centre, cone mouth at x = 58.
+  /* loudspeaker: the lesson's shared look (chapters 0-2: dark box, grey cone facing right) at 1.27x;
+     origin = box centre, cone mouth at x = 58.
      g.upd(t, f, a): the cone moves a px in and out (horizontally), f times a second (drawn slowed down) */
   function speaker(parent) {
-    const g = G(parent);
-    E('rect', { x: -62, y: -76, width: 84, height: 152, rx: 14, fill: '#162531', stroke: '#47667C', 'stroke-width': 3 }, g);
-    E('circle', { cx: -20, cy: -44, r: 9, fill: '#24394A', stroke: '#47667C', 'stroke-width': 2 }, g);
-    E('circle', { cx: -20, cy: 46, r: 5, fill: '#24394A' }, g);
-    const cone = G(g);
-    E('path', { d: 'M16,-24 L54,-66 L54,66 L16,24 Z', fill: linGrad('#DCE4EA', '#7D8C98', true), stroke: '#EEF3F6', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, cone);
-    E('ellipse', { cx: 54, cy: 0, rx: 5, ry: 66, fill: 'none', stroke: '#566875', 'stroke-width': 5 }, cone);
-    E('ellipse', { cx: 18, cy: 0, rx: 7, ry: 22, fill: '#8594A0', stroke: '#E1E8ED', 'stroke-width': 2 }, cone);
+    const g = G(parent), K = 'translate(2 0) scale(1.27)';
+    E('rect', { x: -46, y: -60, width: 56, height: 120, rx: 10, fill: ball('#36505F', '#16242D'), stroke: '#6F8B9B', 'stroke-width': 3 }, G(g, { transform: K }));
+    const cone = G(g), kc = G(cone, { transform: K });
+    E('path', { d: 'M8,-24 L44,-58 L44,58 L8,24 Z', fill: linGrad('#7D8E9A', '#C9D5DD'), stroke: '#DCE6EC', 'stroke-width': 3, 'stroke-linejoin': 'round' }, kc);
+    E('path', { d: 'M8,-24 Q20,0 8,24', fill: '#5D707C', stroke: '#DCE6EC', 'stroke-width': 2.5 }, kc);
     g.upd = (t, f, a) => tr(cone, a * Math.sin(TAU * f * t), 0);
     return g;
   }
@@ -202,22 +201,22 @@ scene('pitch', S => {
   T(brk, 760, PY + 58, '1 second', { size: 30, weight: 700, anchor: 'middle', fill: C.energy });
   // amplitude: rest line to the top of a crest
   const ampG = G(B), CRX = TX + 87.5;
-  const ampArrow = arrow(ampG, CRX, TY - 3, CRX, TY - AMP + 6, { color: C.energy, width: 5, head: 17 });
-  const ampTop = E('circle', { cx: CRX, cy: TY - AMP, r: 7, fill: C.energy }, ampG);
-  const ampLab = T(ampG, CRX, TY - AMP - 22, 'amplitude', { size: 30, weight: 700, anchor: 'middle', fill: C.energy });
+  const ampArrow = arrow(ampG, CRX, TY - 3, CRX, TY - AMP + 6, { color: CA, width: 5, head: 17 });
+  const ampTop = E('circle', { cx: CRX, cy: TY - AMP, r: 7, fill: CA }, ampG);
+  const ampLab = T(ampG, CRX, TY - AMP - 22, 'amplitude', { size: 30, weight: 700, anchor: 'middle', fill: CA });
   const restLab = T(ampG, TX + 8, TY + 40, 'rest position', { size: 26, weight: 600, fill: C.ink });
 
   // count chip, then "4 waves a second = 4 Hz"
   const cnt = G(root);
   E('rect', { x: -112, y: -28, width: 224, height: 56, rx: 28, fill: C.card2, stroke: C.energy, 'stroke-width': 3 }, cnt);
   const cntTxt = T(cnt, 0, 11, '1 wave', { size: 31, weight: 700, anchor: 'middle', fill: C.energy });
-  const hzChip = richChip(root, ['4 waves a second = ', ['4 Hz', C.energy, 800]], { size: 31, stroke: C.energy });
+  const hzChip = richChip(root, ['4 waves a second = ', ['4 Hz', CF, 800]], { size: 31, stroke: CF });
   // left column: a dot that vibrates once a second
   const dotG = G(root);
   E('line', { x1: 190, x2: 190, y1: 300, y2: 420, stroke: C.muted, 'stroke-width': 3, 'stroke-dasharray': '7 7' }, dotG);
   [140, 240].forEach(x => E('circle', { cx: x, cy: 360, r: 17, fill: 'none', stroke: C.energy, 'stroke-width': 2.5, 'stroke-dasharray': '4 5', opacity: 0.5 }, dotG));
   const dot = E('circle', { cx: 190, cy: 360, r: 17, fill: ball(C.energy, '#C9A21E') }, dotG);
-  T(dotG, 190, 476, '1 Hz', { size: 46, weight: 700, anchor: 'middle', fill: C.energy });
+  T(dotG, 190, 476, '1 Hz', { size: 46, weight: 700, anchor: 'middle', fill: CF });
   T(dotG, 190, 518, 'one vibration', { size: 27, weight: 600, anchor: 'middle' });
   T(dotG, 190, 552, 'per second', { size: 27, weight: 600, anchor: 'middle' });
   // left column: high and low sources
@@ -234,13 +233,13 @@ scene('pitch', S => {
 
   /* headers and labels */
   const H1 = G(root); rich(H1, 760, 150, [['Pitch', C.energy, 800], ': how high or low a sound seems'], { size: 36, anchor: 'middle' });
-  const H2 = G(root); rich(H2, 760, 150, [['Loudness', C.energy, 800], ' depends on ', ['amplitude', C.energy, 800]], { size: 36, anchor: 'middle' });
+  const H2 = G(root); rich(H2, 760, 150, [['Loudness', C.energy, 800], ' depends on ', ['amplitude', CA, 800]], { size: 36, anchor: 'middle' });
   const lab = (y, segs) => { const g = G(root); rich(g, 760, y, segs, { size: 32, anchor: 'middle' }); return g; };
-  const L1 = lab(688, [['frequency', C.energy, 800], ': complete waves each second']);
-  const L2 = lab(688, ['unit: ', ['hertz (Hz)', C.energy, 800]]);
-  const L3 = lab(624, [['high', C.energy, 800], ' frequency → ', ['high', C.energy, 800], ' pitch']);
-  const L4 = lab(624, [['low', C.energy, 800], ' frequency → ', ['low', C.energy, 800], ' pitch']);
-  const L5 = lab(624, [['amplitude', C.energy, 800], ': rest position → furthest point']);
+  const L1 = lab(688, [['frequency', CF, 800], ': complete waves each second']);
+  const L2 = lab(688, ['unit: ', ['hertz (Hz)', CF, 800]]);
+  const L3 = lab(624, [['high frequency', CF, 800], ' → ', ['high', C.energy, 800], ' pitch']);
+  const L4 = lab(624, [['low frequency', CF, 800], ' → ', ['low', C.energy, 800], ' pitch']);
+  const L5 = lab(624, [['amplitude', CA, 800], ': rest position → furthest point']);
 
   /* ================= C. loud and quiet: same spacing ================= */
   const Cg = G(root);
@@ -251,8 +250,8 @@ scene('pitch', S => {
     restLine(g, TX - 12, TX + TW + 12, y);
     const w = sineWave(g, { w: TW, amp: RAMP[i], wl: RWL, color: C.air, width: 6 }); tr(w, TX, y);
     const bar = G(g);
-    E('line', { x1: TX + RWL / 4, x2: TX + RWL / 4, y1: y, y2: y - RAMP[i], stroke: C.energy, 'stroke-width': 5, 'stroke-linecap': 'round' }, bar);
-    E('line', { x1: TX + RWL / 4 - 12, x2: TX + RWL / 4 + 12, y1: y - RAMP[i], y2: y - RAMP[i], stroke: C.energy, 'stroke-width': 4, 'stroke-linecap': 'round' }, bar);
+    E('line', { x1: TX + RWL / 4, x2: TX + RWL / 4, y1: y, y2: y - RAMP[i], stroke: CA, 'stroke-width': 5, 'stroke-linecap': 'round' }, bar);
+    E('line', { x1: TX + RWL / 4 - 12, x2: TX + RWL / 4 + 12, y1: y - RAMP[i], y2: y - RAMP[i], stroke: CA, 'stroke-width': 4, 'stroke-linecap': 'round' }, bar);
     const sp = speaker(g); tr(sp, 128, y, 0.68);
     const arcs = soundArcs(sp, { v: 120, r0: 6, range: 150, n: 8 }); tr(arcs, 58, 0);
     T(g, 128, y + 90, i ? 'quiet' : 'loud', { size: 32, weight: 700, anchor: 'middle', fill: i ? C.muted : C.energy });
@@ -273,8 +272,8 @@ scene('pitch', S => {
     rich(g, x, 318, [[i ? 'B' : 'F', C.energy, 800], i ? 'ig vibrations' : 'ast vibrations'], { size: 34, weight: 700, anchor: 'middle' });
     restLine(g, x - 190, x + 190, 428);
     E('path', { d: i ? sinePath(x - 180, 428, 360, 68, 144) : sinePath(x - 180, 428, 360, 32, 51.43), fill: 'none', stroke: C.air, 'stroke-width': 5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);
-    if (i) rich(g, x, 545, ['big ', ['amplitude', C.energy, 800]], { size: 30, anchor: 'middle' });
-    else rich(g, x, 545, ['high ', ['f', C.energy, 800], 'requency'], { size: 30, anchor: 'middle' });
+    if (i) rich(g, x, 545, ['big ', ['amplitude', CA, 800]], { size: 30, anchor: 'middle' });
+    else rich(g, x, 545, ['high ', ['frequency', CF, 800]], { size: 30, anchor: 'middle' });
     if (i) rich(g, x, 600, ['= loud: a big ', ['b', C.energy, 800], 'ang'], { size: 34, weight: 700, anchor: 'middle' });
     else rich(g, x, 600, ['= high ', ['p', C.energy, 800], 'itch'], { size: 34, weight: 700, anchor: 'middle' });
     return g;
@@ -343,7 +342,7 @@ scene('pitch', S => {
     E('line', { x1: x, x2: x, y1: 438, y2: 642, stroke: C.ink, 'stroke-width': 2.5, 'stroke-dasharray': '3 7', opacity: 0.5 }, crestG);
     crestDots.push(E('circle', { cx: x, cy: GTY, r: 7, fill: C.energy }, crestG));
   }
-  const gHdr = G(Fg); rich(gHdr, 600, 140, [['higher note', C.energy, 800], ' → raise the ', ['frequency', C.energy, 800]], { size: 34, anchor: 'middle' });
+  const gHdr = G(Fg); rich(gHdr, 600, 140, [['higher note', C.energy, 800], ' → raise the ', ['frequency', CF, 800]], { size: 34, anchor: 'middle' });
   const steps = ['tighten it', 'shorten it', 'thinner string'].map((s, i) => {
     const g = G(Fg);
     const c = chip(g, s, { size: 28, w: 290, fill: C.card2, stroke: C.line }); c.label.setAttribute('x', -16);
@@ -354,7 +353,7 @@ scene('pitch', S => {
   const hard = G(Fg);
   const hardChip = chip(hard, 'pluck harder', { size: 28, w: 290, fill: C.card2, stroke: C.energy }); tr(hardChip, 190, 470);
   const hardArrow = arrow(hard, 190, 502, 190, 536, { color: C.muted, width: 4, head: 14 });
-  const hardAmp = rich(hard, 190, 574, ['bigger ', ['amplitude', C.energy, 800]], { size: 30, anchor: 'middle' });
+  const hardAmp = rich(hard, 190, 574, ['bigger ', ['amplitude', CA, 800]], { size: 30, anchor: 'middle' });
   const samePitch = G(hard); rich(samePitch, 172, 640, ['same pitch'], { size: 30, weight: 700, anchor: 'middle' });
   const spTick = tick(samePitch, 13); tr(spTick, 278, 630);
 
@@ -383,8 +382,10 @@ scene('pitch', S => {
       op(o.q, P(t, mid('two', 0.58 + i * 0.1), 0.45, linear));
     });
 
-    /* --- the speaker: centre, then the panel's source at the left --- */
-    const sOn = Math.min(P(t, S.first, 0.4, linear), 1 - P(t, mid('hertz', 0.38), 0.4, linear)) + win(t, at('loud') - 0.1, at('big') + 0.05, 0.45);
+    /* --- the speaker: centre, then the panel's source at the left. It slides off before the trace draws in, so
+       the 4 waves a second counted there are only a counting example, never a sound you would hear (4 Hz is far
+       too low to hear); it comes back for loudness --- */
+    const sOn = Math.min(P(t, S.first, 0.4, linear), 1 - P(t, mid('pitch', 0.02), 0.5, linear)) + win(t, at('loud') - 0.1, at('big') + 0.05, 0.45);
     op(spk, sOn);
     if (sOn > 0) {
       const mv = P(t, at('pitch') - 0.1, 1.0);

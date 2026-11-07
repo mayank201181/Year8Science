@@ -50,9 +50,10 @@ scene('kinds', S => {
     return g;
   }
   function miniSpeaker(parent) {
-    const g = G(parent);
-    E('rect', { x: -16, y: -18, width: 18, height: 36, rx: 4, fill: '#162531', stroke: '#9FD8FF', 'stroke-width': 2 }, g);
-    E('path', { d: 'M2,-7 L14,-17 L14,17 L2,7 Z', fill: '#C9D3DB' }, g);
+    const g = G(parent), k = G(g, { transform: 'scale(0.3)' });   // the lesson's shared loudspeaker (chapters 0-2), small
+    E('rect', { x: -46, y: -60, width: 56, height: 120, rx: 10, fill: ball('#36505F', '#16242D'), stroke: '#6F8B9B', 'stroke-width': 3 }, k);
+    E('path', { d: 'M8,-24 L44,-58 L44,58 L8,24 Z', fill: linGrad('#7D8E9A', '#C9D5DD'), stroke: '#DCE6EC', 'stroke-width': 3, 'stroke-linejoin': 'round' }, k);
+    E('path', { d: 'M8,-24 Q20,0 8,24', fill: '#5D707C', stroke: '#DCE6EC', 'stroke-width': 2.5 }, k);
     [10, 18].forEach(r => E('path', { d: `M${18 + r * 0.2},${-r * 0.8} A${r},${r} 0 0 1 ${18 + r * 0.2},${r * 0.8}`, fill: 'none', stroke: C.air, 'stroke-width': 2.5, 'stroke-linecap': 'round' }, g));
     return g;
   }

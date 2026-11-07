@@ -15,6 +15,110 @@ scene('quiz', S => {
     return t;
   }
   const Y = C.energy;
+  const CA = C.heat;   // amplitude orange: the quantity colour of chapter 9
+
+  /* ---------- mini art drawn like the full chapters ---------- */
+  /* chapter 3's bell-jar apparatus with no air inside, scaled s; origin = middle of the base: a glass jar with a
+     bung, the electric bell hanging on its wires from a battery box, the base plate and the pipe to the pump.
+     g.strike(hit 0..1) swings the hammer onto the gong */
+  function bellJar(parent, s) {
+    const g = G(parent), k = G(g); tr(k, 0, 0, s || 1);
+    const yA = f1(-240 - 138 * Math.sqrt(1 - (16 / 170) * (16 / 170)));
+    const jarD = `M-170,0 L-170,-240 A170,138 0 0 1 -16,${yA} L-16,-396 L16,-396 L16,${yA} A170,138 0 0 1 170,-240 L170,0`;
+    E('path', { d: 'M180,13 L330,13', stroke: '#9DB7C6', 'stroke-width': 28, 'stroke-linecap': 'round' }, k);
+    E('path', { d: 'M180,13 L330,13', stroke: '#0E2530', 'stroke-width': 21, 'stroke-linecap': 'round' }, k);
+    E('path', { d: 'M280,13 L280,-34', stroke: '#9DB7C6', 'stroke-width': 26, 'stroke-linecap': 'round' }, k);
+    E('path', { d: 'M280,13 L280,-34', stroke: '#0E2530', 'stroke-width': 19, 'stroke-linecap': 'round' }, k);
+    E('rect', { x: 254, y: -27, width: 52, height: 14, rx: 7, fill: '#E8424F', stroke: '#FFB3BA', 'stroke-width': 2 }, k);
+    E('circle', { cx: 280, cy: -20, r: 7, fill: '#F4F7FA' }, k);
+    E('rect', { x: -210, y: 0, width: 420, height: 26, rx: 6, fill: '#5E6E7B', stroke: '#8FA2B0', 'stroke-width': 2.5 }, k);
+    E('path', { d: 'M-6,-300 L-6,-438 M6,-300 L6,-438', stroke: '#E9EEF2', 'stroke-width': 3 }, k);
+    E('rect', { x: -48, y: -478, width: 96, height: 40, rx: 8, fill: '#2E3D48', stroke: '#6E8496', 'stroke-width': 2.5 }, k);
+    tr(bolt(k), 0, -458, 0.27);
+    const bell = G(k); tr(bell, 0, -300);
+    E('rect', { x: -32, y: 0, width: 64, height: 36, rx: 7, fill: '#46545F', stroke: '#8FA2B0', 'stroke-width': 3 }, bell);
+    E('rect', { x: -22, y: 8, width: 14, height: 20, rx: 3, fill: '#C9853F' }, bell);
+    E('rect', { x: 8, y: 8, width: 14, height: 20, rx: 3, fill: '#C9853F' }, bell);
+    E('line', { x1: 0, y1: 36, x2: 0, y2: 46, stroke: '#8FA2B0', 'stroke-width': 7 }, bell);
+    E('circle', { cx: 0, cy: 82, r: 38, fill: ball('#F6D77A', '#A87A16'), stroke: '#FFE8A3', 'stroke-width': 2.5 }, bell);
+    E('circle', { cx: 0, cy: 82, r: 29, fill: 'none', stroke: '#C99A2E', 'stroke-width': 2, opacity: 0.6 }, bell);
+    E('circle', { cx: 0, cy: 82, r: 6, fill: '#8C6410' }, bell);
+    const ham = G(bell);
+    E('line', { x1: 0, y1: 0, x2: 0, y2: 46, stroke: '#C9D6DE', 'stroke-width': 5, 'stroke-linecap': 'round' }, ham);
+    E('circle', { cx: 0, cy: 52, r: 9, fill: ball('#E3EAEF', '#7D8C99') }, ham);
+    E('circle', { cx: 30, cy: 32, r: 4.5, fill: '#1B2B36' }, bell);
+    E('path', { d: jarD + 'Z', fill: GLASS.fill }, k);
+    E('path', { d: jarD, fill: 'none', stroke: GLASS.stroke, 'stroke-width': 4.5, 'stroke-linejoin': 'round' }, k);
+    E('path', { d: 'M-154,-40 L-154,-228 Q-146,-300 -70,-342', fill: 'none', stroke: GLASS.shine, 'stroke-width': 7, 'stroke-linecap': 'round' }, k);
+    E('path', { d: 'M-22,-414 L22,-414 L17,-388 L-17,-388 Z', fill: '#8C4A3C', stroke: '#C27A6A', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, k);
+    g.strike = hit => tr(ham, 30, 32, 1, -20 - 24 * (1 - clamp(hit)));
+    g.strike(0);
+    return g;
+  }
+  /* chapter 6's oscilloscope screen (w x h, centred): dark green face, grid at 40%, dashed rest line */
+  function scopeScreen(parent, w, h) {
+    const g = G(parent);
+    E('rect', { x: -w / 2, y: -h / 2, width: w, height: h, rx: 14, fill: '#06140F', stroke: '#2E4A3C', 'stroke-width': 3 }, g);
+    const grid = G(g, { opacity: 0.4 });
+    for (let i = 1; i < 10; i++) E('line', { x1: -w / 2 + i * w / 10, x2: -w / 2 + i * w / 10, y1: -h / 2 + 4, y2: h / 2 - 4, stroke: C.line, 'stroke-width': 1.5 }, grid);
+    for (let j = 1; j < 8; j++) if (j !== 4) E('line', { x1: -w / 2 + 4, x2: w / 2 - 4, y1: -h / 2 + j * h / 8, y2: -h / 2 + j * h / 8, stroke: C.line, 'stroke-width': 1.5 }, grid);
+    E('line', { x1: -w / 2 + 10, x2: w / 2 - 10, y1: 0, y2: 0, stroke: '#3E8A66', 'stroke-width': 2.5, 'stroke-dasharray': '9 8' }, g);
+    return g;
+  }
+  /* chapter 4's sound pulse: three ")" arcs with a soft glow, apex of the front arc at (0,0) */
+  function pulseIcon(parent, hh, b) {
+    const g = G(parent);
+    E('ellipse', { cx: -16, cy: 0, rx: Math.max(26, b * 2.4), ry: hh * 1.08, fill: glow(C.air) }, g);
+    [0, 1, 2].forEach(k => {
+      const x = -k * Math.max(13, b), y = hh * (1 - k * 0.12);
+      E('path', { d: `M${f1(x - b)},${f1(-y)} Q${f1(x + b)},0 ${f1(x - b)},${f1(y)}`, fill: 'none', stroke: C.air, 'stroke-width': 5.5 - k * 1.3, 'stroke-linecap': 'round', opacity: 1 - k * 0.3 }, g);
+    });
+    return g;
+  }
+  /* chapter 4's race lanes at k x their size: a band with the medium's particles, a faint trail and a pulse */
+  const LANE_LOOK = [
+    { band: 'rgba(159,216,255,0.07)', tile: [62, 58], dots: [[12, 14], [40, 40], [52, 10], [26, 47]], r: 5, fill: 'rgba(159,216,255,0.6)' },
+    { band: 'rgba(76,201,240,0.17)', tile: [46, 58], dots: [[7, 8], [23, 12], [39, 7], [13, 26], [30, 30], [42, 23], [6, 45], [21, 50], [37, 45]], r: 5.5, fill: 'rgba(76,201,240,0.75)' },
+    { band: null, tile: [13, 11.6], dots: [[6.5, 5.8]], r: 4.3, fill: '#9AA7B3' },
+  ];
+  function raceLane(parent, i, x0, y, len, k, id) {
+    const L = LANE_LOOK[i], h = 58 * k, g = G(parent);
+    const pt = E('pattern', { id, width: f1(L.tile[0] * k), height: f1(L.tile[1] * k), patternUnits: 'userSpaceOnUse', x: x0, y: f1(y - h / 2) }, defs());
+    L.dots.forEach(([cx, cy]) => E('circle', { cx: f1(cx * k), cy: f1(cy * k), r: f1(L.r * k), fill: L.fill }, pt));
+    const box = { x: x0, y: y - h / 2, width: len, height: h, rx: 12 * k };
+    E('rect', Object.assign({ fill: L.band || linGrad('#5B6874', '#3A4550', true) }, box), g);
+    E('rect', Object.assign({ fill: `url(#${id})` }, box), g);
+    E('rect', Object.assign({ fill: 'none', stroke: C.line, 'stroke-width': 2 }, box), g);
+    g.trail = E('rect', Object.assign({}, box, { width: 0, fill: C.air, opacity: 0.2 }), g);
+    g.pulse = G(g); pulseIcon(G(g.pulse, { transform: `scale(${k})` }), 22, 8);
+    g.set = d => { attr(g.trail, 'width', Math.max(0, d)); tr(g.pulse, x0 + d, y); };
+    g.set(0);
+    return g;
+  }
+  /* horizontal gradient of one colour; stops [[offset, opacity], ...] */
+  let gid = 0;
+  function hgrad(color, stops) {
+    const id = 'quiz-hg' + (++gid), lg = E('linearGradient', { id, x1: 0, y1: 0, x2: 1, y2: 0 }, defs());
+    stops.forEach(([o, a]) => E('stop', { offset: o, 'stop-color': color, 'stop-opacity': a }, lg));
+    return `url(#${id})`;
+  }
+  /* chapter 4's storm cloud, house and observer (the observer faces left, towards the storm) */
+  function stormCloud(parent) {
+    const g = G(parent);
+    [[-96, 22, 40], [-52, -6, 54], [8, -24, 62], [70, -6, 52], [116, 20, 38], [-128, 36, 28]].forEach(([x, y, r]) => E('circle', { cx: x, cy: y, r, fill: '#3B4755', stroke: '#5A6878', 'stroke-width': 3 }, g));
+    E('rect', { x: -150, y: 14, width: 290, height: 46, rx: 23, fill: '#3B4755' }, g);
+    [[-96, 22, 36], [-52, -6, 50], [8, -24, 58], [70, -6, 48], [116, 20, 34]].forEach(([x, y, r]) => E('circle', { cx: x, cy: y + 4, r, fill: '#3B4755' }, g));
+    return g;
+  }
+  function houseAndObserver(parent) {
+    const g = G(parent), house = G(g);
+    E('rect', { x: 60, y: -98, width: 98, height: 94, fill: '#5E4A3A', stroke: '#8C735D', 'stroke-width': 3 }, house);
+    E('path', { d: 'M48,-94 L109,-148 L166,-94 Z', fill: '#8C3B32', stroke: '#B95A4C', 'stroke-width': 3, 'stroke-linejoin': 'round' }, house);
+    E('rect', { x: 74, y: -76, width: 30, height: 28, rx: 3, fill: '#FFD27A', stroke: '#8C735D', 'stroke-width': 3 }, house);
+    E('rect', { x: 120, y: -56, width: 24, height: 52, rx: 3, fill: '#3A2C22' }, house);
+    person(G(g, { transform: 'scale(-1 1)' }), { shirt: '#E8424F', shorts: '#3A4A5C' }).pose({ armL: [6, 8], armR: [-6, 8] });
+    return g;
+  }
 
   /* ---------- progress dots (top right) ---------- */
   const dotsG = G(root);
@@ -35,98 +139,86 @@ scene('quiz', S => {
   rich(intro, 600, 414, ['Say each answer ', ['out loud', Y, 800], ' before it appears'], { size: 32, anchor: 'middle', fill: C.muted });
 
   /* ---------- pictures for the answers (drawn around (0,0), placed at (300, 556)) ---------- */
-  // 1. an empty bell jar: the hammer strikes, but there are no particles to carry the sound
+  // 1. chapter 3's bell jar with the air pumped out: the hammer strikes, but there are no particles to carry the sound
   function picJar(g) {
-    const k = G(g); tr(k, 0, 64, 1.25);
-    E('path', { d: 'M-46,0 L-46,-56 A46,46 0 0 1 46,-56 L46,0 Z', fill: 'rgba(200,230,250,0.10)' }, k);
-    E('line', { x1: 0, y1: -100, x2: 0, y2: -70, stroke: '#C9D6DE', 'stroke-width': 3 }, k);
-    const bell = G(k); tr(bell, 0, -70);
-    E('path', { d: 'M-15,22 Q-15,0 0,0 Q15,0 15,22 Z', fill: ball(C.glucose, C.glucoseDk), stroke: C.glucoseLt, 'stroke-width': 2 }, bell);
-    const ham = G(k);
-    E('line', { x1: 0, y1: 0, x2: 22, y2: -6, stroke: '#C9D6DE', 'stroke-width': 3, 'stroke-linecap': 'round' }, ham);
-    E('circle', { cx: 0, cy: 0, r: 5, fill: '#C9D6DE' }, ham);
-    E('path', { d: 'M-46,0 L-46,-56 A46,46 0 0 1 46,-56 L46,0', fill: 'none', stroke: '#CFE7F5', 'stroke-width': 3, 'stroke-linejoin': 'round' }, k);
-    E('rect', { x: -40, y: -96, width: 6, height: 50, rx: 3, fill: 'rgba(255,255,255,0.25)' }, k);
-    E('rect', { x: -60, y: 0, width: 120, height: 12, rx: 4, fill: '#6B7A88', stroke: '#9DB0BF', 'stroke-width': 2 }, k);
-    E('path', { d: 'M60,6 L92,6 L92,-20', fill: 'none', stroke: '#9DB0BF', 'stroke-width': 7, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, k);
+    const jar = bellJar(g, 0.36); tr(jar, -20, 72);
     const ghosts = G(g);
-    [[-30, -14], [24, -22], [-8, 22], [30, 30], [-34, 40]].forEach(([x, y]) => E('circle', { cx: x, cy: y + 10, r: 9, fill: 'none', stroke: C.air, 'stroke-width': 2, 'stroke-dasharray': '4 4', opacity: 0.45 }, ghosts));
+    [[-60, -4], [18, -8], [-56, 40], [16, 44], [-20, 54], [-44, -40], [8, -42]].forEach(([x, y]) => E('circle', { cx: x, cy: y, r: 9, fill: 'none', stroke: C.air, 'stroke-width': 2, 'stroke-dasharray': '4 4', opacity: 0.45 }, ghosts));
     const lab = chip(g, 'no particles', { size: 26, fill: C.card2, stroke: C.line, sw: 2 }); tr(lab, 0, 118);
     return t => {
-      const hit = Math.pow(wave(t * calm, 0.7), 6);
-      ham.setAttribute('transform', `translate(0 -46) rotate(${(-28 + 22 * hit).toFixed(1)})`);
+      jar.strike(Math.pow(wave(t * calm, 0.7), 6));
       op(ghosts, 0.5 + 0.5 * wave(t, 1.8));
     };
   }
-  // 2. louder at the same pitch: the trace grows taller, its peaks keep their places
+  // 2. louder at the same pitch, on chapter 6's oscilloscope: the trace grows taller, its peaks keep their places
   function picTrace(g) {
     const w = 270, h = 150;
-    E('rect', { x: -w / 2, y: -h / 2, width: w, height: h, rx: 14, fill: '#06140F', stroke: '#2C5468', 'stroke-width': 3 }, g);
-    for (let i = 1; i < 6; i++) E('line', { x1: -w / 2 + i * w / 6, x2: -w / 2 + i * w / 6, y1: -h / 2 + 3, y2: h / 2 - 3, stroke: C.line, 'stroke-width': 1.5, opacity: 0.4 }, g);
-    for (let i = 1; i < 4; i++) E('line', { x1: -w / 2 + 3, x2: w / 2 - 3, y1: -h / 2 + i * h / 4, y2: -h / 2 + i * h / 4, stroke: C.line, 'stroke-width': 1.5, opacity: 0.4 }, g);
+    scopeScreen(g, w, h);
     const WL = 82, X0 = -123;
     const ghost = sineWave(g, { w: 246, amp: 16, wl: WL, color: C.good, width: 3 }); tr(ghost, X0, 0); ghost.setAttribute('opacity', 0.35);
+    const halo = sineWave(g, { w: 246, amp: 16, wl: WL, color: C.good, width: 13 }); tr(halo, X0, 0); halo.firstChild.setAttribute('opacity', 0.16);
     const tr_ = sineWave(g, { w: 246, amp: 16, wl: WL, color: C.good, width: 4.5 }); tr(tr_, X0, 0);
     const peaks = [0, 1, 2].map(k => E('circle', { cx: X0 + WL * (k + 0.25), r: 6, fill: C.energy, stroke: '#FFF7C2', 'stroke-width': 1.5 }, g));
     T(g, 0, h / 2 + 40, 'taller, same spacing', { size: 26, weight: 600, fill: C.muted, anchor: 'middle' });
     return t => {
       const a = lerp(16, 50, P(t, at('a2') + 0.3, 1.4));
-      tr_.set({ amp: a, phase: 0 });
+      halo.set({ amp: a, phase: 0 }); tr_.set({ amp: a, phase: 0 });
       peaks.forEach(p => attr(p, 'cy', -a));
     };
   }
-  // 3. the race: speeds to scale (steel 5,000 : water 1,500 : air 340 m/s)
+  // 3. chapter 4's race lanes: speeds to scale (steel 5,000 : water 1,500 : air 340 m/s)
   function picRace(g) {
-    const L0 = -70, L = 200, lanes = [['air', 340], ['water', 1500], ['steel', 5000]].map(([nm, v], i) => {
-      const y = -60 + i * 58, lg = G(g);
-      T(lg, L0 - 16, y + 9, nm, { size: 27, weight: 600, fill: nm === 'steel' ? Y : C.ink, anchor: 'end' });
-      E('line', { x1: L0, x2: L0 + L, y1: y, y2: y, stroke: C.line, 'stroke-width': 6, 'stroke-linecap': 'round' }, lg);
-      const bar = E('line', { x1: L0, x2: L0, y1: y, y2: y, stroke: C.air, 'stroke-width': 6, 'stroke-linecap': 'round', opacity: 0.55 }, lg);
-      const dot = E('circle', { cy: y, r: 9, fill: ball(C.air, '#4E8FB8') }, lg);
-      return { y, bar, dot, d: L * v / 5000 };
+    const L0 = -70, L = 200;
+    E('line', { x1: L0, y1: -84, x2: L0, y2: 80, stroke: C.muted, 'stroke-width': 2.5, 'stroke-dasharray': '6 6' }, g);
+    for (let q = 0; q < 20; q++) E('rect', { x: L0 + L + (q % 2) * 5, y: -78 + q * 7.8, width: 5, height: 7.8, fill: q % 2 ? '#F2F7FA' : '#1B2B36' }, g);
+    E('rect', { x: L0 + L, y: -78, width: 10, height: 156, fill: 'none', stroke: '#F2F7FA', 'stroke-width': 1.5 }, g);
+    const lanes = [['air', 340, C.air], ['water', 1500, C.water], ['steel', 5000, '#C9D3DB']].map(([nm, v, col], i) => {
+      const y = -60 + i * 58;
+      T(g, L0 - 16, y + 9, nm, { size: 27, weight: 700, fill: col, anchor: 'end' });
+      return { lane: raceLane(g, i, L0, y, L, 0.52, 'quizLane' + i), y, d: L * v / 5000 };
     });
-    E('line', { x1: L0 + L + 12, x2: L0 + L + 12, y1: -84, y2: 80, stroke: C.ink, 'stroke-width': 3, 'stroke-dasharray': '6 6', opacity: 0.7 }, g);
     const win_ = tick(g, 14); tr(win_, L0 + L + 40, lanes[2].y);
     T(g, 0, 118, 'fastest in solids', { size: 26, weight: 600, fill: C.muted, anchor: 'middle' });
     return t => {
       const p = P(t, at('a3') + 0.2, 1.3, linear);
-      lanes.forEach(l => { const x = L0 + l.d * p; attr(l.bar, 'x2', x); attr(l.dot, 'cx', x); });
+      lanes.forEach(l => l.lane.set(l.d * p));
       const w = P(t, at('a3') + 1.5, 0.45, pop); op(win_, clamp(w * 2)); tr(win_, L0 + L + 40, lanes[2].y, Math.max(0.01, w));
     };
   }
-  // 4. the frequency line (log scale, equal steps for x10): the ultrasound zone lights up
+  // 4. the lesson's frequency line (chapters 7, 8 and 11), drawn at DEC px per x10 instead of 186 with the same
+  //    proportions (zones, fading ends, a tick for each x10 from 2 Hz to 200,000 Hz): the ultrasound zone lights up
   function picLine(g) {
-    const X0 = -220, DEC = 56, y = 10;
-    const fx = hz => X0 + DEC * Math.log10(hz / 2);
-    E('rect', { x: X0, y: y - 12, width: 5 * DEC, height: 24, rx: 12, fill: '#0B2230', stroke: C.line, 'stroke-width': 2 }, g);
-    E('rect', { x: X0, y: y - 12, width: DEC, height: 24, rx: 12, fill: C.heat, opacity: 0.55 }, g);
-    E('rect', { x: fx(20), y: y - 12, width: fx(20000) - fx(20), height: 24, rx: 6, fill: C.good, opacity: 0.55 }, g);
-    const halo = E('ellipse', { cx: fx(20000) + DEC / 2, cy: y, rx: 70, ry: 44, fill: glow(C.ethanol) }, g);
-    E('rect', { x: fx(20000), y: y - 14, width: DEC, height: 28, rx: 12, fill: C.ethanol, stroke: '#D8C4FF', 'stroke-width': 2 }, g);
-    E('line', { x1: fx(20000), x2: fx(20000), y1: y - 26, y2: y + 26, stroke: C.ink, 'stroke-width': 3 }, g);
-    T(g, fx(20000), y + 58, '20,000 Hz', { size: 26, weight: 700, fill: C.ink, anchor: 'middle' });
-    T(g, fx(20000) + DEC / 2, y - 40, 'ultrasound', { size: 27, weight: 700, fill: C.ethanol, anchor: 'middle' });
-    const ear = G(g); tr(ear, (fx(20) + fx(20000)) / 2, y - 58, 0.42);
+    const DEC = 62, K = DEC / 186, y = 10, xL = -270, h = 12, fade = 60 * K, top = y - h / 2;
+    const fx = hz => xL + fade + DEC * Math.log10(hz / 2), xR = fx(200000) + fade;
+    const wT = xR - xL, wI = fx(20) - xL, wU = xR - fx(20000);
+    E('rect', { x: xL, y: top, width: wT, height: h, fill: hgrad('#24485A', [[0, 0], [fade / wT, 1], [1 - fade / wT, 1], [1, 0]]) }, g);
+    E('rect', { x: xL, y: top, width: wI, height: h, fill: hgrad(C.heat, [[0, 0], [fade / wI, 1], [1, 1]]), opacity: 0.55 }, g);
+    E('rect', { x: fx(20), y: top, width: fx(20000) - fx(20), height: h, fill: C.good, opacity: 0.55 }, g);
+    const halo = E('ellipse', { cx: (fx(20000) + xR) / 2, cy: y, rx: 70, ry: 40, fill: glow(C.ethanol) }, g);
+    E('rect', { x: fx(20000), y: top, width: wU, height: h, fill: hgrad(C.ethanol, [[0, 1], [1 - fade / wU, 1], [1, 0]]) }, g);
+    [2, 20, 200, 2000, 200000].forEach(hz => E('line', { x1: fx(hz), x2: fx(hz), y1: top + h + 2, y2: top + h + 9, stroke: C.muted, 'stroke-width': 2.5, 'stroke-linecap': 'round' }, g));
+    E('line', { x1: fx(20000), x2: fx(20000), y1: y - 18, y2: y + 18, stroke: C.ink, 'stroke-width': 3 }, g);
+    T(g, fx(20000), y + 48, '20,000 Hz', { size: 26, weight: 700, fill: C.ink, anchor: 'middle' });
+    T(g, (fx(20000) + fx(200000)) / 2, y - 28, 'ultrasound', { size: 27, weight: 700, fill: C.ethanol, anchor: 'middle' });
+    const ear = G(g); tr(ear, (fx(20) + fx(20000)) / 2, y - 46, 0.42);
     E('path', { d: 'M-30,-34 C-28,-66 2,-78 26,-70 C52,-61 60,-30 50,-6 C42,14 26,20 22,38 C18,56 4,70 -14,64 C-28,59 -30,46 -24,36 C-18,26 -10,22 -12,6 C-14,-8 -32,-12 -30,-34 Z', fill: ball('#F2C29C', '#C98E62'), stroke: '#FFE2C8', 'stroke-width': 4, 'stroke-linejoin': 'round' }, ear);
     E('path', { d: 'M-12,-42 C0,-56 26,-52 32,-30 C37,-12 24,-2 14,6', fill: 'none', stroke: '#B97A52', 'stroke-width': 7, 'stroke-linecap': 'round' }, ear);
+    E('ellipse', { cx: -6, cy: 4, rx: 9, ry: 12, fill: '#6E3A26' }, ear);
     return t => { op(halo, 0.55 + 0.45 * wave(t, 1.4)); };
   }
-  // 5. lightning over a hill 1 km away
+  // 5. chapter 4's storm in miniature: lightning over a hill, 1 km from the observer
   function picStorm(g) {
-    E('path', { d: 'M-190,70 Q-120,-6 -50,70 Z', fill: '#2C4A3A', stroke: '#4E7A5E', 'stroke-width': 2 }, g);
-    E('line', { x1: -200, x2: 190, y1: 70, y2: 70, stroke: '#4E7A5E', 'stroke-width': 3 }, g);
-    const cloud = G(g); tr(cloud, -120, -70);
-    E('path', { d: 'M-56,18 C-82,18 -82,-14 -56,-16 C-58,-44 -20,-54 -6,-32 C6,-56 48,-50 48,-20 C76,-20 76,18 48,18 Z', fill: '#5E6F7E', stroke: '#9DB0BF', 'stroke-width': 3 }, cloud);
-    const zap = bolt(cloud, 0.5); tr(zap, -6, 46, 0.5);
     const flash = E('circle', { cx: -120, cy: -30, r: 120, fill: glow(C.energy) }, g);
-    const house = G(g); tr(house, 140, 70);
-    E('path', { d: 'M-26,0 L-26,-34 L0,-56 L26,-34 L26,0 Z', fill: '#C98E62', stroke: '#F2C29C', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, house);
-    E('rect', { x: -8, y: -22, width: 16, height: 22, fill: '#3A2A1E' }, house);
+    E('path', { d: 'M-190,70 Q-160,21 -120,18 Q-80,20 -50,70 Z', fill: '#173A29', stroke: '#2E5E40', 'stroke-width': 2.5 }, g);
+    E('path', { d: 'M-205,70 Q-5,64 195,70 L195,82 L-205,82 Z', fill: '#10271A', stroke: '#2E5E3E', 'stroke-width': 2.5 }, g);
+    const cloud = stormCloud(g); tr(cloud, -124, -72, 0.46);
+    const zap = bolt(g); tr(zap, -120, -13, 0.6);
+    const obs = houseAndObserver(g); tr(obs, 92, 70, 0.36);
     const dimG = G(g);
-    E('line', { x1: -116, x2: 136, y1: 104, y2: 104, stroke: Y, 'stroke-width': 4, 'stroke-linecap': 'round' }, dimG);
-    E('path', { d: 'M-118,104 l12,-8 l0,16 Z M138,104 l-12,-8 l0,16 Z', fill: Y }, dimG);
-    E('path', { d: 'M-120,92 L-120,116 M140,92 L140,116', stroke: Y, 'stroke-width': 4, 'stroke-linecap': 'round' }, dimG);
-    const km = chip(g, '1 km', { size: 28, fill: C.bg0, stroke: Y, color: Y, sw: 2.5 }); tr(km, 10, 104);
+    E('line', { x1: -116, x2: 88, y1: 104, y2: 104, stroke: Y, 'stroke-width': 4, 'stroke-linecap': 'round' }, dimG);
+    E('path', { d: 'M-118,104 l12,-8 l0,16 Z M90,104 l-12,-8 l0,16 Z', fill: Y }, dimG);
+    E('path', { d: 'M-120,92 L-120,116 M92,92 L92,116', stroke: Y, 'stroke-width': 4, 'stroke-linecap': 'round' }, dimG);
+    const km = chip(g, '1 km', { size: 28, fill: C.bg0, stroke: Y, color: Y, sw: 2.5 }); tr(km, -14, 104);
     return t => {
       const t0 = at('a5') + 0.1, u = ((t - t0) * calm) % 2.6;
       const f = t < t0 ? 0 : Math.max(0, 1 - u / 0.35) * (u < 0.35 ? 1 : 0);
@@ -137,7 +229,7 @@ scene('quiz', S => {
   /* ---------- the five questions ---------- */
   const QS = [
     { q: 'Why can’t sound travel\nthrough a vacuum?', a: [[['A vacuum has ', C.ink], ['no particles', Y, 800]], [['to pass the vibration along.', C.ink]]], pic: picJar },
-    { q: 'A sound gets louder, but its pitch\nstays the same. What has changed?', a: [[['Its ', C.ink], ['amplitude', Y, 800], [' is bigger.', C.ink]], [['Its frequency is the same.', C.ink]]], pic: picTrace },
+    { q: 'A sound gets louder, but its pitch\nstays the same. What has changed?', a: [[['Its ', C.ink], ['amplitude', CA, 800], [' is bigger.', C.ink]], [['Its frequency is the same.', C.ink]]], pic: picTrace },
     { q: 'Is sound fastest through\nair, water or steel?', a: [[['Steel.', Y, 800]], [['Sound is fastest in solids.', C.ink]]], pic: picRace },
     { q: 'What is ultrasound?', a: [[['Sound ', C.ink], ['above 20,000 Hz', Y, 800], [':', C.ink]], [['too high for humans to hear.', C.ink]]], pic: picLine },
     { q: 'You see lightning, then hear the thunder\n3 seconds later. About how far away\nis the storm?', a: [[['About ', C.ink], ['1 kilometre', Y, 800], [':', C.ink]], [['3 seconds ÷ 3 = 1 km', C.ink]]], pic: picStorm },

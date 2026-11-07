@@ -52,16 +52,14 @@ scene('measure', S => {
     g.set(0);
     return g;
   }
-  /* loudspeaker (the lesson's look): dark box, grey cone facing right, cone mouth at x = 54*s; g.set(dx) */
+  /* loudspeaker: the lesson's shared look (chapters 0-2: dark box, grey cone facing right) at 1.27s,
+     cone mouth at x = 58*s; g.set(dx) */
   function speaker(parent, s) {
-    const g = G(parent), k = G(g); tr(k, 0, 0, s || 1);
-    E('rect', { x: -62, y: -76, width: 84, height: 152, rx: 14, fill: '#162531', stroke: '#47667C', 'stroke-width': 3 }, k);
-    E('circle', { cx: -20, cy: -44, r: 9, fill: '#24394A', stroke: '#47667C', 'stroke-width': 2 }, k);
-    E('circle', { cx: -20, cy: 46, r: 5, fill: '#24394A' }, k);
-    const cone = G(k);
-    E('path', { d: 'M16,-24 L54,-66 L54,66 L16,24 Z', fill: linGrad('#DCE4EA', '#7D8C98', true), stroke: '#EEF3F6', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, cone);
-    E('ellipse', { cx: 54, cy: 0, rx: 5, ry: 66, fill: 'none', stroke: '#566875', 'stroke-width': 5 }, cone);
-    E('ellipse', { cx: 18, cy: 0, rx: 7, ry: 22, fill: '#8594A0', stroke: '#E1E8ED', 'stroke-width': 2 }, cone);
+    const g = G(parent), k = G(g), K = 'translate(2 0) scale(1.27)'; tr(k, 0, 0, s || 1);
+    E('rect', { x: -46, y: -60, width: 56, height: 120, rx: 10, fill: ball('#36505F', '#16242D'), stroke: '#6F8B9B', 'stroke-width': 3 }, G(k, { transform: K }));
+    const cone = G(k), kc = G(cone, { transform: K });
+    E('path', { d: 'M8,-24 L44,-58 L44,58 L8,24 Z', fill: linGrad('#7D8E9A', '#C9D5DD'), stroke: '#DCE6EC', 'stroke-width': 3, 'stroke-linejoin': 'round' }, kc);
+    E('path', { d: 'M8,-24 Q20,0 8,24', fill: '#5D707C', stroke: '#DCE6EC', 'stroke-width': 2.5 }, kc);
     g.set = dx => tr(cone, dx, 0);
     return g;
   }

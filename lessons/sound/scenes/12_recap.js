@@ -18,36 +18,94 @@ scene('recap', S => {
   /* "Solids Speed ..." with each first letter bold yellow */
   const initials = (str, col) => str.split(/(\s+|,\s*)/).filter(Boolean).flatMap(w => (/^[A-Za-z]/.test(w) ? [[w[0], C.energy, 800], [w.slice(1), col]] : [w]));
   const Y = C.energy;
+  const CF = C.good, CA = C.heat;   // frequency green, amplitude orange: the quantity colours of chapter 9
   /* a dashed rest line with a kit sine trace on it, from x0, w wide */
   function trace(parent, x0, y, w, amp, wl, color) {
     E('line', { x1: x0, x2: x0 + w, y1: y, y2: y, stroke: C.muted, 'stroke-width': 2, 'stroke-dasharray': '6 6', opacity: 0.7 }, parent);
     const s = sineWave(parent, { w, amp, wl, color: color || C.air, width: 4 }); tr(s, x0, y);
     return s;
   }
-  /* a small oscilloscope screen (w x h, centred) with a green trace; g.trace.set({...}) */
+  /* a small oscilloscope screen (w x h, centred), drawn like chapter 6's: dark green face, grid at 40%,
+     dashed rest line, green trace with a soft halo; g.trace.set({...}) */
   function scope(parent, w, h, amp, wl) {
     const g = G(parent);
-    E('rect', { x: -w / 2, y: -h / 2, width: w, height: h, rx: 12, fill: '#06140F', stroke: '#2C5468', 'stroke-width': 3 }, g);
-    for (let i = 1; i < 6; i++) E('line', { x1: -w / 2 + i * w / 6, x2: -w / 2 + i * w / 6, y1: -h / 2 + 3, y2: h / 2 - 3, stroke: C.line, 'stroke-width': 1.5, opacity: 0.4 }, g);
-    for (let i = 1; i < 4; i++) E('line', { x1: -w / 2 + 3, x2: w / 2 - 3, y1: -h / 2 + i * h / 4, y2: -h / 2 + i * h / 4, stroke: C.line, 'stroke-width': 1.5, opacity: 0.4 }, g);
-    g.trace = sineWave(g, { w: w - 24, amp, wl, color: C.good, width: 4 }); tr(g.trace, -w / 2 + 12, 0);
+    E('rect', { x: -w / 2, y: -h / 2, width: w, height: h, rx: 12, fill: '#06140F', stroke: '#2E4A3C', 'stroke-width': 3 }, g);
+    const grid = G(g, { opacity: 0.4 });
+    for (let i = 1; i < 10; i++) E('line', { x1: -w / 2 + i * w / 10, x2: -w / 2 + i * w / 10, y1: -h / 2 + 4, y2: h / 2 - 4, stroke: C.line, 'stroke-width': 1.5 }, grid);
+    for (let j = 1; j < 8; j++) if (j !== 4) E('line', { x1: -w / 2 + 4, x2: w / 2 - 4, y1: -h / 2 + j * h / 8, y2: -h / 2 + j * h / 8, stroke: C.line, 'stroke-width': 1.5 }, grid);
+    E('line', { x1: -w / 2 + 10, x2: w / 2 - 10, y1: 0, y2: 0, stroke: '#3E8A66', 'stroke-width': 2.5, 'stroke-dasharray': '9 8' }, g);
+    const halo = sineWave(g, { w: w - 24, amp, wl, color: C.good, width: 12 }); halo.firstChild.setAttribute('opacity', 0.16); tr(halo, -w / 2 + 12, 0);
+    const line = sineWave(g, { w: w - 24, amp, wl, color: C.good, width: 4 }); tr(line, -w / 2 + 12, 0);
+    g.trace = { set: v => { halo.set(v); line.set(v); } };
     return g;
   }
-  /* a bell jar with a bell inside and nothing else: origin = middle of the base */
+  /* chapter 3's bell-jar apparatus with no air inside, scaled s; origin = middle of the base: a glass jar with a
+     bung, the electric bell (coils, gong and hammer) hanging on its wires from a battery box, the base plate.
+     g.strike(hit 0..1) swings the hammer onto the gong */
   function bellJar(parent, s) {
     const g = G(parent), k = G(g); tr(k, 0, 0, s || 1);
-    E('path', { d: 'M-46,0 L-46,-56 A46,46 0 0 1 46,-56 L46,0 Z', fill: 'rgba(200,230,250,0.10)' }, k);
-    E('line', { x1: 0, y1: -100, x2: 0, y2: -70, stroke: '#C9D6DE', 'stroke-width': 3 }, k);
-    const bell = G(k); tr(bell, 0, -70);
-    E('path', { d: 'M-15,22 Q-15,0 0,0 Q15,0 15,22 Z', fill: ball(C.glucose, C.glucoseDk), stroke: C.glucoseLt, 'stroke-width': 2 }, bell);
-    const ham = G(k); tr(ham, 0, -46);
-    E('line', { x1: 0, y1: 0, x2: 22, y2: -6, stroke: '#C9D6DE', 'stroke-width': 3, 'stroke-linecap': 'round' }, ham);
-    E('circle', { cx: 0, cy: 0, r: 5, fill: '#C9D6DE' }, ham);
-    E('path', { d: 'M-46,0 L-46,-56 A46,46 0 0 1 46,-56 L46,0', fill: 'none', stroke: '#CFE7F5', 'stroke-width': 3.5, 'stroke-linejoin': 'round' }, k);
-    E('rect', { x: -40, y: -96, width: 6, height: 50, rx: 3, fill: 'rgba(255,255,255,0.25)' }, k);
-    E('rect', { x: -60, y: 0, width: 120, height: 12, rx: 4, fill: '#6B7A88', stroke: '#9DB0BF', 'stroke-width': 2 }, k);
-    g.ham = ham;
+    const yA = f1(-240 - 138 * Math.sqrt(1 - (16 / 170) * (16 / 170)));
+    const jarD = `M-170,0 L-170,-240 A170,138 0 0 1 -16,${yA} L-16,-396 L16,-396 L16,${yA} A170,138 0 0 1 170,-240 L170,0`;
+    E('rect', { x: -210, y: 0, width: 420, height: 26, rx: 6, fill: '#5E6E7B', stroke: '#8FA2B0', 'stroke-width': 2.5 }, k);
+    E('path', { d: 'M-6,-300 L-6,-438 M6,-300 L6,-438', stroke: '#E9EEF2', 'stroke-width': 3 }, k);
+    E('rect', { x: -48, y: -478, width: 96, height: 40, rx: 8, fill: '#2E3D48', stroke: '#6E8496', 'stroke-width': 2.5 }, k);
+    tr(bolt(k), 0, -458, 0.27);
+    const bell = G(k); tr(bell, 0, -300);
+    E('rect', { x: -32, y: 0, width: 64, height: 36, rx: 7, fill: '#46545F', stroke: '#8FA2B0', 'stroke-width': 3 }, bell);
+    E('rect', { x: -22, y: 8, width: 14, height: 20, rx: 3, fill: '#C9853F' }, bell);
+    E('rect', { x: 8, y: 8, width: 14, height: 20, rx: 3, fill: '#C9853F' }, bell);
+    E('line', { x1: 0, y1: 36, x2: 0, y2: 46, stroke: '#8FA2B0', 'stroke-width': 7 }, bell);
+    E('circle', { cx: 0, cy: 82, r: 38, fill: ball('#F6D77A', '#A87A16'), stroke: '#FFE8A3', 'stroke-width': 2.5 }, bell);
+    E('circle', { cx: 0, cy: 82, r: 29, fill: 'none', stroke: '#C99A2E', 'stroke-width': 2, opacity: 0.6 }, bell);
+    E('circle', { cx: 0, cy: 82, r: 6, fill: '#8C6410' }, bell);
+    const ham = G(bell);
+    E('line', { x1: 0, y1: 0, x2: 0, y2: 46, stroke: '#C9D6DE', 'stroke-width': 5, 'stroke-linecap': 'round' }, ham);
+    E('circle', { cx: 0, cy: 52, r: 9, fill: ball('#E3EAEF', '#7D8C99') }, ham);
+    E('circle', { cx: 30, cy: 32, r: 4.5, fill: '#1B2B36' }, bell);
+    E('path', { d: jarD + 'Z', fill: GLASS.fill }, k);
+    E('path', { d: jarD, fill: 'none', stroke: GLASS.stroke, 'stroke-width': 4.5, 'stroke-linejoin': 'round' }, k);
+    E('path', { d: 'M-154,-40 L-154,-228 Q-146,-300 -70,-342', fill: 'none', stroke: GLASS.shine, 'stroke-width': 7, 'stroke-linecap': 'round' }, k);
+    E('path', { d: 'M-22,-414 L22,-414 L17,-388 L-17,-388 Z', fill: '#8C4A3C', stroke: '#C27A6A', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, k);
+    g.strike = hit => tr(ham, 30, 32, 1, -20 - 24 * (1 - clamp(hit)));
+    g.strike(0);
     return g;
+  }
+  /* chapter 4's sound pulse: three ")" arcs with a soft glow, apex of the front arc at (0,0) */
+  function pulseIcon(parent, hh, b) {
+    const g = G(parent);
+    E('ellipse', { cx: -16, cy: 0, rx: Math.max(26, b * 2.4), ry: hh * 1.08, fill: glow(C.air) }, g);
+    [0, 1, 2].forEach(k => {
+      const x = -k * Math.max(13, b), y = hh * (1 - k * 0.12);
+      E('path', { d: `M${f1(x - b)},${f1(-y)} Q${f1(x + b)},0 ${f1(x - b)},${f1(y)}`, fill: 'none', stroke: C.air, 'stroke-width': 5.5 - k * 1.3, 'stroke-linecap': 'round', opacity: 1 - k * 0.3 }, g);
+    });
+    return g;
+  }
+  /* chapter 4's race lanes at k x their size: a band with the medium's particles, a faint trail and a pulse */
+  const LANE_LOOK = [
+    { band: 'rgba(159,216,255,0.07)', tile: [62, 58], dots: [[12, 14], [40, 40], [52, 10], [26, 47]], r: 5, fill: 'rgba(159,216,255,0.6)' },
+    { band: 'rgba(76,201,240,0.17)', tile: [46, 58], dots: [[7, 8], [23, 12], [39, 7], [13, 26], [30, 30], [42, 23], [6, 45], [21, 50], [37, 45]], r: 5.5, fill: 'rgba(76,201,240,0.75)' },
+    { band: null, tile: [13, 11.6], dots: [[6.5, 5.8]], r: 4.3, fill: '#9AA7B3' },
+  ];
+  function raceLane(parent, i, x0, y, len, k, id) {
+    const L = LANE_LOOK[i], h = 58 * k, g = G(parent);
+    const pt = E('pattern', { id, width: f1(L.tile[0] * k), height: f1(L.tile[1] * k), patternUnits: 'userSpaceOnUse', x: x0, y: f1(y - h / 2) }, defs());
+    L.dots.forEach(([cx, cy]) => E('circle', { cx: f1(cx * k), cy: f1(cy * k), r: f1(L.r * k), fill: L.fill }, pt));
+    const box = { x: x0, y: y - h / 2, width: len, height: h, rx: 12 * k };
+    E('rect', Object.assign({ fill: L.band || linGrad('#5B6874', '#3A4550', true) }, box), g);
+    E('rect', Object.assign({ fill: `url(#${id})` }, box), g);
+    E('rect', Object.assign({ fill: 'none', stroke: C.line, 'stroke-width': 2 }, box), g);
+    g.trail = E('rect', Object.assign({}, box, { width: 0, fill: C.air, opacity: 0.2 }), g);
+    g.pulse = G(g); pulseIcon(G(g.pulse, { transform: `scale(${k})` }), 22, 8);
+    g.set = d => { attr(g.trail, 'width', Math.max(0, d)); tr(g.pulse, x0 + d, y); };
+    g.set(0);
+    return g;
+  }
+  /* horizontal gradient of one colour; stops [[offset, opacity], ...] */
+  let gid = 0;
+  function hgrad(color, stops) {
+    const id = 'recap-hg' + (++gid), lg = E('linearGradient', { id, x1: 0, y1: 0, x2: 1, y2: 0 }, defs());
+    stops.forEach(([o, a]) => E('stop', { offset: o, 'stop-color': color, 'stop-opacity': a }, lg));
+    return `url(#${id})`;
   }
 
   /* ---------- padlock ---------- */
@@ -68,9 +126,9 @@ scene('recap', S => {
   const fastSegs = initials('Fast Pitch, Big Bang', C.ink);
   rich(h1, 30, 66, fastSegs, { size: fit(fastSegs, 34, 460), weight: 700 });
   const r1a = G(h1), r1b = G(h1);
-  rich(r1a, 30, 146, [['frequency', Y, 800], [' → ', C.muted], ['pitch', C.ink, 700]], { size: 28 });
+  rich(r1a, 30, 146, [['frequency', CF, 800], [' → ', C.muted], ['pitch', C.ink, 700]], { size: 28 });
   const tr1a = trace(r1a, 330, 136, 160, 13, 160 / 6);
-  rich(r1b, 30, 214, [['amplitude', Y, 800], [' → ', C.muted], ['loudness', C.ink, 700]], { size: 28 });
+  rich(r1b, 30, 214, [['amplitude', CA, 800], [' → ', C.muted], ['loudness', C.ink, 700]], { size: 28 });
   const tr1b = trace(r1b, 330, 204, 160, 27, 80);
   // 2. No air, no aware
   const h2 = hookCard(630, 115);
@@ -78,39 +136,43 @@ scene('recap', S => {
   const r2 = G(h2);
   rich(r2, 30, 150, [['no medium', Y, 800], [' → ', C.muted], ['no sound', C.ink, 700]], { size: 28 });
   T(r2, 30, 200, 'a vacuum has no particles', { size: 25, weight: 500, fill: C.muted, font: FB });
-  const jar = bellJar(h2, 0.95); tr(jar, 408, 214);
+  const jar = bellJar(h2, 0.3); tr(jar, 404, 214);
   const noArc = G(h2); tr(noArc, 476, 160);
   E('path', { d: 'M-6,-16 Q6,0 -6,16 M4,-24 Q22,0 4,24', fill: 'none', stroke: C.air, 'stroke-width': 4, 'stroke-linecap': 'round', opacity: 0.6 }, noArc);
   tr(cross(noArc, 12), 2, 0);
-  // 3. Solids Speed, Gases Go slow (three lanes, speeds to scale: 5,000 : 1,500 : 340)
+  // 3. Solids Speed, Gases Go slow: chapter 4's race lanes (air, water, steel), speeds to scale 340 : 1,500 : 5,000
   const h3 = hookCard(50, 395);
   const solSegs = initials('Solids Speed, Gases Go slow', C.ink);
   rich(h3, 30, 66, solSegs, { size: fit(solSegs, 34, 460), weight: 700 });
-  const LANE0 = 140, LANEW = 350;
-  const lanes3 = [['solid', 5000], ['liquid', 1500], ['gas', 340]].map(([nm, v], i) => {
-    const g = G(h3), y = 118 + i * 44;
-    T(g, 30, y + 9, nm, { size: 27, weight: 600, fill: C.ink });
-    E('line', { x1: LANE0, x2: LANE0 + LANEW, y1: y, y2: y, stroke: C.line, 'stroke-width': 6, 'stroke-linecap': 'round' }, g);
-    const bar = E('line', { x1: LANE0, x2: LANE0, y1: y, y2: y, stroke: C.air, 'stroke-width': 6, 'stroke-linecap': 'round', opacity: 0.55 }, g);
-    const halo = E('circle', { cy: y, r: 20, fill: glow(C.air) }, g);
-    const dot = E('circle', { cy: y, r: 8, fill: ball(C.air, '#4E8FB8') }, g);
-    return { g, bar, halo, dot, L: LANEW * v / 5000 };
+  const LANE0 = 130, LANEW = 328;
+  E('line', { x1: LANE0, y1: 96, x2: LANE0, y2: 228, stroke: C.muted, 'stroke-width': 2.5, 'stroke-dasharray': '6 6' }, h3);
+  for (let q = 0; q < 16; q++) E('rect', { x: LANE0 + LANEW + (q % 2) * 5, y: 100 + q * 7.75, width: 5, height: 7.75, fill: q % 2 ? '#F2F7FA' : '#1B2B36' }, h3);
+  E('rect', { x: LANE0 + LANEW, y: 100, width: 10, height: 124, fill: 'none', stroke: '#F2F7FA', 'stroke-width': 1.5 }, h3);
+  const lanes3 = [['gas', 340, C.air], ['liquid', 1500, C.water], ['solid', 5000, '#C9D3DB']].map(([nm, v, col], i) => {
+    const y = 118 + i * 44;
+    T(h3, 30, y + 9, nm, { size: 27, weight: 700, fill: col });
+    return { lane: raceLane(h3, i, LANE0, y, LANEW, 0.52, 'recapLane' + i), L: LANEW * v / 5000, y };
   });
-  // 4. 20 to 20k: the hearing band on a log frequency line (2 Hz to 200 kHz, equal steps for x10)
+  const win3 = tick(h3, 11); tr(win3, LANE0 + LANEW + 30, lanes3[2].y);
+  // 4. 20 to 20k: the hearing band on the lesson's frequency line (chapters 7, 8 and 11), drawn at DEC px per x10
+  //    instead of 186 with the same proportions: zones, fading ends, a tick for each x10 from 2 Hz to 200,000 Hz
   const h4 = hookCard(630, 395);
   rich(h4, 30, 66, [['20', Y, 800], [' to ', C.ink], ['20k', Y, 800]], { size: 34, weight: 700 });
   T(h4, 196, 66, 'hearing range, in Hz', { size: 26, weight: 600, fill: C.muted });
-  const FX0 = 40, DEC = 88, FY = 160;
-  const fx = hz => FX0 + DEC * Math.log10(hz / 2);
-  E('rect', { x: FX0, y: FY - 11, width: 5 * DEC, height: 22, rx: 11, fill: '#0B2230', stroke: C.line, 'stroke-width': 2 }, h4);
-  const zInfra = E('rect', { x: FX0, y: FY - 11, width: DEC, height: 22, rx: 11, fill: C.heat, opacity: 0.85 }, h4);
-  const zUltra = E('rect', { x: fx(20000), y: FY - 11, width: DEC, height: 22, rx: 11, fill: C.ethanol, opacity: 0.85 }, h4);
-  const zHear = E('rect', { x: fx(20), y: FY - 13, width: 0, height: 26, rx: 6, fill: C.good }, h4);
+  const DEC = 78, FK = DEC / 186, FY = 160, FH = 28 * FK, FFADE = 60 * FK, FXL = 32, FT = FY - FH / 2;
+  const fx = hz => FXL + FFADE + DEC * Math.log10(hz / 2);
+  const wT = fx(200000) + FFADE - FXL, wI = fx(20) - FXL, wU = fx(200000) + FFADE - fx(20000);
+  E('rect', { x: FXL, y: FT, width: wT, height: FH, fill: hgrad('#24485A', [[0, 0], [FFADE / wT, 1], [1 - FFADE / wT, 1], [1, 0]]) }, h4);
+  const zInfra = E('rect', { x: FXL, y: FT, width: wI, height: FH, fill: hgrad(C.heat, [[0, 0], [FFADE / wI, 1], [1, 1]]) }, h4);
+  const zUltra = E('rect', { x: fx(20000), y: FT, width: wU, height: FH, fill: hgrad(C.ethanol, [[0, 1], [1 - FFADE / wU, 1], [1, 0]]) }, h4);
+  const zHear = E('rect', { x: fx(20), y: FT, width: 0, height: FH, fill: C.good }, h4);
+  [2, 200, 2000, 200000].forEach(hz => E('line', { x1: fx(hz), x2: fx(hz), y1: FT + FH + 2, y2: FT + FH + 9, stroke: C.muted, 'stroke-width': 2.5, 'stroke-linecap': 'round' }, h4));
   const ends4 = G(h4);
-  [[20, '20 Hz'], [20000, '20 kHz']].forEach(([hz, s]) => { E('line', { x1: fx(hz), x2: fx(hz), y1: FY + 16, y2: FY + 26, stroke: C.good, 'stroke-width': 3 }, ends4); T(ends4, fx(hz), FY + 54, s, { size: 26, weight: 700, fill: C.good, anchor: 'middle' }); });
-  const ear4 = G(h4); tr(ear4, (fx(20) + fx(20000)) / 2, 116, 0.44);
+  [[20, '20 Hz'], [20000, '20 kHz']].forEach(([hz, s]) => { E('line', { x1: fx(hz), x2: fx(hz), y1: FT + FH + 2, y2: FT + FH + 9, stroke: C.good, 'stroke-width': 2.5, 'stroke-linecap': 'round' }, ends4); T(ends4, fx(hz), FY + 42, s, { size: 26, weight: 700, fill: C.good, anchor: 'middle' }); });
+  const ear4 = G(h4); tr(ear4, (fx(20) + fx(20000)) / 2, 118, 0.44);
   E('path', { d: 'M-30,-34 C-28,-66 2,-78 26,-70 C52,-61 60,-30 50,-6 C42,14 26,20 22,38 C18,56 4,70 -14,64 C-28,59 -30,46 -24,36 C-18,26 -10,22 -12,6 C-14,-8 -32,-12 -30,-34 Z', fill: ball('#F2C29C', '#C98E62'), stroke: '#FFE2C8', 'stroke-width': 4, 'stroke-linejoin': 'round' }, ear4);
   E('path', { d: 'M-12,-42 C0,-56 26,-52 32,-30 C37,-12 24,-2 14,6', fill: 'none', stroke: '#B97A52', 'stroke-width': 7, 'stroke-linecap': 'round' }, ear4);
+  E('ellipse', { cx: -6, cy: 4, rx: 9, ry: 12, fill: '#6E3A26' }, ear4);
   const hookCards = [[h1, 'fast'], [h2, 'aware'], [h3, 'solids'], [h4, 'twenty']];
 
   /* ---------- exam traps ---------- */
@@ -158,7 +220,7 @@ scene('recap', S => {
       T(g, 0, 74, 'space is a vacuum: total silence', { size: 24, weight: 500, fill: C.muted, anchor: 'middle', font: FB });
       return t => { const u = ((t * calm) / 1.8) % 1; attr(shell, 'r', 30 + 40 * u); op(shell, 1 - u); m.set(0); };
     }),
-    trapGroup('Pitch = amplitude', [['pitch', Y, 800], [' → frequency,  ', C.ink], ['loudness', Y, 800], [' → amplitude', C.ink]], g => {
+    trapGroup('Pitch = amplitude', [['pitch', Y, 800], [' → ', C.ink], ['frequency', CF, 800], [',  ', C.ink], ['loudness', Y, 800], [' → ', C.ink], ['amplitude', CA, 800]], g => {
       const a = scope(g, 230, 96, 22, 206 / 6); tr(a, -150, -10);
       const b = scope(g, 230, 96, 38, 206 / 2.5); tr(b, 150, -10);
       T(g, -150, 70, 'higher pitch: more waves', { size: 24, weight: 600, fill: C.muted, anchor: 'middle', font: FB });
@@ -180,40 +242,55 @@ scene('recap', S => {
       };
     }),
     trapGroup('Sound ≈ the speed of light', [['sound ', C.ink], ['340 m/s', C.air, 800], ['  vs  ', C.muted], ['light ', C.ink], ['300,000,000 m/s', Y, 800]], g => {
-      // a storm: the flash arrives at once, the thunder crawls
-      E('path', { d: 'M-330,44 Q-246,-8 -150,44 Z', fill: '#2C4A3A', stroke: '#4E7A5E', 'stroke-width': 2 }, g);
-      E('line', { x1: -330, x2: 330, y1: 44, y2: 44, stroke: '#4E7A5E', 'stroke-width': 3, 'stroke-linecap': 'round' }, g);
-      const cloud = G(g); tr(cloud, -240, -50);
-      E('path', { d: 'M-48,16 C-70,16 -70,-12 -48,-14 C-50,-38 -18,-46 -6,-28 C4,-48 40,-44 40,-18 C64,-18 64,16 40,16 Z', fill: '#5E6F7E', stroke: '#9DB0BF', 'stroke-width': 3 }, cloud);
-      const zap = bolt(cloud, 0.42); tr(zap, -4, 40, 0.42);
-      const who = person(g, { shirt: '#5B8DEF' }); tr(who, 262, 44, 0.36);
-      const ray = E('line', { x1: -232, y1: -6, x2: 250, y2: -18, stroke: C.energy, 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
-      const arcs = [0, 1, 2].map(() => E('path', { fill: 'none', stroke: C.air, 'stroke-width': 4, 'stroke-linecap': 'round' }, g));
+      // chapter 4's storm in miniature: the flash reaches the observer at once, the thunder's front crawls
+      const flash = E('circle', { cx: -240, cy: -24, r: 56, fill: glow(C.energy) }, g);
+      E('path', { d: 'M-305,44 Q-277,-2 -240,-4 Q-203,-2 -175,44 Z', fill: '#173A29', stroke: '#2E5E40', 'stroke-width': 2.5 }, g);
+      E('path', { d: 'M-330,44 Q-165,38 0,43 T330,44 L330,54 L-330,54 Z', fill: '#10271A', stroke: '#2E5E3E', 'stroke-width': 2.5 }, g);
+      const drops = [];
+      for (let i = 0; i < 9; i++) drops.push(E('line', { x1: -287 + i * 11, y1: -34, x2: -295 + i * 11, y2: -6, stroke: 'rgba(159,216,255,0.35)', 'stroke-width': 2, 'stroke-dasharray': '6 8', 'stroke-linecap': 'round' }, g));
+      const cloud = G(g); tr(cloud, -245, -64, 0.42);
+      [[-96, 22, 40], [-52, -6, 54], [8, -24, 62], [70, -6, 52], [116, 20, 38], [-128, 36, 28]].forEach(([x, y, r]) => E('circle', { cx: x, cy: y, r, fill: '#3B4755', stroke: '#5A6878', 'stroke-width': 3 }, cloud));
+      E('rect', { x: -150, y: 14, width: 290, height: 46, rx: 23, fill: '#3B4755' }, cloud);
+      [[-96, 22, 36], [-52, -6, 50], [8, -24, 58], [70, -6, 48], [116, 20, 34]].forEach(([x, y, r]) => E('circle', { cx: x, cy: y + 4, r, fill: '#3B4755' }, cloud));
+      const zap = bolt(g); tr(zap, -240, -21, 0.33);
+      const house = G(g); tr(house, 240, 44, 0.36);
+      E('rect', { x: 60, y: -98, width: 98, height: 94, fill: '#5E4A3A', stroke: '#8C735D', 'stroke-width': 3 }, house);
+      E('path', { d: 'M48,-94 L109,-148 L166,-94 Z', fill: '#8C3B32', stroke: '#B95A4C', 'stroke-width': 3, 'stroke-linejoin': 'round' }, house);
+      E('rect', { x: 74, y: -76, width: 30, height: 28, rx: 3, fill: '#FFD27A', stroke: '#8C735D', 'stroke-width': 3 }, house);
+      E('rect', { x: 120, y: -56, width: 24, height: 52, rx: 3, fill: '#3A2C22' }, house);
+      const obsG = G(g); tr(obsG, 240, 44, 0.36);
+      person(G(obsG, { transform: 'scale(-1 1)' }), { shirt: '#E8424F', shorts: '#3A4A5C' }).pose({ armL: [6, 8], armR: [-6, 8] });
+      const ray = E('path', { d: 'M-232,-14 L232,-19', stroke: C.energy, 'stroke-width': 3.5, 'stroke-linecap': 'round', 'stroke-dasharray': '12 8' }, g);
+      const front = pulseIcon(g, 27, 8);
       T(g, 0, 80, 'you see the flash before you hear the thunder', { size: 24, weight: 500, fill: C.muted, anchor: 'middle', font: FB });
       const t0 = mid('t4', 0.55) + 0.35;
       return t => {
         const f = P(t, t0, 0.08, linear) * (1 - P(t, t0 + 0.5, 0.6, linear));
-        op(zap, 0.35 + 0.65 * f); op(ray, f);
-        arcs.forEach((el, k) => {
-          const u = clamp((t - t0 - k * 0.25) / 3.2), x = -196 + 420 * u;
-          el.setAttribute('d', `M${f1(x - 6)},-20 Q${f1(x + 12)},10 ${f1(x - 6)},40`);
-          op(el, u > 0 && u < 1 ? Math.min(1, u * 8, (1 - u) * 6) : 0);
-        });
+        op(zap, 0.35 + 0.65 * f); op(flash, f); op(ray, f);
+        ray.setAttribute('stroke-dashoffset', f1(-t * 80));
+        drops.forEach((d, i) => d.setAttribute('stroke-dashoffset', f1(-(t * 110 * calm + i * 5))));
+        const u = clamp((t - t0) / 3.2);
+        tr(front, lerp(-226, 222, u), 18); op(front, u > 0 && u < 1 ? Math.min(1, u * 8, (1 - u) * 6) : 0);
       };
     }),
     trapGroup('Depth = speed × time', [['there and back', Y, 800], [': cut it in ', C.ink], ['half', Y, 800]], g => {
-      // sonar: the ping goes down to the sea floor and back up
-      E('rect', { x: -330, y: -40, width: 660, height: 110, fill: 'rgba(76,201,240,0.10)' }, g);
-      E('line', { x1: -330, x2: 330, y1: -40, y2: -40, stroke: C.water, 'stroke-width': 3 }, g);
-      E('path', { d: 'M-330,70 Q-220,52 -110,66 Q0,80 110,62 Q220,48 330,68 L330,80 L-330,80 Z', fill: '#6B4A33' }, g);
-      const ship = G(g); tr(ship, -150, -40);
-      E('path', { d: 'M-46,-16 L46,-16 L32,6 L-34,6 Z', fill: '#C9D6DE', stroke: '#F4F7FA', 'stroke-width': 2, 'stroke-linejoin': 'round' }, ship);
-      E('rect', { x: -14, y: -34, width: 30, height: 18, rx: 3, fill: '#8FA3B3' }, ship);
+      // chapter 8's sonar ship and sea in miniature: the ping goes down to the sea floor and back up
+      E('rect', { x: -330, y: -40, width: 660, height: 110, fill: linGrad('#0F4C6B', '#061C2B', true) }, g);
+      E('line', { x1: -330, x2: 330, y1: -40, y2: -40, stroke: '#9FD8FF', 'stroke-width': 3, opacity: 0.7 }, g);
+      E('path', { d: 'M-330,70 Q-220,52 -110,66 Q0,80 110,62 Q220,48 330,68 L330,80 L-330,80 Z', fill: linGrad('#6B5A3F', '#2E2619', true), stroke: '#A08B64', 'stroke-width': 2.5 }, g);
+      const ship = G(g); tr(ship, -150, -40, 0.36);
+      E('path', { d: 'M-122,-14 L124,-14 L102,30 L-100,30 Z', fill: ball('#D0533E', '#8E2A1E'), stroke: '#F3A08F', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, ship);
+      E('rect', { x: -122, y: -18, width: 246, height: 8, fill: '#F2F7FA' }, ship);
+      E('rect', { x: -70, y: -56, width: 96, height: 40, rx: 5, fill: '#EEF3F6', stroke: '#9DB0BF', 'stroke-width': 2 }, ship);
+      for (let k = 0; k < 4; k++) E('rect', { x: -60 + k * 22, y: -48, width: 14, height: 12, rx: 2, fill: '#4CC9F0' }, ship);
+      E('rect', { x: 44, y: -78, width: 24, height: 62, rx: 4, fill: '#F2C14E', stroke: '#B57B12', 'stroke-width': 2 }, ship);
+      E('rect', { x: 44, y: -78, width: 24, height: 12, fill: '#2B2B2B' }, ship);
+      E('rect', { x: -10, y: 30, width: 20, height: 7, rx: 3, fill: C.ethanol }, ship);
       const ping = E('path', { fill: 'none', stroke: C.ethanol, 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
       arrow(g, 10, -28, 10, 54, { color: C.ethanol, width: 4, head: 12 });
-      arrow(g, 44, 54, 44, -28, { color: C.ethanol, width: 4, head: 12 });
-      T(g, -6, 22, 'there', { size: 24, weight: 600, fill: C.muted, anchor: 'end' });
-      T(g, 60, 22, 'back', { size: 24, weight: 600, fill: C.muted });
+      arrow(g, 44, 54, 44, -28, { color: '#E4D6FF', width: 4, head: 12 });
+      T(g, -6, 22, 'there', { size: 24, weight: 700, fill: C.ethanol, anchor: 'end' });
+      T(g, 60, 22, 'back', { size: 24, weight: 700, fill: '#E4D6FF' });
       const half = chip(g, '÷ 2 = depth', { size: 28, fill: C.card2, stroke: C.ethanol, color: C.ink, sw: 2.5 }); tr(half, 230, 12);
       return t => {
         const u = ((t * calm) / 2.2) % 1, down = u < 0.5, y = down ? lerp(-30, 56, u * 2) : lerp(56, -30, (u - 0.5) * 2);
@@ -259,11 +336,12 @@ scene('recap', S => {
       // 2: the hammer keeps striking, but no sound gets out
       op(r2, P(t, mid('aware', 0.45), 0.5, linear));
       const hit = Math.pow(wave(t * calm, 0.7), 6);
-      jar.ham.setAttribute('transform', `translate(0 -46) rotate(${(-28 + 22 * hit).toFixed(1)})`);
+      jar.strike(hit);
       op(noArc, P(t, mid('aware', 0.5), 0.4, linear));
-      // 3: the three pulses race, to scale
+      // 3: the three pulses race, to scale; steel wins
       const rp3 = P(t, mid('solids', 0.12), 1.4, linear);
-      lanes3.forEach(l => { const x = LANE0 + l.L * rp3; attr(l.bar, 'x2', x); attr(l.halo, 'cx', x); attr(l.dot, 'cx', x); op(l.halo, rp3 > 0 ? 1 : 0.4); });
+      lanes3.forEach(l => { l.lane.set(l.L * rp3); op(l.lane.pulse, rp3 > 0 ? 1 : 0.45); });
+      const w3 = P(t, mid('solids', 0.12) + 1.45, 0.4, pop); op(win3, clamp(w3 * 2)); tr(win3, LANE0 + LANEW + 30, lanes3[2].y, Math.max(0.01, w3));
       // 4: the green band grows from 20 Hz to 20 kHz
       const gb = P(t, mid('twenty', 0.12), 0.9);
       attr(zHear, 'width', (fx(20000) - fx(20)) * gb);

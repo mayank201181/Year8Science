@@ -8,6 +8,7 @@
 scene('scope', S => {
   const { at, mid } = S, root = S.root;
   const calm = S.reduce ? 0.35 : 1;
+  const CF = C.good, CA = C.heat;   // frequency green, amplitude orange: the quantity colours of chapter 9
 
   /* ---------- helpers ---------- */
   function rich(parent, x, y, segs, o) {
@@ -34,16 +35,14 @@ scene('scope', S => {
     for (let i = 1; i < keys.length; i++) if (t <= keys[i][0]) return lerp(keys[i - 1][1], keys[i][1], ease(clamp((t - keys[i - 1][0]) / ((keys[i][0] - keys[i - 1][0]) || 1))));
     return keys[keys.length - 1][1];
   }
-  /* loudspeaker: dark box with a grey cone facing right; origin = box centre, cone mouth at x = 58 */
+  /* loudspeaker: the lesson's shared look (chapters 0-2: dark box, grey cone facing right) at 1.27x;
+     origin = box centre, cone mouth at x = 58; move g.cone to push the air */
   function speaker(parent) {
-    const g = G(parent);
-    E('rect', { x: -62, y: -76, width: 84, height: 152, rx: 14, fill: '#162531', stroke: '#47667C', 'stroke-width': 3 }, g);
-    E('circle', { cx: -20, cy: -44, r: 9, fill: '#24394A', stroke: '#47667C', 'stroke-width': 2 }, g);
-    E('circle', { cx: -20, cy: 46, r: 5, fill: '#24394A' }, g);
-    g.cone = G(g);
-    E('path', { d: 'M16,-24 L54,-66 L54,66 L16,24 Z', fill: linGrad('#DCE4EA', '#7D8C98', true), stroke: '#EEF3F6', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, g.cone);
-    E('ellipse', { cx: 54, cy: 0, rx: 5, ry: 66, fill: 'none', stroke: '#566875', 'stroke-width': 5 }, g.cone);
-    E('ellipse', { cx: 18, cy: 0, rx: 7, ry: 22, fill: '#8594A0', stroke: '#E1E8ED', 'stroke-width': 2 }, g.cone);
+    const g = G(parent), K = 'translate(2 0) scale(1.27)';
+    E('rect', { x: -46, y: -60, width: 56, height: 120, rx: 10, fill: ball('#36505F', '#16242D'), stroke: '#6F8B9B', 'stroke-width': 3 }, G(g, { transform: K }));
+    g.cone = G(g); const kc = G(g.cone, { transform: K });
+    E('path', { d: 'M8,-24 L44,-58 L44,58 L8,24 Z', fill: linGrad('#7D8E9A', '#C9D5DD'), stroke: '#DCE6EC', 'stroke-width': 3, 'stroke-linejoin': 'round' }, kc);
+    E('path', { d: 'M8,-24 Q20,0 8,24', fill: '#5D707C', stroke: '#DCE6EC', 'stroke-width': 2.5 }, kc);
     return g;
   }
   /* microphone in profile, head facing left; origin = centre of the head. g.setDia(bow px) flexes the diaphragm */
@@ -145,16 +144,16 @@ scene('scope', S => {
   const traceLab = labelLine(A, 536, 214, TX + TW / 16, SCY - AMAX * 0.75 - 2, 'trace', { size: 32, anchor: 'end', fill: C.good, line: C.good });
   // annotations on the screen
   const note = G(A);
-  const brk = hBracket(note, C.energy), ampArr = vArrow(note, C.energy);
+  const brk = hBracket(note, CF), ampArr = vArrow(note, CA);
   const dots = [0, 1, 2].map(() => E('circle', { r: 8, fill: C.energy, stroke: '#3A3000', 'stroke-width': 2 }, note));
   const vGuides = [0, 1, 2].map(() => E('line', { y1: SCY - SH / 2 + 8, y2: SCY + SH / 2 - 8, stroke: C.energy, 'stroke-width': 2.5, 'stroke-dasharray': '4 7', opacity: 0.7 }, note));
   const hGuides = [-1, 1].map(() => E('line', { x1: TX - 6, x2: TX + TW + 6, stroke: C.energy, 'stroke-width': 3, 'stroke-dasharray': '10 8' }, note));
   // labels under the scope: the rule, then the example
   const LX = SCX, RA = 646, RB = 702;
-  const sp1 = label(LX, RA, [['spacing', C.energy, 800], ' → ', ['frequency', C.energy, 800]]);
+  const sp1 = label(LX, RA, [['spacing', C.energy, 800], ' → ', ['frequency', CF, 800]]);
   const sp2 = label(LX, RB, ['close together = ', ['high pitch', C.air, 800]], 30);
   const sp3 = label(LX, RB, ['spread out = ', ['low pitch', C.air, 800]], 30);
-  const ht1 = label(LX, RA, [['height', C.energy, 800], ' → ', ['amplitude', C.energy, 800]]);
+  const ht1 = label(LX, RA, [['height', C.energy, 800], ' → ', ['amplitude', CA, 800]]);
   const ht2 = label(LX, RB, ['tall = ', ['loud', C.air, 800]], 30);
   const ht3 = label(LX, RB, ['short = ', ['quiet', C.air, 800]], 30);
   const ld1 = label(LX, RA, [['louder', C.energy, 800], ' → taller waves']);
@@ -175,9 +174,9 @@ scene('scope', S => {
     const tc = scopeTrace(s, 400, q.amp, q.wl); tr(tc, -200, 0);
     const cue = G(g);
     const cx = q.x - 200 + q.wl / 4;
-    E('line', { x1: cx, x2: cx, y1: 345, y2: 345 - q.amp + 2, stroke: C.energy, 'stroke-width': 5, 'stroke-linecap': 'round' }, cue);
-    E('line', { x1: cx - 11, x2: cx + 11, y1: 345 - q.amp, y2: 345 - q.amp, stroke: C.energy, 'stroke-width': 4, 'stroke-linecap': 'round' }, cue);
-    const bk = hBracket(cue, C.energy); bk.set(cx, cx + q.wl, 345 - q.amp - 30);
+    E('line', { x1: cx, x2: cx, y1: 345, y2: 345 - q.amp + 2, stroke: CA, 'stroke-width': 5, 'stroke-linecap': 'round' }, cue);
+    E('line', { x1: cx - 11, x2: cx + 11, y1: 345 - q.amp, y2: 345 - q.amp, stroke: CA, 'stroke-width': 4, 'stroke-linecap': 'round' }, cue);
+    const bk = hBracket(cue, CF); bk.set(cx, cx + q.wl, 345 - q.amp - 30);
     const desc = T(g, q.x, 530, q.desc, { size: 28, weight: 600, anchor: 'middle', fill: C.muted });
     const ansG = G(g);
     const a = rich(ansG, 0, 11, q.ans, { size: 32, weight: 700, anchor: 'middle' });
@@ -201,8 +200,8 @@ scene('scope', S => {
     return { g, st };
   });
   const rowsC = [
-    { y: 420, segs: ['loudness → ', ['amplitude', C.energy, 800]] },
-    { y: 520, segs: ['pitch → ', ['frequency', C.energy, 800], ' (wave spacing)'] },
+    { y: 420, segs: ['loudness → ', ['amplitude', CA, 800]] },
+    { y: 520, segs: ['pitch → ', ['frequency', CF, 800], ' (wave spacing)'] },
   ].map(r => {
     const g = G(Cg);
     const tx = rich(g, 262, r.y, r.segs, { size: 40, weight: 600 });

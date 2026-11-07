@@ -69,11 +69,12 @@ scene('infra', S => {
 
   /* ---------- art ---------- */
   const SKIN = '#E8B48E', SKINDK = '#B9825A', SKINLT = '#F7D9C2';
+  /* an ear seen from the side, opening to the left: the lesson's shared ear (chapters 0-2) at 0.86x */
   function earIcon(parent) {
-    const g = G(parent);
-    E('path', { d: 'M-2,-54 C30,-58 48,-32 44,-4 C41,16 30,24 24,36 C18,50 6,60 -9,56 C-22,52 -24,38 -15,30 C-8,24 -7,16 -15,8 C-26,-3 -32,-16 -30,-30 C-28,-45 -16,-53 -2,-54 Z', fill: ball(SKIN, SKINDK), stroke: SKINLT, 'stroke-width': 3 }, g);
-    E('path', { d: 'M-14,-30 C-8,-44 18,-44 26,-24 C31,-9 20,0 10,6 C4,10 4,18 8,24', fill: 'none', stroke: '#B07A58', 'stroke-width': 5, 'stroke-linecap': 'round' }, g);
-    E('ellipse', { cx: 4, cy: -2, rx: 7, ry: 9, fill: '#7A4A33' }, g);
+    const g = G(parent), k = G(g, { transform: 'scale(0.86)' });
+    E('path', { d: 'M-30,-34 C-28,-66 2,-78 26,-70 C52,-61 60,-30 50,-6 C42,14 26,20 22,38 C18,56 4,70 -14,64 C-28,59 -30,46 -24,36 C-18,26 -10,22 -12,6 C-14,-8 -32,-12 -30,-34 Z', fill: ball('#F2C29C', '#C98E62'), stroke: '#FFE2C8', 'stroke-width': 3, 'stroke-linejoin': 'round' }, k);
+    E('path', { d: 'M-12,-42 C0,-56 26,-52 32,-30 C37,-12 24,-2 14,6', fill: 'none', stroke: '#B97A52', 'stroke-width': 5, 'stroke-linecap': 'round' }, k);
+    E('ellipse', { cx: -6, cy: 4, rx: 9, ry: 12, fill: '#6E3A26' }, k);
     return g;
   }
   /* elephant, side view facing right, feet at (0,0), about 340 wide and 230 tall; g.ear flaps */
@@ -254,7 +255,7 @@ scene('infra', S => {
   const tree = G(Ea);
   E('rect', { x: 626, y: 320, width: 28, height: 112, rx: 6, fill: '#6B4A33' }, tree);
   [[600, 300, 50], [680, 300, 50], [640, 270, 58], [640, 318, 46]].forEach(([x, y, r]) => E('circle', { cx: x, cy: y, r, fill: ball(C.plant, C.plantDk) }, tree));
-  const BIRDS = [[596, 216], [626, 208], [662, 212], [690, 222]].map(([x, y], i) => ({ g: bird(Ea, '#3B4A63'), x, y, i }));
+  const BIRDS = [[596, 216], [626, 208], [662, 212], [690, 222]].map(([x, y], i) => ({ g: bird(Ea, '#8FA3BC'), x, y, i }));
   const aDogG = G(Ea); const aDog = dog(aDogG); tr(aDogG, 310, 430, 1.1);
   const bark = [0, 1, 2].map(k => E('path', { d: `M${448 + k * 4},${300 + (k - 1) * 22} l16,${(k - 1) * 8}`, stroke: C.ink, 'stroke-width': 4, 'stroke-linecap': 'round' }, Ea));
   const folkG = G(Ea); const folk = person(folkG, { shirt: '#5B8DEF', shorts: '#3E4F66' }); tr(folkG, 940, 430, '-1 1');

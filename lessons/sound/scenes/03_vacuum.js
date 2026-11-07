@@ -24,27 +24,27 @@ scene('vacuum', S => {
   }
   const polyLen = pts => { let L = 0; for (let i = 1; i < pts.length; i++) L += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); return L; };
 
-  /* side-view loudspeaker facing right: dark cabinet, grey cone that moves in and out; g.set(dx, ghostAmp) */
+  /* side-view loudspeaker facing right, the lesson's shared look (chapters 0-2: dark box, grey cone),
+     drawn 1.08x with the cone's face at x = 22; g.set(dx, ghostAmp) moves the cone in and out */
   function speaker(parent) {
-    const g = G(parent);
-    E('rect', { x: -66, y: -80, width: 66, height: 160, rx: 12, fill: '#16232C', stroke: '#3A5666', 'stroke-width': 3 }, g);
-    E('circle', { cx: -33, cy: -50, r: 9, fill: '#0B151B', stroke: '#3A5666', 'stroke-width': 2 }, g);
-    const coneD = 'M-4,-24 L22,-62 L22,62 L-4,24 Z';
-    const ghosts = [G(g), G(g)];
-    ghosts.forEach(h => E('path', { d: coneD, fill: 'none', stroke: '#C9D3DB', 'stroke-width': 2, opacity: 0.35 }, h));
-    const cone = G(g);
-    E('path', { d: coneD, fill: linGrad('#6F7D89', '#B7C3CD'), stroke: '#D3DCE3', 'stroke-width': 3, 'stroke-linejoin': 'round' }, cone);
-    E('line', { x1: 22, y1: -62, x2: 22, y2: 62, stroke: '#E9EEF2', 'stroke-width': 5, 'stroke-linecap': 'round' }, cone);
-    g.set = (dx, amp) => { tr(cone, dx, 0); tr(ghosts[0], -amp, 0); tr(ghosts[1], amp, 0); op(ghosts[0], amp > 0.5 ? 1 : 0); op(ghosts[1], amp > 0.5 ? 1 : 0); };
+    const g = G(parent), k = G(g, { transform: 'translate(-25.5 0) scale(1.08)' });
+    E('rect', { x: -46, y: -60, width: 56, height: 120, rx: 10, fill: ball('#36505F', '#16242D'), stroke: '#6F8B9B', 'stroke-width': 3 }, k);
+    const coneD = 'M8,-24 L44,-58 L44,58 L8,24';
+    const ghosts = [G(k), G(k)];
+    ghosts.forEach(h => E('path', { d: coneD, fill: 'none', stroke: '#DCE6EC', 'stroke-width': 2.5, opacity: 0.3 }, h));
+    const cone = G(k);
+    E('path', { d: coneD + ' Z', fill: linGrad('#7D8E9A', '#C9D5DD'), stroke: '#DCE6EC', 'stroke-width': 3, 'stroke-linejoin': 'round' }, cone);
+    E('path', { d: 'M8,-24 Q20,0 8,24', fill: '#5D707C', stroke: '#DCE6EC', 'stroke-width': 2.5 }, cone);
+    g.set = (dx, amp) => { tr(cone, dx / 1.08, 0); tr(ghosts[0], -amp / 1.08, 0); tr(ghosts[1], amp / 1.08, 0); op(ghosts[0], amp > 0.5 ? 1 : 0); op(ghosts[1], amp > 0.5 ? 1 : 0); };
     g.set(0, 0);
     return g;
   }
-  /* an ear seen from the side, listening to the left (opening on the left), about 70 x 120 */
+  /* an ear seen from the side, opening to the left: the lesson's shared ear (chapters 0-2) at 0.86x, about 75 x 120 */
   function earIcon(parent) {
-    const g = G(parent);
-    E('path', { d: 'M-14,-40 C0,-62 42,-60 46,-22 C49,4 36,18 30,30 C24,44 22,60 4,60 C-8,60 -13,50 -12,40 L-10,30 C-2,29 6,22 10,12 C15,-2 13,-24 -1,-26 C-10,-27 -15,-21 -17,-15 Z', fill: ball('#F2C29C', '#B9825A'), stroke: '#FBE3CF', 'stroke-width': 3, 'stroke-linejoin': 'round' }, g);
-    E('path', { d: 'M2,-40 C24,-40 33,-20 28,-2', fill: 'none', stroke: '#B9825A', 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
-    E('ellipse', { cx: -3, cy: 3, rx: 7, ry: 9, fill: '#5A2E1E' }, g);
+    const g = G(parent), k = G(g, { transform: 'scale(0.86)' });
+    E('path', { d: 'M-30,-34 C-28,-66 2,-78 26,-70 C52,-61 60,-30 50,-6 C42,14 26,20 22,38 C18,56 4,70 -14,64 C-28,59 -30,46 -24,36 C-18,26 -10,22 -12,6 C-14,-8 -32,-12 -30,-34 Z', fill: ball('#F2C29C', '#C98E62'), stroke: '#FFE2C8', 'stroke-width': 3, 'stroke-linejoin': 'round' }, k);
+    E('path', { d: 'M-12,-42 C0,-56 26,-52 32,-30 C37,-12 24,-2 14,6', fill: 'none', stroke: '#B97A52', 'stroke-width': 5, 'stroke-linecap': 'round' }, k);
+    E('ellipse', { cx: -6, cy: 4, rx: 9, ry: 12, fill: '#6E3A26' }, k);
     return g;
   }
   /* an open eye, front view, about 96 x 60 */

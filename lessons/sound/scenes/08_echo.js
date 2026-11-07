@@ -67,21 +67,22 @@ scene('echo', S => {
 
   /* ---------- art ---------- */
   const SKIN = '#E8B48E', SKINDK = '#B9825A', SKINLT = '#F7D9C2';
+  /* loudspeaker: the lesson's shared look (chapters 0-2: dark box, grey cone facing right), scale s */
   function speaker(parent, s) {
-    const g = G(parent), k = s || 1;
-    E('rect', { x: -40 * k, y: -60 * k, width: 52 * k, height: 120 * k, rx: 10 * k, fill: '#22313D', stroke: '#5E7A8C', 'stroke-width': 3 }, g);
-    const cone = G(g);
-    E('path', { d: `M${12 * k},${-22 * k} L${34 * k},${-50 * k} L${34 * k},${50 * k} L${12 * k},${22 * k} Z`, fill: '#8FA4B3', stroke: '#C9D6DE', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, cone);
-    E('ellipse', { cx: 34 * k, cy: 0, rx: 6 * k, ry: 50 * k, fill: '#6E8494', stroke: '#C9D6DE', 'stroke-width': 2 }, cone);
-    g.set = v => tr(cone, 5 * k * v, 0);
+    const g = G(parent), k = G(g); tr(k, 0, 0, s || 1);
+    E('rect', { x: -46, y: -60, width: 56, height: 120, rx: 10, fill: ball('#36505F', '#16242D'), stroke: '#6F8B9B', 'stroke-width': 3 }, k);
+    const cone = G(k);
+    E('path', { d: 'M8,-24 L44,-58 L44,58 L8,24 Z', fill: linGrad('#7D8E9A', '#C9D5DD'), stroke: '#DCE6EC', 'stroke-width': 3, 'stroke-linejoin': 'round' }, cone);
+    E('path', { d: 'M8,-24 Q20,0 8,24', fill: '#5D707C', stroke: '#DCE6EC', 'stroke-width': 2.5 }, cone);
+    g.set = v => tr(cone, 5 * v, 0);
     return g;
   }
-  /* an ear, side view, about 80 x 110 */
+  /* an ear seen from the side, opening to the left: the lesson's shared ear (chapters 0-2) at 0.86x, about 75 x 120 */
   function earIcon(parent) {
-    const g = G(parent);
-    E('path', { d: 'M-2,-54 C30,-58 48,-32 44,-4 C41,16 30,24 24,36 C18,50 6,60 -9,56 C-22,52 -24,38 -15,30 C-8,24 -7,16 -15,8 C-26,-3 -32,-16 -30,-30 C-28,-45 -16,-53 -2,-54 Z', fill: ball(SKIN, SKINDK), stroke: SKINLT, 'stroke-width': 3 }, g);
-    E('path', { d: 'M-14,-30 C-8,-44 18,-44 26,-24 C31,-9 20,0 10,6 C4,10 4,18 8,24', fill: 'none', stroke: '#B07A58', 'stroke-width': 5, 'stroke-linecap': 'round' }, g);
-    E('ellipse', { cx: 4, cy: -2, rx: 7, ry: 9, fill: '#7A4A33' }, g);
+    const g = G(parent), k = G(g, { transform: 'scale(0.86)' });
+    E('path', { d: 'M-30,-34 C-28,-66 2,-78 26,-70 C52,-61 60,-30 50,-6 C42,14 26,20 22,38 C18,56 4,70 -14,64 C-28,59 -30,46 -24,36 C-18,26 -10,22 -12,6 C-14,-8 -32,-12 -30,-34 Z', fill: ball('#F2C29C', '#C98E62'), stroke: '#FFE2C8', 'stroke-width': 3, 'stroke-linejoin': 'round' }, k);
+    E('path', { d: 'M-12,-42 C0,-56 26,-52 32,-30 C37,-12 24,-2 14,6', fill: 'none', stroke: '#B97A52', 'stroke-width': 5, 'stroke-linecap': 'round' }, k);
+    E('ellipse', { cx: -6, cy: 4, rx: 9, ry: 12, fill: '#6E3A26' }, k);
     return g;
   }
   /* bat, about 220 wide, facing right; g.flap(t) */
