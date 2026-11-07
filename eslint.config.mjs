@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Animated-lesson source and build tooling (bundled into public/lessons/*.html).
+    "lessons/**",
   ]),
 ]);
 

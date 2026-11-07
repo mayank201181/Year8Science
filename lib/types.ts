@@ -182,5 +182,7 @@ export interface TopicExtras {
   interactive?: string;
   /** Optional: multiple interactive widget keys for the Interactive tab. */
   interactives?: string[];
+  /** Optional narrated, animated lesson: a static page under /public/lessons. */
+  lesson?: { href: string; minutes: number; chapters: number };
 }
 

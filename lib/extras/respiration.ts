@@ -4,6 +4,7 @@ import type { TopicExtras } from "../types";
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const respirationExtras: TopicExtras = {
   interactive: "respiration-lab",
+  lesson: { href: "/lessons/respiration.html", minutes: 14, chapters: 12 },
   hook: "Right now, inside trillions of your cells, something is quietly burning your breakfast — without any flames, smoke or heat that could cook you. How does your body release the energy locked inside a piece of toast as gently as a candle, and what happens to that energy when you sprint until your legs burn?",
   didYouKnow: [
     "Every cell in your body has hundreds of tiny 'power stations' called mitochondria — laid end to end, the mitochondria in one person would stretch tens of thousands of kilometres.",
