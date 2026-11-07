@@ -1,7 +1,7 @@
 # Acids, Bases & Metals: storyboard
 
 What the screen shows for every narration line of `lessons/acids-metals/script.py`.
-Fifteen chapters, 144 lines, about 16 minutes (chapter lengths in the split at the end).
+Fifteen chapters, 144 lines, 2,274 words, 16.3 minutes (chapter lengths in the split at the end).
 
 **Look and palette.** The universal-indicator colours below are the colour code for the whole
 lesson: acids are red, neutral is green, alkalis are blue to purple, in every pH bar, indicator
@@ -369,9 +369,9 @@ below.
 
 ## Suggested animator split
 
-Estimated chapter lengths: intro 30 s, acids 63 s, ph 70 s, indicators 72 s, hazards 69 s,
-neutral 77 s, metals 80 s, carbonates 62 s, series 75 s, displace 77 s, burning 67 s,
-oxygen 42 s, salts 67 s, recap 56 s, quiz 68 s.
+Chapter lengths from `timeline.json`: intro 29 s, acids 64 s, ph 71 s, indicators 71 s, hazards 71 s,
+neutral 77 s, metals 81 s, carbonates 61 s, series 73 s, displace 78 s, burning 68 s,
+oxygen 42 s, salts 67 s, recap 56 s, quiz 70 s.
 
 | Group | Chapters | About | Notes |
 | --- | --- | --- | --- |
