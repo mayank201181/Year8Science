@@ -6,43 +6,79 @@ moment each chapter builds towards.
 
 ## Shared look (use in every chapter, so the lesson looks like one piece)
 
-- **Force arrows** use lib `arrow` (grow them in with `g.set(p)`), one colour
-  per kind of force, everywhere:
-  - weight (gravity): `C.glucose` amber;
-  - normal force and upthrust (support pushes): `C.water` blue;
-  - friction, air resistance and drag: `C.oxygen` red;
-  - pushes, pulls and driving forces: `C.good` green;
-  - tension: `C.ethanol` violet;
-  - magnetic and electrostatic: `C.lactic` pink;
-  - resultant force: `C.energy` yellow, thicker, labelled "resultant". A zero
-    resultant is a "0 N" chip, with no arrow.
-- **Arrows are to scale.** Within a scene, length is proportional to force
-  (state the scale in the scene, for example 10 N = 60 px, and show a small
-  scale bar whenever numbers are on screen). Equal forces get exactly equal
-  arrows. Directions follow the physics:
+The shared art is in `lessons/forces/lib.js` (its header lists every helper and
+option). Use these rather than drawing your own, so all four animator groups
+match.
+
+- **Force arrows:** `fmArrow(parent, kind, x, y, newtons, dir, { scale })`
+  draws an arrow to scale, `newtons × scale` px long, labelled like
+  "weight 20 N". `g.set(p, newtons)` grows it in, resizes it (drag growing with
+  speed), and keeps the label's value in step. The colour comes from the kind
+  (`FM.col`), one per kind of force everywhere:
+  - `weight` (gravity): `C.glucose` amber;
+  - `normal` and `upthrust` (support pushes): `C.water` blue;
+  - `friction` and `drag` (air or water resistance; pass `label: 'air
+    resistance'`): `C.oxygen` red;
+  - `push`, `pull` and `drive` (driving force): `C.good` green;
+  - `tension`: `C.ethanol` violet;
+  - `magnetic` and `electrostatic`: `C.lactic` pink;
+  - `resultant`: `C.energy` yellow, thicker. A zero resultant is a "0 N" chip
+    (lib `chip`), with no arrow.
+- **Arrows are to scale.** Pick one `scale` (px per newton) per scene, use it
+  for every arrow in that scene, and show `fmScaleBar` whenever numbers are on
+  screen. Equal forces get exactly equal arrows. Directions follow the physics:
   - weight starts at the object's centre and points straight down;
   - the normal force starts at the contact surface and points away from it, at
-    right angles;
+    right angles, set about 16 px to one side of the weight arrow so the two
+    never sit on top of each other;
   - friction acts along the contact surface, against the motion (or against the
     way the object is trying to slide);
   - drag points straight back against the motion;
   - upthrust points straight up;
-  - tension points along the rope, away from the object.
-- **Newtonmeter** (force, mass, hooke, recap, quiz): a clear vertical tube with a
-  ring at the top and a hook at the bottom, a spring inside, an evenly spaced
-  scale in newtons on the right, and a red pointer at the spring's end. Build it
-  the same way in every scene.
-- **Graphs** (speed, hooke): axes in `C.muted`, labels at least 26 px, the
-  plotted line in `C.energy`, grid at 30% opacity. On the distance-time graph,
-  time runs along the bottom and distance up the side. On the force-extension
-  graph, extension runs along the bottom and force up the side, as in the guide's
-  diagram.
-- **Pivots** are a grey triangle; distances from a pivot are brackets measured
-  at right angles to the force's line.
-- Lib art to reuse: `arrow`, `chip`, `card`, `tick`, `cross`, `strike`, `meter`
-  (speed gauges), `heatWaves` (friction heat), `spark`, `ring` (quiz countdown),
-  `glow`, `ball`. Kit art: `person` (with `runPose` and `walkPose`; astronauts in
-  white with a helmet circle), `magnet`, `labelLine`.
+  - tension points along the rope, away from the object;
+  - a push drawn into an object uses `{ tip: true }`, so its head touches the
+    object.
+
+  `fmCrate(parent, w, h).at(x, y)` gives the anchor points in `g.pt`: centre,
+  bottom, left, right, and the bottom corners. `fmCar` and `fmCyclist` give
+  `g.pt.front` (start the driving force here, pointing forwards) and
+  `g.pt.back` (start drag here, pointing backwards).
+- **Objects:**
+  - `fmFloor` for the ground (`rough` for friction close-ups);
+  - `fmCrate` for the box;
+  - `fmBag(parent, '2 kg')` for masses;
+  - `fmMasses` for slotted 1 N masses (`g.set(count)`).
+- **Newtonmeter** (force, mass, hooke, recap, quiz): `fmNewtonmeter({ max })`,
+  with `g.set(newtons)` and `g.hook()` for where the load hangs. The hook slides
+  down as the reading rises, so at full scale it hangs 2 × len + 160 px below
+  the ring; leave room.
+- **Springs** (hooke, recap): `fmSpring` (`g.set(length, warp)`; warp makes the
+  coils uneven past the elastic limit). `fmExtension(newtons)` gives the
+  chapter's numbers: 10 cm long, 3 cm per newton up to the 4 N elastic limit,
+  then curving away.
+- **Graphs** (speed, hooke, recap): `fmGraph` draws axes in `C.muted` with
+  labels and a grid at 30%. `g.line(points).set(upto)` plots a line in
+  `C.energy` as far as `x = upto`, so the distance-time graph draws itself live;
+  `g.dots(points).set(k)` adds data points one at a time. On the distance-time
+  graph, time runs along the bottom and distance up the side. On the
+  force-extension graph, extension runs along the bottom and force up the
+  side, as in the guide's diagram. Leave about 90 px below the axis and 100 px
+  to its left for the labels.
+- **Seesaw and distances** (moments, recap): `fmSeesaw({ pxPerM: 150 })`, with
+  `g.set(tilt)` and `g.at(metres)`. Stand loads at `g.at(d)` and draw their
+  weight arrows straight down. `fmDim` draws the distance brackets ("2 m",
+  "3 cm"), measured from the pivot at right angles to the force's line.
+- **The Moon, the hammer and the feather** (intro, mass, friction):
+  - `fmMoon` and `fmSky` are the full-stage backdrops;
+  - `fmHammer` and `fmFeather`;
+  - `fmAstronaut` is a kit `person` in a spacesuit, posed with `g.pose`.
+- **Vehicles** (force, types, balanced, friction, speed, recap, quiz): `fmCar`
+  and `fmCyclist`. `g.roll(distance)` turns their wheels (and the pedals) by the
+  distance moved.
+- Lib art to reuse: `chip`, `card`, `tick`, `cross`, `strike`, `meter` (speed
+  gauges), `heatWaves` (friction heat), `spark`, `ring` (quiz countdown), `glow`,
+  `ball`. Kit art: `person` (with `runPose` and `walkPose`), `magnet`,
+  `labelLine`.
 
 ## intro: The hammer and the feather
 
