@@ -25,7 +25,7 @@ CHAPTERS = [
         "lines": [
             {"id": "hook", "cap": "You breathe about **22,000** times a day, without even thinking about it.",
              "say": "You breathe about twenty-two thousand times a day, without even thinking about it."},
-            {"id": "lungs", "cap": "Yet your lungs can't pull in a single breath by themselves. So what makes the air rush in? And why would your lungs be useless on the Moon?"},
+            {"id": "lungs", "cap": "Yet your lungs can't pull in a single breath by themselves. So how does air get into them? And why would your lungs be useless on the Moon?"},
             {"id": "def", "cap": "This is **breathing and gas exchange**: how your lungs take in the **oxygen** your cells need, and get rid of the waste gas **carbon dioxide**."},
             {"id": "plan", "cap": "Let's follow a breath down your airways, find out what really moves the air, and watch oxygen cross into your blood."},
         ],
@@ -54,7 +54,7 @@ CHAPTERS = [
         "short": "Respiratory system",
         "lines": [
             {"id": "tree", "cap": "Air reaches deep into your chest through a set of branching tubes, like an **upside-down tree**."},
-            {"id": "nose", "cap": "It comes in through your **nose** or mouth. The nose is best: it **warms**, **moistens** and **filters** the air."},
+            {"id": "nose", "cap": "It comes in through your **nose** or mouth. The nose is best: it **warms** the air, makes it **moist**, and **filters** it."},
             {"id": "trachea", "cap": "Then it goes down the **trachea**, or windpipe, at the front of your neck."},
             {"id": "cartilage", "cap": "**C-shaped rings of cartilage** hold the trachea open, so it can't collapse when you breathe in."},
             {"id": "goblet", "cap": "Its lining has two kinds of cell. **Goblet cells** make sticky **mucus**, which traps dust and germs."},
@@ -231,7 +231,7 @@ CHAPTERS = [
             {"id": "a3", "cap": "By **diffusion**, from a high to a low concentration."},
             {"id": "q4", "cap": "What happens to limewater when you breathe out through it?", "pause": 4.0},
             {"id": "a4", "cap": "It turns from clear to **cloudy**, because of the carbon dioxide."},
-            {"id": "q5", "cap": "Which gas in cigarette smoke cuts the oxygen your blood can carry?", "pause": 4.0},
+            {"id": "q5", "cap": "Which gas from cigarette smoke cuts the oxygen your blood can carry?", "pause": 4.0},
             {"id": "a5", "cap": "**Carbon monoxide.**"},
             {"id": "outro", "cap": "Brilliant work. Now try the Breathing quiz in your Science Lab, to lock it in."},
         ],
