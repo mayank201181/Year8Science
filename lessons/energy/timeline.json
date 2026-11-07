@@ -112,7 +112,7 @@
    "short": "Energy stores",
    "card": true,
    "start": 94.297,
-   "end": 186.067,
+   "end": 185.917,
    "lines": [
     {
      "id": "stores",
@@ -129,67 +129,67 @@
     {
      "id": "grav",
      "start": 110.537,
-     "end": 118.537,
-     "cap": "**Gravitational potential**: energy an object has because of its **height**, like a book on a high shelf, or water behind a dam."
+     "end": 118.388,
+     "cap": "**Gravitational potential**: the energy something has because of its **height**, like a book on a high shelf, or water behind a dam."
     },
     {
      "id": "elastic",
-     "start": 119.037,
-     "end": 125.288,
+     "start": 118.888,
+     "end": 125.139,
      "cap": "**Elastic potential**: energy in something **stretched** or **squashed**, like a drawn bow or a squashed spring."
     },
     {
      "id": "chemical",
-     "start": 125.788,
-     "end": 130.652,
+     "start": 125.639,
+     "end": 130.503,
      "cap": "**Chemical**: energy stored in **food**, **fuels** and **batteries**, released when they react."
     },
     {
      "id": "thermal",
-     "start": 131.152,
-     "end": 135.781,
+     "start": 131.003,
+     "end": 135.632,
      "cap": "**Thermal**: the energy of a **warm** object's jiggling particles, like a hot drink."
     },
     {
      "id": "nuclear",
-     "start": 136.281,
-     "end": 142.767,
+     "start": 136.132,
+     "end": 142.617,
      "cap": "**Nuclear**: energy locked in the **nucleus** of an atom, released in nuclear power stations, and in the Sun."
     },
     {
      "id": "electro",
-     "start": 143.267,
-     "end": 150.712,
+     "start": 143.117,
+     "end": 150.563,
      "cap": "**Electrostatic**: energy in **electric charges** that attract or repel, like a charged balloon or a thundercloud."
     },
     {
      "id": "magnetic",
-     "start": 151.212,
-     "end": 156.823,
+     "start": 151.063,
+     "end": 156.673,
      "cap": "And **magnetic**: energy in **magnets** that attract or repel, like two magnets held apart."
     },
     {
      "id": "gorillas",
-     "start": 157.323,
-     "end": 162.229,
+     "start": 157.173,
+     "end": 162.08,
      "cap": "To remember all eight: **K**ind **G**orillas **E**at **C**hocolate, **T**igers **N**ever **E**at **M**ango."
     },
     {
      "id": "list",
-     "start": 163.129,
-     "end": 168.847,
+     "start": 162.98,
+     "end": 168.697,
      "cap": "Kinetic, gravitational, elastic, chemical, thermal, nuclear, electrostatic, magnetic."
     },
     {
      "id": "groups",
-     "start": 169.947,
-     "end": 179.547,
+     "start": 169.797,
+     "end": 179.397,
      "cap": "Notice the pattern: kinetic and thermal are about **movement**, chemical and nuclear are locked **inside matter**, and the other four depend on **position** or **shape**."
     },
     {
      "id": "lightning",
-     "start": 180.047,
-     "end": 185.167,
+     "start": 179.897,
+     "end": 185.017,
      "cap": "A lightning bolt empties an **electrostatic** store in a flash: about **a billion joules**."
     }
    ]
@@ -199,67 +199,67 @@
    "title": "Four ways energy is transferred",
    "short": "Pathways",
    "card": true,
-   "start": 186.067,
-   "end": 258.252,
+   "start": 185.917,
+   "end": 258.209,
    "lines": [
     {
      "id": "pathway",
-     "start": 187.867,
-     "end": 191.941,
+     "start": 187.717,
+     "end": 191.792,
      "cap": "Energy moves between stores along a **transfer pathway**. There are **four**."
     },
     {
      "id": "mech",
-     "start": 192.441,
-     "end": 201.593,
+     "start": 192.292,
+     "end": 201.444,
      "cap": "**Mechanically**: by a **force** moving something, like pushing, pulling or stretching. Kick a ball, and energy goes mechanically into its kinetic store."
     },
     {
      "id": "elec",
-     "start": 202.093,
-     "end": 209.411,
+     "start": 201.944,
+     "end": 209.261,
      "cap": "**Electrically**: by an **electric current** in a circuit. A charger transfers energy electrically into your phone's battery."
     },
     {
      "id": "heating",
-     "start": 209.911,
-     "end": 215.735,
+     "start": 209.761,
+     "end": 215.585,
      "cap": "**By heating**: when energy flows from a **hotter** object to a **colder** one, like a hob heating a pan."
     },
     {
      "id": "rad",
-     "start": 216.235,
-     "end": 226.304,
+     "start": 216.085,
+     "end": 226.155,
      "cap": "**By radiation**: energy carried by **waves**, such as **light**, **infrared** and **sound**. That's how the Sun warms you, and how sound from a speaker reaches your ears."
     },
     {
      "id": "merh",
-     "start": 226.804,
-     "end": 233.055,
+     "start": 226.655,
+     "end": 232.905,
      "cap": "Remember them as **M, E, R, H**: mechanically, electrically, by radiation and by heating."
     },
     {
      "id": "where",
-     "start": 233.555,
-     "end": 239.635,
+     "start": 233.405,
+     "end": 239.485,
      "cap": "Keep two ideas apart. **Stores** are **where** energy is held. **Pathways** are **how** it moves between them."
     },
     {
      "id": "notstores",
-     "start": 240.135,
-     "end": 245.809,
+     "start": 239.985,
+     "end": 245.66,
      "cap": "So **heat**, **light**, **sound** and **electricity** are **not** stores. They're ways of transferring energy."
     },
     {
      "id": "kettle",
-     "start": 246.309,
-     "end": 252.581,
-     "cap": "Watch a kettle boil. First, energy is transferred **electrically** from the mains to the heating element."
+     "start": 246.16,
+     "end": 252.539,
+     "cap": "When you boil water in a kettle, energy is first transferred **electrically** from the mains to the heating element."
     },
     {
      "id": "water",
-     "start": 253.381,
-     "end": 256.752,
+     "start": 253.339,
+     "end": 256.709,
      "cap": "Then it's transferred **by heating** into the water's **thermal store**."
     }
    ]
@@ -269,73 +269,73 @@
    "title": "Conservation of energy",
    "short": "Conservation",
    "card": true,
-   "start": 258.252,
-   "end": 349.144,
+   "start": 258.209,
+   "end": 349.101,
    "lines": [
     {
      "id": "before",
-     "start": 260.052,
-     "end": 267.924,
+     "start": 260.009,
+     "end": 267.881,
      "cap": "Because energy is never created or destroyed, the **total energy before** a change always equals the **total energy after** it."
     },
     {
      "id": "ball",
-     "start": 268.424,
-     "end": 275.336,
+     "start": 268.381,
+     "end": 275.293,
      "cap": "That lets you **trace** where energy goes. A ball held up high has energy in its **gravitational potential** store."
     },
     {
      "id": "falls",
-     "start": 275.836,
-     "end": 284.476,
+     "start": 275.793,
+     "end": 284.433,
      "cap": "Let go, and as it falls, energy transfers to its **kinetic** store, so it **speeds up**. Just before it lands, nearly all of it is kinetic."
     },
     {
      "id": "hits",
-     "start": 285.376,
-     "end": 292.501,
+     "start": 285.333,
+     "end": 292.459,
      "cap": "When it hits the ground, the energy spreads out: some is carried away as **sound**, and the rest ends up in **thermal** stores."
     },
     {
      "id": "flow",
-     "start": 293.001,
-     "end": 299.721,
+     "start": 292.959,
+     "end": 299.679,
      "cap": "We can show this in an **energy flow diagram**: **gravitational potential → kinetic → thermal + sound**."
     },
     {
      "id": "toy",
-     "start": 300.621,
-     "end": 309.368,
+     "start": 300.579,
+     "end": 309.325,
      "cap": "A **wind-up toy** stores energy in the **elastic** store of its spring. As it runs, that becomes **kinetic**, plus a little **thermal**, from friction."
     },
     {
      "id": "coaster",
-     "start": 309.868,
-     "end": 314.796,
+     "start": 309.825,
+     "end": 314.753,
      "cap": "A **roller coaster** starts at the top of the first hill with a full **gravitational** store."
     },
     {
      "id": "swap",
-     "start": 315.296,
-     "end": 323.829,
+     "start": 315.253,
+     "end": 323.787,
      "cap": "Racing down, that transfers to its **kinetic** store: fast! Climbing the next hill, kinetic transfers back to gravitational: slow."
     },
     {
      "id": "lower",
-     "start": 324.929,
-     "end": 332.801,
+     "start": 324.887,
+     "end": 332.759,
      "cap": "That's why no later hill can be as high as the first: friction and air resistance transfer a little energy to **thermal** stores."
     },
     {
      "id": "pendulum",
-     "start": 333.301,
-     "end": 341.195,
+     "start": 333.259,
+     "end": 341.152,
      "cap": "Try it at home: swing a key on a string. **Gravitational** at the top, **kinetic** at the bottom: the two stores swap back and forth."
     },
     {
      "id": "slows",
-     "start": 341.695,
-     "end": 348.244,
+     "start": 341.652,
+     "end": 348.201,
      "cap": "Each swing is a little lower, because air resistance spreads a little energy out as heat, until the key stops."
     }
    ]
@@ -345,73 +345,73 @@
    "title": "Useful and wasted energy",
    "short": "Useful and wasted",
    "card": true,
-   "start": 349.144,
-   "end": 420.971,
+   "start": 349.101,
+   "end": 420.928,
    "lines": [
     {
      "id": "useful",
-     "start": 350.944,
-     "end": 356.405,
+     "start": 350.901,
+     "end": 356.363,
      "cap": "When a device transfers energy, only some goes where we want it. That's the **useful** energy."
     },
     {
      "id": "wasted",
-     "start": 356.905,
-     "end": 363.113,
+     "start": 356.863,
+     "end": 363.071,
      "cap": "The rest is **wasted**: transferred to stores we didn't want, usually the **thermal store** of the surroundings."
     },
     {
      "id": "bulb",
-     "start": 363.613,
-     "end": 368.392,
+     "start": 363.571,
+     "end": 368.349,
      "cap": "An old **filament** light bulb is meant to give out light, but it also gets very **hot**."
     },
     {
      "id": "tenth",
-     "start": 368.892,
-     "end": 374.908,
+     "start": 368.849,
+     "end": 374.865,
      "cap": "Only about **a tenth** of its energy becomes useful **light**. The rest is wasted, heating up the room."
     },
     {
      "id": "led",
-     "start": 375.808,
-     "end": 380.053,
+     "start": 375.765,
+     "end": 380.011,
      "cap": "A modern **LED** bulb gives the same light while wasting far less."
     },
     {
      "id": "vanish",
-     "start": 380.553,
-     "end": 385.353,
+     "start": 380.511,
+     "end": 385.311,
      "cap": "But wasted energy doesn't **vanish**. Energy is always conserved, remember."
     },
     {
      "id": "dissipate",
-     "start": 385.853,
-     "end": 390.568,
+     "start": 385.811,
+     "end": 390.525,
      "cap": "Instead, it **dissipates**: it spreads out into the surroundings, thinner and thinner."
     },
     {
      "id": "hard",
-     "start": 391.668,
-     "end": 399.305,
+     "start": 391.625,
+     "end": 399.263,
      "cap": "Once it's spread out as a slightly warmer room, it's almost impossible to collect and use again. That's why we call it wasted."
     },
     {
      "id": "friction",
-     "start": 399.805,
-     "end": 407.293,
+     "start": 399.763,
+     "end": 407.251,
      "cap": "Often, the waste comes from **friction** between moving parts, and **air resistance**. They transfer energy into **thermal** stores."
     },
     {
      "id": "hot",
-     "start": 407.793,
-     "end": 410.652,
+     "start": 407.751,
+     "end": 410.609,
      "cap": "That's why drill bits and bicycle brakes get hot."
     },
     {
      "id": "rub",
-     "start": 411.152,
-     "end": 419.771,
+     "start": 411.109,
+     "end": 419.728,
      "cap": "Feel it yourself: rub your palms together fast for fifteen seconds. Friction transfers kinetic energy into the thermal store of your skin."
     }
    ]
@@ -421,79 +421,79 @@
    "title": "Efficiency and Sankey diagrams",
    "short": "Efficiency",
    "card": true,
-   "start": 420.971,
-   "end": 505.465,
+   "start": 420.928,
+   "end": 505.423,
    "lines": [
     {
      "id": "what",
-     "start": 422.771,
-     "end": 428.659,
+     "start": 422.728,
+     "end": 428.616,
      "cap": "**Efficiency** tells you how good a device is at transferring energy **usefully**, instead of wasting it."
     },
     {
      "id": "formula",
-     "start": 429.159,
-     "end": 434.919,
+     "start": 429.116,
+     "end": 434.876,
      "cap": "**efficiency = useful energy transferred ÷ total energy supplied**"
     },
     {
      "id": "uot",
-     "start": 435.919,
-     "end": 438.095,
+     "start": 435.876,
+     "end": 438.052,
      "cap": "Remember it as **Useful Over Total**."
     },
     {
      "id": "motor",
-     "start": 438.595,
-     "end": 446.147,
+     "start": 438.552,
+     "end": 446.104,
      "cap": "Let's try one. A motor is supplied with **200 J**, and **150 J** becomes useful kinetic energy."
     },
     {
      "id": "calc",
-     "start": 446.647,
-     "end": 455.095,
+     "start": 446.604,
+     "end": 455.052,
      "cap": "Its efficiency is **150 ÷ 200 = 0.75**: a number between 0 and 1."
     },
     {
      "id": "percent",
-     "start": 455.995,
-     "end": 460.069,
+     "start": 455.952,
+     "end": 460.027,
      "cap": "Multiply by **100** for a percentage: **75%**."
     },
     {
      "id": "rest",
-     "start": 460.569,
-     "end": 465.455,
+     "start": 460.527,
+     "end": 465.412,
      "cap": "The other **50 J**, which is **25%**, is wasted, mostly as heat."
     },
     {
      "id": "never",
-     "start": 465.955,
-     "end": 475.107,
+     "start": 465.912,
+     "end": 475.064,
      "cap": "**No** real device is **100%** efficient: there's always some waste, usually as heat. Engineers work to make it as small as possible."
     },
     {
      "id": "check",
-     "start": 475.607,
-     "end": 482.455,
+     "start": 475.564,
+     "end": 482.412,
      "cap": "So if you ever get an efficiency **over 100%**, check your working. You can't get more energy out than you put in."
     },
     {
      "id": "sankey",
-     "start": 482.955,
-     "end": 488.48,
+     "start": 482.912,
+     "end": 488.437,
      "cap": "You can picture it with a **Sankey diagram**, where the **width** of each arrow shows the **amount** of energy."
     },
     {
      "id": "branch",
-     "start": 488.98,
-     "end": 495.209,
+     "start": 488.937,
+     "end": 495.167,
      "cap": "The useful energy carries straight on, and the wasted energy **peels off** in a branch, usually downwards."
     },
     {
      "id": "fat",
-     "start": 496.309,
-     "end": 504.565,
+     "start": 496.267,
+     "end": 504.523,
      "cap": "A fat wasted branch, like a filament bulb's, means an **inefficient** device. The thinner the wasted branch, the more **efficient** the device."
     }
    ]
@@ -503,85 +503,85 @@
    "title": "Renewable and non-renewable resources",
    "short": "Resources",
    "card": true,
-   "start": 505.465,
-   "end": 604.613,
+   "start": 505.423,
+   "end": 604.571,
    "lines": [
     {
      "id": "resource",
-     "start": 507.265,
-     "end": 514.561,
+     "start": 507.223,
+     "end": 514.519,
      "cap": "An **energy resource** is something we use to supply energy, usually to generate electricity. There are two groups."
     },
     {
      "id": "nonrenew",
-     "start": 515.061,
-     "end": 520.032,
+     "start": 515.019,
+     "end": 519.989,
      "cap": "**Non-renewable** resources will **run out**, because we use them far faster than they form."
     },
     {
      "id": "fossil",
-     "start": 520.532,
-     "end": 526.356,
+     "start": 520.489,
+     "end": 526.313,
      "cap": "They're the **fossil fuels**, **coal**, **oil** and **natural gas**, plus **nuclear fuel**, which is uranium."
     },
     {
      "id": "pros",
-     "start": 526.856,
-     "end": 533.725,
+     "start": 526.813,
+     "end": 533.683,
      "cap": "On the plus side, they're **reliable** and available whenever we need them, and a little fuel releases a lot of energy."
     },
     {
      "id": "cons",
-     "start": 534.225,
-     "end": 543.228,
+     "start": 534.183,
+     "end": 543.185,
      "cap": "But burning fossil fuels releases **carbon dioxide**, a greenhouse gas linked to **climate change**, plus other pollution. And they'll run out."
     },
     {
      "id": "nuclear",
-     "start": 543.728,
-     "end": 552.176,
+     "start": 543.685,
+     "end": 552.133,
      "cap": "Watch out: **nuclear** is **non-renewable**. Uranium will run out, even though nuclear power releases very little carbon dioxide."
     },
     {
      "id": "renew",
-     "start": 552.676,
-     "end": 560.953,
+     "start": 552.633,
+     "end": 560.911,
      "cap": "**Renewable** resources are constantly **replaced**, so they won't run out. Most release little or no carbon dioxide while they're running."
     },
     {
      "id": "seven",
-     "start": 561.453,
-     "end": 570.712,
+     "start": 561.411,
+     "end": 570.669,
      "cap": "There are seven: **solar**, **wind**, **hydroelectric**, **tidal**, **wave**, **geothermal**, which is heat from underground, and **biomass**, from plants and waste."
     },
     {
      "id": "horses",
-     "start": 571.212,
-     "end": 574.689,
+     "start": 571.169,
+     "end": 574.647,
      "cap": "Remember them with **Six Wild Horses Took Wet Grass Back**."
     },
     {
      "id": "rcons",
-     "start": 575.589,
-     "end": 581.072,
+     "start": 575.547,
+     "end": 581.029,
      "cap": "But many are **unreliable**: there's no solar power at night, and no wind power on a calm day."
     },
     {
      "id": "space",
-     "start": 581.572,
-     "end": 587.823,
+     "start": 581.529,
+     "end": 587.78,
      "cap": "Some need lots of space or special places, and building them can be expensive and disturb wildlife."
     },
     {
      "id": "mix",
-     "start": 588.323,
-     "end": 594.808,
+     "start": 588.28,
+     "end": 594.765,
      "cap": "So most countries use a **mix** of resources, to balance reliability, cost and cutting carbon emissions."
     },
     {
      "id": "debate",
-     "start": 595.308,
-     "end": 603.713,
+     "start": 595.265,
+     "end": 603.671,
      "cap": "Scientists still argue about nuclear power: it's low-carbon, but its radioactive waste stays dangerous for thousands of years."
     }
    ]
@@ -591,85 +591,85 @@
    "title": "Generating electricity and saving energy",
    "short": "Power and saving",
    "card": true,
-   "start": 604.613,
-   "end": 695.968,
+   "start": 604.571,
+   "end": 695.925,
    "lines": [
     {
      "id": "turbine",
-     "start": 606.413,
-     "end": 613.133,
+     "start": 606.371,
+     "end": 613.091,
      "cap": "So how does a power station make electricity? Nearly always, by spinning a **turbine**, which turns a **generator**."
     },
     {
      "id": "steam",
-     "start": 613.633,
-     "end": 621.719,
+     "start": 613.591,
+     "end": 621.676,
      "cap": "In a coal, biomass or nuclear power station, the fuel heats water into **steam**, which rushes past the turbine and spins it."
     },
     {
      "id": "chain",
-     "start": 622.219,
-     "end": 629.771,
+     "start": 622.176,
+     "end": 629.728,
      "cap": "Follow the energy: **chemical** or **nuclear** store → **thermal** store of the steam → **kinetic** store of the turbine."
     },
     {
      "id": "generator",
-     "start": 630.771,
-     "end": 635.677,
+     "start": 630.728,
+     "end": 635.635,
      "cap": "Then the generator transfers the energy **electrically**, along the wires to our homes."
     },
     {
      "id": "wind",
-     "start": 636.177,
-     "end": 642.129,
+     "start": 636.135,
+     "end": 642.087,
      "cap": "A **wind turbine** needs no steam: the **kinetic** store of the moving air turns the blades directly."
     },
     {
      "id": "hydro",
-     "start": 642.629,
-     "end": 649.925,
+     "start": 642.587,
+     "end": 649.883,
      "cap": "A **hydroelectric** station lets water fall from a high reservoir, so its **gravitational** store spins the turbine."
     },
     {
      "id": "solar",
-     "start": 650.425,
-     "end": 656.463,
+     "start": 650.383,
+     "end": 656.42,
      "cap": "And **solar cells** are different again: they turn light straight into electricity, with **no turbine** at all."
     },
     {
      "id": "save",
-     "start": 656.963,
-     "end": 662.936,
+     "start": 656.92,
+     "end": 662.893,
      "cap": "Generating electricity wastes energy, and fossil fuels pollute. So **saving energy** matters."
     },
     {
      "id": "mean",
-     "start": 663.436,
-     "end": 670.796,
+     "start": 663.393,
+     "end": 670.753,
      "cap": "Saving energy doesn't mean stopping it from vanishing. It means **wasting less** of the fuel and electricity we pay for."
     },
     {
      "id": "insulate",
-     "start": 671.296,
-     "end": 678.229,
+     "start": 671.253,
+     "end": 678.187,
      "cap": "**Insulate** your home, with loft insulation, double glazing and draught-proofing, so less thermal energy escapes."
     },
     {
      "id": "appliances",
-     "start": 678.729,
-     "end": 683.145,
+     "start": 678.687,
+     "end": 683.103,
      "cap": "Choose **efficient appliances**, like LED bulbs and efficient fridges."
     },
     {
      "id": "switch",
-     "start": 683.645,
-     "end": 687.485,
+     "start": 683.603,
+     "end": 687.443,
      "cap": "And **switch off** things you're not using, instead of leaving them on standby."
     },
     {
      "id": "benefits",
-     "start": 687.985,
-     "end": 695.068,
+     "start": 687.943,
+     "end": 695.025,
      "cap": "Using less energy saves **money**, makes resources last longer, and cuts the **carbon dioxide** from power stations."
     }
    ]
@@ -679,73 +679,73 @@
    "title": "Recap: memory hooks and exam traps",
    "short": "Recap",
    "card": true,
-   "start": 695.968,
-   "end": 751.263,
+   "start": 695.925,
+   "end": 751.22,
    "lines": [
     {
      "id": "lock",
-     "start": 697.768,
-     "end": 699.112,
+     "start": 697.725,
+     "end": 699.069,
      "cap": "Let's lock it all in."
     },
     {
      "id": "gorillas",
-     "start": 699.612,
-     "end": 704.476,
+     "start": 699.569,
+     "end": 704.433,
      "cap": "**Kind Gorillas Eat Chocolate, Tigers Never Eat Mango**: the eight energy stores."
     },
     {
      "id": "merh",
-     "start": 704.976,
-     "end": 711.632,
+     "start": 704.933,
+     "end": 711.589,
      "cap": "**M, E, R, H**: energy is transferred mechanically, electrically, by radiation and by heating."
     },
     {
      "id": "uot",
-     "start": 712.132,
-     "end": 718.489,
+     "start": 712.089,
+     "end": 718.447,
      "cap": "**Useful Over Total**: efficiency = useful energy ÷ total energy supplied."
     },
     {
      "id": "horses",
-     "start": 718.989,
-     "end": 723.469,
+     "start": 718.947,
+     "end": 723.427,
      "cap": "**Six Wild Horses Took Wet Grass Back**: the seven renewable resources."
     },
     {
      "id": "traps",
-     "start": 723.969,
-     "end": 726.231,
+     "start": 723.927,
+     "end": 726.188,
      "cap": "Now, five exam traps to avoid."
     },
     {
      "id": "t1",
-     "start": 726.731,
-     "end": 732.896,
+     "start": 726.688,
+     "end": 732.853,
      "cap": "One: energy is never **used up** or destroyed. Wasted energy **dissipates** into the surroundings."
     },
     {
      "id": "t2",
-     "start": 733.396,
-     "end": 737.556,
+     "start": 733.353,
+     "end": 737.513,
      "cap": "Two: **heat**, **light**, **sound** and **electricity** are **pathways**, not stores."
     },
     {
      "id": "t3",
-     "start": 738.056,
-     "end": 741.469,
+     "start": 738.013,
+     "end": 741.427,
      "cap": "Three: efficiency can **never** be more than **100%**."
     },
     {
      "id": "t4",
-     "start": 741.969,
-     "end": 746.001,
+     "start": 741.927,
+     "end": 745.959,
      "cap": "Four: **nuclear** power is **non-renewable**, even though it's low-carbon."
     },
     {
      "id": "t5",
-     "start": 746.501,
-     "end": 750.363,
+     "start": 746.459,
+     "end": 750.32,
      "cap": "Five: energy is measured in **joules**, not watts or degrees."
     }
    ]
@@ -755,83 +755,83 @@
    "title": "Quick-fire quiz",
    "short": "Quiz",
    "card": true,
-   "start": 751.263,
-   "end": 828.445,
+   "start": 751.22,
+   "end": 828.403,
    "lines": [
     {
      "id": "intro",
-     "start": 753.063,
-     "end": 756.711,
+     "start": 753.02,
+     "end": 756.668,
      "cap": "Quick-fire quiz! Say each answer out loud before it appears."
     },
     {
      "id": "q1",
-     "start": 757.211,
-     "end": 761.264,
+     "start": 757.168,
+     "end": 761.221,
      "cap": "A ball falls from a shelf. Which store empties, and which store fills?"
     },
     {
      "id": "a1",
-     "start": 765.764,
-     "end": 769.945,
+     "start": 765.721,
+     "end": 769.903,
      "cap": "The **gravitational potential** store empties, and the **kinetic** store fills."
     },
     {
      "id": "q2",
-     "start": 770.445,
-     "end": 774.563,
+     "start": 770.403,
+     "end": 774.52,
      "cap": "True or false: electricity is one of the eight energy stores."
     },
     {
      "id": "a2",
-     "start": 779.063,
-     "end": 781.836,
+     "start": 779.02,
+     "end": 781.793,
      "cap": "**False.** Electricity is a **pathway**, not a store."
     },
     {
      "id": "q3",
-     "start": 782.336,
-     "end": 788.8,
+     "start": 782.293,
+     "end": 788.757,
      "cap": "A motor is supplied with **400 J**, and **300 J** of it is useful. What's its efficiency?"
     },
     {
      "id": "a3",
-     "start": 793.3,
-     "end": 799.487,
+     "start": 793.257,
+     "end": 799.444,
      "cap": "**75%**, because **300 ÷ 400 = 0.75**."
     },
     {
      "id": "q4",
-     "start": 799.987,
-     "end": 802.952,
+     "start": 799.944,
+     "end": 802.909,
      "cap": "True or false: nuclear power is renewable."
     },
     {
      "id": "a4",
-     "start": 807.452,
-     "end": 811.207,
+     "start": 807.409,
+     "end": 811.164,
      "cap": "**False.** Uranium will run out, so nuclear is **non-renewable**."
     },
     {
      "id": "q5",
-     "start": 811.707,
-     "end": 813.669,
+     "start": 811.664,
+     "end": 813.627,
      "cap": "Where does most wasted energy end up?"
     },
     {
      "id": "a5",
-     "start": 818.169,
-     "end": 822.159,
+     "start": 818.127,
+     "end": 822.116,
      "cap": "It spreads out, or **dissipates**, into the **thermal store** of the surroundings."
     },
     {
      "id": "outro",
-     "start": 822.659,
-     "end": 827.245,
+     "start": 822.616,
+     "end": 827.203,
      "cap": "Brilliant work. Now try the Energy quiz in your Science Lab, to lock it in."
     }
    ]
   }
  ],
- "total": 828.445
+ "total": 828.403
 }
