@@ -245,6 +245,7 @@ scene('mendeleev', S => {
   const massLab = T(Lg, 600, 654, 'by mass, iodine (127) would come first', { size: 28, weight: 600, anchor: 'middle', fill: '#FF9AA4' });
   const protLab = T(Lg, 600, 654, 'by proton number: 52 then 53', { size: 30, weight: 700, anchor: 'middle', fill: C.good });
   const lTick = tick(Lg, 16);
+  const LTX = 600 + textWidth('by proton number: 52 then 53', 30, FD, 700) / 2 + 34;   // measured once: a per-frame measure forces a layout
   const ioRing = E('rect', { x: -121, y: -121, width: 242, height: 242, rx: 26, fill: 'none', stroke: C.bad, 'stroke-width': 6 }, ioG);
 
   /* ================= update ================= */
@@ -452,7 +453,7 @@ scene('mendeleev', S => {
       op(massLab, win(t, at('today') + 0.5, mid('today', 0.4), 0.35));
       op(protLab, P(t, mid('today', 0.62), 0.5, linear));
       const tk = P(t, mid('today', 0.66), 0.45, pop);
-      op(lTick, clamp(tk * 2)); tr(lTick, 600 + textWidth('by proton number: 52 then 53', 30, FD, 700) / 2 + 34, 644, Math.max(0.01, tk));
+      op(lTick, clamp(tk * 2)); tr(lTick, LTX, 644, Math.max(0.01, tk));
     }
   };
 });

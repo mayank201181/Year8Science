@@ -502,12 +502,12 @@ scene('halogens', S => {
         op(b.g, clamp(p * 2)); tr(b.g, CX4[i] - 64, 330 + (1 - clamp(p)) * 18);
         b.box.set(b.st, t, b.st === 'gas' ? 0.5 * calm : 0.35 * calm);
       });
-      bars.forEach((b, i) => {
-        const g = P(t, mid('state', 0.62 + i * 0.07), 0.6, easeOut);
+      bars.forEach((b, i) => {      // early enough that iodine's 184 °C is held for a second before the fade
+        const g = P(t, mid('state', 0.56 + i * 0.06), 0.6, easeOut);
         attr(b.r, 'y', BAR0 - b.h * g); attr(b.r, 'height', b.h * g);
-        op(b.v, P(t, mid('state', 0.62 + i * 0.07) + 0.4, 0.3, linear));
+        op(b.v, P(t, mid('state', 0.56 + i * 0.06) + 0.4, 0.3, linear));
       });
-      op(barsG, P(t, mid('state', 0.58), 0.4, linear));
+      op(barsG, P(t, mid('state', 0.52), 0.4, linear));
     }
 
     /* --- E: Funny Clowns Bring Ice --- */

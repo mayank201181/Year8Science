@@ -354,7 +354,7 @@ scene('atom', S => {
         op(eD[k], clamp(pe * 2) * (1 - gone)); tr(eD[k], x, lerp(NYE, NYM + 10, c), Math.max(0.01, pe));
         const fu = (t - tk - 0.3) / 0.45;
         if (fu > 0 && fu < 1) { op(flashes[k], Math.sin(fu * Math.PI)); tr(flashes[k], x, NYM, 0.6 + 0.8 * fu); } else op(flashes[k], 0);
-        total += P(t, tp0 + k * 0.08, 0.15, linear) - P(t, tk + 0.3, 0.12, linear);
+        total += P(t, tp0 + k * 0.08, 0.15, linear) - P(t, te0 + k * 0.08, 0.15, linear);   // each electron's − cancels a proton's +
       }
       op(noCharge, P(t, tc0 + 1.5, 0.5, linear));
       op(met, P(t, mid('neutral', 0.06), 0.4, linear));

@@ -308,7 +308,7 @@ scene('alkali', S => {
     T2.forEach((tl, i) => { const p = P(t, mid('group2', 0.06) + 0.06 * i, 0.5, pop); placeTile(tl, lerp(110, 200, easeOut(clamp(p))), ROWY(i), 0.8 + 0.2 * p, clamp(p * 2) * (1 - P(t, at('calcium') - 0.45, 0.35, linear))); });
     colHead.forEach((e, i) => op(e, win(t, mid('group2', 0.04 + 0.1 * i), at('calcium') - 0.1, 0.35)));
     arT.set(P(t, at('trend') + 0.55, 0.6)); op(arT, win(t, at('trend') + 0.5, mid('kids', 0.5), 0.3));
-    arK.set(P(t, mid('kids', 0.48), 0.6)); op(arK, P(t, mid('kids', 0.48), 0.2, linear) * (1 - P(t, at('bigger') - 0.2, 0.4, linear)));
+    arK.set(P(t, mid('kids', 0.48), 0.6)); op(arK, P(t, mid('kids', 0.48), 0.2, linear) * (1 - P(t, at('bigger') - 0.6, 0.4, linear)));   // fades with the column
     op(reLab, win(t, mid('trend', 0.3), at('bigger') - 0.2, 0.4));
     KIDS.forEach((k, i) => op(k, win(t, mid('kids', 0.33 + 0.065 * i), at('bigger') - 0.2, 0.3)));
 

@@ -421,7 +421,7 @@ scene('noble', S => {
     }
 
     /* --- C: sodium hands its electron to chlorine, then salt --- */
-    const aO = beat(t, at('others') - 0.05, at('salt') + 0.5);
+    const aO = beat(t, at('others') - 0.05, mid('salt', 0.3));     // stays on while the two atoms rush together into the flash
     op(oG, aO);
     if (aO > 0) {
       op(goal, beat(t, mid('others', 0.04), at('salt'), 0.4));
