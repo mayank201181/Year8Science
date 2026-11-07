@@ -147,7 +147,7 @@ CHAPTERS = [
              "say": "For example: hydrochloric acid, plus magnesium, gives magnesium chloride, plus hydrogen."},
             {"id": "test", "cap": "To **test for hydrogen**, hold a **lit splint** at the mouth of the tube. Hydrogen gives a **squeaky pop**!", "pause": 0.8},
             {"id": "why", "cap": "It's a tiny amount of hydrogen **burning explosively**."},
-            {"id": "race", "cap": "Time for a race: four metals in the same dilute acid.", "pause": 0.3},
+            {"id": "race", "cap": "Time for a race: **magnesium**, **zinc**, **iron** and **copper**, all in the same dilute acid.", "pause": 0.3},
             {"id": "mg", "cap": "**Magnesium** fizzes **vigorously**, with a fast stream of bubbles."},
             {"id": "zn", "cap": "**Zinc** gives a **steady**, moderate fizz."},
             {"id": "fe", "cap": "**Iron** fizzes only **slowly**, with bubbles forming gently."},

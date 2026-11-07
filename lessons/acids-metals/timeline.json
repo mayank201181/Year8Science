@@ -380,7 +380,7 @@
    "short": "Acids + metals",
    "card": true,
    "start": 383.104,
-   "end": 461.907,
+   "end": 463.997,
    "lines": [
     {
      "id": "fizz",
@@ -415,55 +415,55 @@
     {
      "id": "race",
      "start": 413.377,
-     "end": 416.961,
-     "cap": "Time for a race: four metals in the same dilute acid."
+     "end": 419.052,
+     "cap": "Time for a race: **magnesium**, **zinc**, **iron** and **copper**, all in the same dilute acid."
     },
     {
      "id": "mg",
-     "start": 417.761,
-     "end": 421.367,
+     "start": 419.852,
+     "end": 423.457,
      "cap": "**Magnesium** fizzes **vigorously**, with a fast stream of bubbles."
     },
     {
      "id": "zn",
-     "start": 421.867,
-     "end": 423.936,
+     "start": 423.957,
+     "end": 426.027,
      "cap": "**Zinc** gives a **steady**, moderate fizz."
     },
     {
      "id": "fe",
-     "start": 424.436,
-     "end": 427.828,
+     "start": 426.527,
+     "end": 429.919,
      "cap": "**Iron** fizzes only **slowly**, with bubbles forming gently."
     },
     {
      "id": "cu",
-     "start": 428.328,
-     "end": 431.421,
+     "start": 430.419,
+     "end": 433.512,
      "cap": "And **copper**? **No reaction at all**, however long you wait."
     },
     {
      "id": "series",
-     "start": 432.221,
-     "end": 440.819,
+     "start": 434.312,
+     "end": 442.909,
      "cap": "That's the **reactivity series** in action: the more reactive the metal, the faster the fizz. Copper sits **below hydrogen**, so it doesn't react."
     },
     {
      "id": "naming",
-     "start": 441.319,
-     "end": 446.055,
+     "start": 443.409,
+     "end": 448.145,
      "cap": "Naming the salt: the **first** part comes from the **metal**, and the **second** from the **acid**."
     },
     {
      "id": "acids",
-     "start": 446.555,
-     "end": 453.339,
+     "start": 448.645,
+     "end": 455.429,
      "cap": "**Hydrochloric** acid, HCl, makes **chlorides**; **sulfuric** acid, H₂SO₄, makes **sulfates**; and **nitric** acid, HNO₃, makes **nitrates**."
     },
     {
      "id": "zinc",
-     "start": 453.839,
-     "end": 461.007,
+     "start": 455.929,
+     "end": 463.097,
      "cap": "So **zinc + sulfuric acid → zinc sulfate + hydrogen**. That's sulfate, by the way, **not** sulfide."
     }
    ]
@@ -473,55 +473,55 @@
    "title": "Acids and carbonates: milky limewater",
    "short": "Acids + carbonates",
    "card": true,
-   "start": 461.907,
-   "end": 522.795,
+   "start": 463.997,
+   "end": 524.885,
    "lines": [
     {
      "id": "carb",
-     "start": 463.707,
-     "end": 471.088,
+     "start": 465.797,
+     "end": 473.179,
      "cap": "**Metal carbonates**, like the **calcium carbonate** in chalk and limestone, fizz with acid too. But they react differently."
     },
     {
      "id": "eq",
-     "start": 471.588,
-     "end": 476.452,
+     "start": 473.679,
+     "end": 478.543,
      "cap": "**acid + metal carbonate → salt + water + carbon dioxide**"
     },
     {
      "id": "example",
-     "start": 476.952,
-     "end": 484.781,
+     "start": 479.043,
+     "end": 486.872,
      "cap": "For example: **hydrochloric acid + calcium carbonate → calcium chloride + water + carbon dioxide**."
     },
     {
      "id": "three",
-     "start": 485.281,
-     "end": 492.748,
+     "start": 487.372,
+     "end": 494.839,
      "cap": "That's **three** products, and the gas is **carbon dioxide**, not hydrogen, so a lit splint won't pop. It just goes out."
     },
     {
      "id": "lime",
-     "start": 493.248,
-     "end": 501.589,
+     "start": 495.339,
+     "end": 503.68,
      "cap": "To **test for carbon dioxide**, bubble it through **limewater**, a solution of calcium hydroxide. It turns **milky**, or cloudy."
     },
     {
      "id": "why",
-     "start": 502.889,
-     "end": 507.753,
+     "start": 504.98,
+     "end": 509.844,
      "cap": "The cloudiness is a fine white solid: a **precipitate** of **calcium carbonate**."
     },
     {
      "id": "apart",
-     "start": 508.253,
-     "end": 517.192,
+     "start": 510.344,
+     "end": 519.283,
      "cap": "So if two powders both fizz with acid, a gas test tells them apart: a **metal** gives hydrogen, a **carbonate** gives carbon dioxide."
     },
     {
      "id": "hook",
-     "start": 517.692,
-     "end": 521.895,
+     "start": 519.783,
+     "end": 523.985,
      "cap": "Remember: **Pop = Hydrogen, Milky = CO₂**."
     }
    ]
@@ -531,73 +531,73 @@
    "title": "The reactivity series",
    "short": "Reactivity series",
    "card": true,
-   "start": 522.795,
-   "end": 595.404,
+   "start": 524.885,
+   "end": 597.495,
    "lines": [
     {
      "id": "league",
-     "start": 524.595,
-     "end": 531.272,
+     "start": 526.685,
+     "end": 533.363,
      "cap": "The **reactivity series** is a league table of metals, from **most reactive** at the top to **least reactive** at the bottom."
     },
     {
      "id": "top",
-     "start": 531.772,
-     "end": 537.148,
+     "start": 533.863,
+     "end": 539.239,
      "cap": "From the top: **potassium**, **sodium**, **calcium**, **magnesium**, **aluminium**, **zinc** and **iron**."
     },
     {
      "id": "bottom",
-     "start": 537.948,
-     "end": 542.129,
+     "start": 540.039,
+     "end": 544.22,
      "cap": "Then **hydrogen**, and below it **copper**, **silver** and, last of all, **gold**."
     },
     {
      "id": "zebra",
-     "start": 542.629,
-     "end": 546.96,
+     "start": 544.72,
+     "end": 549.051,
      "cap": "To remember it: **P**lease **S**top **C**alling **M**e **A** **Z**ebra, **I**nstead **C**all **S**ome **G**old."
     },
     {
      "id": "hydrogen",
-     "start": 547.76,
-     "end": 554.16,
+     "start": 549.851,
+     "end": 556.251,
      "cap": "**Hydrogen** isn't a metal. It's a **marker**: metals above it react with acids, and metals below it don't."
     },
     {
      "id": "water",
-     "start": 554.66,
-     "end": 563.3,
+     "start": 556.751,
+     "end": 565.391,
      "cap": "The higher the metal, the more **vigorously** it reacts. **Potassium** and **sodium** react fast with **cold water**, fizzing as they release **hydrogen**."
     },
     {
      "id": "eq",
-     "start": 564.6,
-     "end": 573.432,
+     "start": 566.691,
+     "end": 575.523,
      "cap": "**metal + water → metal hydroxide + hydrogen**. So **sodium + water → sodium hydroxide + hydrogen**."
     },
     {
      "id": "alkaline",
-     "start": 573.932,
-     "end": 579.287,
+     "start": 576.023,
+     "end": 581.377,
      "cap": "The sodium hydroxide dissolves, which is why the solution left behind is **alkaline**."
     },
     {
      "id": "mg",
-     "start": 579.787,
-     "end": 585.141,
+     "start": 581.877,
+     "end": 587.232,
      "cap": "Lower down, **magnesium** reacts only **slowly** with cold water, but **quickly** with **steam**."
     },
     {
      "id": "cu",
-     "start": 585.641,
-     "end": 588.948,
+     "start": 587.732,
+     "end": 591.039,
      "cap": "And **copper**, **silver** and **gold** don't react with water at all."
     },
     {
      "id": "predict",
-     "start": 589.448,
-     "end": 594.504,
+     "start": 591.539,
+     "end": 596.595,
      "cap": "So a metal's place in the series lets you **predict** how it will react, before you test it."
     }
    ]
@@ -607,67 +607,67 @@
    "title": "Displacement and extraction",
    "short": "Displacement",
    "card": true,
-   "start": 595.404,
-   "end": 673.471,
+   "start": 597.495,
+   "end": 675.561,
    "lines": [
     {
      "id": "push",
-     "start": 597.204,
-     "end": 604.18,
+     "start": 599.295,
+     "end": 606.271,
      "cap": "The series also predicts **displacement**: a **more reactive** metal **pushes** a less reactive one out of its compound."
     },
     {
      "id": "nail",
-     "start": 604.68,
-     "end": 611.507,
+     "start": 606.771,
+     "end": 613.597,
      "cap": "Put an **iron** nail into **blue copper sulfate** solution. Iron is **more reactive**, so it pushes the copper out."
     },
     {
      "id": "eq",
-     "start": 612.007,
-     "end": 615.761,
+     "start": 614.097,
+     "end": 617.852,
      "cap": "**iron + copper sulfate → iron sulfate + copper**"
     },
     {
      "id": "see",
-     "start": 616.261,
-     "end": 620.955,
+     "start": 618.352,
+     "end": 623.045,
      "cap": "Watch: the **blue colour fades**, and a **brown coating of copper** appears on the nail."
     },
     {
      "id": "never",
-     "start": 622.455,
-     "end": 629.004,
+     "start": 624.545,
+     "end": 631.095,
      "cap": "But never the other way round: **copper** can't displace iron, so copper dipped into iron sulfate does **nothing**."
     },
     {
      "id": "ores",
-     "start": 629.504,
-     "end": 637.376,
+     "start": 631.595,
+     "end": 639.467,
      "cap": "Most metals are found in **ores**: rocks where the metal is joined to other elements, like oxygen. Getting it out is **extraction**."
     },
     {
      "id": "carbon",
-     "start": 637.876,
-     "end": 644.617,
+     "start": 639.967,
+     "end": 646.708,
      "cap": "To extract **iron**, heat its ore with **carbon**. Carbon is **more reactive** than iron, so it **displaces** the iron."
     },
     {
      "id": "electro",
-     "start": 645.117,
-     "end": 655.165,
+     "start": 647.208,
+     "end": 657.256,
      "cap": "**Aluminium** is more reactive than carbon. It clings to its oxygen so tightly that it needs **electrolysis**, using electricity, which is **expensive**."
     },
     {
      "id": "gold",
-     "start": 655.665,
-     "end": 662.663,
+     "start": 657.756,
+     "end": 664.753,
      "cap": "And **gold** and **silver** are so unreactive that they can be found as **pure metals**, needing almost no extraction."
     },
     {
      "id": "recycle",
-     "start": 663.163,
-     "end": 672.571,
+     "start": 665.253,
+     "end": 674.661,
      "cap": "So **recycling** aluminium saves about **95%** of the energy, and engineers are working to run electrolysis on **renewable** electricity."
     }
    ]
@@ -677,61 +677,61 @@
    "title": "Burning and tarnishing",
    "short": "Metals + oxygen",
    "card": true,
-   "start": 673.471,
-   "end": 741.936,
+   "start": 675.561,
+   "end": 744.027,
    "lines": [
     {
      "id": "eq",
-     "start": 675.271,
-     "end": 681.073,
+     "start": 677.361,
+     "end": 683.164,
      "cap": "Metals react with **oxygen** in the air, too: **metal + oxygen → metal oxide**."
     },
     {
      "id": "new",
-     "start": 681.573,
-     "end": 686.032,
+     "start": 683.664,
+     "end": 688.123,
      "cap": "The oxide is a **new substance**, with different properties from the shiny metal."
     },
     {
      "id": "mg",
-     "start": 686.532,
-     "end": 693.657,
+     "start": 688.623,
+     "end": 695.748,
      "cap": "Heat **magnesium**, and it burns with a dazzling, **bright white flame**, leaving a **white powder**. Never look straight at it!"
     },
     {
      "id": "mgeq",
-     "start": 695.357,
-     "end": 703.485,
+     "start": 697.448,
+     "end": 705.576,
      "cap": "That's **magnesium + oxygen → magnesium oxide**. In symbols: **2Mg + O₂ → 2MgO**."
     },
     {
      "id": "na",
-     "start": 703.985,
-     "end": 713.884,
+     "start": 706.076,
+     "end": 715.975,
      "cap": "**Sodium** is so reactive that a freshly cut surface **tarnishes** in seconds, as a dull layer of **sodium oxide** forms. That's why it's stored **under oil**."
     },
     {
      "id": "fe",
-     "start": 714.384,
-     "end": 720.037,
+     "start": 716.475,
+     "end": 722.128,
      "cap": "**Iron** reacts more slowly. Iron filings sprinkled into a flame give **orange sparks**."
     },
     {
      "id": "rust",
-     "start": 720.537,
-     "end": 728.879,
+     "start": 722.628,
+     "end": 730.969,
      "cap": "Over time, iron also combines with oxygen **and water** to form **rust**. So we protect it with paint, oil, or a coat of zinc."
     },
     {
      "id": "gold",
-     "start": 729.379,
-     "end": 735.757,
+     "start": 731.469,
+     "end": 737.848,
      "cap": "And **gold**, at the bottom, doesn't react with oxygen **at all**, so a gold ring stays shiny for a lifetime."
     },
     {
      "id": "ladder",
-     "start": 736.257,
-     "end": 741.036,
+     "start": 738.348,
+     "end": 743.127,
      "cap": "Same pattern again: the **higher** the metal, the **more fiercely** it reacts with oxygen."
     }
    ]
@@ -741,55 +741,55 @@
    "title": "Testing for oxygen",
    "short": "Oxygen test",
    "card": true,
-   "start": 741.936,
-   "end": 783.96,
+   "start": 744.027,
+   "end": 786.051,
    "lines": [
     {
      "id": "third",
-     "start": 743.736,
-     "end": 747.64,
+     "start": 745.827,
+     "end": 749.731,
      "cap": "You know two gas tests already. Here's the third: **oxygen**."
     },
     {
      "id": "glow",
-     "start": 748.14,
-     "end": 751.553,
+     "start": 750.231,
+     "end": 753.644,
      "cap": "Light a wooden splint, then **blow it out**, so it's only **glowing**."
     },
     {
      "id": "relight",
-     "start": 752.053,
-     "end": 758.24,
+     "start": 754.144,
+     "end": 760.331,
      "cap": "Push the glowing splint into the gas. If it's oxygen, the splint **relights**, bursting back into flame!"
     },
     {
      "id": "why",
-     "start": 759.94,
-     "end": 767.087,
+     "start": 762.031,
+     "end": 769.177,
      "cap": "Oxygen **supports burning**. Air is only about **a fifth** oxygen, so a tube full of it makes the splint flare back up."
     },
     {
      "id": "h",
-     "start": 767.587,
-     "end": 772.067,
+     "start": 769.677,
+     "end": 774.157,
      "cap": "So, all three tests. **Hydrogen**: a **lit** splint gives a **squeaky pop**."
     },
     {
      "id": "o",
-     "start": 772.567,
-     "end": 775.063,
+     "start": 774.657,
+     "end": 777.153,
      "cap": "**Oxygen**: it **relights** a **glowing** splint."
     },
     {
      "id": "co",
-     "start": 775.563,
-     "end": 778.528,
+     "start": 777.653,
+     "end": 780.619,
      "cap": "**Carbon dioxide**: it turns **limewater milky**."
     },
     {
      "id": "splints",
-     "start": 779.028,
-     "end": 783.06,
+     "start": 781.119,
+     "end": 785.151,
      "cap": "Don't mix up the splints: **lit** for hydrogen, **glowing** for oxygen."
     }
    ]
@@ -799,61 +799,61 @@
    "title": "Making a soluble salt",
    "short": "Making salts",
    "card": true,
-   "start": 783.96,
-   "end": 851.36,
+   "start": 786.051,
+   "end": 853.451,
    "lines": [
     {
      "id": "useful",
-     "start": 785.76,
-     "end": 792.011,
+     "start": 787.851,
+     "end": 794.101,
      "cap": "Salts are useful: **copper sulfate** goes into fungicides, and **ammonium nitrate** is a fertiliser."
     },
     {
      "id": "how",
-     "start": 792.511,
-     "end": 802.047,
+     "start": 794.601,
+     "end": 804.137,
      "cap": "Let's make a pure, dry sample of a **soluble salt**, copper sulfate: **copper oxide + sulfuric acid → copper sulfate + water**."
     },
     {
      "id": "react",
-     "start": 802.547,
-     "end": 809.629,
+     "start": 804.637,
+     "end": 811.72,
      "cap": "Step one: in a lab, **warm** the acid and stir in **black copper oxide**, a little at a time, until **no more reacts**."
     },
     {
      "id": "excess",
-     "start": 810.129,
-     "end": 817.233,
+     "start": 812.22,
+     "end": 819.324,
      "cap": "Using **excess**, so some is left over, makes sure **all the acid is used up**, and none is left to contaminate the salt."
     },
     {
      "id": "filter",
-     "start": 817.733,
-     "end": 826.651,
+     "start": 819.824,
+     "end": 828.741,
      "cap": "Step two: **filter**. The leftover copper oxide stays on the paper: the **residue**. The blue salt solution passes through: the **filtrate**."
     },
     {
      "id": "heat",
-     "start": 827.451,
-     "end": 834.32,
+     "start": 829.541,
+     "end": 836.411,
      "cap": "Step three: gently **heat** the filtrate to evaporate some water, until it's **saturated**, holding all the salt it can."
     },
     {
      "id": "cool",
-     "start": 834.82,
-     "end": 837.828,
+     "start": 836.911,
+     "end": 839.919,
      "cap": "Then leave it to **cool slowly**, and blue **crystals** grow."
     },
     {
      "id": "dry",
-     "start": 839.528,
-     "end": 843.56,
+     "start": 841.619,
+     "end": 845.651,
      "cap": "Filter off the crystals, **dry** them, and you have pure copper sulfate."
     },
     {
      "id": "other",
-     "start": 844.06,
-     "end": 850.46,
+     "start": 846.151,
+     "end": 852.551,
      "cap": "It works with a **metal** or a **carbonate** too: add it until the **fizzing stops** and some solid is left over."
     }
    ]
@@ -863,73 +863,73 @@
    "title": "Recap: memory hooks and exam traps",
    "short": "Recap",
    "card": true,
-   "start": 851.36,
-   "end": 907.465,
+   "start": 853.451,
+   "end": 909.556,
    "lines": [
     {
      "id": "lock",
-     "start": 853.16,
-     "end": 854.504,
+     "start": 855.251,
+     "end": 856.595,
      "cap": "Let's lock it all in."
     },
     {
      "id": "zebra",
-     "start": 855.004,
-     "end": 861.596,
+     "start": 857.095,
+     "end": 863.687,
      "cap": "**Please Stop Calling Me A Zebra, Instead Call Some Gold**: the reactivity series, from potassium down to gold."
     },
     {
      "id": "roofs",
-     "start": 862.096,
-     "end": 866.704,
+     "start": 864.187,
+     "end": 868.795,
      "cap": "**Red Bottoms, Blue Roofs**: litmus is **red** in acid and **blue** in alkali."
     },
     {
      "id": "pop",
-     "start": 867.204,
-     "end": 870.724,
+     "start": 869.295,
+     "end": 872.815,
      "cap": "**Pop = Hydrogen, Milky = CO₂.**"
     },
     {
      "id": "absw",
-     "start": 871.224,
-     "end": 875.448,
+     "start": 873.315,
+     "end": 877.539,
      "cap": "And **A-B-S-W**: **acid + base → salt + water**."
     },
     {
      "id": "traps",
-     "start": 875.948,
-     "end": 878.209,
+     "start": 878.039,
+     "end": 880.3,
      "cap": "Now, five exam traps to avoid."
     },
     {
      "id": "t1",
-     "start": 878.709,
-     "end": 884.064,
+     "start": 880.8,
+     "end": 886.155,
      "cap": "One: acid + metal gives **hydrogen**. Only carbonates give **carbon dioxide**."
     },
     {
      "id": "t2",
-     "start": 884.564,
-     "end": 888.383,
+     "start": 886.655,
+     "end": 890.473,
      "cap": "Two: neutralisation always makes **water**, as well as the salt."
     },
     {
      "id": "t3",
-     "start": 888.883,
-     "end": 893.021,
+     "start": 890.973,
+     "end": 895.112,
      "cap": "Three: not all bases are alkalis. Only **soluble** bases are."
     },
     {
      "id": "t4",
-     "start": 893.521,
-     "end": 900.497,
+     "start": 895.612,
+     "end": 902.588,
      "cap": "Four: **concentration** isn't **strength**. A dilute strong acid can be safer than a concentrated weak acid."
     },
     {
      "id": "t5",
-     "start": 900.997,
-     "end": 906.565,
+     "start": 903.088,
+     "end": 908.656,
      "cap": "Five: **copper**, **silver** and **gold** don't fizz with dilute acids. They're **below hydrogen**."
     }
    ]
@@ -939,83 +939,83 @@
    "title": "Quick-fire quiz",
    "short": "Quiz",
    "card": true,
-   "start": 907.465,
-   "end": 977.224,
+   "start": 909.556,
+   "end": 979.315,
    "lines": [
     {
      "id": "intro",
-     "start": 909.265,
-     "end": 912.913,
+     "start": 911.356,
+     "end": 915.004,
      "cap": "Quick-fire quiz! Say each answer out loud before it appears."
     },
     {
      "id": "q1",
-     "start": 913.413,
-     "end": 915.973,
+     "start": 915.504,
+     "end": 918.064,
      "cap": "What colour does litmus paper turn in an acid?"
     },
     {
      "id": "a1",
-     "start": 920.473,
-     "end": 921.54,
+     "start": 922.564,
+     "end": 923.631,
      "cap": "It turns **red**."
     },
     {
      "id": "q2",
-     "start": 922.04,
-     "end": 926.819,
+     "start": 924.131,
+     "end": 928.909,
      "cap": "A solution has a pH of 12. Is it acidic, neutral or alkaline?"
     },
     {
      "id": "a2",
-     "start": 931.319,
-     "end": 933.409,
+     "start": 933.409,
+     "end": 935.5,
      "cap": "**Alkaline.** It's well above 7."
     },
     {
      "id": "q3",
-     "start": 933.909,
-     "end": 937.301,
+     "start": 936.0,
+     "end": 939.392,
      "cap": "Which gas fizzes off when an acid reacts with a carbonate?"
     },
     {
      "id": "a3",
-     "start": 941.801,
-     "end": 944.916,
+     "start": 943.892,
+     "end": 947.007,
      "cap": "**Carbon dioxide**, which turns **limewater milky**."
     },
     {
      "id": "q4",
-     "start": 945.416,
-     "end": 949.704,
+     "start": 947.507,
+     "end": 951.795,
      "cap": "An iron nail goes into blue copper sulfate solution. What happens?"
     },
     {
      "id": "a4",
-     "start": 954.204,
-     "end": 958.641,
+     "start": 956.295,
+     "end": 960.732,
      "cap": "The iron **displaces** the copper: the blue fades, and **copper** coats the nail."
     },
     {
      "id": "q5",
-     "start": 959.141,
-     "end": 961.808,
+     "start": 961.232,
+     "end": 963.899,
      "cap": "Which salt do zinc and sulfuric acid make?"
     },
     {
      "id": "a5",
-     "start": 966.308,
-     "end": 969.529,
+     "start": 968.399,
+     "end": 971.62,
      "cap": "**Zinc sulfate**, not sulfide. Plus hydrogen gas."
     },
     {
      "id": "outro",
-     "start": 970.029,
-     "end": 976.024,
+     "start": 972.12,
+     "end": 978.115,
      "cap": "Brilliant work. Now try the Acids, Bases & Metals quiz in your Science Lab, to lock it in."
     }
    ]
   }
  ],
- "total": 977.224
+ "total": 979.315
 }

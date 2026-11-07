@@ -194,8 +194,8 @@ A rack of kit `testTube`s on the left; equations on the right.
   the POP burst, with a short kit `sineWave` "squeak" arc.
 - **why**: zoom on the tube mouth: H₂ molecules meet lib `molO2` and flash into a few `molH2O`;
   label "a tiny amount burning explosively".
-- **race**: four tubes in a row, labelled Mg, Zn, Fe, Cu, with the four metal swatches poised
-  above; they drop in together.
+- **race**: four tubes in a row; as each metal is named, its label (Mg, Zn, Fe, Cu) lights up and
+  its swatch appears above its tube; on "same dilute acid" all four drop in together.
 - **mg**: the Mg tube erupts with dense, fast bubbles; chip "vigorous".
 - **zn**: the Zn tube bubbles steadily; chip "steady".
 - **fe**: a few slow bubbles in the Fe tube; chip "slow".
