@@ -18,6 +18,8 @@ const { execFileSync } = require('child_process');
   const opt = { cols: 3, w: 1280, name: 'sheet' };
   for (let i = 0; i < rest.length; i += 2) opt[rest[i].replace(/^--/, '')] = rest[i + 1];
   fs.mkdirSync(outdir, { recursive: true });
+  // drop frames left by an earlier run, or ffmpeg would tile them into this sheet
+  for (const f of fs.readdirSync(outdir)) if (/^f\d{3}\.png$/.test(f)) fs.unlinkSync(path.join(outdir, f));
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: +opt.w, height: 1000 }, deviceScaleFactor: 1 });
   const issues = [];
