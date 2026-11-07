@@ -3,6 +3,7 @@ import type { TopicExtras } from "../types";
 // Engagement extras for light. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const lightExtras: TopicExtras = {
+  lesson: { href: "/lessons/light.html", minutes: 16, chapters: 14 },
   interactive: "light-ray",
   hook: "Dip a straight pencil into a glass of water and it suddenly looks snapped in half — yet pull it out and it is perfectly whole. What is breaking the light on its way to your eye?",
   didYouKnow: [
