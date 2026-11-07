@@ -829,8 +829,9 @@ function magnet(parent, w, h, o) {
   T(g, w / 4, h * 0.2, nLeft ? 'S' : 'N', { size: h * 0.55, weight: 700, anchor: 'middle', fill: '#fff' });
   return g;
 }
-/* sine wave from x=0 to x=w around y=0; g.set({ amp, wl, phase }) (phase in wavelengths) */
-function wave(parent, o) {
+/* sine wave from x=0 to x=w around y=0; g.set({ amp, wl, phase }) (phase in wavelengths).
+   (Not `wave`: that name is lib.js's timing helper, wave(t, period, phase).) */
+function sineWave(parent, o) {
   o = o || {};
   const g = G(parent), w = o.w || 600;
   const p = E('path', { fill: 'none', stroke: o.color || C.water, 'stroke-width': o.width || 5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);

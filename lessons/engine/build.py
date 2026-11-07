@@ -21,6 +21,7 @@ import html
 import importlib.util
 import json
 import os
+import re
 import shutil
 
 ENGINE = os.path.dirname(os.path.abspath(__file__))
@@ -38,16 +39,26 @@ def load_script(topic):
 
 
 def bundle_js(topic, only=None):
-    parts = [open(os.path.join(ENGINE, "lib.js")).read(), open(os.path.join(ENGINE, "kit.js")).read()]
+    globals_src = [("engine/lib.js", open(os.path.join(ENGINE, "lib.js")).read()),
+                   ("engine/kit.js", open(os.path.join(ENGINE, "kit.js")).read())]
     topic_lib = os.path.join(LESSONS, topic, "lib.js")
     if os.path.exists(topic_lib):
-        parts.append(f"/* ---- {topic}/lib.js ---- */\n" + open(topic_lib).read())
+        globals_src.append((f"{topic}/lib.js", open(topic_lib).read()))
+    parts = [src if label.startswith("engine/") else f"/* ---- {label} ---- */\n" + src for label, src in globals_src]
     for f in sorted(glob.glob(os.path.join(LESSONS, topic, "scenes", "*.js"))):
         sid = os.path.basename(f)[:-3].split("_", 1)[-1]
         if only and sid not in only:
             continue
         parts.append(f"/* ---- {topic}/scenes/{os.path.basename(f)} ---- */\n(function () {{\n{open(f).read()}\n}})();")
     parts.append(open(os.path.join(ENGINE, "engine.js")).read())
+    # lib.js, kit.js and a topic lib.js share one global scope: a repeated top-level name would silently
+    # replace an earlier helper (kit's first sine-wave art was called `wave` and broke lib's wave(t, ...)).
+    seen = {}
+    for label, src in globals_src:
+        for name in re.findall(r"^(?:function\s+(\w+)|(?:const|let|var)\s+(\w+)\s*=)", src, re.M):
+            name = name[0] or name[1]
+            assert name not in seen, f"global '{name}' is defined in both {seen[name]} and {label}"
+            seen[name] = label
     js = "\n".join(parts)
     assert "</script" not in js.lower(), "a script contains </script"
     return js
