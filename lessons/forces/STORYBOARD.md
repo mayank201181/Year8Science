@@ -382,7 +382,7 @@ narration timeline.
 
 | Group | Chapters | Length | Notes |
 | --- | --- | --- | --- |
-| A | intro (29 s), mass (73 s), friction (90 s) | 3 min 11 s | The Moon, the astronaut and the hammer and feather appear in all three |
-| B | force (70 s), types (73 s), balanced (87 s) | 3 min 50 s | Sets the force-arrow colours and scale; the skydiver |
+| A | intro (29 s), mass (74 s), friction (90 s) | 3 min 13 s | The Moon, the astronaut and the hammer and feather appear in all three |
+| B | force (70 s), types (74 s), balanced (87 s) | 3 min 50 s | Sets the force-arrow colours and scale; the skydiver |
 | C | speed (69 s), hooke (70 s), moments (72 s) | 3 min 30 s | Both graphs, the spring, the seesaw |
 | D | pressure (83 s), recap (57 s), quiz (69 s) | 3 min 29 s | Pressure scenes, then templated recap and quiz (copy mini art from A–C) |
