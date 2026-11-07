@@ -93,9 +93,14 @@ WHISPER_DIR=$S/asr/sherpa-onnx-whisper-base.en python3 lessons/engine/check_audi
 
 ## 5. Scenes: `lessons/<topic>/scenes/NN_<chapter id>.js`
 
-Read `lessons/engine/lib.js` (palette `C`, fonts `FD`/`FB`, helpers and art)
-and the reference scenes `lessons/respiration/scenes/00_intro.js`,
-`02_aerobic.js`, `03_mito.js` and `09_investigate.js` before writing.
+Read `lessons/engine/lib.js` (palette `C`, fonts `FD`/`FB`, helpers and art),
+`lessons/engine/kit.js` (the shared lab kit: `beaker`, `testTube`, `flask`,
+`bunsen`, circuit symbols `cellSym`/`bulbSym`/`switchSym`/`resistorSym`/`meterSym`,
+`wire` with moving current dots, `magnet`, `wave`, `particleBox` for solids,
+liquids and gases, `person` with `runPose`/`walkPose`, `sun`, `leaf`,
+`labelLine`) and the reference scenes `lessons/respiration/scenes/00_intro.js`,
+`02_aerobic.js`, `03_mito.js` and `09_investigate.js` before writing. Use the
+kit wherever it fits, so equipment looks the same in every chapter.
 
 ```js
 scene('<chapter id>', S => {

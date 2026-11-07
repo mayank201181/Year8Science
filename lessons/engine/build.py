@@ -11,7 +11,7 @@ usage:
 
 A topic folder holds script.py (META + CHAPTERS), timeline.json (from
 make_audio.py), scenes/NN_<chapter id>.js and optionally lib.js (art shared by
-that topic's scenes). The bundle is: engine/lib.js, <topic>/lib.js, each scene
+that topic's scenes). The bundle is: engine/lib.js, engine/kit.js, <topic>/lib.js, each scene
 in its own function scope, then engine/engine.js. --only id1,id2 bundles just
 those scenes; the rest render as placeholders.
 """
@@ -38,7 +38,7 @@ def load_script(topic):
 
 
 def bundle_js(topic, only=None):
-    parts = [open(os.path.join(ENGINE, "lib.js")).read()]
+    parts = [open(os.path.join(ENGINE, "lib.js")).read(), open(os.path.join(ENGINE, "kit.js")).read()]
     topic_lib = os.path.join(LESSONS, topic, "lib.js")
     if os.path.exists(topic_lib):
         parts.append(f"/* ---- {topic}/lib.js ---- */\n" + open(topic_lib).read())
