@@ -336,14 +336,14 @@ reveals.
 
 ## Suggested split for the animators
 
-Four groups, balanced by length (estimated seconds) and difficulty:
+Four groups, balanced by length (narration seconds, from timeline.json) and difficulty:
 
-1. **intro, three, system** (about 215 s). Owns the lungs and the airway tree,
+1. **intro, three, system** (196 s). Owns the lungs and the airway tree,
    including the cilia and mucus close-up that smoking reuses.
-2. **mechanism, exchange, alveoli** (about 250 s). The hardest group: the
+2. **mechanism, exchange, alveoli** (235 s). The hardest group: the
    moving chest, and the alveolus close-up shared by exchange and alveoli.
    If a fifth animator is free, give mechanism its own slot.
-3. **air, exercise** (about 165 s). Bar chart, limewater tubes, the running
+3. **air, exercise** (155 s). Bar chart, limewater tubes, the running
    person and the `sineWave` breathing trace.
-4. **smoking, recap, quiz** (about 225 s). Copy the airway, cilia and alveolus
+4. **smoking, recap, quiz** (222 s). Copy the airway, cilia and alveolus
    art from groups 1 and 2; recap and quiz are mostly cards.

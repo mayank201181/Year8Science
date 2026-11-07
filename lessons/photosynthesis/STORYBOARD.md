@@ -399,15 +399,15 @@ reveals.
 
 ## Suggested split for the animators
 
-Five groups, balanced by length (estimated seconds) and difficulty:
+Five groups, balanced by length (narration seconds, from timeline.json) and difficulty:
 
-1. **intro, bigidea, equations** (about 190 s). Potted plant and sun; the
+1. **intro, bigidea, equations** (178 s). Potted plant and sun; the
    atom rearrangement is the hardest beat (start from Respiration's
    `02_aerobic.js`).
-2. **chloro, leaf, supply** (about 190 s). Owns the shared leaf
+2. **chloro, leaf, supply** (176 s). Owns the shared leaf
    cross-section: draw it once and copy it into all three scenes.
-3. **glucose, minerals** (about 155 s). Cards, beakers, the willow time-lapse.
-4. **limiting, starch** (about 185 s). Rate graph and the lab bench (kit
+3. **glucose, minerals** (142 s). Cards, beakers, the willow time-lapse.
+4. **limiting, starch** (180 s). Rate graph and the lab bench (kit
    `beaker`, `testTube`, `flask`, `bunsen`).
-5. **matters, recap, quiz** (about 210 s). Food chain and gas-exchange cycle;
+5. **matters, recap, quiz** (210 s). Food chain and gas-exchange cycle;
    recap and quiz are mostly cards.
