@@ -88,10 +88,23 @@ h1{font-size:clamp(2.2rem,6.4vw,3.5rem);font-weight:600;letter-spacing:-.01em}
 
 .player.theater,.player:fullscreen{position:fixed;inset:0;z-index:100;border-radius:0;justify-content:center;background:#05101A;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
 .player:-webkit-full-screen{position:fixed;inset:0;z-index:100;border-radius:0;justify-content:center;background:#05101A}
-.player.theater .stage-wrap,.player:fullscreen .stage-wrap{width:min(100%,calc((100dvh - 170px) * 1.6))}
-.player:-webkit-full-screen .stage-wrap{width:min(100%,calc((100vh - 170px) * 1.6))}
-.player.theater .screen,.player:fullscreen .screen,.player.theater .controls,.player:fullscreen .controls{width:100%;max-width:min(100%,calc((100dvh - 170px) * 1.6));margin:0 auto}
+.player.theater .stage-wrap,.player:fullscreen .stage-wrap{width:min(100%,calc((100dvh - 190px) * 1.6))}
+.player:-webkit-full-screen .stage-wrap{width:min(100%,calc((100vh - 190px) * 1.6))}
+.player.theater .screen,.player:fullscreen .screen,.player.theater .controls,.player:fullscreen .controls{width:100%;max-width:min(100%,calc((100dvh - 190px) * 1.6));margin:0 auto}
 
+/* Phones held sideways: in full screen the caption and controls sit beside the picture, so it can use the full height */
+@media (orientation:landscape) and (max-height:520px){
+  .player.theater,.player:fullscreen{display:grid;grid-template-columns:minmax(0,calc(100vh * 1.6)) minmax(200px,1fr);grid-template-columns:minmax(0,calc(100dvh * 1.6)) minmax(200px,1fr);grid-template-rows:minmax(0,1fr) auto;align-content:stretch}
+  .player:-webkit-full-screen{display:grid;grid-template-columns:minmax(0,calc(100vh * 1.6)) minmax(200px,1fr);grid-template-rows:minmax(0,1fr) auto;align-content:stretch}
+  .player.theater .screen,.player:fullscreen .screen,.player:-webkit-full-screen .screen{display:contents}
+  .player.theater .stage-wrap,.player:fullscreen .stage-wrap,.player:-webkit-full-screen .stage-wrap{grid-column:1;grid-row:1 / span 2;width:100%;max-width:100%;align-self:center}
+  .player.theater .caption,.player:fullscreen .caption,.player:-webkit-full-screen .caption{grid-column:2;grid-row:1;min-height:0;overflow:auto;border-top:0;border-left:1px solid var(--scr-rule);font-size:1rem;padding:12px 14px}
+  .player.theater .controls,.player:fullscreen .controls,.player:-webkit-full-screen .controls{grid-column:2;grid-row:2;width:auto;max-width:none;margin:0;border-left:1px solid var(--scr-rule);padding:4px 8px 8px}
+  .player.theater .bar,.player:fullscreen .bar,.player:-webkit-full-screen .bar{gap:2px;justify-content:center}
+  .player.theater .spacer,.player:fullscreen .spacer,.player:-webkit-full-screen .spacer{flex-basis:100%;height:0}
+  .player.theater .ic,.player.theater .txtbtn,.player:fullscreen .ic,.player:fullscreen .txtbtn{min-width:38px;height:40px}
+  .player.theater .ic.play,.player:fullscreen .ic.play{width:44px;height:44px}
+}
 .rotate-tip{display:none;color:var(--muted);font-size:.95rem;margin-top:-12px}
 @media (max-width:600px) and (orientation:portrait){.rotate-tip{display:block}}
 @media (max-width:560px){.bp-main{padding:6px 16px 6px 6px;gap:10px;font-size:1rem}.bp-ic{width:38px;height:38px}.bp-len{display:none}.bigplay{bottom:5%}.bp-alt{font-size:.85rem;padding:4px 12px}}
