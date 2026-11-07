@@ -46,7 +46,7 @@ matchstick, small flame, fried egg, rusty nail and fuel can icons.
   `heatWaves` and a lib `spark`. A large "?" drifts up: where was that energy?
 - `stored`: Zoom into the match head: C, H and O atoms glow faintly, and O₂
   molecules from the air drift in. Caption chip: "chemical reaction".
-- `swap`: **Showpiece:** the atoms swap partners. The fuel's atoms and the O₂
+- `swap`: **Showpiece:** the atoms change partners. The fuel's atoms and the O₂
   molecules break apart and snap together as CO₂ and H₂O. Three icons follow:
   an egg cooking, a nail rusting, a fuel flame.
 - `plan`: Four roadmap chips light in turn: "spot it", "write it", "weigh
