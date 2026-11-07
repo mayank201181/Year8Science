@@ -42,6 +42,25 @@ export function GuideView({ topic }: { topic: Topic }) {
         </div>
       )}
 
+      {extras.lesson && (
+        // A static page in /public, so a plain link rather than next/link.
+        <a
+          href={extras.lesson.href}
+          className="flex items-center gap-4 rounded-2xl border-2 border-emerald-200 bg-emerald-50/70 p-4 transition hover:bg-emerald-100"
+        >
+          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-emerald-600 text-white" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>
+          </span>
+          <span className="flex-1">
+            <span className="block font-bold text-emerald-900">Watch the animated lesson</span>
+            <span className="block text-sm text-emerald-800">
+              {extras.lesson.minutes} min · narrated, with captions · {extras.lesson.chapters} short chapters
+            </span>
+          </span>
+          <span className="font-semibold text-emerald-800" aria-hidden="true">→</span>
+        </a>
+      )}
+
       <div className="flex items-center justify-between gap-3">
         <p className="flex-1 rounded-2xl border border-indigo-100 bg-indigo-50/60 p-4 text-slate-700">{topic.intro}</p>
       </div>

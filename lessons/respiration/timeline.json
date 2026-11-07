@@ -1,0 +1,805 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "intro",
+   "title": "Burning breakfast, without flames",
+   "short": "Intro",
+   "card": false,
+   "start": 0.0,
+   "end": 26.211,
+   "lines": [
+    {
+     "id": "hook",
+     "start": 0.6,
+     "end": 5.549,
+     "cap": "Right now, inside trillions of your cells, something is quietly burning your breakfast."
+    },
+    {
+     "id": "noflame",
+     "start": 6.049,
+     "end": 9.441,
+     "cap": "No flames, no smoke, and nothing hot enough to cook you."
+    },
+    {
+     "id": "def",
+     "start": 9.941,
+     "end": 17.408,
+     "cap": "It's called **respiration**: the chemical reaction that releases the energy stored in food, so every cell can stay alive."
+    },
+    {
+     "id": "plan",
+     "start": 17.908,
+     "end": 25.311,
+     "cap": "Let's follow a sugar called **glucose** into a cell, find out where its energy goes, and see what happens when oxygen runs out."
+    }
+   ]
+  },
+  {
+   "id": "what",
+   "title": "Respiration is not breathing",
+   "short": "Not breathing",
+   "card": true,
+   "start": 26.211,
+   "end": 87.408,
+   "lines": [
+    {
+     "id": "notsame",
+     "start": 28.011,
+     "end": 32.448,
+     "cap": "First, one thing to get straight: respiration is **not** the same as breathing."
+    },
+    {
+     "id": "breathing",
+     "start": 32.948,
+     "end": 42.847,
+     "cap": "**Breathing**, which scientists call **ventilation**, moves air in and out of your lungs. It's a physical process, done by muscles, your ribs and your diaphragm."
+    },
+    {
+     "id": "resp",
+     "start": 43.347,
+     "end": 48.936,
+     "cap": "**Respiration** is a **chemical reaction** inside cells. It releases energy from glucose."
+    },
+    {
+     "id": "every",
+     "start": 49.436,
+     "end": 57.095,
+     "cap": "It happens in **every** living cell, all the time: in your skin, your brain and your muscles, and in plants and bacteria too."
+    },
+    {
+     "id": "nolungs",
+     "start": 57.595,
+     "end": 65.765,
+     "cap": "So it doesn't need lungs. A goldfish has gills, and a tree has no lungs at all, yet every one of their cells is respiring right now."
+    },
+    {
+     "id": "released",
+     "start": 66.265,
+     "end": 74.18,
+     "cap": "Use the right word: respiration **releases** energy. It never makes or creates energy, because energy can't be created."
+    },
+    {
+     "id": "transfer",
+     "start": 74.68,
+     "end": 79.971,
+     "cap": "The chemical energy stored in glucose is simply **transferred** into forms the cell can use."
+    },
+    {
+     "id": "source",
+     "start": 80.471,
+     "end": 86.508,
+     "cap": "And the glucose? Animals get it by **digesting food**. Plants make their own by **photosynthesis**."
+    }
+   ]
+  },
+  {
+   "id": "aerobic",
+   "title": "Aerobic respiration: the equations",
+   "short": "Aerobic equations",
+   "card": true,
+   "start": 87.408,
+   "end": 182.877,
+   "lines": [
+    {
+     "id": "aerobic",
+     "start": 89.208,
+     "end": 97.272,
+     "cap": "The main type of respiration uses oxygen. It's called **aerobic** respiration: aerobic means 'with air', or with oxygen."
+    },
+    {
+     "id": "word",
+     "start": 97.772,
+     "end": 105.111,
+     "cap": "Here's the word equation: **glucose + oxygen → carbon dioxide + water**, and energy is released."
+    },
+    {
+     "id": "owls",
+     "start": 106.011,
+     "end": 113.456,
+     "cap": "To remember the order, think: **G**lad **O**wls **C**arry **W**et **E**ggs. Glucose, oxygen, carbon dioxide, water, energy."
+    },
+    {
+     "id": "reactants",
+     "start": 113.956,
+     "end": 121.359,
+     "cap": "Glucose and oxygen are the **reactants**: what goes in. Carbon dioxide and water are the **products**: what comes out."
+    },
+    {
+     "id": "brackets",
+     "start": 121.859,
+     "end": 126.552,
+     "cap": "Energy goes in brackets, because it's released. It isn't a chemical substance."
+    },
+    {
+     "id": "symbol",
+     "start": 127.052,
+     "end": 134.711,
+     "cap": "Now the symbol equation: **C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O**"
+    },
+    {
+     "id": "count",
+     "start": 135.711,
+     "end": 146.548,
+     "cap": "Let's check it's balanced. On the left: **6** carbon atoms, **12** hydrogen atoms and **18** oxygen atoms: 6 from glucose and 12 from the oxygen."
+    },
+    {
+     "id": "watch",
+     "start": 147.048,
+     "end": 148.925,
+     "cap": "Now watch the atoms rearrange."
+    },
+    {
+     "id": "right",
+     "start": 152.625,
+     "end": 164.487,
+     "cap": "On the right: still **6** carbons, **12** hydrogens and **18** oxygens, now shared between carbon dioxide and water. No atoms are lost or made, so **mass is conserved**."
+    },
+    {
+     "id": "lots",
+     "start": 164.987,
+     "end": 173.968,
+     "cap": "Aerobic respiration releases **a large amount of energy** from each glucose. That's why it's the main type in humans, animals and plants."
+    },
+    {
+     "id": "blood",
+     "start": 174.468,
+     "end": 181.977,
+     "cap": "Your **blood** brings oxygen to your cells, and carries the waste carbon dioxide back to your lungs, so you can breathe it out."
+    }
+   ]
+  },
+  {
+   "id": "mito",
+   "title": "Mitochondria: where it happens",
+   "short": "Mitochondria",
+   "card": true,
+   "start": 182.877,
+   "end": 259.24,
+   "lines": [
+    {
+     "id": "where",
+     "start": 184.677,
+     "end": 192.699,
+     "cap": "So where does aerobic respiration happen? Inside tiny structures called **mitochondria**. Just one is called a **mitochondrion**."
+    },
+    {
+     "id": "power",
+     "start": 193.199,
+     "end": 198.959,
+     "cap": "They're often called the **powerhouses** of the cell, because this is where most of the energy is released."
+    },
+    {
+     "id": "folds",
+     "start": 199.459,
+     "end": 203.448,
+     "cap": "Look inside one. The inner membrane is folded, again and again."
+    },
+    {
+     "id": "unfold",
+     "start": 204.248,
+     "end": 210.733,
+     "cap": "Unfold it, and it's far longer. The folds give a **large surface area** for the reactions of respiration."
+    },
+    {
+     "id": "active",
+     "start": 211.533,
+     "end": 214.925,
+     "cap": "The more active a cell is, the **more mitochondria** it has."
+    },
+    {
+     "id": "muscle",
+     "start": 215.425,
+     "end": 220.247,
+     "cap": "**Muscle cells** are packed with them, because contracting muscles need lots of energy."
+    },
+    {
+     "id": "sperm",
+     "start": 220.747,
+     "end": 224.928,
+     "cap": "**Sperm cells** have many in their middle section, to power the tail for swimming."
+    },
+    {
+     "id": "liver",
+     "start": 225.428,
+     "end": 230.889,
+     "cap": "**Liver cells** are full of them, because the liver carries out lots of energy-hungry reactions."
+    },
+    {
+     "id": "fat",
+     "start": 231.389,
+     "end": 235.165,
+     "cap": "But a **fat-storage cell** needs little energy, so it has only a few."
+    },
+    {
+     "id": "predict",
+     "start": 235.665,
+     "end": 240.252,
+     "cap": "So if you see lots of mitochondria, you can predict a **high energy demand**."
+    },
+    {
+     "id": "chloro",
+     "start": 240.752,
+     "end": 248.389,
+     "cap": "Don't mix them up with chloroplasts. **Photosynthesis** happens in **chloroplasts**; **respiration** happens in **mitochondria**."
+    },
+    {
+     "id": "bacteria",
+     "start": 248.889,
+     "end": 258.34,
+     "cap": "A bonus fact: scientists think mitochondria were once free-living **bacteria** that moved into bigger cells long ago. They even have their own **DNA**."
+    }
+   ]
+  },
+  {
+   "id": "uses",
+   "title": "What the energy is used for",
+   "short": "Uses of energy",
+   "card": true,
+   "start": 259.24,
+   "end": 330.888,
+   "lines": [
+    {
+     "id": "what",
+     "start": 261.04,
+     "end": 266.245,
+     "cap": "What's all that energy for? It powers the **life processes** that keep an organism alive."
+    },
+    {
+     "id": "move",
+     "start": 266.745,
+     "end": 272.057,
+     "cap": "**Movement**: muscles contracting. That's why exercising muscles respire faster."
+    },
+    {
+     "id": "grow",
+     "start": 272.557,
+     "end": 277.016,
+     "cap": "**Growth**: building new cells and tissues, to get bigger or to repair damage."
+    },
+    {
+     "id": "build",
+     "start": 277.516,
+     "end": 284.471,
+     "cap": "**Making big molecules**: joining small molecules into large ones, like building proteins from amino acids."
+    },
+    {
+     "id": "active",
+     "start": 284.971,
+     "end": 293.867,
+     "cap": "**Active transport**: moving substances across cell membranes **against a concentration gradient**, like a root taking in minerals from the soil."
+    },
+    {
+     "id": "warm",
+     "start": 294.367,
+     "end": 300.511,
+     "cap": "**Keeping warm**: mammals and birds use some of the energy as heat, to keep a steady body temperature."
+    },
+    {
+     "id": "nerve",
+     "start": 301.011,
+     "end": 304.659,
+     "cap": "And **nerve impulses**, plus lots of other jobs inside cells."
+    },
+    {
+     "id": "heat",
+     "start": 305.159,
+     "end": 313.991,
+     "cap": "Not all of the energy is useful. Some is always **transferred to the surroundings as heat**. For mammals and birds, though, that heat keeps them warm."
+    },
+    {
+     "id": "bird",
+     "start": 314.491,
+     "end": 322.235,
+     "cap": "That's why a small bird must eat almost all day in cold weather, while a lizard the same size can go much longer without food."
+    },
+    {
+     "id": "brain",
+     "start": 322.735,
+     "end": 329.988,
+     "cap": "And your brain is only about **2%** of your body mass, yet it uses around **a fifth** of your energy, even while you sleep."
+    }
+   ]
+  },
+  {
+   "id": "anaerobic",
+   "title": "Anaerobic respiration in humans",
+   "short": "Anaerobic (humans)",
+   "card": true,
+   "start": 330.888,
+   "end": 408.681,
+   "lines": [
+    {
+     "id": "sprint",
+     "start": 332.688,
+     "end": 339.344,
+     "cap": "Sometimes your muscles need energy faster than your blood can deliver oxygen. Think of a flat-out sprint."
+    },
+    {
+     "id": "switch",
+     "start": 339.844,
+     "end": 347.631,
+     "cap": "When there isn't enough oxygen, muscle cells switch to **anaerobic** respiration. The prefix **an-** means **absent**: no oxygen."
+    },
+    {
+     "id": "eq",
+     "start": 348.131,
+     "end": 353.357,
+     "cap": "The word equation is: **glucose → lactic acid**, and a little energy is released."
+    },
+    {
+     "id": "less",
+     "start": 354.157,
+     "end": 360.877,
+     "cap": "It releases **much less energy** than aerobic respiration, because the glucose is only **partly** broken down."
+    },
+    {
+     "id": "noco2",
+     "start": 361.377,
+     "end": 365.879,
+     "cap": "And it makes **no carbon dioxide** and no water. Just lactic acid."
+    },
+    {
+     "id": "fatigue",
+     "start": 366.379,
+     "end": 374.123,
+     "cap": "Lactic acid builds up in the muscles. It's linked to the burning feeling, and to **muscle fatigue**, when muscles get tired and ache."
+    },
+    {
+     "id": "debt",
+     "start": 374.623,
+     "end": 381.62,
+     "cap": "Afterwards, your body needs extra oxygen to break the lactic acid down. This is called the **oxygen debt**."
+    },
+    {
+     "id": "pant",
+     "start": 382.12,
+     "end": 386.835,
+     "cap": "That's why you keep panting, and your heart keeps pounding, for a while after you stop."
+    },
+    {
+     "id": "sprinter",
+     "start": 387.335,
+     "end": 395.74,
+     "cap": "So a sprinter relies far more on anaerobic respiration than a marathon runner, and that's why no one can sprint flat out for very long."
+    },
+    {
+     "id": "modern",
+     "start": 396.24,
+     "end": 407.781,
+     "cap": "Scientists now know the burn is a bit more complicated, and next-day soreness is mostly tiny muscle damage. But for your exam: **lactic acid**, **fatigue** and **oxygen debt**."
+    }
+   ]
+  },
+  {
+   "id": "yeast",
+   "title": "Yeast and fermentation",
+   "short": "Yeast",
+   "card": true,
+   "start": 408.681,
+   "end": 480.005,
+   "lines": [
+    {
+     "id": "yeast",
+     "start": 410.481,
+     "end": 416.753,
+     "cap": "**Yeast** is a single-celled fungus. When yeast respires without oxygen, it's called **fermentation**."
+    },
+    {
+     "id": "eq",
+     "start": 417.253,
+     "end": 424.613,
+     "cap": "Its products are different from ours: **glucose → ethanol + carbon dioxide**, and a little energy is released."
+    },
+    {
+     "id": "ethanol",
+     "start": 425.413,
+     "end": 428.485,
+     "cap": "**Ethanol** is the alcohol in alcoholic drinks."
+    },
+    {
+     "id": "lazy",
+     "start": 428.985,
+     "end": 436.431,
+     "cap": "To remember who makes what: **L**azy **A**thletes, **E**nergetic **Y**east. **L**actic acid for athletes, **e**thanol for yeast."
+    },
+    {
+     "id": "history",
+     "start": 436.931,
+     "end": 440.067,
+     "cap": "People have used fermentation for thousands of years."
+    },
+    {
+     "id": "bread",
+     "start": 440.567,
+     "end": 446.753,
+     "cap": "In **bread-making**, yeast in the dough makes **carbon dioxide** gas, and the bubbles make the dough **rise**."
+    },
+    {
+     "id": "bake",
+     "start": 447.653,
+     "end": 453.627,
+     "cap": "In the oven, the ethanol evaporates, but the holes stay behind, so the bread is light and airy."
+    },
+    {
+     "id": "brew",
+     "start": 454.127,
+     "end": 460.975,
+     "cap": "In **brewing** and wine-making, the **ethanol** makes the alcoholic drink, and the carbon dioxide can make it fizzy."
+    },
+    {
+     "id": "products",
+     "start": 461.475,
+     "end": 467.832,
+     "cap": "Fermentation releases only a little energy, but for bakers and brewers it's the **products** that matter."
+    },
+    {
+     "id": "balloon",
+     "start": 468.332,
+     "end": 479.105,
+     "cap": "Try it at home: warm water, sugar and yeast in a bottle, with a balloon stretched over the top. In half an hour or so, the balloon starts to fill with **carbon dioxide**."
+    }
+   ]
+  },
+  {
+   "id": "compare",
+   "title": "Aerobic vs anaerobic",
+   "short": "Compare",
+   "card": true,
+   "start": 480.005,
+   "end": 533.449,
+   "lines": [
+    {
+     "id": "side",
+     "start": 481.805,
+     "end": 490.765,
+     "cap": "Let's put them side by side. Both start with **glucose**, and both release energy. They differ in three ways: **oxygen**, **energy** and **products**."
+    },
+    {
+     "id": "aer",
+     "start": 491.265,
+     "end": 497.303,
+     "cap": "**Aerobic**: uses oxygen, releases **a lot** of energy, and makes **carbon dioxide and water**."
+    },
+    {
+     "id": "human",
+     "start": 497.803,
+     "end": 503.435,
+     "cap": "**Anaerobic, in humans**: no oxygen, releases **a little** energy, and makes **lactic acid**."
+    },
+    {
+     "id": "yeast",
+     "start": 503.935,
+     "end": 510.804,
+     "cap": "**Anaerobic, in yeast**: no oxygen, releases **a little** energy, and makes **ethanol and carbon dioxide**."
+    },
+    {
+     "id": "why",
+     "start": 511.304,
+     "end": 516.296,
+     "cap": "Why so much more energy from aerobic? Because the glucose is **completely** broken down."
+    },
+    {
+     "id": "locked",
+     "start": 516.796,
+     "end": 525.777,
+     "cap": "In anaerobic respiration it's only **partly** broken down, so most of its energy stays **locked inside** the lactic acid or the ethanol."
+    },
+    {
+     "id": "backup",
+     "start": 526.277,
+     "end": 532.549,
+     "cap": "So anaerobic respiration isn't better just because it works without oxygen. It's a **short-term backup**."
+    }
+   ]
+  },
+  {
+   "id": "photo",
+   "title": "Respiration, photosynthesis and breathing",
+   "short": "vs photosynthesis",
+   "card": true,
+   "start": 533.449,
+   "end": 615.615,
+   "lines": [
+    {
+     "id": "three",
+     "start": 535.249,
+     "end": 540.519,
+     "cap": "Three processes often get muddled up: **respiration**, **photosynthesis** and **breathing**."
+    },
+    {
+     "id": "opposite",
+     "start": 541.019,
+     "end": 544.389,
+     "cap": "Respiration and photosynthesis are roughly **opposites**."
+    },
+    {
+     "id": "resp",
+     "start": 544.889,
+     "end": 554.425,
+     "cap": "Respiration: glucose + oxygen → carbon dioxide + water, **releasing** energy. It happens in **all** living cells, **all the time**."
+    },
+    {
+     "id": "photo",
+     "start": 554.925,
+     "end": 566.552,
+     "cap": "Photosynthesis: carbon dioxide + water → glucose + oxygen, **storing** energy from light. It happens only in **green plant cells** with chlorophyll, and only **in the light**."
+    },
+    {
+     "id": "both",
+     "start": 567.052,
+     "end": 576.567,
+     "cap": "A green plant does both. And here's the big one: plants **respire all the time**, day and night, in every living cell: roots, stems, flowers and leaves."
+    },
+    {
+     "id": "day",
+     "start": 577.067,
+     "end": 585.877,
+     "cap": "In bright light, photosynthesis runs faster than respiration, so overall the plant takes in **carbon dioxide** and gives out **oxygen**."
+    },
+    {
+     "id": "night",
+     "start": 586.377,
+     "end": 594.377,
+     "cap": "At night there's no photosynthesis, so only respiration shows: the plant takes in **oxygen** and gives out **carbon dioxide**."
+    },
+    {
+     "id": "breathe",
+     "start": 594.877,
+     "end": 602.792,
+     "cap": "And breathing? **Breathing**, or **ventilation**, is the muscular movement of air in and out of the lungs. It isn't a chemical reaction."
+    },
+    {
+     "id": "link",
+     "start": 603.292,
+     "end": 611.569,
+     "cap": "Breathing **supplies** the oxygen for aerobic respiration, and **removes** the carbon dioxide it makes. Linked, but not the same."
+    },
+    {
+     "id": "crlv",
+     "start": 612.069,
+     "end": 614.715,
+     "cap": "Remember: **C**ells **R**espire, **L**ungs **V**entilate."
+    }
+   ]
+  },
+  {
+   "id": "investigate",
+   "title": "Investigating respiration",
+   "short": "Experiments",
+   "card": true,
+   "start": 615.615,
+   "end": 694.723,
+   "lines": [
+    {
+     "id": "detect",
+     "start": 617.415,
+     "end": 622.193,
+     "cap": "We can't see respiration directly, so experiments detect its **products** and effects."
+    },
+    {
+     "id": "lime",
+     "start": 622.693,
+     "end": 630.544,
+     "cap": "Test one: carbon dioxide. **Limewater** turns from clear to **milky**, or cloudy, when carbon dioxide bubbles through it."
+    },
+    {
+     "id": "inout",
+     "start": 631.044,
+     "end": 642.863,
+     "cap": "Bubble air you breathe **in** through one tube, and air you breathe **out** through another. The breathed-out air turns the limewater milky much faster, because respiration has added carbon dioxide."
+    },
+    {
+     "id": "flasks",
+     "start": 643.763,
+     "end": 651.912,
+     "cap": "Test two: heat. Put living, **germinating peas** in one vacuum flask, and **boiled**, dead peas in another, each with a thermometer."
+    },
+    {
+     "id": "warmer",
+     "start": 652.412,
+     "end": 662.14,
+     "cap": "Over a few days, the flask of living seeds gets **warmer**, because respiration releases heat. Dead seeds can't respire, so their temperature doesn't rise."
+    },
+    {
+     "id": "control",
+     "start": 662.94,
+     "end": 670.385,
+     "cap": "The boiled seeds are the **control**. And washing the seeds in **disinfectant** first stops microbes from making heat instead."
+    },
+    {
+     "id": "respirometer",
+     "start": 670.885,
+     "end": 684.709,
+     "cap": "Test three: oxygen. Living things in a sealed tube use up oxygen. In a **respirometer**, a chemical soaks up the carbon dioxide, so a drop of coloured liquid creeps along the tube as the oxygen is used."
+    },
+    {
+     "id": "fair",
+     "start": 685.609,
+     "end": 693.823,
+     "cap": "Whatever you test, make it a **fair test**: change just one variable, keep everything else the same, and include a **control** to compare with."
+    }
+   ]
+  },
+  {
+   "id": "recap",
+   "title": "Recap: memory hooks and exam traps",
+   "short": "Recap",
+   "card": true,
+   "start": 694.723,
+   "end": 749.207,
+   "lines": [
+    {
+     "id": "lock",
+     "start": 696.523,
+     "end": 697.867,
+     "cap": "Let's lock it all in."
+    },
+    {
+     "id": "owls",
+     "start": 698.367,
+     "end": 705.044,
+     "cap": "**Glad Owls Carry Wet Eggs**: glucose + oxygen → carbon dioxide + water (+ energy)."
+    },
+    {
+     "id": "an",
+     "start": 705.544,
+     "end": 709.192,
+     "cap": "**Aerobic** means with oxygen, while **an**aerobic means without it."
+    },
+    {
+     "id": "lazy",
+     "start": 709.692,
+     "end": 716.839,
+     "cap": "**Lazy Athletes, Energetic Yeast**: lactic acid in humans; ethanol and carbon dioxide in yeast."
+    },
+    {
+     "id": "crlv",
+     "start": 717.339,
+     "end": 719.451,
+     "cap": "**Cells Respire, Lungs Ventilate.**"
+    },
+    {
+     "id": "traps",
+     "start": 719.951,
+     "end": 722.212,
+     "cap": "Now, five exam traps to avoid."
+    },
+    {
+     "id": "t1",
+     "start": 722.712,
+     "end": 726.083,
+     "cap": "One: respiration **releases** energy. It doesn't make it."
+    },
+    {
+     "id": "t2",
+     "start": 726.583,
+     "end": 732.449,
+     "cap": "Two: write **(+ energy)** in your equations, and check the **sixes** in the symbol equation."
+    },
+    {
+     "id": "t3",
+     "start": 732.949,
+     "end": 739.029,
+     "cap": "Three: anaerobic respiration in humans makes **lactic acid only**. No carbon dioxide."
+    },
+    {
+     "id": "t4",
+     "start": 739.529,
+     "end": 742.9,
+     "cap": "Four: plants respire **all the time**, not just at night."
+    },
+    {
+     "id": "t5",
+     "start": 743.4,
+     "end": 748.307,
+     "cap": "Five: anaerobic respiration releases **less** energy than aerobic, not more."
+    }
+   ]
+  },
+  {
+   "id": "quiz",
+   "title": "Quick-fire quiz",
+   "short": "Quiz",
+   "card": true,
+   "start": 749.207,
+   "end": 814.08,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 751.007,
+     "end": 754.655,
+     "cap": "Quick-fire quiz! Say each answer out loud before it appears."
+    },
+    {
+     "id": "q1",
+     "start": 755.155,
+     "end": 757.821,
+     "cap": "Where in the cell does aerobic respiration happen?"
+    },
+    {
+     "id": "a1",
+     "start": 762.321,
+     "end": 763.601,
+     "cap": "In the **mitochondria**."
+    },
+    {
+     "id": "q2",
+     "start": 764.101,
+     "end": 767.045,
+     "cap": "What does yeast make when it respires without oxygen?"
+    },
+    {
+     "id": "a2",
+     "start": 771.545,
+     "end": 773.551,
+     "cap": "**Ethanol and carbon dioxide.**"
+    },
+    {
+     "id": "q3",
+     "start": 774.051,
+     "end": 777.784,
+     "cap": "What happens to limewater when carbon dioxide bubbles through it?"
+    },
+    {
+     "id": "a3",
+     "start": 782.284,
+     "end": 783.927,
+     "cap": "It turns from clear to **milky**."
+    },
+    {
+     "id": "q4",
+     "start": 784.427,
+     "end": 786.453,
+     "cap": "Why do you keep panting after a sprint?"
+    },
+    {
+     "id": "a4",
+     "start": 790.953,
+     "end": 796.457,
+     "cap": "To take in extra oxygen and repay the **oxygen debt**, breaking down the lactic acid."
+    },
+    {
+     "id": "q5",
+     "start": 796.957,
+     "end": 799.944,
+     "cap": "True or false: plants only respire at night."
+    },
+    {
+     "id": "a5",
+     "start": 804.444,
+     "end": 807.388,
+     "cap": "**False.** Plants respire all the time, day and night."
+    },
+    {
+     "id": "outro",
+     "start": 807.888,
+     "end": 812.88,
+     "cap": "Brilliant work. Now try the Respiration quiz in your Science Lab, to lock it in."
+    }
+   ]
+  }
+ ],
+ "total": 814.08
+}
