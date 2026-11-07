@@ -1,7 +1,7 @@
 # Energy: storyboard
 
 What the screen shows for every narration line of `lessons/energy/script.py`.
-Eleven chapters, 120 lines, about 14 minutes.
+Eleven chapters, 120 lines, 13.8 minutes.
 
 **Look and palette.** Energy itself is always the yellow `spark()`. Energy that is being wasted
 turns orange (`C.heat`) and, as it dissipates, spreads out and fades. Each of the eight stores has
@@ -252,12 +252,13 @@ then the answer with a `tick()`.
 
 ## Suggested animator split
 
-Estimated chapter lengths: intro 28 s, what 72 s, stores 98 s, pathways 76 s, conservation 92 s,
-wasted 73 s, efficiency 89 s, resources 97 s, generating 93 s, recap 59 s, quiz 78 s.
+Chapter lengths from `timeline.json`: intro 27 s, what 68 s, stores 92 s, pathways 72 s,
+conservation 91 s, wasted 72 s, efficiency 85 s, resources 99 s, generating 91 s, recap 55 s,
+quiz 77 s.
 
 | Group | Chapters | About | Notes |
 | --- | --- | --- | --- |
-| 1 | intro, what, stores | 3.3 min | Defines the store badges and jars everyone reuses; build these first. Medium-hard. |
-| 2 | pathways, conservation, recap | 3.8 min | Pathway arrows, falling ball, roller-coaster swap; the recap reuses badges and arrows. Hard. |
-| 3 | wasted, efficiency, quiz | 4.0 min | Bulb, dissipation, 100-square grid and Sankey; the quiz reuses the grid and jars. Medium. |
+| 1 | intro, what, stores | 3.1 min | Defines the store badges and jars everyone reuses; build these first. Medium-hard. |
+| 2 | pathways, conservation, recap | 3.6 min | Pathway arrows, falling ball, roller-coaster swap; the recap reuses badges and arrows. Hard. |
+| 3 | wasted, efficiency, quiz | 3.9 min | Bulb, dissipation, 100-square grid and Sankey; the quiz reuses the grid and jars. Medium. |
 | 4 | resources, generating | 3.2 min | Many icons and the power-station cutaway. Medium-hard. |
