@@ -1,0 +1,855 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "intro",
+   "title": "A table that predicted the future",
+   "short": "Intro",
+   "card": false,
+   "start": 0.0,
+   "end": 32.312,
+   "lines": [
+    {
+     "id": "hook",
+     "start": 0.6,
+     "end": 9.453,
+     "cap": "In 1869, a Russian chemist arranged all the known elements into a grid, and left **gaps** for elements nobody had discovered yet."
+    },
+    {
+     "id": "predict",
+     "start": 9.953,
+     "end": 19.489,
+     "cap": "He predicted what those missing elements would be like, and years later they were found, matching his guesses almost perfectly. How could a table predict the future?"
+    },
+    {
+     "id": "def",
+     "start": 19.989,
+     "end": 25.685,
+     "cap": "That grid grew into the **periodic table**: a map where an element's **position** tells you how it behaves."
+    },
+    {
+     "id": "plan",
+     "start": 26.185,
+     "end": 31.412,
+     "cap": "Let's look inside the atom, learn to read the table, and meet its most dramatic families."
+    }
+   ]
+  },
+  {
+   "id": "what",
+   "title": "What the periodic table is",
+   "short": "What it is",
+   "card": true,
+   "start": 32.312,
+   "end": 98.541,
+   "lines": [
+    {
+     "id": "everything",
+     "start": 34.112,
+     "end": 37.803,
+     "cap": "Everything around you, even your own body, is built from **elements**."
+    },
+    {
+     "id": "element",
+     "start": 38.303,
+     "end": 46.9,
+     "cap": "An **element** is a pure substance made of only **one kind of atom**. It can't be broken down into anything simpler by chemical reactions."
+    },
+    {
+     "id": "known",
+     "start": 47.4,
+     "end": 52.691,
+     "cap": "Gold, oxygen and carbon are all elements, and **118** are known today."
+    },
+    {
+     "id": "order",
+     "start": 53.191,
+     "end": 61.511,
+     "cap": "The periodic table lays them out in order of increasing **atomic number**, or **proton number**: the number of protons in each atom."
+    },
+    {
+     "id": "count",
+     "start": 62.011,
+     "end": 69.349,
+     "cap": "Hydrogen has one proton, so it comes first. Helium has two, so it's second, and so on, up by one each step."
+    },
+    {
+     "id": "box",
+     "start": 70.849,
+     "end": 80.193,
+     "cap": "Each box shows an element's **symbol**, **name**, **atomic number** and **mass number**. Here's sodium: **Na**, atomic number **11**, mass number **23**."
+    },
+    {
+     "id": "notmass",
+     "start": 80.693,
+     "end": 90.123,
+     "cap": "Notice: it's ordered by **atomic number**, not by mass. Ordering by mass would put a few elements, like tellurium and iodine, in the wrong family."
+    },
+    {
+     "id": "columns",
+     "start": 90.623,
+     "end": 97.641,
+     "cap": "And it's more than a list: elements with **similar properties** line up in the same **column**, so position predicts behaviour."
+    }
+   ]
+  },
+  {
+   "id": "atom",
+   "title": "Inside the atom: particles and shells",
+   "short": "The atom",
+   "card": true,
+   "start": 98.541,
+   "end": 199.268,
+   "lines": [
+    {
+     "id": "nucleus",
+     "start": 100.341,
+     "end": 107.701,
+     "cap": "To understand the table, look inside an atom. At its centre is a tiny **nucleus**, made of **protons** and **neutrons**."
+    },
+    {
+     "id": "charges",
+     "start": 108.201,
+     "end": 116.564,
+     "cap": "**Protons** are **positive**, and **neutrons** have **no charge**. Around the nucleus, much lighter **electrons**, which are **negative**, move in **shells**."
+    },
+    {
+     "id": "atomicno",
+     "start": 117.064,
+     "end": 122.333,
+     "cap": "The **atomic number** is the number of **protons**, and it decides which element an atom is."
+    },
+    {
+     "id": "massno",
+     "start": 122.833,
+     "end": 128.743,
+     "cap": "The **mass number** is the number of **protons plus neutrons**. Electrons are so light they don't count."
+    },
+    {
+     "id": "neutral",
+     "start": 129.243,
+     "end": 134.64,
+     "cap": "Every atom has **equal numbers** of protons and electrons, so their charges cancel out."
+    },
+    {
+     "id": "sodium",
+     "start": 135.14,
+     "end": 142.329,
+     "cap": "So sodium, with atomic number **11** and mass number **23**, has **11 protons** and **11 electrons**."
+    },
+    {
+     "id": "subtract",
+     "start": 142.829,
+     "end": 147.373,
+     "cap": "For the neutrons, **subtract**: 23 − 11 = **12 neutrons**."
+    },
+    {
+     "id": "isotopes",
+     "start": 147.873,
+     "end": 152.076,
+     "cap": "**Isotopes** are atoms of the **same element** with **different numbers of neutrons**."
+    },
+    {
+     "id": "carbon",
+     "start": 152.576,
+     "end": 162.261,
+     "cap": "Carbon-12 and carbon-14 both have **6 protons**, so both are carbon. But carbon-12 has **6 neutrons**, and carbon-14 has **8**."
+    },
+    {
+     "id": "same",
+     "start": 162.761,
+     "end": 170.612,
+     "cap": "Isotopes sit in the **same place** in the table, and react the same way, because chemistry depends on **electrons**, not neutrons."
+    },
+    {
+     "id": "shells",
+     "start": 171.112,
+     "end": 178.152,
+     "cap": "Electrons fill the shells from the inside out: up to **2** in the first shell, **8** in the second, and **8** in the third."
+    },
+    {
+     "id": "bus",
+     "start": 178.652,
+     "end": 182.833,
+     "cap": "Think of a bus: **2** seats up front, **8** in the middle, and **8** at the back."
+    },
+    {
+     "id": "build",
+     "start": 183.333,
+     "end": 190.544,
+     "cap": "Watch sodium's **11** electrons fill up: **2**, then **8**, then just **1** in the outer shell. That's **2, 8, 1**."
+    },
+    {
+     "id": "outer",
+     "start": 192.544,
+     "end": 198.368,
+     "cap": "That lonely outer electron matters, because an element's **outer electrons** decide how it reacts."
+    }
+   ]
+  },
+  {
+   "id": "groups",
+   "title": "Groups and periods",
+   "short": "Groups & periods",
+   "card": true,
+   "start": 199.268,
+   "end": 273.889,
+   "lines": [
+    {
+     "id": "group",
+     "start": 201.068,
+     "end": 207.255,
+     "cap": "A **group** is a **vertical column**. Elements in a group have the **same number of electrons in their outer shell**."
+    },
+    {
+     "id": "lnk",
+     "start": 207.755,
+     "end": 216.928,
+     "cap": "In Group 1, lithium is **2, 1**, sodium is **2, 8, 1**, and potassium is **2, 8, 8, 1**. Each has just **one** outer electron."
+    },
+    {
+     "id": "similar",
+     "start": 217.728,
+     "end": 224.085,
+     "cap": "Because outer electrons control reactions, elements in the same group have **similar chemical properties**."
+    },
+    {
+     "id": "number",
+     "start": 224.585,
+     "end": 231.54,
+     "cap": "For the main groups, the **group number** tells you the number of outer electrons: one in Group 1, seven in Group 7."
+    },
+    {
+     "id": "period",
+     "start": 232.04,
+     "end": 237.651,
+     "cap": "A **period** is a **horizontal row**. The **period number** tells you how many **shells** the atoms have."
+    },
+    {
+     "id": "across",
+     "start": 238.151,
+     "end": 247.409,
+     "cap": "Across Period 3, from sodium to argon, the atomic number rises by one each step, and the third shell fills, one electron at a time."
+    },
+    {
+     "id": "chlorine",
+     "start": 249.409,
+     "end": 256.385,
+     "cap": "So chlorine, **2, 8, 7**, has seven outer electrons: **Group 7**. And it has three shells: **Period 3**."
+    },
+    {
+     "id": "calcium",
+     "start": 256.885,
+     "end": 264.437,
+     "cap": "Calcium, element **20**, is **2, 8, 8, 2**: two outer electrons, so **Group 2**, and four shells, so **Period 4**."
+    },
+    {
+     "id": "trap",
+     "start": 264.937,
+     "end": 268.479,
+     "cap": "Don't mix them up: **groups** go **down**, and **periods** go **across**."
+    },
+    {
+     "id": "predict",
+     "start": 268.979,
+     "end": 272.989,
+     "cap": "Know an element's group, and you can predict its behaviour from its neighbours."
+    }
+   ]
+  },
+  {
+   "id": "metals",
+   "title": "Metals, non-metals and the staircase",
+   "short": "Metals & non-metals",
+   "card": true,
+   "start": 273.889,
+   "end": 360.913,
+   "lines": [
+    {
+     "id": "split",
+     "start": 275.689,
+     "end": 282.068,
+     "cap": "The table splits into two great families: **metals** on the **left** and in the **centre**, and **non-metals** on the **right**."
+    },
+    {
+     "id": "staircase",
+     "start": 282.568,
+     "end": 285.875,
+     "cap": "Between them runs a zig-zag line, called the **staircase**."
+    },
+    {
+     "id": "most",
+     "start": 287.375,
+     "end": 294.415,
+     "cap": "About four in every five elements are **metals**. But **hydrogen**, at the top left, is a non-metal: the odd one out."
+    },
+    {
+     "id": "shiny",
+     "start": 294.915,
+     "end": 299.885,
+     "cap": "Metals are **shiny** when freshly cut, and **good conductors** of heat and electricity."
+    },
+    {
+     "id": "malleable",
+     "start": 300.385,
+     "end": 305.697,
+     "cap": "They're **malleable**, so they can be hammered into shape, and **ductile**, so they can be drawn into wires."
+    },
+    {
+     "id": "dense",
+     "start": 306.197,
+     "end": 312.213,
+     "cap": "Most are **solids** with **high melting points** and **high density**, and they ring when struck: they're **sonorous**."
+    },
+    {
+     "id": "dull",
+     "start": 312.713,
+     "end": 319.817,
+     "cap": "**Non-metals** are often **dull**, and many are **gases**, or solids that melt easily. They usually have a **low density**."
+    },
+    {
+     "id": "brittle",
+     "start": 320.317,
+     "end": 326.035,
+     "cap": "They're **poor conductors**, or **insulators**, and when solid they're **brittle**: they shatter instead of bending."
+    },
+    {
+     "id": "graphite",
+     "start": 326.535,
+     "end": 334.236,
+     "cap": "The classic exception: **graphite**, a form of carbon, is a non-metal that **conducts electricity**, so it's used in electrodes."
+    },
+    {
+     "id": "metalloids",
+     "start": 334.736,
+     "end": 340.987,
+     "cap": "A few elements near the staircase, like **silicon**, have a mix of properties. They're sometimes called **metalloids**."
+    },
+    {
+     "id": "magnet",
+     "start": 341.487,
+     "end": 351.279,
+     "cap": "Try this at home: test metal objects with a fridge magnet. Only things containing **iron**, **nickel** or **cobalt** stick. Most metals aren't magnetic!"
+    },
+    {
+     "id": "coins",
+     "start": 351.779,
+     "end": 360.013,
+     "cap": "One surprise: newer copper-coloured 1p and 2p coins **do** stick. They're steel inside, with just a thin coat of copper."
+    }
+   ]
+  },
+  {
+   "id": "alkali",
+   "title": "Group 1: the alkali metals",
+   "short": "Group 1",
+   "card": true,
+   "start": 360.913,
+   "end": 459.357,
+   "lines": [
+    {
+     "id": "meet",
+     "start": 362.713,
+     "end": 369.689,
+     "cap": "Down the left-hand side is **Group 1**: the **alkali metals**. The ones to know are **lithium**, **sodium** and **potassium**."
+    },
+    {
+     "id": "one",
+     "start": 370.189,
+     "end": 375.693,
+     "cap": "Each has just **one** outer electron, and that makes them some of the **most reactive** metals of all."
+    },
+    {
+     "id": "soft",
+     "start": 376.193,
+     "end": 383.852,
+     "cap": "They're unusual metals: **soft** enough to cut with a knife, and so light that lithium, sodium and potassium **float** on water."
+    },
+    {
+     "id": "oil",
+     "start": 384.352,
+     "end": 389.173,
+     "cap": "They're stored under **oil**, because they react with the oxygen and water vapour in air."
+    },
+    {
+     "id": "water",
+     "start": 389.673,
+     "end": 397.289,
+     "cap": "Drop one in water and it **fizzes**, giving off **hydrogen** gas and leaving an **alkaline** solution. That's where the name comes from."
+    },
+    {
+     "id": "li",
+     "start": 397.789,
+     "end": 399.325,
+     "cap": "**Lithium** fizzes gently."
+    },
+    {
+     "id": "na",
+     "start": 401.025,
+     "end": 404.993,
+     "cap": "**Sodium** melts into a shiny ball and whizzes across the surface."
+    },
+    {
+     "id": "k",
+     "start": 406.693,
+     "end": 411.6,
+     "cap": "**Potassium** reacts so fast that the hydrogen catches fire, with a **lilac** flame."
+    },
+    {
+     "id": "trend",
+     "start": 413.9,
+     "end": 416.972,
+     "cap": "So **reactivity increases** as you go **down** the group."
+    },
+    {
+     "id": "kids",
+     "start": 417.472,
+     "end": 425.6,
+     "cap": "Remember the order with **L**ittle **N**aughty **K**ids **R**un **C**razy **F**ast: Li, Na, K, Rb, Cs, Fr."
+    },
+    {
+     "id": "bigger",
+     "start": 426.1,
+     "end": 432.052,
+     "cap": "Why? First, the atoms get **bigger** going down, so the outer electron is **further from the nucleus**."
+    },
+    {
+     "id": "shield",
+     "start": 432.552,
+     "end": 437.8,
+     "cap": "Second, there are more inner shells in the way. This **shielding** blocks some of the nucleus's pull."
+    },
+    {
+     "id": "lost",
+     "start": 438.3,
+     "end": 442.801,
+     "cap": "So the outer electron is **lost more easily**, and the metal reacts faster."
+    },
+    {
+     "id": "group2",
+     "start": 443.301,
+     "end": 452.923,
+     "cap": "Next door, **Group 2**, the **alkaline earth metals** like **magnesium** and **calcium**, have **two** outer electrons. They're reactive too, but **less** than Group 1."
+    },
+    {
+     "id": "calcium",
+     "start": 453.423,
+     "end": 458.457,
+     "cap": "Calcium reacts steadily with cold water, but nowhere near as wildly as sodium."
+    }
+   ]
+  },
+  {
+   "id": "halogens",
+   "title": "Group 7: the halogens",
+   "short": "Group 7",
+   "card": true,
+   "start": 459.357,
+   "end": 554.464,
+   "lines": [
+    {
+     "id": "meet",
+     "start": 461.157,
+     "end": 467.963,
+     "cap": "Near the right is **Group 7**: the **halogens**. They're **fluorine**, **chlorine**, **bromine**, **iodine** and **astatine**."
+    },
+    {
+     "id": "seven",
+     "start": 468.463,
+     "end": 472.26,
+     "cap": "They're reactive **non-metals** with **seven** electrons in their outer shell."
+    },
+    {
+     "id": "pairs",
+     "start": 472.76,
+     "end": 479.501,
+     "cap": "Their atoms go around in pairs, called **diatomic** molecules. Chlorine gas, for example, is **Cl₂**."
+    },
+    {
+     "id": "fluorine",
+     "start": 480.001,
+     "end": 483.948,
+     "cap": "And they're famous for their colours. **Fluorine** is a **pale yellow gas**."
+    },
+    {
+     "id": "chlorine",
+     "start": 484.448,
+     "end": 490.165,
+     "cap": "**Chlorine** is a **green-yellow gas**, used to kill bacteria in swimming pools and drinking water."
+    },
+    {
+     "id": "bromine",
+     "start": 490.665,
+     "end": 498.132,
+     "cap": "**Bromine** is a **red-brown liquid** with a choking vapour: with mercury, one of only two liquid elements at room temperature."
+    },
+    {
+     "id": "iodine",
+     "start": 498.632,
+     "end": 503.453,
+     "cap": "**Iodine** is a **dark grey solid** that turns into a **purple** vapour when it's warmed."
+    },
+    {
+     "id": "state",
+     "start": 503.953,
+     "end": 509.969,
+     "cap": "So going down, they change from **gas** to **liquid** to **solid**, as melting and boiling points **rise**."
+    },
+    {
+     "id": "clowns",
+     "start": 510.469,
+     "end": 515.824,
+     "cap": "Remember the order with **F**unny **C**lowns **B**ring **I**ce: fluorine, chlorine, bromine, iodine."
+    },
+    {
+     "id": "twist",
+     "start": 516.324,
+     "end": 524.473,
+     "cap": "Now the twist: reactivity **decreases** down Group 7, the **opposite** of Group 1. Fluorine is the most reactive halogen."
+    },
+    {
+     "id": "displace",
+     "start": 524.973,
+     "end": 535.64,
+     "cap": "A more reactive halogen **displaces** a less reactive one from its compound. Add chlorine to sodium bromide solution, and **bromine** is pushed out, turning it orange."
+    },
+    {
+     "id": "gain",
+     "start": 537.64,
+     "end": 543.464,
+     "cap": "Why the opposite trend? A halogen reacts by **gaining** one electron, to fill its outer shell."
+    },
+    {
+     "id": "grip",
+     "start": 543.964,
+     "end": 553.564,
+     "cap": "Lower down, the outer shell is **further from the nucleus**, and more **shielded**, so the nucleus grips an incoming electron **less** strongly, and reactivity falls."
+    }
+   ]
+  },
+  {
+   "id": "noble",
+   "title": "Group 0: the noble gases",
+   "short": "Group 0",
+   "card": true,
+   "start": 554.464,
+   "end": 647.824,
+   "lines": [
+    {
+     "id": "meet",
+     "start": 556.264,
+     "end": 562.579,
+     "cap": "On the far right is **Group 0**: the **noble gases**. The ones to know are **helium**, **neon** and **argon**."
+    },
+    {
+     "id": "inert",
+     "start": 563.079,
+     "end": 568.433,
+     "cap": "They're almost completely **unreactive**, or **inert**, because their outer shell is already **full**."
+    },
+    {
+     "id": "full",
+     "start": 568.933,
+     "end": 575.099,
+     "cap": "Helium has **2** electrons, a full first shell. Neon has **2, 8**, and argon has **2, 8, 8**."
+    },
+    {
+     "id": "stable",
+     "start": 575.599,
+     "end": 583.449,
+     "cap": "A full outer shell is very **stable**, so they don't gain, lose or share electrons, and reactions are all about electrons."
+    },
+    {
+     "id": "posh",
+     "start": 583.949,
+     "end": 589.197,
+     "cap": "Too **posh** to react, you might say! But remember: their outer shell is **full**, not empty."
+    },
+    {
+     "id": "others",
+     "start": 589.697,
+     "end": 598.743,
+     "cap": "Other elements react to get a full outer shell, like a noble gas. Group 1 atoms **lose** their outer electron; Group 7 atoms **gain** one."
+    },
+    {
+     "id": "salt",
+     "start": 599.243,
+     "end": 606.645,
+     "cap": "That's why sodium and chlorine react so violently. Yet what they make, **sodium chloride**, is the salt on your chips!"
+    },
+    {
+     "id": "helium",
+     "start": 607.145,
+     "end": 618.815,
+     "cap": "Being unreactive makes them useful. **Helium** is lighter than air and can't burn, so it fills balloons and airships. Liquid helium also cools the magnets in **MRI scanners**."
+    },
+    {
+     "id": "sun",
+     "start": 619.315,
+     "end": 626.077,
+     "cap": "Helium was found in the **Sun** before it was found on Earth, so it's named after **Helios**, the Greek word for the Sun."
+    },
+    {
+     "id": "neon",
+     "start": 626.577,
+     "end": 629.436,
+     "cap": "**Neon** gives neon signs their **orange-red** glow."
+    },
+    {
+     "id": "argon",
+     "start": 630.936,
+     "end": 638.061,
+     "cap": "And **argon** fills old-style light bulbs, and shields hot metal from the air during **welding**, because it won't react with it."
+    },
+    {
+     "id": "xenon",
+     "start": 638.561,
+     "end": 646.924,
+     "cap": "Even so, in 1962, chemists managed to make xenon form compounds. So even a noble gas can be forced to react."
+    }
+   ]
+  },
+  {
+   "id": "mendeleev",
+   "title": "Trends, prediction and Mendeleev",
+   "short": "Mendeleev",
+   "card": true,
+   "start": 647.824,
+   "end": 739.313,
+   "lines": [
+    {
+     "id": "power",
+     "start": 649.624,
+     "end": 655.235,
+     "cap": "The table's greatest power is **prediction**: you can work out an element's properties from where it sits."
+    },
+    {
+     "id": "down",
+     "start": 655.735,
+     "end": 663.223,
+     "cap": "**Down a group**, reactivity **rises** in Group 1 but **falls** in Group 7, and melting and boiling points change smoothly."
+    },
+    {
+     "id": "across",
+     "start": 663.723,
+     "end": 671.573,
+     "cap": "**Across a period**, elements change gradually from **metals** to **non-metals**, as the outer electrons go up by one each step."
+    },
+    {
+     "id": "rubidium",
+     "start": 672.073,
+     "end": 679.156,
+     "cap": "So try it: rubidium sits below potassium in Group 1. What will it do in water? React even more **violently**."
+    },
+    {
+     "id": "mendeleev",
+     "start": 679.656,
+     "end": 685.949,
+     "cap": "The person who made the great leap was the Russian chemist **Dmitri Mendeleev**, in **1869**."
+    },
+    {
+     "id": "arranged",
+     "start": 686.449,
+     "end": 690.951,
+     "cap": "He lined up the known elements in order, grouping those with similar properties."
+    },
+    {
+     "id": "gaps",
+     "start": 691.451,
+     "end": 696.336,
+     "cap": "Where the pattern broke, he was bold enough to **leave gaps**, rather than force elements in."
+    },
+    {
+     "id": "predicted",
+     "start": 697.836,
+     "end": 704.471,
+     "cap": "Then he **predicted** the properties of the missing elements: their mass, their density, even the compounds they'd form."
+    },
+    {
+     "id": "gallium",
+     "start": 704.971,
+     "end": 713.867,
+     "cap": "When **gallium** was found, in 1875, its density seemed wrong. Mendeleev said, measure it again. They did, and he was right!"
+    },
+    {
+     "id": "germanium",
+     "start": 714.367,
+     "end": 721.727,
+     "cap": "Then in 1886, **germanium** filled his gap below silicon, with properties almost exactly as he'd predicted."
+    },
+    {
+     "id": "evidence",
+     "start": 723.727,
+     "end": 729.828,
+     "cap": "Predictions that come true are powerful **evidence** that his table had found a **real pattern** in nature."
+    },
+    {
+     "id": "today",
+     "start": 730.328,
+     "end": 738.413,
+     "cap": "Today we order elements by **proton number**, which explains why Mendeleev had to swap a few pairs, like tellurium and iodine."
+    }
+   ]
+  },
+  {
+   "id": "recap",
+   "title": "Recap: memory hooks and exam traps",
+   "short": "Recap",
+   "card": true,
+   "start": 739.313,
+   "end": 793.904,
+   "lines": [
+    {
+     "id": "lock",
+     "start": 741.113,
+     "end": 742.457,
+     "cap": "Let's lock it all in."
+    },
+    {
+     "id": "bus",
+     "start": 742.957,
+     "end": 746.349,
+     "cap": "**Two, eight, eight**: the bus rule for filling electron shells."
+    },
+    {
+     "id": "kids",
+     "start": 746.849,
+     "end": 751.841,
+     "cap": "**Little Naughty Kids Run Crazy Fast**: Group 1 gets **more** reactive going down."
+    },
+    {
+     "id": "clowns",
+     "start": 752.341,
+     "end": 756.565,
+     "cap": "**Funny Clowns Bring Ice**: Group 7 gets **less** reactive going down."
+    },
+    {
+     "id": "posh",
+     "start": 757.065,
+     "end": 761.46,
+     "cap": "And the noble gases are too **posh** to react, because their outer shell is **full**."
+    },
+    {
+     "id": "traps",
+     "start": 761.96,
+     "end": 764.221,
+     "cap": "Now, five exam traps to avoid."
+    },
+    {
+     "id": "t1",
+     "start": 764.721,
+     "end": 771.676,
+     "cap": "One: the **atomic number** is the smaller number, just the protons. The **mass number** is protons **plus** neutrons."
+    },
+    {
+     "id": "t2",
+     "start": 772.176,
+     "end": 777.616,
+     "cap": "Two: neutrons = mass number **minus** atomic number. Don't just copy the mass number."
+    },
+    {
+     "id": "t3",
+     "start": 778.116,
+     "end": 783.087,
+     "cap": "Three: reactivity **increases** down Group 1, but **decreases** down Group 7."
+    },
+    {
+     "id": "t4",
+     "start": 783.587,
+     "end": 788.024,
+     "cap": "Four: **groups** are columns, going down; **periods** are rows, going across."
+    },
+    {
+     "id": "t5",
+     "start": 788.524,
+     "end": 793.004,
+     "cap": "Five: the table is ordered by **atomic number**, not by atomic mass."
+    }
+   ]
+  },
+  {
+   "id": "quiz",
+   "title": "Quick-fire quiz",
+   "short": "Quiz",
+   "card": true,
+   "start": 793.904,
+   "end": 869.743,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 795.704,
+     "end": 799.352,
+     "cap": "Quick-fire quiz! Say each answer out loud before it appears."
+    },
+    {
+     "id": "q1",
+     "start": 799.852,
+     "end": 806.209,
+     "cap": "An atom has a mass number of 23 and an atomic number of 11. How many neutrons does it have?"
+    },
+    {
+     "id": "a1",
+     "start": 810.709,
+     "end": 812.715,
+     "cap": "**Twelve**: 23 − 11."
+    },
+    {
+     "id": "q2",
+     "start": 813.215,
+     "end": 815.881,
+     "cap": "What do all the elements in one group have in common?"
+    },
+    {
+     "id": "a2",
+     "start": 820.381,
+     "end": 824.733,
+     "cap": "The **same number of electrons in their outer shell**, so they have similar properties."
+    },
+    {
+     "id": "q3",
+     "start": 825.233,
+     "end": 828.305,
+     "cap": "Which gas is given off when sodium reacts with water?"
+    },
+    {
+     "id": "a3",
+     "start": 832.805,
+     "end": 836.197,
+     "cap": "**Hydrogen**, and the solution left behind is alkaline."
+    },
+    {
+     "id": "q4",
+     "start": 836.697,
+     "end": 839.3,
+     "cap": "Why did Mendeleev leave gaps in his table?"
+    },
+    {
+     "id": "a4",
+     "start": 843.8,
+     "end": 849.56,
+     "cap": "For elements **not yet discovered**. He **predicted** their properties, and when they were found, he was right."
+    },
+    {
+     "id": "q5",
+     "start": 850.06,
+     "end": 854.369,
+     "cap": "True or false: reactivity increases as you go down Group 7."
+    },
+    {
+     "id": "a5",
+     "start": 858.869,
+     "end": 862.752,
+     "cap": "**False.** It **decreases**. Fluorine is the most reactive halogen."
+    },
+    {
+     "id": "outro",
+     "start": 863.252,
+     "end": 868.543,
+     "cap": "Brilliant work. Now try the Periodic Table quiz in your Science Lab, to lock it in."
+    }
+   ]
+  }
+ ],
+ "total": 869.743
+}

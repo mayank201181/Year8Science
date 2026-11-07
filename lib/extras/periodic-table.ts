@@ -4,7 +4,7 @@ import type { TopicExtras } from "../types";
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const periodicTableExtras: TopicExtras = {
   interactive: "atom-builder",
-  hook: "In 1869 a Russian chemist arranged the known elements into a grid and left gaps where no element existed yet — then dared to predict the exact weight and colour of things nobody had ever seen. A few years later, those mystery elements were found, matching his guesses almost perfectly. How could a table predict the future?",
+  hook: "In 1869 a Russian chemist arranged the known elements into a grid and left gaps where no element was known yet — then dared to predict the exact weight and colour of things nobody had ever seen. A few years later, those mystery elements were found, matching his guesses almost perfectly. How could a table predict the future?",
   didYouKnow: [
     "When Dmitri Mendeleev drew his table he left empty boxes for elements not yet discovered, and predicted gallium and germanium so accurately that when they were found years later his guesses were nearly spot on.",
     "Helium was discovered in the Sun before it was ever found on Earth — scientists spotted a strange colour in sunlight in 1868, which is why it is named after 'Helios', the Greek word for the Sun.",
@@ -18,7 +18,7 @@ export const periodicTableExtras: TopicExtras = {
       emoji: "🧲",
       materials: [
         "A fridge magnet or any strong magnet",
-        "A coin, a paperclip, a steel spoon, aluminium foil, a copper coin or wire",
+        "A coin, a paperclip, a steel spoon, aluminium foil, a piece of copper wire",
         "A small bowl of mixed metal bits to test",
       ],
       steps: [
@@ -33,7 +33,7 @@ export const periodicTableExtras: TopicExtras = {
       title: "Grow Your Own Salt Crystals",
       emoji: "🧂",
       materials: [
-        "Table salt (sodium chloride, an element compound)",
+        "Table salt (sodium chloride, a compound of two elements)",
         "A clear glass or jar",
         "Warm water (from the tap is fine)",
         "A spoon, a piece of dark paper or a saucer",
