@@ -3,7 +3,8 @@
 Every line has an id (unique within its chapter) that the scene code uses as a
 cue, a caption (`cap`, with **bold** key words, real symbols such as ÷, × and
 m²), and an optional `say` override for the speech engine (numbers, units,
-symbols). `pause` adds extra silence after a line (seconds) so an animation can
+symbols, and "Mass, is Matter": without the comma the voice runs "mass is"
+together into "masses"). `pause` adds extra silence after a line (seconds) so an animation can
 breathe, or so the learner can think during the quiz.
 
 Content follows lib/topics/forces.ts and lib/extras/forces.ts.
@@ -59,7 +60,7 @@ CHAPTERS = [
             {"id": "friction", "cap": "**Friction** acts between surfaces that slide, or try to slide, past each other. It always **opposes** the motion."},
             {"id": "drag", "cap": "**Air resistance**, or **drag**, is friction from a fluid, like air or water. It opposes motion too, and grows as you go faster."},
             {"id": "upthrust", "cap": "**Upthrust** is the upward push from a liquid or gas. It's what makes things **float**: a floating swimmer's weight is balanced by upthrust."},
-            {"id": "tension", "cap": "**Tension** is the pull in a stretched rope, string, cable or spring."},
+            {"id": "tension", "cap": "**Tension** is the pulling force in a stretched rope, string, cable or spring."},
             {"id": "normal", "cap": "The **normal force** is the support push from a surface, at **right angles** to it. A table pushes up on a book; the floor pushes up on your feet."},
             {"id": "charges", "cap": "And two more non-contact forces: **magnetic** forces, between magnets and magnetic materials, and **electrostatic** forces, between electric charges."},
             {"id": "sort", "cap": "So weight, magnetic and electrostatic forces are **non-contact**, while friction, drag, tension, upthrust and the normal force are **contact** forces."},
@@ -94,15 +95,16 @@ CHAPTERS = [
              "say": "Mass is the amount of matter in an object. It's measured in kilograms, and it never changes, wherever you take it."},
             {"id": "weight", "cap": "**Weight** is the **force of gravity** on that mass. It's a force, so it's measured in **newtons (N)**, and it changes if gravity changes.",
              "say": "Weight is the force of gravity on that mass. It's a force, so it's measured in newtons, and it changes if gravity changes."},
-            {"id": "matter", "cap": "Remember: **Mass is Matter**, in kilograms; **Weight is the Wrench** of gravity, in newtons."},
+            {"id": "matter", "cap": "Remember: **Mass is Matter**, in kilograms; **Weight is the Wrench** of gravity, in newtons.",
+             "say": "Remember: Mass, is Matter, in kilograms; Weight, is the Wrench of gravity, in newtons."},
             {"id": "formula", "cap": "**weight = mass × gravitational field strength**, or **W = m × g**. Think: **We Most Go**.",
              "say": "Weight equals mass times gravitational field strength: W equals m times g. Think: We Most Go."},
             {"id": "g", "cap": "On Earth, **g** is about **10 N/kg**: more precisely, 9.8.",
              "say": "On Earth, g is about ten newtons per kilogram: more precisely, nine point eight."},
             {"id": "bag", "cap": "So a **2 kg** bag weighs 2 × 10 = **20 N**.",
              "say": "So a two kilogram bag weighs two times ten: twenty newtons."},
-            {"id": "moon", "cap": "On the **Moon**, g is only about **1.6 N/kg**, roughly **one sixth** of Earth's.",
-             "say": "On the Moon, g is only about one point six newtons per kilogram, roughly one sixth of Earth's."},
+            {"id": "moon", "cap": "On the **Moon**, g is only about **1.6 N/kg**: about **one sixth** of Earth's, or six times weaker.",
+             "say": "On the Moon, g is only about one point six newtons per kilogram: about one sixth of Earth's, or six times weaker."},
             {"id": "moonbag", "cap": "The bag still has a mass of **2 kg**, but it weighs only about **3.2 N**. That's why astronauts bounce around so easily.",
              "say": "The bag still has a mass of two kilograms, but it weighs only about three point two newtons. That's why astronauts bounce around so easily."},
             {"id": "orbit", "cap": "And astronauts floating on the Space Station haven't lost their mass, or escaped gravity. They float because they're **falling** around the Earth, along with the station."},
