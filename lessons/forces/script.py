@@ -2,10 +2,11 @@
 
 Every line has an id (unique within its chapter) that the scene code uses as a
 cue, a caption (`cap`, with **bold** key words, real symbols such as ÷, × and
-m²), and an optional `say` override for the speech engine (numbers, units,
-symbols, and "Mass, is Matter": without the comma the voice runs "mass is"
-together into "masses"). `pause` adds extra silence after a line (seconds) so an animation can
-breathe, or so the learner can think during the quiz.
+m²), and an optional `say` override for the speech engine: numbers, units and
+symbols, plus "Mass, is Matter" (without the comma the voice runs "mass is"
+together into "masses", checked with the transcriber). `pause` adds extra
+silence after a line (seconds) so an animation can breathe, or so the learner
+can think during the quiz.
 
 Content follows lib/topics/forces.ts and lib/extras/forces.ts.
 """
