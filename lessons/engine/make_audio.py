@@ -59,9 +59,10 @@ def main(topic, out_dir):
     cache = os.path.join(out_dir, "cache")
     os.makedirs(cache, exist_ok=True)
     kok = None
+    lock = None  # held for the whole run once synthesis starts (a local handle would close and release it)
 
     def synth(text):
-        nonlocal kok
+        nonlocal kok, lock
         key = hashlib.sha1(f"{VOICE}|{SPEED}|{text}".encode()).hexdigest()[:16]
         path = os.path.join(cache, key + ".wav")
         if os.path.exists(path):
