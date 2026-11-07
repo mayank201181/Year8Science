@@ -1,0 +1,1003 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "intro",
+   "title": "Switching magnetism on and off",
+   "short": "Intro",
+   "card": false,
+   "start": 0.0,
+   "end": 28.493,
+   "lines": [
+    {
+     "id": "hook",
+     "start": 0.6,
+     "end": 6.403,
+     "cap": "Wrap wire around an iron nail, connect a battery, and suddenly the nail can pick up paperclips."
+    },
+    {
+     "id": "drop",
+     "start": 6.903,
+     "end": 12.087,
+     "cap": "Disconnect it, and they clatter to the floor. How can a wire switch magnetism on and off?"
+    },
+    {
+     "id": "def",
+     "start": 12.587,
+     "end": 20.224,
+     "cap": "The answer links **magnetism**, the invisible push and pull of magnets, with **electricity**, the flow of charge around a circuit."
+    },
+    {
+     "id": "plan",
+     "start": 20.724,
+     "end": 27.593,
+     "cap": "We'll explore magnets and fields, build an electromagnet, wire up and measure circuits, then finish with static."
+    }
+   ]
+  },
+  {
+   "id": "poles",
+   "title": "Magnets and their poles",
+   "short": "Poles",
+   "card": true,
+   "start": 28.493,
+   "end": 94.169,
+   "lines": [
+    {
+     "id": "magnet",
+     "start": 30.293,
+     "end": 36.501,
+     "cap": "A **magnet** attracts magnetic materials, and has two ends called **poles**: a **north pole (N)** and a **south pole (S)**."
+    },
+    {
+     "id": "repel",
+     "start": 37.001,
+     "end": 42.847,
+     "cap": "The golden rule: **like poles repel**. North pushes north away, and south pushes south away."
+    },
+    {
+     "id": "attract",
+     "start": 43.847,
+     "end": 47.175,
+     "cap": "**Unlike poles attract**: north and south pull together."
+    },
+    {
+     "id": "lroa",
+     "start": 48.175,
+     "end": 50.841,
+     "cap": "Remember: **L**ikes **R**epel, **O**pposites **A**ttract."
+    },
+    {
+     "id": "cut",
+     "start": 51.341,
+     "end": 55.544,
+     "cap": "Snap a bar magnet in half, and you don't get a north piece and a south piece."
+    },
+    {
+     "id": "two",
+     "start": 56.544,
+     "end": 62.837,
+     "cap": "You get **two smaller magnets**, each with a north and a south pole. You can **never** get a single pole on its own."
+    },
+    {
+     "id": "materials",
+     "start": 63.737,
+     "end": 72.655,
+     "cap": "Only a few materials are **magnetic**: attracted to magnets, and able to become magnets. The big four are **iron, steel, nickel and cobalt**."
+    },
+    {
+     "id": "cobwebs",
+     "start": 73.155,
+     "end": 79.896,
+     "cap": "Remember: **I** **S**ee **N**o **C**obwebs. Iron, steel, nickel, cobalt. Steel counts because it's mostly iron."
+    },
+    {
+     "id": "metals",
+     "start": 80.396,
+     "end": 87.329,
+     "cap": "But **not all metals** are magnetic. **Copper**, **aluminium** and **gold** aren't, and nor are plastic, wood or glass."
+    },
+    {
+     "id": "cans",
+     "start": 87.829,
+     "end": 93.269,
+     "cap": "So recycling centres can pull **steel** cans out from the **aluminium** ones with a magnet."
+    }
+   ]
+  },
+  {
+   "id": "fields",
+   "title": "Magnetic fields and field lines",
+   "short": "Magnetic fields",
+   "card": true,
+   "start": 94.169,
+   "end": 157.325,
+   "lines": [
+    {
+     "id": "field",
+     "start": 95.969,
+     "end": 104.097,
+     "cap": "A magnet can push or pull without touching. Around it is a **magnetic field**: the region where magnetic materials feel a force."
+    },
+    {
+     "id": "lines",
+     "start": 104.597,
+     "end": 109.269,
+     "cap": "We draw it with **field lines**. Outside the magnet, they point **from north to south**."
+    },
+    {
+     "id": "cross",
+     "start": 110.269,
+     "end": 114.941,
+     "cap": "Field lines **never cross**: at each point, the field has only one direction."
+    },
+    {
+     "id": "strong",
+     "start": 115.441,
+     "end": 119.708,
+     "cap": "Where the lines are **closest together**, the field is **strongest**: at the **poles**."
+    },
+    {
+     "id": "filings",
+     "start": 120.208,
+     "end": 126.971,
+     "cap": "Sprinkle **iron filings** on paper over a magnet, and each one lines up with the field, revealing its pattern."
+    },
+    {
+     "id": "shape",
+     "start": 129.971,
+     "end": 133.704,
+     "cap": "But filings only show the field's **shape**, not which way it points."
+    },
+    {
+     "id": "compass",
+     "start": 134.204,
+     "end": 140.007,
+     "cap": "A small **plotting compass** shows the direction too: its needle's north end points along the field."
+    },
+    {
+     "id": "plot",
+     "start": 141.007,
+     "end": 146.191,
+     "cap": "Try it at home: put a compass beside a magnet, and mark a dot at each end of its needle."
+    },
+    {
+     "id": "join",
+     "start": 146.691,
+     "end": 154.925,
+     "cap": "Move the compass on, line it up with your last dot, mark again, and join the dots. You've traced a **field line**, from N round to S."
+    }
+   ]
+  },
+  {
+   "id": "earth",
+   "title": "The Earth as a giant magnet",
+   "short": "Earth's magnetism",
+   "card": true,
+   "start": 157.325,
+   "end": 216.968,
+   "lines": [
+    {
+     "id": "compass",
+     "start": 159.125,
+     "end": 166.357,
+     "cap": "A **compass** is just a tiny bar magnet that's free to spin. Left alone, it always settles pointing north–south."
+    },
+    {
+     "id": "earth",
+     "start": 166.857,
+     "end": 174.26,
+     "cap": "That's because **the Earth behaves like a giant bar magnet**. Its field comes from **molten iron** swirling in its **outer core**."
+    },
+    {
+     "id": "twist",
+     "start": 175.26,
+     "end": 181.596,
+     "cap": "Now the twist. The compass's **north** pole points to the geographic North, and **unlike poles attract**."
+    },
+    {
+     "id": "south",
+     "start": 182.596,
+     "end": 187.033,
+     "cap": "So near the geographic North Pole, the Earth must have a **magnetic south pole**!"
+    },
+    {
+     "id": "navigate",
+     "start": 188.733,
+     "end": 197.267,
+     "cap": "For centuries, sailors steered by compass when clouds hid the stars. Hikers and pilots still carry one, in case GPS fails."
+    },
+    {
+     "id": "shield",
+     "start": 197.767,
+     "end": 202.332,
+     "cap": "Earth's field also **shields** us from harmful particles streaming off the Sun."
+    },
+    {
+     "id": "animals",
+     "start": 202.832,
+     "end": 208.208,
+     "cap": "And pigeons, sea turtles and some birds sense it, and steer by it like a built-in compass."
+    },
+    {
+     "id": "flip",
+     "start": 208.708,
+     "end": 216.068,
+     "cap": "Science today: rocks show the Earth's magnetic poles have **swapped** many times. Exactly why is still being researched."
+    }
+   ]
+  },
+  {
+   "id": "permanent",
+   "title": "Permanent and temporary magnets",
+   "short": "Permanent/temporary",
+   "card": true,
+   "start": 216.968,
+   "end": 283.381,
+   "lines": [
+    {
+     "id": "perm",
+     "start": 218.768,
+     "end": 226.192,
+     "cap": "A **permanent magnet**, like a fridge magnet, keeps its magnetism for a long time. **Steel** makes good permanent magnets."
+    },
+    {
+     "id": "temp",
+     "start": 226.692,
+     "end": 237.743,
+     "cap": "A **temporary** (or **soft**) **magnet**, like **pure iron**, is only magnetic near another magnet, or inside a coil carrying a current. It loses its magnetism easily."
+    },
+    {
+     "id": "domains",
+     "start": 238.243,
+     "end": 245.923,
+     "cap": "Inside iron and steel are tiny magnetic regions called **domains**. Normally they point every which way, and cancel out."
+    },
+    {
+     "id": "stroke",
+     "start": 246.923,
+     "end": 254.965,
+     "cap": "To **magnetise** steel, stroke it repeatedly **in the same direction** with one pole of a magnet, or put it in a coil carrying a current."
+    },
+    {
+     "id": "line",
+     "start": 255.465,
+     "end": 260.116,
+     "cap": "The domains **line up**, all pointing the same way, and the steel becomes a magnet."
+    },
+    {
+     "id": "demag",
+     "start": 263.116,
+     "end": 271.137,
+     "cap": "To **demagnetise** it, jumble the domains again: **heat** it, **hammer** it, or pull it slowly out of a coil carrying **alternating current**."
+    },
+    {
+     "id": "iron",
+     "start": 273.137,
+     "end": 282.481,
+     "cap": "Iron's domains line up easily, but jumble just as easily. So iron is bad at staying magnetic, but perfect for a magnet you can **switch off**."
+    }
+   ]
+  },
+  {
+   "id": "electro",
+   "title": "Electromagnets",
+   "short": "Electromagnets",
+   "card": true,
+   "start": 283.381,
+   "end": 364.928,
+   "lines": [
+    {
+     "id": "wire",
+     "start": 285.181,
+     "end": 290.024,
+     "cap": "Back to our nail. A current flowing through a wire makes a **magnetic field** around it."
+    },
+    {
+     "id": "coil",
+     "start": 291.024,
+     "end": 295.44,
+     "cap": "Coil the wire into a **solenoid**, and the fields of all its loops add together."
+    },
+    {
+     "id": "bar",
+     "start": 295.94,
+     "end": 301.551,
+     "cap": "You get a field like a bar magnet's, with a north pole and a south pole. That's an **electromagnet**."
+    },
+    {
+     "id": "switch",
+     "start": 302.551,
+     "end": 308.439,
+     "cap": "Its big advantage: you can **switch it on and off**. Stop the current, and the magnetism vanishes."
+    },
+    {
+     "id": "reverse",
+     "start": 309.439,
+     "end": 312.02,
+     "cap": "Reverse the current, and the **poles swap** over."
+    },
+    {
+     "id": "stronger",
+     "start": 313.52,
+     "end": 319.621,
+     "cap": "To make it stronger: more **turns** of wire, more **current**, or an **iron core**, which switches off with the current."
+    },
+    {
+     "id": "tic",
+     "start": 320.621,
+     "end": 323.565,
+     "cap": "Remember **TIC**: **T**urns, **I**ncrease the current, **C**ore."
+    },
+    {
+     "id": "battery",
+     "start": 324.065,
+     "end": 329.889,
+     "cap": "But a bigger battery only boosts an **electromagnet**. A **permanent** magnet has no battery at all."
+    },
+    {
+     "id": "crane",
+     "start": 330.389,
+     "end": 338.283,
+     "cap": "A **scrapyard crane** lifts a car with an electromagnet, then drops it by switching off. A permanent magnet would never let go."
+    },
+    {
+     "id": "uses",
+     "start": 339.583,
+     "end": 349.055,
+     "cap": "Electromagnets also work **bells**, **loudspeakers**, **motors** and **relays**, which are switches worked by a small current. They even float **maglev trains**."
+    },
+    {
+     "id": "try",
+     "start": 349.555,
+     "end": 358.92,
+     "cap": "Try it: coil insulated wire thirty times round an iron nail, and touch the bare ends to a **1.5 V** battery. Count the paperclips it lifts!"
+    },
+    {
+     "id": "safe",
+     "start": 359.42,
+     "end": 364.028,
+     "cap": "Never use the mains, and disconnect between tries, as the wire gets warm."
+    }
+   ]
+  },
+  {
+   "id": "current",
+   "title": "Current, conductors and insulators",
+   "short": "Current",
+   "card": true,
+   "start": 364.928,
+   "end": 417.952,
+   "lines": [
+    {
+     "id": "current",
+     "start": 366.728,
+     "end": 372.488,
+     "cap": "Now for electricity. **Electric current** is the flow of electric **charge** around a circuit."
+    },
+    {
+     "id": "needs",
+     "start": 372.988,
+     "end": 380.199,
+     "cap": "It needs two things: a **complete loop**, with no gaps, and a **cell** to push the charge round. Two or more cells make a **battery**."
+    },
+    {
+     "id": "pump",
+     "start": 380.699,
+     "end": 383.856,
+     "cap": "Think of the cell as a **pump**, pushing charge round the loop."
+    },
+    {
+     "id": "gap",
+     "start": 384.856,
+     "end": 389.272,
+     "cap": "Open a switch or break a wire, and the current stops **everywhere**, instantly."
+    },
+    {
+     "id": "instant",
+     "start": 390.272,
+     "end": 398.059,
+     "cap": "Close the switch, and the bulb lights at once. The charges drift slowly, but they fill the wire, so they all start moving together."
+    },
+    {
+     "id": "conductors",
+     "start": 398.559,
+     "end": 405.001,
+     "cap": "**Conductors** let current flow: all **metals**, like copper, gold and aluminium, and **carbon**, as graphite."
+    },
+    {
+     "id": "insulators",
+     "start": 405.501,
+     "end": 409.384,
+     "cap": "**Insulators** don't: **plastic**, **rubber**, **glass**, **wood** and **dry air**."
+    },
+    {
+     "id": "wire",
+     "start": 409.884,
+     "end": 417.052,
+     "cap": "So wires are **copper** inside **plastic**: the copper carries the current, and the plastic keeps it in, and keeps you safe."
+    }
+   ]
+  },
+  {
+   "id": "symbols",
+   "title": "Circuit symbols and diagrams",
+   "short": "Circuit symbols",
+   "card": true,
+   "start": 417.952,
+   "end": 487.684,
+   "lines": [
+    {
+     "id": "why",
+     "start": 419.752,
+     "end": 426.109,
+     "cap": "Scientists draw circuits with **circuit symbols**: a universal language that anyone, anywhere can read."
+    },
+    {
+     "id": "cell",
+     "start": 426.609,
+     "end": 433.415,
+     "cap": "A **cell** is a long thin line and a short thick line. The **long** line is **positive**; the short one is **negative**."
+    },
+    {
+     "id": "battery",
+     "start": 433.915,
+     "end": 436.261,
+     "cap": "Join two or more, and you have a **battery**."
+    },
+    {
+     "id": "lamp",
+     "start": 436.761,
+     "end": 440.836,
+     "cap": "A **lamp** is a circle with a cross inside, and a **buzzer** is a little dome."
+    },
+    {
+     "id": "switch",
+     "start": 441.336,
+     "end": 445.219,
+     "cap": "A **switch** is a line that lifts to make a gap, or drops to close it."
+    },
+    {
+     "id": "meters",
+     "start": 445.719,
+     "end": 451.969,
+     "cap": "A circle with a letter is a meter or a motor: **A** for **ammeter**, **V** for **voltmeter**, **M** for **motor**."
+    },
+    {
+     "id": "resistor",
+     "start": 452.469,
+     "end": 457.291,
+     "cap": "A **rectangle** is a **resistor**. With an arrow through it, it's a **variable resistor**."
+    },
+    {
+     "id": "fuse",
+     "start": 457.791,
+     "end": 463.167,
+     "cap": "With a line through it, it's a **fuse**, which **melts** to break the circuit if the current gets too high."
+    },
+    {
+     "id": "diode",
+     "start": 463.667,
+     "end": 468.787,
+     "cap": "A **diode** is a triangle pointing at a line. It lets current flow only **one way**."
+    },
+    {
+     "id": "led",
+     "start": 469.287,
+     "end": 473.553,
+     "cap": "Add two arrows for light, and it's an **LED**: a **light-emitting diode**."
+    },
+    {
+     "id": "draw",
+     "start": 474.053,
+     "end": 481.392,
+     "cap": "Draw wires as **straight lines** with neat right-angle corners. A solid **dot** marks a **junction**, where wires join."
+    },
+    {
+     "id": "build",
+     "start": 481.892,
+     "end": 485.284,
+     "cap": "So here's a cell, a switch and a lamp, in one complete loop."
+    }
+   ]
+  },
+  {
+   "id": "series",
+   "title": "Series and parallel circuits",
+   "short": "Series & parallel",
+   "card": true,
+   "start": 487.684,
+   "end": 563.283,
+   "lines": [
+    {
+     "id": "two",
+     "start": 489.484,
+     "end": 496.375,
+     "cap": "Components can be joined in two ways. In a **series** circuit, they're all on **one single loop**, one after another."
+    },
+    {
+     "id": "same",
+     "start": 496.875,
+     "end": 503.424,
+     "cap": "The current is the **same everywhere** in the loop. It isn't used up: as much flows back into the cell as flows out."
+    },
+    {
+     "id": "shared",
+     "start": 504.424,
+     "end": 512.275,
+     "cap": "But the cell's push, its **voltage**, is **shared**. Two identical bulbs get **half** each, and the shares add up to the cell's voltage."
+    },
+    {
+     "id": "dimmer",
+     "start": 512.775,
+     "end": 516.124,
+     "cap": "So the more bulbs you add in series, the **dimmer** they all get."
+    },
+    {
+     "id": "break",
+     "start": 517.424,
+     "end": 526.085,
+     "cap": "And if one bulb breaks, the gap stops the current, so they **all go out**. Old Christmas lights did this: one dud bulb, and the whole string went dark."
+    },
+    {
+     "id": "parallel",
+     "start": 527.385,
+     "end": 533.124,
+     "cap": "In a **parallel** circuit, components sit on **separate branches**, each with its own path through the cell."
+    },
+    {
+     "id": "full",
+     "start": 533.624,
+     "end": 540.301,
+     "cap": "Each branch gets the **full voltage**, so the bulbs are **brighter** than in series, and stay bright even when you add more."
+    },
+    {
+     "id": "split",
+     "start": 541.301,
+     "end": 546.08,
+     "cap": "The current **splits** at a junction, and the branch currents **add up** to the total from the cell."
+    },
+    {
+     "id": "keep",
+     "start": 546.58,
+     "end": 549.353,
+     "cap": "And if one branch breaks, the others **keep working**."
+    },
+    {
+     "id": "house",
+     "start": 550.853,
+     "end": 557.787,
+     "cap": "That's why homes are wired in **parallel**: each light and socket gets the full mains voltage, and works on its own."
+    },
+    {
+     "id": "rhyme",
+     "start": 558.287,
+     "end": 562.383,
+     "cap": "Remember: **series shares the voltage**, and **parallel splits the current**."
+    }
+   ]
+  },
+  {
+   "id": "meters",
+   "title": "Measuring current and voltage",
+   "short": "Meters",
+   "card": true,
+   "start": 563.283,
+   "end": 625.883,
+   "lines": [
+    {
+     "id": "ammeter",
+     "start": 565.083,
+     "end": 572.016,
+     "cap": "To measure **current**, you need an **ammeter**. It reads in **amps (A)**, and goes **in series**, in the loop, so the current flows through it."
+    },
+    {
+     "id": "anywhere",
+     "start": 572.516,
+     "end": 578.745,
+     "cap": "In a series loop, it reads the **same wherever you put it**, since the current is the same all the way round."
+    },
+    {
+     "id": "branches",
+     "start": 580.045,
+     "end": 584.696,
+     "cap": "In a parallel circuit, the readings on the branches **add up** to the reading by the cell."
+    },
+    {
+     "id": "voltmeter",
+     "start": 586.196,
+     "end": 591.977,
+     "cap": "To measure **voltage**, also called **potential difference**, you need a **voltmeter**. It reads in **volts (V)**."
+    },
+    {
+     "id": "push",
+     "start": 592.477,
+     "end": 597.811,
+     "cap": "Voltage is the **push** the cell gives the charge, or the energy transferred by a component."
+    },
+    {
+     "id": "across",
+     "start": 598.311,
+     "end": 603.665,
+     "cap": "A voltmeter goes **in parallel**: **across** a component, on its own little branch beside it."
+    },
+    {
+     "id": "readings",
+     "start": 604.665,
+     "end": 612.879,
+     "cap": "Across two identical bulbs in series on a **3 V** battery, each voltmeter reads **1.5 V**. Together, that's **3 V**."
+    },
+    {
+     "id": "mnemonic",
+     "start": 614.179,
+     "end": 618.467,
+     "cap": "Remember: **A**mmeter, **A**lways in a line. **V**oltmeter, **V**erily across."
+    },
+    {
+     "id": "wrong",
+     "start": 618.967,
+     "end": 624.983,
+     "cap": "Almost no current gets through a voltmeter, so one put in series by mistake nearly stops the current."
+    }
+   ]
+  },
+  {
+   "id": "resistance",
+   "title": "Resistance and resistors",
+   "short": "Resistance",
+   "card": true,
+   "start": 625.883,
+   "end": 681.248,
+   "lines": [
+    {
+     "id": "what",
+     "start": 627.683,
+     "end": 631.373,
+     "cap": "**Resistance** is how hard it is for current to flow through something."
+    },
+    {
+     "id": "less",
+     "start": 631.873,
+     "end": 635.287,
+     "cap": "For the same cell, **more resistance** means a **smaller current**."
+    },
+    {
+     "id": "ohm",
+     "start": 635.787,
+     "end": 639.52,
+     "cap": "It's measured in **ohms**. The symbol is the Greek letter omega, **Ω**."
+    },
+    {
+     "id": "long",
+     "start": 640.02,
+     "end": 646.121,
+     "cap": "Even wires have resistance. A **longer** wire has **more**, because the charge has further to push through."
+    },
+    {
+     "id": "thin",
+     "start": 646.621,
+     "end": 653.256,
+     "cap": "A **thinner** wire has more too, with less room for the charge to flow. So **long, thin** wires resist the most."
+    },
+    {
+     "id": "resistor",
+     "start": 654.256,
+     "end": 660.101,
+     "cap": "A **resistor** adds a fixed resistance, to **limit the current** and protect parts like an **LED**."
+    },
+    {
+     "id": "variable",
+     "start": 660.601,
+     "end": 665.38,
+     "cap": "A **variable resistor**, or **rheostat**, can be adjusted by sliding a contact."
+    },
+    {
+     "id": "slide",
+     "start": 665.88,
+     "end": 673.539,
+     "cap": "Slide it to add resistance, and the current falls: a bulb dims, or a motor slows. Slide back, and the current rises."
+    },
+    {
+     "id": "uses",
+     "start": 676.039,
+     "end": 680.348,
+     "cap": "Variable resistors are used in **dimmer switches** and **volume controls**."
+    }
+   ]
+  },
+  {
+   "id": "direction",
+   "title": "Which way does the current flow?",
+   "short": "Current direction",
+   "card": true,
+   "start": 681.248,
+   "end": 725.151,
+   "lines": [
+    {
+     "id": "which",
+     "start": 683.048,
+     "end": 687.528,
+     "cap": "Which way does current flow round a circuit? There are two answers, and you need both."
+    },
+    {
+     "id": "conv",
+     "start": 688.028,
+     "end": 696.327,
+     "cap": "**Conventional current**, the direction we draw, flows out of the **positive** terminal, round the circuit, and back to the **negative**: **+ to −**."
+    },
+    {
+     "id": "electrons",
+     "start": 697.827,
+     "end": 702.371,
+     "cap": "But the particles that really move in a wire are **electrons**, and they're **negative**."
+    },
+    {
+     "id": "opposite",
+     "start": 702.871,
+     "end": 709.015,
+     "cap": "They're pushed away from the negative terminal, so **electrons flow from − to +**: the **opposite** way!"
+    },
+    {
+     "id": "why",
+     "start": 711.015,
+     "end": 716.412,
+     "cap": "Scientists picked the direction of current long before anyone knew about electrons, and it stuck."
+    },
+    {
+     "id": "works",
+     "start": 716.912,
+     "end": 724.251,
+     "cap": "It makes no difference to how a circuit works. Just be consistent: in exams, draw current arrows from **+ to −**."
+    }
+   ]
+  },
+  {
+   "id": "static",
+   "title": "Static electricity",
+   "short": "Static",
+   "card": true,
+   "start": 725.151,
+   "end": 820.044,
+   "lines": [
+    {
+     "id": "what",
+     "start": 726.951,
+     "end": 734.567,
+     "cap": "Finally, electricity that **stays put**. **Static electricity** is charge that builds up on an object, instead of flowing."
+    },
+    {
+     "id": "rub",
+     "start": 735.067,
+     "end": 743.643,
+     "cap": "Rub two **insulators** together, like a balloon on your hair, and **friction** moves tiny negative particles called **electrons** from one to the other."
+    },
+    {
+     "id": "gain",
+     "start": 744.643,
+     "end": 751.661,
+     "cap": "Whatever **gains** electrons becomes **negative**. Whatever **loses** them is left **positive**. Only the electrons move."
+    },
+    {
+     "id": "rule",
+     "start": 752.161,
+     "end": 758.156,
+     "cap": "And charges follow the same rule as poles: **like charges repel**, **unlike charges attract**."
+    },
+    {
+     "id": "hair",
+     "start": 758.656,
+     "end": 763.669,
+     "cap": "That's why your hair stands on end: every strand has the same charge, so they repel."
+    },
+    {
+     "id": "neutral",
+     "start": 764.669,
+     "end": 770.088,
+     "cap": "A charged balloon even attracts things with **no charge**, like bits of paper, or a wall."
+    },
+    {
+     "id": "induction",
+     "start": 770.588,
+     "end": 781.084,
+     "cap": "It pulls their opposite charges a little closer and pushes like charges away, so the near side is attracted more strongly than the far side is repelled. That's **induction**."
+    },
+    {
+     "id": "earthing",
+     "start": 782.584,
+     "end": 789.859,
+     "cap": "**Earthing** removes charge: a conductor to the ground lets electrons flow away, or in, until the object is neutral."
+    },
+    {
+     "id": "lightning",
+     "start": 790.359,
+     "end": 798.124,
+     "cap": "**Lightning** is a giant static spark between clouds and the ground, heating the air to about five times hotter than the Sun's surface."
+    },
+    {
+     "id": "fuel",
+     "start": 798.624,
+     "end": 805.131,
+     "cap": "Flowing fuel can build up charge, and a spark could ignite it, so fuel tankers are **earthed** before refuelling."
+    },
+    {
+     "id": "useful",
+     "start": 805.631,
+     "end": 812.628,
+     "cap": "But static is useful in **photocopiers** and **laser printers**: a charged drum attracts **toner** powder onto the page."
+    },
+    {
+     "id": "shock",
+     "start": 813.128,
+     "end": 819.144,
+     "cap": "And that zap from a door handle? Walking on carpet charges you up, then the charge jumps to the metal."
+    }
+   ]
+  },
+  {
+   "id": "recap",
+   "title": "Recap: memory hooks and exam traps",
+   "short": "Recap",
+   "card": true,
+   "start": 820.044,
+   "end": 870.42,
+   "lines": [
+    {
+     "id": "lock",
+     "start": 821.844,
+     "end": 823.188,
+     "cap": "Let's lock it all in."
+    },
+    {
+     "id": "lroa",
+     "start": 823.688,
+     "end": 827.635,
+     "cap": "**Likes Repel, Opposites Attract**: for poles, and for charges."
+    },
+    {
+     "id": "cobwebs",
+     "start": 828.135,
+     "end": 831.655,
+     "cap": "**I See No Cobwebs**: iron, steel, nickel and cobalt."
+    },
+    {
+     "id": "tic",
+     "start": 832.155,
+     "end": 835.632,
+     "cap": "**TIC**: more **T**urns, **I**ncrease the current, add an iron **C**ore."
+    },
+    {
+     "id": "meters",
+     "start": 836.132,
+     "end": 839.78,
+     "cap": "**Ammeter, Always in a line. Voltmeter, Verily across.**"
+    },
+    {
+     "id": "shares",
+     "start": 840.28,
+     "end": 843.587,
+     "cap": "**Series shares the voltage; parallel splits the current.**"
+    },
+    {
+     "id": "traps",
+     "start": 844.087,
+     "end": 846.348,
+     "cap": "Now, five exam traps to avoid."
+    },
+    {
+     "id": "t1",
+     "start": 846.848,
+     "end": 850.496,
+     "cap": "One: field lines go from **north to south**, and **never cross**."
+    },
+    {
+     "id": "t2",
+     "start": 850.996,
+     "end": 855.092,
+     "cap": "Two: the Earth's **magnetic south pole** is near the geographic North."
+    },
+    {
+     "id": "t3",
+     "start": 855.592,
+     "end": 860.413,
+     "cap": "Three: an electromagnet's magnetism **vanishes** when the current is switched off."
+    },
+    {
+     "id": "t4",
+     "start": 860.913,
+     "end": 864.796,
+     "cap": "Four: more bulbs in **series** means **dimmer** bulbs, not brighter ones."
+    },
+    {
+     "id": "t5",
+     "start": 865.296,
+     "end": 869.52,
+     "cap": "Five: measure current in **amps**, and voltage in **volts**. Don't swap them."
+    }
+   ]
+  },
+  {
+   "id": "quiz",
+   "title": "Quick-fire quiz",
+   "short": "Quiz",
+   "card": true,
+   "start": 870.42,
+   "end": 938.067,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 872.22,
+     "end": 875.868,
+     "cap": "Quick-fire quiz! Say each answer out loud before it appears."
+    },
+    {
+     "id": "q1",
+     "start": 876.368,
+     "end": 879.888,
+     "cap": "Which magnetic pole of the Earth is near the geographic North?"
+    },
+    {
+     "id": "a1",
+     "start": 884.388,
+     "end": 888.484,
+     "cap": "Its magnetic **south** pole. That's what attracts the north end of a compass."
+    },
+    {
+     "id": "q2",
+     "start": 888.984,
+     "end": 891.821,
+     "cap": "Give three ways to make an electromagnet stronger."
+    },
+    {
+     "id": "a2",
+     "start": 896.321,
+     "end": 898.817,
+     "cap": "More **turns**, more **current**, and an **iron core**."
+    },
+    {
+     "id": "q3",
+     "start": 899.317,
+     "end": 901.813,
+     "cap": "How should a voltmeter be connected to a bulb?"
+    },
+    {
+     "id": "a3",
+     "start": 906.313,
+     "end": 908.191,
+     "cap": "In **parallel**: **across** the bulb."
+    },
+    {
+     "id": "q4",
+     "start": 908.691,
+     "end": 912.467,
+     "cap": "Two bulbs are in series, and one breaks. What happens to the other?"
+    },
+    {
+     "id": "a4",
+     "start": 916.967,
+     "end": 919.377,
+     "cap": "It **goes out**: the single loop is broken."
+    },
+    {
+     "id": "q5",
+     "start": 919.877,
+     "end": 924.272,
+     "cap": "A rubbed plastic rod becomes negatively charged. What has it gained?"
+    },
+    {
+     "id": "a5",
+     "start": 928.772,
+     "end": 930.372,
+     "cap": "**Electrons**, from the cloth."
+    },
+    {
+     "id": "outro",
+     "start": 930.872,
+     "end": 936.867,
+     "cap": "Brilliant work. Now try the Magnetism & Electricity quiz in your Science Lab, to lock it in."
+    }
+   ]
+  }
+ ],
+ "total": 938.067
+}

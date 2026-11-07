@@ -7,8 +7,8 @@ export const magnetismElectricityExtras: TopicExtras = {
   hook: "Wrap a plain iron nail in some wire, connect a single battery, and suddenly the nail can grab a fistful of paperclips. Disconnect the battery and they all clatter to the floor. How can a piece of wire switch magnetism on and off?",
   didYouKnow: [
     "The Earth itself is a giant magnet, and that invisible magnetic field is what swings a compass needle to point north and shields us from harmful particles streaming off the Sun.",
-    "Electricity and magnetism are really two sides of the same thing: every electric current makes a magnetic field, and a moving magnet can push electricity through a wire — that is how every power station on Earth generates electricity.",
-    "A single bolt of lightning carries around a billion volts and is roughly five times hotter than the surface of the Sun.",
+    "Electricity and magnetism are really two sides of the same thing: every electric current makes a magnetic field, and a moving magnet can push electricity through a wire — that is how most power stations generate electricity.",
+    "A single bolt of lightning can carry up to a billion volts and is roughly five times hotter than the surface of the Sun.",
     "Magnets always have two poles; if you snap a bar magnet in half you do not get a single north and a single south — you get two smaller magnets, each with its own north and south.",
     "Some animals can sense magnetic fields: pigeons, sea turtles and certain birds use the Earth's magnetism like a built-in compass to navigate thousands of kilometres.",
   ],
@@ -60,13 +60,18 @@ export const magnetismElectricityExtras: TopicExtras = {
   <rect x="150" y="80" width="40" height="22" fill="#1b6be2" />
   <text x="122" y="96" font-size="14" fill="#fff">N</text>
   <text x="166" y="96" font-size="14" fill="#fff">S</text>
-  <path d="M150 80 C150 30 90 20 60 50 C40 70 50 88 110 90" fill="none" stroke="#555" stroke-width="1.5" />
-  <path d="M150 102 C150 152 90 162 60 132 C40 112 50 94 110 92" fill="none" stroke="#555" stroke-width="1.5" />
-  <path d="M150 80 C150 30 210 20 240 50 C260 70 250 88 190 90" fill="none" stroke="#555" stroke-width="1.5" />
-  <path d="M150 102 C150 152 210 162 240 132 C260 112 250 94 190 92" fill="none" stroke="#555" stroke-width="1.5" />
-  <polygon points="86,30 92,38 80,40" fill="#555" />
-  <polygon points="214,30 220,38 208,40" fill="#555" />
-  <text x="40" y="20" font-size="10" fill="#333">field lines run N to S</text>
+  <path d="M110 82 C85 76 95 48 150 48 C205 48 215 76 190 82" fill="none" stroke="#555" stroke-width="1.5" />
+  <path d="M110 87 C55 84 65 22 150 22 C235 22 245 84 190 87" fill="none" stroke="#555" stroke-width="1.5" />
+  <path d="M110 100 C85 106 95 134 150 134 C205 134 215 106 190 100" fill="none" stroke="#555" stroke-width="1.5" />
+  <path d="M110 95 C55 98 65 160 150 160 C235 160 245 98 190 95" fill="none" stroke="#555" stroke-width="1.5" />
+  <path d="M110 91 L45 91 M255 91 L190 91" fill="none" stroke="#555" stroke-width="1.5" />
+  <polygon points="146,43 156,48 146,53" fill="#555" />
+  <polygon points="146,17 156,22 146,27" fill="#555" />
+  <polygon points="146,129 156,134 146,139" fill="#555" />
+  <polygon points="146,155 156,160 146,165" fill="#555" />
+  <polygon points="76,86 66,91 76,96" fill="#555" />
+  <polygon points="234,86 224,91 234,96" fill="#555" />
+  <text x="8" y="12" font-size="10" fill="#333">field lines run N to S</text>
 </svg>`,
       caption:
         "Field lines leave the north pole, curve around through the air and return to the south pole. Where the lines are closest the field is strongest.",
