@@ -10,6 +10,7 @@ synthesised separately and cached by its text (OUT_DIR/cache), so editing one
 line of the script only re-renders that line.
 """
 import argparse
+import fcntl
 import hashlib
 import importlib.util
 import json
@@ -67,6 +68,11 @@ def main(topic, out_dir):
             a, _ = sf.read(path, dtype="float32")
             return a
         if kok is None:
+            # One synthesis at a time per machine: several at once thrash the CPU and all run slower.
+            # Queued runs wait here (asleep, not spinning); fully cached runs never get this far.
+            lock = open(os.path.join(model_dir, ".tts.lock"), "w")
+            print("  waiting for the synthesis lock...", flush=True)
+            fcntl.flock(lock, fcntl.LOCK_EX)
             kok = Kokoro(os.path.join(model_dir, "kokoro-v1.0.onnx"),
                          os.path.join(model_dir, "voices-v1.0.bin"))
         a, sr = kok.create(text, voice=VOICE, speed=SPEED, lang="en-us")

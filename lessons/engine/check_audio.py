@@ -44,8 +44,11 @@ def main():
     ap.add_argument("--threshold", type=float, default=0.93)
     ap.add_argument("--lines", help="comma list of chapter.line ids to check (default: all)")
     a = ap.parse_args()
+    import fcntl
     import sherpa_onnx
     m = os.environ["WHISPER_DIR"]
+    lock = open(os.path.join(m, ".asr.lock"), "w")  # one transcription run at a time per machine
+    fcntl.flock(lock, fcntl.LOCK_EX)
     rec = sherpa_onnx.OfflineRecognizer.from_whisper(
         encoder=f"{m}/base.en-encoder.onnx", decoder=f"{m}/base.en-decoder.onnx",
         tokens=f"{m}/base.en-tokens.txt", language="en", task="transcribe", num_threads=4)
