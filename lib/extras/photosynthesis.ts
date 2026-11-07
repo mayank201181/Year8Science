@@ -4,7 +4,7 @@ import type { TopicExtras } from "../types";
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const photosynthesisExtras: TopicExtras = {
   interactive: "photosynthesis-rate",
-  hook: "Almost every atom of your body was once floating in the air as an invisible gas — until a plant grabbed it using nothing but sunlight. How can a silent leaf build solid food out of air and water, with no mouth, no muscles and no machinery?",
+  hook: "Almost every carbon atom in your body was once floating in the air as an invisible gas — until a plant grabbed it using nothing but sunlight. How can a silent leaf build solid food out of air and water, with no mouth, no muscles and no machinery?",
   didYouKnow: [
     "The oxygen in roughly every second breath you take was made by microscopic plant-like life in the ocean, not by trees on land.",
     "A single large tree can pull more than 20 kilograms of carbon dioxide out of the air in one year and lock it away as wood.",

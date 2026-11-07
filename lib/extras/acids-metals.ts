@@ -67,7 +67,7 @@ export const acidsMetalsExtras: TopicExtras = {
   <text x="405" y="130" font-family="sans-serif" font-size="10" text-anchor="middle" fill="#374151">bleach</text>
 </svg>`,
       caption:
-        "Low numbers are acids, 7 is neutral, and high numbers are alkalis — each step of 1 means a tenfold change in strength.",
+        "Low numbers are acids, 7 is neutral, and high numbers are alkalis — each step of 1 means a tenfold change in hydrogen-ion concentration.",
     },
     {
       title: "Acid plus metal reaction",

@@ -1,0 +1,1021 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "intro",
+   "title": "The cabbage that detects acids",
+   "short": "Intro",
+   "card": false,
+   "start": 0.0,
+   "end": 29.197,
+   "lines": [
+    {
+     "id": "hook",
+     "start": 0.6,
+     "end": 8.323,
+     "cap": "Soak chopped red cabbage in warm water, and you've made a spy gadget: a purple liquid that changes colour with what it touches."
+    },
+    {
+     "id": "secret",
+     "start": 8.823,
+     "end": 15.201,
+     "cap": "It's detecting **acids** and **alkalis**, and they're everywhere: in your kitchen, in the soil, even in your stomach."
+    },
+    {
+     "id": "metals",
+     "start": 15.701,
+     "end": 20.096,
+     "cap": "Then there are **metals**: why do some fizz with acid, while others just sit there?"
+    },
+    {
+     "id": "plan",
+     "start": 20.596,
+     "end": 28.297,
+     "cap": "We'll measure acids with the **pH scale**, cancel them by **neutralisation**, and predict what metals do with the **reactivity series**."
+    }
+   ]
+  },
+  {
+   "id": "acids",
+   "title": "Acids, bases and alkalis",
+   "short": "Acids & alkalis",
+   "card": true,
+   "start": 29.197,
+   "end": 93.157,
+   "lines": [
+    {
+     "id": "acid",
+     "start": 30.997,
+     "end": 39.659,
+     "cap": "An **acid** is a substance that releases **hydrogen ions**, **H⁺**, when it dissolves in water. That's what makes acids taste **sour**."
+    },
+    {
+     "id": "everyday",
+     "start": 40.159,
+     "end": 47.689,
+     "cap": "You meet acids every day: **citric acid** in lemons, and **ethanoic acid**, also called acetic acid, in vinegar."
+    },
+    {
+     "id": "stomach",
+     "start": 48.189,
+     "end": 54.888,
+     "cap": "Your stomach even makes **hydrochloric acid** to help digest food, while a layer of **mucus** protects its lining."
+    },
+    {
+     "id": "base",
+     "start": 55.388,
+     "end": 61.191,
+     "cap": "A **base** is the chemical opposite of an acid: it can **neutralise** an acid, cancelling it out."
+    },
+    {
+     "id": "oxides",
+     "start": 61.691,
+     "end": 68.773,
+     "cap": "Many bases are **metal oxides** or **metal hydroxides**, like copper oxide and magnesium hydroxide."
+    },
+    {
+     "id": "alkali",
+     "start": 69.273,
+     "end": 73.348,
+     "cap": "An **alkali** is a base that **dissolves in water**: a **soluble base**."
+    },
+    {
+     "id": "examples",
+     "start": 73.848,
+     "end": 82.36,
+     "cap": "**Sodium hydroxide** is an alkali, and so is the **ammonia** in some cleaning sprays. Alkalis feel **soapy**, and many are **cleaners**."
+    },
+    {
+     "id": "venn",
+     "start": 82.86,
+     "end": 86.785,
+     "cap": "So **all alkalis are bases**, but **not all bases are alkalis**."
+    },
+    {
+     "id": "cuo",
+     "start": 87.585,
+     "end": 92.257,
+     "cap": "**Copper oxide** doesn't dissolve in water, so it's a base, but **not** an alkali."
+    }
+   ]
+  },
+  {
+   "id": "ph",
+   "title": "The pH scale",
+   "short": "pH scale",
+   "card": true,
+   "start": 93.157,
+   "end": 164.316,
+   "lines": [
+    {
+     "id": "scale",
+     "start": 94.957,
+     "end": 102.744,
+     "cap": "The **pH scale** measures how acidic or alkaline a solution is. The usual school scale runs from **0 to 14**."
+    },
+    {
+     "id": "acidic",
+     "start": 103.244,
+     "end": 107.809,
+     "cap": "Below **7** is **acidic**. The **lower** the number, the **more acidic** the solution."
+    },
+    {
+     "id": "neutral",
+     "start": 108.309,
+     "end": 114.731,
+     "cap": "At room temperature, **pure water** is exactly **pH 7**: **neutral**, neither acidic nor alkaline."
+    },
+    {
+     "id": "alkaline",
+     "start": 115.231,
+     "end": 120.372,
+     "cap": "Above **7** is **alkaline**. A **higher** number means **more alkaline**, not more acidic."
+    },
+    {
+     "id": "ions",
+     "start": 120.872,
+     "end": 127.741,
+     "cap": "The pH is linked to the concentration of **hydrogen ions**: each step **down** the scale means **ten times** more."
+    },
+    {
+     "id": "lemon",
+     "start": 128.241,
+     "end": 137.585,
+     "cap": "So lemon juice, at about **pH 2**, has around **a hundred times** the hydrogen-ion concentration of tomato juice, at about **pH 4**."
+    },
+    {
+     "id": "strength",
+     "start": 138.885,
+     "end": 148.357,
+     "cap": "But pH doesn't tell you an acid's **strength**. A **strong** acid **ionises**, or splits into ions, **fully** in water. A **weak** acid only partly."
+    },
+    {
+     "id": "conc",
+     "start": 148.857,
+     "end": 156.153,
+     "cap": "pH also depends on **concentration**, so you **can't** tell whether an acid is strong or weak from its pH alone."
+    },
+    {
+     "id": "meter",
+     "start": 156.653,
+     "end": 163.416,
+     "cap": "To find a pH, use an **indicator** or a **pH meter**. Never taste or touch a chemical to find out."
+    }
+   ]
+  },
+  {
+   "id": "indicators",
+   "title": "Indicators: colour clues",
+   "short": "Indicators",
+   "card": true,
+   "start": 164.316,
+   "end": 235.433,
+   "lines": [
+    {
+     "id": "what",
+     "start": 166.116,
+     "end": 172.793,
+     "cap": "An **indicator** changes **colour** with pH, so you can tell acidic, neutral and alkaline solutions apart."
+    },
+    {
+     "id": "litmus",
+     "start": 173.293,
+     "end": 178.648,
+     "cap": "**Litmus** turns **red in acid** and **blue in alkali**, but it can't give you a pH number."
+    },
+    {
+     "id": "roofs",
+     "start": 179.148,
+     "end": 187.873,
+     "cap": "Remember: **Red Bottoms, Blue Roofs**. Picture the pH scale as a tower: **red** for acids at the **bottom**, **blue** for alkalis at the **roof**."
+    },
+    {
+     "id": "ui",
+     "start": 188.673,
+     "end": 193.644,
+     "cap": "**Universal indicator** is a **mixture of dyes**, so it shows a whole range of colours."
+    },
+    {
+     "id": "acids",
+     "start": 194.144,
+     "end": 201.333,
+     "cap": "**Red** for about pH 0 to 2, **orange** for 3 to 4, and **yellow** for 5 to 6. All acidic."
+    },
+    {
+     "id": "green",
+     "start": 201.833,
+     "end": 204.095,
+     "cap": "**Green** at pH 7: **neutral**."
+    },
+    {
+     "id": "alkalis",
+     "start": 204.595,
+     "end": 209.693,
+     "cap": "Then **blue** for about 8 to 11, and **purple** for 12 to 14: alkaline."
+    },
+    {
+     "id": "chart",
+     "start": 210.193,
+     "end": 216.871,
+     "cap": "The colours are approximate, so check your indicator's **chart**. And a colour estimates **pH**, not acid strength."
+    },
+    {
+     "id": "cabbage",
+     "start": 217.371,
+     "end": 226.864,
+     "cap": "**Red cabbage** juice is a **natural indicator**: **red** or pink in acids, purple near neutral, then **blue**, **green** and **yellow** as the pH climbs."
+    },
+    {
+     "id": "home",
+     "start": 227.364,
+     "end": 234.233,
+     "cap": "Try it at home: pour the juice into clear cups, then add **lemon juice** to one and **bicarbonate of soda** to another."
+    }
+   ]
+  },
+  {
+   "id": "hazards",
+   "title": "Hazards: concentration and strength",
+   "short": "Hazards",
+   "card": true,
+   "start": 235.433,
+   "end": 306.368,
+   "lines": [
+    {
+     "id": "acids",
+     "start": 237.233,
+     "end": 244.913,
+     "cap": "Acids taste **sour**, but never taste anything in a lab! They turn **blue litmus red**, and react with **metals** and **carbonates**."
+    },
+    {
+     "id": "alkalis",
+     "start": 245.413,
+     "end": 250.683,
+     "cap": "**Alkalis** feel **soapy** or slippery, turn **red litmus blue**, and **neutralise** acids."
+    },
+    {
+     "id": "corrosive",
+     "start": 251.183,
+     "end": 260.804,
+     "cap": "Check the **hazard symbol**. **Corrosive** chemicals **destroy living tissue**, like skin and eyes. Many concentrated acids and alkalis are corrosive."
+    },
+    {
+     "id": "irritant",
+     "start": 261.304,
+     "end": 268.195,
+     "cap": "**Irritants** are less severe: they cause **redness** or itching. Many **dilute** acids and alkalis are irritants."
+    },
+    {
+     "id": "dilute",
+     "start": 268.695,
+     "end": 272.385,
+     "cap": "**Dilute** means a **little** acid dissolved in **lots of water**."
+    },
+    {
+     "id": "conc",
+     "start": 272.885,
+     "end": 275.957,
+     "cap": "**Concentrated** means **lots** of acid in **little water**."
+    },
+    {
+     "id": "danger",
+     "start": 276.457,
+     "end": 282.367,
+     "cap": "A concentrated solution is **more hazardous**, because there are **more acid particles** in every drop."
+    },
+    {
+     "id": "notsame",
+     "start": 283.167,
+     "end": 291.679,
+     "cap": "But concentration is **not** strength. Strength is how fully an acid **ionises**; concentration is how much acid is in the water."
+    },
+    {
+     "id": "grid",
+     "start": 292.179,
+     "end": 299.091,
+     "cap": "So you can have a **dilute strong** acid, or a **concentrated weak** acid, and the dilute strong one can be **safer**."
+    },
+    {
+     "id": "goggles",
+     "start": 300.391,
+     "end": 305.468,
+     "cap": "So always wear **safety goggles**: even a weak acid can be concentrated and harmful."
+    }
+   ]
+  },
+  {
+   "id": "neutral",
+   "title": "Neutralisation",
+   "short": "Neutralisation",
+   "card": true,
+   "start": 306.368,
+   "end": 383.104,
+   "lines": [
+    {
+     "id": "what",
+     "start": 308.168,
+     "end": 315.229,
+     "cap": "**Neutralisation** is the reaction between an **acid** and a **base**. They cancel out, moving the pH towards **7**."
+    },
+    {
+     "id": "eq",
+     "start": 315.729,
+     "end": 322.663,
+     "cap": "With a metal oxide or hydroxide, you get a **salt** and **water**: **acid + base → salt + water**."
+    },
+    {
+     "id": "absw",
+     "start": 323.163,
+     "end": 328.283,
+     "cap": "Remember it as **A-B-S-W**: **A**cid + **B**ase → **S**alt + **W**ater."
+    },
+    {
+     "id": "example",
+     "start": 328.783,
+     "end": 335.119,
+     "cap": "For example: **hydrochloric acid + sodium hydroxide → sodium chloride + water**."
+    },
+    {
+     "id": "ions",
+     "start": 335.619,
+     "end": 342.957,
+     "cap": "What's really happening? **Hydrogen ions**, H⁺, from the acid join **hydroxide ions**, OH⁻, from the alkali, to make **water**, H₂O."
+    },
+    {
+     "id": "little",
+     "start": 344.257,
+     "end": 350.785,
+     "cap": "But the **amounts** matter. Add too **little** alkali, and some acid is left over, so the solution is still **acidic**."
+    },
+    {
+     "id": "much",
+     "start": 351.285,
+     "end": 359.691,
+     "cap": "Add **too much**, and the extra alkali makes it **alkaline**. Mixing doesn't automatically give pH 7, so check with an **indicator**."
+    },
+    {
+     "id": "reaction",
+     "start": 360.191,
+     "end": 368.575,
+     "cap": "And neutralising isn't just diluting, or making things 'safe'. It's a **chemical reaction** that makes **new substances**: salt and water."
+    },
+    {
+     "id": "soil",
+     "start": 369.075,
+     "end": 374.493,
+     "cap": "Farmers spread a measured amount of **lime**, a base, on **acidic soil**, so their crops grow well."
+    },
+    {
+     "id": "antacid",
+     "start": 374.993,
+     "end": 382.204,
+     "cap": "And **indigestion tablets** contain bases, like magnesium hydroxide, to neutralise **excess stomach acid**."
+    }
+   ]
+  },
+  {
+   "id": "metals",
+   "title": "Acids and metals: the squeaky pop",
+   "short": "Acids + metals",
+   "card": true,
+   "start": 383.104,
+   "end": 461.907,
+   "lines": [
+    {
+     "id": "fizz",
+     "start": 384.904,
+     "end": 390.472,
+     "cap": "Drop **magnesium** into dilute acid, and it **fizzes**. Those bubbles are **hydrogen** gas."
+    },
+    {
+     "id": "eq",
+     "start": 390.972,
+     "end": 395.004,
+     "cap": "The pattern is: **acid + metal → salt + hydrogen**."
+    },
+    {
+     "id": "example",
+     "start": 395.504,
+     "end": 401.883,
+     "cap": "For example: **hydrochloric acid + magnesium → magnesium chloride + hydrogen**."
+    },
+    {
+     "id": "test",
+     "start": 402.383,
+     "end": 408.356,
+     "cap": "To **test for hydrogen**, hold a **lit splint** at the mouth of the tube. Hydrogen gives a **squeaky pop**!"
+    },
+    {
+     "id": "why",
+     "start": 409.656,
+     "end": 412.877,
+     "cap": "It's a tiny amount of hydrogen **burning explosively**."
+    },
+    {
+     "id": "race",
+     "start": 413.377,
+     "end": 416.961,
+     "cap": "Time for a race: four metals in the same dilute acid."
+    },
+    {
+     "id": "mg",
+     "start": 417.761,
+     "end": 421.367,
+     "cap": "**Magnesium** fizzes **vigorously**, with a fast stream of bubbles."
+    },
+    {
+     "id": "zn",
+     "start": 421.867,
+     "end": 423.936,
+     "cap": "**Zinc** gives a **steady**, moderate fizz."
+    },
+    {
+     "id": "fe",
+     "start": 424.436,
+     "end": 427.828,
+     "cap": "**Iron** fizzes only **slowly**, with bubbles forming gently."
+    },
+    {
+     "id": "cu",
+     "start": 428.328,
+     "end": 431.421,
+     "cap": "And **copper**? **No reaction at all**, however long you wait."
+    },
+    {
+     "id": "series",
+     "start": 432.221,
+     "end": 440.819,
+     "cap": "That's the **reactivity series** in action: the more reactive the metal, the faster the fizz. Copper sits **below hydrogen**, so it doesn't react."
+    },
+    {
+     "id": "naming",
+     "start": 441.319,
+     "end": 446.055,
+     "cap": "Naming the salt: the **first** part comes from the **metal**, and the **second** from the **acid**."
+    },
+    {
+     "id": "acids",
+     "start": 446.555,
+     "end": 453.339,
+     "cap": "**Hydrochloric** acid, HCl, makes **chlorides**; **sulfuric** acid, H₂SO₄, makes **sulfates**; and **nitric** acid, HNO₃, makes **nitrates**."
+    },
+    {
+     "id": "zinc",
+     "start": 453.839,
+     "end": 461.007,
+     "cap": "So **zinc + sulfuric acid → zinc sulfate + hydrogen**. That's sulfate, by the way, **not** sulfide."
+    }
+   ]
+  },
+  {
+   "id": "carbonates",
+   "title": "Acids and carbonates: milky limewater",
+   "short": "Acids + carbonates",
+   "card": true,
+   "start": 461.907,
+   "end": 522.795,
+   "lines": [
+    {
+     "id": "carb",
+     "start": 463.707,
+     "end": 471.088,
+     "cap": "**Metal carbonates**, like the **calcium carbonate** in chalk and limestone, fizz with acid too. But they react differently."
+    },
+    {
+     "id": "eq",
+     "start": 471.588,
+     "end": 476.452,
+     "cap": "**acid + metal carbonate → salt + water + carbon dioxide**"
+    },
+    {
+     "id": "example",
+     "start": 476.952,
+     "end": 484.781,
+     "cap": "For example: **hydrochloric acid + calcium carbonate → calcium chloride + water + carbon dioxide**."
+    },
+    {
+     "id": "three",
+     "start": 485.281,
+     "end": 492.748,
+     "cap": "That's **three** products, and the gas is **carbon dioxide**, not hydrogen, so a lit splint won't pop. It just goes out."
+    },
+    {
+     "id": "lime",
+     "start": 493.248,
+     "end": 501.589,
+     "cap": "To **test for carbon dioxide**, bubble it through **limewater**, a solution of calcium hydroxide. It turns **milky**, or cloudy."
+    },
+    {
+     "id": "why",
+     "start": 502.889,
+     "end": 507.753,
+     "cap": "The cloudiness is a fine white solid: a **precipitate** of **calcium carbonate**."
+    },
+    {
+     "id": "apart",
+     "start": 508.253,
+     "end": 517.192,
+     "cap": "So if two powders both fizz with acid, a gas test tells them apart: a **metal** gives hydrogen, a **carbonate** gives carbon dioxide."
+    },
+    {
+     "id": "hook",
+     "start": 517.692,
+     "end": 521.895,
+     "cap": "Remember: **Pop = Hydrogen, Milky = CO₂**."
+    }
+   ]
+  },
+  {
+   "id": "series",
+   "title": "The reactivity series",
+   "short": "Reactivity series",
+   "card": true,
+   "start": 522.795,
+   "end": 595.404,
+   "lines": [
+    {
+     "id": "league",
+     "start": 524.595,
+     "end": 531.272,
+     "cap": "The **reactivity series** is a league table of metals, from **most reactive** at the top to **least reactive** at the bottom."
+    },
+    {
+     "id": "top",
+     "start": 531.772,
+     "end": 537.148,
+     "cap": "From the top: **potassium**, **sodium**, **calcium**, **magnesium**, **aluminium**, **zinc** and **iron**."
+    },
+    {
+     "id": "bottom",
+     "start": 537.948,
+     "end": 542.129,
+     "cap": "Then **hydrogen**, and below it **copper**, **silver** and, last of all, **gold**."
+    },
+    {
+     "id": "zebra",
+     "start": 542.629,
+     "end": 546.96,
+     "cap": "To remember it: **P**lease **S**top **C**alling **M**e **A** **Z**ebra, **I**nstead **C**all **S**ome **G**old."
+    },
+    {
+     "id": "hydrogen",
+     "start": 547.76,
+     "end": 554.16,
+     "cap": "**Hydrogen** isn't a metal. It's a **marker**: metals above it react with acids, and metals below it don't."
+    },
+    {
+     "id": "water",
+     "start": 554.66,
+     "end": 563.3,
+     "cap": "The higher the metal, the more **vigorously** it reacts. **Potassium** and **sodium** react fast with **cold water**, fizzing as they release **hydrogen**."
+    },
+    {
+     "id": "eq",
+     "start": 564.6,
+     "end": 573.432,
+     "cap": "**metal + water → metal hydroxide + hydrogen**. So **sodium + water → sodium hydroxide + hydrogen**."
+    },
+    {
+     "id": "alkaline",
+     "start": 573.932,
+     "end": 579.287,
+     "cap": "The sodium hydroxide dissolves, which is why the solution left behind is **alkaline**."
+    },
+    {
+     "id": "mg",
+     "start": 579.787,
+     "end": 585.141,
+     "cap": "Lower down, **magnesium** reacts only **slowly** with cold water, but **quickly** with **steam**."
+    },
+    {
+     "id": "cu",
+     "start": 585.641,
+     "end": 588.948,
+     "cap": "And **copper**, **silver** and **gold** don't react with water at all."
+    },
+    {
+     "id": "predict",
+     "start": 589.448,
+     "end": 594.504,
+     "cap": "So a metal's place in the series lets you **predict** how it will react, before you test it."
+    }
+   ]
+  },
+  {
+   "id": "displace",
+   "title": "Displacement and extraction",
+   "short": "Displacement",
+   "card": true,
+   "start": 595.404,
+   "end": 673.471,
+   "lines": [
+    {
+     "id": "push",
+     "start": 597.204,
+     "end": 604.18,
+     "cap": "The series also predicts **displacement**: a **more reactive** metal **pushes** a less reactive one out of its compound."
+    },
+    {
+     "id": "nail",
+     "start": 604.68,
+     "end": 611.507,
+     "cap": "Put an **iron** nail into **blue copper sulfate** solution. Iron is **more reactive**, so it pushes the copper out."
+    },
+    {
+     "id": "eq",
+     "start": 612.007,
+     "end": 615.761,
+     "cap": "**iron + copper sulfate → iron sulfate + copper**"
+    },
+    {
+     "id": "see",
+     "start": 616.261,
+     "end": 620.955,
+     "cap": "Watch: the **blue colour fades**, and a **brown coating of copper** appears on the nail."
+    },
+    {
+     "id": "never",
+     "start": 622.455,
+     "end": 629.004,
+     "cap": "But never the other way round: **copper** can't displace iron, so copper dipped into iron sulfate does **nothing**."
+    },
+    {
+     "id": "ores",
+     "start": 629.504,
+     "end": 637.376,
+     "cap": "Most metals are found in **ores**: rocks where the metal is joined to other elements, like oxygen. Getting it out is **extraction**."
+    },
+    {
+     "id": "carbon",
+     "start": 637.876,
+     "end": 644.617,
+     "cap": "To extract **iron**, heat its ore with **carbon**. Carbon is **more reactive** than iron, so it **displaces** the iron."
+    },
+    {
+     "id": "electro",
+     "start": 645.117,
+     "end": 655.165,
+     "cap": "**Aluminium** is more reactive than carbon. It clings to its oxygen so tightly that it needs **electrolysis**, using electricity, which is **expensive**."
+    },
+    {
+     "id": "gold",
+     "start": 655.665,
+     "end": 662.663,
+     "cap": "And **gold** and **silver** are so unreactive that they can be found as **pure metals**, needing almost no extraction."
+    },
+    {
+     "id": "recycle",
+     "start": 663.163,
+     "end": 672.571,
+     "cap": "So **recycling** aluminium saves about **95%** of the energy, and engineers are working to run electrolysis on **renewable** electricity."
+    }
+   ]
+  },
+  {
+   "id": "burning",
+   "title": "Burning and tarnishing",
+   "short": "Metals + oxygen",
+   "card": true,
+   "start": 673.471,
+   "end": 741.936,
+   "lines": [
+    {
+     "id": "eq",
+     "start": 675.271,
+     "end": 681.073,
+     "cap": "Metals react with **oxygen** in the air, too: **metal + oxygen → metal oxide**."
+    },
+    {
+     "id": "new",
+     "start": 681.573,
+     "end": 686.032,
+     "cap": "The oxide is a **new substance**, with different properties from the shiny metal."
+    },
+    {
+     "id": "mg",
+     "start": 686.532,
+     "end": 693.657,
+     "cap": "Heat **magnesium**, and it burns with a dazzling, **bright white flame**, leaving a **white powder**. Never look straight at it!"
+    },
+    {
+     "id": "mgeq",
+     "start": 695.357,
+     "end": 703.485,
+     "cap": "That's **magnesium + oxygen → magnesium oxide**. In symbols: **2Mg + O₂ → 2MgO**."
+    },
+    {
+     "id": "na",
+     "start": 703.985,
+     "end": 713.884,
+     "cap": "**Sodium** is so reactive that a freshly cut surface **tarnishes** in seconds, as a dull layer of **sodium oxide** forms. That's why it's stored **under oil**."
+    },
+    {
+     "id": "fe",
+     "start": 714.384,
+     "end": 720.037,
+     "cap": "**Iron** reacts more slowly. Iron filings sprinkled into a flame give **orange sparks**."
+    },
+    {
+     "id": "rust",
+     "start": 720.537,
+     "end": 728.879,
+     "cap": "Over time, iron also combines with oxygen **and water** to form **rust**. So we protect it with paint, oil, or a coat of zinc."
+    },
+    {
+     "id": "gold",
+     "start": 729.379,
+     "end": 735.757,
+     "cap": "And **gold**, at the bottom, doesn't react with oxygen **at all**, so a gold ring stays shiny for a lifetime."
+    },
+    {
+     "id": "ladder",
+     "start": 736.257,
+     "end": 741.036,
+     "cap": "Same pattern again: the **higher** the metal, the **more fiercely** it reacts with oxygen."
+    }
+   ]
+  },
+  {
+   "id": "oxygen",
+   "title": "Testing for oxygen",
+   "short": "Oxygen test",
+   "card": true,
+   "start": 741.936,
+   "end": 783.96,
+   "lines": [
+    {
+     "id": "third",
+     "start": 743.736,
+     "end": 747.64,
+     "cap": "You know two gas tests already. Here's the third: **oxygen**."
+    },
+    {
+     "id": "glow",
+     "start": 748.14,
+     "end": 751.553,
+     "cap": "Light a wooden splint, then **blow it out**, so it's only **glowing**."
+    },
+    {
+     "id": "relight",
+     "start": 752.053,
+     "end": 758.24,
+     "cap": "Push the glowing splint into the gas. If it's oxygen, the splint **relights**, bursting back into flame!"
+    },
+    {
+     "id": "why",
+     "start": 759.94,
+     "end": 767.087,
+     "cap": "Oxygen **supports burning**. Air is only about **a fifth** oxygen, so a tube full of it makes the splint flare back up."
+    },
+    {
+     "id": "h",
+     "start": 767.587,
+     "end": 772.067,
+     "cap": "So, all three tests. **Hydrogen**: a **lit** splint gives a **squeaky pop**."
+    },
+    {
+     "id": "o",
+     "start": 772.567,
+     "end": 775.063,
+     "cap": "**Oxygen**: it **relights** a **glowing** splint."
+    },
+    {
+     "id": "co",
+     "start": 775.563,
+     "end": 778.528,
+     "cap": "**Carbon dioxide**: it turns **limewater milky**."
+    },
+    {
+     "id": "splints",
+     "start": 779.028,
+     "end": 783.06,
+     "cap": "Don't mix up the splints: **lit** for hydrogen, **glowing** for oxygen."
+    }
+   ]
+  },
+  {
+   "id": "salts",
+   "title": "Making a soluble salt",
+   "short": "Making salts",
+   "card": true,
+   "start": 783.96,
+   "end": 851.36,
+   "lines": [
+    {
+     "id": "useful",
+     "start": 785.76,
+     "end": 792.011,
+     "cap": "Salts are useful: **copper sulfate** goes into fungicides, and **ammonium nitrate** is a fertiliser."
+    },
+    {
+     "id": "how",
+     "start": 792.511,
+     "end": 802.047,
+     "cap": "Let's make a pure, dry sample of a **soluble salt**, copper sulfate: **copper oxide + sulfuric acid → copper sulfate + water**."
+    },
+    {
+     "id": "react",
+     "start": 802.547,
+     "end": 809.629,
+     "cap": "Step one: in a lab, **warm** the acid and stir in **black copper oxide**, a little at a time, until **no more reacts**."
+    },
+    {
+     "id": "excess",
+     "start": 810.129,
+     "end": 817.233,
+     "cap": "Using **excess**, so some is left over, makes sure **all the acid is used up**, and none is left to contaminate the salt."
+    },
+    {
+     "id": "filter",
+     "start": 817.733,
+     "end": 826.651,
+     "cap": "Step two: **filter**. The leftover copper oxide stays on the paper: the **residue**. The blue salt solution passes through: the **filtrate**."
+    },
+    {
+     "id": "heat",
+     "start": 827.451,
+     "end": 834.32,
+     "cap": "Step three: gently **heat** the filtrate to evaporate some water, until it's **saturated**, holding all the salt it can."
+    },
+    {
+     "id": "cool",
+     "start": 834.82,
+     "end": 837.828,
+     "cap": "Then leave it to **cool slowly**, and blue **crystals** grow."
+    },
+    {
+     "id": "dry",
+     "start": 839.528,
+     "end": 843.56,
+     "cap": "Filter off the crystals, **dry** them, and you have pure copper sulfate."
+    },
+    {
+     "id": "other",
+     "start": 844.06,
+     "end": 850.46,
+     "cap": "It works with a **metal** or a **carbonate** too: add it until the **fizzing stops** and some solid is left over."
+    }
+   ]
+  },
+  {
+   "id": "recap",
+   "title": "Recap: memory hooks and exam traps",
+   "short": "Recap",
+   "card": true,
+   "start": 851.36,
+   "end": 907.465,
+   "lines": [
+    {
+     "id": "lock",
+     "start": 853.16,
+     "end": 854.504,
+     "cap": "Let's lock it all in."
+    },
+    {
+     "id": "zebra",
+     "start": 855.004,
+     "end": 861.596,
+     "cap": "**Please Stop Calling Me A Zebra, Instead Call Some Gold**: the reactivity series, from potassium down to gold."
+    },
+    {
+     "id": "roofs",
+     "start": 862.096,
+     "end": 866.704,
+     "cap": "**Red Bottoms, Blue Roofs**: litmus is **red** in acid and **blue** in alkali."
+    },
+    {
+     "id": "pop",
+     "start": 867.204,
+     "end": 870.724,
+     "cap": "**Pop = Hydrogen, Milky = CO₂.**"
+    },
+    {
+     "id": "absw",
+     "start": 871.224,
+     "end": 875.448,
+     "cap": "And **A-B-S-W**: **acid + base → salt + water**."
+    },
+    {
+     "id": "traps",
+     "start": 875.948,
+     "end": 878.209,
+     "cap": "Now, five exam traps to avoid."
+    },
+    {
+     "id": "t1",
+     "start": 878.709,
+     "end": 884.064,
+     "cap": "One: acid + metal gives **hydrogen**. Only carbonates give **carbon dioxide**."
+    },
+    {
+     "id": "t2",
+     "start": 884.564,
+     "end": 888.383,
+     "cap": "Two: neutralisation always makes **water**, as well as the salt."
+    },
+    {
+     "id": "t3",
+     "start": 888.883,
+     "end": 893.021,
+     "cap": "Three: not all bases are alkalis. Only **soluble** bases are."
+    },
+    {
+     "id": "t4",
+     "start": 893.521,
+     "end": 900.497,
+     "cap": "Four: **concentration** isn't **strength**. A dilute strong acid can be safer than a concentrated weak acid."
+    },
+    {
+     "id": "t5",
+     "start": 900.997,
+     "end": 906.565,
+     "cap": "Five: **copper**, **silver** and **gold** don't fizz with dilute acids. They're **below hydrogen**."
+    }
+   ]
+  },
+  {
+   "id": "quiz",
+   "title": "Quick-fire quiz",
+   "short": "Quiz",
+   "card": true,
+   "start": 907.465,
+   "end": 977.224,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 909.265,
+     "end": 912.913,
+     "cap": "Quick-fire quiz! Say each answer out loud before it appears."
+    },
+    {
+     "id": "q1",
+     "start": 913.413,
+     "end": 915.973,
+     "cap": "What colour does litmus paper turn in an acid?"
+    },
+    {
+     "id": "a1",
+     "start": 920.473,
+     "end": 921.54,
+     "cap": "It turns **red**."
+    },
+    {
+     "id": "q2",
+     "start": 922.04,
+     "end": 926.819,
+     "cap": "A solution has a pH of 12. Is it acidic, neutral or alkaline?"
+    },
+    {
+     "id": "a2",
+     "start": 931.319,
+     "end": 933.409,
+     "cap": "**Alkaline.** It's well above 7."
+    },
+    {
+     "id": "q3",
+     "start": 933.909,
+     "end": 937.301,
+     "cap": "Which gas fizzes off when an acid reacts with a carbonate?"
+    },
+    {
+     "id": "a3",
+     "start": 941.801,
+     "end": 944.916,
+     "cap": "**Carbon dioxide**, which turns **limewater milky**."
+    },
+    {
+     "id": "q4",
+     "start": 945.416,
+     "end": 949.704,
+     "cap": "An iron nail goes into blue copper sulfate solution. What happens?"
+    },
+    {
+     "id": "a4",
+     "start": 954.204,
+     "end": 958.641,
+     "cap": "The iron **displaces** the copper: the blue fades, and **copper** coats the nail."
+    },
+    {
+     "id": "q5",
+     "start": 959.141,
+     "end": 961.808,
+     "cap": "Which salt do zinc and sulfuric acid make?"
+    },
+    {
+     "id": "a5",
+     "start": 966.308,
+     "end": 969.529,
+     "cap": "**Zinc sulfate**, not sulfide. Plus hydrogen gas."
+    },
+    {
+     "id": "outro",
+     "start": 970.029,
+     "end": 976.024,
+     "cap": "Brilliant work. Now try the Acids, Bases & Metals quiz in your Science Lab, to lock it in."
+    }
+   ]
+  }
+ ],
+ "total": 977.224
+}

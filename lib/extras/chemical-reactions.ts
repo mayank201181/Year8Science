@@ -8,9 +8,9 @@ export const chemicalReactionsExtras: TopicExtras = {
   didYouKnow: [
     "When wood burns, almost nothing actually disappears — the missing mass floats away as invisible carbon dioxide and water vapour, which is why a 'closed' reaction weighs exactly the same before and after.",
     "Your body is running thousands of slow chemical reactions right now; respiration is basically a very gentle, controlled version of burning sugar.",
-    "Glow sticks work by a cold chemical reaction called chemiluminescence — they make light without making heat, the opposite of a flame.",
+    "Glow sticks work by a cold chemical reaction called chemiluminescence — they make light with hardly any heat, the opposite of a flame.",
     "A single gram of certain catalysts can speed up a reaction without ever being used up, so the same atoms can help millions of times over.",
-    "Rust is iron slowly 'burning' in air — the same reaction as fire, just so slow you could watch a nail rust for years instead of seconds.",
+    "Rust is iron slowly 'burning' in damp air — the same kind of reaction as fire, just so slow you could watch a nail rust for years instead of seconds.",
   ],
   experiments: [
     {
