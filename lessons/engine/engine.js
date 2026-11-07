@@ -5,6 +5,9 @@
    ========================================================================== */
 (function () {
   'use strict';
+  /* Inside the Science Lab's Watch tab (?embed=1 in an iframe) the app supplies the header and theme. */
+  const EMBED = window.parent !== window && /[?&]embed=1\b/.test(location.search);
+  if (EMBED) { document.documentElement.setAttribute('data-embed', ''); document.documentElement.setAttribute('data-theme', 'light'); }
   /* Scenes measure label widths, so build them only once the stage fonts are in (or after 3 s). */
   function waitFonts() {
     const f = document.fonts;
@@ -18,7 +21,11 @@
   const REDUCE = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   const $ = s => document.querySelector(s);
   const svg = $('#stage');
-  const KEY = 'resp-lesson-v1';
+  const PL = document.getElementById('player');
+  const TOPIC = PL.getAttribute('data-topic') || 'lesson', NAME = PL.getAttribute('data-name') || '';
+  const KEY = TOPIC === 'respiration' ? 'resp-lesson-v1' : 'lesson-v1-' + TOPIC;   // respiration keeps its first key
+  /* messages to the Science Lab when embedded: hello, height, chapter-done, complete, theater */
+  const post = (type, extra) => { if (!EMBED) return; try { window.parent.postMessage(Object.assign({ source: 'y8-lesson', type, topic: TOPIC }, extra || {}), location.origin); } catch (e) { /* no parent */ } };
   const store = {
     get() { try { return JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { return {}; } },
     set(o) { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) { /* storage blocked: fine */ } },
@@ -198,7 +205,7 @@
     kick();
   }
   function jumpTo(t, autoplay) { seek(t); if (autoplay && !playing()) play(); }
-  function ended() { wake(false); syncButtons(); savePos(true, 0); endcard.hidden = false; kick(); }
+  function ended() { wake(false); syncButtons(); savePos(true, 0); endcard.hidden = false; post('complete'); kick(); }
 
   async function loadAudio() {
     const src = player.getAttribute('data-audio') || 'narration.mp3';
@@ -282,7 +289,7 @@
     let line = null; for (const l of ch.lines) { if (gt >= l.start - 0.05) line = l; else break; }
     if (line !== lastLine) { lastLine = line; captionEl.innerHTML = line ? md(line.cap) : ''; }
     // a chapter counts as watched only when playback runs through its last line
-    if (playing() && !done.has(ch.id) && gt >= ch.lines[ch.lines.length - 1].end - 0.15) { done.add(ch.id); savePos(true); }
+    if (playing() && !done.has(ch.id) && gt >= ch.lines[ch.lines.length - 1].end - 0.15) { done.add(ch.id); savePos(true); post('chapter-done', { chapter: ch.id }); }
     segs.forEach((sg, k) => { const c = CH[k]; sg.f.style.width = (clamp((gt - c.start) / (c.end - c.start)) * 100).toFixed(2) + '%'; });
     const s = segs[i].s; knob.style.left = (s.offsetLeft + s.offsetWidth * clamp((gt - ch.start) / (ch.end - ch.start))).toFixed(1) + 'px';
     if (i !== lastCh) {
@@ -364,9 +371,9 @@
   function fsActive() { return document.fullscreenElement || document.webkitFullscreenElement || player.classList.contains('theater'); }
   function toggleFS() {
     if (document.fullscreenElement || document.webkitFullscreenElement) { (document.exitFullscreen || document.webkitExitFullscreen).call(document); return; }
-    if (player.classList.contains('theater')) { player.classList.remove('theater'); document.body.classList.remove('no-scroll'); syncFS(); return; }
+    if (player.classList.contains('theater')) { player.classList.remove('theater'); document.body.classList.remove('no-scroll'); post('theater', { on: false }); syncFS(); return; }
     const req = player.requestFullscreen || player.webkitRequestFullscreen;
-    const theater = () => { player.classList.add('theater'); document.body.classList.add('no-scroll'); syncFS(); };
+    const theater = () => { player.classList.add('theater'); document.body.classList.add('no-scroll'); post('theater', { on: true }); syncFS(); };
     if (req) { try { const r = req.call(player); if (r && r.catch) r.catch(theater); } catch (e) { theater(); } } else theater();
   }
   function syncFS() { const on = !!fsActive(); btnFS.setAttribute('aria-pressed', String(on)); btnFS.setAttribute('aria-label', on ? 'Exit full screen' : 'Full screen'); requestAnimationFrame(() => { lastSec = -1; kick(); }); }
@@ -396,7 +403,7 @@
   /* ---------- lock screen controls, screen wake ---------- */
   function mediaMeta(i) {
     if (!('mediaSession' in navigator)) return;
-    try { navigator.mediaSession.metadata = new MediaMetadata({ title: CH[i].title, artist: 'Year 8 Science Lab', album: 'Respiration, animated' }); } catch (e) { /* unsupported */ }
+    try { navigator.mediaSession.metadata = new MediaMetadata({ title: CH[i].title, artist: 'Year 8 Science Lab', album: NAME + ', animated' }); } catch (e) { /* unsupported */ }
   }
   if ('mediaSession' in navigator) {
     const set = (a, f) => { try { navigator.mediaSession.setActionHandler(a, f); } catch (e) { /* unsupported */ } };
@@ -412,6 +419,22 @@
     } catch (e) { lock = null; }
   }
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && playing()) wake(true); });
+
+  /* ---------- embedded: report height, take watched chapters from the learner's progress ---------- */
+  if (EMBED) {
+    let lastH = 0;
+    const sendH = () => { const h = Math.ceil(document.documentElement.getBoundingClientRect().height); if (h !== lastH && !player.classList.contains('theater')) { lastH = h; post('height', { value: h }); } };
+    if (window.ResizeObserver) new ResizeObserver(sendH).observe(document.documentElement);
+    window.addEventListener('load', sendH);
+    sendH();
+    window.addEventListener('message', e => {
+      if (e.origin !== location.origin || e.source !== window.parent) return;
+      const m = e.data;
+      if (!m || m.source !== 'y8-app') return;
+      if (m.type === 'watched' && Array.isArray(m.ids)) { m.ids.forEach(id => { if (CH.some(c => c.id === id)) done.add(id); }); kick(); }
+    });
+    post('hello', { chapters: CH.map(c => c.id) });
+  }
 
   /* ---------- start ---------- */
   let startAt = 0, startLabel = '';

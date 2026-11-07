@@ -1,17 +1,21 @@
-"""Synthesise the lesson narration and its timeline.
+"""Synthesise a lesson's narration and its timeline.
 
-usage: KOKORO_DIR=/path/to/models python3 make_audio.py OUT_DIR
+usage: KOKORO_DIR=/path/to/models python3 lessons/engine/make_audio.py --topic TOPIC OUT_DIR
 
 Needs kokoro-onnx (pip install kokoro-onnx soundfile), the Kokoro v1.0 model
 files (kokoro-v1.0.onnx, voices-v1.0.bin) in KOKORO_DIR, and ffmpeg.
-Writes OUT_DIR/narration.mp3 and OUT_DIR/timeline.json. Each line is
-synthesised separately and cached by its text, so editing one line of the
-script only re-renders that line.
+Writes OUT_DIR/narration.mp3, OUT_DIR/narration.wav and OUT_DIR/timeline.json,
+and copies the timeline to lessons/TOPIC/timeline.json. Each line is
+synthesised separately and cached by its text (OUT_DIR/cache), so editing one
+line of the script only re-renders that line.
 """
+import argparse
 import hashlib
+import importlib.util
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 
@@ -19,9 +23,16 @@ import numpy as np
 import soundfile as sf
 from kokoro_onnx import Kokoro
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, HERE)
-from script import CHAPTERS  # noqa: E402
+ENGINE = os.path.dirname(os.path.abspath(__file__))
+LESSONS = os.path.dirname(ENGINE)
+
+
+def load_chapters(topic):
+    path = os.path.join(LESSONS, topic, "script.py")
+    spec = importlib.util.spec_from_file_location(f"script_{topic.replace('-', '_')}", path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.CHAPTERS
 
 VOICE = "af_heart"   # same voice and pace as the earlier explainers
 SPEED = 0.95
@@ -41,7 +52,8 @@ def spoken(line):
     return s
 
 
-def main(out_dir):
+def main(topic, out_dir):
+    CHAPTERS = load_chapters(topic)
     model_dir = os.environ["KOKORO_DIR"]
     cache = os.path.join(out_dir, "cache")
     os.makedirs(cache, exist_ok=True)
@@ -109,6 +121,7 @@ def main(out_dir):
                     "-c:a", "libmp3lame", "-b:a", "40k", mp3], check=True)
     with open(os.path.join(out_dir, "timeline.json"), "w") as f:
         json.dump(timeline, f, ensure_ascii=False, indent=1)
+    shutil.copyfile(os.path.join(out_dir, "timeline.json"), os.path.join(LESSONS, topic, "timeline.json"))
     words = sum(len(re.findall(r"\w+", spoken(l))) for c in CHAPTERS for l in c["lines"])
     print(f"total {t/60:.2f} min, {words} words, mp3 {os.path.getsize(mp3)/1e6:.2f} MB")
     for c in timeline["chapters"]:
@@ -116,4 +129,9 @@ def main(out_dir):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--topic", required=True)
+    ap.add_argument("out_dir")
+    a = ap.parse_args()
+    os.makedirs(a.out_dir, exist_ok=True)
+    main(a.topic, a.out_dir)

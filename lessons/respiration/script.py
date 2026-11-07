@@ -9,6 +9,12 @@ or so the learner can think during the quiz.
 Content follows lib/topics/respiration.ts and lib/extras/respiration.ts.
 """
 
+META = {
+    "name": "Respiration",
+    "kicker": "Year 8 Science · Biology",
+    "dek": "A narrated lesson in {chapters} short chapters. Follow glucose into a cell, watch its atoms rearrange, and see what happens when oxygen runs out.",
+}
+
 CHAPTERS = [
     {
         "id": "intro",

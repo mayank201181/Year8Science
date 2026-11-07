@@ -1,6 +1,6 @@
-<title>Respiration, Animated</title>
+<title>@@TITLE@@</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="A narrated, animated Year 8 lesson on respiration in twelve short chapters.">
+<meta name="description" content="A narrated, animated Year 8 Science lesson: @@NAME@@.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700;800&family=Fredoka:wght@500;600;700&display=swap">
@@ -124,17 +124,21 @@ h1{font-size:clamp(2.2rem,6.4vw,3.5rem);font-weight:600;letter-spacing:-.01em}
 .ts:hover{color:var(--accent)}
 footer{color:var(--muted);font-size:.92rem;max-width:46rem}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+/* embedded in the Science Lab Watch tab: the app supplies the header and gutter */
+:root[data-embed] body{background:transparent}
+:root[data-embed] .top,:root[data-embed] footer,:root[data-embed] .rotate-tip{display:none}
+:root[data-embed] .wrap{max-width:none;padding-block:0 8px;padding-left:0;padding-right:0;gap:20px}
 </style>
 <!--@@BODY@@-->
 <main class="wrap">
   <header class="top">
     <!--@@BACK@@-->
-    <p class="kicker">Year 8 Science · Biology</p>
-    <h1>Respiration, animated</h1>
-    <p class="dek">A narrated lesson in twelve short chapters. Follow glucose into a cell, watch its atoms rearrange, and see what happens when oxygen runs out.</p>
+    <p class="kicker">@@KICKER@@</p>
+    <h1>@@H1@@</h1>
+    <p class="dek">@@DEK@@</p>
   </header>
 
-  <section class="player" id="player" data-audio="@@AUDIO@@" aria-label="Lesson player">
+  <section class="player" id="player" data-audio="@@AUDIO@@" data-topic="@@TOPIC@@" data-name="@@NAME@@" aria-label="Lesson player">
     <div class="screen">
       <div class="stage-wrap">
         <svg id="stage" viewBox="0 0 1200 750" role="img" aria-label="Animation" preserveAspectRatio="xMidYMid meet"></svg>
@@ -144,7 +148,7 @@ footer{color:var(--muted);font-size:.92rem;max-width:46rem}
         </div>
         <div class="endcard" id="endcard" hidden>
           <p class="end-title">Lesson complete</p>
-          <div class="end-actions"><button type="button" id="end-replay">Watch again</button><a href="@@LABURL@@" @@LABTARGET@@>Try the Respiration quiz</a></div>
+          <div class="end-actions"><button type="button" id="end-replay">Watch again</button><a href="@@QUIZURL@@" @@LABTARGET@@>Try the @@QUIZNAME@@ quiz</a></div>
         </div>
       </div>
       <p class="caption" id="caption" aria-live="off"></p>
@@ -178,7 +182,7 @@ footer{color:var(--muted);font-size:.92rem;max-width:46rem}
     <div id="transcript-body"></div>
   </details>
 
-  <footer>The voice is computer-generated. The lesson follows the Respiration topic in the <a href="@@LABURL@@" @@LABTARGET@@>Year 8 Science Lab</a>, where the quiz and question bank are.</footer>
+  <footer>The voice is computer-generated. The lesson follows the @@NAME@@ topic in the <a href="@@LABURL@@" @@LABTARGET@@>Year 8 Science Lab</a>, where the quiz and question bank are.</footer>
 </main>
 <script id="timeline" type="application/json">@@TIMELINE@@</script>
 <script>
