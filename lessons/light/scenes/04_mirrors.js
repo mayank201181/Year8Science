@@ -248,10 +248,10 @@ scene('mirrors', S => {
   vusl.setAttribute('letter-spacing', 14);
   const phrase = rich(Eg, 600, 236, [['V', C.energy], ['ery '], ['U', C.energy], ['seful '], ['S', C.energy], ['mooth '], ['L', C.energy], ['ooking-glass']], { size: 38, weight: 600, anchor: 'middle' });
   const CARDS = [
-    { x: 195, L: 'V', w: 'Virtual', icon: g => { E('line', { x1: 0, y1: -56, x2: 0, y2: 56, stroke: LT.mirror, 'stroke-width': 6, 'stroke-linecap': 'round' }, g); const c1 = candle(g); tr(c1, -48, -46, 0.5); const c2 = candle(g); tr(c2, 48, -46, 0.5); c2.setAttribute('opacity', 0.4); E('line', { x1: 6, y1: -20, x2: 44, y2: -44, stroke: LT.ray, 'stroke-width': 3, 'stroke-dasharray': '6 5' }, g); return [c1, c2]; } },
+    { x: 195, L: 'V', w: 'Virtual', icon: g => { tr(planeMirror(g, 112, { gap: 14 }), 0, 0, 1, -90); const c1 = candle(g); tr(c1, -48, -46, 0.5); const c2 = candle(g); tr(c2, 48, -46, 0.5); c2.setAttribute('opacity', 0.4); E('line', { x1: 6, y1: -20, x2: 44, y2: -44, stroke: LT.ray, 'stroke-width': 3, 'stroke-dasharray': '6 5' }, g); return [c1, c2]; } },
     { x: 455, L: 'U', w: 'Upright', icon: g => { const c = candle(g); tr(c, -18, -46, 0.5); arrow(g, 34, 46, 34, -46, { color: C.good, width: 5 }); return [c]; } },
     { x: 715, L: 'S', w: 'Same size', icon: g => { const c1 = candle(g); tr(c1, -42, -46, 0.5); const c2 = candle(g); tr(c2, 42, -46, 0.5); c2.setAttribute('opacity', 0.4); [-46, 46].forEach(y => E('line', { x1: -80, y1: y, x2: 80, y2: y, stroke: C.good, 'stroke-width': 2.5, 'stroke-dasharray': '6 6' }, g)); return [c1, c2]; } },
-    { x: 975, L: 'L', w: 'Laterally\ninverted', icon: g => { T(g, -44, 26, 'R', { size: 76, weight: 700, anchor: 'middle', fill: C.ink }); E('line', { x1: 0, y1: -56, x2: 0, y2: 56, stroke: LT.mirror, 'stroke-width': 6, 'stroke-linecap': 'round' }, g); const r2 = T(g, 44, 26, 'R', { size: 76, weight: 700, anchor: 'middle', fill: C.ink, opacity: 0.55 }); r2.setAttribute('transform', 'translate(88 0) scale(-1 1)'); return []; } },
+    { x: 975, L: 'L', w: 'Laterally\ninverted', icon: g => { T(g, -44, 26, 'R', { size: 76, weight: 700, anchor: 'middle', fill: C.ink }); tr(planeMirror(g, 112, { gap: 14 }), 0, 0, 1, -90); const r2 = T(g, 48, 26, 'R', { size: 76, weight: 700, anchor: 'middle', fill: C.ink, opacity: 0.55 }); r2.setAttribute('transform', 'translate(96 0) scale(-1 1)'); return []; } },
   ].map(c => {
     const g = G(Eg);
     card(g, -118, -150, 236, 320, { fill: C.card, stroke: C.line });

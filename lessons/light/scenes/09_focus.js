@@ -33,13 +33,13 @@ scene('focus', S => {
     E('path', { d: 'M-56,-22 Q-44,-38 -28,-24 T2,-26 T30,-22 T54,-30 M-62,6 Q-46,-8 -30,6 T0,4 T28,8 T58,0 M-40,30 Q-24,18 -8,30 T24,26 M-22,-50 Q-4,-60 14,-50', fill: 'none', stroke: '#B04B7A', 'stroke-width': 4, 'stroke-linecap': 'round', opacity: 0.85 }, g);
     return g;
   }
+  // the colour chapter's blue book, small (about 64 x 83, its page edge at x = 32)
   function bookArt(parent) {
-    const g = G(parent);
-    E('rect', { x: -22, y: -40, width: 50, height: 82, rx: 4, fill: '#F4EFE2', stroke: '#C9C2AE', 'stroke-width': 2 }, g);
-    E('rect', { x: -30, y: -44, width: 52, height: 86, rx: 5, fill: ball('#5B95F7', '#2A5BC2'), stroke: '#9CC0FF', 'stroke-width': 2.5 }, g);
-    E('rect', { x: -30, y: -44, width: 11, height: 86, rx: 4, fill: '#2A5BC2' }, g);
-    E('rect', { x: -13, y: -26, width: 28, height: 10, rx: 3, fill: C.energy }, g);
-    E('rect', { x: -13, y: -10, width: 20, height: 6, rx: 3, fill: '#CFE0FF', opacity: 0.8 }, g);
+    const g = G(parent), b = G(g); tr(b, 0, 0, 0.4);
+    E('rect', { x: -70, y: -100, width: 150, height: 200, rx: 8, fill: '#F4EBD9', stroke: '#CDBF9F', 'stroke-width': 5 }, b);
+    E('rect', { x: -80, y: -104, width: 150, height: 208, rx: 8, fill: '#3B82F6', stroke: '#1E4FA8', 'stroke-width': 7 }, b);
+    E('rect', { x: -80, y: -104, width: 22, height: 208, rx: 6, fill: '#1E4FA8', opacity: 0.75 }, b);
+    [-58, -36].forEach(y => E('rect', { x: -40, y, width: 90, height: 10, rx: 5, fill: '#FFFFFF', opacity: 0.75 }, b));
     return g;
   }
   const unit = v => { const L = Math.hypot(v[0], v[1]) || 1; return [v[0] / L, v[1] / L]; };
@@ -269,7 +269,7 @@ scene('focus', S => {
         if (i === 4) edgeY = lerp(pn[2][1], pf[2][1], farObj) - LY;
       });
       const draw = P(t, S.first + 0.1, 1.2, easeOut);
-      nearR.forEach(r => r.set(draw)); farR.forEach(r => r.set(draw));
+      nearR.forEach(r => { r.set(draw); if (draw <= 0.002) op(r, 0); }); farR.forEach(r => { r.set(draw); if (draw <= 0.002) op(r, 0); });   // no end-cap dot before they start
       const sharp = 1 - clamp((Math.abs(edgeY) - 6) / 26);
       const fy = LY, fx = LX + RV;
       tr(focusDot, fx, fy, 0.7 + 0.3 * sharp); op(focusDot, sharp * draw);

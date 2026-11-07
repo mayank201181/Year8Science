@@ -63,23 +63,19 @@ scene('refraction', S => {
     const x = (lo + hi) / 2, tha = Math.atan2(Math.abs(x - eye[0]), y0 - eye[1]);
     return { p: [x, y0], img: [src[0], y0 + Math.abs(src[0] - x) / Math.tan(tha)] };
   }
-  /* a yellow hexagonal pencil along +x from 0 to len, w wide; o.tip: sharpened at x = len; o.rubber: pink rubber at 0 */
-  function pencilArt(parent, len, o) {
-    o = o || {};
-    const g = G(parent), w = o.w || 22, h = w / 2, cone = o.tip ? w * 1.9 : 0, rub = o.rubber ? w * 1.75 : 0, x0 = rub, x1 = len - cone;
-    if (o.rubber) {
-      E('rect', { x: 0, y: -h + 1, width: rub - w * 0.5 + 6, height: w - 2, rx: 7, fill: ball('#FF9CBB', '#D25D86'), stroke: '#B8436D', 'stroke-width': 2 }, g);
-      E('rect', { x: rub - w * 0.6, y: -h - 1.5, width: w * 0.6, height: w + 3, rx: 2, fill: linGrad('#EEF2F5', '#8E9BA7', true), stroke: '#6F7C88', 'stroke-width': 1.5 }, g);
-    }
-    E('rect', { x: x0, y: -h, width: x1 - x0, height: w, fill: '#E3A20C' }, g);
-    E('rect', { x: x0, y: -h * 0.42, width: x1 - x0, height: h * 0.84, fill: '#FFC93C' }, g);
-    E('line', { x1: x0, y1: -h * 0.42, x2: x1, y2: -h * 0.42, stroke: '#FFE7A3', 'stroke-width': 2 }, g);
-    E('rect', { x: x0, y: -h, width: x1 - x0, height: w, fill: 'none', stroke: '#9C6B08', 'stroke-width': 2 }, g);
-    if (o.tip) {
-      E('path', { d: `M${x1},${-h} L${len},0 L${x1},${h} Z`, fill: '#F2D3A3', stroke: '#B88A55', 'stroke-width': 2, 'stroke-linejoin': 'round' }, g);
-      const gx = len - cone * 0.34;
-      E('path', { d: `M${gx},${-h * 0.34} L${len},0 L${gx},${h * 0.34} Z`, fill: '#3C424A' }, g);
-    }
+  /* the intro's yellow hexagonal pencil along +x, w wide: graphite tip at the origin, pink rubber at x = len */
+  function pencilArt(parent, len, w) {
+    const g = G(parent), h = w / 2, k = w / 30, cone = 66 * k, fer = 30 * k, rub = 42 * k, b1 = len - fer - rub;
+    E('path', { d: `M0,0 L${cone},${-h} L${cone},${h} Z`, fill: '#EDCBA2', stroke: '#B7895A', 'stroke-width': 2, 'stroke-linejoin': 'round' }, g);
+    E('path', { d: `M0,0 L${cone * 0.32},${-h * 0.32} L${cone * 0.32},${h * 0.32} Z`, fill: '#3B4149' }, g);
+    ['#FFE58A', '#FFC93C', '#DD9A17'].forEach((c, j) => {
+      const y0 = -h + j * w / 3, y1 = y0 + w / 3, ym = (y0 + y1) / 2;
+      E('path', { d: `M${cone},${y0} Q${cone - 13 * k},${ym} ${cone},${y1} L${b1},${y1} L${b1},${y0} Z`, fill: c }, g);
+    });
+    E('rect', { x: b1, y: -h - 1.5, width: fer, height: w + 3, rx: 3, fill: linGrad('#F1F5F8', '#8D99A5', true) }, g);
+    [8, 16, 24].forEach(x => E('line', { x1: b1 + x * k, y1: -h, x2: b1 + x * k, y2: h, stroke: '#7D8994', 'stroke-width': 2 }, g));
+    E('path', { d: `M${b1 + fer},${-h} L${len - 9 * k},${-h} Q${len},${-h} ${len},${-h + 9 * k} L${len},${h - 9 * k} Q${len},${h} ${len - 9 * k},${h} L${b1 + fer},${h} Z`, fill: '#FF93B5', stroke: '#D8648C', 'stroke-width': 2 }, g);
+    E('path', { d: `M0,0 L${cone},${-h} L${b1},${-h} M0,0 L${cone},${h} L${b1},${h}`, fill: 'none', stroke: '#8A6212', 'stroke-width': 2, 'stroke-linejoin': 'round' }, g);
     return g;
   }
   /* parallel marks (two chevrons) at p, along direction ang */
@@ -207,15 +203,21 @@ scene('refraction', S => {
   const WY = 350, PT = [610, 540], PE = [705, 350], PQ = [300, 160];       // surface, real tip, entry point, eye
   const spc = surfacePoint(PT, PQ, WY, NW), PS = spc.p, PI = spc.img, KAPP = (PI[1] - WY) / (PT[1] - WY);
   const pdir = (() => { const v = [PT[0] - PE[0], PT[1] - PE[1]], L = Math.hypot(v[0], v[1]); return [v[0] / L, v[1] / L]; })();   // rubber -> tip
-  const PL = Math.hypot(PT[0] - PE[0], PT[1] - PE[1]), PTOP = pt(PE, pdir, -205), PANG = ltAng(pdir), PW = 22;
+  const PL = Math.hypot(PT[0] - PE[0], PT[1] - PE[1]), PANG = ltAng(pdir), PW = 25;
   const penG = G(Cg);
-  const pTop = pencilArt(penG, 205, { rubber: true, w: PW }); tr(pTop, PTOP[0], PTOP[1], 1, PANG);
-  const perp = [-pdir[1], pdir[0]], cb = pt(PE, pdir, PL - PW * 1.9);
-  const pGhost = E('path', { d: polyD([pt(PE, perp, PW / 2), pt(cb, perp, PW / 2), PT, pt(cb, perp, -PW / 2), pt(PE, perp, -PW / 2)]), fill: 'rgba(255,201,60,0.12)', stroke: '#FFE7A3', 'stroke-width': 2.5, 'stroke-dasharray': '8 6', 'stroke-linejoin': 'round' }, penG);
-  const squash = G(penG);
-  const pUnder = pencilArt(squash, PL, { tip: true, w: PW }); tr(pUnder, PE[0], PE[1], 1, PANG);
+  const pencil = pencilArt(penG, PL + 205, PW); tr(pencil, PT[0], PT[1], 1, PANG + 180);     // the real pencil: straight
   const bk = beaker(Cg, 360, 340, { level: (640 - WY) / (640 - 318), opacity: 0.3 }); tr(bk, 580, 470);
-  E('line', { x1: 404, y1: WY, x2: 756, y2: WY, stroke: C.water, 'stroke-width': 3 }, Cg);
+  // the water as in the intro's glass: a little extra tint under a pale surface line
+  E('path', { d: `M403,${WY} L757,${WY} L757,626 Q757,638 745,638 L415,638 Q403,638 403,626 Z`, fill: C.water, opacity: 0.17 }, Cg);
+  E('line', { x1: 403, y1: WY, x2: 757, y2: WY, stroke: '#C4F1FF', 'stroke-width': 3, opacity: 0.85 }, Cg);
+  // where the eye sees the underwater part: a virtual image, drawn like the plane-mirror chapter's ghost candle
+  // (a see-through copy) with a dashed outline, over the water; the snap raises it out of the real pencil
+  const perp = [-pdir[1], pdir[0]], cb = pt(PE, pdir, PL - PW * 2.2);
+  const squash = G(Cg), pGhost = G(squash);
+  const belowCp = E('clipPath', { id: 'light-refr-below' }, defs()); E('rect', { x: 0, y: WY, width: W, height: H - WY }, belowCp);
+  const ghostPen = G(pGhost, { 'clip-path': 'url(#light-refr-below)', opacity: 0.55 });
+  tr(pencilArt(ghostPen, PL + 205, PW), PT[0], PT[1], 1, PANG + 180);
+  E('path', { d: polyD([pt(PE, perp, PW / 2), pt(cb, perp, PW / 2), PT, pt(cb, perp, -PW / 2), pt(PE, perp, -PW / 2)]), fill: 'none', stroke: '#FFE7A3', 'stroke-width': 3, 'stroke-dasharray': '8 6', 'stroke-linejoin': 'round', 'vector-effect': 'non-scaling-stroke' }, pGhost);
   const pNrm = normalLine(Cg, PS[0], WY, -90, 66, { back: 66 });
   const pExt = lightRay(Cg, PS[0], PS[1], PI[0], PI[1], { dash: '10 8', heads: false, glow: false, width: 4, color: C.energyLt });
   const pTip = flashAt(Cg, PT, 34), pFlash = flashAt(Cg, PS, 44);
@@ -420,7 +422,7 @@ scene('refraction', S => {
       setP(pNrm, P(t, tS - 0.1, 0.5)); op(pNrm, P(t, tS - 0.1, 0.2, linear));
       drawRay(pExt, P(t, mid('pencil', 0.62), 0.7, linear));
       op(pRing, P(t, mid('pencil', 0.62) + 0.6, 0.3, linear));
-      // the snap: the underwater part rises into where the eye sees it; its real place stays as a dashed ghost
+      // the snap: where the eye sees the underwater part (a dashed, virtual ghost) rises out of the real pencil
       const sn = P(t, mid('pencil', 0.68), 1.2);
       squash.setAttribute('transform', `translate(0 ${WY}) scale(1 ${lerp(1, KAPP, sn).toFixed(4)}) translate(0 ${-WY})`);
       op(pGhost, sn);

@@ -19,6 +19,8 @@ scene('fibres', S => {
   const plain = segs => segs.map(s => (typeof s === 'string' ? s : s[0])).join('');
   const fit = (segs, size, maxW) => { const w = textWidth(plain(segs), size, FD, 700); return w > maxW ? Math.floor(size * maxW / w) : size; };
   const popIn = (el, p, x, y, s0) => { s0 = s0 === undefined ? 0.75 : s0; op(el, clamp(p * 2)); tr(el, x, y + (1 - clamp(p)) * 16, Math.max(0.01, s0 + (1 - s0) * p)); };
+  // a ray drawn to p (0..1) at opacity a; hidden at 0, where its round end cap would still paint a dot
+  const rset = (r, p, a) => { r.set(p); op(r, p > 0.002 ? (a === undefined ? 1 : a) : 0); };
   /* angle of refraction (deg) for light leaving glass at angle i: exactly 90° at the critical angle, null beyond (TIR) */
   const rOut = i => { const s = NG * Math.sin(i * DEG); return s > 1 + 1e-6 ? null : s >= 1 - 1e-6 ? 90 : Math.asin(s) / DEG; };
   /* polylines measured by arc length: along(m, s) is the point s px from the start */
@@ -283,7 +285,9 @@ scene('fibres', S => {
   E('path', { d: polyD(crownZ), fill: 'none', stroke: '#DDF1FF', 'stroke-width': 2, opacity: 0.55, 'stroke-linejoin': 'round' }, dmG);
   E('path', { d: [-180, -100, 0, 100, 180].map(x => `M${x},0 L0,${PVD}`).join(' ') + ` M${-DW},0 L${DW},0`, fill: 'none', stroke: '#DDF1FF', 'stroke-width': 2, opacity: 0.4 }, dmG);
   E('path', { d: polyD(DV) + 'Z', fill: 'none', stroke: '#EAF7FF', 'stroke-width': 4, 'stroke-linejoin': 'round' }, dmG);
-  const dPath = dmG.trace([DX - 68, 126], 90, LT.nDiamond, 150);   // [start, table, facet 1, facet 2, exit, end]
+  // entering 110 left of centre, the light leaves through the middle of the right crown facet (not at the table's
+  // corner), so its bend up-left out of that sloping face is clear; the angles are 41° and 57° at any entry point
+  const dPath = dmG.trace([DX - 110, 126], 90, LT.nDiamond, 150);  // [start, table, facet 1, facet 2, exit, end]
   const dRay = rayPath(Dg, dPath, { head: 16 });
   const dM = measure(dPath);
   const facetNormal = (p, k) => {                                        // inward normal of the facet the point lies on
@@ -332,9 +336,9 @@ scene('fibres', S => {
       tr(boxG, OX + dS[0] * (SLIT + 50), OY + dS[1] * (SLIT + 50), 1, -90 + i);
       box.set(P(t, at('out') - 0.1, 0.4, linear));
       const tHit = at('out') + 1.25;
-      rayI.pts([[OX + dS[0] * SLIT, OY + dS[1] * SLIT], [OX, OY]]); rayI.set(P(t, at('out') + 0.25, 1.0, linear));
-      rayR.pts([[OX, OY], [OX + dR[0] * LREF, OY + dR[1] * LREF]]); rayR.set(P(t, tHit, 0.8, linear)); op(rayR, refrOp(i));
-      rayF.pts([[OX, OY], [OX + dF[0] * LBACK, OY + dF[1] * LBACK]]); rayF.set(P(t, tHit + 0.55, 0.9, linear)); op(rayF, reflOp(i));
+      rayI.pts([[OX + dS[0] * SLIT, OY + dS[1] * SLIT], [OX, OY]]); rset(rayI, P(t, at('out') + 0.25, 1.0, linear));
+      rayR.pts([[OX, OY], [OX + dR[0] * LREF, OY + dR[1] * LREF]]); rset(rayR, P(t, tHit, 0.8, linear), refrOp(i));
+      rayF.pts([[OX, OY], [OX + dF[0] * LBACK, OY + dF[1] * LBACK]]); rset(rayF, P(t, tHit + 0.55, 0.9, linear), reflOp(i));
       const fl = Math.max(Math.sin(Math.PI * P(t, tHit - 0.15, 0.7, linear)), 0.9 * Math.sin(Math.PI * P(t, at('total') + 1.0, 0.9, linear)));
       op(flash, fl);
       // TIR: a burst of light runs down the reflected ray
@@ -378,7 +382,7 @@ scene('fibres', S => {
       op(fibBox, P(t, mid('fibre', 0.85), 0.4, linear));
       // the pulse
       const T0 = at('zigzag') - 0.1, T1 = mid('zigzag', 0.9), q = P(t, T0, T1 - T0, linear), s = q * fibM.len;
-      fibRay.set(q);
+      rset(fibRay, q);
       const pp = along(fibM, s);
       op(pulse, q > 0 && q < 1 ? 1 : 0); tr(pulse, pp[0], pp[1], 0.9 + 0.15 * wave(t, 0.35));
       coreGlow.setAttribute('stroke-dashoffset', (1 - clamp((s - extLen) / inLen)).toFixed(4));
@@ -391,7 +395,7 @@ scene('fibres', S => {
       const mp = P(t, tMag, 0.6, pop);
       op(mag, clamp(mp * 2)); mag.setAttribute('transform', `translate(${MG[0]} ${MG[1]}) scale(${Math.max(0.01, 0.6 + 0.4 * clamp(mp, 0, 1.2)).toFixed(3)}) translate(${-MG[0]} ${-MG[1]})`);
       op(magLink, P(t, tMag, 0.4, linear));
-      magRay.set(P(t, tMag + 0.2, 0.9, linear));
+      rset(magRay, P(t, tMag + 0.2, 0.9, linear));
       magN.set(P(t, tMag + 0.3, 0.5));
       arcTo(magArcI, P(t, tMag + 0.7, 0.5), HM[0], HM[1], nDeg, nDeg + wrap180(aInRev - nDeg));
       arcTo(magArcR, P(t, tMag + 1.0, 0.5), HM[0], HM[1], nDeg, nDeg + wrap180(aOut - nDeg));
@@ -439,7 +443,7 @@ scene('fibres', S => {
       popIn(dName, P(t, at('diamond') + 0.3, 0.5, pop), DX, 690);
       twinkles.forEach((sp, k) => { const ph = ((t - at('diamond')) * 0.7 + k * 0.27) % 1; op(sp, aD * (t > at('diamond') ? Math.sin(ph * Math.PI) : 0) * (k === 3 ? 0.7 : 1)); sp.upd(t + k); });
       const T0 = mid('diamond', 0.12), T1 = mid('diamond', 0.9), q = P(t, T0, T1 - T0, linear), s = q * dM.len;
-      dRay.set(q);
+      rset(dRay, q);
       dHits.forEach(h => {
         const th = T0 + h.s / dM.len * (T1 - T0);
         op(h.fl, Math.sin(Math.PI * P(t, th - 0.12, 0.55, linear)));

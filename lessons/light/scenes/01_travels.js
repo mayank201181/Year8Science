@@ -69,16 +69,21 @@ scene('travels', S => {
     g.set(0);
     return g;
   }
-  // a candle standing on (0,0), flame tip at (0,-h)
+  // a candle standing on (0,0), flame tip at (0,-h): the plane-mirror chapter's candle, scaled.
+  // g.glow is its halo; g.upd(t, k) flickers the flame (k: 0 still .. 1 full)
   function candleArt(parent, h) {
-    const g = G(parent), bw = h * 0.3, bh = h * 0.6;
-    E('rect', { x: -bw / 2, y: -bh, width: bw, height: bh, rx: bw * 0.2, fill: ball('#F6EBD2', '#C9B98F'), stroke: '#EADCB8', 'stroke-width': 2.5 }, g);
-    E('line', { x1: 0, y1: -bh, x2: 0, y2: -bh - h * 0.07, stroke: '#3A2A1A', 'stroke-width': 3 }, g);
-    const fl = G(g); tr(fl, 0, -bh - h * 0.06);
-    g.glow = E('circle', { cx: 0, cy: -h * 0.15, r: h * 0.42, fill: glow('#FFB347') }, fl);
-    E('path', { d: `M0,0 C${-h * 0.11},${-h * 0.07} ${-h * 0.1},${-h * 0.2} 0,${-h * 0.34} C${h * 0.1},${-h * 0.2} ${h * 0.11},${-h * 0.07} 0,0 Z`, fill: '#FFB13B', stroke: '#FFE07A', 'stroke-width': 1.5 }, fl);
-    E('path', { d: `M0,-2 C${-h * 0.05},${-h * 0.05} ${-h * 0.05},${-h * 0.13} 0,${-h * 0.2} C${h * 0.05},${-h * 0.13} ${h * 0.05},${-h * 0.05} 0,-2 Z`, fill: '#FFF3B0' }, fl);
-    g.flame = fl;
+    const g = G(parent), c = G(g); tr(c, 0, -h, h / 185);
+    g.glow = E('ellipse', { cx: 0, cy: 30, rx: 64, ry: 78, fill: glow('#FFB347') }, c);
+    E('ellipse', { cx: 0, cy: 176, rx: 44, ry: 9, fill: ball('#C9D6DF', '#7D8C99'), stroke: '#E2EAF0', 'stroke-width': 2 }, c);
+    E('rect', { x: -18, y: 58, width: 36, height: 118, rx: 5, fill: linGrad('#FFF7E6', '#DCC6A0'), stroke: '#CDB892', 'stroke-width': 2 }, c);
+    E('ellipse', { cx: 0, cy: 58, rx: 18, ry: 5, fill: '#FFF9EE' }, c);
+    E('path', { d: 'M-18,60 Q-19,82 -13,86 Q-9,82 -9,61 Z', fill: '#FFF9EE' }, c);
+    E('line', { x1: 0, y1: 42, x2: 0, y2: 58, stroke: '#3A2A1A', 'stroke-width': 3, 'stroke-linecap': 'round' }, c);
+    const fl = G(c);
+    E('path', { d: 'M0,0 C-6,14 -15,26 -14,38 C-13,48 -7,54 0,54 C7,54 13,48 14,38 C15,26 6,14 0,0 Z', fill: '#FFB13B' }, fl);
+    E('path', { d: 'M0,18 C-4,28 -8,34 -7,41 C-6,47 -3,50 0,50 C3,50 6,47 7,41 C8,34 4,28 0,18 Z', fill: '#FFF1B8' }, fl);
+    g.upd = (t, k) => fl.setAttribute('transform', `translate(0 54) scale(${(1 + 0.05 * k * Math.sin(t * 9)).toFixed(3)} ${(1 + 0.07 * k * Math.sin(t * 13 + 1)).toFixed(3)}) translate(0 -54)`);
+    g.upd(0, 0);
     return g;
   }
   // a phone with a glowing screen, about 96 x 172, centred
@@ -91,14 +96,13 @@ scene('travels', S => {
     E('rect', { x: -14, y: 74, width: 28, height: 4, rx: 2, fill: '#8FA3B3' }, g);
     return g;
   }
-  // a closed book, front cover, in flat unlit grey
+  // a closed book, front cover, in flat unlit grey: the colour chapter's book (about 108 x 140)
   function bookArt(parent) {
-    const g = G(parent);
-    E('rect', { x: -50, y: -66, width: 108, height: 136, rx: 5, fill: '#8F99A3' }, g);
-    E('rect', { x: -58, y: -70, width: 108, height: 140, rx: 7, fill: '#5E6A76', stroke: '#7C8894', 'stroke-width': 3 }, g);
-    E('rect', { x: -58, y: -70, width: 16, height: 140, rx: 6, fill: '#505B66' }, g);
-    E('rect', { x: -30, y: -40, width: 62, height: 14, rx: 4, fill: '#7C8894' }, g);
-    E('rect', { x: -30, y: -18, width: 44, height: 8, rx: 3, fill: '#7C8894' }, g);
+    const g = G(parent), b = G(g); tr(b, 0, 0, 0.68);
+    E('rect', { x: -70, y: -100, width: 150, height: 200, rx: 8, fill: '#8F99A3', stroke: '#7C8894', 'stroke-width': 3 }, b);
+    E('rect', { x: -80, y: -104, width: 150, height: 208, rx: 8, fill: '#5E6A76', stroke: '#7C8894', 'stroke-width': 4.4 }, b);
+    E('rect', { x: -80, y: -104, width: 22, height: 208, rx: 6, fill: '#505B66' }, b);
+    [-58, -36].forEach(y => E('rect', { x: -40, y, width: 90, height: 10, rx: 5, fill: '#7C8894' }, b));
     return g;
   }
   // a firework burst of radius R; g.set(p): 0 not yet .. 1 faded away
@@ -272,7 +276,7 @@ scene('travels', S => {
 
   /* ===== I. the Moon reflects sunlight ===== */
   const Ig = G(root);
-  const SUNP = [190, 330], MP = [930, 236], MR = 62, EAP = [560, 668], EAR = 104;
+  const SUNP = [190, 330], MP = [930, 236], MR = 62, EAP = [560, 628], EAR = 104;     // the Earth sits whole on stage
   const litDeg = ltAng([SUNP[0] - MP[0], SUNP[1] - MP[1]]);
   const sunI = sun(Ig, 50); tr(sunI, SUNP[0], SUNP[1]);
   const moon = moonArt(Ig, MR, litDeg); tr(moon, MP[0], MP[1]);
@@ -367,7 +371,7 @@ scene('travels', S => {
       lumIcons.forEach((ic, i) => { const p = P(t, showL[i], 0.5, pop); op(ic, clamp(p * 2)); tr(ic, LX[i], LY + (1 - clamp(p)) * 26, Math.max(0.01, 0.8 + 0.2 * p)); });
       sunArt.upd(t * calm);
       lamp2.set(dimL * (0.92 + 0.08 * wave(t, 1.3) * calm));
-      cand.flame.setAttribute('transform', `translate(0 ${(-150 * 0.66).toFixed(1)}) scale(${(1 + 0.05 * Math.sin(t * 9) * calm).toFixed(3)} ${(1 + 0.08 * Math.sin(t * 13 + 1) * calm).toFixed(3)})`);
+      cand.upd(t, calm);
       op(cand.glow, dimL); op(ph.glow, dimL * (0.85 + 0.15 * wave(t, 2.1)));
       lumLabs.forEach((l, i) => op(l, P(t, showL[i] + 0.15, 0.35, linear) * (1 - toTop)));
       op(nonG, P(t, at('nonlum') + 0.2, 0.4, linear));

@@ -37,7 +37,6 @@ scene('colour', S => {
     return best === null ? null : [p[0] + d[0] * best, p[1] + d[1] * best];
   }
   const xf = (pts, x, y, s, r) => { const c = Math.cos(r * Math.PI / 180), n = Math.sin(r * Math.PI / 180); return pts.map(q => [x + s * (q[0] * c - q[1] * n), y + s * (q[0] * n + q[1] * c)]); };
-  const circlePts = (cx, cy, r) => { const o = []; for (let i = 0; i <= 72; i++) o.push([cx + r * Math.cos(i / 72 * TAU), cy + r * Math.sin(i / 72 * TAU)]); return o; };
   const cubicPts = (a, b, c, d, n) => { const o = []; for (let i = 0; i <= n; i++) { const u = i / n, v = 1 - u; o.push([v * v * v * a[0] + 3 * v * v * u * b[0] + 3 * v * u * u * c[0] + u * u * u * d[0], v * v * v * a[1] + 3 * v * v * u * b[1] + 3 * v * u * u * c[1] + u * u * u * d[1]]); } return o; };
   const seg = (x1, y1, x2, y2) => [[x1, y1], [x2, y2]];
   const hex = c => [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16));
@@ -110,18 +109,22 @@ scene('colour', S => {
   const PANE_RED = ['rgba(255,77,77,0.42)', '#FF8A8A'], PANE_GRN = ['rgba(76,217,100,0.40)', '#8EF0A0'];
 
   /* ---------- objects ---------- */
+  // the red apple of the intro and chapter 1, about 2 × AR across; APPLE_SEGS is its outline (four cubics), which
+  // the light's hit test follows too
+  const AR = 92, APPLE_SEGS = [
+    [[0, -0.62], [0.5, -1.05], [1.12, -0.72], [1.02, 0.05]], [[1.02, 0.05], [0.95, 0.75], [0.45, 1.05], [0, 0.88]],
+    [[0, 0.88], [-0.45, 1.05], [-0.95, 0.75], [-1.02, 0.05]], [[-1.02, 0.05], [-1.12, -0.72], [-0.5, -1.05], [0, -0.62]],
+  ].map(s => s.map(q => [q[0] * AR, q[1] * AR]));
   function apple(parent) {
-    const g = G(parent), lit = G(g), dark = G(g);
-    E('circle', { r: 96, fill: ball('#F0505C', '#8E1B26'), stroke: '#FF9AA2', 'stroke-width': 3 }, lit);
-    E('ellipse', { cx: -62, cy: -2, rx: 12, ry: 26, fill: '#FFFFFF', opacity: 0.2, transform: 'rotate(15 -62 -2)' }, lit);
-    const dm = ltPt(0, 0, -60, 88);
-    const stem = `M${dm[0].toFixed(1)},${(dm[1] + 2).toFixed(1)} Q${(dm[0] + 4).toFixed(1)},${(dm[1] - 16).toFixed(1)} ${(dm[0] + 16).toFixed(1)},${(dm[1] - 27).toFixed(1)}`;
-    const dimple = `M${(dm[0] - 14).toFixed(1)},${(dm[1] + 2).toFixed(1)} Q${dm[0].toFixed(1)},${(dm[1] + 12).toFixed(1)} ${(dm[0] + 12).toFixed(1)},${(dm[1] - 5).toFixed(1)}`;
-    E('path', { d: dimple, fill: 'none', stroke: '#8E1B26', 'stroke-width': 4, 'stroke-linecap': 'round' }, lit);
-    E('path', { d: stem, fill: 'none', stroke: '#7A5236', 'stroke-width': 6, 'stroke-linecap': 'round' }, lit);
-    E('ellipse', { cx: dm[0] + 33, cy: dm[1] - 26, rx: 19, ry: 8, fill: ball(C.plant, C.plantDk), transform: `rotate(-22 ${dm[0] + 33} ${dm[1] - 26})` }, lit);
-    E('circle', { r: 96, fill: '#121619', stroke: '#33414C', 'stroke-width': 3 }, dark);
-    E('path', { d: stem, fill: 'none', stroke: '#33414C', 'stroke-width': 6, 'stroke-linecap': 'round' }, dark);
+    const g = G(parent), lit = G(g), dark = G(g), r = AR;
+    const body = `M${APPLE_SEGS[0][0]} ` + APPLE_SEGS.map(s => `C${s[1]} ${s[2]} ${s[3]}`).join(' ') + ' Z';
+    const stem = `M0,${-r * 0.6} Q${r * 0.04},${-r * 0.85} ${-r * 0.1},${-r * 1.05}`;
+    E('path', { d: body, fill: ball('#FF5A5F', '#9E1C2A'), stroke: '#FFB3B5', 'stroke-width': 3 }, lit);
+    E('path', { d: `M${-r * 0.55},${-r * 0.35} Q${-r * 0.7},${-r * 0.05} ${-r * 0.58},${r * 0.2}`, fill: 'none', stroke: '#FFFFFF', 'stroke-width': r * 0.09, 'stroke-linecap': 'round', opacity: 0.55 }, lit);
+    E('path', { d: stem, fill: 'none', stroke: '#6B4423', 'stroke-width': r * 0.11, 'stroke-linecap': 'round' }, lit);
+    E('path', { d: `M${-r * 0.02},${-r * 0.86} C${r * 0.2},${-r * 1.12} ${r * 0.52},${-r * 1.08} ${r * 0.62},${-r * 0.94} C${r * 0.4},${-r * 0.78} ${r * 0.14},${-r * 0.76} ${-r * 0.02},${-r * 0.86} Z`, fill: ball(C.plant, C.plantDk), stroke: C.plantDk, 'stroke-width': 1.5 }, lit);
+    E('path', { d: body, fill: '#121619', stroke: '#33414C', 'stroke-width': 3 }, dark);
+    E('path', { d: stem, fill: 'none', stroke: '#33414C', 'stroke-width': r * 0.11, 'stroke-linecap': 'round' }, dark);
     g.dark = v => { op(dark, v); op(lit, 1 - v); };
     g.dark(0);
     return g;
@@ -164,7 +167,8 @@ scene('colour', S => {
   const lf = G(LA); leaf(lf, 1.2);                                    // the kit leaf: 205 long, pointing right from (0, 0)
   const LF_AT = [462, 548, 1.2, -12];
   const leafPoly = xf([...cubicPts([0, 0], [40, -60], [150, -70], [205, 0], 24), ...cubicPts([205, 0], [150, 70], [40, 60], [0, 0], 24).slice(1)], LF_AT[0], LF_AT[1], LF_AT[2], LF_AT[3]);
-  const bunA = bundle(LA, L_APPLE, [552, 462], 7.5, circlePts(AC[0], AC[1], 96));
+  const applePoly = xf(APPLE_SEGS.flatMap((s, k) => cubicPts(s[0], s[1], s[2], s[3], 24).slice(k ? 1 : 0)), AC[0], AC[1], 1, 0);
+  const bunA = bundle(LA, L_APPLE, [520, 492], 7.5, applePoly);      // lands on the apple's left shoulder: red leaves above the stem
   const leafHits = bunA.ks.map(K => hitPoly(K.s0, bunA.d, leafPoly) || K.e);
   const appleHits = bunA.hits;
   const FA = eyeFront(EYE_A, EYE_AR);

@@ -1,6 +1,6 @@
 /* Intro: the pencil that seems to snap.
    Beats: a straight pencil dips into a glass of water and looks snapped at the waterline (showpiece) -> pulled out
-   it is whole again; dipped once more, a dotted path of light runs from its tip, bending at the surface, up to an
+   it is whole again; dipped once more, a ray of light runs from its real tip, bending at the surface, up to an
    eye, with a "?" -> the glass shrinks away for the title "Light & Optics" and four icon cards (travels, bounces,
    bends, splits) -> a three-card roadmap: ray diagrams, a red apple, your eye.
    Optics: the underwater part is drawn where an eye looking in at 55° from the vertical sees it. Each point is seen
@@ -88,23 +88,13 @@ scene('intro', S => {
   const tkW = tick(lbWhole, 16); tr(tkW, 1070, 142);
   T(lbWhole, 1070, 200, 'whole', { size: 32, weight: 700, anchor: 'middle', fill: C.good });
 
-  // where the underwater part really is (a faint dashed outline), shown with the light's path
-  const ghost = E('path', { d: `M${D1.toFixed(1)},${-PW / 2} L66,${-PW / 2} L0,0 L66,${PW / 2} L${D1.toFixed(1)},${PW / 2}`, fill: 'none', stroke: '#FFE9A8', 'stroke-width': 2.5, 'stroke-dasharray': '7 6', 'stroke-linejoin': 'round', opacity: 0.6, transform: `translate(${TIP[0]} ${TIP[1]}) rotate(${UD})` }, world);
-  // the light's path from the real tip, bending at the surface, to the eye
+  // where the underwater part really is: a faint outline (solid: dashed lines mean virtual in this lesson)
+  const ghost = E('path', { d: `M${D1.toFixed(1)},${-PW / 2} L66,${-PW / 2} L0,0 L66,${PW / 2} L${D1.toFixed(1)},${PW / 2}`, fill: 'rgba(255,233,168,0.08)', stroke: '#FFE9A8', 'stroke-width': 2.5, 'stroke-linejoin': 'round', opacity: 0.5, transform: `translate(${TIP[0]} ${TIP[1]}) rotate(${UD})` }, world);
+  // the light's path from the real tip, bending at the surface, to the eye: a ray like every other in the lesson
   const pathG = G(world);
-  const legs = [[TIP, RP], [RP, PE]], dots = [];
-  let LTOT = 0; legs.forEach(([a, b]) => { LTOT += Math.hypot(b[0] - a[0], b[1] - a[1]); });
-  const NDOT = Math.round(LTOT / 15);
-  for (let i = 0; i <= NDOT; i++) {
-    let s = i / NDOT * LTOT, q = null;
-    for (const [a, b] of legs) { const l = Math.hypot(b[0] - a[0], b[1] - a[1]); if (s <= l + 0.01) { q = [lerp(a[0], b[0], s / l), lerp(a[1], b[1], s / l)]; break; } s -= l; }
-    dots.push(E('circle', { cx: q[0].toFixed(1), cy: q[1].toFixed(1), r: 3.4, fill: C.energy }, pathG));
-  }
+  const pathRay = rayPath(pathG, [TIP, RP, PE], { width: 5, head: 16 });
   const srcDot = G(pathG); tr(srcDot, TIP[0], TIP[1]);
   E('circle', { r: 20, fill: glow(C.energy) }, srcDot); E('circle', { r: 5, fill: C.energyLt }, srcDot);
-  const headA = G(pathG);
-  E('path', { d: 'M0,0 L-17,-10 L-12,0 L-17,10 Z', fill: C.energy }, headA);
-  tr(headA, PE[0], PE[1], 1, -90 - THA + 180 + 180);
   const qG = G(world);
   E('line', { x1: RP[0], y1: RP[1], x2: 612, y2: 342, stroke: C.muted, 'stroke-width': 2.5, 'stroke-dasharray': '6 6' }, qG);
   E('circle', { cx: RP[0], cy: RP[1], r: 9, fill: 'none', stroke: C.energy, 'stroke-width': 3 }, qG);
@@ -201,18 +191,13 @@ scene('intro', S => {
       op(kink, Math.sin(Math.PI * kp) * 0.9);
       tr(kink, SX, YS, 1 + 0.5 * kp);
       op(lbWhole, win(t, mid('whole', 0.24), mid('whole', 0.46), 0.25));
-      // the dotted path of light, the eye and the question mark
+      // the light's path, the eye and the question mark
       op(eyeG, P(t, mid('whole', 0.48), 0.45, linear));
       const pp = P(t, mid('whole', 0.62), 1.15, linear);
       op(pathG, P(t, mid('whole', 0.6), 0.2, linear));
-      dots.forEach((dt, i) => {
-        const f = i / NDOT, on = clamp((pp - f) * 14);
-        const pulse = 0.5 + 0.5 * Math.sin((f * 5 - t * 1.3 * calm) * TAU);   // brightness runs up the path, towards the eye
-        op(dt, on * (0.55 + 0.45 * pulse));
-      });
-      op(srcDot, P(t, mid('whole', 0.6), 0.3, linear));
+      rset(pathRay, pp);
+      op(srcDot, P(t, mid('whole', 0.6), 0.3, linear) * (0.75 + 0.25 * wave(t, 0.9) * calm));
       op(ghost, P(t, mid('whole', 0.58), 0.4, linear));
-      op(headA, clamp((pp - 0.96) * 25));
       const qp = P(t, mid('whole', 0.8), 0.5, pop);
       op(qG, clamp(qp * 2));
       tr(qChip, 584, 364, Math.max(0.01, 0.6 + 0.4 * qp));

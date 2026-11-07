@@ -18,13 +18,33 @@ scene('quiz', S => {
   }
   let _qc = 0;
   const clipCircle = (cx, cy, r) => { const id = 'light-quiz-clip' + (++_qc); const cp = E('clipPath', { id }, defs()); E('circle', { cx, cy, r }, cp); return `url(#${id})`; };
-  /* a small tree h tall standing on (0,0) */
-  function tree(parent, h) {
+  /* the eye chapter's tree: base at (0,0), top at (0,-195) */
+  function treeArt(parent) {
     const g = G(parent);
-    E('rect', { x: -h * 0.06, y: -h * 0.42, width: h * 0.12, height: h * 0.42, rx: 3, fill: '#8A5A34', stroke: '#B07A4C', 'stroke-width': 2 }, g);
-    [[0, -0.7, 0.3], [-0.17, -0.55, 0.22], [0.17, -0.55, 0.22]].forEach(([x, y, r]) => E('circle', { cx: x * h, cy: y * h, r: r * h, fill: ball(C.plant, C.plantDk), stroke: '#9EF0B4', 'stroke-width': 1.5 }, g));
+    E('path', { d: 'M-12,2 L-9,-84 L9,-84 L12,2 Z', fill: ball('#A9713C', '#6B4423'), stroke: '#5A3A1C', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, g);
+    const pts = [];
+    for (let i = 0; i < 14; i++) { const a = i / 14 * TAU, k = 1 + 0.07 * Math.cos(a * 5 + 0.6); pts.push([Math.cos(a) * 74 * k, -118 + Math.sin(a) * 72 * k]); }
+    E('path', { d: closedPath(pts), fill: ball(C.plant, C.plantDk), stroke: C.plantDk, 'stroke-width': 3 }, g);
+    E('path', { d: 'M-38,-150 Q-20,-170 4,-168', fill: 'none', stroke: '#C9F2D3', 'stroke-width': 5, 'stroke-linecap': 'round', opacity: 0.55 }, g);
     return g;
   }
+  /* the mixing chapter's stage spotlight, pointing down (+y) from its yoke; g.head turns */
+  function stageLamp(parent, col) {
+    const g = G(parent);
+    E('path', { d: 'M-31,4 L-31,-18 L31,-18 L31,4', fill: 'none', stroke: '#8FA3B3', 'stroke-width': 5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
+    E('line', { x1: 0, y1: -18, x2: 0, y2: -28, stroke: '#8FA3B3', 'stroke-width': 6, 'stroke-linecap': 'round' }, g);
+    const head = G(g);
+    E('rect', { x: -24, y: -14, width: 48, height: 66, rx: 11, fill: ball('#4A5866', '#232C35'), stroke: '#8FA3B3', 'stroke-width': 2.5 }, head);
+    E('rect', { x: -29, y: 46, width: 58, height: 14, rx: 6, fill: '#2E3A45', stroke: '#8FA3B3', 'stroke-width': 2 }, head);
+    E('circle', { cx: 0, cy: 4, r: 6, fill: '#8FA3B3' }, head);
+    E('circle', { cx: 0, cy: 62, r: 50, fill: glow(col) }, head);
+    E('ellipse', { cx: 0, cy: 61, rx: 23, ry: 7, fill: col }, head);
+    g.head = head;
+    return g;
+  }
+  // a ray drawn to p (0..1); hidden at 0, where its round end cap would still paint a dot
+  const rset = (r, p) => { r.set(p); op(r, p > 0.002 ? 1 : 0); };
+  const unit = v => { const L = Math.hypot(v[0], v[1]) || 1; return [v[0] / L, v[1] / L]; };
 
   /* ---------- progress pips (top right) ---------- */
   const dotsG = G(root);
@@ -57,7 +77,7 @@ scene('quiz', S => {
     tr(qChip, +lab.getAttribute('x'), +lab.getAttribute('y') - 10);
     const tk = tick(g, 15); tr(tk, 540, 470);
     return (t, tA) => {
-      inc.set(P(t, at('q1') + 0.1, 0.8, linear)); refl.set(P(t, at('q1') + 0.8, 0.8, linear));
+      rset(inc, P(t, at('q1') + 0.1, 0.8, linear)); rset(refl, P(t, at('q1') + 0.8, 0.8, linear));
       aI.set(P(t, mid('q1', 0.55), 0.6));
       op(qChip, P(t, mid('q1', 0.68), 0.4, linear) * (1 - P(t, tA, 0.3, linear)));
       aR.set(P(t, tA + 0.1, 0.7));
@@ -79,39 +99,44 @@ scene('quiz', S => {
     const good = rayPath(g, [O, ltPt(O[0], O[1], 90 - rT, 160)]);
     const tk = tick(g, 13); const tkAt = ltPt(O[0], O[1], 90 - rT, 196); tkAt[0] -= cT.w / 2 + 28;
     return (t, tA) => {
-      inc.set(P(t, at('q2') + 0.1, 0.8, linear));
+      rset(inc, P(t, at('q2') + 0.1, 0.8, linear));
       const gp = P(t, mid('q2', 0.5), 0.5, linear);
       op(gT, gp * (1 - P(t, tA, 0.3, linear))); op(gA, gp * (1 - 0.75 * P(t, tA, 0.4, linear)));
       op(cT, P(t, mid('q2', 0.55), 0.4, linear)); op(cA, P(t, mid('q2', 0.6), 0.4, linear) * (1 - 0.6 * P(t, tA, 0.4, linear)));
       cT.box.setAttribute('stroke', t >= tA ? C.good : C.line);
-      good.set(P(t, tA + 0.05, 0.7, linear));
+      rset(good, P(t, tA + 0.05, 0.7, linear));
       const p = P(t, tA + 0.5, 0.45, pop); op(tk, clamp(p * 2)); tr(tk, tkAt[0], tkAt[1], Math.max(0.01, p));
     };
   }
   function picBook(g) {
     const LP = [148, 392], BK = [380, 582], ang = Math.atan2(BK[1] - LP[1], BK[0] - LP[0]) * 180 / Math.PI;
     E('line', { x1: 100, y1: 662, x2: 560, y2: 662, stroke: C.muted, 'stroke-width': 4, 'stroke-linecap': 'round' }, g);   // table
-    const lens = ltPt(LP[0], LP[1], ang, 34), e0 = ltPt(lens[0], lens[1], ang - 15, 320), e1 = ltPt(lens[0], lens[1], ang + 15, 320);
-    const beam = E('path', { d: `M${lens[0] - 4},${lens[1] - 12} L${e0[0]},${e0[1]} L${e1[0]},${e1[1]} L${lens[0] + 4},${lens[1] + 12} Z`, fill: RED, opacity: 0.18 }, g);
-    const rays = [-7, 0, 7].map(d => rayPath(g, [lens, ltPt(lens[0], lens[1], ang + d, 230 - Math.abs(d) * 3)], { color: RED, width: 4, head: 13 }));
-    const lamp = G(g); tr(lamp, LP[0], LP[1], 1, ang);
-    E('rect', { x: -48, y: -26, width: 70, height: 52, rx: 12, fill: ball('#56687A', '#232C35'), stroke: '#8FA3B3', 'stroke-width': 2.5 }, lamp);
-    E('path', { d: 'M22,-26 L40,-34 L40,34 L22,26 Z', fill: '#3A4652', stroke: '#8FA3B3', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, lamp);
-    E('circle', { cx: 42, cy: 0, r: 30, fill: glow(RED) }, lamp);
-    E('rect', { x: 38, y: -30, width: 7, height: 60, rx: 3, fill: RED }, lamp);
+    // the mixing chapter's stage spotlight, hung from a short truss and turned towards the book
+    const truss = G(g);
+    E('path', { d: `M${LP[0] - 60},${LP[1] - 40} L${LP[0] + 60},${LP[1] - 40} M${LP[0] - 60},${LP[1] - 26} L${LP[0] + 60},${LP[1] - 26}`, stroke: '#8FA3B3', 'stroke-width': 4, 'stroke-linecap': 'round' }, truss);
+    let zz = `M${LP[0] - 60},${LP[1] - 40}`; for (let x = LP[0] - 60; x < LP[0] + 60; x += 20) zz += ` L${x + 10},${LP[1] - 26} L${x + 20},${LP[1] - 40}`;
+    E('path', { d: zz, fill: 'none', stroke: '#62808F', 'stroke-width': 2.5 }, truss);
+    const lens = ltPt(LP[0], LP[1], ang, 64), e0 = ltPt(lens[0], lens[1], ang - 15, 290), e1 = ltPt(lens[0], lens[1], ang + 15, 290);
+    const f0 = ltPt(lens[0], lens[1], ang + 90, 20), f1 = ltPt(lens[0], lens[1], ang - 90, 20);
+    const beam = E('path', { d: `M${f0[0].toFixed(1)},${f0[1].toFixed(1)} L${e1[0].toFixed(1)},${e1[1].toFixed(1)} L${e0[0].toFixed(1)},${e0[1].toFixed(1)} L${f1[0].toFixed(1)},${f1[1].toFixed(1)} Z`, fill: RED, opacity: 0.18 }, g);
+    const rays = [-7, 0, 7].map(d => rayPath(g, [lens, ltPt(lens[0], lens[1], ang + d, 200 - Math.abs(d) * 3)], { color: RED, width: 4, head: 13 }));
+    const lamp = stageLamp(g, RED); tr(lamp, LP[0], LP[1]); tr(lamp.head, 0, 0, 1, ang - 90);
+    // the colour chapter's book: in pure red light its blue cover reflects nothing, so it is black, and its white
+    // pages reflect the red
     const book = G(g); tr(book, BK[0], BK[1]);
-    E('rect', { x: -52, y: -80, width: 112, height: 160, rx: 6, fill: '#EFE6CF', stroke: '#C9BD9C', 'stroke-width': 2 }, book);   // pages
-    const cover = E('rect', { x: -60, y: -80, width: 112, height: 160, rx: 7, fill: '#101418', stroke: '#3A4652', 'stroke-width': 3 }, book);
-    E('rect', { x: -60, y: -80, width: 18, height: 160, rx: 6, fill: 'rgba(255,255,255,0.06)' }, book);   // spine
+    const bkA = G(book); tr(bkA, 0, 0, 0.78);
+    E('rect', { x: -70, y: -100, width: 150, height: 200, rx: 8, fill: '#9E3036', stroke: '#C24C52', 'stroke-width': 2.6 }, bkA);   // pages, lit red
+    E('rect', { x: -80, y: -104, width: 150, height: 208, rx: 8, fill: '#101418', stroke: '#3A4652', 'stroke-width': 3.8 }, bkA);   // the blue cover: black
+    E('rect', { x: -80, y: -104, width: 22, height: 208, rx: 6, fill: '#05070A', opacity: 0.75 }, bkA);   // spine
     const qCard = G(book);
-    E('rect', { x: -60, y: -80, width: 112, height: 160, rx: 7, fill: C.card2, stroke: C.muted, 'stroke-width': 3 }, qCard);
+    E('rect', { x: -63, y: -82, width: 118, height: 164, rx: 7, fill: C.card2, stroke: C.muted, 'stroke-width': 3 }, qCard);
     T(qCard, -4, 22, '?', { size: 72, weight: 700, anchor: 'middle', fill: C.muted });
     const black = T(g, BK[0] - 4, BK[1] + 8, 'black', { size: 28, weight: 700, anchor: 'middle', fill: C.muted });
     rich(g, BK[0] + 4, 700, [['blue', BLUE, 800], ' book'], { size: 26, anchor: 'middle' });
     const tk = tick(g, 15); tr(tk, 500, 470);
     return (t, tA) => {
       const on = P(t, at('q3') + 0.1, 0.5, linear);
-      op(beam, on); rays.forEach((r, k) => r.set(P(t, at('q3') + 0.3 + k * 0.12, 0.8, linear)));
+      op(beam, on); rays.forEach((r, k) => rset(r, P(t, at('q3') + 0.3 + k * 0.12, 0.8, linear)));
       const rv = P(t, tA, 0.6, ease);
       op(qCard, 1 - rv); tr(qCard, 0, -rv * 30);
       op(black, P(t, tA + 0.4, 0.4, linear));
@@ -140,26 +165,49 @@ scene('quiz', S => {
     };
   }
   function picEye(g) {
-    const EC = [380, 512], ER = 118;
+    const EC = [380, 512], ER = 118;                                                // the eye chapter's eye, smaller
     const eyeG = G(g); tr(eyeG, EC[0], EC[1]);
     const eye = eyeSection(eyeG, ER); eye.pupil(0.6);
-    const TX = -262, TH = 140;                                                      // the tree, in the eye's coordinates
-    const tr0 = tree(eyeG, TH); tr(tr0, TX, TH / 2);
-    const top = [TX, -TH / 2], base = [TX, TH / 2];
-    const raysTop = eye.rays(top[0], top[1], 2), raysBase = eye.rays(base[0], base[1], 2);
-    const rp = [...raysTop, ...raysBase].map(pts => rayPath(eyeG, pts, { width: 3.5, head: 12, heads: [0] }));
-    const iT = eye.image(top[0], top[1]), iB = eye.image(base[0], base[1]), ih = Math.abs(iT[1] - iB[1]);
-    const img = tree(eyeG, ih); tr(img, (iT[0] + iB[0]) / 2 - 22, iB[1], 1, 180);     // upside down, top at the bottom
+    const geo = eye.geo, lensX = geo.lensX, irisX = geo.irisX, Rr = geo.retinaR, [cx0, cy0, cCtl] = geo.cornea;
+    // the tree as in the eye chapter (in the eye's coordinates): its top level with the axis, its base below
+    const TX = -296, TH = 105, top = [TX, -3], base = [TX, TH - 3];
+    const tr0 = G(eyeG); treeArt(tr0); tr(tr0, base[0], base[1], TH / 195);
+    E('line', { x1: TX - 58, y1: base[1] + 3, x2: TX + 58, y2: base[1] + 3, stroke: C.faint, 'stroke-width': 3, 'stroke-linecap': 'round' }, eyeG);
+    // rays as in the eye chapter: chosen by where they cross the pupil, so none passes through the iris; after the
+    // cornea each heads for where the cornea alone would focus, and the lens bends it on to the image on the retina
+    const corneaX = y => { const u = (y / cy0 + 1) / 2; return cx0 + 2 * u * (1 - u) * (cCtl - cx0); };
+    const retinaHit = (p, d) => { d = unit(d); const b = p[0] * d[0] + p[1] * d[1], c = p[0] * p[0] + p[1] * p[1] - Rr * Rr, k = -b + Math.sqrt(Math.max(0, b * b - c)); return [p[0] + d[0] * k, p[1] + d[1] * k]; };
+    const eyeRays = (sx, sy, n) => {
+      const I = eye.image(sx, sy), ax = unit([I[0] - lensX, I[1]]), Q = [I[0] + ax[0] * 2.4 * ER, I[1] + ax[1] * 2.4 * ER];
+      const half = eye.pupilHalf() * 0.78, pts = [];
+      for (let k = 0; k < n; k++) {
+        const Pp = [irisX, lerp(-half, half, k / (n - 1))], d = unit([Pp[0] - Q[0], Pp[1] - Q[1]]);
+        let lo = 0, hi = 140;
+        for (let it = 0; it < 24; it++) { const m = (lo + hi) / 2; if (Pp[0] + d[0] * m > corneaX(Pp[1] + d[1] * m)) lo = m; else hi = m; }
+        const Cp = [Pp[0] + d[0] * hi, Pp[1] + d[1] * hi], u = (lensX - Pp[0]) / (Q[0] - Pp[0]), Lp = [lensX, lerp(Pp[1], Q[1], u)];
+        pts.push([[sx, sy], Cp, Lp, retinaHit(Lp, [I[0] - Lp[0], I[1] - Lp[1]])]);
+      }
+      return { pts, I };
+    };
+    // light from the top (yellow) and the base (paler yellow, as in the eye chapter)
+    const RT = eyeRays(top[0], top[1], 3), RB = eyeRays(base[0], base[1], 3);
+    const rp = [...RT.pts.map(p => rayPath(eyeG, p, { width: 3.5, head: 12, heads: [0, 2] })), ...RB.pts.map(p => rayPath(eyeG, p, { color: '#FFF0A0', width: 3.5, head: 12, heads: [0, 2] }))];
+    // the image: a slim, upside-down tree on the retina, from the base's image (high) to the top's (low)
+    const I0 = RT.I, IB = RB.I, img = G(eyeG); treeArt(img);
+    { const v = [I0[0] - IB[0], I0[1] - IB[1]], L = Math.hypot(v[0], v[1]), rot = Math.atan2(v[1], v[0]) * 180 / Math.PI + 90, s = L / 195;
+      const n = unit([-v[1], v[0]]), side = n[0] * (IB[0] + I0[0]) + n[1] * (IB[1] + I0[1]) > 0 ? -4 : 4;
+      tr(img, IB[0] + n[0] * side, IB[1] + n[1] * side, `${(s * 0.34).toFixed(4)} ${s.toFixed(4)}`, rot); }
+    const bx0 = Math.min(I0[0], IB[0]) - 34, bx1 = Math.max(I0[0], IB[0]) + 8, by0 = Math.min(I0[1], IB[1]) - 16, by1 = Math.max(I0[1], IB[1]) + 16;
     const cover = G(eyeG);
-    E('rect', { x: iT[0] - 56, y: iB[1] - 18, width: 56, height: ih + 36, rx: 12, fill: C.card2, stroke: C.muted, 'stroke-width': 3 }, cover);
-    T(cover, iT[0] - 28, 20, '?', { size: 44, weight: 700, anchor: 'middle', fill: C.muted });
+    E('rect', { x: bx0, y: by0, width: bx1 - bx0, height: by1 - by0, rx: 12, fill: C.card2, stroke: C.muted, 'stroke-width': 3 }, cover);
+    T(cover, (bx0 + bx1) / 2, (by0 + by1) / 2 + 15, '?', { size: 44, weight: 700, anchor: 'middle', fill: C.muted });
     const cTrue = chip(g, 'true', { size: 28, fill: C.card2, stroke: C.line }), cFalse = chip(g, 'false', { size: 28, fill: C.card2, stroke: C.line });
     tr(cTrue, 290, 690); tr(cFalse, 430, 690);
     const xTrue = cross(g, 10); tr(xTrue, 290 + cTrue.w / 2 + 22, 690);
     return (t, tA) => {
       op(cTrue, P(t, at('q5') + 0.2, 0.4, linear) * (1 - 0.55 * P(t, tA + 0.6, 0.4, linear))); op(cFalse, P(t, at('q5') + 0.35, 0.4, linear));
-      rp.forEach((r, k) => r.set(P(t, tA + 0.05 + (k >> 1) * 0.35, 0.8, linear)));
-      const rv = P(t, tA + 0.5, 0.5, ease);
+      rp.forEach((r, k) => rset(r, P(t, tA + 0.05 + (k >= 3 ? 0.35 : 0), 0.8, linear)));
+      const rv = P(t, tA + 0.8, 0.5, ease);                                         // the image shows as the light lands
       op(cover, 1 - rv); op(img, rv);
       const f = P(t, tA + 0.8, 0.4, pop);
       cFalse.box.setAttribute('fill', f > 0.05 ? C.good : C.card2); cFalse.label.setAttribute('fill', f > 0.05 ? C.bg0 : C.ink);

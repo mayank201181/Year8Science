@@ -185,7 +185,7 @@ scene('shadows', S => {
   const shBody = E('rect', { y: FEET[1] - 6, height: 16, rx: 8, fill: '#06120A', opacity: 0.88 }, shadowEl);
   const shHead = E('ellipse', { cy: FEET[1] + 2, ry: 10, fill: '#06120A', opacity: 0.88 }, shadowEl);
   const sunO = sun(Cg, 44);
-  const rayLine = E('line', { stroke: C.energy, 'stroke-width': 4, 'stroke-dasharray': '12 10', 'stroke-linecap': 'round' }, Cg);
+  const rayLine = lightRay(Cg, 0, 0, 1, 0, { width: 5, head: 15 });     // a real ray of sunlight: solid (dashed means virtual)
   const tipDot = E('circle', { r: 7, fill: C.energy, stroke: '#FFFFFF', 'stroke-width': 2 }, Cg);
   const kid = person(Cg, { shirt: '#E07A3E', shorts: '#3B5A8C' }); kid.setAttribute('transform', `translate(${FEET[0]} ${FEET[1]}) scale(-1 1)`);
   const chMid = chip(Cg, 'midday: Sun high → **short** shadow', { size: 30, fill: C.card2, stroke: C.energy }); tr(chMid, 600, 682);
@@ -314,9 +314,7 @@ scene('shadows', S => {
       const L = HT / Math.tan(el * Math.PI / 180), tipX = FEET[0] - L;
       const rp = P(t, mid('sun', 0.12), 0.9, linear);
       const st = ltPt(sp[0], sp[1], 180 - el, 50);
-      const endX = lerp(st[0], tipX, rp), endY = lerp(st[1], FEET[1], rp);
-      attr(rayLine, 'x1', st[0]); attr(rayLine, 'y1', st[1]); attr(rayLine, 'x2', endX); attr(rayLine, 'y2', endY);
-      op(rayLine, rp > 0.01 ? 1 : 0);
+      rayLine.pts([st, [tipX, FEET[1]]]); rset(rayLine, rp);
       attr(tipDot, 'cx', tipX); attr(tipDot, 'cy', FEET[1]); op(tipDot, P(t, mid('sun', 0.12) + 0.85, 0.3, linear));
       const shp = P(t, mid('sun', 0.12) + 0.7, 0.5, linear);
       op(shadowEl, shp);

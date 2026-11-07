@@ -18,19 +18,25 @@ scene('recap', S => {
   const fit = (segs, size, maxW) => { const w = textWidth(plain(segs), size, FD, 700); return w > maxW ? Math.floor(size * maxW / w) : size; };
   const DARK = '#10202B';
   const RAINBOW = SPECTRUM.map(s => s.color);
-  /* a candle h tall standing on (0,0) with its flame tip at (0,-h); o.ghost draws the faint, dashed mirror image */
-  function candle(parent, h, o) {
-    o = o || {};
-    const g = G(parent, o.ghost ? { opacity: 0.5 } : {}), bw = h * 0.3, bh = h * 0.6;
-    E('rect', { x: -bw / 2, y: -bh, width: bw, height: bh, rx: bw * 0.2, fill: o.ghost ? 'rgba(246,235,210,0.12)' : ball('#F6EBD2', '#C9B98F'), stroke: '#EADCB8', 'stroke-width': 2.5, 'stroke-dasharray': o.ghost ? '6 5' : 'none' }, g);
-    E('line', { x1: 0, y1: -bh, x2: 0, y2: -bh - h * 0.07, stroke: '#3A2A1A', 'stroke-width': 3 }, g);
-    const fl = G(g); tr(fl, 0, -bh - h * 0.06);
-    E('circle', { cx: 0, cy: -h * 0.15, r: h * 0.3, fill: glow('#FFB347') }, fl);
-    E('path', { d: `M0,0 C${-h * 0.11},${-h * 0.07} ${-h * 0.1},${-h * 0.2} 0,${-h * 0.34} C${h * 0.1},${-h * 0.2} ${h * 0.11},${-h * 0.07} 0,0 Z`, fill: '#FFB13B', stroke: '#FFE07A', 'stroke-width': 1.5 }, fl);
-    E('path', { d: `M0,-2 C${-h * 0.05},${-h * 0.05} ${-h * 0.05},${-h * 0.13} 0,${-h * 0.2} C${h * 0.05},${-h * 0.13} ${h * 0.05},${-h * 0.05} 0,-2 Z`, fill: '#FFF3B0' }, fl);
-    g.flame = fl;
+  /* the plane-mirror chapter's candle, h tall, standing on (0,0) with its flame tip at (0,-h); its mirror image is
+     the same candle at 0.45 opacity, as in that chapter. g.upd(t, k) flickers the flame (k: 0 still .. 1 full) */
+  function candle(parent, h) {
+    const g = G(parent), c = G(g); tr(c, 0, -h, h / 185);
+    E('ellipse', { cx: 0, cy: 30, rx: 64, ry: 78, fill: glow('#FFB347'), opacity: 0.9 }, c);
+    E('ellipse', { cx: 0, cy: 176, rx: 44, ry: 9, fill: ball('#C9D6DF', '#7D8C99'), stroke: '#E2EAF0', 'stroke-width': 2 }, c);
+    E('rect', { x: -18, y: 58, width: 36, height: 118, rx: 5, fill: linGrad('#FFF7E6', '#DCC6A0'), stroke: '#CDB892', 'stroke-width': 2 }, c);
+    E('ellipse', { cx: 0, cy: 58, rx: 18, ry: 5, fill: '#FFF9EE' }, c);
+    E('path', { d: 'M-18,60 Q-19,82 -13,86 Q-9,82 -9,61 Z', fill: '#FFF9EE' }, c);
+    E('line', { x1: 0, y1: 42, x2: 0, y2: 58, stroke: '#3A2A1A', 'stroke-width': 3, 'stroke-linecap': 'round' }, c);
+    const fl = G(c);
+    E('path', { d: 'M0,0 C-6,14 -15,26 -14,38 C-13,48 -7,54 0,54 C7,54 13,48 14,38 C15,26 6,14 0,0 Z', fill: '#FFB13B' }, fl);
+    E('path', { d: 'M0,18 C-4,28 -8,34 -7,41 C-6,47 -3,50 0,50 C3,50 6,47 7,41 C8,34 4,28 0,18 Z', fill: '#FFF1B8' }, fl);
+    g.upd = (t, k) => fl.setAttribute('transform', `translate(0 54) scale(${(1 + 0.05 * k * Math.sin(t * 9)).toFixed(3)} ${(1 + 0.07 * k * Math.sin(t * 13 + 1)).toFixed(3)}) translate(0 -54)`);
+    g.upd(0, 0);
     return g;
   }
+  // a ray drawn to p (0..1); hidden at 0, where its round end cap would still paint a dot
+  const rset = (r, p) => { r.set(p); op(r, p > 0.002 ? 1 : 0); };
   /* an air / glass boundary at (x, y), glass below, w wide, rays L long. into: light goes down into the glass and bends
      towards the normal; otherwise it comes up out of the glass and bends away. g.ray.set(p) draws the ray. */
   function miniRefract(parent, x, y, w, L, into, o) {
@@ -85,7 +91,7 @@ scene('recap', S => {
   T(h3, 28, 58, 'VUSL', { size: 40, weight: 700, fill: Y, ls: 3 });
   const mir3 = planeMirror(h3, 176, { gap: 15 }); tr(mir3, 150, 172, 1, -90);
   const can3 = candle(h3, 112); tr(can3, 78, 252);
-  const ghost3 = candle(h3, 112, { ghost: true }); tr(ghost3, 222, 252);
+  const ghost3 = candle(h3, 112); tr(ghost3, 222, 252);
   E('line', { x1: 78, y1: 140, x2: 222, y2: 140, stroke: C.muted, 'stroke-width': 2, 'stroke-dasharray': '6 6', opacity: 0.7 }, h3);
   const vusl = [['V', 'virtual'], ['U', 'upright'], ['S', 'same size'], ['L', 'laterally inverted']].map(([l, w], k) => {
     const g = G(h3), y = 104 + k * 48;
@@ -166,19 +172,20 @@ scene('recap', S => {
         return { sg, ray, arc, mark };
       });
       T(g, 760, 686, 'the normal is at 90° to the surface', { size: 26, weight: 600, fill: C.muted, anchor: 'middle' });
-      return t => parts.forEach((p, j) => { p.ray.set(P(t, at('t1') + 0.1 + j * 0.3, 0.6, linear)); p.arc.set(P(t, mid('t1', 0.2) + j * 0.35, 0.5)); op(p.mark, P(t, mid('t1', 0.38) + j * 0.3, 0.3, linear)); });
+      return t => parts.forEach((p, j) => { rset(p.ray, P(t, at('t1') + 0.1 + j * 0.3, 0.6, linear)); p.arc.set(P(t, mid('t1', 0.2) + j * 0.35, 0.5)); op(p.mark, P(t, mid('t1', 0.38) + j * 0.3, 0.3, linear)); });
     }),
     // 2. a virtual image: two rays from the flame reflect; traced back, they meet behind the mirror
     trapGroup('A plane-mirror image is real', ['A plane-mirror image is ', ['virtual', Y, 800]], g => {
       const MXm = 760, P0 = [560, 450], P1 = [960, 450];
       const m = planeMirror(g, 280, { gap: 15 }); tr(m, MXm, 540, 1, -90);
       const c0 = candle(g, 150); tr(c0, P0[0], P0[1] + 150);
-      const c1 = candle(g, 150, { ghost: true }); tr(c1, P1[0], P1[1] + 150);
+      const c1 = candle(g, 150); tr(c1, P1[0], P1[1] + 150);
       const hits = [[MXm, 420], [MXm, 560]];
       const rays = hits.map(h => { const out = [h[0] + (h[0] - P1[0]) * 0.9, h[1] + (h[1] - P1[1]) * 0.9]; return rayPath(g, [P0, h, out], { width: 4.5, head: 13 }); });
-      const dashes = hits.map(h => E('line', { x1: h[0], y1: h[1], x2: P1[0], y2: P1[1], stroke: C.muted, 'stroke-width': 3, 'stroke-dasharray': '8 7' }, g));
+      // traced back as dashed yellow lines, as in the plane-mirror chapter
+      const dashes = hits.map(h => E('line', { x1: h[0], y1: h[1], x2: P1[0], y2: P1[1], stroke: LT.ray, 'stroke-width': 3.5, 'stroke-dasharray': '10 8', opacity: 0.9 }, g));
       const note = T(g, P1[0], 648, 'no light really gets here', { size: 26, weight: 600, fill: C.muted, anchor: 'middle' });
-      return t => { rays.forEach((r, j) => r.set(P(t, at('t2') + 0.1 + j * 0.25, 0.8, linear))); dashes.forEach(d => op(d, P(t, mid('t2', 0.35), 0.4, linear))); op(c1, 0.5 * P(t, mid('t2', 0.45), 0.4, linear)); op(note, P(t, mid('t2', 0.55), 0.4, linear)); c0.flame.setAttribute('transform', `translate(0 ${(-150 * 0.66).toFixed(1)}) scale(${(1 + 0.05 * calm * Math.sin(t * 9)).toFixed(3)} ${(1 + 0.08 * calm * Math.sin(t * 13)).toFixed(3)})`); };
+      return t => { rays.forEach((r, j) => rset(r, P(t, at('t2') + 0.1 + j * 0.25, 0.8, linear))); dashes.forEach(d => op(d, P(t, mid('t2', 0.35), 0.4, linear))); op(c1, 0.45 * P(t, mid('t2', 0.45), 0.4, linear)); op(note, P(t, mid('t2', 0.55), 0.4, linear)); c0.upd(t, calm); c1.upd(t, calm); };
     }),
     // 3. towards when slowing, away when speeding up
     trapGroup('Light always bends towards the normal', [['Towards', Y, 800], ' if it slows, ', ['away', Y, 800], ' if it speeds up'], g => {
@@ -187,7 +194,7 @@ scene('recap', S => {
       const ta = tick(g, 15); tr(ta, 700, 436); const tb = tick(g, 15); tr(tb, 1060, 436);
       T(g, 590, 686, 'into glass: slows', { size: 26, weight: 600, anchor: 'middle' });
       T(g, 930, 686, 'out of glass: speeds up', { size: 26, weight: 600, anchor: 'middle' });
-      return t => { a.ray.set(P(t, mid('t3', 0.12), 1.0, linear)); b.ray.set(P(t, mid('t3', 0.62), 1.0, linear)); op(ta, P(t, mid('t3', 0.45), 0.3, linear)); op(tb, P(t, mid('t3', 0.9), 0.3, linear)); };
+      return t => { rset(a.ray, P(t, mid('t3', 0.12), 1.0, linear)); rset(b.ray, P(t, mid('t3', 0.62), 1.0, linear)); op(ta, P(t, mid('t3', 0.45), 0.3, linear)); op(tb, P(t, mid('t3', 0.9), 0.3, linear)); };
     }),
     // 4. violet bends the most
     trapGroup('Red bends the most', [['Violet', SPECTRUM[6].color, 800], ' bends most, ', ['red', SPECTRUM[0].color, 800], ' least'], g => {
@@ -199,7 +206,7 @@ scene('recap', S => {
       const eR = paths[0][paths[0].length - 1], eV = paths[6][paths[6].length - 1];
       const lr = T(g, eR[0] + 12, eR[1] + 8, 'red: least', { size: 26, weight: 700, fill: SPECTRUM[0].color });
       const lv = T(g, eV[0] + 12, eV[1] + 8, 'violet: most', { size: 26, weight: 700, fill: SPECTRUM[6].color });
-      return t => { const t0 = at('t4') + 0.1; white.set(P(t, t0, 0.5, linear)); fan.forEach((f, k) => f.set(P(t, t0 + 0.45 + k * 0.05, 0.8, linear))); op(lr, P(t, mid('t4', 0.35), 0.4, linear)); op(lv, P(t, mid('t4', 0.25), 0.4, linear)); };
+      return t => { const t0 = at('t4') + 0.1; rset(white, P(t, t0, 0.5, linear)); fan.forEach((f, k) => rset(f, P(t, t0 + 0.45 + k * 0.05, 0.8, linear))); op(lr, P(t, mid('t4', 0.35), 0.4, linear)); op(lv, P(t, mid('t4', 0.25), 0.4, linear)); };
     }),
     // 5. the Moon only reflects sunlight
     trapGroup('The Moon is luminous', ['The Moon is ', ['non-luminous', Y, 800]], g => {
@@ -214,7 +221,7 @@ scene('recap', S => {
       const r2 = rayPath(g, [[MO[0] - MRd + 4, 512], [688, 634]], { width: 5, head: 14 });
       const lab = T(g, MO[0] + 16, 590, 'reflects sunlight', { size: 26, weight: 600, fill: C.muted, anchor: 'middle' });
       const lum = T(g, 520, 572, 'luminous', { size: 26, weight: 600, fill: Y, anchor: 'middle' });
-      return t => { sn.upd(t * calm); r1.set(P(t, at('t5') + 0.1, 0.7, linear)); r2.set(P(t, at('t5') + 0.8, 0.6, linear)); op(lab, P(t, mid('t5', 0.55), 0.4, linear)); op(lum, P(t, at('t5') + 0.2, 0.4, linear)); };
+      return t => { sn.upd(t * calm); rset(r1, P(t, at('t5') + 0.1, 0.7, linear)); rset(r2, P(t, at('t5') + 0.8, 0.6, linear)); op(lab, P(t, mid('t5', 0.55), 0.4, linear)); op(lum, P(t, at('t5') + 0.2, 0.4, linear)); };
     }),
   ];
 
@@ -253,14 +260,14 @@ scene('recap', S => {
     // card 1: the band lights up colour by colour as the names are read
     stripes.forEach((s, k) => op(s, 0.25 + 0.75 * P(t, mid('richard', 0.5 + k * 0.065), 0.25, linear)));
     // card 2: the two rays travel
-    ref2[0].ray.set(P(t, mid('sloto', 0.12), 0.9, linear)); ref2[1].ray.set(P(t, mid('sloto', 0.55), 0.9, linear));
+    rset(ref2[0].ray, P(t, mid('sloto', 0.12), 0.9, linear)); rset(ref2[1].ray, P(t, mid('sloto', 0.55), 0.9, linear));
     // card 3: V U S L as each word is said
     vusl.forEach((g, k) => op(g, P(t, mid('vusl', [0.48, 0.6, 0.7, 0.82][k]), 0.3, linear)));
-    op(ghost3, 0.5 * P(t, mid('vusl', 0.25), 0.5, linear));
-    can3.flame.setAttribute('transform', `translate(0 ${(-112 * 0.66).toFixed(1)}) scale(${(1 + 0.05 * calm * Math.sin(t * 9)).toFixed(3)} ${(1 + 0.08 * calm * Math.sin(t * 13)).toFixed(3)})`);
+    op(ghost3, 0.45 * P(t, mid('vusl', 0.25), 0.5, linear));
+    can3.upd(t, calm); ghost3.upd(t, calm);
     // card 4: white light in, only red out
     thrIn.forEach((l, k) => l.setAttribute('stroke-dashoffset', (1 - P(t, at('selfish') + 0.1 + k * 0.04, 0.6, linear)).toFixed(4)));
-    redOut.set(P(t, at('selfish') + 0.75, 0.6, linear));
+    rset(redOut, P(t, at('selfish') + 0.75, 0.6, linear));
     // the strip
     STRIP.forEach((c, i) => op(c.g, P(t, at('traps') + 0.15 + i * 0.06, 0.35, linear)));
 

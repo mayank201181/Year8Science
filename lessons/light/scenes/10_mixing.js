@@ -336,7 +336,8 @@ scene('mixing', S => {
     /* C: cones */
     if (aC > 0) {
       const src = [92 - EYE[0], 0];
-      eye.rays(src[0], src[1], 3, 0).forEach((r, k) => { cRays[k].pts(r); cRays[k].set(P(t, at('cones') + 0.1, 1.2, easeOut)); });
+      const cp = P(t, at('cones') + 0.1, 1.2, easeOut);           // (a ray on the axis: the lib's rays pass the pupil cleanly)
+      eye.rays(src[0], src[1], 3, 0).forEach((r, k) => { cRays[k].pts(r); cRays[k].set(cp); op(cRays[k], cp > 0.002 ? 1 : 0); });
       op(call, P(t, mid('cones', 0.3), 0.5, linear));
       tr(call, 0, (1 - P(t, mid('cones', 0.3), 0.6, easeOut)) * 14);
       op(coneLab, P(t, mid('cones', 0.52), 0.4, linear));

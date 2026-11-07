@@ -9,7 +9,9 @@ scene('eye', S => {
   const calm = S.reduce ? 0.3 : 1;
   const EX = 700, EY = 400, R = 220;            // eyeball centre and radius (stage)
   const TREE = [150, 590];                      // base of the tree (stage); its top is 195 px higher
-  const TOPC = C.energy, BASEC = C.water;       // rays from the tree's top (yellow) and base (cyan)
+  // rays are yellow outside the colour chapters, so the base's rays are a paler yellow (as in the shadows chapter);
+  // the dots that mark the tree's top and base, and where their light lands, stay yellow and cyan
+  const TOPC = C.energy, BASEC = C.water, BASER = '#FFF0A0';
 
   /* ---------- local art ---------- */
   // a tree, base at (0,0), top at (0,-195)
@@ -88,14 +90,14 @@ scene('eye', S => {
   const rayG = G(eyeG);
   const dummy = n => Array.from({ length: n }, (_, i) => [i, 0]);     // placeholder points: every arrowhead is made now
   const topR = [0, 1, 2].map(() => rayPath(rayG, dummy(4), { color: TOPC, width: 5, heads: [0, 2] }));
-  const baseR = [0, 1, 2].map(() => rayPath(rayG, dummy(4), { color: BASEC, width: 5, heads: [0, 2] }));
+  const baseR = [0, 1, 2].map(() => rayPath(rayG, dummy(4), { color: BASER, width: 5, heads: [0, 2] }));
   const fixR = [0, 1, 2].map(() => rayPath(rayG, dummy(5), { color: TOPC, width: 5, heads: [0, 3], at: 0.36 }));
   const dashR = [0, 1, 2].map(() => E('line', { stroke: TOPC, 'stroke-width': 3, 'stroke-dasharray': '7 7', opacity: 0.75 }, rayG));
   const meetDot = G(rayG); E('circle', { r: 26, fill: glow(C.energy) }, meetDot); E('circle', { r: 6, fill: C.energyLt }, meetDot);
   const blurSpot = E('ellipse', { rx: 14, ry: 30, fill: glow(C.energy) }, rayG);
   const imgTree = G(rayG); treeArt(imgTree);              // the image: a slim, upside-down tree on the retina
   const landTop = G(rayG); E('circle', { r: 30, fill: glow(C.energy) }, landTop); E('circle', { r: 7, fill: TOPC, stroke: '#FFFFFF', 'stroke-width': 2 }, landTop);
-  const landBase = G(rayG); E('circle', { r: 30, fill: glow(C.water) }, landBase); E('circle', { r: 7, fill: BASEC, stroke: '#FFFFFF', 'stroke-width': 2 }, landBase);
+  const landBase = G(rayG); E('circle', { r: 30, fill: glow(BASER) }, landBase); E('circle', { r: 7, fill: BASEC, stroke: '#FFFFFF', 'stroke-width': 2 }, landBase);
 
   /* ---------- the tree, with dots marking its top and base ---------- */
   const treeG = G(world); tr(treeG, TREE[0], TREE[1]);
