@@ -3,6 +3,7 @@ import type { TopicExtras } from "../types";
 // Engagement extras for forces. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const forcesExtras: TopicExtras = {
+  lesson: { href: "/lessons/forces.html", minutes: 14, chapters: 12 },
   interactive: "forces-lab",
   hook: "Drop a hammer and a feather at the same moment and the hammer wins easily. But take them to the airless Moon, as the Apollo astronauts actually did, and they hit the ground together. So is it really the feather's lightness that makes it lose the race on Earth?",
   didYouKnow: [
