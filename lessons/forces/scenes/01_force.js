@@ -196,6 +196,7 @@ scene('force', S => {
   // 2. a car speeds up
   const p2 = panels[1].inner;
   E('rect', { x: -104, y: 70, width: 208, height: 26, fill: '#2A3640' }, p2);
+  const dash2 = E('line', { x1: -104, x2: 104, y1: 83, y2: 83, stroke: '#C9D6DF', 'stroke-width': 3, 'stroke-dasharray': '16 18', opacity: 0.6 }, p2);
   const car2Lines = [0, 1, 2].map(() => E('line', { stroke: C.muted, 'stroke-width': 3, 'stroke-linecap': 'round' }, p2));
   const car2 = fmCar(p2);
   const drive2 = fmArrow(p2, 'drive', 0, 0, 1.3, 'right', { scale: SC, label: '', value: false });
@@ -397,11 +398,12 @@ scene('force', S => {
       // 2. a car speeds up
       {
         const u = loop(t, showAt[1] - 0.3, 3.0);
-        // starts slowly inside the panel, then speeds away off its right edge
-        const x = -34 + 260 * (0.15 * u + 0.85 * u * u), v = 0.15 + 1.7 * u, show = Math.min(1, u * 14 + (t < showAt[1] - 0.3 ? 1 : 0));
-        tr(car2, x, 70, 0.5); car2.roll((x + 34) / 0.5); op(car2, show);
-        drive2.move(x + 136 * 0.5, 70 - 50 * 0.5); drive2.set(1); op(drive2, show);
-        car2Lines.forEach((l, k) => { const y = 70 - 20 - k * 14, L = 12 + 44 * v * (1 - k * 0.2); attr(l, 'x1', x - 72 - L); attr(l, 'x2', x - 72); attr(l, 'y1', y); attr(l, 'y2', y); l.style.opacity = (show * (0.2 + 0.25 * v)).toFixed(2); });
+        // the car stays in the panel, its driving force always in view, while the road rushes past faster and faster
+        const d = 306 * (0.15 * u + 0.85 * u * u), v = (0.15 + 1.7 * u) / 1.85, CX2 = -10, CS2 = 0.4;   // 306 = 9 dash periods: no jump as it loops
+        tr(car2, CX2, 70, CS2); car2.roll(d / CS2);
+        drive2.move(CX2 + 136 * CS2, 70 - 50 * CS2); drive2.set(1);
+        attr(dash2, 'stroke-dashoffset', (d % 34).toFixed(1));
+        car2Lines.forEach((l, k) => { const y = 70 - 14 - k * 12, x2 = CX2 - 136 * CS2 - 6, L = 8 + 26 * v * (1 - k * 0.2); attr(l, 'x1', x2 - L); attr(l, 'x2', x2); attr(l, 'y1', y); attr(l, 'y2', y); l.style.opacity = (0.25 + 0.5 * v).toFixed(2); });
       }
       // 3. a bike slows down
       {

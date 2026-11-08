@@ -85,7 +85,7 @@ scene('friction', S => {
   const motion = motionArrow(B1, 120, 'motion');
   const oppLbl = rich(B1, 0, 650, [['friction', C.oxygen, 800], ' acts against the motion'], { size: 30, weight: 600 });
   const speedG = G(B1); tr(speedG, 880, 196);
-  const speedM = meter(speedG, { w: 240, h: 26, color: C.ink, label: 'speed', labelSize: 26 });
+  const speedM = meter(speedG, { w: 240, h: 26, color: C.energy, label: 'speed', labelSize: 26 });
   const slowLbl = T(B1, 560, 170, 'so it slows things down', { size: 38, weight: 700, anchor: 'middle' });
   const X0 = 150, X1 = 820, tIn = at('friction') - 0.3, tStop = mid('friction', 0.84), TS = tStop - tIn;
   const crateX = t => X0 + (X1 - X0) * (1 - Math.pow(1 - clamp((t - tIn) / TS), 2));    // steady slowing
@@ -125,7 +125,7 @@ scene('friction', S => {
   const drag3 = fa(B3, 'drag', CX - 96, ROAD - 120, 50, 'left', { label: 'air resistance' });
   const dChip = rich(B3, 600, 150, [['Drag', C.oxygen, 800], ': friction from a ', ['fluid', C.air, 800], ' (air or water)'], { size: 40, weight: 600 });
   const sp3G = G(B3); tr(sp3G, 70, 236);
-  const sp3 = meter(sp3G, { w: 240, h: 26, color: C.ink, label: 'speed', labelSize: 26 });
+  const sp3 = meter(sp3G, { w: 240, h: 26, color: C.energy, label: 'speed', labelSize: 26 });
   const fastLbl = rich(B3, 880, 440, ['faster: ', ['more drag', C.oxygen, 800]], { size: 30 });
   const areaLbl = rich(B3, 880, 440, ['sitting up: ', ['bigger area', C.oxygen, 800]], { size: 30 });
   const swim = G(B3);
@@ -187,7 +187,7 @@ scene('friction', S => {
   const dSmall = fa(B5, 'drag', PJ[0], PJ[1] - 200, 36, 'up', { side: 'right' });
   const dBig = fa(B5, 'drag', PJ[0], CYO - 104, 110, 'up', { side: 'right' });
   const sp5G = G(B5); tr(sp5G, 1030, 230);
-  const sp5 = meter(sp5G, { w: 30, h: 260, vertical: true, color: C.ink, label: 'speed', labelSize: 26 });
+  const sp5 = meter(sp5G, { w: 30, h: 260, vertical: true, color: C.energy, label: 'speed', labelSize: 26 });
   const chuteLbl = G(B5);
   T(chuteLbl, 220, 430, 'huge area', { size: 34, weight: 700, anchor: 'middle' });
   rich(chuteLbl, 220, 474, ['→ lots of ', ['drag', C.oxygen, 800]], { size: 34 });
@@ -293,7 +293,17 @@ scene('friction', S => {
 
   /* ================= 9, 10. the feather on Earth; the hammer and feather on the Moon ================= */
   const SKY = G(root); fmSky(SKY, { ground: 590 });
-  const MOON = G(root); fmMoon(MOON, { ground: 590, earthX: 1090, earthY: 268, earthR: 38, stars: 16, seed: 11 });
+  const MOON = G(root); fmMoon(MOON, { ground: 590, earthX: 1090, earthY: 268, earthR: 38, stars: 70, seed: 11 });
+  {  // the intro's Moon exactly (its 70 stars and its craters); the stars are merged into four paths to save elements
+    const mg = MOON.firstChild, stars = Array.from(mg.querySelectorAll('circle')).slice(0, 70), bins = [[], [], [], []];
+    stars.forEach(c => bins[Math.min(3, Math.floor((+c.getAttribute('opacity') - 0.3) / 0.15))].push(c));
+    bins.forEach((b, i) => {
+      if (!b.length) return;
+      const d = b.map(c => { const x = +c.getAttribute('cx'), y = +c.getAttribute('cy'), r = +c.getAttribute('r'); return `M${(x - r).toFixed(1)},${y} a${r},${r} 0 1 0 ${(2 * r).toFixed(2)},0 a${r},${r} 0 1 0 ${(-2 * r).toFixed(2)},0`; }).join(' ');
+      mg.insertBefore(E('path', { d, fill: '#FFFFFF', opacity: (0.375 + 0.15 * i).toFixed(3) }), stars[0]);
+    });
+    stars.forEach(c => c.remove());
+  }
   const B9 = G(root);
   const HS = 0.7, HX9 = 420, FX9 = 790, Y9 = 300, GND9 = 640;
   const ham9 = fmHammer(B9, HS), fea9 = fmFeather(B9, HS);

@@ -35,24 +35,45 @@ scene('quiz', S => {
   rich(intro, 600, 414, ['Say each answer ', ['out loud', Y, 800], ' before it appears'], { size: 32, anchor: 'middle', fill: C.muted });
 
   /* ---------- small art ---------- */
-  /* a small apple hanging by its stalk from (0, 0) */
+  /* the apple from the What a force is chapter (about 1 N), hanging by its loop of string from (0, 0) */
   function apple(parent) {
-    const g = G(parent);
-    E('path', { d: 'M0,0 L0,12', stroke: '#6B4423', 'stroke-width': 3, 'stroke-linecap': 'round' }, g);
-    E('path', { d: 'M1,6 C8,0 16,2 18,6 C12,10 6,10 1,6 Z', fill: C.plant, stroke: C.plantDk, 'stroke-width': 1.5 }, g);
-    E('path', { d: 'M0,16 C-8,8 -26,10 -26,30 C-26,46 -14,56 0,52 C14,56 26,46 26,30 C26,10 8,8 0,16 Z', fill: ball('#FF6A55', '#B3241B'), stroke: '#8A1A12', 'stroke-width': 2 }, g);
+    const g = G(parent), k = G(g); tr(k, 0, 61, 0.85);
+    E('path', { d: 'M6,-40 L1,-62 M1,-62 A5,5 0 1 1 1,-72 A5,5 0 1 1 1,-62', fill: 'none', stroke: '#E9F2F7', 'stroke-width': 2.5, 'stroke-linecap': 'round' }, k);
+    const a = G(k); tr(a, 0, 0, 1.2);
+    E('path', { d: 'M0,-17 C10,-27 30,-24 31,-4 C32,16 18,30 6,29 C3,28 -3,28 -6,29 C-18,30 -32,16 -31,-4 C-30,-24 -10,-27 0,-17 Z', fill: ball('#F0505C', '#A4232E'), stroke: '#8E1C26', 'stroke-width': 2 }, a);
+    E('path', { d: 'M0,-17 Q1,-28 5,-34', fill: 'none', stroke: '#6B4423', 'stroke-width': 4, 'stroke-linecap': 'round' }, a);
+    E('path', { d: 'M3,-27 Q15,-37 24,-29 Q14,-21 3,-27 Z', fill: C.plant, stroke: C.plantDk, 'stroke-width': 1.5 }, a);
     return g;
   }
-  /* a stopwatch, face radius r; g.set(seconds of a 60 s dial) */
-  function stopwatch(parent, r) {
-    const g = G(parent);
-    E('rect', { x: -7, y: -r - 14, width: 14, height: 12, rx: 3, fill: C.muted }, g);
-    E('circle', { r, fill: C.card, stroke: C.muted, 'stroke-width': 4 }, g);
-    for (let k = 0; k < 12; k++) E('line', { x1: 0, y1: -r + 4, x2: 0, y2: -r + (k % 3 ? 8 : 11), stroke: C.muted, 'stroke-width': 2, transform: `rotate(${k * 30})` }, g);
-    const hand = E('line', { x1: 0, y1: 4, x2: 0, y2: -r + 8, stroke: Y, 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
-    E('circle', { r: 4, fill: Y }, g);
-    g.set = s => hand.setAttribute('transform', `rotate(${(s * 6).toFixed(1)})`);
+  /* the Speed chapter's stopwatch (a 64 px case at s = 1), scaled by s; g.set(seconds of a 60 s dial) */
+  function stopwatch(parent, s) {
+    const g = G(parent), k = G(g); tr(k, 0, 0, s);
+    E('rect', { x: -13, y: -88, width: 26, height: 16, rx: 5, fill: '#8FA2B0' }, k);
+    E('rect', { x: -6, y: -74, width: 12, height: 10, fill: '#8FA2B0' }, k);
+    E('rect', { x: 44, y: -64, width: 20, height: 12, rx: 4, fill: '#8FA2B0', transform: 'rotate(42 54 -58)' }, k);
+    E('circle', { r: 64, fill: '#E9EEF2', stroke: '#8FA2B0', 'stroke-width': 6 }, k);
+    E('circle', { r: 55, fill: '#F7FAFC' }, k);
+    for (let i = 0; i < 12; i++) { const a = i / 12 * TAU, r1 = i % 3 ? 48 : 41; E('line', { x1: (Math.sin(a) * r1).toFixed(1), y1: (-Math.cos(a) * r1).toFixed(1), x2: (Math.sin(a) * 52).toFixed(1), y2: (-Math.cos(a) * 52).toFixed(1), stroke: '#3A4A56', 'stroke-width': i % 3 ? 2.5 : 4.5, 'stroke-linecap': 'round' }, k); }
+    const hand = E('line', { x1: 0, y1: 9, x2: 0, y2: -44, stroke: C.bad, 'stroke-width': 4.5, 'stroke-linecap': 'round' }, k);
+    E('circle', { r: 6.5, fill: C.bad }, k);
+    g.set = sec => hand.setAttribute('transform', `rotate(${(sec * 6).toFixed(1)})`);
     g.set(0);
+    return g;
+  }
+  /* the Mass versus weight chapter's bag of matter: the lib sack packed with grains (one patterned path), with a
+     stamp; hangs from its loop at (0, 0), like fmBag */
+  const SACK = 'M-16,32 L16,32 C54,52 64,124 52,154 Q0,172 -52,154 C-64,124 -54,52 -16,32 Z';
+  function matterBag(parent, s, text) {
+    const pt = E('pattern', { id: 'qGrains', patternUnits: 'userSpaceOnUse', x: -55, y: 158, width: 21, height: 38 }, defs());
+    [[0, 0], [21, 0], [0, 38], [21, 38], [10.5, 19]].forEach(([x, y]) => E('circle', { cx: x, cy: y, r: 10, fill: ball('#F3DDAF', '#A67E46') }, pt));
+    const g = G(parent), inner = G(g); tr(inner, 0, 0, s);
+    E('path', { d: 'M-11,24 C-13,-7 13,-7 11,24', fill: 'none', stroke: '#8A6A3E', 'stroke-width': 5, 'stroke-linecap': 'round' }, inner);
+    E('path', { d: SACK, fill: '#2E2010' }, inner);
+    E('path', { d: SACK, fill: 'url(#qGrains)' }, inner);
+    E('path', { d: SACK, fill: 'rgba(221,187,130,0.16)', stroke: '#7A5A30', 'stroke-width': 4, 'stroke-linejoin': 'round' }, inner);
+    E('rect', { x: -19, y: 24, width: 38, height: 11, rx: 4, fill: '#7A5A30' }, inner);
+    E('rect', { x: -48, y: 48, width: 96, height: 44, rx: 10, fill: '#F6EAD0', stroke: '#7A5A30', 'stroke-width': 2.5 }, inner);
+    T(inner, 0, 83, text, { size: 36, weight: 800, fill: '#3B2A14', anchor: 'middle' });
     return g;
   }
   /* a knife blade end-on: a steel wedge, tip at (0, 0); sharp or blunt */
@@ -72,9 +93,9 @@ scene('quiz', S => {
     const ap = G(nmG); apple(ap);
     const rd = T(nmG, 70, 0, '1 N', { size: 30, weight: 700, fill: Y });
     return t => {
-      const v = P(t, at('a1') + 0.1, 0.7, easeOut);
+      const v = P(t, at('a1') + 0.05, 0.45, easeOut);
       nm.set(v); const hk = nm.hook(); tr(ap, hk[0] * NS, hk[1] * NS);
-      attr(rd, 'y', (30 + 8 + 48 + 10 * v) * NS + 10); op(rd, P(t, at('a1') + 0.6, 0.3, linear));
+      attr(rd, 'y', (30 + 8 + 48 + 10 * v) * NS + 10); op(rd, P(t, at('a1') + 0.3, 0.3, linear));
     };
   }
   // 2. balanced: a box sliding at a steady speed, push and friction equal, resultant 0 N
@@ -85,7 +106,7 @@ scene('quiz', S => {
     const hatch = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(() => E('line', { stroke: '#8FA3B3', 'stroke-width': 3, opacity: 0.5, 'stroke-linecap': 'round' }, floor));
     const crate = fmCrate(g, 110, 84); crate.at(-10, FL);
     fmArrow(g, 'push', crate.pt.left[0], crate.pt.left[1] - 12, 20, 'right', { scale: SC, tip: true, nudge: [-36, 0] });
-    fmArrow(g, 'friction', crate.pt.bottom[0], FL, 20, 'left', { scale: SC, side: 'below' });
+    fmArrow(g, 'friction', crate.pt.bl[0], FL, 20, 'left', { scale: SC, side: 'below', nudge: [-36, 0] });
     const zero = chip(g, 'resultant: 0 N', { size: 26, fill: C.card2, stroke: Y, sw: 2.5, color: Y }); tr(zero, -10, -52);
     fmScaleBar(g, 70, 140, 10, { scale: SC });
     return t => { const d = t * 70 * calm; hatch.forEach((l, k) => { const x = -160 + ((k * 28 - d) % 336 + 336) % 336; attr(l, 'x1', x); attr(l, 'y1', FL + 5); attr(l, 'x2', x - 16); attr(l, 'y2', FL + 23); op(l, x > -152 && x < 148 ? 1 : 0); }); };
@@ -94,7 +115,7 @@ scene('quiz', S => {
   function picBag(g) {
     const NS = 0.6, nmG = G(g); tr(nmG, -60, -150);
     const nm = fmNewtonmeter(nmG, { max: 40, len: 100, every: 20, minor: 5 }); tr(nm, 0, 0, NS);
-    const bag = G(nmG); fmBag(bag, '3 kg', { s: 0.55 });
+    const bag = G(nmG); matterBag(bag, 0.55, '3 kg');
     const rd = T(nmG, 72, 0, '30 N', { size: 34, weight: 700, fill: Y });
     return t => {
       const v = 30 * P(t, at('a3') + 0.1, 0.8, easeOut);
@@ -109,7 +130,7 @@ scene('quiz', S => {
     [X0, X1].forEach(x => E('line', { x1: x, x2: x, y1: RD - 12, y2: RD + 12, stroke: C.ink, 'stroke-width': 4 }, g));
     fmDim(g, X0, RD + 24, X1, RD + 24, '200 m', { tick: 9 });
     const cg = G(g), cyc = fmCyclist(cg); tr(cyc, 0, 0, 0.5);
-    const sw = stopwatch(g, 34); tr(sw, -112, -86);
+    const sw = stopwatch(g, 0.53); tr(sw, -112, -86);
     const secs = T(g, -64, -74, '0 s', { size: 34, weight: 700, fill: C.ink });
     const spd = chip(g, '8 m/s', { size: 34, fill: Y, color: C.bg0 });
     return t => {

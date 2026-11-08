@@ -35,7 +35,7 @@ scene('balanced', S => {
   const pushA = fmArrow(A, 'push', 510, 490, 40, 'right', { tip: true, scale: SC, value: false });
   const fricA = fmArrow(A, 'friction', 510, 560, 15, 'left', { scale: SC, value: false, labelAt: 'tip', nudge: [0, -20] });
   const wtA = fmArrow(A, 'weight', 600, 490, 40, 'down', { scale: SC, value: false, labelAt: 'tip' });
-  const nrA = fmArrow(A, 'normal', 616, 560, 40, 'up', { scale: SC, value: false, labelAt: 'tip' });
+  const nrA = fmArrow(A, 'normal', 616, 560, 40, 'up', { scale: SC, value: false, labelAt: 'tip', nudge: [60, 0] });   // clear of the pair rising to the sum row
   // the sum row: the sideways forces head to tail, and the resultant under them
   const SY = 262;
   const sumPush = fmArrow(A, 'push', 0, 0, 40, 'right', { scale: SC, label: '', value: false });
@@ -277,7 +277,7 @@ scene('balanced', S => {
       [pd1, pd2].forEach((pd, i) => {
         const u = P(t, starts[i] + 0.2, dur[i], linear), x = pd.xs(u);
         pd.cr.at(x, 76);
-        pd.rs.move(x, 40); pd.rs.set(P(t, starts[i], 0.4));
+        pd.rs.move(pd.decel ? x + 24 : x - 24, -24); pd.rs.set(P(t, starts[i], 0.4));   // in its own row above the crate
         pd.gh.forEach((g, k) => { const uk = k / 4; attr(g, 'cx', pd.xs(uk)); attr(g, 'cy', 96); op(g, u >= uk - 0.001 ? 1 : 0); });
         pd.gg.set(pd.decel ? 1 - u : u);
       });

@@ -9,6 +9,7 @@
 scene('moments', S => {
   const { at, end, mid } = S, root = S.root, R = S.reduce;
   const FS = 0.4;                                    // px per newton, every arrow in this scene
+  const MOM = C.air;                                 // moments (turning arrows, N m values): not a force colour, and not the resultant's yellow
   const AMP = R ? 0.35 : 1;
 
   /* ---------- local helpers and art ---------- */
@@ -18,13 +19,13 @@ scene('moments', S => {
   /* "200 N × 0.2 m = 40 N m": force, distance and moment in their colours; t.set(F, d) */
   function readout(parent, x, y, size, fcol) {
     const t = E('text', { x, y, 'font-size': size || 36, 'font-weight': 700, 'font-family': FD, 'text-anchor': 'middle', fill: C.ink }, parent);
-    const a = E('tspan', { fill: fcol || C.good }, t), b = E('tspan', {}, t), c = E('tspan', { fill: C.energy }, t);
+    const a = E('tspan', { fill: fcol || C.good }, t), b = E('tspan', {}, t), c = E('tspan', { fill: MOM }, t);
     t.set = (F, d) => { const f = Math.round(F), dd = Math.round(d * 100) / 100; a.textContent = f + ' N'; b.textContent = ' × ' + num(dd) + ' m = '; c.textContent = num(f * dd) + ' N m'; };
     return t;
   }
   /* a curved arrow round (0,0) at radius r; g.set(fromDeg, sweepDeg) (positive sweep = clockwise on screen) */
   function turnArrow(parent, r, color, w) {
-    const g = G(parent), col = color || C.energy;
+    const g = G(parent), col = color || MOM;
     const path = E('path', { fill: 'none', stroke: col, 'stroke-width': w || 6, 'stroke-linecap': 'round' }, g);
     const head = E('path', { d: 'M4,0 L-14,-10 L-10,0 L-14,10 Z', fill: col }, g);
     g.set = (a0, sw) => {
@@ -86,7 +87,7 @@ scene('moments', S => {
   const A = G(root);
   const DHX = 150, DHY = 470, DL = 280;
   const doorA = doorTop(A, DL); tr(doorA, DHX, DHY);
-  const pushA = fmArrow(A, 'push', 0, 0, 150, 'up', { scale: FS, tip: true, value: false });
+  const pushA = fmArrow(A, 'push', 0, 0, 150, 'up', { scale: FS, tip: true, value: false, label: '' });   // unlabelled, as in the door beat: a label would sit on the swinging door
   const turnA = turnArrow(A, 120); tr(turnA, DHX, DHY);
   const ringA = pivotRing(A, DHX, DHY, 18);
   T(A, DHX - 22, DHY + 58, 'hinge', { size: 28, weight: 700, fill: C.energy, anchor: 'middle' });
@@ -101,11 +102,11 @@ scene('moments', S => {
 
   /* ================= B. the formula ================= */
   const B = G(root);
-  const bTitle = T(B, 600, 196, 'This turning effect is called a **moment**', { size: 40, weight: 600, anchor: 'middle', boldFill: C.energy });
+  const bTitle = T(B, 600, 196, 'This turning effect is called a **moment**', { size: 40, weight: 600, anchor: 'middle', boldFill: MOM });
   const fCardG = G(B);
-  card(fCardG, 140, 252, 920, 104, { fill: C.card, stroke: C.energy, sw: 3 });
+  card(fCardG, 140, 252, 920, 104, { fill: C.card, stroke: MOM, sw: 3 });
   const fText = E('text', { x: 600, y: 318, 'font-size': 40, 'font-weight': 700, 'font-family': FD, 'text-anchor': 'middle', fill: C.ink }, fCardG);
-  [['moment', C.energy], [' = ', C.muted], ['force', C.good], [' × ', C.muted], ['distance from the pivot', C.ink]].forEach(([s, c]) => { E('tspan', { fill: c }, fText).textContent = s; });
+  [['moment', MOM], [' = ', C.muted], ['force', C.good], [' × ', C.muted], ['distance from the pivot', C.ink]].forEach(([s, c]) => { E('tspan', { fill: c }, fText).textContent = s; });
   // a little lever to go with it
   const lev = G(B);
   E('path', { d: 'M480,600 L452,650 L508,650 Z', fill: linGrad('#9DB0BF', '#5F6E7B', true), stroke: FM.metal[2], 'stroke-width': 3, 'stroke-linejoin': 'round' }, lev);
@@ -129,7 +130,7 @@ scene('moments', S => {
   const raS = T(Cg, 0, 0, 'measured at right angles to the force', { size: 26, weight: 600, fill: C.muted, anchor: 'middle' });
   const turnS = turnArrow(Cg, 84); tr(turnS, SPX, SPY);
   const roS = readout(Cg, 500, 672, 40);
-  const nmChip = chip(Cg, 'newton metres (N m)', { size: 30, fill: '#33300F', stroke: C.energy, color: C.energy });
+  const nmChip = chip(Cg, 'newton metres (N m)', { size: 30, fill: '#15334A', stroke: MOM, color: MOM });
   const scaleS = fmScaleBar(Cg, 1040, 236, 100, { scale: FS });
   const bigChip = chip(Cg, 'bigger force', { size: 28, fill: C.card2, stroke: C.good, color: C.good });
   const farChip = chip(Cg, 'further from the pivot', { size: 28, fill: C.card2, stroke: C.good, color: C.good });
@@ -247,9 +248,9 @@ scene('moments', S => {
   const mdRL = T(H, 0, BTOP + 66, '0.5 m', { size: 26, weight: 700 });
   const moL = readout(H, 320, 170, 34), moR = readout(H, 880, 170, 34);
   moL.set(100, 2); moR.set(300, 0.5);
-  const gtM = T(H, SSX, 178, '>', { size: 56, weight: 700, anchor: 'middle', fill: C.energy });
+  const gtM = T(H, SSX, 178, '>', { size: 56, weight: 700, anchor: 'middle', fill: MOM });
   const turnM = turnArrow(H, 84); tr(turnM, SSX, SSY - 8);
-  const mythChip = chip(H, 'bigger force ≠ bigger turning effect', { size: 32, fill: '#33300F', stroke: C.energy, color: C.energy });
+  const mythChip = chip(H, 'bigger force ≠ bigger turning effect', { size: 32, fill: '#15334A', stroke: MOM, color: MOM });
 
   return t => {
     /* ================= A ================= */

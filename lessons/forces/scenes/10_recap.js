@@ -34,6 +34,28 @@ scene('recap', S => {
     E('ellipse', { cx: 0, cy: -37, rx: 17, ry: 5, fill: ball('#E3E9EE', '#7D8C99'), stroke: '#5F6E7B', 'stroke-width': 1.5 }, g);
     return g;
   }
+  /* the Mass versus weight chapter's bag of matter: the lib sack packed with grains (one patterned path, to keep
+     the element count down), with an optional stamp ("2 kg"); hangs from its loop at (0, 0), like fmBag */
+  const SACK = 'M-16,32 L16,32 C54,52 64,124 52,154 Q0,172 -52,154 C-64,124 -54,52 -16,32 Z';
+  let grains = null;
+  function matterBag(parent, s, text) {
+    if (!grains) {
+      const pt = E('pattern', { id: 'rGrains', patternUnits: 'userSpaceOnUse', x: -55, y: 158, width: 21, height: 38 }, defs());
+      [[0, 0], [21, 0], [0, 38], [21, 38], [10.5, 19]].forEach(([x, y]) => E('circle', { cx: x, cy: y, r: 10, fill: ball('#F3DDAF', '#A67E46') }, pt));
+      grains = 'url(#rGrains)';
+    }
+    const g = G(parent), inner = G(g); tr(inner, 0, 0, s);
+    E('path', { d: 'M-11,24 C-13,-7 13,-7 11,24', fill: 'none', stroke: '#8A6A3E', 'stroke-width': 5, 'stroke-linecap': 'round' }, inner);
+    E('path', { d: SACK, fill: '#2E2010' }, inner);
+    E('path', { d: SACK, fill: grains }, inner);
+    E('path', { d: SACK, fill: 'rgba(221,187,130,0.16)', stroke: '#7A5A30', 'stroke-width': 4, 'stroke-linejoin': 'round' }, inner);
+    E('rect', { x: -19, y: 24, width: 38, height: 11, rx: 4, fill: '#7A5A30' }, inner);
+    if (text) {
+      E('rect', { x: -48, y: 48, width: 96, height: 44, rx: 10, fill: '#F6EAD0', stroke: '#7A5A30', 'stroke-width': 2.5 }, inner);
+      T(inner, 0, 83, text, { size: 36, weight: 800, fill: '#3B2A14', anchor: 'middle' });
+    }
+    return g;
+  }
   function snowflake(parent, r) {
     const g = G(parent);
     for (let k = 0; k < 3; k++) E('line', { x1: 0, y1: -r, x2: 0, y2: r, stroke: '#CFEFFF', 'stroke-width': 4, 'stroke-linecap': 'round', transform: `rotate(${k * 60})` }, g);
@@ -64,38 +86,41 @@ scene('recap', S => {
   // start: a ball pushed from rest
   { const p = panel(h1, PX0, PY, PW, PH), a = p.art;
     E('line', { x1: 4, x2: 84, y1: 76, y2: 76, stroke: C.muted, 'stroke-width': 3 }, a);
-    const ballG = G(a); E('circle', { r: 13, fill: ball('#F2F7FA', '#9AA8B4') }, ballG); E('path', { d: 'M-13,0 A13,13 0 0 0 13,0', fill: 'none', stroke: C.bad, 'stroke-width': 3 }, ballG);
+    const ballG = G(a); E('circle', { r: 13, fill: ball('#FFFFFF', '#B9C6D2'), stroke: '#8597A6', 'stroke-width': 1.5 }, ballG);
+    { const pts = [], dots = []; for (let i = 0; i < 5; i++) { const an = -Math.PI / 2 + i * TAU / 5, b = an + Math.PI; pts.push((Math.cos(an) * 4.6).toFixed(1) + ',' + (Math.sin(an) * 4.6).toFixed(1)); dots.push(`M${(Math.cos(b) * 9.8 - 2.8).toFixed(1)},${(Math.sin(b) * 9.8).toFixed(1)} a2.8,2.8 0 1 0 5.6,0 a2.8,2.8 0 1 0 -5.6,0`); } E('path', { d: 'M' + pts.join(' L') + ' Z ' + dots.join(' '), fill: '#22323D' }, ballG); }
     const push = fmArrow(a, 'push', 16, 63, 14, 'right', { scale: 1, width: 4, tip: true, label: '', value: false });
     mini.push(t => { const u = (t / 2.6) % 1, go = clamp((u - 0.35) / 0.5), x = 30 + 40 * easeOut(go); tr(ballG, x, 63, 1, (x - 30) / 13 * 57.3); push.set(1); op(push, u < 0.42 ? 1 : 0); }); }
-  // speed up: a car with a forward force
+  // speed up: a car with a forward force; as in the What a force is chapter, it stays in view (its driving force
+  // too) while the road rushes past faster and faster
   { const p = panel(h1, PX0 + (PW + PGAP), PY, PW, PH), a = p.art;
     E('line', { x1: 0, x2: 88, y1: 77, y2: 77, stroke: C.muted, 'stroke-width': 3 }, a);
-    const carG = G(a), car = fmCar(carG); tr(car, 0, 0, 0.24);
-    const lines = [0, 1, 2].map(k => E('line', { stroke: C.muted, 'stroke-width': 3, 'stroke-linecap': 'round' }, a));
-    const drive = fmArrow(a, 'drive', 0, 0, 18, 'right', { scale: 1, width: 4, label: '', value: false });
-    mini.push(t => { const u = (t / 2.4) % 1, x = 6 + 40 * u * u; tr(carG, x + 32, 77); car.roll(160 * u * u / 0.24); drive.move(x + 32 + 33, 65); lines.forEach((l, k) => { attr(l, 'x1', x - 2); attr(l, 'x2', x - 2 - (4 + 18 * u)); attr(l, 'y1', 58 + k * 7); attr(l, 'y2', 58 + k * 7); }); }); }
-  // slow down: a cyclist coasting to a stop, drag pointing back
+    const dash = E('line', { x1: 0, x2: 88, y1: 84, y2: 84, stroke: C.muted, 'stroke-width': 3, 'stroke-dasharray': '8 9', opacity: 0.7 }, a);
+    const carG = G(a), car = fmCar(carG); tr(car, 0, 0, 0.24); tr(carG, 30, 77);
+    fmArrow(a, 'drive', 30 + 136 * 0.24, 65, 18, 'right', { scale: 1, width: 4, label: '', value: false });
+    mini.push(t => { const u = (t / 2.4) % 1, d = 170 * (0.15 * u + 0.85 * u * u); car.roll(d / 0.24); attr(dash, 'stroke-dashoffset', (d % 17).toFixed(1)); }); }
+  // slow down: the orange-shirted cyclist braking to a stop, friction backwards at the rear wheel (as in that chapter)
   { const p = panel(h1, PX0 + 2 * (PW + PGAP), PY, PW, PH), a = p.art;
     E('line', { x1: 0, x2: 88, y1: 80, y2: 80, stroke: C.muted, 'stroke-width': 3 }, a);
-    const cg = G(a), cyc = fmCyclist(cg); tr(cyc, 0, 0, 0.3);
-    const drag = fmArrow(a, 'drag', 0, 0, 18, 'left', { scale: 1, width: 4, label: '', value: false });
-    mini.push(t => { const u = (t / 2.8) % 1, s = clamp(u / 0.8), x = 20 + 44 * (1 - (1 - s) * (1 - s)); tr(cg, x, 80); cyc.roll(x / 0.3 * 1.2); drag.move(x - 30, 44); op(drag, s < 1 ? 1 : 0); }); }
+    const cg = G(a), cyc = fmCyclist(cg, { shirt: '#E07A3E' }); tr(cyc, 0, 0, 0.3);
+    const drag = fmArrow(a, 'friction', 0, 0, 18, 'left', { scale: 1, width: 4, label: '', value: false });
+    mini.push(t => { const u = (t / 2.8) % 1, s = clamp(u / 0.8), x = 20 + 44 * (1 - (1 - s) * (1 - s)); tr(cg, x, 80); cyc.roll(x / 0.3 * 1.2); drag.move(x - 17, 80); op(drag, s < 1 ? 1 : 0); }); }
   // direction: a ball bounces off a bat
   { const p = panel(h1, PX0 + 3 * (PW + PGAP), PY, PW, PH), a = p.art;
     const bat = G(a); tr(bat, 74, 46, 1, -14);
-    E('rect', { x: -6, y: -30, width: 12, height: 50, rx: 6, fill: FM.wood[0], stroke: FM.wood[1], 'stroke-width': 2 }, bat);
-    E('rect', { x: -3, y: 18, width: 6, height: 18, rx: 3, fill: '#5A3A22' }, bat);
+    E('rect', { x: -3, y: -40, width: 6, height: 19, rx: 3, fill: '#2B2B2B' }, bat);
+    E('path', { d: 'M-6,-24 L6,-24 L7,22 Q7,27 2,27 L-3,27 Q-7,27 -7,22 Z', fill: linGrad('#F0D9A8', '#C9A66B'), stroke: '#8A6A3E', 'stroke-width': 1.5 }, bat);
     E('path', { d: 'M8,78 L62,46 L10,16', fill: 'none', stroke: C.faint, 'stroke-width': 3, 'stroke-dasharray': '5 6' }, a);
-    const bb = E('circle', { r: 9, fill: ball('#F2F7FA', '#9AA8B4') }, a);
+    const bb = E('circle', { r: 9, fill: ball('#D8434F', '#8E1C26'), stroke: '#6E1520', 'stroke-width': 1 }, a);
     const hit = fmArrow(a, 'push', 60, 46, 20, 'left', { scale: 1, width: 4, label: '', value: false });
     mini.push(t => { const u = (t / 2.2) % 1, A = [8, 78], B = [60, 46], Cc = [10, 16]; const q = u < 0.5 ? [lerp(A[0], B[0], u * 2), lerp(A[1], B[1], u * 2)] : [lerp(B[0], Cc[0], (u - 0.5) * 2), lerp(B[1], Cc[1], (u - 0.5) * 2)]; attr(bb, 'cx', q[0]); attr(bb, 'cy', q[1]); op(hit, u > 0.46 && u < 0.7 ? 1 : 0); }); }
   // shape: a sponge squashed by a push
   { const p = panel(h1, PX0 + 4 * (PW + PGAP), PY, PW, PH), a = p.art;
     E('line', { x1: 0, x2: 88, y1: 80, y2: 80, stroke: C.muted, 'stroke-width': 3 }, a);
-    const sp = E('rect', { x: 16, width: 56, rx: 7, fill: ball('#FFE07A', '#D9A520'), stroke: '#B5861A', 'stroke-width': 2 }, a);
-    const holes = [0, 1, 2, 3].map(k => E('circle', { r: 3, fill: '#C7961E' }, a));
+    const scour = E('rect', { x: 16, width: 56, rx: 3, fill: '#4FA35A', stroke: '#2C7A37', 'stroke-width': 1.5 }, a);
+    const sp = E('rect', { x: 16, width: 56, rx: 6, fill: '#F7D54A', stroke: '#C9A21C', 'stroke-width': 2 }, a);
+    const holes = [0, 1, 2, 3].map(k => E('circle', { r: 3, fill: '#D9B22A' }, a));
     const push = fmArrow(a, 'push', 44, 0, 22, 'down', { scale: 1, width: 4, tip: true, label: '', value: false });
-    mini.push(t => { const u = (t / 2.2) % 1, sq = Math.sin(Math.PI * clamp((u - 0.2) / 0.6)), h = 32 - 16 * sq, w = 56 + 10 * sq; attr(sp, 'x', 44 - w / 2); attr(sp, 'width', w); attr(sp, 'y', 80 - h); attr(sp, 'height', h); holes.forEach((c, k) => { attr(c, 'cx', 44 - w / 2 + 10 + k * (w - 20) / 3); attr(c, 'cy', 80 - h / 2 + (k % 2 ? 4 : -4) * (h / 32)); }); push.move(44, 80 - h); }); }
+    mini.push(t => { const u = (t / 2.2) % 1, sq = Math.sin(Math.PI * clamp((u - 0.2) / 0.6)), h = 32 - 16 * sq, w = 56 + 10 * sq; attr(sp, 'x', 44 - w / 2); attr(sp, 'width', w); attr(sp, 'y', 80 - h); attr(sp, 'height', h * 0.7); attr(scour, 'x', 44 - w / 2); attr(scour, 'width', w); attr(scour, 'y', 80 - h * 0.3); attr(scour, 'height', h * 0.3); holes.forEach((c, k) => { attr(c, 'cx', 44 - w / 2 + 10 + k * (w - 20) / 3); attr(c, 'cy', 80 - h * 0.65 + (k % 2 ? 3 : -3) * (h / 32)); }); push.move(44, 80 - h); }); }
   const letters = ['S', 'S', 'S', 'D', 'S'].map((L, i) => T(h1, PX0 + i * (PW + PGAP) + PW / 2, 236, L, { size: 32, weight: 700, fill: Y, anchor: 'middle' }));
 
   // 2. Mass is Matter, Weight is the Wrench, We Most Go
@@ -105,8 +130,7 @@ scene('recap', S => {
   rich(r2b, 26, 106, [['W', Y, 800], 'eight is the ', ['W', Y, 800], 'rench'], { size: 30, weight: 700 });
   rich(r2b, 26, 144, ['of gravity', [' (N)', C.muted]], { size: 30, weight: 700 });
   const bagG = G(h2); tr(bagG, 440, 22);
-  fmBag(bagG, ' ', { s: 0.52 });
-  const br = rng(19); for (let k = 0; k < 9; k++) E('circle', { cx: ((br() - 0.5) * 36).toFixed(1), cy: (34 + br() * 36).toFixed(1), r: 4.5, fill: '#7A5A30' }, bagG);
+  matterBag(bagG, 0.52);
   const w2 = fmArrow(h2, 'weight', 440, 74, 66, 'down', { scale: 1, label: 'weight', value: false, labelAt: 'tip' });
   const r2c = G(h2);
   E('rect', { x: 20, y: 176, width: 360, height: 56, rx: 28, fill: C.card2, stroke: C.line, 'stroke-width': 2 }, r2c);
@@ -124,8 +148,8 @@ scene('recap', S => {
   const jLine = E('path', { d: `M${gx},${gy} L${gx + 64},${gy - 100} L${gx + 200},${gy - 100}`, fill: 'none', stroke: Y, 'stroke-width': 6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', pathLength: 1, 'stroke-dasharray': '1 1' }, h3);
   const flake = snowflake(h3, 13); tr(flake, gx + 134, gy - 128);
   const r3a = G(h3), r3b = G(h3);
-  rich(r3a, 352, 136, [['steep', Y, 800], ' = fast'], { size: 27 });
-  rich(r3b, 352, 186, [['flat', '#CFEFFF', 800], ' = stopped'], { size: 27 });
+  rich(r3a, 342, 136, [['steep', Y, 800], ' = fast'], { size: 27 });
+  rich(r3b, 342, 186, [['flat', '#CFEFFF', 800], ' = stopped'], { size: 27 });
 
   // 4. Moments multiply, Pressure pares down
   const h4 = hookCard(630, 395);
@@ -185,7 +209,7 @@ scene('recap', S => {
     trapGroup('Weight is measured in kg', ['Weight is a force, in ', ['newtons', Y, 800]], g => {
       const nm = fmNewtonmeter(g, { max: 20, len: 90, every: 10, minor: 2 }); tr(nm, 0, 0, 0.78); nm.set(20);
       const hk = nm.hook(), bag = G(g); tr(bag, hk[0] * 0.78, hk[1] * 0.78);
-      fmBag(bag, '2 kg', { s: 0.66 });
+      matterBag(bag, 0.66, '2 kg');
       T(g, 84, (30 + 8 + 48 + 90) * 0.78 + 10, '20 N', { size: 34, weight: 700, fill: Y });
       const rows = G(g);
       rich(rows, -542, 250, [['mass', C.ink, 800], ' of the bag: ', ['2 kg', C.ink, 800], [' (kilograms)', C.muted]], { size: 30 });
@@ -211,7 +235,7 @@ scene('recap', S => {
       E('line', { x1: -340, x2: 340, y1: 70, y2: 70, stroke: C.muted, 'stroke-width': 4 }, g);
       const lines = [0, 1, 2].map(k => E('line', { stroke: C.faint, 'stroke-width': 4, 'stroke-linecap': 'round' }, g));
       const drag = fmArrow(g, 'drag', 120 + cyc.pt.back[0] * 0.62, 70 + cyc.pt.back[1] * 0.62, 30, 'left', { scale: 1, value: false, side: 'above' });
-      const sp = meter(g, { w: 200, h: 24, color: C.muted, label: 'speed', labelSize: 26, labelFill: C.ink }); tr(sp, -320, -10);
+      const sp = meter(g, { w: 200, h: 24, color: C.energy, label: 'speed', labelSize: 26, labelFill: C.ink }); tr(sp, -320, -10);
       return t => {
         const v = 0.25 + 0.7 * P(t, mid('t3', 0.5), 1.8, easeOut);
         sp.set(v); drag.set(1, 22 + 110 * v * v);
@@ -239,7 +263,7 @@ scene('recap', S => {
       E('line', { x1: ox + 12 * sx, y1: oy - 4 * sy, x2: ox + 18 * sx, y2: oy - 6 * sy, stroke: C.faint, 'stroke-width': 3, 'stroke-dasharray': '6 6' }, g);
       const line = E('path', { d, fill: 'none', stroke: Y, 'stroke-width': 6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', pathLength: 1, 'stroke-dasharray': '1 1' }, g);
       const lim = G(g); tr(lim, ox + 12 * sx, oy - 4 * sy);
-      E('circle', { r: 9, fill: C.bad, stroke: '#FFFFFF', 'stroke-width': 2.5 }, lim);
+      E('circle', { r: 13, fill: 'none', stroke: C.ink, 'stroke-width': 3.5 }, lim);
       T(lim, -14, -14, 'elastic limit', { size: 26, weight: 700, fill: C.ink, anchor: 'end' });
       return t => { line.setAttribute('stroke-dashoffset', (1 - P(t, mid('t5', 0.5), 1.0, linear)).toFixed(4)); op(lim, P(t, mid('t5', 0.62), 0.4, linear)); };
     }, { at: [760, 510] }),

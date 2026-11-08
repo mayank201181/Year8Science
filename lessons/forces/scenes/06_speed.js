@@ -66,28 +66,18 @@ scene('speed', S => {
     T(g, 0, 36, unit, { size: 24, weight: 700, fill: '#1C2329', anchor: 'middle' });
     return g;
   }
-  /* speedometer dial, 0..vmax m/s; g.set(v) swings the needle; g.avg is a marker group set at avg */
-  function dial(parent, vmax, avg) {
-    const g = G(parent), r = 92;
-    const ang = v => (150 + 240 * clamp(v / vmax)) * Math.PI / 180;
-    const pt = (v, rr) => [Math.cos(ang(v)) * rr, Math.sin(ang(v)) * rr];
-    E('circle', { r: r + 16, fill: '#0D2330', stroke: C.line, 'stroke-width': 3 }, g);
-    const a0 = pt(0, r), a1 = pt(vmax, r);
-    E('path', { d: `M${f1(a0[0])},${f1(a0[1])} A${r},${r} 0 1 1 ${f1(a1[0])},${f1(a1[1])}`, fill: 'none', stroke: C.muted, 'stroke-width': 5, 'stroke-linecap': 'round' }, g);
-    for (let v = 0; v <= vmax; v++) {
-      const major = v % 5 === 0, p1 = pt(v, r - (major ? 17 : 9)), p2 = pt(v, r);
-      E('line', { x1: f1(p1[0]), y1: f1(p1[1]), x2: f1(p2[0]), y2: f1(p2[1]), stroke: major ? C.ink : C.muted, 'stroke-width': major ? 4 : 2.5, 'stroke-linecap': 'round' }, g);
-      if (major) { const q = pt(v, r - 38); T(g, q[0], q[1] + 9, String(v), { size: 24, weight: 700, fill: C.ink, anchor: 'middle' }); }
-    }
-    g.avg = G(g);
-    const qa = pt(avg, r + 6), qb = pt(avg, r + 26), qn = pt(avg, r - 2);
-    E('line', { x1: f1(qn[0]), y1: f1(qn[1]), x2: f1(qb[0]), y2: f1(qb[1]), stroke: C.energy, 'stroke-width': 7, 'stroke-linecap': 'round' }, g.avg);
-    T(g.avg, qa[0] - 30, qa[1] - 24, 'average', { size: 26, weight: 700, fill: C.energy, anchor: 'end' });
-    const needle = E('line', { x1: -14, y1: 0, x2: r - 20, y2: 0, stroke: C.bad, 'stroke-width': 6, 'stroke-linecap': 'round' }, g);
-    E('circle', { r: 10, fill: '#E9EEF2', stroke: C.bg0, 'stroke-width': 2 }, g);
-    const read = T(g, 0, 62, '0 m/s', { size: 28, weight: 700, fill: C.ink, anchor: 'middle' });
-    T(g, 0, r + 52, 'speed', { size: 26, weight: 600, fill: C.muted, anchor: 'middle' });
-    g.set = v => { needle.setAttribute('transform', `rotate(${f1(ang(v) * 180 / Math.PI)})`); setText(read, Math.round(v) + ' m/s'); };
+  /* speed gauge, 0..vmax m/s: the lib meter bar the other chapters use, with a readout; g.set(v) fills it;
+     g.avg is a marker group set at avg. Centred on (0, 0). */
+  function speedBar(parent, vmax, avg) {
+    const g = G(parent), w = 240, h = 26, inner = G(g); tr(inner, -w / 2 - 50, -h / 2);
+    const bar = meter(inner, { w, h, color: C.energy, label: 'speed' });
+    g.avg = G(inner);
+    const ax = w * avg / vmax;
+    E('line', { x1: ax, x2: ax, y1: -8, y2: h + 8, stroke: C.ink, 'stroke-width': 4, 'stroke-linecap': 'round' }, g.avg);
+    E('path', { d: `M${f1(ax)},${h + 12} l-9,14 l18,0 Z`, fill: C.ink }, g.avg);
+    T(g.avg, ax, h + 54, 'average', { size: 26, weight: 700, fill: C.ink, anchor: 'middle' });
+    const read = T(inner, w + 18, h - 2, '0 m/s', { size: 30, weight: 700, fill: C.ink });
+    g.set = v => { bar.set(v / vmax); setText(read, Math.round(v) + ' m/s'); };
     g.set(0);
     return g;
   }
@@ -175,7 +165,7 @@ scene('speed', S => {
   const tW = stopwatch(B2, true);
   const tWX = 960, tWY = 486;
   const tWLab = T(B2, tWX, tWY - 104, 'total time', { size: 26, weight: 600, fill: C.muted, anchor: 'middle' });
-  const gauge = dial(B2, 15, 5); const GAX = 300, GAY = 488;
+  const gauge = speedBar(B2, 15, 5); const GAX = 300, GAY = 488;
   const avgChip = chip(B2, 'average speed = 200 m ÷ 40 s = 5 m/s', { size: 30, fill: '#33300F', stroke: C.energy, color: C.energy });
   const ACX = 640, ACY = 664;
 

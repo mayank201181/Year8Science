@@ -106,10 +106,12 @@ scene('intro', S => {
     }],
     ['speed', g => {
       const w = G(g); tr(w, -26, -2);
-      E('rect', { x: -6, y: -40, width: 12, height: 9, rx: 2, fill: C.ink }, w);
-      E('circle', { r: 28, fill: C.card2, stroke: C.ink, 'stroke-width': 4 }, w);
-      const hand = E('line', { x1: 0, y1: 0, x2: 0, y2: -19, stroke: C.energy, 'stroke-width': 4, 'stroke-linecap': 'round' }, w);
-      E('circle', { r: 4, fill: C.energy }, w);
+      // the Speed chapter's stopwatch: grey case, white face, red hand
+      E('rect', { x: -6, y: -40, width: 12, height: 9, rx: 2, fill: '#8FA2B0' }, w);
+      E('circle', { r: 28, fill: '#F7FAFC', stroke: '#8FA2B0', 'stroke-width': 4 }, w);
+      E('path', { d: 'M0,-23 L0,-17 M23,0 L17,0 M0,23 L0,17 M-23,0 L-17,0', stroke: '#3A4A56', 'stroke-width': 3, 'stroke-linecap': 'round' }, w);
+      const hand = E('line', { x1: 0, y1: 0, x2: 0, y2: -19, stroke: C.bad, 'stroke-width': 4, 'stroke-linecap': 'round' }, w);
+      E('circle', { r: 4, fill: C.bad }, w);
       E('path', { d: 'M14,-32 L14,30 L58,30', fill: 'none', stroke: C.muted, 'stroke-width': 3, 'stroke-linejoin': 'round' }, g);
       E('path', { d: 'M14,30 L28,8 L40,8 L56,-22', fill: 'none', stroke: C.energy, 'stroke-width': 4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);
       return t => hand.setAttribute('transform', `rotate(${(Math.floor(t * 2) * 30) % 360})`);
