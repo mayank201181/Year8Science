@@ -40,3 +40,12 @@ Editing a line in `script.py` only re-synthesises that line (cached by text).
 Scenes refer to lines by id, so their timing follows the new audio. A change to
 the pictures alone needs no new audio: rebuild from the committed
 `timeline.json` and leave the MP3 as it is (omit `--mp3`).
+
+## Notes for future edits
+
+- `ball(colour, dark)` in `engine/lib.js` caches each gradient by its light
+  colour, so on one page the first dark shade given for a colour is used
+  everywhere. Use the same pair for a colour throughout a lesson.
+- Only the scriptwriter writes `<topic>/lib.js`, so art one animator drew for
+  several chapters can be copied between scene files (the Breathing chest is in
+  six). Move it into the topic's `lib.js` before changing it.

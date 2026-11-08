@@ -169,8 +169,9 @@ A top-pan balance centre stage, with its readout always visible. Art: kit
 - `carbonate`: A test tube of green copper carbonate over a blue kit `bunsen`.
   CO₂ molecules stream out of the open mouth.
 - `lighter`: The powder turns black and the balance readout drops.
-- `closed`: The same reaction in a sealed rigid flask: the CO₂ stays inside
-  and the readout holds steady. Big tick: "the real rule".
+- `closed`: Copper carbonate fizzing in dilute acid inside a bunged flask on
+  the balance (no heating: a sealed vessel must never be heated). The CO₂ stays
+  inside and the readout holds steady. Big tick: "the real rule".
 - `candle`: Split screen. A candle on a balance: its readout falls as CO₂ and
   H₂O float away. Steel wool burning on a balance: its readout rises as O₂
   joins on.
