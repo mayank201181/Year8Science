@@ -3,6 +3,7 @@ import type { TopicExtras } from "../types";
 // Engagement extras for photosynthesis. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const photosynthesisExtras: TopicExtras = {
+  lesson: { href: "/lessons/photosynthesis.html", minutes: 15, chapters: 13 },
   interactive: "photosynthesis-rate",
   hook: "Almost every carbon atom in your body was once floating in the air as an invisible gas — until a plant grabbed it using nothing but sunlight. How can a silent leaf build solid food out of air and water, with no mouth, no muscles and no machinery?",
   didYouKnow: [
