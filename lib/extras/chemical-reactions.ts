@@ -3,6 +3,7 @@ import type { TopicExtras } from "../types";
 // Engagement extras for chemical-reactions. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const chemicalReactionsExtras: TopicExtras = {
+  lesson: { href: "/lessons/chemical-reactions.html", minutes: 15, chapters: 13 },
   interactive: "reaction-rate",
   hook: "Strike a match and a tiny stick of wood releases light and heat it was never given — where was that energy hiding all along? Every reaction is a secret swap of partners between atoms, and once you spot the rules, you can predict the magic.",
   didYouKnow: [
