@@ -29,11 +29,25 @@ scene('quiz', S => {
     for (let i = 0; i < segs.length; i++) { if (d <= segs[i] || i === segs.length - 1) { const f = segs[i] ? d / segs[i] : 0; return [lerp(pts[i][0], pts[i + 1][0], f), lerp(pts[i][1], pts[i + 1][1], f)]; } d -= segs[i]; }
     return pts[pts.length - 1];
   }
-  /* hollow glass delivery tube through points */
-  function glassTube(parent, pts) {
-    const d = 'M' + pts.map(p => p.join(',')).join(' L'), g = G(parent);
-    E('path', { d, fill: 'none', stroke: '#9DB7C6', 'stroke-width': 11, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
-    E('path', { d, fill: 'none', stroke: '#11303D', 'stroke-width': 5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
+  /* the carbonates chapter's rubber bung and glass delivery tube through points (bung at pts[0], drawn at scale k) */
+  function deliveryTube(parent, pts, k) {
+    const g = G(parent), d = 'M' + pts.map(p => p.join(',')).join(' L');
+    E('path', { d, fill: 'none', stroke: '#9DB7C6', 'stroke-width': 12, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
+    E('path', { d, fill: 'none', stroke: '#11303D', 'stroke-width': 6, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
+    const bung = G(g); tr(bung, pts[0][0], pts[0][1], k || 1);
+    E('path', { d: 'M-50,-26 L50,-26 L40,12 L-40,12 Z', fill: ball('#A9483A', '#6E2A21'), stroke: '#C86A58', 'stroke-width': 3, 'stroke-linejoin': 'round' }, bung);
+    E('rect', { x: -4, y: -26, width: 8, height: 38, fill: '#11303D', opacity: 0.55 }, bung);
+    return g;
+  }
+  /* one cell of the pH chapter's bar, cw square with its top-left at (x, y): end cells rounded on the outside,
+     a dark divider, a pale strip along the top */
+  function phCell(parent, i, x, y, cw) {
+    const g = G(parent), r = cw / 4, x1 = x + cw, y1 = y + cw;
+    let d = `M${x},${y} H${x1} V${y1} H${x} Z`;
+    if (i === 0) d = `M${x + r},${y} H${x1} V${y1} H${x + r} Q${x},${y1} ${x},${y1 - r} V${y + r} Q${x},${y} ${x + r},${y} Z`;
+    if (i === 14) d = `M${x},${y} H${x1 - r} Q${x1},${y} ${x1},${y + r} V${y1 - r} Q${x1},${y1} ${x1 - r},${y1} H${x} Z`;
+    E('path', { d, fill: PH[i], stroke: C.bg0, 'stroke-width': cw * 0.045, 'stroke-linejoin': 'round' }, g);
+    E('rect', { x: x + cw * 0.107, y: y + cw * 0.107, width: cw * 0.786, height: cw * 0.125, rx: cw * 0.0625, fill: '#ffffff', opacity: 0.25 }, g);
     return g;
   }
   function stopwatch(parent, r) {
@@ -64,7 +78,7 @@ scene('quiz', S => {
   T(intro, 600, 350, 'Quick-fire quiz', { size: 76, weight: 700, anchor: 'middle' });
   rich(intro, 600, 414, ['Say each answer ', ['out loud', Y, 800], ' before it appears'], { size: 32, anchor: 'middle', fill: C.muted });
   const introBar = G(intro);
-  const cells = PH.map((c, i) => E('rect', { x: -255 + i * 34, y: -17, width: 34, height: 34, rx: i === 0 || i === 14 ? 8 : 0, fill: c, stroke: C.bg0, 'stroke-width': 2 }, introBar));
+  const cells = PH.map((c, i) => phCell(introBar, i, -255 + i * 34, -17, 34));
   [[0, '0'], [7, '7'], [14, '14']].forEach(([i, s]) => T(introBar, -238 + i * 34, 48, s, { size: 24, weight: 600, anchor: 'middle', fill: C.muted }));
 
   /* ---------- the clue pictures (they become the answers' pictures); origin at (300, 556) ---------- */
@@ -72,11 +86,11 @@ scene('quiz', S => {
   function picLitmus(g) {
     const tb = testTube(g, 62, 150, { level: 0.55, liquid: CLEAR, opacity: 0.3 }); tr(tb, -20, 64);
     const strip = G(g);
-    const sd = 'M-15,-60 L15,-60 L15,60 L-15,60 Z';
-    E('path', { d: sd, fill: BLUE, stroke: '#9CC4F0', 'stroke-width': 2 }, strip);
-    const red = E('rect', { x: -15, y: 60, width: 30, height: 0, fill: RED, 'clip-path': clipD(sd) }, strip);
-    E('rect', { x: -15, y: -60, width: 30, height: 26, fill: '#A9CBF2' }, strip);
-    E('path', { d: sd, fill: 'none', stroke: '#CFE2F8', 'stroke-width': 2 }, strip);
+    // the indicators chapter's litmus strip (40 x 150) at 0.8: the wet end turns red, the held end stays dry
+    E('rect', { x: -16, y: -60, width: 32, height: 120, rx: 4, fill: BLUE }, strip);
+    const red = E('rect', { x: -16, y: 60, width: 32, height: 0, rx: 4, fill: RED }, strip);
+    E('rect', { x: -16, y: -60, width: 32, height: 24, rx: 4, fill: '#FFFFFF', opacity: 0.42 }, strip);
+    E('rect', { x: -16, y: -60, width: 32, height: 120, rx: 4, fill: 'none', stroke: 'rgba(255,255,255,0.6)', 'stroke-width': 1.6 }, strip);
     const lbl = labelLine(g, -78, -78, -34, -60, 'blue litmus', { size: 26, weight: 700, fill: '#8FC0F5', line: '#8FC0F5' });
     const lblA = labelLine(g, -78, 106, -40, 96, 'acid', { size: 28, weight: 700, fill: '#FF7A86', line: '#FF7A86' });
     return t => {
@@ -92,27 +106,28 @@ scene('quiz', S => {
   function picMeter(g) {
     const m = G(g);
     const bk = beaker(m, 120, 120, { level: 0.6, liquid: CLEAR, opacity: 0.3, marks: false }); tr(bk, -78, 74);
-    const probe = G(m);
-    E('rect', { x: -5, y: -64, width: 10, height: 112, rx: 5, fill: '#D5DEE6', stroke: '#8C99A6', 'stroke-width': 1.5 }, probe);
-    E('circle', { cx: 0, cy: 50, r: 9, fill: ball('#E9F2F7', '#8C99A6') }, probe);
-    tr(probe, -78, 64);
-    E('path', { d: 'M-78,0 C-78,-60 12,-60 30,-20', fill: 'none', stroke: '#2B3A45', 'stroke-width': 6, 'stroke-linecap': 'round' }, m);
-    const box = G(m); tr(box, 86, -10);
-    E('rect', { x: -56, y: -78, width: 112, height: 156, rx: 16, fill: ball('#3E4E5A', '#1F2A33'), stroke: '#6E8292', 'stroke-width': 2.5 }, box);
-    E('rect', { x: -44, y: -64, width: 88, height: 56, rx: 7, fill: '#C9EBD2', stroke: '#8FB89A', 'stroke-width': 2 }, box);
-    T(box, 0, -25, 'pH 12', { size: 28, weight: 700, anchor: 'middle', fill: '#14301E' });
-    [[-20, 22], [20, 22], [0, 52]].forEach(([x, y]) => E('circle', { cx: x, cy: y, r: 10, fill: '#56687A', stroke: '#8296A8', 'stroke-width': 2 }, box));
-    // the answer: a full-width pH bar under the answer text (stage x 210-990), the pointer sliding from 7 to 12
+    // the pH chapter's probe (tip in the liquid) and handheld meter
+    const probe = G(m); tr(probe, -78, 116);
+    E('rect', { x: -7, y: -116, width: 14, height: 108, rx: 7, fill: 'rgba(220,235,245,0.55)', stroke: '#B5CCD9', 'stroke-width': 2 }, probe);
+    E('circle', { cx: 0, cy: -10, r: 11, fill: 'rgba(220,235,245,0.7)', stroke: '#B5CCD9', 'stroke-width': 2 }, probe);
+    E('rect', { x: -11, y: -140, width: 22, height: 30, rx: 5, fill: '#2A3B48', stroke: '#7D93A2', 'stroke-width': 2 }, probe);
+    E('path', { d: 'M-78,-24 C-78,-60 90,-120 90,-92', fill: 'none', stroke: '#2A3B48', 'stroke-width': 6, 'stroke-linecap': 'round' }, m);
+    const box = G(m); tr(box, 90, -6);
+    E('rect', { x: -66, y: -86, width: 132, height: 172, rx: 20, fill: linGrad('#3A4E5E', '#1E2C37', true), stroke: '#7D93A2', 'stroke-width': 3 }, box);
+    E('rect', { x: -54, y: -70, width: 108, height: 64, rx: 9, fill: '#0E2A1D', stroke: '#5E7A8C', 'stroke-width': 2 }, box);
+    T(box, 0, -26, 'pH 12', { size: 32, weight: 700, anchor: 'middle', fill: '#9CF0B0' });
+    [-24, 24].forEach(x => E('circle', { cx: x, cy: 34, r: 12, fill: '#56707F', stroke: '#8FA6B4', 'stroke-width': 2 }, box));
+    // the answer: the pH chapter's bar at 52 px cells under the answer text (stage x 210-990), the pointer sliding from 7 to 12
     const bar = G(g), CW = 52, BX = -90, BY = 64;
-    PH.forEach((c, i) => E('rect', { x: BX + i * CW, y: BY, width: CW, height: 40, rx: i === 0 || i === 14 ? 9 : 0, fill: c, stroke: C.bg0, 'stroke-width': 2 }, bar));
-    [[0, '0', C.muted], [7, '7', '#56D69B'], [14, '14', C.muted]].forEach(([i, s2, c]) => T(bar, BX + i * CW + CW / 2, BY + 72, s2, { size: 26, weight: 700, anchor: 'middle', fill: c }));
-    const zone = E('rect', { x: BX + 8 * CW - 4, y: BY - 5, width: 7 * CW + 8, height: 50, rx: 12, fill: 'none', stroke: '#FFFFFF', 'stroke-width': 4 }, bar);
+    PH.forEach((c, i) => phCell(bar, i, BX + i * CW, BY, CW));
+    PH.forEach((c, i) => T(bar, BX + i * CW + CW / 2, BY + CW + 30, String(i), { size: 26, weight: 600, anchor: 'middle' }));
+    const zone = E('rect', { x: BX + 8 * CW - 4, y: BY - 5, width: 7 * CW + 8, height: CW + 10, rx: 12, fill: 'none', stroke: '#FFFFFF', 'stroke-width': 4 }, bar);
     const ptr = G(bar);
     E('path', { d: 'M0,0 L-14,-22 L14,-22 Z', fill: '#FFFFFF', stroke: C.bg0, 'stroke-width': 2, 'stroke-linejoin': 'round' }, ptr);
-    const n12 = T(bar, BX + 12 * CW + CW / 2, BY + 72, '12', { size: 30, weight: 700, anchor: 'middle', fill: '#FFFFFF' });
+    const n12 = T(bar, BX + 12 * CW + CW / 2, BY + CW + 30, '12', { size: 26, weight: 800, anchor: 'middle', fill: Y });
     return t => {
       const sw = P(t, at('a2') - 0.1, 0.55);
-      m.setAttribute('transform', `translate(${(-40 * sw).toFixed(1)} ${(-50 * sw).toFixed(1)}) scale(${(1 - 0.28 * sw).toFixed(4)})`);
+      m.setAttribute('transform', `translate(${(-40 * sw).toFixed(1)} ${(-56 * sw).toFixed(1)}) scale(${(1 - 0.2 * sw).toFixed(4)})`);
       op(bar, P(t, at('a2') + 0.1, 0.4, linear)); tr(bar, 0, (1 - P(t, at('a2') + 0.1, 0.5, easeOut)) * 16);
       const pp = P(t, at('a2') + 0.45, 0.8, ease);
       tr(ptr, BX + lerp(7, 12, pp) * CW + CW / 2, BY - 4);
@@ -124,11 +139,11 @@ scene('quiz', S => {
   function picLime(g) {
     const A = testTube(g, 58, 160, { level: 0.55, liquid: CLEAR, opacity: 0.3 }); tr(A, -92, 52);
     const lump = G(g); tr(lump, -92, 110);
-    E('path', { d: closedPath(blobPts(18, 11, 9, 0, 0.25, 3)), fill: ball('#F2F2EC', '#A9AEA6'), stroke: '#8E948C', 'stroke-width': 1.5 }, lump);
+    E('path', { d: closedPath(blobPts(18, 11, 9, 0, 0.25, 3)), fill: ball('#E6E1D6', '#A79F90'), stroke: '#A79F90', 'stroke-width': 1.5 }, lump);   // chalk, as in the carbonates chapter
     const fizz = bubbles(g, -110, 36, 36, 70, { n: 9, r: 4.5, seed: 21, speed: 0.9 });
     const lbl = labelLine(g, -130, 122, -106, 112, 'carbonate', { size: 26, weight: 700, fill: '#E6E8E2', line: '#C9CCC4' });
     const B = G(g);
-    glassTube(B, [[-92, -28], [-92, -64], [56, -64], [56, 104]]);
+    deliveryTube(B, [[-92, -28], [-92, -64], [56, -64], [56, 104]], 0.62);
     const tB = testTube(B, 58, 150, { level: 0.6, liquid: CLEAR, opacity: 0.25 }); tr(tB, 56, 58);
     const lb = bubbles(B, 44, 70, 24, 52, { n: 6, r: 4, seed: 9, speed: 0.7 });
     const co2s = [0, 1, 2].map(() => molCO2(B, 6));

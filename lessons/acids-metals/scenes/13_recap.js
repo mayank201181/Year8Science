@@ -39,7 +39,7 @@ scene('recap', S => {
     const g = G(parent);
     g.halo = halo ? E('ellipse', { rx: w * 0.82, ry: h * 0.85, fill: glow(C.energy) }, g) : null;
     if (m.hyd) {
-      E('rect', { x: -w / 2, y: -h / 2, width: w, height: h, rx: h / 2, fill: H_FILL, stroke: C.air, 'stroke-width': 2.5, 'stroke-dasharray': '7 5' }, g);
+      E('rect', { x: -w / 2, y: -h / 2, width: w, height: h, rx: h / 2, fill: H_FILL, stroke: C.air, 'stroke-width': 2.5, 'stroke-dasharray': '8 6' }, g);
       T(g, 0, 9, 'H', { size: 26, weight: 700, anchor: 'middle', fill: C.air });
     } else {
       E('rect', { x: -w / 2, y: -h / 2, width: w, height: h, rx: h / 2, fill: ball(m.c, mix(m.c, '#000000', 0.42)), stroke: mix(m.c, '#FFFFFF', 0.45), 'stroke-width': 2 }, g);
@@ -48,37 +48,84 @@ scene('recap', S => {
     if (g.halo) op(g.halo, 0);
     return g;
   }
-  /* the POP burst: an 8-point star with radial lines */
-  function popBurst(parent, r) {
-    const g = G(parent);
-    for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4 + Math.PI / 8; E('line', { x1: Math.cos(a) * r * 1.08, y1: Math.sin(a) * r * 1.08, x2: Math.cos(a) * r * 1.32, y2: Math.sin(a) * r * 1.32, stroke: C.energy, 'stroke-width': 4, 'stroke-linecap': 'round' }, g); }
-    let d = ''; for (let i = 0; i < 16; i++) { const a = -Math.PI / 2 + i * Math.PI / 8, rr = i % 2 ? r * 0.64 : r; d += (i ? 'L' : 'M') + (Math.cos(a) * rr).toFixed(1) + ',' + (Math.sin(a) * rr).toFixed(1); }
-    E('path', { d: d + 'Z', fill: C.energy, stroke: C.heat, 'stroke-width': 4, 'stroke-linejoin': 'round' }, g);
-    T(g, 0, r * 0.24, 'POP!', { size: Math.round(r * 0.66), weight: 700, anchor: 'middle', fill: '#7A2E00' });
+  /* POP: the metals and carbonates chapters' 8-point burst (energy yellow, heat-orange edge) with "POP!" and short
+     radial lines; built sprung (g.set(1)) for these static cards */
+  function popBurst(parent, R) {
+    R = R || 84;
+    const g = G(parent), star = G(g), rays = G(g);
+    let d = '';
+    for (let i = 0; i < 16; i++) { const a = -Math.PI / 2 + i * Math.PI / 8, rr = i % 2 ? R * 0.64 : R; d += (i ? 'L' : 'M') + (Math.cos(a) * rr).toFixed(1) + ',' + (Math.sin(a) * rr).toFixed(1); }
+    E('circle', { r: R * 1.45, fill: glow(C.energy) }, star);
+    E('path', { d: d + 'Z', fill: C.energy, stroke: C.heat, 'stroke-width': Math.max(3, R * 0.06), 'stroke-linejoin': 'round' }, star);
+    T(star, 0, R * 0.19, 'POP!', { size: Math.round(R * 0.52), weight: 700, anchor: 'middle', fill: '#6B2A00' });
+    const rl = [];
+    for (let i = 0; i < 8; i++) rl.push({ el: E('line', { stroke: C.energy, 'stroke-width': Math.max(3, R * 0.07), 'stroke-linecap': 'round' }, rays), a: -Math.PI / 2 + Math.PI / 8 + i * Math.PI / 4 });
+    g.set = p => {
+      p = clamp(p);
+      tr(star, 0, 0, Math.max(0.01, pop(p))); op(star, clamp(p * 4));
+      rl.forEach(o => {
+        const r1 = R * (1.08 + 0.22 * p), r2 = R * (1.2 + 0.42 * p), c = Math.cos(o.a), s = Math.sin(o.a);
+        attr(o.el, 'x1', c * r1); attr(o.el, 'y1', s * r1); attr(o.el, 'x2', c * r2); attr(o.el, 'y2', s * r2);
+      });
+      op(rays, clamp(p * 4) * (1 - 0.55 * clamp((p - 0.5) / 0.5)));
+    };
+    g.set(1);
     return g;
   }
-  /* a lit splint pointing down-left to its burning tip at (0,0) */
-  function splint(parent, len) {
-    const g = G(parent);
-    E('rect', { x: -5, y: -len, width: 10, height: len, rx: 4, fill: '#C8A165', stroke: '#E2C48F', 'stroke-width': 1.5 }, g);
-    E('circle', { cy: -6, r: 26, fill: glow('#FFB347') }, g);
-    g.flame = E('path', { d: 'M0,4 C-12,-4 -10,-22 0,-38 C10,-22 12,-4 0,4 Z', fill: '#FF9A3D' }, g);
-    E('path', { d: 'M0,2 C-5,-4 -5,-14 0,-24 C5,-14 5,-4 0,2 Z', fill: '#FFE07A' }, g);
+  /* the gas-test chapters' wooden splint, 16 x 220 at k = 1, its tip at the origin and the stick down local +y.
+     g.place(x, y, deg): tip at (x, y), stick turned by deg (0 = tip up); g.set(flame, ember, char, smoke); g.upd(t) */
+  function splint(parent, k) {
+    k = k || 1;
+    const g = G(parent), stick = G(g), fx = G(g), body = G(stick);
+    if (k !== 1) tr(body, 0, 0, k);
+    E('rect', { x: -8, y: 0, width: 16, height: 220, rx: 5, fill: '#C8A165', stroke: '#8E6B3A', 'stroke-width': 2 }, body);
+    E('line', { x1: -2, y1: 44, x2: -2, y2: 204, stroke: '#A8834D', 'stroke-width': 2 }, body);
+    const charC = E('rect', { x: -8, y: 0, width: 16, height: 26, rx: 5, fill: '#2E241C' }, body);
+    const emb = E('rect', { x: -8, y: 0, width: 16, height: 15, rx: 5, fill: '#FF6A2A' }, body);
+    const eHalo = E('circle', { r: 30 * k, fill: glow('#FF6A2A') }, fx);
+    const smoke = E('path', { fill: 'none', stroke: '#9AA6B0', 'stroke-width': 5 * k, 'stroke-linecap': 'round' }, fx);
+    const fl = G(fx);
+    E('ellipse', { cx: 0, cy: -36, rx: 50, ry: 68, fill: glow('#FFB347') }, fl);
+    E('path', { d: 'M0,6 C-19,-6 -21,-42 0,-86 C21,-42 19,-6 0,6 Z', fill: '#FF9A3C' }, fl);
+    E('path', { d: 'M0,3 C-9,-5 -10,-26 0,-52 C10,-26 9,-5 0,3 Z', fill: '#FFE07A' }, fl);
+    let F = 0, Em = 0, Sm = 0;
+    g.place = (x, y, deg) => {
+      stick.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${deg.toFixed(1)})`);
+      fx.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)})`);
+    };
+    g.set = (flame, ember, ch, sm) => { F = flame; Em = ember; Sm = sm; op(charC, ch); op(emb, ember); op(eHalo, ember * 0.95); op(fl, clamp(flame * 3)); op(smoke, sm * 0.8); };
+    g.upd = t => {
+      if (F > 0) { const a = 0.06 * calm, b = 0.11 * calm; fl.setAttribute('transform', `scale(${(k * F * (1 + a * Math.sin(t * 9))).toFixed(3)} ${(k * F * (1 + b * Math.sin(t * 13 + 1))).toFixed(3)})`); }
+      if (Em > 0) tr(eHalo, 0, 0, 0.75 + 0.35 * Em + 0.12 * wave(t, 0.8) * calm);
+      if (Sm > 0) { const pts = []; for (let i = 0; i <= 8; i++) pts.push([Math.sin(i * 0.8 - t * 2.4) * (2 + i * 2.2) * k, (-12 - i * 15) * k]); smoke.setAttribute('d', openPath(pts)); }
+    };
+    g.set(0, 0, 0, 0); g.place(0, 0, 0);
     return g;
   }
-  function ionH(parent) {
+  /* the lesson's ion art (acids, pH and neutralisation chapters): a charge badge, + red or - blue */
+  function ionBadge(parent, r, sign) {
     const g = G(parent);
-    tr(atom(g, 'H', 15, { letter: true }), 0, 0);
-    const b = G(g); tr(b, 13, -13); E('circle', { r: 8, fill: RED, stroke: '#FFC2C7', 'stroke-width': 1.5 }, b);
-    E('path', { d: 'M-4,0 L4,0 M0,-4 L0,4', stroke: '#FFFFFF', 'stroke-width': 2.4, 'stroke-linecap': 'round' }, b);
+    E('circle', { r, fill: sign > 0 ? '#E8424F' : '#3F8FE8', stroke: sign > 0 ? '#FFC2C8' : '#BFDBFE', 'stroke-width': 1.5 }, g);
+    E('path', { d: sign > 0 ? `M${-r * 0.5},0 H${r * 0.5} M0,${-r * 0.5} V${r * 0.5}` : `M${-r * 0.5},0 H${r * 0.5}`, stroke: '#ffffff', 'stroke-width': Math.max(1.8, r * 0.3), 'stroke-linecap': 'round' }, g);
     return g;
   }
-  function ionOH(parent) {
+  /* H+: a white H with a red + badge; OH-: a red O joined to a white H, with a blue - badge */
+  function ionH(parent) { const g = G(parent); atom(g, 'H', 14); tr(ionBadge(g, 7.5, 1), 11, -11); return g; }
+  function ionOH(parent) { const g = G(parent); tr(atom(g, 'H', 10), 18, 10); atom(g, 'O', 16); tr(ionBadge(g, 7.5, -1), -13, -14); return g; }
+  /* the acids chapter's cleaning-spray bottle (ammonia), about 140 x 230, centred */
+  function sprayBottle(parent) {
     const g = G(parent);
-    tr(atom(g, 'H', 10), 15, -9);
-    tr(atom(g, 'O', 16, { letter: true }), 0, 0);
-    const b = G(g); tr(b, -14, -14); E('circle', { r: 8, fill: BLUE, stroke: '#BFDBFE', 'stroke-width': 1.5 }, b);
-    E('line', { x1: -4, x2: 4, y1: 0, y2: 0, stroke: '#FFFFFF', 'stroke-width': 2.4, 'stroke-linecap': 'round' }, b);
+    const body = 'M-46,-58 L46,-58 Q58,-58 58,-46 L58,112 Q58,126 44,126 L-44,126 Q-58,126 -58,112 L-58,-46 Q-58,-58 -46,-58 Z';
+    E('path', { d: body, fill: 'rgba(200,230,250,0.14)' }, g);
+    E('path', { d: 'M-53,-14 L53,-14 L53,110 Q53,121 42,121 L-42,121 Q-53,121 -53,110 Z', fill: '#8FDCCB', opacity: 0.72 }, g);
+    E('path', { d: body, fill: 'none', stroke: GLASS.stroke, 'stroke-width': 3.5, 'stroke-linejoin': 'round' }, g);
+    E('rect', { x: -42, y: 18, width: 84, height: 62, rx: 8, fill: '#F4F7FA', stroke: '#C9D3DC', 'stroke-width': 2 }, g);
+    E('path', { d: 'M-26,36 H26 M-26,50 H18 M-26,64 H10', stroke: '#2FB5A0', 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
+    E('rect', { x: -18, y: -82, width: 36, height: 26, rx: 4, fill: '#E9EEF2', stroke: '#9AA6B1', 'stroke-width': 2 }, g);
+    E('path', { d: 'M14,-98 Q34,-86 28,-60', fill: 'none', stroke: '#1C7E70', 'stroke-width': 11, 'stroke-linecap': 'round' }, g);
+    E('path', { d: 'M-30,-82 L-30,-112 Q-30,-128 -14,-128 L62,-128 Q72,-128 72,-118 L72,-106 L32,-102 L20,-82 Z', fill: ball('#3CC7B0', '#1C7E70'), stroke: '#1C7E70', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, g);
+    E('rect', { x: 70, y: -124, width: 14, height: 12, rx: 3, fill: '#1C7E70' }, g);
+    E('rect', { x: 40, y: -40, width: 7, height: 140, rx: 3.5, fill: '#ffffff', opacity: 0.22 }, g);
     return g;
   }
 
@@ -106,8 +153,8 @@ scene('recap', S => {
   const c1 = cards[0];
   const c1Title = T(c1, CW / 2, 52, 'Reactivity series', { size: 28, weight: 700, anchor: 'middle', fill: C.muted });
   const ladder1 = MET.map((m, j) => {
-    const g = rung(c1, m, 60, 30, j === 0 || j === 10); tr(g, 52, 96 + 38 * j);
-    const w = m.w ? rich(c1, 94, 96 + 38 * j + 10, [[m.w[0], C.energy, 800], [m.w.slice(1), C.ink, 700]], { size: 28 }) : null;
+    const g = rung(c1, m, 72, 34, j === 0 || j === 10); tr(g, 56, 96 + 38 * j);
+    const w = m.w ? rich(c1, 102, 96 + 38 * j + 10, [[m.w[0], C.energy, 800], [m.w.slice(1), C.ink, 700]], { size: 28 }) : null;
     return { g, w, m, j };
   });
   const c1Arrow = arrow(c1, 234, 90, 234, 486, { color: C.energy, width: 5 });
@@ -118,17 +165,29 @@ scene('recap', S => {
   const c2 = cards[1];
   const c2t1 = rich(c2, CW / 2, 52, [['Red', REDT, 800], [' Bottoms,', C.ink, 700]], { size: 32, anchor: 'middle' });
   const c2t2 = rich(c2, CW / 2, 92, [['Blue', BLUET, 800], [' Roofs', C.ink, 700]], { size: 32, anchor: 'middle' });
-  const TX0 = 66, TB = 476, TCH = 22;                    // tower left, bottom, cell height
+  const TX0 = 66, TB = 476, TCH = 22, TW = 52;           // tower left, bottom, floor height, width
   const tower = G(c2);
-  const cells = []; for (let i = 0; i < 15; i++) cells.push(E('rect', { x: TX0, y: TB - (i + 1) * TCH, width: 52, height: TCH - 2, rx: 4, fill: PHC(i) }, tower));
-  E('path', { d: `M${TX0 - 8},${TB - 15 * TCH} L${TX0 + 26},${TB - 15 * TCH - 30} L${TX0 + 60},${TB - 15 * TCH} Z`, fill: '#8E5CF0', stroke: '#C9B3FF', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, tower);
+  // the indicators chapter's tower: the pH bar stood on end (pH 0 on the ground floor) under its grey roof and chimney
+  const roofT = G(tower); tr(roofT, TX0 + TW / 2, TB - 15 * TCH, TW / 112);   // that roof is sized for a 112-wide tower
+  E('rect', { x: 30, y: -58, width: 18, height: 30, fill: '#4A5E6C', stroke: '#9DB0BF', 'stroke-width': 3 }, roofT);
+  E('path', { d: 'M-76,0 L0,-62 L76,0 Z', fill: '#4A5E6C', stroke: '#9DB0BF', 'stroke-width': 3, 'stroke-linejoin': 'round' }, roofT);
+  const cells = [];
+  for (let i = 0; i < 15; i++) {
+    const y0 = TB - (i + 1) * TCH, y1 = y0 + TCH, x0 = TX0, x1 = TX0 + TW, r = 7;
+    let d = `M${x0},${y0} H${x1} V${y1} H${x0} Z`;
+    if (i === 0) d = `M${x0},${y0} H${x1} V${y1 - r} Q${x1},${y1} ${x1 - r},${y1} H${x0 + r} Q${x0},${y1} ${x0},${y1 - r} Z`;
+    if (i === 14) d = `M${x0},${y0 + r} Q${x0},${y0} ${x0 + r},${y0} H${x1 - r} Q${x1},${y0} ${x1},${y0 + r} V${y1} H${x0} Z`;
+    cells.push(E('path', { d, fill: PHC(i), stroke: C.bg0, 'stroke-width': 2, 'stroke-linejoin': 'round' }, tower));
+  }
   [[0, '0'], [7, '7'], [14, '14']].forEach(([i, s]) => T(tower, TX0 - 10, TB - (i + 0.5) * TCH + 8, s, { size: 24, weight: 700, anchor: 'end', fill: C.muted }));
   const glowBot = E('rect', { x: TX0 - 6, y: TB - 3 * TCH - 4, width: 64, height: 3 * TCH + 8, rx: 8, fill: 'none', stroke: REDT, 'stroke-width': 4 }, tower);
   const glowTop = E('rect', { x: TX0 - 6, y: TB - 15 * TCH - 4, width: 64, height: 3 * TCH + 8, rx: 8, fill: 'none', stroke: BLUET, 'stroke-width': 4 }, tower);
+  /* litmus paper: the indicators chapter's 40 x 150 strip at 0.55, centred on its origin */
   function litmus(parent, color) {
-    const g = G(parent);
-    E('rect', { x: -11, y: -40, width: 22, height: 80, rx: 3, fill: color }, g);
-    E('rect', { x: -11, y: -40, width: 22, height: 18, rx: 3, fill: mix(color, '#FFFFFF', 0.45) }, g);
+    const g = G(parent), s = G(g); s.setAttribute('transform', 'translate(0 -41.25) scale(0.55)');
+    E('rect', { x: -20, y: 0, width: 40, height: 150, rx: 5, fill: color }, s);
+    E('rect', { x: -20, y: 0, width: 40, height: 30, rx: 5, fill: '#FFFFFF', opacity: 0.42 }, s);
+    E('rect', { x: -20, y: 0, width: 40, height: 150, rx: 5, fill: 'none', stroke: 'rgba(255,255,255,0.6)', 'stroke-width': 2 }, s);
     return g;
   }
   const stripR = litmus(c2, RED), stripB = litmus(c2, BLUE);
@@ -140,7 +199,7 @@ scene('recap', S => {
   const c3 = cards[2];
   const burst = popBurst(c3, 50);
   const tubeH = testTube(c3, 46, 130, { level: 0.45, liquid: '#CFE7F5' }); tr(tubeH, 104, 232); tubeH.liquid.setAttribute('opacity', 0.3);
-  const spl = splint(c3, 110); tr(spl, 112, 170, 1, 70);
+  const spl = splint(c3, 0.5); spl.set(1, 0, 0, 0); spl.place(112, 170, -110);
   const bubH = bubbles(c3, 90, 238, 28, 50, { n: 5, r: 4, seed: 3, speed: 0.9 });
   const c3a = rich(c3, CW / 2, 352, [['Pop', C.energy, 800], [' = ', C.muted], ['Hydrogen', C.ink, 800]], { size: 32, anchor: 'middle' });
   const tubeL = testTube(c3, 46, 130, { level: 0.6, liquid: '#CFE7F5' }); tr(tubeL, CW / 2, 452);
@@ -201,13 +260,13 @@ scene('recap', S => {
   function fizzTube(parent, x, y, lump) {
     const g = G(parent);
     const tb = testTube(g, 60, 190, { level: 0.55, liquid: '#CFE7F5' }); tr(tb, x, y); tb.liquid.setAttribute('opacity', 0.32);
-    if (lump === 'mg') { const pts = []; for (let i = 0; i <= 40; i++) { const th = i / 40 * 3.2 * Math.PI; pts.push([x - 20 + 4.2 * th - 9 * Math.sin(th), y + 70 - 8 * Math.cos(th)]); } const d = openPath(pts); E('path', { d, fill: 'none', stroke: '#7D8894', 'stroke-width': 8, 'stroke-linecap': 'round' }, g); E('path', { d, fill: 'none', stroke: '#E8EDF2', 'stroke-width': 4, 'stroke-linecap': 'round' }, g); }
-    else E('path', { d: closedPath(blobPts(17, 12, 8, 0, 0.18, 6)), fill: ball('#F2F0EA', '#A8A396'), stroke: '#FFFFFF', 'stroke-width': 1.5, transform: `translate(${x} ${y + 72})` }, g);
+    if (lump === 'mg') { const pts = []; for (let i = 0; i <= 40; i++) { const th = i / 40 * 3.2 * Math.PI; pts.push([x - 20 + 4.2 * th - 9 * Math.sin(th), y + 70 - 8 * Math.cos(th)]); } const d = openPath(pts); E('path', { d, fill: 'none', stroke: '#8D98A5', 'stroke-width': 10, 'stroke-linecap': 'round' }, g); E('path', { d, fill: 'none', stroke: '#E3E8EE', 'stroke-width': 6, 'stroke-linecap': 'round' }, g); }
+    else E('path', { d: closedPath(blobPts(17, 12, 8, 0, 0.18, 6)), fill: ball('#E6E1D6', '#A79F90'), stroke: '#A79F90', 'stroke-width': 1.5, transform: `translate(${x} ${y + 72})` }, g);
     g.bub = bubbles(g, x - 18, y - 10, 36, 76, { n: 7, r: 4.5, seed: lump === 'mg' ? 4 : 9, speed: 0.9 });
     return g;
   }
   const t1L = fizzTube(g1, 560, 500, 'mg'), t1R = fizzTube(g1, 970, 500, 'co3');
-  const t1pop = popBurst(g1, 40);
+  const t1pop = popBurst(g1, 46);
   const t1co2 = [0, 1, 2].map(() => molCO2(g1, 9));
   const t1labL = rich(g1, 560, 650, [['metal', C.ink, 700], [' → ', C.muted], ['hydrogen', '#FFFFFF', 800]], { size: 28, anchor: 'middle' });
   const t1labR = rich(g1, 970, 650, [['carbonate', C.ink, 700], [' → ', C.muted], ['CO₂', C.co2, 800]], { size: 28, anchor: 'middle' });
@@ -233,42 +292,53 @@ scene('recap', S => {
   const g3 = TG[2];
   rich(g3, FX, 196, [['not all ', C.ink, 700], ['bases', BLUET, 800], [' are ', C.ink, 700], ['alkalis', '#A9CCFF', 800]], { size: 36, anchor: 'middle' });
   const t3b = rich(g3, FX, 244, [['only ', C.ink, 700], ['soluble', C.energy, 800], [' bases are', C.ink, 700]], { size: 32, anchor: 'middle' });
-  const VX = 750, VY = 480, VR = 212, IX = VX + 76, IY = VY + 26, IR = 108;
-  const vBig = E('circle', { cx: VX, cy: VY, r: VR, fill: 'rgba(63,143,232,0.12)', stroke: BLUE, 'stroke-width': 5 }, g3);
-  const vBigLab = T(g3, VX - 60, VY - 158, 'BASES', { size: 32, weight: 700, anchor: 'middle', fill: BLUET });
+  // the acids chapter's Venn diagram scaled to this card: ALKALIS low and left inside BASES, copper oxide outside it
+  const VX = 750, VY = 480, VR = 212, IX = VX - 43, IY = VY + 59, IR = 130;
+  const vBig = E('circle', { cx: VX, cy: VY, r: VR, fill: 'rgba(63,143,232,0.10)', stroke: BLUE, 'stroke-width': 5 }, g3);
+  const vBigLab = T(g3, VX, VY - 169, 'BASES', { size: 34, weight: 700, anchor: 'middle', fill: '#6FB2FF' });
   const vIn = G(g3);
-  E('circle', { cx: IX, cy: IY, r: IR, fill: 'rgba(169,204,255,0.18)', stroke: '#A9CCFF', 'stroke-width': 4 }, vIn);
-  T(vIn, IX, IY - 52, 'ALKALIS', { size: 28, weight: 700, anchor: 'middle', fill: '#CFE1FF' });
-  T(vIn, IX, IY - 24, '(soluble bases)', { size: 24, weight: 600, anchor: 'middle', fill: '#CFE1FF', font: FB });
-  const naoh = G(vIn); tr(naoh, IX, IY + 8);
-  [[-22, 4], [-6, -6], [10, 4], [24, -4], [-12, 12], [6, 12]].forEach(([x, y]) => E('ellipse', { cx: x, cy: y, rx: 9, ry: 6, fill: ball('#FFFFFF', '#B9C4CE') }, naoh));
-  T(vIn, IX, IY + 44, 'sodium\nhydroxide', { size: 24, weight: 600, anchor: 'middle', fill: C.ink, font: FB, lh: 26 });
+  E('circle', { cx: IX, cy: IY, r: IR, fill: 'rgba(160,205,255,0.16)', stroke: '#A9D0FF', 'stroke-width': 4 }, vIn);
+  T(vIn, IX, IY - 82, 'ALKALIS', { size: 28, weight: 700, anchor: 'middle', fill: '#CFE4FF' });
+  T(vIn, IX, IY - 56, '(soluble bases)', { size: 24, weight: 500, anchor: 'middle', fill: '#A9C6E8' });
+  { const nb = G(vIn); tr(nb, IX - 44, IY - 2, 0.22); beaker(nb, 240, 280, { level: 0.7, liquid: '#CFE7F5', opacity: 0.28, marks: false }); }
+  { const sp = G(vIn); tr(sp, IX + 56, IY - 4, 0.27); sprayBottle(sp); }
+  T(vIn, IX - 44, IY + 52, 'sodium\nhydroxide', { size: 24, weight: 600, anchor: 'middle', lh: 26 });
+  T(vIn, IX + 56, IY + 52, 'ammonia', { size: 24, weight: 600, anchor: 'middle' });
   const cuo = G(g3);
-  E('path', { d: 'M-52,18 Q-30,-22 0,-24 Q30,-22 52,18 Z', fill: '#1E2328', stroke: '#4A525A', 'stroke-width': 2 }, cuo);
-  const cr = rng(13); for (let k = 0; k < 4; k++) E('circle', { cx: (-38 + cr() * 76).toFixed(1), cy: (14 - cr() * 26).toFixed(1), r: (1.5 + cr() * 2).toFixed(1), fill: '#3A4148' }, cuo);
-  T(cuo, 0, 50, 'copper oxide', { size: 24, weight: 600, anchor: 'middle', fill: C.ink, font: FB });
-  const cuoX = T(cuo, 0, 78, 'insoluble', { size: 24, weight: 700, anchor: 'middle', fill: REDT, font: FB });
+  E('path', { d: 'M-30,8 Q-18,-16.5 0,-18.6 Q18,-16.5 30,8 Z', fill: linGrad('#3A4148', '#121518', true), stroke: '#121518', 'stroke-width': 2 }, cuo);
+  T(cuo, 0, 48, 'copper oxide', { size: 24, weight: 600, anchor: 'middle', fill: C.ink });
+  const cuoX = T(cuo, 0, 76, 'insoluble', { size: 24, weight: 700, anchor: 'middle', fill: REDT });
 
   // trap 4: concentration is not strength
   const g4 = TG[3];
   rich(g4, FX, 202, [['concentration', C.energy, 800], ['  ≠  ', C.muted, 700], ['strength', C.energy, 800]], { size: 40, anchor: 'middle' });
+  /* a beaker of acid in the shared particle art at 0.6 (as in the hazards chapter): red partners joined to white H;
+     split ones show their charges and the H+ drifts on its own */
   function acidBeaker(parent, x, y, nJoined, nSplit, seed) {
     const g = G(parent);
-    const bk = beaker(g, 230, 240, { level: 0.82, liquid: C.water, opacity: 0.22, marks: false }); tr(bk, x, y);
+    const bk = beaker(g, 230, 240, { level: 0.82, liquid: '#CFE7F5', opacity: 0.28, marks: false }); tr(bk, x, y);
     const r = rng(seed), ps = [];
     const box = [x - 92, y - 54, 184, 158];             // the liquid inside
     const bnc = (u, a, b) => { const L = b - a, m = ((u - a) % (2 * L) + 2 * L) % (2 * L); return a + (m < L ? m : 2 * L - m); };
     const drift = (q, t) => [bnc(q.x0 + q.vx * t * 9 * calm, box[0] + 12, box[0] + box[2] - 12), bnc(q.y0 + q.vy * t * 9 * calm, box[1] + 12, box[1] + box[3] - 12)];
     const seedPt = () => ({ x0: box[0] + 12 + r() * (box[2] - 24), y0: box[1] + 12 + r() * (box[3] - 24), vx: (r() - 0.5) * 2, vy: (r() - 0.5) * 2 });
     for (let k = 0; k < nJoined + nSplit; k++) {
-      const split = k >= nJoined, pg = G(g);
-      E('circle', { r: 9, fill: ball('#FF6B6B', '#B5372D') }, pg);
-      const h = atom(split ? g : pg, 'H', 6.5);         // a split-off H+ drifts on its own
+      // drawn lean (no wrapper groups; badges only on split particles) to keep the element count low
+      const split = k >= nJoined, pg = G(g), RB = 4.5;
+      const badge = (par, x, y, sign) => {
+        E('circle', { cx: x, cy: y, r: RB, fill: sign > 0 ? '#E8424F' : '#3F8FE8', stroke: sign > 0 ? '#FFC2C8' : '#BFDBFE', 'stroke-width': 1.5 }, par);
+        E('path', { d: sign > 0 ? `M${x - RB * 0.5},${y} H${x + RB * 0.5} M${x},${y - RB * 0.5} V${y + RB * 0.5}` : `M${x - RB * 0.5},${y} H${x + RB * 0.5}`, stroke: '#ffffff', 'stroke-width': 1.8, 'stroke-linecap': 'round' }, par);
+      };
+      E('circle', { r: 10.2, fill: ball(RED, '#9E1F2B'), stroke: '#9E1F2B', 'stroke-width': 1.5 }, pg);
+      if (split) badge(pg, 7.8, -7.8, -1);
+      const h = split ? G(g) : null;                     // a split-off H+ drifts on its own
+      E('circle', { cx: split ? 0 : 14.3, cy: split ? 0 : -10, r: 8.4, fill: ball(C.hydrogen, C.hydrogenDk), stroke: C.hydrogenDk, 'stroke-width': 1.5 }, split ? h : pg);
+      if (split) badge(h, 6.6, -6.6, 1);
       ps.push({ pg, h, split, a: seedPt(), b: seedPt() });
     }
     g.upd = t => ps.forEach(p => {
       const [x, y] = drift(p.a, t); tr(p.pg, x, y);
-      if (p.split) { const [hx, hy] = drift(p.b, t); tr(p.h, hx, hy); } else tr(p.h, 9, -6);
+      if (p.split) { const [hx, hy] = drift(p.b, t); tr(p.h, hx, hy); }
     });
     return g;
   }
@@ -328,7 +398,7 @@ scene('recap', S => {
       // 1: rungs and words arrive as the mnemonic is spoken
       ladder1.forEach(r => {
         const p = P(t, mid('zebra', WT[r.j]) - 0.06, 0.4, pop);
-        op(r.g, clamp(p * 2)); tr(r.g, 52, 96 + 38 * r.j, Math.max(0.01, 0.7 + 0.3 * p));
+        op(r.g, clamp(p * 2)); tr(r.g, 56, 96 + 38 * r.j, Math.max(0.01, 0.7 + 0.3 * p));
         if (r.w) { op(r.w, fade(t, mid('zebra', WT[r.j]) - 0.06, 0.3)); tr(r.w, (1 - P(t, mid('zebra', WT[r.j]) - 0.06, 0.4, easeOut)) * 16, 0); }
         const h = r.j === 0 ? win(t, mid('zebra', 0.76), at('roofs'), 0.3) : r.j === 10 ? win(t, mid('zebra', 0.89), at('roofs'), 0.3) : 0;
         if (r.g.halo) op(r.g.halo, h);
@@ -347,11 +417,11 @@ scene('recap', S => {
       const bp = P(t, mid('pop', 0.08), 0.5, pop);
       op(burst, clamp(bp * 2)); tr(burst, CW / 2 + 6, 90, Math.max(0.01, 0.4 + 0.6 * bp), (1 - clamp(bp)) * -20);
       bubH.upd(t * calm, 0.8);
-      op(spl.flame, 0.85 + 0.15 * wave(t, 0.3));
+      spl.upd(t);
       op(c3a, fade(t, mid('pop', 0.12)));
       const mk = P(t, mid('pop', 0.5), 1.1);
       bubL.upd(t * calm, fade(t, mid('pop', 0.42), 0.3));
-      tubeL.set(0.6, mix('#CFE7F5', '#EEF3F6', mk)); tubeL.liquid.setAttribute('opacity', lerp(0.28, 0.9, mk).toFixed(3));
+      tubeL.set(0.6, mix('#CFE7F5', '#EEF3F6', mk)); tubeL.liquid.setAttribute('opacity', lerp(0.25, 0.9, mk).toFixed(3));
       op(c3b, fade(t, mid('pop', 0.46)));
       // 4: A, B, S, W, then the words
       const LT = [0.02, 0.2, 0.29, 0.4], RT = [0.5, 0.6, 0.72, 0.86];
@@ -414,7 +484,7 @@ scene('recap', S => {
     if (t > at('t3') - 0.3 && t < at('t4') + 0.1) {
       const vb = P(t, mid('t3', 0.12), 0.6, pop); op(vBig, clamp(vb * 2)); vBig.setAttribute('r', (VR * Math.max(0.01, vb)).toFixed(1)); op(vBigLab, fade(t, mid('t3', 0.2)));
       const vi = P(t, mid('t3', 0.36), 0.6, pop); op(vIn, clamp(vi * 2)); vIn.setAttribute('transform', `translate(${IX} ${IY}) scale(${Math.max(0.01, vi).toFixed(3)}) translate(${-IX} ${-IY})`);
-      popAt(cuo, t, mid('t3', 0.44), VX - 122, VY - 14, 0.7);
+      popAt(cuo, t, mid('t3', 0.44), 860, 352, 0.7);
       op(cuoX, fade(t, mid('t3', 0.62))); op(t3b, fade(t, mid('t3', 0.58)));
     }
     // 4

@@ -33,13 +33,14 @@ scene('hazards', S => {
     f.vx = Math.cos(a) * v; f.vy = Math.sin(a) * v;
     return f;
   }
-  /* litmus paper, origin at the middle of its held (top) end; g.set(p) the new colour creeps up from the wet end */
-  function litmus(parent, from, to, h) {
-    const w = 40, g = G(parent);
-    E('rect', { x: -w / 2, y: 0, width: w, height: h, rx: 5, fill: from }, g);
-    const wet = E('rect', { x: -w / 2, y: h, width: w, height: 0, rx: 5, fill: to }, g);
-    E('rect', { x: -w / 2, y: 0, width: w, height: 26, rx: 5, fill: '#FFFFFF', opacity: 0.42 }, g);
-    E('rect', { x: -w / 2, y: 0, width: w, height: h, rx: 5, fill: 'none', stroke: 'rgba(255,255,255,0.6)', 'stroke-width': 2 }, g);
+  /* litmus paper, the indicators chapter's 40 x 150 strip drawn at scale k; origin at the middle of its held (top)
+     end; g.set(p) the new colour creeps up from the wet end */
+  function litmus(parent, from, to, k) {
+    const w = 40, h = 150, g = G(parent), s = G(g); tr(s, 0, 0, k);
+    E('rect', { x: -w / 2, y: 0, width: w, height: h, rx: 5, fill: from }, s);
+    const wet = E('rect', { x: -w / 2, y: h, width: w, height: 0, rx: 5, fill: to }, s);
+    E('rect', { x: -w / 2, y: 0, width: w, height: 30, rx: 5, fill: '#FFFFFF', opacity: 0.42 }, s);
+    E('rect', { x: -w / 2, y: 0, width: w, height: h, rx: 5, fill: 'none', stroke: 'rgba(255,255,255,0.6)', 'stroke-width': 2 }, s);
     g.set = p => { const hh = h * clamp(p); attr(wet, 'y', h - hh); attr(wet, 'height', hh); };
     g.set(0);
     return g;
@@ -52,13 +53,13 @@ scene('hazards', S => {
     E('path', { d, stroke: '#EBCB4E', 'stroke-width': 2.5 }, g);
     return g;
   }
-  /* lips with a tongue poking out */
+  /* an open mouth with the tongue poking out (the pH chapter's "never taste" icon) */
   function tongue(parent) {
     const g = G(parent);
-    E('path', { d: 'M-46,-8 Q-24,-36 0,-24 Q24,-36 46,-8 Q24,22 0,20 Q-24,22 -46,-8 Z', fill: ball('#E8697F', '#A63A50'), stroke: '#FFB3C1', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, g);
-    E('path', { d: 'M-34,-7 Q0,-18 34,-7 Q0,6 -34,-7 Z', fill: '#3A141C' }, g);
-    E('path', { d: 'M-20,-6 L20,-6 L20,16 C20,44 -20,44 -20,16 Z', fill: ball('#FF9CB2', '#D2607A'), stroke: '#FFD0DA', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, g);
-    E('path', { d: 'M0,0 L0,26', stroke: '#D2607A', 'stroke-width': 3, 'stroke-linecap': 'round' }, g);
+    E('path', { d: 'M-62,-14 Q0,-44 62,-14 Q46,30 0,32 Q-46,30 -62,-14 Z', fill: '#4A0F1C', stroke: '#E86A86', 'stroke-width': 7, 'stroke-linejoin': 'round' }, g);
+    E('path', { d: 'M-40,-16 Q0,-34 40,-16 L36,-6 Q0,-20 -36,-6 Z', fill: '#F4F7FA' }, g);
+    E('path', { d: 'M-28,6 Q0,-6 28,6 L28,40 Q28,66 0,66 Q-28,66 -28,40 Z', fill: ball('#FF8FAF', '#C2456A'), stroke: '#FFC2D4', 'stroke-width': 2.5 }, g);
+    E('path', { d: 'M0,10 L0,46', stroke: '#C2456A', 'stroke-width': 3.5, 'stroke-linecap': 'round' }, g);
     return g;
   }
   function soapBubbles(parent) {
@@ -114,20 +115,36 @@ scene('hazards', S => {
     g.sticker = st;
     return g;
   }
-  /* acid particles for the strength pictures: a red ball (what is left when it ionises) with a white H attached.
-     Each splits at its own time (Infinity: stays joined); after that its H drifts away as an H+ ion with a red +
-     badge. Returns update(t). box: [x0, y0, x1, y1] for the red balls */
-  function acidSet(parent, n, box, splits, seed, speed) {
-    const r = rng(seed), ms = [];
+  /* the lesson's ion art (as in the acids and pH chapters): a charge badge, + red or - blue */
+  function ionBadge(parent, r, sign) {
+    const g = G(parent);
+    E('circle', { r, fill: sign > 0 ? '#E8424F' : '#3F8FE8', stroke: sign > 0 ? '#FFC2C8' : '#BFDBFE', 'stroke-width': 1.5 }, g);
+    E('path', { d: sign > 0 ? `M${-r * 0.5},0 H${r * 0.5} M0,${-r * 0.5} V${r * 0.5}` : `M${-r * 0.5},0 H${r * 0.5}`, stroke: '#ffffff', 'stroke-width': Math.max(1.8, r * 0.3), 'stroke-linecap': 'round' }, g);
+    return g;
+  }
+  /* acid particles for the strength pictures, the shared acid particle at scale s (0.6 to fit these small beakers):
+     a red partner joined to a white H. Each splits at its own time (Infinity: stays joined); after that its H drifts
+     away as an H+ ion (red + badge) and the partner shows its - badge. Drawn without wrapper groups, and with badges
+     only on particles that split, to keep the element count low. Returns update(t). box: [x0, y0, x1, y1] for the
+     red partners */
+  function acidSet(parent, n, box, splits, seed, speed, s) {
+    s = s || 0.6;
+    const r = rng(seed), ms = [], D = 29 * s, RB = 7.5 * s;
+    const badge = sign => ({
+      c: E('circle', { r: RB, fill: sign > 0 ? '#E8424F' : '#3F8FE8', stroke: sign > 0 ? '#FFC2C8' : '#BFDBFE', 'stroke-width': 1.5 }, parent),
+      p: E('path', { d: sign > 0 ? `M${-RB * 0.5},0 H${RB * 0.5} M0,${-RB * 0.5} V${RB * 0.5}` : `M${-RB * 0.5},0 H${RB * 0.5}`, stroke: '#ffffff', 'stroke-width': Math.max(1.8, RB * 0.3), 'stroke-linecap': 'round' }, parent),
+    });
+    const place = (b, x, y) => { attr(b.c, 'cx', x); attr(b.c, 'cy', y); b.p.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)})`); };
     for (let i = 0; i < n; i++) {
-      const a = E('circle', { r: 10, fill: ball(RED, RED_DK), stroke: RED_DK, 'stroke-width': 1.5 }, parent);
-      const h = E('circle', { r: 7, fill: ball(C.hydrogen, C.hydrogenDk), stroke: C.hydrogenDk, 'stroke-width': 1.2 }, parent);
-      const bd = E('circle', { r: 5, fill: C.bad }, parent);
-      const pl = E('path', { d: 'M-2.6,0 H2.6 M0,-2.6 V2.6', stroke: '#FFFFFF', 'stroke-width': 1.6, 'stroke-linecap': 'round' }, parent);
+      const split = splits[i] === undefined ? Infinity : splits[i];
+      const a = E('circle', { r: 17 * s, fill: ball(RED, '#9E1F2B'), stroke: '#9E1F2B', 'stroke-width': 1.5 }, parent);
+      const mb = split < Infinity ? badge(-1) : null;
+      const h = E('circle', { r: 14 * s, fill: ball(C.hydrogen, C.hydrogenDk), stroke: C.hydrogenDk, 'stroke-width': 1.5 }, parent);
+      const pb = split < Infinity ? badge(1) : null;
       const b = [box[0] - 12, box[1] - 12, box[2] + 12, box[3] + 12];
-      ms.push({ a, h, bd, pl, p: drifter(r, box[0], box[1], box[2], box[3], speed), hf: drifter(r, b[0], b[1], b[2], b[3], speed * 1.3), ph: r() * TAU, w: (r() - 0.5) * 1.4, split: splits[i] === undefined ? Infinity : splits[i], b });
+      ms.push({ a, h, mb, pb, p: drifter(r, box[0], box[1], box[2], box[3], speed), hf: drifter(r, b[0], b[1], b[2], b[3], speed * 1.3), ph: r() * TAU, w: (r() - 0.5) * 1.4, split, b });
     }
-    const hAt = (m, t) => { const [px, py] = m.p(t), an = m.ph + m.w * t; return [px + 15 * Math.cos(an), py + 15 * Math.sin(an)]; };
+    const hAt = (m, t) => { const [px, py] = m.p(t), an = m.ph + m.w * t; return [px + D * Math.cos(an), py + D * Math.sin(an)]; };
     return t => ms.forEach(m => {
       const [px, py] = m.p(t);
       let [hx, hy] = hAt(m, t);
@@ -136,14 +153,15 @@ scene('hazards', S => {
         const k = ease(P(t, m.split, 0.8, linear)); hx = lerp(hx, fx, k); hy = lerp(hy, fy, k);
       }
       attr(m.a, 'cx', px); attr(m.a, 'cy', py); attr(m.h, 'cx', hx); attr(m.h, 'cy', hy);
+      if (!m.mb) return;
       const bv = P(t, m.split + 0.3, 0.3, linear);
-      op(m.bd, bv); op(m.pl, bv);
-      if (bv > 0) { attr(m.bd, 'cx', hx + 6); attr(m.bd, 'cy', hy - 6); m.pl.setAttribute('transform', `translate(${(hx + 6).toFixed(1)} ${(hy - 6).toFixed(1)})`); }
+      [m.mb.c, m.mb.p, m.pb.c, m.pb.p].forEach(e => op(e, bv));
+      if (bv > 0) { place(m.mb, px + 13 * s, py - 13 * s); place(m.pb, hx + 11 * s, hy - 11 * s); }
     });
   }
   /* a beaker with a box of drifting red acid particles in its liquid (kit particleBox, gas mode, low energy) */
   function acidBeaker(parent, w, h, level, n, seed) {
-    const g = G(parent), bk = beaker(g, w, h, { level, liquid: C.water, opacity: 0.32 });
+    const g = G(parent), bk = beaker(g, w, h, { level, liquid: CLEAR, opacity: 0.28 });
     const top = h / 2 - (h - 18) * level, pw = w - 30, ph = h / 2 - 8 - top - 4;
     const pb = particleBox(g, pw, ph, { n, r: 9, color: RED, dark: RED_DK, box: false, seed }); tr(pb, -pw / 2, top + 4);
     g.bk = bk; g.pb = pb; g.ps = Array.from(pb.childNodes);
@@ -174,10 +192,10 @@ scene('hazards', S => {
   E('line', { x1: 654, y1: 202, x2: 1096, y2: 202, stroke: C.line, 'stroke-width': 2 }, cardB);
   // acids: sour (never taste!), blue litmus turns red, react with metals and carbonates
   const a1 = G(cardA); const lem = lemonWedge(a1); tr(lem, 140, 262, 1, -12); T(a1, 198, 282, 'sour', { size: 34, weight: 700 });
-  const a1b = G(cardA); const tg = tongue(a1b); tr(tg, 396, 254, 1.1); const tgX = cross(a1b, 20); tr(tgX, 476, 252);
+  const a1b = G(cardA); const tg = tongue(a1b); tr(tg, 396, 248, 0.75); const tgX = cross(a1b, 20); tr(tgX, 476, 252);
   const a1c = T(cardA, 420, 336, 'never taste in a lab!', { size: 26, weight: 700, anchor: 'middle', fill: '#FF8F9A' });
   const a2 = G(cardA);
-  const stA = litmus(a2, BLUE, RED, 110);
+  const stA = litmus(a2, BLUE, RED, 110 / 150);
   const mbA = beaker(a2, 90, 80, { level: 0.62, liquid: CLEAR, opacity: 0.3, marks: false }); tr(mbA, 140, 456);
   rich(a2, 205, 440, [['blue litmus', BLUE_T, 700], [' turns ', C.ink], ['red', RED_T, 800]], { size: 30 });
   const a3 = [0, 1].map(k => {
@@ -191,7 +209,7 @@ scene('hazards', S => {
   // alkalis: soapy, red litmus turns blue, neutralise acids
   const b1 = G(cardB); const soap = soapBubbles(b1); tr(soap, 700, 262); T(b1, 760, 282, 'soapy, slippery', { size: 34, weight: 700 });
   const b2 = G(cardB);
-  const stB = litmus(b2, RED, BLUE, 110);
+  const stB = litmus(b2, RED, BLUE, 110 / 150);
   const mbB = beaker(b2, 90, 80, { level: 0.62, liquid: CLEAR, opacity: 0.3, marks: false }); tr(mbB, 690, 456);
   rich(b2, 755, 440, [['red litmus', RED_T, 700], [' turns ', C.ink], ['blue', BLUE_T, 800]], { size: 30 });
   const b3 = chip(cardB, 'neutralise acids', { size: 32, fill: '#163F2A', stroke: C.good, color: C.good }); tr(b3, 875, 574);
@@ -207,6 +225,7 @@ scene('hazards', S => {
   T(corBl, 430, 428, 'concentrated', { size: 28, weight: 700, anchor: 'middle' });
   T(corBl, 430, 460, 'acid or alkali', { size: 26, weight: 600, anchor: 'middle', fill: C.muted });
   const corT = T(cor, 300, 528, 'CORROSIVE', { size: 48, weight: 700, anchor: 'middle', fill: '#FF6B6B' });
+  corT.style.fontKerning = 'none';                     // Fredoka kerns "IV" until the letters touch ("CORROSNE")
   const corN1 = T(cor, 300, 572, 'destroys living tissue', { size: 32, weight: 600, anchor: 'middle' });
   const corN2 = T(cor, 300, 612, 'like skin and eyes', { size: 28, weight: 600, anchor: 'middle', fill: C.muted });
   const irrD = diamond(irr, 110, 'irritant'); tr(irrD, 815, 270);
@@ -234,14 +253,14 @@ scene('hazards', S => {
   const warn = E('ellipse', { rx: 170, ry: 190, fill: glow('#FF6A3D') }, Cg);
   Cg.insertBefore(warn, Cg.firstChild);
   const hazChip = chip(Cg, 'more hazardous', { size: 30, fill: '#4A1E14', stroke: '#FF7A45', color: '#FFB08A' }); tr(hazChip, 790, 456);
-  const fall = [0, 1].map(() => E('path', { d: dropD(1), fill: 'rgba(76,201,240,0.35)', stroke: C.water, 'stroke-width': 3, 'vector-effect': 'non-scaling-stroke' }, Cg));
+  const fall = [0, 1].map(() => E('path', { d: dropD(1), fill: 'rgba(207,231,245,0.16)', stroke: GLASS.stroke, 'stroke-width': 3, 'vector-effect': 'non-scaling-stroke' }, Cg));
   const DROP_X = [470, 1010], DROP_Y = 466, DS = 8;
   // the particles in one drop: loosely spaced so they can be counted, each jiggling a little
   const MAG_AT = [[[0, 46]], [[0, -14], [-22, 14], [22, 14], [-42, 46], [0, 46], [42, 46], [-22, 78], [22, 78]]];
   const mags = MAG_AT.map((spots, k) => {
     const g = G(Cg);
     const halo = E('circle', { cx: 0, cy: 20, r: 120, fill: glow('#FF6A3D') }, g);
-    E('path', { d: dropD(DS), fill: 'rgba(76,201,240,0.2)', stroke: C.water, 'stroke-width': 4 }, g);
+    E('path', { d: dropD(DS), fill: 'rgba(207,231,245,0.10)', stroke: GLASS.stroke, 'stroke-width': 4 }, g);
     const ps = spots.map(([x, y], i) => ({ el: E('circle', { r: 14, fill: ball(RED, RED_DK), stroke: RED_DK, 'stroke-width': 1.5 }, g), x, y, ph: i * 1.7 + k }));
     return { g, halo, ps };
   });
@@ -261,8 +280,8 @@ scene('hazards', S => {
   const neq = G(Dg); notEqual(neq, 40);
   const SBOX = [-52, -16, 52, 68];
   const strong = G(Dg), weak = G(Dg);
-  beaker(strong, 170, 190, { level: 0.75, liquid: C.water, opacity: 0.28 }); tr(strong, 190, 420);
-  beaker(weak, 170, 190, { level: 0.75, liquid: C.water, opacity: 0.28 }); tr(weak, 420, 420);
+  beaker(strong, 170, 190, { level: 0.75, liquid: CLEAR, opacity: 0.28 }); tr(strong, 190, 420);
+  beaker(weak, 170, 190, { level: 0.75, liquid: CLEAR, opacity: 0.28 }); tr(weak, 420, 420);
   const SPL = [0, 1, 2, 3, 4, 5].map(i => mid('notsame', 0.36 + 0.035 * i));
   const updStrong = acidSet(strong, 6, SBOX, SPL, 81, 12), updWeak = acidSet(weak, 6, SBOX, [mid('notsame', 0.47)], 83, 12);
   const sLab = G(Dg);
@@ -272,11 +291,9 @@ scene('hazards', S => {
   T(wLab, 420, 566, 'weak', { size: 32, weight: 700, anchor: 'middle', fill: C.energy });
   T(wLab, 420, 600, 'only partly', { size: 24, weight: 600, anchor: 'middle', fill: C.muted });
   const legend = G(Dg);
-  { const lg = G(legend); E('circle', { cx: 112, cy: 652, r: 10, fill: ball(RED, RED_DK), stroke: RED_DK, 'stroke-width': 1.5 }, lg); E('circle', { cx: 126, cy: 644, r: 7, fill: ball(C.hydrogen, C.hydrogenDk), stroke: C.hydrogenDk, 'stroke-width': 1.2 }, lg); }
+  { const lg = G(legend); E('circle', { cx: 110, cy: 654, r: 10.2, fill: ball(RED, '#9E1F2B'), stroke: '#9E1F2B', 'stroke-width': 1.5 }, lg); tr(atom(lg, 'H', 8.4), 125, 645); }
   T(legend, 148, 661, 'acid particle', { size: 26, weight: 600, fill: C.muted });
-  E('circle', { cx: 334, cy: 652, r: 7, fill: ball(C.hydrogen, C.hydrogenDk), stroke: C.hydrogenDk, 'stroke-width': 1.2 }, legend);
-  E('circle', { cx: 340, cy: 646, r: 5, fill: C.bad }, legend);
-  E('path', { d: 'M337.4,646 H342.6 M340,643.4 V648.6', stroke: '#FFFFFF', 'stroke-width': 1.6, 'stroke-linecap': 'round' }, legend);
+  { const lh = G(legend); tr(lh, 334, 654); atom(lh, 'H', 8.4); tr(ionBadge(lh, 4.5, 1), 6.6, -6.6); }
   rich(legend, 356, 661, [['H', C.muted, 700], ['+', C.bad, 800, { dy: -11, size: 18 }], [' ion split off', C.muted, 600, { dy: 11 }]], { size: 26 });
 
   /* ================= E. the 2 x 2 grid (showpiece) ================= */
@@ -295,7 +312,7 @@ scene('hazards', S => {
   const CELLS = [[0, 0, 3, 'all'], [1, 0, 12, 'all'], [0, 1, 3, 0], [1, 1, 12, 2]].map(([c, r, n, s], k) => {
     const g = G(Eg), x = GX[c], y = GYc[r];
     const frame = E('rect', { x: x - 135, y: y - 98, width: 270, height: 196, rx: 20, fill: C.card, stroke: C.line, 'stroke-width': 2.5 }, g);
-    const bg = G(g); beaker(bg, 150, 150, { level: 0.76, liquid: C.water, opacity: 0.28 }); tr(bg, x, y - 6);
+    const bg = G(g); beaker(bg, 150, 150, { level: 0.76, liquid: CLEAR, opacity: 0.28 }); tr(bg, x, y - 6);
     const splits = []; for (let i = 0; i < n; i++) splits.push(s === 'all' || i < s ? -50 : Infinity);
     const box = n > 4 ? [-46, -8, 46, 50] : [-38, 0, 38, 44];
     const upd = acidSet(bg, n, box, splits, 90 + k * 7, 10);

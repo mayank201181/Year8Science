@@ -11,7 +11,7 @@ scene('salts', S => {
   const AMP = S.reduce ? 0.3 : 1;
 
   /* ---------- palette ---------- */
-  const ACID = '#E8424F', BASE = '#3F8FE8', SALT = C.good, CUSO4 = '#1FA2D6', CUSO4_DEEP = '#1270B5', CLEAR = '#CFE7F5';
+  const ACID = '#E8424F', SALT = C.good, CUSO4 = '#1FA2D6', CUSO4_DEEP = '#1270B5', CLEAR = '#CFE7F5';
   const CUO = '#1E2328', CUO_LT = '#4A525B', ZN = '#A9B6C4', CUCO3 = '#3FA88A', DARK = '#1E2328', SOFT_BLUE = '#5CC0F2';
 
   /* ---------- local helpers ---------- */
@@ -51,7 +51,7 @@ scene('salts', S => {
         if (it.op === '+') T(p.g, 0, size * 0.44, '+', { size: size * 1.4, weight: 600, anchor: 'middle', fill: C.muted });
         else arrow(p.g, -size * 0.8, 0, size * 0.8, 0, { color: C.ink, width: 6 });
         p.w = it.op === '+' ? size * 1.1 : size * 1.9;
-      } else { p.chip = chip(p.g, it.text, { size, fill: it.fill, color: it.color || '#FFFFFF', weight: 700 }); p.w = p.chip.w; }
+      } else { p.chip = chip(p.g, it.text, { size, fill: it.fill, color: it.color || '#FFFFFF', weight: 700, stroke: it.stroke, sw: 3 }); p.w = p.chip.w; }
       return p;
     });
     let total = 0; parts.forEach((p, i) => { total += p.w + (i ? gap : 0); });
@@ -231,7 +231,8 @@ scene('salts', S => {
   const goalNote = T(goal, 600, 576, 'soluble: it dissolves in water', { size: 26, weight: 600, anchor: 'middle', fill: C.muted });
   const EQY = 420;
   const row = eqRow(HG, [
-    { text: 'copper oxide', fill: BASE }, { op: '+' }, { text: 'sulfuric acid', fill: ACID }, { op: '→' }, { text: 'copper sulfate', fill: SALT, color: '#0B2A1C' }, { op: '+' }, { text: 'water', fill: C.water, color: '#06283A' },
+    // copper oxide and copper sulfate in their own colours: black powder, blue salt (as in 'useful' and the displacement chapter)
+    { text: 'copper oxide', fill: CUO, stroke: '#6E7882' }, { op: '+' }, { text: 'sulfuric acid', fill: ACID }, { op: '→' }, { text: 'copper sulfate', fill: CUSO4 }, { op: '+' }, { text: 'water', fill: C.water, color: '#06283A' },
   ], 600, EQY, { size: 28 });
   const icons = [0, 2, 4, 6].map(k => { const g = G(HG); tr(g, row[k].x, EQY - 92); op(g, 0); return g; });
   { const h = powder(icons[0], 92, 40, 5, CUO, '#000000'); tr(h, 0, 26); }

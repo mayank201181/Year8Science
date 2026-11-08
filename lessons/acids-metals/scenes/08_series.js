@@ -73,7 +73,7 @@ scene('series', S => {
   const HI = 7, AU = 10;
   const FX = 260, FY = i => 172 + 48 * i;          // full ladder, left half
   const MX = 96, MY = i => 196 + 40 * i;           // mini ladder, left edge
-  const INK_DARK = '#13232E', H_FILL = '#123544';
+  const INK_DARK = '#13232E', H_FILL = '#123544', CLEAR = '#CFE7F5';     // CLEAR: colourless water and solutions
   function buildFull(g, m) {
     const w = 300, h = 44;
     if (m.hyd) {
@@ -116,6 +116,7 @@ scene('series', S => {
   const axis = G(root);
   const most = T(axis, 640, 184, 'MOST REACTIVE', { size: 30, weight: 700, fill: C.energy, ls: 1 });
   const least = T(axis, 640, 662, 'LEAST REACTIVE', { size: 30, weight: 700, fill: C.muted, ls: 1 });
+  most.style.fontKerning = 'none'; least.style.fontKerning = 'none';     // Fredoka kerns "IV" until the letters touch
   const AXX = 664, AY0 = 214, AY1 = 626, AXEND = '#4F6B7A';
   const agrad = E('linearGradient', { id: 'srsAxisGrad', gradientUnits: 'userSpaceOnUse', x1: 0, y1: AY0, x2: 0, y2: AY1 }, defs());
   E('stop', { offset: 0, 'stop-color': C.energy }, agrad); E('stop', { offset: 1, 'stop-color': AXEND }, agrad);
@@ -146,7 +147,7 @@ scene('series', S => {
   const TW = 420, TH = 190, SURF = TH / 2 - (TH - 18) * 0.62;   // trough size; local y of its water surface
   function trough(parent, o) {
     const g = G(parent);
-    g.bk = beaker(g, TW, TH, { level: 0.62, liquid: C.water, opacity: 0.5, marks: false });
+    g.bk = beaker(g, TW, TH, { level: 0.62, liquid: CLEAR, opacity: 0.28, marks: false });
     g.ions = G(g);
     const R = { o, g };
     R.trail = []; for (let k = 0; k < 5; k++) R.trail.push(E('circle', { r: 6.5 - k * 0.9, fill: '#FFFFFF' }, g));
@@ -238,34 +239,42 @@ scene('series', S => {
   const naohHalo = E('ellipse', { rx: 150, ry: 44, fill: glow(NAOH) }, eqG); eqG.insertBefore(naohHalo, eqG.firstChild);
 
   /* ---------- alkaline: hydroxide ions spread, indicator turns the water purple ---------- */
+  /* the lesson's ion art (as in the acids, pH and neutralisation chapters): a charge badge, + red or - blue */
+  function ionBadge(parent, r, sign) {
+    const g = G(parent);
+    E('circle', { r, fill: sign > 0 ? '#E8424F' : '#3F8FE8', stroke: sign > 0 ? '#FFC2C8' : '#BFDBFE', 'stroke-width': 1.5 }, g);
+    E('path', { d: sign > 0 ? `M${-r * 0.5},0 H${r * 0.5} M0,${-r * 0.5} V${r * 0.5}` : `M${-r * 0.5},0 H${r * 0.5}`, stroke: '#ffffff', 'stroke-width': Math.max(1.8, r * 0.3), 'stroke-linecap': 'round' }, g);
+    return g;
+  }
+  /* OH-: a red O joined to a white H, with a blue - badge */
   function ionOH(parent) {
     const g = G(parent);
-    tr(atom(g, 'H', 8), 12, -8);
-    tr(atom(g, 'O', 13), 0, 0);
-    const b = G(g); tr(b, -12, -12);
-    E('circle', { r: 7, fill: '#3F8FE8', stroke: '#BFDBFE', 'stroke-width': 1.5 }, b);
-    E('line', { x1: -3.5, x2: 3.5, y1: 0, y2: 0, stroke: '#FFFFFF', 'stroke-width': 2.4, 'stroke-linecap': 'round' }, b);
+    tr(atom(g, 'H', 10), 18, 10);
+    atom(g, 'O', 16);
+    tr(ionBadge(g, 7.5, -1), -13, -14);
     return g;
   }
   const ir = rng(83), OHS = [], NAS = [];
   for (let k = 0; k < 5; k++) OHS.push({ g: ionOH(trNa.ions), x0: (ir() - 0.5) * 60, x1: -140 + k * 70 + (ir() - 0.5) * 20, y1: SURF + 24 + ir() * 46, ph: ir() * TAU });
   for (let k = 0; k < 3; k++) {
-    const g = G(trNa.ions);
-    E('circle', { r: 9, fill: ball('#C9D1D8', '#7D8A96'), opacity: 0.75 }, g);
-    T(g, 0, 5, '+', { size: 14, weight: 700, anchor: 'middle', fill: INK_DARK });
+    const g = G(trNa.ions);                       // Na+: a grey ball with a red + badge
+    E('circle', { r: 13, fill: ball('#B8C2CC', '#6E7A86') }, g);
+    tr(ionBadge(g, 6, 1), 10, -10);
     NAS.push({ g, x0: (ir() - 0.5) * 60, x1: -120 + k * 80 + (ir() - 0.5) * 30, y1: SURF + 30 + ir() * 40, ph: ir() * TAU });
   }
-  // a dropper of universal indicator: tip at its origin, about 96 tall
+  // a dropper of universal indicator (the indicators chapter's glass dropper, at 0.7): tip at its origin, 105 tall
   const dropper = G(water), DROPX = 100;
-  E('rect', { x: -9, y: -50, width: 18, height: 50, rx: 4, fill: 'rgba(200,230,250,0.25)', stroke: GLASS.stroke, 'stroke-width': 3 }, dropper);
-  E('path', { d: 'M-9,0 L-3,14 L3,14 L9,0 Z', fill: 'rgba(200,230,250,0.25)', stroke: GLASS.stroke, 'stroke-width': 3, 'stroke-linejoin': 'round' }, dropper);
-  E('rect', { x: -6, y: -30, width: 12, height: 30, rx: 3, fill: '#5BB04F', opacity: 0.85 }, dropper);
-  E('path', { d: 'M-15,-50 L15,-50 Q16,-78 0,-82 Q-16,-78 -15,-50 Z', fill: ball('#E8424F', '#9E1F2A'), stroke: '#FFB3BA', 'stroke-width': 2 }, dropper);
+  { const d = G(dropper); tr(d, 0, 0, 0.7);
+    E('path', { d: 'M-9,-104 L-9,-30 L-2.5,0 L2.5,0 L9,-30 L9,-104 Z', fill: 'rgba(200,230,250,0.16)' }, d);
+    E('path', { d: 'M-6,-64 L-6,-30 L-1.5,-5 L1.5,-5 L6,-30 L6,-64 Z', fill: '#3F9A62' }, d);
+    E('path', { d: 'M-9,-104 L-9,-30 L-2.5,0 L2.5,0 L9,-30 L9,-104', fill: 'none', stroke: GLASS.stroke, 'stroke-width': 3, 'stroke-linejoin': 'round' }, d);
+    E('path', { d: 'M-16,-100 C-20,-128 -14,-150 0,-150 C14,-150 20,-128 16,-100 Z', fill: ball('#E8663F', '#A33C1E'), stroke: '#F5A27F', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, d);
+    E('rect', { x: -18, y: -107, width: 36, height: 10, rx: 4, fill: '#B8461F' }, d); }
   const uiLab = T(water, 0, 0, 'universal indicator', { size: 26, weight: 600, fill: C.muted, anchor: 'start' });
-  const uiDrops = [0, 1, 2].map(() => E('path', { d: 'M0,-8 C5,-2 6,2 6,5 A6,6 0 0 1 -6,5 C-6,2 -5,-2 0,-8 Z', fill: '#6FCF63' }, water));
-  const swirl = [0, 1].map(() => E('ellipse', { rx: 10, ry: 6, fill: '#7B5BE6', opacity: 0 }, trNa));
+  const uiDrops = [0, 1, 2].map(() => E('path', { d: 'M0,-8 C5,-2 6,2 6,5 A6,6 0 0 1 -6,5 C-6,2 -5,-2 0,-8 Z', fill: '#3F9A62' }, water));
+  const swirl = [0, 1].map(() => E('ellipse', { rx: 10, ry: 6, fill: '#8E5CF0', opacity: 0 }, trNa));
   const alkChip = chip(water, 'alkaline: sodium hydroxide', { size: 30, fill: NAOH, color: '#FFFFFF' });
-  const PURPLE = '#7656E0';
+  const PURPLE = '#8E5CF0';     // universal indicator purple (pH 12-14), as on the pH bar
 
   /* ---------- magnesium: cold water vs steam ---------- */
   const mgG = G(root);
@@ -275,8 +284,8 @@ scene('series', S => {
     if (coil) for (let i = 0; i <= 60; i++) { const th = i / 60 * 4.4 * Math.PI; pts.push([-42 + 6.2 * th - 15 * Math.sin(th), -13 * Math.cos(th)]); }
     else for (let i = 0; i <= 12; i++) pts.push([-48 + i * 8, Math.sin(i * 1.1) * 1.5]);
     const d = openPath(pts);
-    E('path', { d, fill: 'none', stroke: '#7D8894', 'stroke-width': 10, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);
-    E('path', { d, fill: 'none', stroke: '#E8EDF2', 'stroke-width': 5.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);
+    E('path', { d, fill: 'none', stroke: '#8D98A5', 'stroke-width': 10, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);   // the metals chapter's ribbon colours
+    E('path', { d, fill: 'none', stroke: '#E3E8EE', 'stroke-width': 6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);
     return g;
   }
   card(mgG, 222, 136, 444, 530, { fill: C.card, stroke: C.line });
@@ -284,7 +293,7 @@ scene('series', S => {
   T(mgG, 444, 194, 'cold water', { size: 36, weight: 700, anchor: 'middle', fill: C.water });
   T(mgG, 938, 194, 'steam', { size: 36, weight: 700, anchor: 'middle', fill: '#E8EEF2' });
   const mgL = G(mgG);
-  const bkMg = beaker(mgL, 210, 250, { level: 0.8, liquid: C.water, opacity: 0.42, marks: false }); tr(bkMg, 444, 396);
+  const bkMg = beaker(mgL, 210, 250, { level: 0.8, liquid: CLEAR, opacity: 0.28, marks: false }); tr(bkMg, 444, 396);
   const ribL = mgRibbon(mgL, true); tr(ribL, 444, 486);
   const slowB = E('circle', { r: 8, fill: 'rgba(255,255,255,0.2)', stroke: '#FFFFFF', 'stroke-width': 2.5 }, mgL);
   T(mgL, 444, 566, 'magnesium ribbon', { size: 26, weight: 600, anchor: 'middle', fill: C.muted });
@@ -307,7 +316,7 @@ scene('series', S => {
   const CUX = [410, 690, 970];
   const cuParts = CUX.map((x, i) => {
     const g = G(cuG);
-    const bk = beaker(g, 200, 250, { level: 0.72, liquid: C.water, opacity: 0.4, marks: false }); tr(bk, x, 380);
+    const bk = beaker(g, 200, 250, { level: 0.72, liquid: CLEAR, opacity: 0.28, marks: false }); tr(bk, x, 380);
     const piece = G(g); tr(piece, x, 458, 1.3);
     if (i === 0) E('rect', { x: -12, y: -62, width: 24, height: 92, rx: 4, fill: ball('#E89B63', '#9C4F22'), stroke: '#F4BC8E', 'stroke-width': 2, transform: 'rotate(14)' }, piece);
     if (i === 1) E('rect', { x: -40, y: 8, width: 80, height: 24, rx: 6, fill: ball('#F2F5F8', '#9AA6B2'), stroke: '#FFFFFF', 'stroke-width': 2 }, piece);
@@ -327,7 +336,7 @@ scene('series', S => {
   E('rect', { x: -64, y: -24, width: 150, height: 48, rx: 24, fill: '#2B4A5C', stroke: C.energy, 'stroke-width': 3 }, mys);
   E('circle', { cx: -38, cy: 0, r: 17, fill: ball('#B8C4CF', '#5E6B77') }, mys);
   T(mys, -38, 10, '?', { size: 28, weight: 700, anchor: 'middle', fill: INK_DARK });
-  T(mys, 22, 10, 'metal X', { size: 26, weight: 700, anchor: 'middle', fill: C.ink });
+  T(mys, 22, 10, 'metal', { size: 26, weight: 700, anchor: 'middle', fill: C.ink });     // not "metal X": the X read as a cross
   const prCard = G(prG);
   card(prCard, 650, 268, 500, 236, { fill: C.card, stroke: C.line });
   const prTube = testTube(prCard, 56, 170, { level: 0.55, liquid: '#CFE7F5' }); tr(prTube, 724, 388);
@@ -467,8 +476,8 @@ scene('series', S => {
         tr(d, nx + DROPX, lerp(442, ny + SURF, easeIn(u))); op(d, 1);
       });
       const col = P(t, dropT0 + 0.3, 1.3);
-      if (t > at('eq')) { trNa.bk.set(0.62, mix(C.water, PURPLE, col)); trNa.bk.liquid.setAttribute('opacity', lerp(0.5, 0.78, col).toFixed(3)); }
-      else { trNa.bk.set(0.62, C.water); trNa.bk.liquid.setAttribute('opacity', '0.5'); }
+      if (t > at('eq')) { trNa.bk.set(0.62, mix(CLEAR, PURPLE, col)); trNa.bk.liquid.setAttribute('opacity', lerp(0.28, 0.78, col).toFixed(3)); }
+      else { trNa.bk.set(0.62, CLEAR); trNa.bk.liquid.setAttribute('opacity', '0.28'); }
       swirl.forEach((s, k) => { const u = clamp((t - dropT0 - 0.3 - k * 0.35) / 1.4); op(s, u > 0 && u < 1 ? 0.8 * (1 - u) : 0); attr(s, 'cx', DROPX - u * 70 * (k ? 0.4 : 1)); attr(s, 'cy', SURF + 20 + u * 30); attr(s, 'rx', 10 + u * 80); attr(s, 'ry', 6 + u * 24); });
       const ap = P(t, mid('alkaline', 0.82), 0.5, pop);
       op(alkChip, clamp(ap * 2)); tr(alkChip, 685, 678 + (1 - clamp(ap)) * 14, Math.max(0.01, 0.9 + 0.1 * ap));

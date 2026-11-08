@@ -10,8 +10,11 @@ scene('burning', S => {
   const AMP = S.reduce ? 0.3 : 1;
 
   /* ---------- palette (STORYBOARD shared art) ---------- */
-  const SW = { K: '#D8DEE6', Na: '#D8DEE6', Ca: '#E4E1D8', Mg: '#E3E8EE', Al: '#C7D0DA', Zn: '#A9B6C4', Fe: '#7A8590', Cu: '#D9824B', Ag: '#E8ECF0', Au: '#F5C542' };
-  const BASE = '#3F8FE8', RUST = '#A84A2A', RUST_LT = '#CF6E3C', DARK = '#1E2328', O2TXT = '#FF9A8F';
+  const SW = { K: '#D8DEE6', Na: '#D8DEE6', Ca: '#E4E0D4', Mg: '#E3E8EE', Al: '#C7D0DA', Zn: '#A9B6C4', Fe: '#7A8590', Cu: '#D9824B', Ag: '#E8ECF0', Au: '#F5C542' };
+  const RUST = '#A84A2A', RUST_LT = '#CF6E3C', DARK = '#1E2328', O2TXT = '#FF9A8F';
+  /* the lesson's colour code for these chips: oxygen as in the oxygen-test chapter (outlined, so it is never mistaken
+     for a red acid chip); an oxide takes its own colour, here the white powder it is drawn as */
+  const OXYGEN = { fill: C.card2, stroke: O2TXT, color: O2TXT }, OXIDE = { fill: '#F4F7FA', color: DARK };
   const CRUST = '#9AA3AD', CRUST_T = '#B8C1C9', CRUST_S = '#7D8892', EDGE = '#D3DCE4';
 
   /* ---------- local helpers ---------- */
@@ -48,7 +51,7 @@ scene('burning', S => {
         if (it.op === '+') T(p.g, 0, size * 0.44, '+', { size: size * 1.4, weight: 600, anchor: 'middle', fill: C.muted });
         else arrow(p.g, -size * 0.8, 0, size * 0.8, 0, { color: C.ink, width: 6 });
         p.w = it.op === '+' ? size * 1.1 : size * 1.9;
-      } else { p.chip = chip(p.g, it.text, { size, fill: it.fill, color: it.color || '#FFFFFF', weight: 700 }); p.w = p.chip.w; }
+      } else { p.chip = chip(p.g, it.text, { size, fill: it.fill, color: it.color || '#FFFFFF', weight: 700, stroke: it.stroke, sw: 3 }); p.w = p.chip.w; }
       return p;
     });
     let total = 0; parts.forEach((p, i) => { total += p.w + (i ? gap : 0); });
@@ -191,18 +194,19 @@ scene('burning', S => {
     E('path', { d: 'M0,6 C10,16 12,26 8,33 C4,41 -4,41 -8,33 C-12,26 -6,16 0,6 Z', fill: inner }, g);
     return g;
   }
-  /* the mini reactivity ladder (symbols only, 34 px rungs), centred on the origin */
+  /* the mini reactivity ladder (symbols only, 72 x 34 pills, drawn as in the reactivity-series chapter), centred on the origin */
   const LAD = [['K', SW.K], ['Na', SW.Na], ['Ca', SW.Ca], ['Mg', SW.Mg], ['Al', SW.Al], ['Zn', SW.Zn], ['Fe', SW.Fe], ['H', null], ['Cu', SW.Cu], ['Ag', SW.Ag], ['Au', SW.Au]];
+  const mixC = (a, b, p) => { const A = [1, 3, 5].map(i => parseInt(a.slice(i, i + 2), 16)), B = [1, 3, 5].map(i => parseInt(b.slice(i, i + 2), 16)); return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * p).toString(16).padStart(2, '0')).join(''); };
   function miniLadder(parent) {
-    const g = G(parent), rungs = {}, RW = 124, RH = 34, PITCH = 40, y0 = -(LAD.length - 1) * PITCH / 2;
+    const g = G(parent), rungs = {}, RW = 72, RH = 34, PITCH = 40, y0 = -(LAD.length - 1) * PITCH / 2;
     LAD.forEach(([s, c], i) => {
       const y = y0 + i * PITCH, rg = G(g); tr(rg, 0, y);
       if (!c) {
-        E('rect', { x: -RW / 2, y: -RH / 2, width: RW, height: RH, rx: 9, fill: 'rgba(159,216,255,0.06)', stroke: C.air, 'stroke-width': 2.5, 'stroke-dasharray': '7 6' }, rg);
-        T(rg, 0, 9, '(H)', { size: 26, weight: 700, anchor: 'middle', fill: C.air });
+        E('rect', { x: -RW / 2, y: -RH / 2, width: RW, height: RH, rx: RH / 2, fill: '#123544', stroke: C.air, 'stroke-width': 2.5, 'stroke-dasharray': '8 6' }, rg);
+        T(rg, 0, 9, 'H', { size: 26, weight: 700, anchor: 'middle', fill: C.air });
       } else {
-        E('rect', { x: -RW / 2, y: -RH / 2, width: RW, height: RH, rx: 9, fill: c, stroke: '#0A1B27', 'stroke-width': 1.5 }, rg);
-        T(rg, 0, 9, s, { size: 26, weight: 700, anchor: 'middle', fill: s === 'Fe' ? '#F4F7FA' : DARK });
+        E('rect', { x: -RW / 2, y: -RH / 2, width: RW, height: RH, rx: RH / 2, fill: ball(c, mixC(c, '#000000', 0.42)), stroke: mixC(c, '#FFFFFF', 0.45), 'stroke-width': 2 }, rg);
+        T(rg, 0, 9, s, { size: 26, weight: 700, anchor: 'middle', fill: '#13232E' });
       }
       rungs[s] = { g: rg, y };
     });
@@ -219,7 +223,7 @@ scene('burning', S => {
   const EQY = 186;
   const eqA = G(root);
   const row1 = eqRow(eqA, [
-    { text: 'metal', fill: '#D5DCE3', color: DARK }, { op: '+' }, { text: 'oxygen', fill: C.oxygen }, { op: '→' }, { text: 'metal oxide', fill: BASE },
+    { text: 'metal', fill: '#D5DCE3', color: DARK }, { op: '+' }, Object.assign({ text: 'oxygen' }, OXYGEN), { op: '→' }, Object.assign({ text: 'metal oxide' }, OXIDE),
   ], 600, EQY, { size: 36 });
   const blockG = G(eqA);
   const block = metalBlock(blockG, 280, 120, 34, -26);
@@ -269,7 +273,7 @@ scene('burning', S => {
   const mgeqG = G(root);
   const WY = 252;
   const row2 = eqRow(mgeqG, [
-    { text: 'magnesium', fill: SW.Mg, color: DARK }, { op: '+' }, { text: 'oxygen', fill: C.oxygen }, { op: '→' }, { text: 'magnesium oxide', fill: BASE },
+    { text: 'magnesium', fill: SW.Mg, color: DARK }, { op: '+' }, Object.assign({ text: 'oxygen' }, OXYGEN), { op: '→' }, Object.assign({ text: 'magnesium oxide' }, OXIDE),
   ], 600, WY, { size: 32 });
   const icons2 = [G(mgeqG), G(mgeqG), G(mgeqG)];
   { const rp = [[-48, 10], [-26, -10], [-2, 7], [22, -12], [48, 4]], d = openPath(rp); E('path', { d, fill: 'none', stroke: '#6E7B87', 'stroke-width': 11, 'stroke-linecap': 'round' }, icons2[0]); E('path', { d, fill: 'none', stroke: SW.Mg, 'stroke-width': 6, 'stroke-linecap': 'round' }, icons2[0]); }
@@ -300,7 +304,7 @@ scene('burning', S => {
   const atLblR = G(atomsG);
   T(atLblR, xMg, ATY + 84, '2 magnesium atoms', { size: 26, weight: 600, anchor: 'middle', fill: C.muted });
   T(atLblR, xO, ATY + 84, '1 oxygen molecule', { size: 26, weight: 600, anchor: 'middle', fill: O2TXT });
-  const atLblP = T(atomsG, xP, ATY + 84, '2 magnesium oxide', { size: 26, weight: 600, anchor: 'middle', fill: '#8FC0F5' });
+  const atLblP = T(atomsG, xP, ATY + 84, '2 magnesium oxide', { size: 26, weight: 600, anchor: 'middle', fill: '#F4F7FA' });
 
   /* ================= na: sodium tarnishes in seconds; stored under oil ================= */
   const naG = G(root);
@@ -372,7 +376,7 @@ scene('burning', S => {
   /* ================= rust: oxygen + water; paint, oil, zinc ================= */
   const rustG = G(root);
   const row3 = eqRow(rustG, [
-    { text: 'iron', fill: SW.Fe }, { op: '+' }, { text: 'oxygen', fill: C.oxygen }, { op: '+' }, { text: 'water', fill: C.water, color: '#06283A' }, { op: '→' }, { text: 'rust', fill: RUST },
+    { text: 'iron', fill: SW.Fe }, { op: '+' }, Object.assign({ text: 'oxygen' }, OXYGEN), { op: '+' }, { text: 'water', fill: C.water, color: '#06283A' }, { op: '→' }, { text: 'rust', fill: RUST },
   ], 600, 176, { size: 32 });
   const NX = 360, NY = 346, NL = 470;
   const bigNail = G(rustG); tr(bigNail, NX, NY);

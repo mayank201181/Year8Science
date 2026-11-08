@@ -221,7 +221,7 @@ scene('acids', S => {
   const akG = G(root);
   const akB = beaker(akG, 240, 280, { level: 0.7, liquid: CLEAR, opacity: 0.28 }); tr(akB, AKX, AKY);
   const AKSURF = AKY + 140 - 262 * 0.7;
-  const pellets = [[-60, 0], [-22, 1], [18, 2], [54, 3], [-40, 4], [34, 5]].map(([x, k]) => ({ x: AKX + x, k, el: E('rect', { x: -11, y: -6, width: 22, height: 12, rx: 6, fill: '#F7F9FA', stroke: '#C9D3DC', 'stroke-width': 1.5 }, akG), cloud: E('circle', { r: 26, fill: glow('#BFE0FF') }, akG) }));
+  const pellets = [[-60, 0], [-22, 1], [18, 2], [54, 3], [-40, 4], [34, 5]].map(([x, k]) => ({ x: AKX + x, k, el: E('rect', { x: -11, y: -6, width: 22, height: 12, rx: 6, fill: '#F7F9FA', stroke: '#C9D3DC', 'stroke-width': 1.5 }, akG), cloud: E('circle', { r: 26, fill: glow('#FFFFFF') }, akG) }));
   const defK = G(root);
   T(defK, 520, 248, 'alkali', { size: 76, weight: 700, fill: BLUETXT });
   const defK2 = rich(defK, 520, 316, ['a base that ', ['dissolves', '#FFFFFF', 800], ' in water'], { size: 36, weight: 500 });
@@ -389,7 +389,7 @@ scene('acids', S => {
         op(pl.el, (u > 0 ? 1 : 0) * (1 - dis)); pl.el.setAttribute('transform', `translate(${pl.x} ${y.toFixed(1)}) rotate(${(k * 35 + u * 90).toFixed(0)}) scale(${Math.max(0.01, 1 - dis).toFixed(3)})`);
         op(pl.cloud, Math.sin(Math.PI * dis) * 0.7); tr(pl.cloud, pl.x, y, 0.6 + dis);
       });
-      akB.set(0.7, mix(CLEAR, '#A3CBF5', dis)); akB.liquid.setAttribute('opacity', lerp(0.28, 0.42, dis).toFixed(3));
+      akB.set(0.7, CLEAR); akB.liquid.setAttribute('opacity', '0.28');     // sodium hydroxide solution is colourless
     }
     const dK = win(t, tK - 0.05, tX + 0.05, 0.4);
     op(defK, dK);

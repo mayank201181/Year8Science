@@ -348,7 +348,8 @@ scene('ph', S => {
       const toM = P(t, tM - 0.2, 0.6, linear);                      // to measuring: the right side clears
       op(bks[1], 1 - toM);
       op(header, P(t, mid('strength', 0.03), 0.4, linear) * (1 - P(t, tC - 0.3, 0.3, linear)));
-      names.forEach((n, i) => { op(n.a, P(t, mid('strength', 0.34 + i * 0.44), 0.4, linear) * (1 - toC)); op(n.b, toC * (i ? 1 - toM : 1)); });
+      // the old name fades out before the new one fades in at the same place (no overlapping words mid-change)
+      names.forEach((n, i) => { op(n.a, P(t, mid('strength', 0.34 + i * 0.44), 0.4, linear) * (1 - P(t, tC - 0.1, 0.35, linear))); op(n.b, P(t, tC + 0.25, 0.4, linear) * (i ? 1 - toM : 1)); });
       op(underL[0], P(t, mid('strength', 0.62), 0.4, linear) * (1 - toC)); op(underL[1], P(t, mid('strength', 0.86), 0.4, linear) * (1 - toC));
       popAt(concChip, 600, 694, P(t, mid('conc', 0.55), 0.5, pop) * (1 - toM), 0.7);
       const tSplitS = mid('strength', 0.44), tSplitW = mid('strength', 0.86), tLate = mid('conc', 0.16);

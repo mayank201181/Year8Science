@@ -324,6 +324,9 @@ scene('carbonates', S => {
     /* ---------- A: the apparatus ---------- */
     const aA = Math.min(P(t, S.first - 0.1, 0.3, linear), 1 - P(t, at('apart') - 0.55, 0.4, linear));
     op(App, aA);
+    // "no pop" sits on the root, so it is set on every frame (not only while the apparatus shows): seeking stays exact
+    const np = P(t, mid('three', 0.7), 0.45, pop);
+    op(noPop, clamp(np * 2) * (1 - P(t, at('lime'), 0.4, linear))); tr(noPop, 640, 250, 0.7 + 0.3 * np);
     if (aA > 0) {
       tr(App, 0, -150 * up);
       // lumps drop in and fizz
@@ -354,8 +357,6 @@ scene('carbonates', S => {
         spA.set(flame, ember, 1, P(t, tOut + 0.4, 0.6, linear) * (1 - P(t, tOut + 3.0, 1.5, linear)));
         spA.upd(t);
       }
-      const np = P(t, mid('three', 0.7), 0.45, pop);
-      op(noPop, clamp(np * 2) * (1 - P(t, at('lime'), 0.4, linear))); tr(noPop, 640, 250, 0.7 + 0.3 * np);
       // limewater: the bung and delivery tube connect, the gas bubbles through, the limewater turns milky
       const bA = P(t, at('lime') + 0.1, 0.5, linear);
       op(tB, bA);
@@ -434,8 +435,9 @@ scene('carbonates', S => {
       bubR.upd(t, gas);
       tR.tb.milk(P(t, mid('apart', 0.66), 2.2, ease));
       // the reveal
-      const ra = P(t, mid('apart', 0.6), 0.4, linear), rb = P(t, mid('apart', 0.8), 0.4, linear);
-      op(chA, 1 - ra); op(resA, ra); op(chB, 1 - rb); op(resB, rb);
+      // each chip fades out before its result fades in at the same place (no overlapping text mid-change)
+      const ra = mid('apart', 0.6), rb = mid('apart', 0.8);
+      op(chA, 1 - P(t, ra, 0.22, linear)); op(resA, P(t, ra + 0.2, 0.3, linear)); op(chB, 1 - P(t, rb, 0.22, linear)); op(resB, P(t, rb + 0.2, 0.3, linear));
     }
 
     /* ---------- hook ---------- */

@@ -70,15 +70,18 @@ scene('indicators', S => {
      the numbers upright and full size, offset (ndx, ndy) from each cell's lower edge */
   function phBar(parent) {
     const CW = 56, L = 15 * CW, g = G(parent), cg = G(g), ng = G(g), cells = [], nums = [];
+    const hg = G(cg), hls = [];                         // the pale top strip of each cell, as in the pH chapter
     for (let i = 0; i < 15; i++) {
       const x0 = -L / 2 + i * CW, x1 = x0 + CW, y0 = -CW / 2, y1 = CW / 2, r = 14;
       let d = `M${x0},${y0} L${x1},${y0} L${x1},${y1} L${x0},${y1} Z`;
       if (i === 0) d = `M${x0 + r},${y0} L${x1},${y0} L${x1},${y1} L${x0 + r},${y1} Q${x0},${y1} ${x0},${y1 - r} L${x0},${y0 + r} Q${x0},${y0} ${x0 + r},${y0} Z`;
       if (i === 14) d = `M${x0},${y0} L${x1 - r},${y0} Q${x1},${y0} ${x1},${y0 + r} L${x1},${y1 - r} Q${x1},${y1} ${x1 - r},${y1} L${x0},${y1} Z`;
       cells.push(E('path', { d, fill: PH[i], stroke: C.bg0, 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, cg));
+      hls.push(E('rect', { x: x0 + 6, y: y0 + 6, width: CW - 12, height: 7, rx: 3.5, fill: '#ffffff', opacity: 0.25 }, hg));
       nums.push(T(ng, 0, 0, String(i), { size: 26, weight: 600, anchor: 'middle' }));
     }
-    g.cells = cells; g.nums = nums;
+    cg.appendChild(hg);
+    g.cells = cells; g.nums = nums; g.hl = hg; g.hls = hls;
     g.place = (cx, cy, a, sx, sy, ndx, ndy) => {
       cg.setAttribute('transform', `translate(${cx.toFixed(1)} ${cy.toFixed(1)}) rotate(${a.toFixed(2)}) scale(${sx.toFixed(4)} ${sy.toFixed(4)})`);
       const ca = Math.cos(a * Math.PI / 180), sa = Math.sin(a * Math.PI / 180);
@@ -201,7 +204,8 @@ scene('indicators', S => {
   E('rect', { x: 150, y: 288, width: 900, height: 160, rx: 18, fill: '#F4F7FA', stroke: '#FFFFFF', 'stroke-width': 2 }, card2);
   T(card2, 172, 318, 'colour chart', { size: 26, weight: 700, fill: '#4A5E6C' });
   const bar = phBar(B);
-  const line1 = rich(B, 600, 205, [['Red', RED_T, 800], [' Bottoms, ', C.ink], ['Blue', BLUE_T, 800], [' Roofs', C.ink]], { size: 50, weight: 700, anchor: 'middle' });
+  const pHLbl = T(B, 160, 370, 'pH', { size: 34, weight: 700, anchor: 'end' });
+  const line1 =rich(B, 600, 205, [['Red', RED_T, 800], [' Bottoms, ', C.ink], ['Blue', BLUE_T, 800], [' Roofs', C.ink]], { size: 50, weight: 700, anchor: 'middle' });
   const wBlue = G(B);
   rich(wBlue, 470, 262, [['Blue', BLUE_T, 800], [' Roofs', C.ink]], { size: 48, weight: 700 });
   T(wBlue, 472, 302, 'alkalis: high pH', { size: 26, weight: 600, fill: C.muted });
@@ -261,7 +265,7 @@ scene('indicators', S => {
     const x = MX0 + (ph + 0.5) * MW, g = G(Cg);
     E('line', { x1: x, y1: 508, x2: x, y2: MY - 4, stroke: C.muted, 'stroke-width': 3, 'stroke-dasharray': '5 6' }, g);
     const b = beaker(g, 84, 100, { level: 0, liquid: CAB[2], marks: false }); tr(b, x, 452);
-    const w = T(g, x, 384, CUP_NAME[k], { size: 28, weight: 700, anchor: 'middle', fill: k === 2 ? '#B98BE0' : CAB[k] });
+    const w = T(g, x, 384, CUP_NAME[k], { size: 28, weight: 700, anchor: 'middle', fill: k === 2 ? '#B98BE0' : k === 3 ? BLUE_T : CAB[k] });
     return { g, b, w, x };
   });
   const climb = G(Cg);
@@ -347,6 +351,8 @@ scene('indicators', S => {
       // flat -> tower (roofs) -> flat again (ui)
       const up = P(t, mid('roofs', 0.31), 1.25) * (1 - P(t, at('ui') - 0.1, 1.0));
       bar.place(lerp(600, 330, up), lerp(358, 430, up), -90 * up, lerp(1, 0.62, up), lerp(1, 2, up), lerp(0, 25, up), lerp(30, 9, up));
+      op(bar.hl, 1 - up);
+      op(pHLbl, P(t, at('ui') + 0.8, 0.4, linear) * (1 - P(t, at('chart') - 0.1, 0.4, linear)));
       op(line1, win(t, mid('roofs', 0.04), mid('roofs', 0.33), 0.3));
       const rp = P(t, mid('roofs', 0.45), 0.5, pop) * (1 - P(t, at('ui') - 0.2, 0.3, linear));
       op(roof, clamp(rp * 2)); tr(roof, 330, 172, Math.max(0.01, 0.6 + 0.4 * rp)); op(ground, clamp(rp * 2));
@@ -367,7 +373,7 @@ scene('indicators', S => {
         c = mix(c, '#FFFFFF', 0.32 * Math.max(i <= 3 ? lowF : 0, i >= 11 ? topF : 0, dimOn > 0 ? pulse : 0));
         bar.cells[i].setAttribute('fill', c);
         const app = P(t, mid('roofs', 0.08) + i * 0.09, 0.3, linear);
-        op(bar.cells[i], app); op(bar.nums[i], app);
+        op(bar.cells[i], app); op(bar.nums[i], app); op(bar.hls[i], app);
         bar.nums[i].setAttribute('fill', mix(C.ink, INK_DK, numDark));
       }
       // universal indicator: dyes drop in, the bottle pours, colour floods the cells

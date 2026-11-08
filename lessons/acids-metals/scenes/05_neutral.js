@@ -41,7 +41,7 @@ scene('neutral', S => {
     const L = K[K.length - 1]; return [L[1], L[2]];
   }
   /* universal-indicator colour for any pH value, blending between the band colours */
-  const STOPS = [[1, RED], [3.5, ORANGE], [5.5, YELLOW], [7, GREEN], [9.5, BLUE], [13, PURPLE]];
+  const STOPS = [[1, RED], [2.5, RED], [3.5, ORANGE], [4.5, ORANGE], [5.5, YELLOW], [6.4, YELLOW], [7, GREEN], [7.6, GREEN], [8.5, BLUE], [11.4, BLUE], [12.5, PURPLE]];   // each band's colour holds across its range (pH 4 orange, 11 blue)
   function uiColour(ph) {
     if (ph <= STOPS[0][0]) return STOPS[0][1];
     for (let i = 1; i < STOPS.length; i++) if (ph <= STOPS[i][0]) return mix(STOPS[i - 1][1], STOPS[i][1], (ph - STOPS[i - 1][0]) / (STOPS[i][0] - STOPS[i - 1][0]));
@@ -50,14 +50,13 @@ scene('neutral', S => {
   /* ion art (the lesson's shared spec): H+ is a white H with a red + badge; OH- a red O joined to a white H
      with a blue - badge */
   function badge(g, x, y, plus, r) {
-    r = r || 7;
-    E('circle', { cx: x, cy: y, r, fill: plus ? C.bad : BLUE, stroke: '#FFFFFF', 'stroke-width': r * 0.2 }, g);
-    E('path', { d: plus ? `M${x - r * 0.5},${y} H${x + r * 0.5} M${x},${y - r * 0.5} V${y + r * 0.5}` : `M${x - r * 0.5},${y} H${x + r * 0.5}`, stroke: '#FFFFFF', 'stroke-width': r * 0.28, 'stroke-linecap': 'round' }, g);
+    r = r || 7.5;
+    E('circle', { cx: x, cy: y, r, fill: plus ? '#E8424F' : BLUE, stroke: plus ? '#FFC2C8' : '#BFDBFE', 'stroke-width': 1.5 }, g);
+    E('path', { d: plus ? `M${x - r * 0.5},${y} H${x + r * 0.5} M${x},${y - r * 0.5} V${y + r * 0.5}` : `M${x - r * 0.5},${y} H${x + r * 0.5}`, stroke: '#FFFFFF', 'stroke-width': Math.max(1.8, r * 0.3), 'stroke-linecap': 'round' }, g);
   }
-  function miniH(parent) { const g = G(parent); E('circle', { r: 14, fill: ball(C.hydrogen, C.hydrogenDk), stroke: C.hydrogenDk, 'stroke-width': 1.5 }, g); badge(g, 11, -12, true); return g; }
-  function miniOH(parent) { const g = G(parent); E('circle', { cx: 18, cy: 10, r: 10, fill: ball(C.hydrogen, C.hydrogenDk) }, g); E('circle', { r: 16, fill: ball(C.oxygen, C.oxygenDk), stroke: C.oxygenDk, 'stroke-width': 1.5 }, g); badge(g, -13, -14, false); return g; }
-  function hIon(parent) { const g = G(parent); atom(g, 'H', 14, { letter: true }); badge(g, 11, -12, true); return g; }
-  function ohIon(parent) { const g = G(parent); tr(atom(g, 'H', 10, { letter: true }), 18, 10); atom(g, 'O', 16, { letter: true }); badge(g, -13, -14, false); return g; }
+  function hIon(parent) { const g = G(parent); atom(g, 'H', 14); badge(g, 11, -11, true); return g; }
+  function ohIon(parent) { const g = G(parent); tr(atom(g, 'H', 10), 18, 10); atom(g, 'O', 16); badge(g, -13, -14, false); return g; }
+  const miniH = hIon, miniOH = ohIon;
   /* glass dropper, tip at (0,0); g.squeeze(p) */
   function dropper(parent, liquid) {
     const g = G(parent);
@@ -71,20 +70,19 @@ scene('neutral', S => {
     g.squeeze(0);
     return g;
   }
-  /* mini pH bar: 15 cells of 40 px from (0,0), numbers under; g.x(ph) is the middle of that cell */
+  /* mini pH bar: the pH chapter's bar with 40 px cells, from (0,0), numbers under; g.x(ph) is the middle of that cell */
   function miniBar(parent) {
     const CW = 40, g = G(parent), r = 10;
-    // one shape per colour band (end cells rounded), one path for the cell dividers
-    [[0, 2], [3, 4], [5, 6], [7, 7], [8, 11], [12, 14]].forEach(([a, b], k) => {
-      const x0 = a * CW, x1 = (b + 1) * CW;
+    for (let i = 0; i < 15; i++) {
+      const x0 = i * CW, x1 = x0 + CW;
       let d = `M${x0},0 H${x1} V${CW} H${x0} Z`;
-      if (k === 0) d = `M${r},0 H${x1} V${CW} H${r} Q0,${CW} 0,${CW - r} V${r} Q0,0 ${r},0 Z`;
-      if (k === 5) d = `M${x0},0 H${x1 - r} Q${x1},0 ${x1},${r} V${CW - r} Q${x1},${CW} ${x1 - r},${CW} H${x0} Z`;
-      E('path', { d, fill: PH[a], stroke: C.bg0, 'stroke-width': 2 }, g);
-    });
-    let dv = ''; for (let i = 1; i < 15; i++) dv += `M${i * CW},0 V${CW} `;
-    E('path', { d: dv, stroke: C.bg0, 'stroke-width': 2 }, g);
-    for (let i = 0; i < 15; i++) T(g, i * CW + CW / 2, CW + 30, String(i), { size: 26, weight: 600, anchor: 'middle', fill: C.muted });
+      if (i === 0) d = `M${r},0 H${x1} V${CW} H${r} Q0,${CW} 0,${CW - r} V${r} Q0,0 ${r},0 Z`;
+      if (i === 14) d = `M${x0},0 H${x1 - r} Q${x1},0 ${x1},${r} V${CW - r} Q${x1},${CW} ${x1 - r},${CW} H${x0} Z`;
+      E('path', { d, fill: PH[i], stroke: C.bg0, 'stroke-width': 2, 'stroke-linejoin': 'round' }, g);
+      E('rect', { x: x0 + 4.5, y: 4.5, width: CW - 9, height: 5, rx: 2.5, fill: '#ffffff', opacity: 0.25 }, g);
+      T(g, x0 + CW / 2, CW + 30, String(i), { size: 26, weight: 600, anchor: 'middle' });
+    }
+    T(g, -16, CW / 2 + 10, 'pH', { size: 30, weight: 700, anchor: 'end' });
     g.x = ph => (ph + 0.5) * CW;
     return g;
   }
@@ -174,7 +172,7 @@ scene('neutral', S => {
   for (let k = 0; k < NP; k++) { TIN.push(mid('ions', 0.4 + 0.03 * k)); TM.push(mid('ions', 0.62 + 0.075 * k)); }
   const pairs = [], flashes = [spark(inside, 16, { seed: 1 }), spark(inside, 16, { seed: 2 })];
   for (let k = 0; k < NP; k++) {
-    const h = hIon(inside), o = ohIon(inside), w = molH2O(inside, 15, { letter: true }), sp = flashes[k % 2];
+    const h = hIon(inside), o = ohIon(inside), w = molH2O(inside, 15), sp = flashes[k % 2];
     const ph = drifter(ir, ...BOXL, 16), po = drifter(ir, ...BOXL, 16), pw = drifter(ir, ...BOXL, 10);
     const ta = TM[k] - 0.9;
     const oAt = t => { const [x, y] = po(t); return [x, y - 330 * (1 - P(t, TIN[k], 1.0, easeOut))]; };
@@ -185,7 +183,7 @@ scene('neutral', S => {
   const LG = [
     { y: 176, icon: g => hIon(g), segs: s => [['H', C.ink, 700], sup('+', C.bad, s), back(' from the acid', C.ink, s, 'sup')], t: mid('ions', 0.18) },
     { y: 236, icon: g => ohIon(g), segs: s => [['OH', C.ink, 700], sup('−', BLUE_T, s), back(' from the alkali', C.ink, s, 'sup')], t: mid('ions', 0.45) },
-    { y: 296, icon: g => molH2O(g, 13, { letter: true }), segs: s => [['H', C.ink, 700], sub('2', C.ink, s), back('O: water', C.ink, s, 'sub')], t: mid('ions', 0.74) },
+    { y: 296, icon: g => molH2O(g, 13), segs: s => [['H', C.ink, 700], sub('2', C.ink, s), back('O: water', C.ink, s, 'sub')], t: mid('ions', 0.74) },
   ].map(o => { const g = G(legend); const ic = G(g); o.icon(ic); tr(ic, 96, o.y - 9); rich(g, 132, o.y, o.segs(30), { size: 30, weight: 600 }); return { g, t: o.t }; });
   const legNote = rich(legend, 72, 350, [['Na', C.muted, 600], sup('+', C.muted, 24), back(' and Cl', C.muted, 24, 'sup'), sup('−', C.muted, 24), back(' stay dissolved', C.muted, 24, 'sup')], { size: 24 });
   const eqL = G(CgL);
@@ -220,9 +218,9 @@ scene('neutral', S => {
   /* ================= E. diluting is not neutralising ================= */
   const Eg = G(root);
   const RX = [320, 880], RY = 410, RW = 220, RH = 240;
-  const rb = RX.map(x => { const b = beaker(Eg, RW, RH, { level: 0.42, liquid: C.water, opacity: 0.3 }); tr(b, x, RY); return b; });
-  const pourer = G(Eg); const pb2 = beaker(pourer, 100, 110, { level: 0.7, liquid: C.water, opacity: 0.55, marks: false });
-  const pourS = E('path', { fill: 'none', stroke: C.water, 'stroke-width': 9, 'stroke-linecap': 'round', opacity: 0.8 }, Eg);
+  const rb = RX.map(x => { const b = beaker(Eg, RW, RH, { level: 0.42, liquid: CLEAR, opacity: 0.28 }); tr(b, x, RY); return b; });
+  const pourer = G(Eg); const pb2 = beaker(pourer, 100, 110, { level: 0.7, liquid: CLEAR, opacity: 0.3, marks: false });
+  const pourS = E('path', { fill: 'none', stroke: CLEAR, 'stroke-width': 9, 'stroke-linecap': 'round', opacity: 0.55 }, Eg);
   const er = rng(71);
   const dil = []; for (let i = 0; i < 8; i++) dil.push({ el: E('circle', { r: 10, fill: ball(RED, RED_DK), stroke: RED_DK, 'stroke-width': 1.5 }, Eg), u: [er(), er()] });
   const neu = []; for (let i = 0; i < 6; i++) {
@@ -272,15 +270,24 @@ scene('neutral', S => {
   /* ================= G. an indigestion tablet ================= */
   const Gg = G(root);
   const SC = [450, 430];
-  const STOM = closedPath([[-8, -212], [-4, -150], [-52, -170], [-132, -122], [-172, -22], [-152, 88], [-72, 160], [48, 166], [136, 112], [186, 32], [226, -10], [256, -18], [256, -62], [206, -58], [152, -30], [92, 0], [46, -32], [32, -112], [32, -212]]);
+  // the stomach as the acids chapter draws it: a pink J-shaped pouch, dark inside, with its mucus lining
+  const SOUT = [[-58, -150], [-120, -168], [-180, -118], [-200, -20], [-172, 82], [-92, 150], [18, 166], [122, 128], [190, 58], [214, -8], [206, -58], [150, -40], [84, 6], [12, 18], [-38, -22], [-46, -104]];
+  const STOM = closedPath(SOUT.map(([x, y]) => [8 + (x - 8) * 0.86, 22 + (y - 22) * 0.86]));
   const stG = G(Gg); tr(stG, SC[0], SC[1]);
+  E('path', { d: 'M-52,-232 L-52,-128', stroke: '#B8466A', 'stroke-width': 52, 'stroke-linecap': 'round' }, stG);
+  E('path', { d: 'M-52,-232 L-52,-128', stroke: '#F48FB0', 'stroke-width': 42, 'stroke-linecap': 'round' }, stG);
+  E('path', { d: 'M200,-34 L262,-70', stroke: '#B8466A', 'stroke-width': 46, 'stroke-linecap': 'round' }, stG);
+  E('path', { d: 'M200,-34 L262,-70', stroke: '#F48FB0', 'stroke-width': 36, 'stroke-linecap': 'round' }, stG);
+  E('path', { d: closedPath(SOUT), fill: ball('#F7A3BF', '#B8466A'), stroke: '#FFD0DC', 'stroke-width': 4 }, stG);
+  E('path', { d: STOM, fill: '#5A1E33', stroke: '#8E3456', 'stroke-width': 3 }, stG);
   const stCp = E('clipPath', { id: 'am5stom' }, defs()); E('path', { d: STOM, transform: `translate(${SC[0]} ${SC[1]})` }, stCp);
-  E('path', { d: STOM, fill: 'rgba(247,168,200,0.16)' }, stG);
-  const acidPool = E('rect', { x: SC[0] - 200, y: SC[1] + 52, width: 480, height: 200, fill: RED, opacity: 0.85, 'clip-path': 'url(#am5stom)' }, Gg);
-  const wisps = []; for (let i = 0; i < 4; i++) wisps.push(E('circle', { r: 10, fill: '#F4F7FA', opacity: 0.5, 'clip-path': 'url(#am5stom)' }, Gg));
-  const stOut = E('path', { d: STOM, fill: 'none', stroke: '#F28BA8', 'stroke-width': 9, 'stroke-linejoin': 'round', transform: `translate(${SC[0]} ${SC[1]})` }, Gg);
-  const stLab = T(Gg, SC[0] - 120, SC[1] - 210, 'stomach', { size: 30, weight: 700, anchor: 'middle', fill: '#F7A8C8' });
-  const acidLab = T(Gg, SC[0] - 20, SC[1] + 132, 'stomach acid', { size: 28, weight: 700, anchor: 'middle', fill: '#FFFFFF' });
+  const ACIDPOOL = '#FF5A36';                          // the acids chapter's stomach acid
+  const acidPool = E('rect', { x: SC[0] - 200, y: SC[1] + 52, width: 480, height: 200, fill: ACIDPOOL, opacity: 0.9, 'clip-path': 'url(#am5stom)' }, Gg);
+  const wisps = []; for (let i = 0; i < 4; i++) wisps.push(E('circle', { r: 10, fill: glow('#FFFFFF'), 'clip-path': 'url(#am5stom)' }, Gg));
+  const stOcp = E('clipPath', { id: 'am5stomOut' }, defs()); E('path', { d: closedPath(SOUT) }, stOcp);   // in the lining's own (translated) space
+  E('path', { d: STOM, fill: 'none', stroke: '#FBE3F0', 'stroke-width': 16, opacity: 0.45, 'stroke-linejoin': 'round', transform: `translate(${SC[0]} ${SC[1]})`, 'clip-path': 'url(#am5stomOut)' }, Gg);
+  const stLab = T(Gg, SC[0] - 240, SC[1] - 234, 'stomach', { size: 30, weight: 700, anchor: 'middle', fill: '#F7A8C8' });
+  const acidLab = T(Gg, SC[0] + 5, SC[1] + 115, 'stomach acid', { size: 28, weight: 700, anchor: 'middle', fill: '#FFFFFF' });
   const tablet = G(Gg);
   E('circle', { r: 34, fill: ball('#FFFFFF', '#C9D3DC'), stroke: '#E3E9EE', 'stroke-width': 2 }, tablet);
   E('path', { d: 'M-24,0 L24,0', stroke: '#B8C4CE', 'stroke-width': 4, 'stroke-linecap': 'round' }, tablet);
@@ -418,7 +425,7 @@ scene('neutral', S => {
       if (pon > 0) { const a = tilt * Math.PI / 180, sx = 172 + 54 * Math.cos(a) + 55 * Math.sin(a), sy = 236 + 54 * Math.sin(a) - 55 * Math.cos(a), top = RY + RH / 2 - (RH - 18) * lvL; pourS.setAttribute('d', `M${sx.toFixed(1)},${sy.toFixed(1)} Q${(sx + 14).toFixed(1)},${(sy + 30).toFixed(1)} ${(sx + 14).toFixed(1)},${top.toFixed(1)}`); }
       const bxL = liq(0, lvL);
       dil.forEach((o, i) => { const [x, y] = inBox(bxL, wander(o.u, t, i)); attr(o.el, 'cx', x); attr(o.el, 'cy', y); });
-      const bxR = liq(1, 0.62);
+      const bxR = liq(1, 0.62); bxR[0] += 12; bxR[2] -= 30;          // room for the salt ball (left) and water (right) inside the glass
       neu.forEach((o, i) => {
         const [ax, ay] = inBox(bxR, wander(o.u, t, i + 10));
         const fall = P(t, o.tin, 0.7, easeIn), [bx0, by0] = inBox(bxR, wander(o.ub, t, i + 20));
@@ -474,8 +481,9 @@ scene('neutral', S => {
       const tx = lerp(TAB[0], SC[0] + 10, drop), ty = lerp(TAB[1], SC[1] + 92, drop) - Math.sin(Math.PI * drop) * 60;
       op(tablet, clamp(appear * 2) * (1 - dis)); tr(tablet, tx, ty, Math.max(0.01, (0.7 + 0.3 * clamp(appear)) * (1 - 0.8 * dis)), drop * 200);
       op(tabLab, P(t, mid('antacid', 0.36), 0.4, linear));
-      wisps.forEach((w, i) => { const u = P(t, T0 + 1.0 + i * 0.12, 1.6, easeOut); op(w, u > 0 ? 0.55 * Math.sin(Math.PI * u) : 0); attr(w, 'cx', SC[0] + 10 + Math.cos(i * 1.1) * 110 * u); attr(w, 'cy', SC[1] + 96 + Math.sin(i * 1.7) * 36 * u); attr(w, 'r', 8 + 18 * u); });
-      acidPool.setAttribute('fill', mix(RED, ORANGE, P(t, T0 + 1.2, 1.8, linear)));
+      // the tablet dissolves into a soft white cloud (no fizz), and the acid pool eases paler as it is neutralised
+      wisps.forEach((w, i) => { const u = P(t, T0 + 1.0 + i * 0.12, 1.6, easeOut); op(w, u > 0 ? 0.8 * Math.sin(Math.PI * u) : 0); attr(w, 'cx', SC[0] + 10 + Math.cos(i * 1.1) * 110 * u); attr(w, 'cy', SC[1] + 96 + Math.sin(i * 1.7) * 36 * u); attr(w, 'r', 16 + 34 * u); });
+      acidPool.setAttribute('fill', mix(ACIDPOOL, '#FFAE85', P(t, T0 + 1.2, 1.8, linear)));
       op(tabNote, P(t, mid('antacid', 0.72), 0.45, linear)); op(tabNote2, P(t, mid('antacid', 0.76), 0.45, linear));
     }
   };

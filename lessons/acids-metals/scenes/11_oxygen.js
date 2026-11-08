@@ -112,8 +112,8 @@ scene('oxygen', S => {
   function inside(tb) { const g = E('g', {}); tb.insertBefore(g, tb.childNodes[3]); return g; }
   function glassTube(parent, pts) {
     const g = G(parent), d = 'M' + pts.map(p => p.join(',')).join(' L');
-    E('path', { d, fill: 'none', stroke: '#9DB7C6', 'stroke-width': 11, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
-    E('path', { d, fill: 'none', stroke: '#11303D', 'stroke-width': 5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
+    E('path', { d, fill: 'none', stroke: '#9DB7C6', 'stroke-width': 12, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);   // as the carbonates chapter's delivery tube
+    E('path', { d, fill: 'none', stroke: '#11303D', 'stroke-width': 6, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
     return g;
   }
   /* a pie slice from angle a0 to a1 (radians, 0 = 12 o'clock, clockwise) */

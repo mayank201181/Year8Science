@@ -191,8 +191,17 @@ scene('intro', S => {
   const CARDY = 425;
   const stops = [
     { x: 240, text: 'pH scale', draw: g => {
-      PH.forEach((c, i) => E('rect', { x: -127 + i * 17, y: -34, width: 17, height: 34, rx: i === 0 || i === 14 ? 6 : 0, fill: c, stroke: C.card, 'stroke-width': 1.5 }, g));
-      [[0, '0'], [7, '7'], [14, '14']].forEach(([i, s]) => T(g, -118.5 + i * 17, 24, s, { size: 24, weight: 600, anchor: 'middle', fill: C.muted }));
+      // the pH chapter's bar in miniature: square cells, rounded ends, a pale strip along the top
+      const CW = 18, X0 = -135, Y0 = -26, r = 4.5;
+      PH.forEach((c, i) => {
+        const x = X0 + i * CW, x1 = x + CW, y1 = Y0 + CW;
+        let d = `M${x},${Y0} H${x1} V${y1} H${x} Z`;
+        if (i === 0) d = `M${x + r},${Y0} H${x1} V${y1} H${x + r} Q${x},${y1} ${x},${y1 - r} V${Y0 + r} Q${x},${Y0} ${x + r},${Y0} Z`;
+        if (i === 14) d = `M${x},${Y0} H${x1 - r} Q${x1},${Y0} ${x1},${Y0 + r} V${y1 - r} Q${x1},${y1} ${x1 - r},${y1} H${x} Z`;
+        E('path', { d, fill: c, stroke: C.bg0, 'stroke-width': 1, 'stroke-linejoin': 'round' }, g);
+        E('rect', { x: x + 2, y: Y0 + 2, width: CW - 4, height: 2.5, rx: 1.25, fill: '#ffffff', opacity: 0.25 }, g);
+      });
+      [[0, '0'], [7, '7'], [14, '14']].forEach(([i, s]) => T(g, X0 + CW / 2 + i * CW, 20, s, { size: 24, weight: 600, anchor: 'middle', fill: C.muted }));
     } },
     { x: 600, text: 'neutralisation', draw: g => {
       E('circle', { cx: -100, cy: -14, r: 26, fill: ball('#E8424F', '#9E1F2B') }, g);
@@ -202,11 +211,13 @@ scene('intro', S => {
       E('circle', { cx: 100, cy: -14, r: 28, fill: ball('#56D69B', '#22844A') }, g);
     } },
     { x: 960, text: 'reactivity series', draw: g => {
+      // rungs drawn as the reactivity-series chapter's mini ladder: 72 x 34 shaded pills
+      const shade = (c, k, to) => '#' + [1, 3, 5].map(j => { const v = parseInt(c.slice(j, j + 2), 16); return Math.round(v + ((to ? 255 : 0) - v) * k).toString(16).padStart(2, '0'); }).join('');
       [['K', '#D8DEE6'], ['Mg', '#E3E8EE'], ['Fe', '#7A8590'], ['Cu', '#D9824B'], ['Au', '#F5C542']].forEach(([s, c], i) => {
-        E('rect', { x: -54, y: -96 + i * 36, width: 108, height: 32, rx: 10, fill: c, stroke: '#0A1B27', 'stroke-width': 1.5 }, g);
-        T(g, 0, -71.5 + i * 36, s, { size: 25, weight: 700, anchor: 'middle', fill: s === 'Fe' ? '#F4F7FA' : '#1E2328' });
+        E('rect', { x: -36, y: -96 + i * 38, width: 72, height: 34, rx: 17, fill: ball(c, shade(c, 0.42, false)), stroke: shade(c, 0.45, true), 'stroke-width': 2 }, g);
+        T(g, 0, -70 + i * 38, s, { size: 26, weight: 700, anchor: 'middle', fill: '#13232E' });
       });
-      arrow(g, 82, -92, 82, 76, { color: C.faint, width: 4 });
+      arrow(g, 64, -92, 64, 84, { color: C.faint, width: 4 });
     } },
   ].map(st => {
     const g = G(road);

@@ -76,6 +76,7 @@ scene('metals', S => {
   }
 
   /* ---------- local helpers ---------- */
+  const mixC = (a, b, p) => { const A = [1, 3, 5].map(i => parseInt(a.slice(i, i + 2), 16)), B = [1, 3, 5].map(i => parseInt(b.slice(i, i + 2), 16)); return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * p).toString(16).padStart(2, '0')).join(''); };
   function rich(parent, x, y, segs, o) {
     o = o || {};
     const t = E('text', { x, y, 'font-size': o.size || 30, 'font-weight': o.weight || 600, 'font-family': o.font || FD, 'text-anchor': o.anchor || 'start', fill: o.fill || C.ink }, parent);
@@ -268,18 +269,19 @@ scene('metals', S => {
   const froth = []; for (let k = 0; k < 7; k++) froth.push(E('circle', { r: 3.5 + (k % 3) * 1.6, fill: 'rgba(255,255,255,0.22)', stroke: 'rgba(255,255,255,0.8)', 'stroke-width': 1.5 }, MET[0].inn));
   const rackBF = rackFront(B, 215, 985, 318);
   // the ladder: rails, the dashed hydrogen rung, the hydrogen line
-  const rails = [-50, 50].map(dx => E('line', { x1: LX + dx, y1: 136, x2: LX + dx, y2: 676, stroke: C.faint, 'stroke-width': 5, 'stroke-linecap': 'round', pathLength: 1, 'stroke-dasharray': '1 1' }, B));
+  const rails = [-38, 38].map(dx => E('line', { x1: LX + dx, y1: 136, x2: LX + dx, y2: 676, stroke: C.faint, 'stroke-width': 5, 'stroke-linecap': 'round', pathLength: 1, 'stroke-dasharray': '1 1' }, B));
   const hLine = E('line', { x1: 290, y1: HROW, x2: 1150, y2: HROW, stroke: C.air, 'stroke-width': 3, 'stroke-dasharray': '10 8' }, B);
   const hLineLbl = T(B, 1150, HROW - 14, 'hydrogen', { size: 26, weight: 600, anchor: 'end', fill: C.air });
   const hRung = G(B);
   const hHalo = E('ellipse', { rx: 90, ry: 40, fill: glow(C.air) }, hRung);
-  E('rect', { x: -50, y: -18, width: 100, height: 36, rx: 10, fill: '#123447', stroke: C.air, 'stroke-width': 2.5, 'stroke-dasharray': '7 6' }, hRung);
-  T(hRung, 0, 10, '(H)', { size: 28, weight: 700, anchor: 'middle', fill: C.air });
+  // rungs drawn as the reactivity-series chapter's mini ladder: 72 x 34 pills (the dashed hydrogen marker, shaded metal swatches)
+  E('rect', { x: -36, y: -17, width: 72, height: 34, rx: 17, fill: '#123544', stroke: C.air, 'stroke-width': 2.5, 'stroke-dasharray': '8 6' }, hRung);
+  T(hRung, 0, 9, 'H', { size: 26, weight: 700, anchor: 'middle', fill: C.air });
   // label chips under the tubes (they become the ladder's rungs), names, results
   MET.forEach((m, i) => {
     m.chip = G(B);
-    E('rect', { x: -50, y: -18, width: 100, height: 36, rx: 10, fill: SW[m.s], stroke: 'rgba(255,255,255,0.5)', 'stroke-width': 1.5 }, m.chip);
-    T(m.chip, 0, 10, m.s, { size: 28, weight: 700, anchor: 'middle', fill: m.s === 'Fe' ? '#FFFFFF' : INK });
+    E('rect', { x: -36, y: -17, width: 72, height: 34, rx: 17, fill: ball(SW[m.s], mixC(SW[m.s], '#000000', 0.42)), stroke: mixC(SW[m.s], '#FFFFFF', 0.45), 'stroke-width': 2 }, m.chip);
+    T(m.chip, 0, 9, m.s, { size: 26, weight: 700, anchor: 'middle', fill: '#13232E' });
     m.nameT = T(B, TX[i], 676, m.name, { size: 28, weight: 600, anchor: 'middle', fill: C.muted });
     m.resC = chip(B, m.res, { size: 26, fill: C.card2, stroke: m.rc, sw: 2.5 });
   });
