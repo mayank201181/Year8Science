@@ -3,6 +3,7 @@ import type { TopicExtras } from "../types";
 // Engagement extras for acids-metals. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const acidsMetalsExtras: TopicExtras = {
+  lesson: { href: "/lessons/acids-metals.html", minutes: 16, chapters: 15 },
   interactive: "ph-slider",
   hook: "Chop a red cabbage and you have accidentally made a spy gadget: a liquid that flashes pink, purple or green depending on what secret it touches. What is it actually detecting, and could you use it to unmask the hidden chemicals in your own kitchen?",
   didYouKnow: [
