@@ -33,12 +33,16 @@ scene('recap', S => {
   const hooks = G(root);
   const CW = 520, CH = 255, POS = [[50, 115], [630, 115], [50, 395], [630, 395]];
   function hookCard(i) { const g = G(hooks); tr(g, POS[i][0], POS[i][1]); card(g, 0, 0, CW, CH, { fill: C.card, stroke: C.line }); return g; }
-  // 1. Kind Gorillas Eat Chocolate, Tigers Never Eat Mango: the eight store badges
+  // 1. Kind Gorillas Eat Chocolate, Tigers Never Eat Mango: the eight store badges in the Energy stores
+  //    chapter's 4 x 2 grid, each word of the mnemonic over its badge
   const h1 = hookCard(0);
-  rich(h1, 30, 58, initials('Kind Gorillas Eat Chocolate,', C.ink), { size: 34, weight: 700 });
-  rich(h1, 30, 102, initials('Tigers Never Eat Mango', C.ink), { size: 34, weight: 700 });
-  const badges = EN.order.map((k, i) => ({ b: enBadge(h1, k, { r: 24, label: false }), x: 54 + i * 58.9 }));
-  const cap1 = T(h1, 30, 234, 'the 8 energy stores', { size: 26, weight: 600, fill: C.muted });
+  const GX = [70, 190, 312, 432], GY = [84, 182];
+  const gWords = ['Kind', 'Gorillas', 'Eat', 'Chocolate,', 'Tigers', 'Never', 'Eat', 'Mango'];
+  const badges = EN.order.map((k, i) => ({
+    w: rich(h1, GX[i % 4], GY[Math.floor(i / 4)] - 38, [[gWords[i][0], Y, 800], [gWords[i].slice(1), C.ink]], { size: 28, weight: 700, anchor: 'middle' }),
+    b: enBadge(h1, k, { r: 24, label: false }), x: GX[i % 4], y: GY[Math.floor(i / 4)],
+  }));
+  const cap1 = T(h1, 260, 238, 'the 8 energy stores', { size: 26, weight: 600, fill: C.muted, anchor: 'middle' });
   // 2. M, E, R, H: the four pathways
   const h2 = hookCard(1);
   rich(h2, 30, 58, [['M', Y, 800], ', ', ['E', Y, 800], ', ', ['R', Y, 800], ', ', ['H', Y, 800], [': the 4 pathways', C.muted, 600]], { size: 34, weight: 700 });
@@ -115,12 +119,15 @@ scene('recap', S => {
   }
   const T5 = [
     trapGroup('Energy gets used up', ['Energy ', ['dissipates', Y, 800], ' into the surroundings'], g => {
+      // the same room, warm tint and spreading sparks as the Useful and wasted chapter and the quiz
       const room = G(g); tr(room, -360, -58);
-      E('rect', { x: 0, y: 0, width: 330, height: 116, rx: 14, fill: 'rgba(200,230,250,0.05)', stroke: C.line, 'stroke-width': 2.5 }, room);
+      E('rect', { x: 0, y: 0, width: 330, height: 116, rx: 14, fill: '#15303C', stroke: '#2F5A6E', 'stroke-width': 2.5 }, room);
+      E('rect', { x: 0, y: 102, width: 330, height: 14, rx: 4, fill: '#4A3B30', stroke: '#6B5546', 'stroke-width': 2 }, room);
+      const tint = E('rect', { x: 0, y: 0, width: 330, height: 104, rx: 14, fill: '#FF7A30' }, room); op(tint, 0);
       const bulb = enBulb(room, 'filament', { s: 0.42, on: 1 }); tr(bulb, 40, 80);
-      const dis = enDissipate(room, 330, 116, { n: 16, r: 8, from: [42, 46], tint: 0.14 });
+      const dis = enDissipate(room, 330, 102, { n: 16, r: 8, from: [42, 46], tint: 0, end: 0.52, fade: 0.45 });
       const c = chip(g, 'dissipated, not destroyed', { size: 26, fill: C.card2, stroke: EN.wasted }); tr(c, 190, 0);
-      return (t, t0) => { dis.set(P(t, t0 + 0.1, 1.6), t * calm); };
+      return (t, t0) => { const p = P(t, t0 + 0.1, 1.6); dis.set(p, t * calm); op(tint, 0.24 * ease(p)); bulb.set(1 - 0.95 * p); };
     }),
     trapGroup('Heat, light and sound are stores', ['They are ', ['pathways', Y, 800], ', not stores'], g => {
       const j = enJar(g, 'thermal', { w: 70, h: 92, level: 0.5, label: false }); tr(j, -322, 2);
@@ -177,7 +184,8 @@ scene('recap', S => {
         const m = ok ? tick(g, 15) : cross(g, 14);
         return { m, x };
       });
-      return (t, t0) => items.forEach((it, i) => { const p = popIn(t, t0 + 0.1 + i * 0.22, 0.4); op(it.m, clamp(p * 2)); tr(it.m, it.x + 46, -50, Math.max(0.01, p)); });
+      // J ticked on "joules", W and °C crossed on "watts" and "degrees"
+      return (t, t0) => items.forEach((it, i) => { const p = popIn(t, t0 + [0, 0.55, 1.15][i], 0.4); op(it.m, clamp(p * 2)); tr(it.m, it.x + 46, -50, Math.max(0.01, p)); });
     }),
   ];
 
@@ -202,19 +210,22 @@ scene('recap', S => {
         const p = P(t, at(id) - 0.15, 0.55, pop);
         op(g, clamp(p * 2)); tr(g, POS[i][0], POS[i][1] + (1 - clamp(p)) * 26);
       });
-      // the badges cascade in letter-side up, one per word, then turn over to show their stores
+      // the badges cascade in letter-side up as each word is said, then turn over to show their stores
+      // on "the eight energy stores"
+      const GW = [0.01, 0.08, 0.17, 0.22, 0.36, 0.44, 0.5, 0.54];
       badges.forEach((o, i) => {
-        const p = P(t, mid('gorillas', 0.05 + i * 0.075), 0.5, pop);
-        op(o.b, clamp(p * 2.5)); tr(o.b, o.x, 168 - 46 * (1 - clamp(p)), 0.7 + 0.3 * p);
-        o.b.set({ flip: 1 - P(t, mid('gorillas', 0.7 + i * 0.03), 0.4, linear) });
+        const p = P(t, mid('gorillas', GW[i]) - 0.05, 0.5, pop);
+        op(o.b, clamp(p * 2.5)); tr(o.b, o.x, o.y - 30 * (1 - clamp(p)), 0.7 + 0.3 * p); op(o.w, clamp(p * 2.5));
+        o.b.set({ flip: 1 - P(t, mid('gorillas', 0.72 + i * 0.03), 0.4, linear) });
       });
-      op(cap1, P(t, mid('gorillas', 0.72), 0.5, linear));
+      op(cap1, P(t, mid('gorillas', 0.74), 0.5, linear));
+      // "M", "E", "R", "H" are said at 0, 0.08, 0.14 and 0.21 of the line; each pathway's row as it is named
       MR.forEach((r, i) => {
-        const pd = popIn(t, mid('merh', 0.03 + i * 0.035), 0.4); op(r.disc, clamp(pd * 2)); tr(r.disc, 46, 100 + i * 42, Math.max(0.01, pd));
-        const pr = P(t, mid('merh', [0.36, 0.52, 0.67, 0.83][i]), 0.5, linear); op(r.row, pr); tr(r.row, (1 - pr) * 16, 0);
+        const pd = popIn(t, mid('merh', [0.0, 0.075, 0.135, 0.21][i]), 0.4); op(r.disc, clamp(pd * 2)); tr(r.disc, 46, 100 + i * 42, Math.max(0.01, pd));
+        const pr = P(t, mid('merh', [0.44, 0.6, 0.72, 0.86][i]), 0.5, linear); op(r.row, pr); tr(r.row, (1 - pr) * 16, 0);
         r.anim(t);
       });
-      op(fr3a, P(t, mid('uot', 0.3), 0.45, linear)); op(fr3b, P(t, mid('uot', 0.5), 0.45, linear)); op(fr3c, P(t, mid('uot', 0.62), 0.45, linear));
+      op(fr3a, P(t, mid('uot', 0.3), 0.45, linear)); op(fr3b, P(t, mid('uot', 0.6), 0.45, linear)); op(fr3c, P(t, mid('uot', 0.7), 0.45, linear));
       op(note3, P(t, mid('uot', 0.86), 0.45, linear));
       res.forEach((o, i) => {
         const p = P(t, mid('horses', 0.05 + i * 0.075), 0.5, pop);
@@ -241,15 +252,17 @@ scene('recap', S => {
         op(s.num, done ? 0 : 1); op(s.tk, done ? 1 : 0);
         s.tk.firstChild.setAttribute('stroke', C.bg0);
       });
+      // per trap: when the wrong idea is struck out, the right one is said, and its picture comes in
+      const STK = [0.25, 0.3, 0.28, 0.28, 0.28], RGT = [0.55, 0.52, 0.36, 0.36, 0.36], ILL = [0.6, 0.58, 0.5, 0.5, 0.5];
       T5.forEach((g, i) => {
         const k = 't' + (i + 1), t0 = at(k), nx = i < 4 ? at('t' + (i + 2)) : 1e6;
         const v = win(t, t0 - 0.2, nx + 0.05, 0.3);
         op(g.g, v);
         if (v <= 0) return;
         op(g.wt, P(t, t0 - 0.2, 0.4, linear));
-        g.st.set(P(t, mid(k, 0.28), 0.5, easeOut));
-        const rp = P(t, mid(k, 0.36), 0.55, pop); op(g.rg, clamp(rp * 2)); tr(g.rg, (1 - clamp(rp)) * 20, 0);
-        const tI = mid(k, 0.5), ip = P(t, tI, 0.55, pop); op(g.ill, clamp(ip * 2)); tr(g.ill, 760, 540, 0.85 + 0.15 * clamp(ip));
+        g.st.set(P(t, mid(k, STK[i]), 0.5, easeOut));
+        const rp = P(t, mid(k, RGT[i]), 0.55, pop); op(g.rg, clamp(rp * 2)); tr(g.rg, (1 - clamp(rp)) * 20, 0);
+        const tI = mid(k, ILL[i]), ip = P(t, tI, 0.55, pop); op(g.ill, clamp(ip * 2)); tr(g.ill, 760, 540, 0.85 + 0.15 * clamp(ip));
         g.anim(t, tI);
       });
     }

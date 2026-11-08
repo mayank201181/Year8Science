@@ -158,6 +158,11 @@ scene('conservation', S => {
   const fricT = T(gD, 770, 418, 'from friction', { size: 24, weight: 600, anchor: 'middle', fill: TC });
   const TOYX0 = 230, TOYX1 = 860, TOYY = 640;
   const tRun = mid('toy', 0.52), tRunEnd = end('toy') + 0.4;
+  // the toy speeds up for TR seconds, then walks at a steady speed: its kinetic store fills as v² and then holds
+  // level, while the spring's elastic store keeps emptying into thermal (friction)
+  const TR = 1.6, RUN = tRunEnd - tRun, TV0 = (TOYX1 - TOYX0) / (RUN - TR / 2);
+  const toyX = t => { const tau = clamp(t - tRun, 0, RUN); return TOYX0 + TV0 * (tau < TR ? tau * tau / (2 * TR) : TR / 2 + tau - TR); };
+  const toyV = t => (t <= tRun || t >= tRunEnd ? 0 : Math.min(1, (t - tRun) / TR));
 
   /* ================= E. the roller coaster (showpiece) ================= */
   const gE = G(root);
@@ -188,12 +193,18 @@ scene('conservation', S => {
       pv = { x, y, s, v, tau, h, ke, loss }; PH.push(pv);
     } }
   const tauAtX = x => PH[Math.round((x - 230) / 2)].tau;
-  const tDep = at('swap') + 0.1, tC2 = mid('swap', 0.94), K1 = tauAtX(610) / (tC2 - tDep), K2 = K1 * 0.72, KD = 1.6;
+  // the ride's clock runs at KA while the car races down and eases to KB for the climb, so the car is at the
+  // bottom (fastest) just after "fast!" (0.46 of the line) and creeps over the second crest on "slow" (0.94)
+  const tDep = at('swap') + 0.1, tC2 = mid('swap', 0.94), TC2 = tauAtX(610), K2 = TC2 / (tC2 - tDep) * 0.72, KD = 1.6;
+  const tBot = mid('swap', 0.46), tw1 = mid('swap', 0.34), tw2 = mid('swap', 0.7), TW = tw2 - tw1;
+  const gW = t => t <= tw1 ? 0 : t <= tw2 ? ((t - tw1) - TW / Math.PI * Math.sin(Math.PI * (t - tw1) / TW)) / 2 : TW / 2 + (t - tw2);
+  const a11 = (tBot - tDep) - gW(tBot), a12 = gW(tBot), a21 = (tC2 - tDep) - gW(tC2), a22 = gW(tC2), det = a11 * a22 - a12 * a21;
+  const KA = (tauAtX(420) * a22 - a12 * TC2) / det, KB = (a11 * TC2 - a21 * tauAtX(420)) / det;
   const rideTau = t => {
     if (t <= tDep) return 0;
-    if (t <= tC2) return K1 * (t - tDep);
+    if (t <= tC2) return KA * (t - tDep) + (KB - KA) * gW(t);
     const x = t - tC2, y = Math.min(1, x / KD), Q = x < KD ? KD * (y * y * y - y * y * y * y / 2) : KD / 2 + (x - KD);
-    return K1 * (tC2 - tDep) + K1 * x - (K1 - K2) * Q;
+    return TC2 + KB * x - (KB - K2) * Q;
   };
   const rideAt = t => {
     const tau = rideTau(t);
@@ -341,7 +352,7 @@ scene('conservation', S => {
 
     /* --- C: the flow diagram --- */
     if (aC > 0) {
-      rise(flowT, popIn(t, mid('flow', 0.18)));
+      rise(flowT, popIn(t, mid('flow', 0.03)));
       const cp = P(t, mid('flow', 0.44), 0.55) + P(t, mid('flow', 0.67), 0.55) + P(t, mid('flow', 0.82), 0.55);
       chain.set(cp);
       cBadges.forEach((c, i) => show(c.b, P(t, mid('flow', [0.46, 0.69, 0.84][i]), 0.5, pop), c.x - (i === 2 ? 26 : 0), 316));
@@ -350,10 +361,11 @@ scene('conservation', S => {
     }
 
     /* --- D: the wind-up toy --- */
-    const run = P(t, tRun, tRunEnd - tRun, linear), wind = P(t, mid('toy', 0.12), mid('toy', 0.42) - mid('toy', 0.12), linear);
-    const eLv = wind * (1 - 0.78 * run), kLvD = 0.62 * run, thLvD = 0.16 * run;
+    const wind = P(t, mid('toy', 0.12), mid('toy', 0.42) - mid('toy', 0.12), linear), vv = toyV(t);
+    const kLvD = t > tRun ? 0.3 * Math.min(1, (t - tRun) / TR) ** 2 : 0, thLvD = 0.3 * P(t, tRun + 0.6, RUN - 0.6, linear);
+    const eLv = wind - kLvD - thLvD;
     if (aD > 0) {
-      const x = lerp(TOYX0, TOYX1, run), ph = (x - TOYX0) / 22, moving = run > 0 && run < 1 ? 1 : 0;
+      const x = toyX(t), ph = (x - TOYX0) / 22, moving = clamp(vv * 4);
       tr(toy, x, TOYY - 3 * Math.abs(Math.sin(ph)) * moving);
       op(toy, P(t, at('toy') - 0.1, 0.4, linear));
       legs.forEach((l, i) => l.g.setAttribute('transform', `rotate(${(18 * Math.sin(ph + i * Math.PI) * moving).toFixed(1)} ${l.x} -40)`));
@@ -366,7 +378,7 @@ scene('conservation', S => {
       spiral.setAttribute('d', d);
       const hp = win(t, at('toy') + 0.1, tRun - 0.15, 0.3);
       op(handD, hp); tr(handD, x - 48 - 18 - 28 - 17 + 4 * Math.sin(t * 9), TOYY - 82);
-      fEK.set(t, P(t, tRun, 0.4, linear)); fET.set(t, P(t, tRun + 0.3, 0.4, linear));
+      fEK.set(t, P(t, tRun, 0.4, linear) * (1 - P(t, tRun + TR, 0.5, linear))); fET.set(t, P(t, tRun + 0.6, 0.4, linear));
       feet.forEach((f, k) => {
         const q = ((ph / Math.PI + k / 3) % 1 + 1) % 1;
         tr(f, x - 6 - 36 * q, TOYY - 4 - 16 * q, 0.8 + 0.4 * (1 - q)); op(f, moving * Math.sin(q * Math.PI)); f.upd(t);
@@ -385,8 +397,8 @@ scene('conservation', S => {
       tr(car, cx, cy - (1 - clamp(cpp)) * 16, CARS, ride.ang * 180 / Math.PI);
       op(streaks, clamp((ride.p.v / VMAX - 0.45) * 2.5) * (t > tDep ? 1 : 0));
       op(hiG, win(t, mid('coaster', 0.75), at('swap') + 0.3, 0.3) * (0.6 + 0.4 * wave(t, 0.9)));
-      show(chipFastE, popIn(t, mid('swap', 0.4)) * (1 - P(t, mid('swap', 0.66), 0.3, linear)), 300, 600);
-      show(chipSlowE, popIn(t, mid('swap', 0.9)) * (1 - P(t, mid('lower', 0.3), 0.3, linear)), 700, 345);
+      show(chipFastE, popIn(t, mid('swap', 0.37)) * (1 - P(t, mid('swap', 0.58), 0.3, linear)), 300, 600);
+      show(chipSlowE, popIn(t, mid('swap', 0.9)) * (1 - P(t, end('swap'), 0.4, linear)), 700, 345);   // gone as the car speeds off the crest
       const dl = P(t, at('lower') + 0.1, 0.9);
       attr(dash1, 'x2', lerp(230, 1160, dl)); op(dash1, dl > 0 ? 1 : 0);
       op(dashLab, P(t, at('lower') + 0.5, 0.4, linear));

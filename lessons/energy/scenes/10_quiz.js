@@ -59,8 +59,9 @@ scene('quiz', S => {
     const lines = G(g);
     [-10, 0, 10].forEach((dx, i) => E('line', { x1: dx, y1: -40 - (i % 2) * 8, x2: dx, y2: -78 + (i % 2) * 6, stroke: '#BDEBFA', 'stroke-width': 4, 'stroke-linecap': 'round' }, lines));
     const bl = G(g);
-    E('circle', { r: 22, fill: ball('#5B8DEF', '#2F5DB8'), stroke: '#BFD4FF', 'stroke-width': 2 }, bl);
-    E('path', { d: 'M-16,-6 Q0,6 16,-6', fill: 'none', stroke: '#BFD4FF', 'stroke-width': 2, opacity: 0.7 }, bl);
+    // the red ball of the Conservation chapter's falling ball
+    E('circle', { r: 22, fill: ball('#FF6070', '#B5372D'), stroke: '#FFB3BB', 'stroke-width': 2 }, bl);
+    E('path', { d: 'M-16,-6 Q0,6 16,-6', fill: 'none', stroke: '#FFD0D5', 'stroke-width': 2, opacity: 0.7 }, bl);
     const jL = mysteryJar(g, 'gravitational', 84, 112, 1); tr(jL, 30, 30);
     const jR = mysteryJar(g, 'kinetic', 84, 112, 0); tr(jR, 190, 30);
     const hide = [30, 190].map(x => {
@@ -172,7 +173,7 @@ scene('quiz', S => {
     E('ellipse', { cx: 0, cy: 138, rx: 40, ry: 8, fill: '#5D6B78', stroke: '#8E9CA9', 'stroke-width': 2 }, g);
     const bulb = enBulb(g, 'filament', { s: 0.8, on: 1 }); tr(bulb, 0, 0);
     const shed = [0, 1, 2, 3, 4].map(k => ({ s: spark(g, 10, { color: O, seed: k + 4 }), a: -Math.PI / 2 + (k - 2) * 0.55 }));
-    const dis = enDissipate(g, 448, 292, { n: 16, from: [224, 128], tint: 0, seed: 9, rx: 14 }); tr(dis, -224, -152);
+    const dis = enDissipate(g, 448, 292, { n: 16, from: [224, 128], tint: 0, seed: 9, rx: 14, end: 0.52, fade: 0.45 }); tr(dis, -224, -152);
     const th = enBadge(g, 'thermal', { r: 26, label: false }); tr(th, 178, -110);
     return (t, ta) => {
       const on = 1 - P(t, ta + 0.1, 0.6, linear);
@@ -183,7 +184,7 @@ scene('quiz', S => {
       });
       const p = P(t, ta + 0.1, 3.0, linear);
       op(dis, p > 0 ? 1 : 0); dis.set(p, t);
-      op(tint, 0.22 * ease(p));
+      op(tint, 0.24 * ease(p));
       const tp = P(t, ta + 1.6, 0.5, pop); op(th, clamp(tp * 2)); tr(th, 178, -110, Math.max(0.01, 0.8 + 0.2 * tp));
     };
   }

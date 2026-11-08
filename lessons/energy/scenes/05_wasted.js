@@ -392,8 +392,9 @@ scene('wasted', S => {
       sUse.set(t, tOut, 1e6, 0);
       const wm = P(t, at('wasted') + 0.1, 0.6, linear);
       sWaste.set(t, tOut, 1e6, f => wm * clamp((f - 0.04) * 5));
-      show(cUse, popIn(t, mid('useful', 0.6)), 950, 330);
-      op(lbWant, P(t, mid('useful', 0.68), 0.4, linear));
+      // "where we want it" is said at 0.6 of the line, "the useful energy" at 0.85
+      op(lbWant, P(t, mid('useful', 0.56), 0.4, linear));
+      show(cUse, popIn(t, mid('useful', 0.76)), 950, 330);
       show(cWaste, popIn(t, mid('wasted', 0.1)), 560, 612);
       const tp = P(t, mid('wasted', 0.5), 0.5, easeOut);
       op(thG, tp); tr(thG, (1 - tp) * 20, 0);

@@ -290,7 +290,7 @@ scene('pathways', S => {
     const jx = WJ[jar].x;
     return { g, c, tk, jar, hx: jx, hy: k % 2 ? 300 : 294, lx, ly: WY[row] - 34 };
   });
-  const NAMED = [0.03, 0.1, 0.18, 0.29];
+  const NAMED = [0.07, 0.13, 0.22, 0.33];          // when "heat", "light", "sound" and "electricity" are said
 
   /* ================= G. the kettle (showpiece) ================= */
   const gK = G(root);
@@ -338,7 +338,7 @@ scene('pathways', S => {
     const flI = P(t, mid('pathway', 0.2), 1.6, linear);
     if (aI > 0) {
       arcI.set(P(t, mid('pathway', 0.12), 0.8));
-      show(chipI, popIn(t, mid('pathway', 0.3)), 420, 345);
+      show(chipI, popIn(t, mid('pathway', 0.45)), 420, 345);
       flowI.set(t, P(t, mid('pathway', 0.18), 0.5, linear));
     }
 
@@ -348,7 +348,7 @@ scene('pathways', S => {
     if (aL > 0) {
       const mv = P(t, at('merh') - 0.35, 0.9), s = lerp(1, 1.22, mv);
       LEG.setAttribute('transform', `translate(${lerp(LCX, 600, mv).toFixed(1)} ${lerp(LCY, 392, mv).toFixed(1)}) scale(${s.toFixed(4)}) translate(${-LCX} ${-LCY})`);
-      const hp = popIn(t, mid('pathway', 0.66)); tr(headDisc, LX + 50, LY + 52, Math.max(0.01, hp));
+      const hp = popIn(t, mid('pathway', 0.84)); tr(headDisc, LX + 50, LY + 52, Math.max(0.01, hp));   // on "four"
       const sw = P(t, at('merh') + 0.05, 0.8);
       rows.forEach((r, k) => {
         const line = LINES[k], tf = at(line) + 0.1;
@@ -359,18 +359,20 @@ scene('pathways', S => {
         const f = P(t, tf, 0.4, linear);
         op(r.bar, 1 - f); op(r.lab, P(t, tf + 0.25, 0.4, linear)); op(r.dot, f);
         r.pw.set(P(t, tf, 0.8)); op(r.pw, f > 0 ? 1 : 0); r.pw.upd(t * calm);
-        const m = MERH.indexOf(k), lp = popIn(t, mid('merh', 0.2 + m * 0.06), 0.45);
+        // each letter pops as it is said ("M" 0.13, "E" 0.2, "R" 0.27, "H" 0.33 of the line), each name pulses as it is read
+        const m = MERH.indexOf(k), lp = popIn(t, mid('merh', [0.13, 0.2, 0.27, 0.33][m]), 0.45);
         op(r.letG, clamp(lp * 2)); tr(r.letG, 36, 0, Math.max(0.01, lp));
-        const pulse = Math.sin(Math.PI * P(t, mid('merh', 0.45 + m * 0.13), 0.5, linear));
+        const pulse = Math.sin(Math.PI * P(t, mid('merh', [0.46, 0.59, 0.71, 0.87][m]), 0.5, linear));
         r.lab.setAttribute('fill', pulse > 0.05 ? C.energy : C.ink);
       });
     }
 
     /* --- B: mechanically --- */
-    const aM = win(t, at('mech') - 0.15, at('elec') - 0.05, 0.3), mB = P(t, mid('mech', 0.48), 0.35, linear);
+    // the three pictures leave before the kick comes in (their art would overlap)
+    const aM = win(t, at('mech') - 0.15, at('elec') - 0.05, 0.3), mB = P(t, mid('mech', 0.51) + 0.25, 0.25, linear);
     op(gM, aM);
     if (aM > 0) {
-      const aMA = 1 - P(t, mid('mech', 0.5), 0.35, linear);
+      const aMA = 1 - P(t, mid('mech', 0.51), 0.25, linear);
       op(gMA, aMA);
       if (aMA > 0) {
         rise(mTitle, popIn(t, at('mech') - 0.05)); op(mSub, P(t, mid('mech', 0.12), 0.5, linear));
@@ -422,16 +424,17 @@ scene('pathways', S => {
     if (aR > 0) {
       sunR.upd(t * calm); show(sunR, popIn(t, at('rad') - 0.05), 140, 262);
       op(youR, P(t, at('rad') + 0.1, 0.4, linear));
-      lightR.set(P(t, mid('rad', 0.27), 0.7)); lightR.upd(t);
-      irR.set(P(t, mid('rad', 0.34), 0.7)); irR.upd(t);
-      const warm = P(t, mid('rad', 0.5), 1.2, linear);
+      // each wave draws in as it is named: light 0.35, infrared 0.41, sound 0.49; "warms you" 0.69; "reaches your ears" 0.9
+      lightR.set(P(t, mid('rad', 0.32), 0.7)); lightR.upd(t);
+      irR.set(P(t, mid('rad', 0.39), 0.7)); irR.upd(t);
+      const warm = P(t, mid('rad', 0.62), 1.2, linear);
       op(warmR, warm * (0.75 + 0.25 * wave(t, 1.6)));
-      show(warmChip, popIn(t, mid('rad', 0.56)), 650, 460);
-      const sp = popIn(t, mid('rad', 0.38));
-      show(spkR, sp, 150, 584); show(earR, popIn(t, mid('rad', 0.41)), 654, 584);
-      soundR.set(P(t, mid('rad', 0.43), 0.7)); soundR.upd(t);
-      spkR.set(3.5 * Math.sin(t * 28) * P(t, mid('rad', 0.42), 0.3, linear) * calm);
-      op(earR.halo, P(t, mid('rad', 0.78), 0.5, linear) * (0.7 + 0.3 * wave(t, 0.7)));
+      show(warmChip, popIn(t, mid('rad', 0.68)), 650, 460);
+      const sp = popIn(t, mid('rad', 0.44));
+      show(spkR, sp, 150, 584); show(earR, popIn(t, mid('rad', 0.46)), 654, 584);
+      soundR.set(P(t, mid('rad', 0.47), 0.7)); soundR.upd(t);
+      spkR.set(3.5 * Math.sin(t * 28) * P(t, mid('rad', 0.46), 0.3, linear) * calm);
+      op(earR.halo, P(t, mid('rad', 0.88), 0.5, linear) * (0.7 + 0.3 * wave(t, 0.7)));
     }
 
     /* --- F: stores vs pathways, then the four words --- */
@@ -439,11 +442,12 @@ scene('pathways', S => {
     op(gW, aW);
     if (aW > 0) {
       attr(divider, 'y2', lerp(150, 680, P(t, at('where') + 0.05, 0.7)));
-      rise(hL, popIn(t, mid('where', 0.2))); op(subL, P(t, mid('where', 0.32), 0.4, linear));
-      rise(hR, popIn(t, mid('where', 0.56))); op(subR, P(t, mid('where', 0.69), 0.4, linear));
+      // "Stores" is said at 0.31 of the line, "Pathways" at 0.67
+      rise(hL, popIn(t, mid('where', 0.27))); op(subL, P(t, mid('where', 0.36), 0.4, linear));
+      rise(hR, popIn(t, mid('where', 0.63))); op(subR, P(t, mid('where', 0.72), 0.4, linear));
       WR.forEach((r, k) => {
-        const p = P(t, mid('where', 0.6 + k * 0.07), 0.7);
-        r.pw.set(p); op(r.pw, p > 0 ? 1 : 0); r.pw.upd(t * calm); op(r.lab, P(t, mid('where', 0.6 + k * 0.07) + 0.4, 0.4, linear));
+        const p = P(t, mid('where', 0.66 + k * 0.07), 0.7);
+        r.pw.set(p); op(r.pw, p > 0 ? 1 : 0); r.pw.upd(t * calm); op(r.lab, P(t, mid('where', 0.66 + k * 0.07) + 0.4, 0.4, linear));
       });
       // words: appear as named, drop into a jar, bounce off it (cross), hover, then fly to their pathway (tick)
       const pulse = Math.sin(Math.PI * P(t, mid('notstores', 0.47), 0.6, linear));

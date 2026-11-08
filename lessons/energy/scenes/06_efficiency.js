@@ -303,7 +303,8 @@ scene('efficiency', S => {
       // "energy in" becomes "total supplied" as the formula's bottom line types in
       const tm = mid('formula', 0.62);
       op(lbIn, P(t, t0 + 0.3, 0.4, linear) * (1 - P(t, tm, 0.22, linear))); op(lbTot, P(t, tm + 0.2, 0.3, linear));
-      const uP = Math.sin(Math.PI * P(t, mid('uot', 0.1), 0.5, linear)), tP = Math.sin(Math.PI * P(t, mid('uot', 0.62), 0.5, linear));
+      // "Useful", "Over" and "Total" are said at 0.34, 0.55 and 0.7 of the uot line
+      const uP = Math.sin(Math.PI * P(t, mid('uot', 0.32), 0.5, linear)), tP = Math.sin(Math.PI * P(t, mid('uot', 0.7), 0.5, linear));
       const nP = Math.sin(Math.PI * P(t, mid('formula', 0.26), 0.6, linear));
       const cu = popIn(t, mid('what', 0.48));
       op(cUse, clamp(cu * 2)); tr(cUse, 772, DY + (1 - clamp(cu)) * 14, Math.max(0.01, 0.8 + 0.2 * cu + 0.12 * Math.max(uP, nP)));
@@ -334,7 +335,7 @@ scene('efficiency', S => {
       if (typing1) { attr(caret, 'x', xN + preN[n1] + 2); attr(caret, 'y', -48); }
       if (typing2) { attr(caret, 'x', xD + preD[n2] + 2); attr(caret, 'y', 18); }
       // Useful Over Total: U, the bar ("over") and T light up
-      const pU = Math.sin(Math.PI * P(t, mid('uot', 0.1), 0.6, linear)), pO = Math.sin(Math.PI * P(t, mid('uot', 0.36), 0.6, linear)), pT = Math.sin(Math.PI * P(t, mid('uot', 0.62), 0.6, linear));
+      const pU = Math.sin(Math.PI * P(t, mid('uot', 0.32), 0.6, linear)), pO = Math.sin(Math.PI * P(t, mid('uot', 0.52), 0.6, linear)), pT = Math.sin(Math.PI * P(t, mid('uot', 0.7), 0.6, linear));
       op(glU, pU); op(glT, pT);
       bar.setAttribute('stroke', pO > 0.05 ? Y : C.ink); bar.setAttribute('stroke-width', (5 + 4 * pO).toFixed(2));
       const up = popIn(t, at('uot') + 0.05);
@@ -396,7 +397,7 @@ scene('efficiency', S => {
       const dp = popIn(t, t0 - 0.1);
       tr(dialB, 600, 520, Math.max(0.01, 0.9 + 0.1 * dp));
       // the needle rises towards 100% but always stops short, then engineers nudge it closer
-      const up = P(t, mid('never', 0.08), 1.6, easeOut), nudge = P(t, mid('never', 0.62), 1.8, ease);
+      const up = P(t, mid('never', 0.08), 1.6, easeOut), nudge = P(t, mid('never', 0.72), 1.8, ease);   // "Engineers work..." at 0.7
       const bump = Math.exp(-3 * Math.max(0, t - mid('never', 0.08) - 1.6)) * Math.sin(Math.max(0, t - mid('never', 0.08) - 1.6) * 14) * 0.012 * (t > mid('never', 0.08) + 1.6 ? 1 : 0);
       const v = 0.75 + 0.15 * up + 0.07 * nudge + bump * calm;
       gB.set(v, 1);
@@ -408,23 +409,24 @@ scene('efficiency', S => {
       show(cSome, sp, 950, 250);
       lead.setAttribute('d', `M${890},${276} Q${gx + 30},${gy - 70} ${gx + 6},${gy - 18}`);
       op(lead, clamp(sp * 2));
-      const ep = popIn(t, mid('never', 0.56));
+      const ep = popIn(t, mid('never', 0.66));
       op(eng, clamp(ep * 2)); tr(eng, 200, 250, Math.max(0.01, 0.8 + 0.2 * ep));
-      tr(spanner, 0, 0, 1, 45 + 18 * Math.sin(Math.max(0, t - mid('never', 0.62)) * 7) * nudge * (1 - nudge) * 4 * calm);
-      show(cEng, popIn(t, mid('never', 0.62)), 200, 362);
+      tr(spanner, 0, 0, 1, 45 + 18 * Math.sin(Math.max(0, t - mid('never', 0.72)) * 7) * nudge * (1 - nudge) * 4 * calm);
+      show(cEng, popIn(t, mid('never', 0.7)), 200, 362);
     }
     const aK = win(t, at('check') - 0.15, at('sankey') - 0.05, 0.4);
     op(Ck, aK);
     if (aK > 0) {
       const wp = popIn(t, at('check') + 0.05);
       op(work, clamp(wp * 2)); tr(work, 600, 290 + (1 - clamp(wp)) * 14);
-      const xp = popIn(t, mid('check', 0.22));
+      // "over a hundred per cent" ends at 0.44 of the line, "check your working" 0.48, "You can't get more..." 0.68
+      const xp = popIn(t, mid('check', 0.42));
       op(wX, clamp(xp * 2)); tr(wX, 352, 0, Math.max(0.01, xp));
-      wStrike.setAttribute('stroke-dashoffset', (1 - P(t, mid('check', 0.2), 0.4)).toFixed(4));
-      const mp = popIn(t, mid('check', 0.36));
+      wStrike.setAttribute('stroke-dashoffset', (1 - P(t, mid('check', 0.4), 0.4)).toFixed(4));
+      const mp = popIn(t, mid('check', 0.46));
       op(mag, clamp(mp * 2)); tr(mag, 400 + 6 * Math.sin(t * 2.5) * calm, 458, Math.max(0.01, 0.8 + 0.2 * mp));
-      op(lbCheck, P(t, mid('check', 0.38), 0.4, linear));
-      show(cOut, popIn(t, mid('check', 0.64)), 600, 586);
+      op(lbCheck, P(t, mid('check', 0.48), 0.4, linear));
+      show(cOut, popIn(t, mid('check', 0.68)), 600, 586);
     }
 
     /* ---- E: Sankey ---- */

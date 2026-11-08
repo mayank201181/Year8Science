@@ -292,7 +292,7 @@ scene('what', S => {
 
   /* ================= H. "use up": a phone battery -> light and sound + heat ================= */
   const H = G(root);
-  const roomTint = E('ellipse', { cx: 790, cy: 500, rx: 400, ry: 230, fill: glow(EN.wasted) }, H);
+  const roomTint = E('ellipse', { cx: 790, cy: 500, rx: 400, ry: 230, fill: glow('#FF7A30') }, H);   // the warm tint of the other rooms
   const jarP = enJar(H, 'chemical', { label: 'battery', level: 1 }); tr(jarP, 130, 505);
   const phone = G(H); tr(phone, 322, 470);
   E('rect', { x: -84, y: -150, width: 168, height: 300, rx: 26, fill: '#16222B', stroke: '#9AA6B2', 'stroke-width': 4 }, phone);
@@ -534,10 +534,10 @@ scene('what', S => {
         const e = ease(u), c = [(PH[0] + o.e[0]) / 2, Math.min(PH[1], o.e[1]) + o.bend];
         const q = u < 0.18 ? along([[130, 414], [190, 340], PH], u / 0.18) : bez(PH, c, o.e, ease((u - 0.18) / 0.82));
         const wob = clamp((u - 0.18) / 0.82);
-        tr(o.s, q[0] + Math.sin(t * 0.9 + o.ph) * 6 * wob * AMP, q[1] + Math.cos(t * 0.8 + o.ph) * 5 * wob * AMP, lerp(1, 0.6, e));
-        o.s.upd(t); op(o.s, Math.min(1, u * 10) * lerp(1, 0.5, e));
+        tr(o.s, q[0] + Math.sin(t * 0.9 + o.ph) * 6 * wob * AMP, q[1] + Math.cos(t * 0.8 + o.ph) * 5 * wob * AMP, lerp(1, 0.52, e));
+        o.s.upd(t); op(o.s, Math.min(1, u * 10) * lerp(1, 0.45, e));
       });
-      op(roomTint, 0.24 * fade(t, mid('useup', 0.62), 3.0));
+      op(roomTint, 0.34 * fade(t, mid('useup', 0.62), 3.0));
       const uc = popIn(t, mid('useup', 0.72), 0.5); op(useC, clamp(uc * 2)); tr(useC, 640, 312, Math.max(0.01, 0.8 + 0.2 * uc)); op(useT, fade(t, mid('useup', 0.76)));
       const wc = popIn(t, mid('useup', 0.88), 0.5); op(wasC, clamp(wc * 2)); tr(wasC, 700, 610, Math.max(0.01, 0.8 + 0.2 * wc)); op(wasT, fade(t, mid('useup', 0.92)));
     }

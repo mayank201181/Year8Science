@@ -325,7 +325,7 @@ scene('resources', S => {
   /* ================= D. Six Wild Horses Took Wet Grass Back ================= */
   const gWords = G(root);
   const WORDS = ['Six', 'Wild', 'Horses', 'Took', 'Wet', 'Grass', 'Back'];
-  const WORD_AT = [0.38, 0.46, 0.54, 0.68, 0.76, 0.84, 0.92];
+  const WORD_AT = [0.32, 0.4, 0.48, 0.66, 0.73, 0.8, 0.87];   // as each word is said
   const words = WORDS.map((w, i) => {
     const g = G(gWords), L = w[0], R = w.slice(1);
     const wl = textWidth(L, 50, FD, 800), wr = textWidth(R, 46, FD, 700);

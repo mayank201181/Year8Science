@@ -287,8 +287,9 @@ scene('generating', S => {
 
   /* ================= E. saving energy matters ================= */
   const gSave = G(root);
-  const wasteGlow = E('ellipse', { cx: 330, cy: 420, rx: 430, ry: 300, fill: glow(C.heat) }, gSave);
-  const waste = enDissipate(gSave, 700, 430, { n: 15, r: 11, from: [30, 30], tint: 0, seed: 9 }); tr(waste, 40, 170);
+  // wasted energy spreading out looks the same in every chapter: orange sparks thinning out, a warm #FF7A30 tint
+  const wasteGlow = E('ellipse', { cx: 330, cy: 420, rx: 430, ry: 300, fill: glow('#FF7A30') }, gSave);
+  const waste = enDissipate(gSave, 700, 430, { n: 15, r: 11, from: [30, 30], tint: 0, seed: 9, end: 0.52, fade: 0.45 }); tr(waste, 40, 170);
   const sCO2 = [0, 1, 2].map(() => molCO2(gSave, 9));
   const saveHead = G(gSave);
   T(saveHead, 960, 330, 'saving energy', { size: 54, weight: 700, anchor: 'middle', fill: C.energy });
