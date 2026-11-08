@@ -175,11 +175,15 @@ scene('signs', S => {
   const hotWaves = heatWaves(tmpG, { n: 3, h: 70, spacing: 24 }); tr(hotWaves, 386, 470);
   const frostG = G(tmpG);
   [[712, 520, 9], [846, 548, 8], [726, 610, 7], [834, 626, 6]].forEach(([x, y, s]) => frost(frostG, x, y, s));
+  // as in Energy changes: orange heat arrows leave the hot beaker, blue arrows go into the cold one
+  const outArrows = G(tmpG);
+  arrow(outArrows, 334, 556, 302, 540, { color: C.heat, width: 5, head: 15 });
+  arrow(outArrows, 506, 556, 538, 540, { color: C.heat, width: 5, head: 15 });
   const inArrows = G(tmpG);
   arrow(inArrows, 662, 540, 694, 556, { color: C.water, width: 5, head: 15 });
   arrow(inArrows, 898, 540, 866, 556, { color: C.water, width: 5, head: 15 });
   const thHot = thermometer(tmpG, 190, C.bad); tr(thHot, 452, 626);
-  const thCold = thermometer(tmpG, 190, C.water); tr(thCold, 812, 626);
+  const thCold = thermometer(tmpG, 190, C.bad); tr(thCold, 812, 626);
   const rdHot = T(tmpG, 452, 412, '20 °C', { size: 30, weight: 700, anchor: 'middle' });
   const rdCold = T(tmpG, 812, 412, '20 °C', { size: 30, weight: 700, anchor: 'middle' });
   const lbHot = T(tmpG, 420, 694, 'hotter', { size: 32, weight: 700, anchor: 'middle', fill: C.heat });
@@ -412,7 +416,7 @@ scene('signs', S => {
       const hp = P(t, mid('temp', 0.42), 1.4, ease), cp = P(t, mid('temp', 0.62), 1.4, ease);
       thHot.set(0.35 + 0.45 * hp); thCold.set(0.35 - 0.28 * cp);
       setText(rdHot, Math.round(20 + 16 * hp) + ' °C'); setText(rdCold, Math.round(20 - 12 * cp) + ' °C');
-      hotWaves.upd(t); op(hotWaves, hp * 0.95);
+      hotWaves.upd(t); op(hotWaves, hp * 0.95); op(outArrows, hp * (0.6 + 0.4 * wave(t * calm, 1.2)));
       op(frostG, cp); op(inArrows, cp * (0.6 + 0.4 * wave(t * calm, 1.2)));
       op(lbHot, P(t, mid('temp', 0.5), 0.4, linear)); op(lbCold, P(t, mid('temp', 0.7), 0.4, linear));
     }
@@ -572,7 +576,7 @@ scene('signs', S => {
         const u = clamp((inf - o.dl * 0.4) / 0.6);
         const tx = BX + o.ux * rx * 0.7 + Math.sin(t * 0.9 + o.ph) * 6 * calm, ty = BY - 180 + cy + o.uy * ry * 0.7 + Math.cos(t * 0.8 + o.ph) * 6 * calm;
         tr(o.m, lerp(BX, tx, u), lerp(BY - 120, ty, u), 1, (t * 30 + k * 40) * calm % 360);
-        op(o.m, P(t, mid('balloon', 0.6) + k * 0.08, 0.3, linear) * (u > 0 || fz2 > 0.5 ? 1 : 0));
+        op(o.m, P(t, mid('balloon', 0.6) + k * 0.08, 0.3, linear) * clamp(u * 5));
       });
       lbVin.set(P(t, mid('balloon', 0.16), 0.4, linear));
       lbSoda.set(P(t, mid('balloon', 0.2), 0.4, linear) * (1 - P(t, mid('balloon', 0.31), 0.3, linear)));

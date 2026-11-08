@@ -61,10 +61,11 @@ scene('recap', S => {
   const sameTk = G(H3); const stk = tick(sameTk, 11); tr(stk, 318, 268);
   // 4. acid + base -> salt + water, A B S W
   rich(H4, 175, 56, [['acid', '#FF8C8C', 800], ' + ', ['base', '#8FB8FF', 800], ' → ', ['salt', C.ink, 800], ' + ', ['water', C.water, 800]], { size: fit(['acid + base → salt + water'], 27, 310), anchor: 'middle' });
-  const ABSW = [['A', C.bad], ['B', '#3F8FE8'], ['S', '#E6ECF0'], ['W', C.water]].map(([L, col], i) => {
+  // the same yellow A B S W tiles as in Families of reactions
+  const ABSW = ['A', 'B', 'S', 'W'].map((L, i) => {
     const g = G(H4);
-    E('rect', { x: -30, y: -30, width: 60, height: 60, rx: 12, fill: col, stroke: '#FFFFFF', 'stroke-width': 3 }, g);
-    T(g, 0, 13, L, { size: 38, weight: 700, anchor: 'middle', fill: L === 'S' ? C.bg0 : '#FFFFFF' });
+    E('rect', { x: -27, y: -27, width: 54, height: 54, rx: 11, fill: C.energy, stroke: '#FFF3B0', 'stroke-width': 3 }, g);
+    T(g, 0, 13, L, { size: 38, weight: 700, anchor: 'middle', fill: C.bg0 });
     return { g, x: 175 + (i - 1.5) * 86 };
   });
   const ops = G(H4);
@@ -166,7 +167,7 @@ scene('recap', S => {
       return t => nail.set({ rust: P(t, mid('t4', 0.5), 2.2, linear) });
     }),
     // 5. incomplete combustion: carbon monoxide and soot
-    trapGroup({ formula: 'Incomplete combustion → CO2' }, ['It makes carbon ', ['monoxide', Y, 800], ' and ', ['soot', Y, 800]], g => {
+    trapGroup({ formula: 'Incomplete combustion → only CO2' }, ['It makes carbon ', ['monoxide', Y, 800], ' and ', ['soot', Y, 800]], g => {
       const fl = rxFlame(g, 0.82); tr(fl, 600, 618); fl.set('yellow', 1);
       const soot = [0, 1, 2, 3, 4].map(k => E('circle', { r: 6 + (k % 3) * 2, fill: RX.soot, stroke: '#5A6068', 'stroke-width': 1.5 }, g));
       T(g, 712, 470, 'soot', { size: 28, weight: 700, anchor: 'middle', fill: '#C9D0D6' });

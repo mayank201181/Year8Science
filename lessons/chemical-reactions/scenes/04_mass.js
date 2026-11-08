@@ -3,8 +3,9 @@
    products and reactants weigh the same -> "Atoms can't hide, and can't die" -> showpiece: magnesium
    flashes inside a sealed flask and the balance stays at 50.00 g -> burnt in an open crucible it climbs
    from 2.40 g to 4.00 g -> zoom: oxygen from the air joins on -> copper carbonate is heated in an open
-   tube and carbon dioxide escapes -> back on the balance it is lighter -> in a sealed flask the gas stays
-   in and the reading holds: the real rule -> a candle seems to lose mass; steel wool gains mass. */
+   tube and carbon dioxide escapes -> back on the balance it is lighter -> a closed system: copper carbonate
+   fizzes in acid in a bunged flask, the gas stays in and the reading holds: the real rule -> a candle seems
+   to lose mass; steel wool gains mass. */
 scene('mass', S => {
   const { at, end, mid } = S, root = S.root;
   const AMP = S.reduce ? 0.3 : 1;
@@ -156,14 +157,19 @@ scene('mass', S => {
   arrow(lighter, 822, 600, 822, 660, { color: C.bad, width: 6 });
   T(lighter, 848, 642, 'lighter', { size: 32, weight: 700, fill: C.bad });
 
-  // B5. the same reaction in a sealed flask
+  // B5. a closed system: copper carbonate fizzes in dilute acid inside a bunged flask (no heating), so the
+  // carbon dioxide it gives off stays in
   const fl3 = G(G5); tr(fl3, BX, PY - 92 * FS);
-  const fk3 = flask(fl3, FS, { level: 0 });
-  const hot3 = E('ellipse', { cx: 0, cy: 98, rx: 90, ry: 34, fill: glow(C.heat) }, fl3);
-  const powder3 = E('path', { d: 'M-66,108 Q-40,86 0,84 Q40,86 66,108 Z', fill: RX.cuCarbonate }, fl3);
-  const co2in = [0, 1, 2, 3, 4].map(k => ({ g: molCO2(fl3, 8), x0: -30 + k * 17, y0: 20 + (k % 3) * 18, vx: (k % 2 ? 1 : -1) * (26 + k * 5), vy: (k % 3 ? 1 : -1) * (19 + k * 4), ph: k * 1.3 }));
+  const ACID = '#CFE6F2';
+  const fk3 = flask(fl3, FS, { level: 0.3, liquid: ACID, opacity: 0.5 });
+  const powder3 = E('path', { d: 'M-60,109 Q-40,82 0,80 Q40,82 60,109 Z', fill: RX.cuCarbonate }, fl3);
+  const fizz3 = bubbles(fl3, -48, 66, 96, 38, { n: 9, r: 5, seed: 17, speed: 0.8 });
+  // carbon dioxide fills the space above the acid: x is a fraction of the cone's half-width at that height
+  const co2in = [0, 1, 2, 3, 4].map(k => ({ g: molCO2(fl3, 8), u0: -0.8 + k * 0.4, y0: -16 + k * 14, vu: (k % 2 ? 1 : -1) * (0.45 + k * 0.08), vy: (k % 3 ? 1 : -1) * (18 + k * 4) }));
+  const coneHW = y => FS * (17 + (y / FS + 38) * 59 / 116) - 22;
   const co2neck = molCO2(fl3, 8);
   rxBung(fk3, FS);
+  const lbMix = labelLine(G5, 770, 532, 640, 552, 'copper carbonate + acid', { anchor: 'start' });
   const closedG = G(G5);
   const clChip = chip(closedG, 'closed system', { size: 32, fill: C.card2, stroke: C.good, color: C.good }); tr(clChip, 290, 312);
   T(closedG, 290, 370, 'nothing gets in or out', { size: 28, weight: 600, anchor: 'middle', fill: C.muted });
@@ -351,13 +357,15 @@ scene('mass', S => {
         lbCuO.set(P(t, mid('lighter', 0.5), 0.4, linear));
         const pl = P(t, tBack + 0.15, 0.45, pop); op(lighter, clamp(pl * 2)); scaleAt(lighter, 870, 630, Math.max(0.01, 0.6 + 0.4 * pl));
       }
-      // B5: the sealed flask: the gas stays in, the reading holds
+      // B5: the bunged flask: it fizzes, the gas stays in, the reading holds
       if (a5 > 0) {
-        const r3 = P(t, mid('closed', 0.2), 3.0, linear);
-        op(hot3, win(t, mid('closed', 0.18), mid('closed', 0.75), 0.6) * (0.75 + 0.25 * wave(t, 0.9)));
-        powder3.setAttribute('fill', mix(RX.cuCarbonate, RX.cuOxide, r3));
+        const r3 = P(t, mid('closed', 0.16), 3.6, linear);
+        fizz3.upd(t, P(t, mid('closed', 0.12), 0.5, linear) * (1 - 0.4 * r3));
+        fk3.set(0.3, mix(ACID, RX.cuSulfate, 0.6 * r3));
+        powder3.setAttribute('transform', `translate(0 109) scale(${(1 - 0.35 * r3).toFixed(3)} ${(1 - 0.45 * r3).toFixed(3)}) translate(0 -109)`);
+        lbMix.set(P(t, mid('closed', 0.1), 0.4, linear));
         co2in.forEach((c, k) => {
-          const x = bounce(c.x0 + c.vx * t * AMP, -42, 42), y = bounce(c.y0 + c.vy * t * AMP, 4, 78);
+          const y = bounce(c.y0 + c.vy * t * AMP, -22, 44), x = bounce(c.u0 + c.vu * t * AMP, -1, 1) * coneHW(y);
           tr(c.g, x, y, 1, (t * 40 * AMP + k * 70) % 360);
           op(c.g, P(t, mid('closed', 0.24) + k * 0.12, 0.5, linear));
         });

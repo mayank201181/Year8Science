@@ -109,12 +109,13 @@ scene('quiz', S => {
     [18, 38, 58, 78].forEach((y, k) => E('rect', { x: -34, y: y - 8, width: k === 3 ? 66 : 76, height: 18, rx: 9, fill: sk, stroke: '#F7D9C2', 'stroke-width': 2 }, hand));
     E('rect', { x: -40, y: -14, width: 54, height: 18, rx: 9, fill: sk, stroke: '#F7D9C2', 'stroke-width': 2, transform: 'rotate(-20 -40 -5)' }, hand);
     const brr = T(g, -100, -54, 'cold!', { size: 30, weight: 700, anchor: 'middle', fill: '#BFE9FA' });
+    // endothermic, as in Energy changes: blue arrows pointing in, and the (red) thermometer falls
     const heatIn = G(g);
-    arrow(heatIn, -96, -40, -30, -40, { color: C.heat, width: 6, head: 16 });
-    arrow(heatIn, -96, -8, -30, -8, { color: C.heat, width: 6, head: 16 });
-    T(heatIn, -84, -66, 'heat in', { size: 28, weight: 700, anchor: 'middle', fill: C.heat });
+    arrow(heatIn, -96, -40, -30, -40, { color: C.water, width: 6, head: 16 });
+    arrow(heatIn, -96, -8, -30, -8, { color: C.water, width: 6, head: 16 });
+    T(heatIn, -84, -66, 'heat in', { size: 28, weight: 700, anchor: 'middle', fill: C.water });
     const thG = G(g); tr(thG, 124, 92);
-    const th = thermometer(thG, 170, C.water);
+    const th = thermometer(thG, 170, C.bad);
     return t => {
       op(fr, 0.7 + 0.3 * wave(t * calm, 2.2)); op(brr, P(t, mid('q4', 0.5), 0.4, linear) * (1 - P(t, at('a4') - 0.1, 0.3, linear)));
       const a = P(t, at('a4') - 0.05, 0.5, linear);
