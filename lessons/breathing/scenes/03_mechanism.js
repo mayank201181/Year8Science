@@ -340,7 +340,7 @@ scene('mechanism', S => {
   /* ================= timing ================= */
   const c1 = mid('chain', 0.2), c2 = mid('chain', 0.6);              // the chain: in, then out
   const p1 = end('chain') - 0.2, p2 = mid('passive', 0.36);          // passive: in, then a relaxed spring back
-  const dp1 = mid('dips', 0.3), dp2 = mid('dips', 0.47);             // dips: diaphragm, then ribs
+  const dp1 = mid('dips', 0.4), dp2 = mid('dips', 0.55);             // dips: diaphragm, then ribs
   const tRushIn = j => mid('rush', 0.06) + j * 0.2, tRushOut = j => mid('outvol', 0.6) + j * 0.09;
   const ROUTE = [[0, -172], [0, -68]];
   const show = (a, v) => { op(a, v); if (v > 0) a.set(clamp(v * 1.5)); };
@@ -455,16 +455,16 @@ scene('mechanism', S => {
     op(pushLbl, win(t, mid('rush', 0.55), at('out') + 0.1, 0.35));
 
     /* ---------- the meters ---------- */
-    const vol = 0.42 + 0.4 * clamp(P(t, mid('volume', 0.18), 1.2) - P(t, at('outvol') + 0.15, 1.2) + P(t, c1, 1.4) - P(t, c2, 1.4) + P(t, p1, 1.0) - P(t, p2, 2.0, easeOut) + P(t, mid('dips', 0.66), 0.9));
+    const vol = 0.42 + 0.4 * clamp(P(t, mid('volume', 0.18), 1.2) - P(t, at('outvol') + 0.15, 1.2) + P(t, c1, 1.4) - P(t, c2, 1.4) + P(t, p1, 1.0) - P(t, p2, 2.0, easeOut) + P(t, mid('dips', 0.72), 0.9));
     const pres = 0.5 - 0.26 * P(t, mid('pressure', 0.3), 1.4) + 0.26 * P(t, mid('rush', 0.12), 3.6) + 0.26 * P(t, mid('outvol', 0.3), 1.0) - 0.26 * P(t, mid('outvol', 0.62), 1.8)
-      - 0.24 * P(t, mid('chain', 0.32), 0.6) + 0.24 * P(t, mid('chain', 0.46), 0.8) + 0.24 * P(t, mid('chain', 0.7), 0.6) - 0.24 * P(t, mid('chain', 0.84), 0.8) - 0.24 * P(t, mid('dips', 0.83), 0.8);
+      - 0.24 * P(t, mid('chain', 0.32), 0.6) + 0.24 * P(t, mid('chain', 0.46), 0.8) + 0.24 * P(t, mid('chain', 0.7), 0.6) - 0.24 * P(t, mid('chain', 0.84), 0.8) - 0.24 * P(t, mid('dips', 0.88), 0.8);
     volM.set(vol); presM.set(pres);
     const dim = 1 - 0.6 * win(t, at('passive') - 0.1, at('dips') - 0.1, 0.35);
     op(volG, P(t, at('volume') - 0.1, 0.4, linear) * aCh * dim);
     op(presG, P(t, at('pressure') - 0.1, 0.4, linear) * aCh * dim);
-    show(volUp, Math.max(win(t, mid('volume', 0.15), at('pressure') + 0.3, 0.3), win(t, c1, c1 + 1.5, 0.25), win(t, mid('dips', 0.64), at('model') + 0.3, 0.3)));
+    show(volUp, Math.max(win(t, mid('volume', 0.15), at('pressure') + 0.3, 0.3), win(t, c1, c1 + 1.5, 0.25), win(t, mid('dips', 0.71), at('model') + 0.3, 0.3)));
     show(volDn, Math.max(win(t, at('outvol') + 0.1, mid('outvol', 0.62), 0.3), win(t, c2, c2 + 1.5, 0.25)));
-    show(presDn, Math.max(win(t, mid('pressure', 0.28), at('rush') + 0.3, 0.3), win(t, mid('chain', 0.32), mid('chain', 0.5), 0.25), win(t, mid('dips', 0.82), at('model') + 0.3, 0.3)));
+    show(presDn, Math.max(win(t, mid('pressure', 0.28), at('rush') + 0.3, 0.3), win(t, mid('chain', 0.32), mid('chain', 0.5), 0.25), win(t, mid('dips', 0.87), at('model') + 0.3, 0.3)));
     show(presUp, Math.max(win(t, mid('outvol', 0.28), mid('outvol', 0.66), 0.3), win(t, mid('chain', 0.7), mid('chain', 0.88), 0.25)));
 
     /* ---------- the chain, passive, dips ---------- */
@@ -477,7 +477,7 @@ scene('mechanism', S => {
       if (pt.a) op(pt.a, 0.25 + 0.75 * P(t, tk + 0.25, 0.3, linear));
     }));
     op(pasLbl, win(t, mid('passive', 0.5), at('dips') - 0.1, 0.35));
-    [0.32, 0.49, 0.66, 0.83].forEach((f, k) => {
+    [0.42, 0.57, 0.73, 0.89].forEach((f, k) => {
       const g = dipsW[k], p = P(t, mid('dips', f), 0.45, pop);
       op(g, clamp(p * 2) * (1 - P(t, at('model') - 0.1, 0.4, linear)));
       if (p > 0) { const s = Math.max(0.01, 0.6 + 0.4 * p); g.setAttribute('transform', `translate(${g.cx} ${g.cy}) scale(${s.toFixed(3)}) translate(${-g.cx} ${-g.cy})`); op(g.glow, 0.5 + 0.5 * wave(t, 1.1, k * 0.25)); }

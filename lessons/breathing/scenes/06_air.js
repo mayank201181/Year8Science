@@ -359,7 +359,7 @@ scene('air', S => {
       { const r = rows[0], p1 = P(t, mid('oxygen', 0.14), 1.0, easeOut), p2 = P(t, mid('oxygen', 0.56), 1.0, easeOut);
         setBar(r.bIn, r.vIn, r.vin * SC * p1, p1 > 0 ? pct(r.vin, p1) : ''); setBar(r.bOut, r.vOut, r.vout * SC * p2, p2 > 0 ? pct(r.vout, p2) : ''); }
       // carbon dioxide 0.04 -> 4
-      { const r = rows[1], p1 = P(t, mid('cotwo', 0.1), 0.6, easeOut), p2 = P(t, mid('cotwo', 0.4), 0.9, easeOut);
+      { const r = rows[1], p1 = P(t, mid('cotwo', 0.22), 0.6, easeOut), p2 = P(t, mid('cotwo', 0.55), 0.9, easeOut);
         setBar(r.bIn, r.vIn, p1 > 0 ? 0.04 : 0, p1 > 0 ? '0.04%' : ''); op(r.vIn, p1);
         setBar(r.bOut, r.vOut, r.vout * SC * p2, p2 > 0 ? pct(r.vout, p2) : ''); }
       // nitrogen 78 = 78
@@ -400,11 +400,11 @@ scene('air', S => {
     if (aL > 0) {
       const lp = P(t, mid('cotwo', 0.14), 0.6, easeOut);
       tr(lens, LX, LY, 0.7 + 0.3 * lp);
-      op(zIn, P(t, mid('cotwo', 0.1), 0.4, linear)); op(zvIn, P(t, mid('cotwo', 0.14), 0.4, linear));
-      const p2 = P(t, mid('cotwo', 0.4), 0.9, easeOut), w2 = 4 * SC * LZ * p2;
+      op(zIn, P(t, mid('cotwo', 0.22), 0.4, linear)); op(zvIn, P(t, mid('cotwo', 0.26), 0.4, linear));
+      const p2 = P(t, mid('cotwo', 0.55), 0.9, easeOut), w2 = 4 * SC * LZ * p2;
       attr(zOut, 'width', w2); attr(zvOut, 'x', LB + w2 + 12); op(zvOut, p2); setText(zvOut, pct(4, p2));
-      zArc.set(P(t, mid('cotwo', 0.62), 0.6)); op(zArc, P(t, mid('cotwo', 0.62), 0.2, linear));
-      popAt(x100, 0, 92, t, mid('cotwo', 0.66));
+      zArc.set(P(t, mid('cotwo', 0.74), 0.6)); op(zArc, P(t, mid('cotwo', 0.74), 0.2, linear));
+      popAt(x100, 0, 92, t, mid('cotwo', 0.79));
     }
 
     /* --- nitrogen: unchanged --- */

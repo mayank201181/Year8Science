@@ -66,9 +66,8 @@ scene('smoking', S => {
   }
   /* a germ: one path (body + little spikes); place it with tr() */
   function germ(parent, r) {
-    let d = circD(0, 0, r);
-    for (let k = 0; k < 6; k++) { const a = k * Math.PI / 3 + 0.3; d += `M${(Math.cos(a) * r).toFixed(1)},${(Math.sin(a) * r).toFixed(1)} L${(Math.cos(a) * r * 1.5).toFixed(1)},${(Math.sin(a) * r * 1.5).toFixed(1)} `; }
-    return E('path', { d, fill: GERM, stroke: GERMDK, 'stroke-width': Math.max(2, r * 0.3), 'stroke-linecap': 'round' }, parent);
+    // a rod-shaped germ, drawn as in "The parts of the respiratory system"
+    return E('rect', { x: -1.35 * r, y: -0.6 * r, width: 2.7 * r, height: 1.2 * r, rx: 0.6 * r, fill: '#7CCB6B', stroke: '#3F8F2F', 'stroke-width': Math.max(1.5, r * 0.25) }, parent);
   }
   /* a cigarette with its glowing tip at (0,0), pointing right; g.upd(t) */
   function cigarette(parent) {
@@ -150,20 +149,20 @@ scene('smoking', S => {
     E('path', { d: circD(-16, -116, 4.5) + circD(16, -116, 4.5), fill: '#2A1D14' }, head);
     E('path', { d: 'M1,-110 L-5,-99 L4,-99', fill: 'none', stroke: '#8A5A3A', 'stroke-width': 3, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, head);
     const byGen = k => br.filter(b => b.gen === k).map(b => b.d).join(' ');
+    // as "The parts of the respiratory system" draws it: pink tubes with a darker edge, white C-rings, pale blue alveoli
+    for (let k = 0; k <= 4; k++) E('path', { d: byGen(k), fill: 'none', stroke: RINGC, 'stroke-width': WID[k] + 5, 'stroke-linecap': 'round' }, g);
     for (let k = 0; k <= 4; k++) E('path', { d: byGen(k), fill: 'none', stroke: OUT, 'stroke-width': WID[k], 'stroke-linecap': 'round' }, g);
-    for (let k = 0; k <= 4; k++) E('path', { d: byGen(k), fill: 'none', stroke: LUM, 'stroke-width': WID[k] * 0.56, 'stroke-linecap': 'round' }, g);
     const tarG = G(g);
     const tars = [0, 1, 2, 3, 4].map(k => { const L = k === 0 ? 238 : GEN[k][1] * 1.08; return { el: E('path', { d: byGen(k), fill: 'none', stroke: TAR, 'stroke-width': WID[k] * 0.6, 'stroke-linecap': 'round' }, tarG), L, gen: k }; });
-    for (let k = 0; k <= 4; k++) E('path', { d: byGen(k), fill: 'none', stroke: LUM, 'stroke-width': WID[k] * 0.22, 'stroke-linecap': 'round' }, g);
     let rd = ''; for (let k = 0; k < 6; k++) { const y = 4 + k * 26; rd += `M-13,${y} Q0,${y + 7} 13,${y} `; }
-    E('path', { d: rd, fill: 'none', stroke: RINGC, 'stroke-width': 5, 'stroke-linecap': 'round' }, g);
+    E('path', { d: rd, fill: 'none', stroke: '#EEF4F8', 'stroke-width': 4.5, 'stroke-linecap': 'round' }, g);
     const mouth = E('ellipse', { cx: 0, cy: -86, rx: 12, ry: 5, fill: '#5A2A22' }, g);
     const tips = br.filter(b => b.gen === 4);
     const clusters = tips.map(b => {
       const r = b.a * Math.PI / 180, dx = Math.sin(r), dy = Math.cos(r);
       let d = '';
       [[8, 0, 10.5], [2, 11, 9], [2, -11, 9], [17, 8.5, 9], [17, -8.5, 9]].forEach(([al, pe, rr]) => { d += circD(dx * al + dy * pe, dy * al - dx * pe, rr); });
-      const cg = E('path', { d, fill: ball('#F7A1B5', '#C25A7A'), stroke: '#FFD0DC', 'stroke-width': 2 }, g);
+      const cg = E('path', { d, fill: '#BFE6FF', stroke: '#5FA8D8', 'stroke-width': 2 }, g);
       tr(cg, b.x1, b.y1);
       cg.tip = b;
       return cg;
@@ -211,18 +210,21 @@ scene('smoking', S => {
   E('rect', { x: INS.x + 2, y: INS.y + 2, width: INS.w - 4, height: INS.h - 4, rx: 20 }, cp);
   const insIn = G(insG, { 'clip-path': 'url(#smkInsetClip)' });
   const CELLX = 50, CELLW = 86, CILX = CELLX + CELLW, MUX = 170;
-  let celD = '', nucD = '';
+  // the lining as "The parts of the respiratory system" draws it: the airway wall, ciliated cells and goblet cells
+  const GOB = [0, 3];                                  // goblet cells (the 'cilia' label points at row 1's cilia)
+  E('rect', { x: INS.x, y: INS.y, width: CELLX - INS.x, height: INS.h, fill: '#7A3E52', opacity: 0.6 }, insIn);
   for (let k = 0; k < 5; k++) {
-    const y = INS.y + k * 70 + 4, r = 12;
-    celD += `M${CELLX + r},${y} H${CELLX + CELLW - r} Q${CELLX + CELLW},${y} ${CELLX + CELLW},${y + r} V${y + 62 - r} Q${CELLX + CELLW},${y + 62} ${CELLX + CELLW - r},${y + 62} H${CELLX + r} Q${CELLX},${y + 62} ${CELLX},${y + 62 - r} V${y + r} Q${CELLX},${y} ${CELLX + r},${y} Z `;
-    nucD += `M${CELLX + 19},${y + 31} a15,11 0 1,0 30,0 a15,11 0 1,0 -30,0 `;
+    const y = INS.y + k * 70 + 4, gob = GOB.includes(k);
+    E('rect', { x: CELLX, y, width: CELLW, height: 62, rx: 12, fill: gob ? '#EBC5CF' : '#F2B6C6', stroke: '#C9788F', 'stroke-width': 2.5 }, insIn);
+    if (gob) {
+      E('ellipse', { cx: CELLX + 14, cy: y + 31, rx: 8, ry: 12, fill: '#9B7FD6', opacity: 0.85 }, insIn);
+      E('path', { d: `M${CELLX + 26},${y + 31} C${CELLX + 26},${y + 11} ${CELLX + 60},${y + 7} ${CELLX + 74},${y + 20} L${CELLX + CELLW + 2},${y + 23} L${CELLX + CELLW + 2},${y + 39} L${CELLX + 74},${y + 42} C${CELLX + 60},${y + 55} ${CELLX + 26},${y + 51} ${CELLX + 26},${y + 31} Z`, fill: '#D6E58A', stroke: '#9FB447', 'stroke-width': 2 }, insIn);
+    } else E('ellipse', { cx: CELLX + 34, cy: y + 31, rx: 15, ry: 11, fill: '#9B7FD6', opacity: 0.85 }, insIn);
   }
-  E('path', { d: celD, fill: 'rgba(247,168,200,0.2)', stroke: C.cell, 'stroke-width': 3 }, insIn);
-  E('path', { d: nucD, fill: 'rgba(150,120,220,0.45)', stroke: '#B79CF0', 'stroke-width': 2.5 }, insIn);
-  const mucus = E('path', { fill: 'rgba(214,224,120,0.30)', stroke: 'rgba(222,232,140,0.8)', 'stroke-width': 3 }, insIn);
+  const mucus = E('path', { fill: 'rgba(214,229,138,0.5)', stroke: 'rgba(214,229,138,0.9)', 'stroke-width': 3 }, insIn);
   const tarCoat = E('path', { fill: 'rgba(138,86,38,0.92)', stroke: '#B57A3E', 'stroke-width': 2 }, insIn);
-  const cil = E('path', { fill: 'none', stroke: '#FFD6E4', 'stroke-width': 3.5, 'stroke-linecap': 'round' }, insIn);
-  const CILY = []; for (let k = 0; k < 5; k++) for (let j = 0; j < 6; j++) CILY.push(INS.y + k * 70 + 12 + j * 9.4);
+  const cil = E('path', { fill: 'none', stroke: '#F7DCE5', 'stroke-width': 3, 'stroke-linecap': 'round' }, insIn);
+  const CILY = []; for (let k = 0; k < 5; k++) if (!GOB.includes(k)) for (let j = 0; j < 6; j++) CILY.push(INS.y + k * 70 + 12 + j * 9.4);
   const dead = CILY.map((_, i) => (i * 5) % 3 === 0);
   const tarBlobs = [0, 1, 2, 3, 4, 5].map(k => E('ellipse', { cx: CILX + 9 + (k % 2) * 7, cy: INS.y + 34 + k * 56, rx: 9, ry: 7, fill: ball('#A8703A', '#5A3410') }, insIn));
   const dr = rng(83), dirt = [];
@@ -231,7 +233,7 @@ scene('smoking', S => {
     const el = isGerm ? germ(insIn, 6) : E('circle', { r: 4.5, fill: '#9AA6B2' }, insIn);
     dirt.push({ el, x0: MUX + 10 + dr() * 46, y0: INS.y + dr() * (INS.h + 40) });
   }
-  const escArrow = arrow(insIn, MUX + 33, INS.y + INS.h - 40, MUX + 33, INS.y + 50, { color: C.air, width: 6 });
+  const escArrow = arrow(insIn, MUX + 33, INS.y + INS.h - 40, MUX + 33, INS.y + 50, { color: C.energy, width: 6 });
   const escCross = cross(insIn, 20); tr(escCross, MUX + 33, INS.y + INS.h / 2);
   const newGerms = [];
   for (let k = 0; k < 7; k++) newGerms.push({ el: germ(insIn, 6), x: MUX + 14 + dr() * 90, y: INS.y + 30 + dr() * (INS.h - 60), t: 0.8 + k * 0.03 + dr() * 0.12 });
@@ -261,11 +263,12 @@ scene('smoking', S => {
   const poison = G(B1);
   tr(warnSign(poison, 18), 222, 330);
   T(poison, 256, 342, 'a poisonous gas', { size: 30, weight: 600, fill: C.muted });
-  const RB = [800, 452], RR = 160;
+  // the red blood cell as "Gas exchange" draws it (a disc seen at a slant), with haemoglobin's four oxygen spots
+  const RB = [800, 452], RR = 124;
   const rbcG = G(B1); tr(rbcG, RB[0], RB[1]);
-  E('circle', { r: RR, fill: ball('#F05A66', '#9E1C2B'), stroke: '#FF9AA3', 'stroke-width': 4 }, rbcG);
-  E('circle', { r: RR * 0.5, fill: 'rgba(110,10,25,0.28)', stroke: 'rgba(255,154,163,0.35)', 'stroke-width': 3 }, rbcG);
-  const SPOTS = [-135, -45, 45, 135].map(a => [Math.cos(a * Math.PI / 180) * RR * 0.56, Math.sin(a * Math.PI / 180) * RR * 0.56]);
+  E('ellipse', { rx: 200, ry: RR, fill: ball('#FF6B74', '#B8283A'), stroke: '#FFD0D5', 'stroke-width': 4 }, rbcG);
+  E('ellipse', { rx: 94, ry: 44, fill: 'rgba(90,10,30,0.3)' }, rbcG);
+  const SPOTS = [[-96, -54], [96, -54], [96, 54], [-96, 54]];
   const sockets = SPOTS.map(([x, y]) => E('circle', { cx: x, cy: y, r: 32, fill: 'rgba(80,6,18,0.4)', stroke: '#FFC2C8', 'stroke-width': 3, 'stroke-dasharray': '7 6' }, rbcG));
   const locks = SPOTS.map(([x, y]) => E('circle', { cx: x, cy: y, r: 34, fill: 'none', stroke: STEEL, 'stroke-width': 6 }, rbcG));
   const rbcLbl = T(B1, RB[0], RB[1] + RR + 46, 'red blood cell', { size: 28, weight: 600, anchor: 'middle', fill: '#FF9AA3' });
@@ -280,9 +283,9 @@ scene('smoking', S => {
     { kind: 'co', from: [150, 470], spot: 0, t0: tA, dur: 1.0, bend: -60 },
     { kind: 'o2', from: [210, 590], spot: 3, t0: tA + 0.15, dur: 1.6, bend: 50 },
     { kind: 'o2', from: [330, 410], spot: 0, t0: tA + 0.3, dur: 1.25, bounce: true, bend: -40 },
-    { kind: 'co', from: [120, 400], spot: 1, t0: tA + 0.45, dur: 1.4, bend: -120 },
+    { kind: 'o2', from: [120, 400], spot: 1, t0: tA + 0.45, dur: 1.4, bend: -120 },
     { kind: 'o2', from: [180, 540], spot: 2, t0: tA + 0.8, dur: 1.5, bend: 90 },
-    { kind: 'o2', from: [260, 470], spot: 1, t0: mid('co', 0.56), dur: 1.2, bounce: true, bend: -90 },
+    { kind: 'o2', from: [260, 470], spot: 0, t0: mid('co', 0.56), dur: 1.2, bounce: true, bend: -90 },
   ].map(f => {
     f.g = f.kind === 'co' ? molCO(molG, 15) : molO2(molG, 15);
     const sx = RB[0] + SPOTS[f.spot][0], sy = RB[1] + SPOTS[f.spot][1];
@@ -356,7 +359,7 @@ scene('smoking', S => {
   });
 
   /* =================== C. emphysema (showpiece) and surface area =================== */
-  const WALLC = '#F4A3B8', AIRC = '#1D4A60', WALL = 5;
+  const WALLC = '#BFE6FA', AIRC = '#1E4256', WALL = 5;
   /* a cluster of alveoli at the end of a bronchiole. Healthy: grape-like sacs, each wall drawn once
      (only the parts of each outline not hidden by the sacs drawn after it). With `merges`, each future
      big sac is also drawn underneath as the union of its small sacs, so when the walls crumble only the
@@ -364,8 +367,8 @@ scene('smoking', S => {
      g.set(crumble 0..1, merge 0..1, highlight 0..1) */
   function sacCluster(parent, seed, merges) {
     const g = G(parent), rr = rng(seed);
-    E('path', { d: 'M-250,-205 Q-170,-170 -96,-96', fill: 'none', stroke: OUT, 'stroke-width': 30, 'stroke-linecap': 'round' }, g);
-    E('path', { d: 'M-250,-205 Q-170,-170 -96,-96', fill: 'none', stroke: LUM, 'stroke-width': 16, 'stroke-linecap': 'round' }, g);
+    E('path', { d: 'M-250,-205 Q-170,-170 -96,-96', fill: 'none', stroke: WALLC, 'stroke-width': 30, 'stroke-linecap': 'round' }, g);
+    E('path', { d: 'M-250,-205 Q-170,-170 -96,-96', fill: 'none', stroke: AIRC, 'stroke-width': 20, 'stroke-linecap': 'round' }, g);
     const pos = [[0, 0]];
     for (let k = 0; k < 6; k++) { const a = (30 + 60 * k) * Math.PI / 180; pos.push([Math.cos(a) * 58, Math.sin(a) * 58]); }
     for (let k = 0; k < 6; k++) { const a = (30 + 60 * k) * Math.PI / 180; pos.push([Math.cos(a) * 112, Math.sin(a) * 112]); }
@@ -569,7 +572,7 @@ scene('smoking', S => {
         for (let k = 0; k <= 19; k++) { const y = INS.y - 10 + k * 20; md += ` L${(MUX + wM + 6 * Math.sin(y / 26 + te * 3.2)).toFixed(1)},${y}`; }
         md += ` L${MUX},${INS.y + INS.h + 10} Z`;
         mucus.setAttribute('d', md);
-        mucus.setAttribute('fill', `rgba(214,224,120,${(0.3 + 0.18 * thick).toFixed(3)})`);
+        mucus.setAttribute('fill', `rgba(214,229,138,${(0.5 + 0.2 * thick).toFixed(3)})`);
         dirt.forEach(o => {
           const span = INS.h + 40;
           const y = INS.y - 20 + ((((o.y0 - INS.y + 20) - 34 * te) % span) + span) % span;
@@ -625,12 +628,12 @@ scene('smoking', S => {
         op(locks[k], P(t, td, 0.15, linear) * (0.75 + 0.25 * wave(t, 1.1, k * 0.2)));
         attr(locks[k], 'r', 34 + 16 * Math.sin(cr * Math.PI)); locks[k].setAttribute('stroke', cr < 1 ? '#FFFFFF' : STEEL);
       });
-      op(locks[2], 0); op(locks[3], 0);
+      op(locks[1], 0); op(locks[2], 0); op(locks[3], 0);
       sockets.forEach(s => s.setAttribute('stroke-dashoffset', (-t * 12 * calm).toFixed(1)));
       const sc = P(t, mid('co', 0.5), 0.5, pop); op(strongChip, clamp(sc * 2)); tr(strongChip, 800, 214 + (1 - clamp(sc)) * 14);
       const mp = P(t, mid('co', 0.7), 0.35, linear);
       op(meterLbl, mp); op(oxMeter, mp);
-      oxMeter.set(lerp(1, 0.5, P(t, mid('co', 0.74), 1.3, ease)));
+      oxMeter.set(lerp(1, 0.86, P(t, mid('co', 0.74), 1.3, ease)));
       op(lessLbl, P(t, mid('co', 0.86), 0.4, linear));
     }
 
@@ -646,9 +649,9 @@ scene('smoking', S => {
       op(womb, clamp(bp * 2)); tr(womb, 820, 380 + (1 - clamp(bp)) * 20);
       op(babyTop, P(t, mid('strain', 0.45), 0.4, linear));
       const drop = P(t, mid('strain', 0.62), 1.3, ease);
-      babyMeter.set(lerp(0.9, 0.35, drop)); op(bmG, P(t, mid('strain', 0.5), 0.4, linear));
+      babyMeter.set(lerp(0.9, 0.68, drop)); op(bmG, P(t, mid('strain', 0.5), 0.4, linear));   // a moderate cut, as in the carbon monoxide beat
       op(babyLbl, P(t, mid('strain', 0.7), 0.4, linear));
-      cordO2.forEach((m, k) => { const u = ((t * 0.45) + k / 4) % 1, q = along(CORD, u); tr(m, q[0], q[1]); op(m, Math.min(1, u * 6, (1 - u) * 6) * (k < 1 ? 1 : 1 - drop * (k >= 2 ? 1 : 0.6))); });
+      cordO2.forEach((m, k) => { const u = ((t * 0.45) + k / 4) % 1, q = along(CORD, u); tr(m, q[0], q[1]); op(m, Math.min(1, u * 6, (1 - u) * 6) * (k === 3 ? 1 - drop : 1)); });
       tr(babyG, -20, 4 + Math.sin(t * 1.2) * 2 * calm);
     }
 
@@ -677,10 +680,10 @@ scene('smoking', S => {
         op(c.g, pc); tr(c.g, c.x, (1 - pc) * 26);
         const p = P(t, mid('cct', 0.1 + i * 0.1), 0.45, pop);
         op(c.top, clamp(p * 2)); c.top.setAttribute('transform', `translate(0 300) scale(${Math.max(0.01, 0.7 + 0.3 * p).toFixed(3)}) translate(0 -300)`);
-        const li = P(t, mid('cct', [0.5, 0.66, 0.84][i]), 0.4, linear);
+        const li = P(t, mid('cct', [0.34, 0.55, 0.82][i]), 0.4, linear);
         op(c.low, 0.25 + 0.75 * li);
-        const nx = i < 2 ? mid('cct', [0.66, 0.84][i]) : 1e6;
-        op(c.hl, win(t, mid('cct', [0.5, 0.66, 0.84][i]), nx, 0.25));
+        const nx = i < 2 ? mid('cct', [0.55, 0.82][i]) : 1e6;
+        op(c.hl, win(t, mid('cct', [0.34, 0.55, 0.82][i]), nx, 0.25));
       });
     }
 

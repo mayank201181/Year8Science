@@ -32,6 +32,75 @@ scene('recap', S => {
     return g;
   }
 
+  /* The chest, front view, drawn exactly as "How you breathe in and out" (03_mechanism) draws it, in lib lungs
+     units centred on the chest: six ribs a side with intercostal muscles between them (behind the lungs), the
+     lungs, and the diaphragm in front of the lung bases. g.set(d, r, gd, gi): d diaphragm flattening 0..1
+     (domed -> flat and lower), r ribs up and out 0..1 (defaults to d), gd / gi how hard the diaphragm /
+     intercostals are contracting (brighter red). Parts: g.cav, g.bands, g.ribs, g.lw (lungs), g.dia. */
+  function mechChest(parent) {
+    const BONE_ = '#EFE7D4', BONE_DK = '#8F8370', MUS = '#9C3449', MUS_ON = '#FF6A84', MUS_LT = '#F6A0B0';
+    const hx = c => [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16));
+    const mus = p => { const A = hx(MUS), B = hx(MUS_ON); p = clamp(p); return 'rgb(' + A.map((v, i) => Math.round(v + (B[i] - v) * p)).join(',') + ')'; };
+    const q2 = (a, c, b, u) => { const v = 1 - u; return [v * v * a[0] + 2 * v * u * c[0] + u * u * b[0], v * v * a[1] + 2 * v * u * c[1] + u * u * b[1]]; };
+    const fx = v => v.toFixed(1);
+    const RIBS = [[[40, -122], [104, -142], [128, -92]], [[46, -74], [130, -100], [160, -38]], [[52, -24], [146, -50], [176, 18]],
+      [[58, 26], [154, 0], [182, 72]], [[64, 76], [158, 52], [182, 124]], [[70, 124], [154, 104], [172, 170]]];
+    const ribPts = (i, r, side) => {
+      const [A, Q, B] = RIBS[i], ang = -(10 - i * 1.2) * r * Math.PI / 180, ca = Math.cos(ang), sa = Math.sin(ang), dx = 16 * r, dy = -(6 - i * 0.6) * r;
+      const f = p => { const x = p[0] - A[0], y = p[1] - A[1]; return [A[0] + x * ca - y * sa + dx, A[1] + x * sa + y * ca + dy]; };
+      const a = [A[0] + dx, A[1] + dy], q = f(Q), b = f(B);
+      return side > 0 ? [a, q, b] : [[-a[0], a[1]], [-q[0], q[1]], [-b[0], b[1]]];
+    };
+    const DU = [-1, -0.85, -0.62, -0.34, 0, 0.34, 0.62, 0.85, 1], DRISE = [0, 22, 44, 60, 66, 60, 44, 22, 0], DFLAT = [0, 186, 187, 188, 188, 188, 187, 186, 0];
+    const DTH = [14, 18, 22, 25, 26, 25, 22, 18, 14];
+    const diaTop = (d, r) => { const b5 = ribPts(5, r, 1)[2], ex = b5[0] + 4, ey = b5[1] + 24; return DU.map((u, k) => [u * ex, k === 0 || k === 8 ? ey : lerp(ey - DRISE[k], DFLAT[k], d)]); };
+    const bandPath = (top, th) => { const bot = top.map((p, k) => [p[0], p[1] + th[k]]).reverse(); return openPath(top) + ' L' + fx(bot[0][0]) + ',' + fx(bot[0][1]) + openPath(bot).replace(/^M[^C]*/, '') + 'Z'; };
+    const cavPts = (d, r) => {
+      const R = [];
+      for (let i = 0; i < 6; i++) { const [a, q, b] = ribPts(i, r, 1), p = q2(a, q, b, 0.9); R.push([p[0] - 12, p[1] + 4]); }
+      const top = diaTop(d, r);
+      const floor = [[top[8][0] - 10, top[8][1] - 4]].concat(top.slice(1, 8).reverse().map(p => [p[0], p[1] - 2]), [[top[0][0] + 10, top[0][1] - 4]]);
+      return [[-46, -138], [46, -138]].concat(R, floor, R.slice().reverse().map(p => [-p[0], p[1]]));
+    };
+    const g = G(parent);
+    g.cav = E('path', { fill: C.air, 'fill-opacity': 0.06, stroke: C.air, 'stroke-opacity': 0.3, 'stroke-width': 2 }, g);
+    g.bands = G(g); g.ribs = G(g); g.lw = G(g); g.lungs = lungs(g.lw, 1); g.dia = G(g);
+    const ribEls = [], bandEls = [];
+    [1, -1].forEach(side => {
+      for (let i = 0; i < 5; i++) bandEls.push({ side, i, el: E('path', { stroke: '#6E2232', 'stroke-width': 1.5, 'stroke-linejoin': 'round' }, g.bands), fib: E('path', { fill: 'none', stroke: '#5A1A28', 'stroke-width': 2, opacity: 0.55, 'stroke-linecap': 'round' }, g.bands) });
+      for (let i = 0; i < 6; i++) { const rg = G(g.ribs); ribEls.push({ side, i, g: rg, base: E('path', { fill: 'none', stroke: BONE_DK, 'stroke-width': 13, 'stroke-linecap': 'round' }, rg), core: E('path', { fill: 'none', stroke: BONE_, 'stroke-width': 8, 'stroke-linecap': 'round' }, rg) }); }
+    });
+    const dia = E('path', { stroke: '#5E1A2A', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, g.dia);
+    const diaFib = E('path', { fill: 'none', stroke: '#5A1A28', 'stroke-width': 2, opacity: 0.5, 'stroke-linecap': 'round' }, g.dia);
+    const diaHi = E('path', { fill: 'none', stroke: MUS_LT, 'stroke-width': 3, opacity: 0.55, 'stroke-linecap': 'round' }, g.dia);
+    g.ribEls = ribEls; g.bandEls = bandEls;
+    g.domeD = d => openPath(diaTop(d, 0));             // the top edge of the diaphragm, 0 domed .. 1 flat
+    g.set = (d, r, gd, gi) => {
+      d = clamp(d); r = r === undefined ? d : clamp(r);
+      const ribs = {};
+      ribEls.forEach(o => { const p = ribPts(o.i, r, o.side), dd = `M${fx(p[0][0])},${fx(p[0][1])} Q${fx(p[1][0])},${fx(p[1][1])} ${fx(p[2][0])},${fx(p[2][1])}`; ribs[o.side + ':' + o.i] = p; o.base.setAttribute('d', dd); o.core.setAttribute('d', dd); });
+      const bf = mus(gi || 0);
+      bandEls.forEach(o => {
+        const A = ribs[o.side + ':' + o.i], B = ribs[o.side + ':' + (o.i + 1)], pa = [], pb = [];
+        for (let s = 0; s <= 6; s++) { const u = 0.3 + 0.7 * s / 6; pa.push(q2(A[0], A[1], A[2], u)); pb.push(q2(B[0], B[1], B[2], u)); }
+        o.el.setAttribute('d', 'M' + pa.concat(pb.reverse()).map(p => fx(p[0]) + ',' + fx(p[1])).join(' L') + 'Z'); o.el.setAttribute('fill', bf);
+        let fd = ''; [0.48, 0.64, 0.8].forEach(u => { const p = q2(A[0], A[1], A[2], u + 0.03), s2 = q2(B[0], B[1], B[2], u - 0.05); fd += `M${fx(p[0])},${fx(p[1] + 5)} L${fx(s2[0])},${fx(s2[1] - 5)} `; });
+        o.fib.setAttribute('d', fd);
+      });
+      const top = diaTop(d, r);
+      dia.setAttribute('d', bandPath(top, DTH)); dia.setAttribute('fill', mus(gd || 0));
+      diaHi.setAttribute('d', openPath(top.slice(1, 8).map(p => [p[0], p[1] + 4])));
+      diaFib.setAttribute('d', [0.4, 0.7].map(f => openPath(top.slice(1, 8).map((p, k) => [p[0], p[1] + DTH[k + 1] * f]))).join(' '));
+      g.cav.setAttribute('d', closedPath(cavPts(d, r)));
+      const b = clamp(0.5 * d + 0.5 * r), kx = 1 + 0.09 * b, ky = 1 + 0.05 * b;
+      g.lungs.set(b);
+      const sx = (132 + 18 * r) / (20 + 112 * kx), sy = (lerp(142, 187, d) + 4 + 150) / (152 * ky + 150);
+      g.lw.setAttribute('transform', `translate(0 -150) scale(${sx.toFixed(4)} ${sy.toFixed(4)}) translate(0 150)`);
+    };
+    g.set(0);
+    return g;
+  }
+
   /* ---------- padlock ---------- */
   const lockG = G(root); tr(lockG, 600, 300);
   const shackle = E('path', { d: 'M-52,0 L-52,-50 A52,52 0 0 1 52,-50 L52,0', fill: 'none', stroke: '#C9D6DE', 'stroke-width': 22, 'stroke-linecap': 'round' }, lockG);
@@ -79,13 +148,10 @@ scene('recap', S => {
     b: 'M0,40 Q0,52 -30,62 M0,40 Q0,52 30,62',
     bl: 'M-30,62 Q-40,70 -56,74 M-30,62 Q-30,76 -36,92 M30,62 Q40,70 56,74 M30,62 Q30,76 36,92',
   };
-  const mtParts = [
-    E('path', { d: MT.t, fill: 'none', stroke: OUT, 'stroke-width': 12, 'stroke-linecap': 'round' }, mt),
-    E('path', { d: MT.b, fill: 'none', stroke: OUT, 'stroke-width': 9, 'stroke-linecap': 'round' }, mt),
-    E('path', { d: MT.bl, fill: 'none', stroke: OUT, 'stroke-width': 6, 'stroke-linecap': 'round' }, mt),
-    E('path', { d: circD(-62, 76, 8) + circD(-56, 86, 7) + circD(-68, 86, 6) + circD(-40, 100, 8) + circD(-30, 100, 6) + circD(-38, 110, 6) + circD(62, 76, 8) + circD(56, 86, 7) + circD(68, 86, 6) + circD(40, 100, 8) + circD(30, 100, 6) + circD(38, 110, 6), fill: ball('#F7A1B5', '#C25A7A'), stroke: '#FFD0DC', 'stroke-width': 1.5 }, mt),
-  ];
-  E('path', { d: 'M-5,-6 L5,-6 M-5,6 L5,6 M-5,18 L5,18 M-5,30 L5,30', stroke: '#C99AAA', 'stroke-width': 3, 'stroke-linecap': 'round' }, mt);
+  const mtO = G(mt), mtI = G(mt);
+  const mtParts = [[MT.t, 12], [MT.b, 9], [MT.bl, 6]].map(([d, w]) => [E('path', { d, fill: 'none', stroke: '#C99AAA', 'stroke-width': w + 4, 'stroke-linecap': 'round' }, mtO), E('path', { d, fill: 'none', stroke: OUT, 'stroke-width': w, 'stroke-linecap': 'round' }, mtI)]);
+  mtParts.push(E('path', { d: circD(-62, 76, 8) + circD(-56, 86, 7) + circD(-68, 86, 6) + circD(-40, 100, 8) + circD(-30, 100, 6) + circD(-38, 110, 6) + circD(62, 76, 8) + circD(56, 86, 7) + circD(68, 86, 6) + circD(40, 100, 8) + circD(30, 100, 6) + circD(38, 110, 6), fill: '#BFE6FF', stroke: '#5FA8D8', 'stroke-width': 1.5 }, mt));
+  E('path', { d: 'M-5,-7 Q0,-4 5,-7 M-5,5 Q0,8 5,5 M-5,17 Q0,20 5,17 M-5,29 Q0,32 5,29', fill: 'none', stroke: '#EEF4F8', 'stroke-width': 2.5, 'stroke-linecap': 'round' }, mt);
   const mtTags = [[20, 12, 'T'], [44, 50, 'B'], [74, 70, 'B'], [86, 104, 'A']].map(([x, y, L]) => T(mt, x, y, L, { size: 26, weight: 800, fill: Y }));
 
   // 2. Breathing IN: every i glows, beside a chest that breathes in
@@ -98,20 +164,18 @@ scene('recap', S => {
     k2.rows.push(rich(k2.front, -228, ROWY[i] + 10, [[a, C.ink, 700], [b, Y, 800], [c, C.ink, 700]], { size: 27 }));
     return gl;
   });
-  const chestG = G(k2.front); tr(chestG, 172, 34);
-  const ribL = E('path', { d: 'M-12,-48 Q-56,-44 -62,-6 M-12,-26 Q-56,-22 -62,14 M-12,-4 Q-54,0 -58,32', fill: 'none', stroke: '#E4ECF5', 'stroke-width': 4, 'stroke-linecap': 'round' }, chestG);
-  const ribR = E('path', { d: 'M12,-48 Q56,-44 62,-6 M12,-26 Q56,-22 62,14 M12,-4 Q54,0 58,32', fill: 'none', stroke: '#E4ECF5', 'stroke-width': 4, 'stroke-linecap': 'round' }, chestG);
-  const chLungs = E('path', { d: LUNGS_D, fill: ball('#F48FA6', '#B8466A'), stroke: '#FFD0DC', 'stroke-width': 6 }, chestG);
-  const diaph = E('path', { fill: 'none', stroke: C.heat, 'stroke-width': 7, 'stroke-linecap': 'round' }, chestG);
+  const chestG = G(k2.front); tr(chestG, 172, 34, 0.3);
+  const chest2 = mechChest(chestG);
 
   // 3. TIMS
   const k3 = HC[2];
   title(k3, [['T', Y, 800], ['I', Y, 800], ['M', Y, 800], ['S', Y, 800], [': built for fast diffusion', C.ink, 600]], 456);
+  const tileIcon = (g, f) => { const s = G(g); tr(s, 0, 0, 0.55); f(s); };
   const TIMS = [
-    [g => E('path', { d: 'M-10,-12 L-10,12 M-2,-12 L-2,12', stroke: '#F4A3B8', 'stroke-width': 3, 'stroke-linecap': 'round' }, g), [['T', Y, 800], ['hin walls', C.ink, 700]]],
-    [g => { E('path', { d: 'M-16,0 L16,0', stroke: '#B83246', 'stroke-width': 12, 'stroke-linecap': 'round' }, g); E('path', { d: circD(-8, 0, 3.5) + circD(4, 0, 3.5), fill: '#FF8A94' }, g); }, ['lots of blood ', ['I', Y, 800], 'n the capillaries']],
-    [g => E('path', { d: 'M0,-14 C6,-6 10,0 10,5 A10,10 0 0 1 -10,5 C-10,0 -6,-6 0,-14 Z', fill: C.water }, g), ['a ', ['M', Y, 800], 'oist lining']],
-    [g => E('path', { d: 'M-15,8 Q-10,-12 -5,8 Q0,-12 5,8 Q10,-12 15,8', fill: 'none', stroke: Y, 'stroke-width': 3.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g), ['a big ', ['S', Y, 800], 'urface area']],
+    [g => tileIcon(g, s => { E('rect', { x: -9, y: -22, width: 7, height: 44, rx: 3, fill: '#BFE6FA' }, s); E('rect', { x: 2, y: -22, width: 7, height: 44, rx: 3, fill: '#E9BDC9' }, s); E('circle', { cx: -20, r: 6, fill: ball(C.oxygen, C.oxygenDk) }, s); }), [['T', Y, 800], ['hin walls', C.ink, 700]]],
+    [g => tileIcon(g, s => { E('path', { d: 'M-22,16 C-22,-24 22,-24 22,16', fill: 'none', stroke: '#E8424F', 'stroke-width': 9, 'stroke-linecap': 'round' }, s); E('ellipse', { cx: 0, cy: -14, rx: 7, ry: 5, fill: '#FF8A94' }, s); }), ['lots of blood ', ['I', Y, 800], 'n the capillaries']],
+    [g => tileIcon(g, s => E('path', { d: 'M0,-22 C10,-8 16,2 16,10 A16,16 0 0 1 -16,10 C-16,2 -10,-8 0,-22 Z', fill: C.water, stroke: '#BDEBFA', 'stroke-width': 2 }, s)), ['a ', ['M', Y, 800], 'oist lining']],
+    [g => tileIcon(g, s => { E('rect', { x: -22, y: -14, width: 44, height: 28, rx: 3, fill: '#1E4256', stroke: '#F2F7FA', 'stroke-width': 2.5 }, s); E('path', { d: 'M0,-14 L0,14 M-22,0 L-10,0 M10,0 L22,0', stroke: '#F2F7FA', 'stroke-width': 2 }, s); }), ['a big ', ['S', Y, 800], 'urface area']],
   ];
   TIMS.forEach(([icon, segs], i) => { const r = G(k3.front); const ic = G(r); tr(ic, -214, ROWY[i] + 1); icon(ic); rich(r, -188, ROWY[i] + 10, segs, { size: 27, weight: 700 }); k3.rows.push(r); });
 
@@ -170,16 +234,14 @@ scene('recap', S => {
     }),
     trapGroup('The diaphragm relaxes to breathe in', ['Breathe in: muscles ', ['contract', Y, 800]], g => {
       const ch = G(g); tr(ch, -150, 0);
-      E('path', { d: 'M-24,-58 Q-70,-54 -80,-6 M-24,-32 Q-68,-28 -78,20 M24,-58 Q70,-54 80,-6 M24,-32 Q68,-28 78,20', fill: 'none', stroke: '#E4ECF5', 'stroke-width': 4, 'stroke-linecap': 'round' }, ch);
-      const lu = E('path', { d: LUNGS_D, fill: ball('#F48FA6', '#B8466A'), stroke: '#FFD0DC', 'stroke-width': 6 }, ch);
-      const dm = E('path', { fill: 'none', stroke: C.heat, 'stroke-width': 8, 'stroke-linecap': 'round' }, ch);
-      const dn = arrow(ch, 0, 54, 0, 88, { color: Y, width: 5 });
+      const chS = G(ch); tr(chS, 0, -18, 0.34);
+      const mc = mechChest(chS);
+      const dn = arrow(ch, 0, 60, 0, 90, { color: Y, width: 5 });
       const chipC = chip(g, 'contracts and flattens', { size: 26, fill: C.card2, stroke: Y }); tr(chipC, 150, -6);
       T(g, 150, 54, 'it relaxes when you breathe out', { size: 24, weight: 600, anchor: 'middle', fill: C.muted });
       return t => {
         const f = P(t, mid('t2', 0.42), 0.9, ease);
-        dm.setAttribute('d', `M-74,44 Q0,${(44 - 46 * (1 - f)).toFixed(1)} 74,44`);
-        lu.setAttribute('transform', `translate(0 ${(-24 + 6 * f).toFixed(1)}) scale(${(0.32 + 0.03 * f).toFixed(3)} ${(0.32 + 0.06 * f).toFixed(3)})`);
+        mc.set(f, f, f, f);
         dn.set(P(t, mid('t2', 0.48), 0.6)); op(dn, P(t, mid('t2', 0.48), 0.2, linear));
         op(chipC, P(t, mid('t2', 0.55), 0.4, linear));
       };
@@ -204,7 +266,7 @@ scene('recap', S => {
       E('path', { d: 'M0,-18 L0,-58 M-22,-58 L22,-58', stroke: '#C9D6DE', 'stroke-width': 8, 'stroke-linecap': 'round' }, pump);
       E('path', { d: 'M30,30 L50,30', stroke: '#C9D6DE', 'stroke-width': 8, 'stroke-linecap': 'round' }, pump);
       tr(cross(g, 34), -190, -6);
-      E('rect', { x: 40, y: -70, width: 10, height: 140, rx: 5, fill: '#F4A3B8' }, g);
+      E('rect', { x: 36, y: -70, width: 8, height: 140, rx: 4, fill: '#BFE6FA' }, g); E('rect', { x: 46, y: -70, width: 8, height: 140, rx: 4, fill: '#E9BDC9' }, g);
       T(g, -30, 92, 'high', { size: 26, weight: 700, anchor: 'middle', fill: C.muted }); T(g, 130, 92, 'low', { size: 26, weight: 700, anchor: 'middle', fill: C.muted });
       const dr = rng(31), dots = [];
       for (let k = 0; k < 14; k++) dots.push({ el: E('circle', { r: 7, fill: ball(C.oxygen, C.oxygenDk) }, g), x0: -60 + dr() * 80, y0: -60 + dr() * 120, cross: k % 2 === 0, x1: 70 + dr() * 90, y1: -60 + dr() * 120, ph: dr() });
@@ -222,15 +284,15 @@ scene('recap', S => {
         const lb = T(g, 222, y + 9, v + '%', { size: 30, weight: 700, fill: col === C.co2 ? C.co2 : '#FF9A8F' });
         return { m, v };
       });
-      T(g, -250, 84, 'the rest is mostly nitrogen (78%)', { size: 24, weight: 600, fill: C.muted });
-      return t => bars.forEach((b, k) => b.m.set(b.v / 20 * P(t, mid('t5', 0.6) + k * 0.25, 0.8, easeOut)));
+      rich(g, -250, 84, ['the rest is mostly ', ['nitrogen (78%)', '#BCC4FF', 700]], { size: 24, weight: 600, fill: C.muted });
+      return t => bars.forEach((b, k) => b.m.set(b.v / 20 * P(t, mid('t5', [0.36, 0.68][k]), 0.8, easeOut)));
     }),
   ];
 
   /* ---------- update ---------- */
   const tDeal = i => at(IDS[i]) - 0.2;
   const tFan = mid('cct', 0.42), tSweep = at('traps') - 0.3;
-  const rowAt = [[0.5, 0.62, 0.74, 0.86], [0.2, 0.42, 0.58, 0.76], [0.12, 0.3, 0.58, 0.76], [0.5, 0.66, 0.84]];
+  const rowAt = [[0.4, 0.6, 0.74, 0.86], [0.2, 0.42, 0.58, 0.76], [0.12, 0.3, 0.58, 0.76], [0.32, 0.55, 0.84]];
   return t => {
     // padlock: shackle drops shut, a ring pulses
     const la = win(t, S.first - 0.6, at('tbba') + 0.1, 0.4);
@@ -272,15 +334,13 @@ scene('recap', S => {
       c.rows.forEach((rw, j) => op(rw, 0.2 + 0.8 * P(t, mid(c.id, rowAt[i][j]) - 0.1, 0.35, linear)));
     });
     // card 1: the airway lights up from the top, T, B, B, A
-    const onT = [0.5, 0.62, 0.74, 0.86].map(f => P(t, mid('tbba', f) - 0.1, 0.35, linear));
-    mtParts.forEach((p, j) => p.setAttribute('opacity', (0.35 + 0.65 * onT[j]).toFixed(3)));
+    const onT = rowAt[0].map(f => P(t, mid('tbba', f) - 0.1, 0.35, linear));
+    mtParts.forEach((p, j) => [].concat(p).forEach(e => e.setAttribute('opacity', (0.35 + 0.65 * onT[j]).toFixed(3))));
     mtTags.forEach((p, j) => op(p, onT[j]));
     // card 2: each i glows as it is said; the chest breathes in (diaphragm dips, ribs rise)
     iGlows.forEach((gl, j) => op(gl, P(t, mid('dips', rowAt[1][j]) - 0.1, 0.35, linear) * (0.6 + 0.4 * wave(t, 1.1, j * 0.25))));
     const br = t < tFan ? P(t, mid('dips', 0.2), 1.6, ease) : 1 - calm * 0.5 * (1 - Math.cos((t - tFan) * TAU / 3.6));
-    diaph.setAttribute('d', `M-62,${(56 + 6 * br).toFixed(1)} Q0,${(56 - 34 * (1 - br) + 6 * br).toFixed(1)} 62,${(56 + 6 * br).toFixed(1)}`);
-    ribL.setAttribute('transform', `rotate(${(8 * br).toFixed(2)} -12 -48)`); ribR.setAttribute('transform', `rotate(${(-8 * br).toFixed(2)} 12 -48)`);
-    chLungs.setAttribute('transform', `translate(0 ${(-4 + 4 * br).toFixed(1)}) scale(${(0.3 + 0.03 * br).toFixed(3)} ${(0.3 + 0.05 * br).toFixed(3)})`);
+    chest2.set(br, br, br, br);
 
     // traps
     const ta = P(t, at('traps') + 0.05, 0.5, linear);

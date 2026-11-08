@@ -62,34 +62,76 @@ scene('exercise', S => {
   const STAND = { lean: 0, armL: [8, 10], armR: [-8, 10], legL: [3, -3], legR: [-3, -3] };
   const STAR = { lean: 0, armL: [152, 6], armR: [-152, -6], legL: [22, 0], legR: [-22, 0] };
 
-  /* chest, front view: ribs with intercostal muscles, lungs, diaphragm. g.set(in 0..1): diaphragm flat, ribs up and out */
-  function chestArt(parent, s) {
-    const g = G(parent), inner = G(g); tr(inner, 0, 0, s);
-    const icL = G(inner), icR = G(inner), lw = G(inner);
-    const lg = lungs(lw, 0.42);
-    const ribL = G(inner), ribR = G(inner);
-    for (let i = 0; i < 4; i++) {
-      const y = -44 + i * 27, rib = `M-10,${y} C-36,${y - 16} -76,${y - 8} -86,${y + 20}`;
-      [ribL, ribR].forEach((gr, k) => E('path', { d: rib, fill: 'none', stroke: '#EDF2F5', 'stroke-width': 7, 'stroke-linecap': 'round', opacity: 0.92, transform: k ? 'scale(-1 1)' : undefined }, gr));
-      if (i < 3) {
-        const y2 = y + 13.5, band = `M-12,${y2} C-38,${y2 - 16} -78,${y2 - 8} -88,${y2 + 20}`;
-        [icL, icR].forEach((gr, k) => E('path', { d: band, fill: 'none', stroke: '#D9606E', 'stroke-width': 8, 'stroke-linecap': 'round', opacity: 0.8, transform: k ? 'scale(-1 1)' : undefined }, gr));
-      }
-    }
-    E('rect', { x: -6, y: -52, width: 12, height: 92, rx: 6, fill: '#DDE6EC', opacity: 0.85 }, inner);
-    const dia = E('path', { fill: 'none', stroke: '#D9606E', 'stroke-width': 11, 'stroke-linecap': 'round' }, inner);
-    g.set = v => {
-      v = clamp(v);
-      lg.set(v);
-      lw.setAttribute('transform', `translate(0 -63) scale(${(1 + 0.03 * v).toFixed(4)} ${(1 + 0.13 * v).toFixed(4)}) translate(0 63)`);
-      const a = (7 * v).toFixed(2), sx = (1 + 0.07 * v).toFixed(4);
-      [ribL, icL].forEach(e => e.setAttribute('transform', `rotate(${a} -10 -50) scale(${sx} 1)`));
-      [ribR, icR].forEach(e => e.setAttribute('transform', `rotate(${-a} 10 -50) scale(${sx} 1)`));
-      dia.setAttribute('d', `M-88,88 Q0,${lerp(36, 84, v).toFixed(1)} 88,88`);
+  /* The chest, front view, drawn exactly as "How you breathe in and out" (03_mechanism) draws it, in lib lungs
+     units centred on the chest: six ribs a side with intercostal muscles between them (behind the lungs), the
+     lungs, and the diaphragm in front of the lung bases. g.set(d, r, gd, gi): d diaphragm flattening 0..1
+     (domed -> flat and lower), r ribs up and out 0..1 (defaults to d), gd / gi how hard the diaphragm /
+     intercostals are contracting (brighter red). Parts: g.cav, g.bands, g.ribs, g.lw (lungs), g.dia. */
+  function mechChest(parent) {
+    const BONE_ = '#EFE7D4', BONE_DK = '#8F8370', MUS = '#9C3449', MUS_ON = '#FF6A84', MUS_LT = '#F6A0B0';
+    const hx = c => [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16));
+    const mus = p => { const A = hx(MUS), B = hx(MUS_ON); p = clamp(p); return 'rgb(' + A.map((v, i) => Math.round(v + (B[i] - v) * p)).join(',') + ')'; };
+    const q2 = (a, c, b, u) => { const v = 1 - u; return [v * v * a[0] + 2 * v * u * c[0] + u * u * b[0], v * v * a[1] + 2 * v * u * c[1] + u * u * b[1]]; };
+    const fx = v => v.toFixed(1);
+    const RIBS = [[[40, -122], [104, -142], [128, -92]], [[46, -74], [130, -100], [160, -38]], [[52, -24], [146, -50], [176, 18]],
+      [[58, 26], [154, 0], [182, 72]], [[64, 76], [158, 52], [182, 124]], [[70, 124], [154, 104], [172, 170]]];
+    const ribPts = (i, r, side) => {
+      const [A, Q, B] = RIBS[i], ang = -(10 - i * 1.2) * r * Math.PI / 180, ca = Math.cos(ang), sa = Math.sin(ang), dx = 16 * r, dy = -(6 - i * 0.6) * r;
+      const f = p => { const x = p[0] - A[0], y = p[1] - A[1]; return [A[0] + x * ca - y * sa + dx, A[1] + x * sa + y * ca + dy]; };
+      const a = [A[0] + dx, A[1] + dy], q = f(Q), b = f(B);
+      return side > 0 ? [a, q, b] : [[-a[0], a[1]], [-q[0], q[1]], [-b[0], b[1]]];
+    };
+    const DU = [-1, -0.85, -0.62, -0.34, 0, 0.34, 0.62, 0.85, 1], DRISE = [0, 22, 44, 60, 66, 60, 44, 22, 0], DFLAT = [0, 186, 187, 188, 188, 188, 187, 186, 0];
+    const DTH = [14, 18, 22, 25, 26, 25, 22, 18, 14];
+    const diaTop = (d, r) => { const b5 = ribPts(5, r, 1)[2], ex = b5[0] + 4, ey = b5[1] + 24; return DU.map((u, k) => [u * ex, k === 0 || k === 8 ? ey : lerp(ey - DRISE[k], DFLAT[k], d)]); };
+    const bandPath = (top, th) => { const bot = top.map((p, k) => [p[0], p[1] + th[k]]).reverse(); return openPath(top) + ' L' + fx(bot[0][0]) + ',' + fx(bot[0][1]) + openPath(bot).replace(/^M[^C]*/, '') + 'Z'; };
+    const cavPts = (d, r) => {
+      const R = [];
+      for (let i = 0; i < 6; i++) { const [a, q, b] = ribPts(i, r, 1), p = q2(a, q, b, 0.9); R.push([p[0] - 12, p[1] + 4]); }
+      const top = diaTop(d, r);
+      const floor = [[top[8][0] - 10, top[8][1] - 4]].concat(top.slice(1, 8).reverse().map(p => [p[0], p[1] - 2]), [[top[0][0] + 10, top[0][1] - 4]]);
+      return [[-46, -138], [46, -138]].concat(R, floor, R.slice().reverse().map(p => [-p[0], p[1]]));
+    };
+    const g = G(parent);
+    g.cav = E('path', { fill: C.air, 'fill-opacity': 0.06, stroke: C.air, 'stroke-opacity': 0.3, 'stroke-width': 2 }, g);
+    g.bands = G(g); g.ribs = G(g); g.lw = G(g); g.lungs = lungs(g.lw, 1); g.dia = G(g);
+    const ribEls = [], bandEls = [];
+    [1, -1].forEach(side => {
+      for (let i = 0; i < 5; i++) bandEls.push({ side, i, el: E('path', { stroke: '#6E2232', 'stroke-width': 1.5, 'stroke-linejoin': 'round' }, g.bands), fib: E('path', { fill: 'none', stroke: '#5A1A28', 'stroke-width': 2, opacity: 0.55, 'stroke-linecap': 'round' }, g.bands) });
+      for (let i = 0; i < 6; i++) { const rg = G(g.ribs); ribEls.push({ side, i, g: rg, base: E('path', { fill: 'none', stroke: BONE_DK, 'stroke-width': 13, 'stroke-linecap': 'round' }, rg), core: E('path', { fill: 'none', stroke: BONE_, 'stroke-width': 8, 'stroke-linecap': 'round' }, rg) }); }
+    });
+    const dia = E('path', { stroke: '#5E1A2A', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, g.dia);
+    const diaFib = E('path', { fill: 'none', stroke: '#5A1A28', 'stroke-width': 2, opacity: 0.5, 'stroke-linecap': 'round' }, g.dia);
+    const diaHi = E('path', { fill: 'none', stroke: MUS_LT, 'stroke-width': 3, opacity: 0.55, 'stroke-linecap': 'round' }, g.dia);
+    g.ribEls = ribEls; g.bandEls = bandEls;
+    g.domeD = d => openPath(diaTop(d, 0));             // the top edge of the diaphragm, 0 domed .. 1 flat
+    g.set = (d, r, gd, gi) => {
+      d = clamp(d); r = r === undefined ? d : clamp(r);
+      const ribs = {};
+      ribEls.forEach(o => { const p = ribPts(o.i, r, o.side), dd = `M${fx(p[0][0])},${fx(p[0][1])} Q${fx(p[1][0])},${fx(p[1][1])} ${fx(p[2][0])},${fx(p[2][1])}`; ribs[o.side + ':' + o.i] = p; o.base.setAttribute('d', dd); o.core.setAttribute('d', dd); });
+      const bf = mus(gi || 0);
+      bandEls.forEach(o => {
+        const A = ribs[o.side + ':' + o.i], B = ribs[o.side + ':' + (o.i + 1)], pa = [], pb = [];
+        for (let s = 0; s <= 6; s++) { const u = 0.3 + 0.7 * s / 6; pa.push(q2(A[0], A[1], A[2], u)); pb.push(q2(B[0], B[1], B[2], u)); }
+        o.el.setAttribute('d', 'M' + pa.concat(pb.reverse()).map(p => fx(p[0]) + ',' + fx(p[1])).join(' L') + 'Z'); o.el.setAttribute('fill', bf);
+        let fd = ''; [0.48, 0.64, 0.8].forEach(u => { const p = q2(A[0], A[1], A[2], u + 0.03), s2 = q2(B[0], B[1], B[2], u - 0.05); fd += `M${fx(p[0])},${fx(p[1] + 5)} L${fx(s2[0])},${fx(s2[1] - 5)} `; });
+        o.fib.setAttribute('d', fd);
+      });
+      const top = diaTop(d, r);
+      dia.setAttribute('d', bandPath(top, DTH)); dia.setAttribute('fill', mus(gd || 0));
+      diaHi.setAttribute('d', openPath(top.slice(1, 8).map(p => [p[0], p[1] + 4])));
+      diaFib.setAttribute('d', [0.4, 0.7].map(f => openPath(top.slice(1, 8).map((p, k) => [p[0], p[1] + DTH[k + 1] * f]))).join(' '));
+      g.cav.setAttribute('d', closedPath(cavPts(d, r)));
+      const b = clamp(0.5 * d + 0.5 * r), kx = 1 + 0.09 * b, ky = 1 + 0.05 * b;
+      g.lungs.set(b);
+      const sx = (132 + 18 * r) / (20 + 112 * kx), sy = (lerp(142, 187, d) + 4 + 150) / (152 * ky + 150);
+      g.lw.setAttribute('transform', `translate(0 -150) scale(${sx.toFixed(4)} ${sy.toFixed(4)}) translate(0 150)`);
     };
     g.set(0);
     return g;
   }
+  /* the chest at scale s; g.set(in 0..1): diaphragm contracts and flattens, ribs swing up and out, lungs fill */
+  function chestArt(parent, s) { const g = G(parent), inner = G(g); tr(inner, 0, 0, s); const c = mechChest(inner); g.set = v => c.set(v, v, 0.8 * v, 0.8 * v); g.set(0); return g; }
   /* a brain seen from the side, front to the right; the stem ends at (-14, 78) */
   function brainArt(parent) {
     const g = G(parent);
@@ -146,8 +188,9 @@ scene('exercise', S => {
     r = lerp(r, 40, P(t, at('heart') - 0.2, 0.6));
     r = lerp(r, 24, P(t, mid('debt', 0.55), end('debt') - mid('debt', 0.55)));
     r = lerp(r, 14, P(t, at('count') - 0.2, 0.8));
-    r = lerp(r, 34, P(t, mid('count', 0.42), 1.2));
-    return lerp(r, 22, P(t, mid('count', 0.75), end('count') - mid('count', 0.75)));
+    r = lerp(r, 32, P(t, mid('count', 0.42), 1.2));
+    [26, 20, 16, 14].forEach((v, i) => { r = lerp(r, v, P(t, mid('count', 0.8 + i * 0.055) - 0.2, 0.4)); });   // as the count table settles
+    return r;
   };
   const ampF = t => {                                            // trace amplitude (px): breathing depth
     let a = lerp(26, 64, P(t, mid('depth', 0.12), 2.2));
@@ -158,7 +201,7 @@ scene('exercise', S => {
     a = lerp(a, 46, P(t, mid('debt', 0.55), end('debt') - mid('debt', 0.55)));
     a = lerp(a, 28, P(t, at('count') - 0.2, 0.8));
     a = lerp(a, 72, P(t, mid('count', 0.42), 1.2));
-    return lerp(a, 50, P(t, mid('count', 0.75), end('count') - mid('count', 0.75)));
+    return lerp(a, 30, P(t, mid('count', 0.78), end('count') - mid('count', 0.78)));
   };
   const bpmF = t => lerp(lerp(72, 155, P(t, mid('heart', 0.05), 2.4)), 125, P(t, at('debt'), end('debt') - at('debt')));
   const DT = 0.02, NT = Math.ceil((D + 4) / DT) + 2;
@@ -240,9 +283,9 @@ scene('exercise', S => {
   T(mon, 600, 446, 'breathing', { size: 26, weight: 600, fill: C.muted });
   const rdN = T(mon, 905, 449, '15', { size: 38, weight: 700, fill: C.air, anchor: 'end' });
   T(mon, 1138, 448, 'breaths per minute', { size: 26, weight: 600, fill: C.muted, anchor: 'end' });
-  const CHX = 660, CHY = 584;
+  const CHX = 668, CHY = 584;
   const chestFlash = E('ellipse', { cx: CHX, cy: CHY + 10, rx: 96, ry: 86, fill: glow(C.energy) }, mon);
-  const chest = chestArt(mon, 0.9); tr(chest, CHX, CHY);
+  const chest = chestArt(mon, 0.38); tr(chest, CHX, CHY);
   const airIn = arrow(mon, CHX - 12, 482, CHX - 12, 518, { color: C.air, width: 5 });
   const airOut = arrow(mon, CHX + 12, 518, CHX + 12, 482, { color: C.air, width: 5 });
   const TW = 360, TX0 = 770, TY0 = 584, PXS = 45;              // trace: width, left end, midline, px per second

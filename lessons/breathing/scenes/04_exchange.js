@@ -222,8 +222,8 @@ scene('exchange', S => {
   const inLab1 = T(inset, 975, 496, 'red blood cell', { size: 32, weight: 700, anchor: 'middle', fill: '#FF8A94' });
   const inLab2 = T(inset, 975, 538, '**haemoglobin** holds the oxygen', { size: 27, weight: 500, anchor: 'middle', boldFill: '#FF9A8F' });
   const toBody = G(root);
-  arrow(toBody, 704, 196, 704, 112, { color: '#FF8A94', width: 7 });
-  T(toBody, 726, 150, 'to your body', { size: 28, weight: 700, fill: '#FF8A94' });
+  arrow(toBody, 688, 196, 688, 112, { color: '#FF8A94', width: 7 });
+  T(toBody, 706, 150, 'to your body', { size: 28, weight: 700, fill: '#FF8A94' });
   // no pump; the concentration gradient
   const pumpG = G(root);
   const pumpArt = G(pumpG); tr(pumpArt, 852, 250);

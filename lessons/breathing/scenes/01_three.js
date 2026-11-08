@@ -13,31 +13,75 @@ scene('three', S => {
   /* ---------- shared breathing art (same in every chapter of this lesson) ---------- */
   const SKIN = '#C98E62', SKINDK = '#9C6B45', SHIRT = '#5B8DEF', SHIRTDK = '#3F6FCC', HAIR = '#2B1D14';
   const TUBE = '#E9C7D2', TUBEDK = '#C99AAA', MUSCLE = '#D24B63', MUSCLELT = '#F59AAE', BONE = '#EFE6D2';
-  const O2T = '#FF9A8F', GREY = '#9AA6B2', BLUE = '#8E5BB0', RED = '#FF5A64';
+  const O2T = '#FF9A8F';
+  // the alveolus close-up's colours (as in "Gas exchange"): red blood cells purple -> red as oxygen clings to them,
+  // plasma bluish where blood arrives and red where it leaves, the air sac and its wall, the capillary wall
+  const BLUE = '#926CDC', RED = '#F04A57', PL_BLUE = '#584D9C', PL_RED = '#A3303E', SAC = '#1E4256', SAC_WALL = '#BFE6FA', TISSUE = '#E9BDC9';
 
-  /* The chest, front view, in "lungs units" (lib lungs at s=1 centred on 0,0). g.set(v): 0 relaxed, 1 in. */
+  /* The chest, front view, drawn exactly as "How you breathe in and out" (03_mechanism) draws it, in lib lungs
+     units centred on the chest: six ribs a side with intercostal muscles between them (behind the lungs), the
+     lungs, and the diaphragm in front of the lung bases. g.set(d, r, gd, gi): d diaphragm flattening 0..1
+     (domed -> flat and lower), r ribs up and out 0..1 (defaults to d), gd / gi how hard the diaphragm /
+     intercostals are contracting (brighter red). Parts: g.cav, g.bands, g.ribs, g.lw (lungs), g.dia. */
   function chestArt(parent) {
+    const BONE_ = '#EFE7D4', BONE_DK = '#8F8370', MUS = '#9C3449', MUS_ON = '#FF6A84', MUS_LT = '#F6A0B0';
+    const hx = c => [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16));
+    const mus = p => { const A = hx(MUS), B = hx(MUS_ON); p = clamp(p); return 'rgb(' + A.map((v, i) => Math.round(v + (B[i] - v) * p)).join(',') + ')'; };
+    const q2 = (a, c, b, u) => { const v = 1 - u; return [v * v * a[0] + 2 * v * u * c[0] + u * u * b[0], v * v * a[1] + 2 * v * u * c[1] + u * u * b[1]]; };
+    const fx = v => v.toFixed(1);
+    const RIBS = [[[40, -122], [104, -142], [128, -92]], [[46, -74], [130, -100], [160, -38]], [[52, -24], [146, -50], [176, 18]],
+      [[58, 26], [154, 0], [182, 72]], [[64, 76], [158, 52], [182, 124]], [[70, 124], [154, 104], [172, 170]]];
+    const ribPts = (i, r, side) => {
+      const [A, Q, B] = RIBS[i], ang = -(10 - i * 1.2) * r * Math.PI / 180, ca = Math.cos(ang), sa = Math.sin(ang), dx = 16 * r, dy = -(6 - i * 0.6) * r;
+      const f = p => { const x = p[0] - A[0], y = p[1] - A[1]; return [A[0] + x * ca - y * sa + dx, A[1] + x * sa + y * ca + dy]; };
+      const a = [A[0] + dx, A[1] + dy], q = f(Q), b = f(B);
+      return side > 0 ? [a, q, b] : [[-a[0], a[1]], [-q[0], q[1]], [-b[0], b[1]]];
+    };
+    const DU = [-1, -0.85, -0.62, -0.34, 0, 0.34, 0.62, 0.85, 1], DRISE = [0, 22, 44, 60, 66, 60, 44, 22, 0], DFLAT = [0, 186, 187, 188, 188, 188, 187, 186, 0];
+    const DTH = [14, 18, 22, 25, 26, 25, 22, 18, 14];
+    const diaTop = (d, r) => { const b5 = ribPts(5, r, 1)[2], ex = b5[0] + 4, ey = b5[1] + 24; return DU.map((u, k) => [u * ex, k === 0 || k === 8 ? ey : lerp(ey - DRISE[k], DFLAT[k], d)]); };
+    const bandPath = (top, th) => { const bot = top.map((p, k) => [p[0], p[1] + th[k]]).reverse(); return openPath(top) + ' L' + fx(bot[0][0]) + ',' + fx(bot[0][1]) + openPath(bot).replace(/^M[^C]*/, '') + 'Z'; };
+    const cavPts = (d, r) => {
+      const R = [];
+      for (let i = 0; i < 6; i++) { const [a, q, b] = ribPts(i, r, 1), p = q2(a, q, b, 0.9); R.push([p[0] - 12, p[1] + 4]); }
+      const top = diaTop(d, r);
+      const floor = [[top[8][0] - 10, top[8][1] - 4]].concat(top.slice(1, 8).reverse().map(p => [p[0], p[1] - 2]), [[top[0][0] + 10, top[0][1] - 4]]);
+      return [[-46, -138], [46, -138]].concat(R, floor, R.slice().reverse().map(p => [-p[0], p[1]]));
+    };
     const g = G(parent);
-    const lw = G(g);
-    g.lungs = lungs(lw, 1);
-    g.bands = G(g); g.ribs = G(g); g.dia = G(g);
-    const R = [], B = [];
-    for (const sg of [-1, 1]) for (let i = 0; i < 4; i++) B.push({ sg, i, el: E('path', { fill: MUSCLE, opacity: 0.5 }, g.bands) });
-    g.bandEls = B.map(b => b.el);
-    for (const sg of [-1, 1]) for (let i = 0; i < 5; i++) R.push({ sg, i, el: E('path', { fill: 'none', stroke: BONE, 'stroke-width': 9, 'stroke-linecap': 'round' }, g.ribs) });
-    g.diaBody = E('path', { fill: 'none', stroke: MUSCLE, 'stroke-width': 16, 'stroke-linecap': 'round' }, g.dia);
-    g.diaHi = E('path', { fill: 'none', stroke: MUSCLELT, 'stroke-width': 4, 'stroke-linecap': 'round', opacity: 0.85, transform: 'translate(0 -4)' }, g.dia);
-    const rib = (sg, i, v) => { const y0 = -88 + 46 * i; return [[sg * 30, y0], [sg * (150 + 8 * i + 8 * v), y0 - 28 - 10 * v], [sg * (178 + 6 * i + 12 * v), y0 + 46 - 16 * v]]; };
-    const f = n => n.toFixed(1);
-    const q = r => `M${f(r[0][0])},${f(r[0][1])} Q${f(r[1][0])},${f(r[1][1])} ${f(r[2][0])},${f(r[2][1])}`;
-    g.domeD = v => `M${f(-190 - 6 * v)},${f(205 - 4 * v)} C-120,${f(132 + 52 * v)} 120,${f(132 + 52 * v)} ${f(190 + 6 * v)},${f(205 - 4 * v)}`;
-    g.set = v => {
-      v = clamp(v);
-      g.lungs.set(v);
-      lw.setAttribute('transform', `translate(0 -150) scale(1 ${(1 + 0.1 * v).toFixed(4)}) translate(0 150)`);
-      R.forEach(r => r.el.setAttribute('d', q(rib(r.sg, r.i, v))));
-      B.forEach(b => { const a = rib(b.sg, b.i, v), c = rib(b.sg, b.i + 1, v); b.el.setAttribute('d', `${q(a)} L${f(c[2][0])},${f(c[2][1])} Q${f(c[1][0])},${f(c[1][1])} ${f(c[0][0])},${f(c[0][1])} Z`); });
-      const d = g.domeD(v); g.diaBody.setAttribute('d', d); g.diaHi.setAttribute('d', d);
+    g.cav = E('path', { fill: C.air, 'fill-opacity': 0.06, stroke: C.air, 'stroke-opacity': 0.3, 'stroke-width': 2 }, g);
+    g.bands = G(g); g.ribs = G(g); g.lw = G(g); g.lungs = lungs(g.lw, 1); g.dia = G(g);
+    const ribEls = [], bandEls = [];
+    [1, -1].forEach(side => {
+      for (let i = 0; i < 5; i++) bandEls.push({ side, i, el: E('path', { stroke: '#6E2232', 'stroke-width': 1.5, 'stroke-linejoin': 'round' }, g.bands), fib: E('path', { fill: 'none', stroke: '#5A1A28', 'stroke-width': 2, opacity: 0.55, 'stroke-linecap': 'round' }, g.bands) });
+      for (let i = 0; i < 6; i++) { const rg = G(g.ribs); ribEls.push({ side, i, g: rg, base: E('path', { fill: 'none', stroke: BONE_DK, 'stroke-width': 13, 'stroke-linecap': 'round' }, rg), core: E('path', { fill: 'none', stroke: BONE_, 'stroke-width': 8, 'stroke-linecap': 'round' }, rg) }); }
+    });
+    const dia = E('path', { stroke: '#5E1A2A', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, g.dia);
+    const diaFib = E('path', { fill: 'none', stroke: '#5A1A28', 'stroke-width': 2, opacity: 0.5, 'stroke-linecap': 'round' }, g.dia);
+    const diaHi = E('path', { fill: 'none', stroke: MUS_LT, 'stroke-width': 3, opacity: 0.55, 'stroke-linecap': 'round' }, g.dia);
+    g.ribEls = ribEls; g.bandEls = bandEls;
+    g.domeD = d => openPath(diaTop(d, 0));             // the top edge of the diaphragm, 0 domed .. 1 flat
+    g.set = (d, r, gd, gi) => {
+      d = clamp(d); r = r === undefined ? d : clamp(r);
+      const ribs = {};
+      ribEls.forEach(o => { const p = ribPts(o.i, r, o.side), dd = `M${fx(p[0][0])},${fx(p[0][1])} Q${fx(p[1][0])},${fx(p[1][1])} ${fx(p[2][0])},${fx(p[2][1])}`; ribs[o.side + ':' + o.i] = p; o.base.setAttribute('d', dd); o.core.setAttribute('d', dd); });
+      const bf = mus(gi || 0);
+      bandEls.forEach(o => {
+        const A = ribs[o.side + ':' + o.i], B = ribs[o.side + ':' + (o.i + 1)], pa = [], pb = [];
+        for (let s = 0; s <= 6; s++) { const u = 0.3 + 0.7 * s / 6; pa.push(q2(A[0], A[1], A[2], u)); pb.push(q2(B[0], B[1], B[2], u)); }
+        o.el.setAttribute('d', 'M' + pa.concat(pb.reverse()).map(p => fx(p[0]) + ',' + fx(p[1])).join(' L') + 'Z'); o.el.setAttribute('fill', bf);
+        let fd = ''; [0.48, 0.64, 0.8].forEach(u => { const p = q2(A[0], A[1], A[2], u + 0.03), s2 = q2(B[0], B[1], B[2], u - 0.05); fd += `M${fx(p[0])},${fx(p[1] + 5)} L${fx(s2[0])},${fx(s2[1] - 5)} `; });
+        o.fib.setAttribute('d', fd);
+      });
+      const top = diaTop(d, r);
+      dia.setAttribute('d', bandPath(top, DTH)); dia.setAttribute('fill', mus(gd || 0));
+      diaHi.setAttribute('d', openPath(top.slice(1, 8).map(p => [p[0], p[1] + 4])));
+      diaFib.setAttribute('d', [0.4, 0.7].map(f => openPath(top.slice(1, 8).map((p, k) => [p[0], p[1] + DTH[k + 1] * f]))).join(' '));
+      g.cav.setAttribute('d', closedPath(cavPts(d, r)));
+      const b = clamp(0.5 * d + 0.5 * r), kx = 1 + 0.09 * b, ky = 1 + 0.05 * b;
+      g.lungs.set(b);
+      const sx = (132 + 18 * r) / (20 + 112 * kx), sy = (lerp(142, 187, d) + 4 + 150) / (152 * ky + 150);
+      g.lw.setAttribute('transform', `translate(0 -150) scale(${sx.toFixed(4)} ${sy.toFixed(4)}) translate(0 150)`);
     };
     g.set(0);
     return g;
@@ -118,16 +162,16 @@ scene('three', S => {
     return `url(#${id})`;
   }
   function vessel(parent, tk, grad) {
-    E('path', { d: tk.d, fill: 'none', stroke: '#4A1E3A', 'stroke-width': 34, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, parent);
-    E('path', { d: tk.d, fill: 'none', stroke: grad, 'stroke-width': 27, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, parent);
+    E('path', { d: tk.d, fill: 'none', stroke: TISSUE, 'stroke-width': 34, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, parent);
+    E('path', { d: tk.d, fill: 'none', stroke: grad, 'stroke-width': 29, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, parent);
   }
   function rbcEl(parent) {
     const g = G(parent);
-    g.disc = E('ellipse', { rx: 9.5, ry: 6.5, stroke: '#FFC9CD', 'stroke-width': 1.3 }, g);
-    E('ellipse', { rx: 4, ry: 2.4, fill: '#000000', opacity: 0.18 }, g);
+    g.disc = E('ellipse', { rx: 13, ry: 8, stroke: '#FFD0D5', 'stroke-width': 1.3 }, g);
+    E('ellipse', { rx: 6.2, ry: 3.2, fill: 'rgba(60,8,36,0.3)' }, g);
     return g;
   }
-  const dot = (parent, col, rim, r) => E('circle', { r: r || 7, fill: col, stroke: rim, 'stroke-width': 1.6 }, parent);
+  const dot = (parent, col, dk, r) => E('circle', { r: r || 7, fill: ball(col, dk) }, parent);
 
   /* ================= the three panels ================= */
   const PX = [220, 600, 980], PW = 340, PT = 118, PB = 580, HY = 152;
@@ -153,8 +197,8 @@ scene('three', S => {
   const BX = 220, BY = 440, BS = 0.5;
   const pers = G(A1); const bu = bust(pers); tr(pers, BX, BY, BS);
   const ch = bu.chest;
-  const diaGlow = E('ellipse', { cx: 0, cy: 182, rx: 250, ry: 64, fill: glow(C.energy) }, ch); ch.insertBefore(diaGlow, ch.dia);
-  const ribGlow = [-1, 1].map(sg => { const e = E('ellipse', { cx: sg * 158, cy: 8, rx: 92, ry: 170, fill: glow(C.energy) }, ch); ch.insertBefore(e, ch.bands); return e; });
+  const diaGlow = E('ellipse', { cx: 0, cy: 170, rx: 240, ry: 62, fill: glow(C.energy) }, ch); ch.insertBefore(diaGlow, ch.lw);
+  const ribGlow = [-1, 1].map(sg => { const e = E('ellipse', { cx: sg * 124, cy: 14, rx: 96, ry: 176, fill: glow(C.energy) }, ch); ch.insertBefore(e, ch.bands); return e; });
   const stS = (x, y) => [BX + x * BS, BY + y * BS];
   // air that moves with the breath: in through the mouth, down the windpipe, into the lungs
   const AIRP = [[[150, -306], [40, -294], [0, -290], [0, -250], [0, -150], [0, -60], [-46, -22], [-80, 30]],
@@ -169,31 +213,41 @@ scene('three', S => {
   /* ----- panel 2: an air sac and its capillary ----- */
   const A2 = G(panels[1].art);
   const SC = [570, 400], SR = 82;
-  E('path', { d: 'M430,336 L490,363', stroke: TUBEDK, 'stroke-width': 30, 'stroke-linecap': 'round' }, A2);
-  E('path', { d: 'M430,336 L490,363', stroke: TUBE, 'stroke-width': 24, 'stroke-linecap': 'round' }, A2);
+  // the bronchiole opens into the air sac (its wall and air run on into the sac's)
+  E('path', { d: 'M430,336 L500,368', stroke: SAC_WALL, 'stroke-width': 30, 'stroke-linecap': 'round' }, A2);
   const cap2 = track(spline([[436, 548], [500, 520], [570, 502], [627, 482], [662, 440], [671, 390], [660, 340], [684, 290], [730, 255], [780, 240]], 10));
-  vessel(A2, cap2, bloodGrad('br-three-b2', 440, 548, 760, 240, BLUE, '#E8424F'));
-  E('circle', { cx: SC[0], cy: SC[1], r: SR, fill: 'rgba(159,216,255,0.16)', stroke: '#BFE6FF', 'stroke-width': 4 }, A2);
+  vessel(A2, cap2, bloodGrad('br-three-b2', 440, 548, 760, 240, PL_BLUE, PL_RED));
+  E('circle', { cx: SC[0], cy: SC[1], r: SR, fill: SAC, stroke: SAC_WALL, 'stroke-width': 4 }, A2);
+  E('path', { d: 'M430,336 L503,369', stroke: SAC, 'stroke-width': 22, 'stroke-linecap': 'round' }, A2);
   const lblAir = T(A2, 562, 352, 'air', { size: 28, weight: 700, anchor: 'middle', fill: C.air });
   const lblBlood = G(A2);
   E('line', { x1: 668, y1: 530, x2: 634, y2: 500, stroke: C.muted, 'stroke-width': 2.5 }, lblBlood);
   E('circle', { cx: 634, cy: 500, r: 4, fill: C.muted }, lblBlood);
   T(lblBlood, 674, 552, 'blood', { size: 28, weight: 700, fill: '#FF8A94' });
-  const V = 0.09;                                     // blood speed (track lengths per second)
+  const V = 0.09, NR = 6;                             // blood speed (track lengths per second), red blood cells
   const rbc2 = [0, 1, 2, 3, 4, 5].map(() => rbcEl(A2));
+  const uR = (j, t) => t * V + j / NR;                // how far red blood cell j has flowed (its place is the fraction)
+  const SPOT = [[-5.5, -4.5], [5.5, 4.5], [5.5, -4.5], [-5.5, 4.5]];   // where oxygen clings to a cell: [along, across]
+  const onCell = (u, s) => { const [x, y, a] = cap2.at(u), c = Math.cos(a), si = Math.sin(a), p = SPOT[s]; return [x + c * p[0] - si * p[1], y + si * p[0] + c * p[1]]; };
   const RH = [[528, 392], [556, 418], [590, 382], [612, 420], [540, 452], [575, 456], [606, 452], [520, 424]];
   const GH = [[548, 382], [604, 392], [530, 440], [565, 425], [628, 430], [590, 428]];
-  // oxygen dots cross into the blood, downstream ones first so they spread out as the blood carries them off
+  // oxygen dots cross into the blood, downstream ones first, each onto the red blood cell passing as it arrives
+  // (haemoglobin carries it, as in "Gas exchange")
+  const onIt = {};
   const reds = RH.map((h, k) => {
-    const el = dot(A2, C.oxygen, '#FFC2BA');
+    const el = dot(A2, C.oxygen, C.oxygenDk);
     if (k >= 5) return { el, h, k };
-    const th = [-5, 15, 35, 55, 75][k], wIn = polar(SC, 72, th), cp = polar(SC, 102, th), u0 = cap2.near(cp);
-    return { el, h, k, tc: mid('swap', 0.04 + 0.06 * k), wIn, cp: cap2.at(u0), u0 };
+    const th = [-5, 15, 35, 55, 75][k], u0 = cap2.near(polar(SC, 102, th)), tc = mid('swap', 0.04 + 0.06 * k), tA = tc + 0.9;
+    let j = 0, bd = 9;
+    for (let q = 0; q < NR; q++) { const dq = Math.abs(uR(q, tA) % 1 - u0); if (dq < bd) { bd = dq; j = q; } }
+    const lap = Math.floor(uR(j, tA)), s = onIt[j] = onIt[j] === undefined ? 0 : onIt[j] + 1;
+    const c = cap2.at(uR(j, tA) - lap);
+    return { el, h, k, tc, j, lap, s, wIn: polar(SC, 72, Math.atan2(c[1] - SC[1], c[0] - SC[0]) * 180 / Math.PI) };
   });
   // carbon dioxide dots arrive spaced out in the blood, and each leaves it as it reaches the air sac
   const TS = mid('swap', 0.38);
   const greys = GH.map((h, k) => {
-    const el = dot(A2, GREY, '#D5DDE4', 6.5);
+    const el = dot(A2, '#B9C9D8', '#71828F', 6.5);
     const uS = 0.45 - 0.065 * k, u0 = [0.47, 0.5, 0.44, 0.48, 0.46, 0.5][k], c = cap2.at(u0);
     const dx = c[0] - SC[0], dy = c[1] - SC[1], L = Math.hypot(dx, dy);
     return { el, h, k, tx: TS + (u0 - uS) / V, wIn: [SC[0] + dx / L * 72, SC[1] + dy / L * 72], cp: c, u0 };
@@ -202,7 +256,7 @@ scene('three', S => {
   /* ----- panel 3: a body cell, fed by a capillary ----- */
   const A3 = G(panels[2].art);
   const cap3 = track(spline([[808, 240], [846, 262], [862, 320], [866, 400], [860, 480], [842, 548], [826, 600]], 10));
-  vessel(A3, cap3, bloodGrad('br-three-b3', 808, 240, 826, 600, '#E8424F', BLUE));
+  vessel(A3, cap3, bloodGrad('br-three-b3', 808, 240, 826, 600, PL_RED, PL_BLUE));
   const rbc3 = [0, 1, 2, 3].map(() => rbcEl(A3));
   const cellG = G(A3);
   const cell = animalCell(cellG, 122, 104, { sw: 5, seed: 8, nx: -62, ny: -36, nr: 26 }); tr(cell, 1012, 410);
@@ -306,13 +360,13 @@ scene('three', S => {
     op(A1, f1);
     if (f1 > 0) {
       const br = breath(t), dv = (br - breath(t - 0.12)) / 0.12;
-      ch.set(br);
       const mus = P(t, mid('muscles', 0.12), 0.6, linear);
-      op(ch.ribs, 0.3 + 0.7 * mus); op(ch.bands, 0.3 + 0.7 * mus); op(ch.dia, 0.4 + 0.6 * mus);
+      op(ch.ribs, 0.3 + 0.7 * mus); op(ch.bands, 0.3 + 0.7 * mus); op(ch.dia, 0.4 + 0.6 * mus); op(ch.cav, mus);
       const hD = win(t, mid('muscles', 0.15), at('gasex'), 0.4), hR = win(t, mid('muscles', 0.31), at('gasex'), 0.4);
       const bk = br / AMP;
+      // breathing in, the diaphragm and intercostals contract (brighter red) as the chest grows
+      ch.set(br, br, hD * bk, hR * bk);
       op(diaGlow, hD * (0.45 + 0.55 * bk)); ribGlow.forEach(e => op(e, hR * (0.35 + 0.5 * bk)));
-      ch.bandEls.forEach(e => e.setAttribute('opacity', (0.5 + 0.4 * hR * (0.4 + 0.6 * bk)).toFixed(3)));
       airDots.forEach((d, k) => {
         const u = bk * 0.92 + 0.08 - 0.13 * k, [x, y] = along(AIRP[k % 2], u);
         attr(d, 'cx', x); attr(d, 'cy', y); op(d, clamp((u - 0.04) * 10) * clamp((1.02 - u) * 12));
@@ -339,11 +393,12 @@ scene('three', S => {
       const jig = (k, s) => [Math.sin(t * 1.9 + k * 1.7) * 4 * s * AMP, Math.cos(t * 1.6 + k * 2.3) * 4 * s * AMP];
       reds.forEach(r => {
         const [jx, jy] = jig(r.k, 1);
-        if (r.tc === undefined || t < r.tc) { attr(r.el, 'cx', r.h[0] + jx); attr(r.el, 'cy', r.h[1] + jy); op(r.el, 1); return; }
-        const d = t - r.tc;
-        if (d < 0.6) { const p = ease(d / 0.6); attr(r.el, 'cx', lerp(r.h[0] + jx, r.wIn[0], p)); attr(r.el, 'cy', lerp(r.h[1] + jy, r.wIn[1], p)); op(r.el, 1); }
-        else if (d < 0.9) { const p = ease((d - 0.6) / 0.3); attr(r.el, 'cx', lerp(r.wIn[0], r.cp[0], p)); attr(r.el, 'cy', lerp(r.wIn[1], r.cp[1], p)); op(r.el, 1); }
-        else { const u = r.u0 + V * (d - 0.9), [x, y] = cap2.at(u); attr(r.el, 'cx', x); attr(r.el, 'cy', y - 3); op(r.el, clamp((1 - u) * 14)); }
+        if (r.tc === undefined || t < r.tc) { attr(r.el, 'cx', r.h[0] + jx); attr(r.el, 'cy', r.h[1] + jy); attr(r.el, 'r', 7); op(r.el, 1); return; }
+        const d = t - r.tc, u = uR(r.j, t) - r.lap;
+        if (d < 0.6) { const p = ease(d / 0.6); attr(r.el, 'cx', lerp(r.h[0] + jx, r.wIn[0], p)); attr(r.el, 'cy', lerp(r.h[1] + jy, r.wIn[1], p)); attr(r.el, 'r', 7); op(r.el, 1); }
+        else if (d < 0.9) { const p = ease((d - 0.6) / 0.3), q = onCell(u, r.s); attr(r.el, 'cx', lerp(r.wIn[0], q[0], p)); attr(r.el, 'cy', lerp(r.wIn[1], q[1], p)); attr(r.el, 'r', lerp(7, 5, p)); op(r.el, 1); }
+        else if (u < 1) { const q = onCell(u, r.s); attr(r.el, 'cx', q[0]); attr(r.el, 'cy', q[1]); attr(r.el, 'r', 5); op(r.el, clamp((1 - u) * 14)); }
+        else op(r.el, 0);
       });
       greys.forEach(g => {
         const d = t - g.tx;
