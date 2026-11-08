@@ -3,6 +3,7 @@ import type { TopicExtras } from "../types";
 // Engagement extras for breathing. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const breathingExtras: TopicExtras = {
+  lesson: { href: "/lessons/breathing.html", minutes: 13, chapters: 11 },
   interactive: "breathing-lab",
   hook: "You breathe about 22,000 times a day without ever deciding to — but your lungs have no muscles of their own and can't pull in a single breath by themselves. So what is the hidden muscle that sucks the air in, and why would your lungs be useless on the surface of the Moon?",
   didYouKnow: [
