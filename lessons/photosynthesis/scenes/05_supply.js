@@ -193,40 +193,45 @@ scene('supply', S => {
   const co2Lite = (parent, r) => { const g = G(parent); atomC(g, 'O', r * 0.9, -r * 1.6); atomC(g, 'O', r * 0.9, r * 1.6); atomC(g, 'C', r, 0); return g; };
   const o2Lite = (parent, r) => { const g = G(parent); atomC(g, 'O', r, -r * 0.72); atomC(g, 'O', r, r * 0.72); return g; };
 
-  /* ================= the potted plant (plant coordinates: pot rim centre at 0,0) ================= */
+  /* ================= the potted plant: the intro's plant (00_intro.js) with 01_bigidea.js's see-through
+     pot and roots (plus root hairs). Plant coordinates are the intro plant's own, x K5; origin at the middle
+     of the soil surface. The plant's art is drawn in layers (inK5) so the xylem, drops and vapour can sit
+     between them. ================= */
+  const K5 = 1.2, kp = p => [p[0] * K5, p[1] * K5];
   const plantCam = G(root), plant = G(plantCam);
-  E('path', { d: 'M-115,0 L115,0 L88,150 Q86,158 78,158 L-78,158 Q-86,158 -88,150 Z', fill: ball('#D9824A', '#9A4E1E'), stroke: '#F0B48A', 'stroke-width': 3, 'stroke-linejoin': 'round' }, plant);
-  E('path', { d: 'M-98,24 L98,24 L80,140 L-80,140 Z', fill: linGrad('#5C3F2B', '#3B281B', true), stroke: '#F0B48A', 'stroke-width': 2.5, 'stroke-dasharray': '7 6', 'stroke-linejoin': 'round' }, plant);
-  // roots in the cut-away, with fine root hairs
-  const ROOTS = [[[0, 24], [2, 60], [-4, 96], [0, 134]], [[0, 50], [-20, 60], [-40, 78], [-58, 108]], [[0, 62], [22, 72], [44, 90], [60, 118]], [[-2, 92], [-16, 100], [-28, 112], [-36, 132]], [[1, 100], [14, 110], [24, 122], [30, 136]]];
+  const inK5 = () => { const g = G(plant); tr(g, 0, 0, K5); return g; };
+  E('path', { d: 'M-110,-6 L110,-6 L110,24 L100,24 L80,164 Q78,176 66,176 L-66,176 Q-78,176 -80,164 L-100,24 L-110,24 Z', fill: linGrad('#7A5538', '#3E2818', true) }, inK5());
+  // roots in the soil, with fine root hairs
+  const ROOTS = [[[0, -4], [2, 40], [-6, 90], [-2, 150]], [[-1, 20], [-20, 40], [-40, 60], [-62, 92]], [[1, 30], [22, 52], [44, 70], [66, 104]], [[-2, 70], [-18, 92], [-30, 118], [-40, 150]], [[-1, 96], [14, 116], [26, 138], [34, 160]], [[-40, 58], [-56, 66], [-70, 70], [-84, 72]], [[40, 62], [54, 72], [64, 82], [76, 84]]].map(c => c.map(kp));
   { let rd = '', hd = '';
     ROOTS.forEach(c => {
       rd += `M${c[0]} C${c[1]} ${c[2]} ${c[3]} `;
       for (let i = 2; i <= 9; i++) { const u = i / 10, p = bez(c[0], c[1], c[2], c[3], u), q = bez(c[0], c[1], c[2], c[3], u + 0.02); const dx = q[0] - p[0], dy = q[1] - p[1], L = Math.hypot(dx, dy) || 1, s = (i % 2 ? 1 : -1) * 7; hd += `M${p[0].toFixed(1)},${p[1].toFixed(1)} l${(-dy / L * s).toFixed(1)},${(dx / L * s).toFixed(1)} `; }
     });
-    E('path', { d: rd, fill: 'none', stroke: '#EAD7B7', 'stroke-width': 4, 'stroke-linecap': 'round' }, plant);
+    E('path', { d: rd, fill: 'none', stroke: '#EAD7B7', 'stroke-width': 5 * K5, 'stroke-linecap': 'round' }, plant);
     E('path', { d: hd, fill: 'none', stroke: '#EAD7B7', 'stroke-width': 1.6, 'stroke-linecap': 'round', opacity: 0.85 }, plant); }
-  const soilDrops = [[-66, 58], [-34, 118], [30, 44], [70, 86], [-16, 76], [48, 126], [-78, 106]].map(([x, y], i) => ({ x, y, i, el: drop(plant) }));
-  // the xylem: up the main root, up the stem, into one leaf's vein (leaf L2)
-  const STEM = [[0, 6], [-6, -120], [8, -260], [0, -440]];
-  const L2 = { x: 2, y: -200, r: -28 * Math.PI / 180, s: 1.05 };
+  const soilDrops = [[-80, 50], [-70, 185], [36, 55], [92, 150], [-20, 104], [58, 177], [-88, 150]].map(([x, y], i) => ({ x, y, i, el: drop(plant) }));
+  // the xylem: up the main root, up the stem, into one leaf's vein (leaf L2: the intro plant's lower right leaf)
+  const STEM = [[0, -6], [-9, -90], [10, -180], [0, -268]].map(kp);
+  const L2 = { x: 5 * K5, y: -135 * K5, r: -24 * Math.PI / 180, s: 0.66 * K5 };
   const onL2 = (lx, ly) => [L2.x + L2.s * (lx * Math.cos(L2.r) - ly * Math.sin(L2.r)), L2.y + L2.s * (lx * Math.sin(L2.r) + ly * Math.cos(L2.r))];
-  let uL2 = 0; while (uL2 < 1 && bez(STEM[0], STEM[1], STEM[2], STEM[3], uL2)[1] > -200) uL2 += 0.002;
+  let uL2 = 0; while (uL2 < 1 && bez(STEM[0], STEM[1], STEM[2], STEM[3], uL2)[1] > L2.y) uL2 += 0.002;
   const XP = [];
-  for (let i = 20; i >= 1; i--) XP.push(bez(ROOTS[0][0], ROOTS[0][1], ROOTS[0][2], ROOTS[0][3], i / 20 * 0.8));
-  XP.push([0, 24]);
+  for (let i = 20; i >= 0; i--) XP.push(bez(ROOTS[0][0], ROOTS[0][1], ROOTS[0][2], ROOTS[0][3], i / 20 * 0.8));
   for (let i = 0; i <= 30; i++) XP.push(bez(STEM[0], STEM[1], STEM[2], STEM[3], i / 30 * uL2));
   for (let i = 1; i <= 12; i++) XP.push(onL2(i / 12 * 182, 0));
   const xd = pts => 'M' + pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' L');
   const xyRoot = G(plant);
   E('path', { d: xd(XP.slice(0, 21)), fill: 'none', stroke: '#9FD8FF', 'stroke-width': 6, 'stroke-linecap': 'round', opacity: 0.6 }, xyRoot);
   E('path', { d: xd(XP.slice(0, 21)), fill: 'none', stroke: '#0D3346', 'stroke-width': 2.6, 'stroke-linecap': 'round' }, xyRoot);
-  // stem and leaves
-  const stemD = 'M0,6 C-6,-120 8,-260 0,-440';
-  E('path', { d: stemD, fill: 'none', stroke: C.plantDk, 'stroke-width': 20, 'stroke-linecap': 'round' }, plant);
-  E('path', { d: stemD, fill: 'none', stroke: C.stem, 'stroke-width': 14, 'stroke-linecap': 'round' }, plant);
-  [[-3, -120, 200, 0.95], [2, -200, -28, 1.05], [-2, -300, 208, 0.85], [1, -370, -36, 0.75], [0, -436, -64, 0.42], [0, -436, 244, 0.42]]
-    .forEach(([x, y, r, s]) => { const lg = leaf(plant, s); tr(lg, x, y, 1, r); });
+  // stem and leaves: the intro's (kit leaves; the side veins merged into one path)
+  { const top = inK5();
+    E('path', { d: 'M0,-6 C-9,-90 10,-180 0,-268 C-4,-298 0,-318 0,-330', fill: 'none', stroke: C.stem, 'stroke-width': 12, 'stroke-linecap': 'round' }, top);
+    [[-5, -75, 198, 0.62], [5, -135, -24, 0.66], [-4, -205, 206, 0.7], [4, -262, -30, 0.56], [0, -328, -64, 0.2], [0, -328, -116, 0.2]].forEach(([x, y, r, s], i) => {
+      const el = leaf(top, s), veins = Array.from(el.firstChild.children).slice(2); tr(el, x, y, 1, r);
+      if (i < 4) veins[0].setAttribute('d', veins.map(v => v.getAttribute('d')).join(' '));
+      veins.slice(i < 4 ? 1 : 0).forEach(v => v.remove());
+    }); }
   const xyGlow = E('path', { d: xd(XP.slice(20)), fill: 'none', stroke: C.water, 'stroke-width': 16, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', opacity: 0 }, plant);
   E('path', { d: xd(XP.slice(20)), fill: 'none', stroke: '#9FD8FF', 'stroke-width': 6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', opacity: 0.6 }, plant);
   E('path', { d: xd(XP.slice(20)), fill: 'none', stroke: '#0D3346', 'stroke-width': 2.6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, plant);
@@ -241,14 +246,17 @@ scene('supply', S => {
     return { k, wg, els: [E('path', { fill: 'none', stroke: '#BFE8FF', 'stroke-width': 12, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', opacity: 0.16 }, wg), E('path', { fill: 'none', stroke: '#E2F5FF', 'stroke-width': 5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, wg)], a: onL2(lx, halfH(lx) * 0.9) };
   });
   const wN = [-Math.sin(L2.r), Math.cos(L2.r)], wT = [Math.cos(L2.r), Math.sin(L2.r)];   // away from the underside; along the leaf
-  // pot rim and the soil surface go on top, so things behind them hide
-  E('rect', { x: -128, y: -10, width: 256, height: 28, rx: 7, fill: ball('#D9824A', '#9A4E1E'), stroke: '#F0B48A', 'stroke-width': 3 }, plant);
-  E('path', { d: 'M-112,-8 Q0,-24 112,-8 Z', fill: C.soil }, plant);
-  const LEAFPT = onL2(110, 18), ROOTPT = [-56, 106];
+  // the see-through pot, its rim and the soil surface go on top, so things behind them hide
+  { const pot = inK5();
+    E('path', { d: 'M-100,22 L100,22 L80,164 Q78,176 66,176 L-66,176 Q-78,176 -80,164 Z', fill: 'rgba(217,130,74,0.2)', stroke: '#F0B48A', 'stroke-width': 3, 'stroke-linejoin': 'round' }, pot);
+    E('rect', { x: -114, y: -6, width: 228, height: 32, rx: 9, fill: 'rgba(227,149,94,0.3)', stroke: '#F0B48A', 'stroke-width': 3 }, pot);
+    E('ellipse', { cx: 0, cy: -6, rx: 113, ry: 12, fill: '#EBA26C', stroke: '#F0B48A', 'stroke-width': 3 }, pot);
+    E('ellipse', { cx: 0, cy: -5, rx: 99, ry: 8, fill: C.soil }, pot); }
+  const LEAFPT = onL2(110, 18), ROOTPT = bez(ROOTS[1][0], ROOTS[1][1], ROOTS[1][2], ROOTS[1][3], 0.8);
 
   /* ================= how: air, soil, and the question ================= */
   const H = G(root);
-  const CAM_HOW = { x: 590, y: 520, s: 0.9 }, CAM_L = { x: 285, y: 540, s: 0.82 };
+  const CAM_HOW = { x: 590, y: 500, s: 0.9 }, CAM_L = { x: 285, y: 505, s: 0.82 };
   const sp = (c, p) => [c.x + c.s * p[0], c.y + c.s * p[1]];
   const airMols = [[205, 182], [300, 205], [235, 262], [330, 285], [170, 248]].map(([x, y], i) => ({ x, y, i, g: molCO2(H, 12) }));
   const airLab = G(H);
@@ -403,7 +411,7 @@ scene('supply', S => {
   const L = G(root);
   const xyLab = pointer(L, 830, 300, [['xylem', C.water]], { size: 40 });
   rich(xyLab, 830, 342, [['long, ', C.ink, 600], ['hollow', C.water, 700], [' tubes', C.ink, 600]], { size: 30 });
-  const qLift = T(L, 330, 640, '?', { size: 96, weight: 700, anchor: 'middle', fill: C.energy });
+  const qLift = T(L, 300, 700, '?', { size: 96, weight: 700, anchor: 'middle', fill: C.energy });
   const trLab = G(L);
   T(trLab, 990, 604, 'transpiration', { size: 48, weight: 700, anchor: 'middle', fill: C.air });
   T(trLab, 990, 650, 'evaporation pulls water up', { size: 27, weight: 500, anchor: 'middle', fill: C.muted });
@@ -423,7 +431,7 @@ scene('supply', S => {
     const camF = { x: 560 - 1.5 * hp[0], y: 420 - 1.5 * hp[1], s: 1.5 };
     let cam = camLerp(CAM_HOW, CAM_L, P(t, tD - 0.35, 0.9));
     cam = camLerp(cam, camF, P(t, tX - 0.3, 0.8));
-    cam = camLerp(cam, { x: 463, y: 742, s: 1.45 }, P(t, end('xylem') + 0.25, 0.9));
+    cam = camLerp(cam, { x: 460, y: 729, s: 1.6 }, P(t, end('xylem') + 0.25, 0.9));
     cam = camLerp(cam, CAM_L, P(t, tO - 0.65, 0.85));
     plantCam.setAttribute('transform', `translate(${cam.x.toFixed(1)} ${cam.y.toFixed(1)}) scale(${cam.s.toFixed(4)})`);
 

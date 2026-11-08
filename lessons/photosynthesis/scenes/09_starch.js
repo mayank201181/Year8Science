@@ -86,14 +86,41 @@ scene('starch', S => {
     E('ellipse', { cx: -rx * 0.14, rx: rx * 0.55, ry: ry * 0.52, fill: 'none', stroke: '#CFC4A2', 'stroke-width': 1.6 }, g);
     return g;
   }
-  /* potted plant (stem, four kit leaves, terracotta pot, soil); origin at the bottom of the pot */
-  function pottedPlant(parent) {
-    const g = G(parent);
-    E('path', { d: 'M0,-122 C-6,-180 6,-250 0,-318', fill: 'none', stroke: C.stem, 'stroke-width': 9, 'stroke-linecap': 'round' }, g);
-    [[-176, -150, 0.6], [-214, -28, 0.6], [-262, -152, 0.52], [-300, -34, 0.48]].forEach(([y, r, s]) => leaf(g, s).setAttribute('transform', `translate(0 ${y}) rotate(${r})`));
-    E('ellipse', { cx: 0, cy: -124, rx: 64, ry: 9, fill: C.soil }, g);
-    E('path', { d: 'M-70,-124 L70,-124 L66,-100 L-66,-100 Z', fill: ball('#E08E55', '#A8582A'), stroke: '#F0B48A', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, g);
-    E('path', { d: 'M-60,-100 L60,-100 L46,0 L-46,0 Z', fill: ball('#D9824A', '#9A4E1E'), stroke: '#F0B48A', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, g);
+  /* ---------- shared art: the lesson's potted plant, exactly as drawn in the intro (00_intro.js) ----------
+     The same code is in every chapter that shows a potted plant. Origin: the middle of the soil surface;
+     about 230 x 545 at o.s = 1. o.s scales it; o.see makes the pot see-through, as in 01_bigidea.js, and
+     g.soil is then the layer for roots and anything else in the soil; o.k stretches the stem (1 = the
+     intro's height); o.ls scales the leaves; o.bare draws the pot only. g.leaves[i] = { el, blade, x, y, r, s }
+     are the intro's four leaves, then its two tip leaves; g.grow(k) restretches the stem; g.leafPt(i, f) is
+     the point f of the way along leaf i and g.topY() the stem tip, both in g's own coordinates. */
+  function introPlant(parent, o) {
+    o = o || {};
+    const g = G(parent), pg = G(g), S = o.s || 1, ls = o.ls || 1, f1 = v => +v.toFixed(1);
+    if (S !== 1) tr(pg, 0, 0, S);
+    if (o.see) {
+      E('path', { d: 'M-110,-6 L110,-6 L110,24 L100,24 L80,164 Q78,176 66,176 L-66,176 Q-78,176 -80,164 L-100,24 L-110,24 Z', fill: linGrad('#7A5538', '#3E2818', true) }, pg);
+      g.soil = G(pg);
+    }
+    const stem = o.bare ? null : E('path', { fill: 'none', stroke: C.stem, 'stroke-width': 12, 'stroke-linecap': 'round' }, pg);
+    g.leaves = (o.bare ? [] : [[-5, -75, 198, 0.62], [5, -135, -24, 0.66], [-4, -205, 206, 0.7], [4, -262, -30, 0.56], [0, -328, -64, 0.2], [0, -328, -116, 0.2]]).map(([x, y, r, s], i) => {
+      const el = leaf(pg, s * ls), parts = Array.from(el.firstChild.children), veins = parts.slice(2);
+      if (i < 4) veins[0].setAttribute('d', veins.map(v => v.getAttribute('d')).join(' '));   // one path for the side veins
+      veins.slice(i < 4 ? 1 : 0).forEach(v => v.remove());                                    // (too small to see on the tip leaves)
+      return { el, blade: parts[0], x, y, r, s: s * ls };
+    });
+    E('path', { d: 'M-100,22 L100,22 L80,164 Q78,176 66,176 L-66,176 Q-78,176 -80,164 Z', fill: o.see ? 'rgba(217,130,74,0.2)' : ball('#D9824A', '#9A4E1E'), stroke: '#F0B48A', 'stroke-width': 3, 'stroke-linejoin': 'round' }, pg);
+    E('rect', { x: -114, y: -6, width: 228, height: 32, rx: 9, fill: o.see ? 'rgba(227,149,94,0.3)' : ball('#E3955E', '#A9592A'), stroke: '#F0B48A', 'stroke-width': 3 }, pg);
+    E('ellipse', { cx: 0, cy: -6, rx: 113, ry: 12, fill: '#EBA26C', stroke: '#F0B48A', 'stroke-width': 3 }, pg);
+    E('ellipse', { cx: 0, cy: -5, rx: 99, ry: 8, fill: C.soil }, pg);
+    let kNow = 1;
+    g.grow = k => {
+      kNow = k;
+      if (stem) stem.setAttribute('d', `M0,-6 C-9,${f1(-90 * k)} 10,${f1(-180 * k)} 0,${f1(-268 * k)} C-4,${f1(-298 * k)} 0,${f1(-318 * k)} 0,${f1(-330 * k)}`);
+      g.leaves.forEach(L => tr(L.el, L.x, L.y * k, 1, L.r));
+    };
+    g.grow(o.k || 1);
+    g.leafPt = (i, f) => { const L = g.leaves[i], a = L.r * Math.PI / 180, d = 205 * L.s * f; return [S * (L.x + Math.cos(a) * d), S * (L.y * kNow + Math.sin(a) * d)]; };
+    g.topY = () => -330 * kNow * S;
     return g;
   }
   /* glass dropper, origin at its tip */
@@ -294,7 +321,8 @@ scene('starch', S => {
   const cSun = sun(Cg, 34); tr(cSun, 1088, 150);
   E('rect', { x: 120, y: 178, width: 360, height: 452, rx: 12, fill: linGrad('#8A6240', '#5A3A22'), stroke: '#B98A5E', 'stroke-width': 4 }, Cg);
   E('rect', { x: 142, y: 200, width: 316, height: 420, rx: 6, fill: '#060C12' }, Cg);
-  const plantG = G(Cg); pottedPlant(plantG);
+  const plantG = G(Cg), PPS = 0.6, potPl = introPlant(plantG, { s: PPS }); tr(potPl, 0, -176 * PPS);   // pot bottom on the floor
+  const LEADP = potPl.leafPt(3, 0.6);                                                                     // the leaf the inset looks into
   const cupDark = E('rect', { x: 142, y: 200, width: 316, height: 420, fill: '#060C12' }, Cg);
   const door = E('path', { fill: linGrad('#A27650', '#6E4A2C'), stroke: '#C9996B', 'stroke-width': 3, 'stroke-linejoin': 'round' }, Cg);
   const knob = E('circle', { r: 9, fill: '#E9D3A6', stroke: '#8A6240', 'stroke-width': 2 }, Cg);
@@ -544,7 +572,7 @@ scene('starch', S => {
       op(clock, P(t, mid('destarch', 0.4), 0.4, linear) * (1 - P(t, mid('proves', 0.2), 0.5, linear)));
       op(clockLab, P(t, mid('destarch', 0.48), 0.4, linear) * (1 - P(t, mid('proves', 0.2), 0.5, linear)));
       // inside the leaf: old starch fades in the dark, new starch appears in the light
-      const lead = [px + 40, FLOOR - 330];
+      const lead = [px + LEADP[0], FLOOR - 176 * PPS + LEADP[1]];
       attr(insLead, 'x1', lead[0]); attr(insLead, 'y1', lead[1]); attr(insLead, 'x2', IC[0] - IR * 0.86); attr(insLead, 'y2', IC[1] - IR * 0.5);
       op(insLead, 0.8 * (1 - 0.6 * shut));
       const fade = P(t, mid('destarch', 0.5), 2.2, linear);

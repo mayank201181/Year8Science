@@ -446,7 +446,7 @@ scene('leaf', S => {
         op(thinLab, P(t, mid('thin', 0.38), 0.4, linear));
         thinMols.forEach((m, i) => {
           const u = clamp((t - mid('thin', 0.36 + i * 0.3)) / 0.8), x = i ? 700 : 500;
-          tr(m, x, lerp(480, 416, ease(u)), 1, 90); op(m, u > 0 && u < 1 ? Math.min(1, u * 5, (1 - u) * 4) : 0);
+          tr(m, x, lerp(462, 416, ease(u)), 1, 90); op(m, u > 0 && u < 1 ? Math.min(1, u * 5, (1 - u) * 4) : 0);   // starts clear of the label
         });
       }
 
@@ -468,7 +468,8 @@ scene('leaf', S => {
     const sw = P(t, tSwing, 1.6, ease);
     // zoom: the camera dips to the stoma for stomata + guard, then pulls back out for the veins
     const Zp = P(t, tSt - 0.15, 1.1) * (1 - P(t, tVe - 0.3, 1.0));
-    const zs = lerp(1, 1.9, Zp), fxp = lerp(BASE.x + sec.SX, 440, Zp), fyp = lerp(BASE.y + 162, 445, Zp);
+    // (zoomed in, the section stays below the chapter tag: its top layers fade and the air spaces start at y = 134)
+    const zs = lerp(1, 1.6, Zp), fxp = lerp(BASE.x + sec.SX, 440, Zp), fyp = lerp(BASE.y + 162, 470, Zp);
     cam = { x: fxp - zs * sec.SX, y: fyp - zs * 162, s: zs };
     if (sw < 1) {
       const x = lerp(CUTX, cam.x, sw), y = lerp(K2.y, cam.y, sw), r = 90 * (1 - P(sw, 0, 0.75, ease));
@@ -483,7 +484,7 @@ scene('leaf', S => {
     const fSt = win(t, tSt - 0.1, tVe + 0.1, 0.4), fVe = P(t, tVe - 0.1, 0.4, linear);
     const base = 0.42 + 0.33 * P(t, tVe + 1.2, 1.0, linear);
     const lv = f => lerp(1, base + (1 - base) * f, dim);
-    const zf = 1 - 0.8 * Zp;
+    const zf = 1 - Zp;
     op(sec.L.cut, lv(fCu) * zf); op(sec.L.epi, lv(fCu) * zf); op(sec.L.pal, lv(fPa) * zf);
     op(sec.L.spo, lv(fSp)); op(sec.L.air, lv(Math.max(fSp, fSt * 0.6)));
     op(sec.L.low, lv(fSt)); op(sec.L.gua, lv(fSt)); op(sec.L.vein, lv(fVe) * (1 - 0.5 * Zp));

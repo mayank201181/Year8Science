@@ -27,55 +27,59 @@ scene('minerals', S => {
   function co2(parent, r) { const g = G(parent); atomC(g, 'O', r * 0.9, -r * 1.6, 0); atomC(g, 'O', r * 0.9, r * 1.6, 0); atomC(g, 'C', r, 0, 0); return g; }
   const NIT = '#6FA8FF', NIT_DK = '#2F5FBF', MAG = '#DCE4EA', MAG_DK = '#7B8C99', PROT = '#E6A8FF', WOOD = '#C9A46A';
   const YEL = ball('#F2D45C', '#B08A1E');
-  /* kit leaf with its four side-vein strokes merged into one path: same look, fewer elements */
-  function leafL(parent, s, o) {
-    const lf = leaf(parent, s, o), inner = lf.firstChild, veins = Array.from(inner.children).slice(2);
-    if (veins.length > 1) { veins[0].setAttribute('d', veins.map(v => v.getAttribute('d')).join(' ')); veins.slice(1).forEach(v => v.remove()); }
-    return lf;
-  }
-  /* the lesson's potted plant (as in the uses-of-glucose chapter): a stem with kit leaves in a terracotta
-     pot, origin at the middle of the soil surface. o.cut cuts the pot away to show soil and roots.
-     g.yellow(i, v) yellows leaf i; g.grow(k) stretches the stem. */
-  function pottedPlant(parent, o) {
+  /* ---------- shared art: the lesson's potted plant, exactly as drawn in the intro (00_intro.js) ----------
+     The same code is in every chapter that shows a potted plant. Origin: the middle of the soil surface;
+     about 230 x 545 at o.s = 1. o.s scales it; o.see makes the pot see-through, as in 01_bigidea.js, and
+     g.soil is then the layer for roots and anything else in the soil; o.k stretches the stem (1 = the
+     intro's height); o.ls scales the leaves; o.bare draws the pot only. g.leaves[i] = { el, blade, x, y, r, s }
+     are the intro's four leaves, then its two tip leaves; g.grow(k) restretches the stem; g.leafPt(i, f) is
+     the point f of the way along leaf i and g.topY() the stem tip, both in g's own coordinates. */
+  function introPlant(parent, o) {
     o = o || {};
-    const g = G(parent), h = o.h || 260, pw = o.pw || 64, ph = o.ph || 100;
-    E('ellipse', { cx: 0, cy: ph + 9, rx: pw + 10, ry: 9, fill: 'rgba(0,0,0,0.28)' }, g);
-    const top = G(g);
-    const stem = E('path', { fill: 'none', stroke: C.stem, 'stroke-width': o.sw || 9, 'stroke-linecap': 'round' }, top);
-    const LV = o.leaves || [[0.3, -1, 22, 0.5], [0.5, 1, 22, 0.5], [0.72, -1, 34, 0.44], [0.93, 1, 52, 0.38]];
-    g.leaves = LV.map(([f, side, ang, s]) => {
-      const lf = leafL(top, s), inner = lf.firstChild, blade = inner.firstChild;
-      const yb = blade.cloneNode(false);
-      yb.setAttribute('fill', YEL); yb.setAttribute('stroke', '#A8841A');
-      inner.insertBefore(yb, blade.nextSibling); op(yb, 0);
-      return { g: lf, yb, f, side, ang, s };
-    });
-    const bw = pw * 0.78;
-    const body = `M${-pw},12 L${pw},12 L${bw.toFixed(1)},${ph} Q${bw.toFixed(1)},${ph + 6} ${(bw - 8).toFixed(1)},${ph + 6} L${(-bw + 8).toFixed(1)},${ph + 6} Q${(-bw).toFixed(1)},${ph + 6} ${(-bw).toFixed(1)},${ph} Z`;
-    if (o.cut) {
-      E('path', { d: body, fill: '#5E2C14' }, g);
-      const iw = pw - 10, ibw = bw - 9;
-      E('path', { d: `M${-iw},14 L${iw},14 L${ibw.toFixed(1)},${ph - 3} L${(-ibw).toFixed(1)},${ph - 3} Z`, fill: linGrad('#6B4A33', '#45301F', true) }, g);
-      const RD = o.roots || `M0,6 C-4,30 -18,50 -32,${ph - 16} M0,6 C4,34 16,56 28,${ph - 14} M0,8 C0,40 -2,64 4,${ph - 8} M-6,38 C-20,44 -32,48 -44,46 M6,46 C20,52 30,60 42,58`;
-      g.roots = E('path', { d: RD, fill: 'none', stroke: '#EAD7B7', 'stroke-width': o.rootW || 4, 'stroke-linecap': 'round' }, g);
-      g.rootGlow = E('path', { d: RD, fill: 'none', stroke: '#FFF3C4', 'stroke-width': (o.rootW || 4) + 4, 'stroke-linecap': 'round', opacity: 0 }, g);
-      g.ionG = G(g);
-      E('path', { d: body, fill: 'none', stroke: '#C8693A', 'stroke-width': 10, 'stroke-linejoin': 'round' }, g);
-    } else {
-      E('path', { d: body, fill: ball('#D2743F', '#8E4220'), stroke: '#E89A6A', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, g);
+    const g = G(parent), pg = G(g), S = o.s || 1, ls = o.ls || 1, f1 = v => +v.toFixed(1);
+    if (S !== 1) tr(pg, 0, 0, S);
+    if (o.see) {
+      E('path', { d: 'M-110,-6 L110,-6 L110,24 L100,24 L80,164 Q78,176 66,176 L-66,176 Q-78,176 -80,164 L-100,24 L-110,24 Z', fill: linGrad('#7A5538', '#3E2818', true) }, pg);
+      g.soil = G(pg);
     }
-    E('path', { d: `M${-pw + 4},4 Q0,-16 ${pw - 4},4 Z`, fill: C.soil, stroke: '#4E3524', 'stroke-width': 2 }, g);
-    E('rect', { x: -pw - 8, y: -2, width: 2 * pw + 16, height: 22, rx: 6, fill: ball('#DD8A52', '#9A4E1E'), stroke: '#F0B48A', 'stroke-width': 2.5 }, g);
+    const stem = o.bare ? null : E('path', { fill: 'none', stroke: C.stem, 'stroke-width': 12, 'stroke-linecap': 'round' }, pg);
+    g.leaves = (o.bare ? [] : [[-5, -75, 198, 0.62], [5, -135, -24, 0.66], [-4, -205, 206, 0.7], [4, -262, -30, 0.56], [0, -328, -64, 0.2], [0, -328, -116, 0.2]]).map(([x, y, r, s], i) => {
+      const el = leaf(pg, s * ls), parts = Array.from(el.firstChild.children), veins = parts.slice(2);
+      if (i < 4) veins[0].setAttribute('d', veins.map(v => v.getAttribute('d')).join(' '));   // one path for the side veins
+      veins.slice(i < 4 ? 1 : 0).forEach(v => v.remove());                                    // (too small to see on the tip leaves)
+      return { el, blade: parts[0], x, y, r, s: s * ls };
+    });
+    E('path', { d: 'M-100,22 L100,22 L80,164 Q78,176 66,176 L-66,176 Q-78,176 -80,164 Z', fill: o.see ? 'rgba(217,130,74,0.2)' : ball('#D9824A', '#9A4E1E'), stroke: '#F0B48A', 'stroke-width': 3, 'stroke-linejoin': 'round' }, pg);
+    E('rect', { x: -114, y: -6, width: 228, height: 32, rx: 9, fill: o.see ? 'rgba(227,149,94,0.3)' : ball('#E3955E', '#A9592A'), stroke: '#F0B48A', 'stroke-width': 3 }, pg);
+    E('ellipse', { cx: 0, cy: -6, rx: 113, ry: 12, fill: '#EBA26C', stroke: '#F0B48A', 'stroke-width': 3 }, pg);
+    E('ellipse', { cx: 0, cy: -5, rx: 99, ry: 8, fill: C.soil }, pg);
     let kNow = 1;
     g.grow = k => {
-      kNow = k; const hh = h * k;
-      stem.setAttribute('d', `M0,6 C6,${(-hh * 0.35).toFixed(1)} -6,${(-hh * 0.7).toFixed(1)} 0,${(-hh).toFixed(1)}`);
-      g.leaves.forEach(L => L.g.setAttribute('transform', `translate(${L.side * 3} ${(-L.f * hh).toFixed(1)}) rotate(${L.side > 0 ? -L.ang : 180 + L.ang})`));
+      kNow = k;
+      if (stem) stem.setAttribute('d', `M0,-6 C-9,${f1(-90 * k)} 10,${f1(-180 * k)} 0,${f1(-268 * k)} C-4,${f1(-298 * k)} 0,${f1(-318 * k)} 0,${f1(-330 * k)}`);
+      g.leaves.forEach(L => tr(L.el, L.x, L.y * k, 1, L.r));
     };
-    g.grow(1);
+    g.grow(o.k || 1);
+    g.leafPt = (i, f) => { const L = g.leaves[i], a = L.r * Math.PI / 180, d = 205 * L.s * f; return [S * (L.x + Math.cos(a) * d), S * (L.y * kNow + Math.sin(a) * d)]; };
+    g.topY = () => -330 * kNow * S;
+    return g;
+  }
+  /* this chapter's extras on that plant: with o.yellow, g.yellow(i, v) yellows leaf i of the four main leaves
+     (a yellow copy of its blade). With
+     o.roots (one path, in the intro plant's own coordinates) the see-through pot shows the roots, g.rootGlow
+     lights them, and g.ionG holds ions in the soil (also in the plant's own coordinates). */
+  const PS7 = 0.66;                                        // the three plants' scale
+  const ROOTS_A = 'M0,-4 C2,40 -6,90 -2,150 M-1,20 C-20,40 -40,60 -62,92 M1,30 C22,52 44,70 66,104 M-2,70 C-18,92 -30,118 -40,150 M-1,96 C14,116 26,138 34,160 M-40,58 C-56,66 -70,70 -84,72 M40,62 C54,72 64,82 76,84';   // 01_bigidea.js's roots
+  function mineralPlant(parent, o) {
+    const g = introPlant(parent, o);
+    if (o.yellow) g.leaves.slice(0, 4).forEach(L => { const yb = L.blade.cloneNode(false); yb.setAttribute('fill', YEL); yb.setAttribute('stroke', '#A8841A'); L.blade.parentNode.insertBefore(yb, L.blade.nextSibling); op(yb, 0); L.yb = yb; });
     g.yellow = (i, v) => op(g.leaves[i].yb, v);
-    g.leafPt = (i, along) => { const L = g.leaves[i], a = (L.side > 0 ? -L.ang : 180 + L.ang) * Math.PI / 180, d = 205 * L.s * along; return [L.side * 3 + Math.cos(a) * d, -L.f * h * kNow + Math.sin(a) * d]; };
-    g.topY = () => -h * kNow;
+    if (o.roots) {
+      const w = o.rootW || 5;
+      g.roots = E('path', { d: o.roots, fill: 'none', stroke: '#EAD7B7', 'stroke-width': w, 'stroke-linecap': 'round' }, g.soil);
+      g.rootGlow = E('path', { d: o.roots, fill: 'none', stroke: '#FFF3C4', 'stroke-width': w + 5, 'stroke-linecap': 'round', opacity: 0 }, g.soil);
+      g.ionG = G(g.soil);
+    }
     return g;
   }
   /* van Helmont's willow: trunk, five branches, a canopy and drooping leafy strands. Origin: the trunk
@@ -140,26 +144,26 @@ scene('minerals', S => {
   const sunG = sun(H1, 38); tr(sunG, 1090, 140);
   const GY = 540, AX = 230, BX = 545, CXp = 860;
   const AG = G(H1);
-  const plantA = pottedPlant(AG, { h: 290, pw: 66, ph: 104, cut: true, leaves: [[0.3, -1, 22, 0.52], [0.5, 1, 22, 0.52], [0.72, -1, 32, 0.46], [0.93, 1, 50, 0.4]] });
-  const plantB = pottedPlant(H1, { h: 170, pw: 66, ph: 104, leaves: [[0.3, -1, 22, 0.42], [0.52, 1, 22, 0.42], [0.74, -1, 32, 0.38], [0.94, 1, 50, 0.34]] });
+  const plantA = mineralPlant(AG, { s: PS7, see: true, roots: ROOTS_A });
+  const plantB = mineralPlant(H1, { s: PS7, k: 0.62, ls: 0.8, yellow: true });  // stunted: shorter, smaller leaves
   tr(plantB, BX, GY);
-  const plantC = pottedPlant(H1, { h: 275, pw: 66, ph: 104, leaves: [[0.3, -1, 22, 0.52], [0.5, 1, 22, 0.52], [0.72, -1, 32, 0.46], [0.93, 1, 50, 0.4]] });
+  const plantC = mineralPlant(H1, { s: PS7, k: 0.95, yellow: true });
   tr(plantC, CXp, GY);
-  // ions in A's soil: blue nitrate, silver magnesium
+  // ions in A's soil (plant coordinates, between the roots): blue nitrate, silver magnesium; the first six
+  // are taken up at root tips
   const ions = [], ir = rng(12);
-  const IONP = [[-40, 30], [-14, 22], [22, 30], [44, 40], [-46, 62], [-20, 76], [8, 58], [36, 76], [-4, 90], [18, 92]];
+  const IONP = [[-58, 36], [-30, 26], [30, 34], [72, 56], [-70, 118], [-40, 92], [20, 96], [52, 128], [-60, 140], [58, 150]];
+  const TIPS = [[-84, 72], [-62, 92], [66, 104], [76, 84], [-40, 150], [-2, 146]];
   IONP.forEach(([x, y], k) => {
     const nit = k % 2 === 0;
-    const el = E('circle', { r: 6.5, fill: nit ? ball(NIT, NIT_DK) : ball(MAG, MAG_DK), stroke: '#ffffff', 'stroke-width': 1.2 }, plantA.ionG);
-    const tips = [[-32, 88], [28, 90], [4, 96], [-44, 46], [42, 58]];
-    const tip = tips[k % 5];
-    ions.push({ el, x, y, tip, nit, absorb: k < 6, ph: ir() * TAU, k });
+    const el = E('circle', { r: 6.5 / PS7, fill: nit ? ball(NIT, NIT_DK) : ball(MAG, MAG_DK), stroke: '#ffffff', 'stroke-width': 1.2 / PS7 }, plantA.ionG);
+    ions.push({ el, x, y, tip: TIPS[k % 6], nit, absorb: k < 6, ph: ir() * TAU, k });
   });
   const legend = G(AG);
   const chN = chip(legend, 'nitrate', { size: 26, fill: NIT, color: '#08203F' }); tr(chN, 160, 54);
   const chM = chip(legend, 'magnesium', { size: 26, fill: MAG, color: '#1C2A33' }); tr(chM, 172, 108);
-  E('line', { x1: 160 - chN.w / 2 - 4, y1: 54, x2: 46, y2: 42, stroke: NIT, 'stroke-width': 2.5 }, legend);
-  E('line', { x1: 172 - chM.w / 2 - 4, y1: 108, x2: 36, y2: 76, stroke: MAG, 'stroke-width': 2.5 }, legend);
+  E('line', { x1: 160 - chN.w / 2 - 4, y1: 54, x2: IONP[6][0] * PS7, y2: IONP[6][1] * PS7, stroke: NIT, 'stroke-width': 2.5 }, legend);
+  E('line', { x1: 172 - chM.w / 2 - 4, y1: 108, x2: IONP[7][0] * PS7, y2: IONP[7][1] * PS7, stroke: MAG, 'stroke-width': 2.5 }, legend);
   // header: glucose + minerals
   const hdr = G(H1);
   const hdrHex = G(hdr); molGlucose(hdrHex, 22); tr(hdrHex, 560, 172);
@@ -189,12 +193,12 @@ scene('minerals', S => {
   const lblC = chip(H1, 'short of magnesium', { size: 26, fill: C.card2, stroke: MAG, color: C.ink }); tr(lblC, CXp, 688);
   // B: stunted, older leaves yellow
   const bNotes = G(H1);
-  const ATOP = GY - 290 * 1.12;
+  const ATOP = GY - 330 * 1.12 * PS7, BTOP = GY + plantB.topY();      // the tips of A (grown) and B
   E('line', { x1: AX + 60, y1: ATOP, x2: BX + 96, y2: ATOP, stroke: C.muted, 'stroke-width': 2.5, 'stroke-dasharray': '8 8' }, bNotes);
   const stArrow = G(bNotes);
-  E('path', { d: `M${BX + 82},${GY - 176} L${BX + 82},${ATOP + 8}`, stroke: C.energy, 'stroke-width': 4 }, stArrow);
-  E('path', { d: `M${BX + 72},${GY - 186} L${BX + 82},${GY - 172} L${BX + 92},${GY - 186} M${BX + 72},${ATOP + 18} L${BX + 82},${ATOP + 4} L${BX + 92},${ATOP + 18}`, fill: 'none', stroke: C.energy, 'stroke-width': 4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, stArrow);
-  const stLbl = T(bNotes, BX + 102, (ATOP + GY - 176) / 2 + 10, 'stunted growth', { size: 28, weight: 700, fill: C.energy });
+  E('path', { d: `M${BX + 82},${BTOP} L${BX + 82},${ATOP + 8}`, stroke: C.energy, 'stroke-width': 4 }, stArrow);
+  E('path', { d: `M${BX + 72},${BTOP - 10} L${BX + 82},${BTOP + 4} L${BX + 92},${BTOP - 10} M${BX + 72},${ATOP + 18} L${BX + 82},${ATOP + 4} L${BX + 92},${ATOP + 18}`, fill: 'none', stroke: C.energy, 'stroke-width': 4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, stArrow);
+  const stLbl = T(bNotes, BX + 102, (ATOP + BTOP) / 2 + 10, 'stunted growth', { size: 28, weight: 700, fill: C.energy });
   const yLbl = G(bNotes);
   const bl1 = plantB.leafPt(1, 0.55);
   labelLine(yLbl, BX + 140, GY - 34, BX + bl1[0], GY + bl1[1], 'yellow older leaves', { size: 28, fill: '#F2D45C', anchor: 'start', weight: 700, line: '#F2D45C' });
@@ -213,7 +217,7 @@ scene('minerals', S => {
   // chlorosis: light caught, rate falls
   const CLG = G(H1);
   const chlChip = chip(CLG, 'chlorosis', { size: 36, fill: '#3A3410', stroke: '#F2D45C', color: '#F2D45C', padX: 30 });
-  const LIGHT = [[1040, 178, 900, 258], [1052, 200, 925, 372], [1066, 216, 958, 360]];
+  const LIGHT = [[1040, 178, plantC.leafPt(3, 0.55)], [1052, 200, plantC.leafPt(1, 0.55)], [1066, 216, plantC.leafPt(1, 0.85)]].map(([x, y, p]) => [x, y, CXp + p[0], GY + p[1]]);   // onto C's leaves
   const rays = LIGHT.map(([x1, y1, x2, y2]) => arrow(CLG, x1, y1, x2, y2, { color: C.energy, width: 5 }));
   const caught = LIGHT.map(([, , x2, y2], k) => { const s = spark(CLG, 13, { seed: k + 2 }); tr(s, x2, y2); return s; });
   const lessLbl = T(CLG, 1078, 304, 'less light', { size: 26, weight: 700, anchor: 'middle', fill: C.energy });
@@ -227,9 +231,11 @@ scene('minerals', S => {
   const H2 = G(root);
   const TX = 330, TY = 505;
   const tree = willowTree(H2); tr(tree, TX, TY);
-  const bigPot = pottedPlant(H2, { h: 1, pw: 112, ph: 132, cut: true, leaves: [], rootW: 6, roots: 'M0,6 C-8,40 -40,70 -66,112 M0,6 C8,44 38,74 62,114 M0,8 C2,50 -4,84 6,120 M-14,48 C-40,56 -66,58 -88,52 M14,56 C40,64 64,70 86,66 M-30,80 C-44,92 -56,100 -70,98 M28,86 C42,98 56,104 72,100' });
+  // the willow's pot: the lesson's see-through pot, its roots spreading sideways so the label sits clear
+  const WPS = 0.95;
+  const bigPot = mineralPlant(H2, { s: WPS, see: true, bare: true, rootW: 6, roots: 'M0,-4 C-6,30 -30,58 -66,84 M0,-4 C6,30 30,58 66,84 M-2,10 C-24,22 -50,30 -86,30 M2,10 C24,22 50,30 86,30 M-30,52 C-40,78 -50,104 -56,138 M30,52 C40,78 50,104 56,138 M0,-4 C1,22 -2,46 0,72' });
   tr(bigPot, TX, TY);
-  const soilTag = T(H2, TX, TY + 92, 'soil', { size: 26, weight: 700, anchor: 'middle', fill: '#E8D2B0' });
+  const soilTag = T(H2, TX, TY + 132 * WPS, 'soil', { size: 26, weight: 700, anchor: 'middle', fill: '#E8D2B0' });
   // question: where from?
   const QG = G(H2);
   const bigQ = T(QG, TX, 330, '?', { size: 150, weight: 700, anchor: 'middle', fill: C.energy });
@@ -394,7 +400,7 @@ scene('minerals', S => {
       });
       const bp = P(t, mid('nitrate', 0.55), 0.5, pop);
       op(beadsA, clamp(bp * 2) * (1 - P(t, at('magnesium') - 0.3, 0.4, linear)));
-      tr(beadsA, 52, topY + 22, Math.max(0.01, bp));
+      tr(beadsA, 46, topY - 40, Math.max(0.01, bp));            // beside the growing tip, clear of the leaves
       beadEls.forEach((b, k) => op(b, P(t, mid('nitrate', 0.55) + k * 0.1, 0.25, linear)));
       // B: short of nitrate
       const bIn = P(t, at('short') - 0.1, 0.6, easeOut);
@@ -426,7 +432,7 @@ scene('minerals', S => {
       // C: short of magnesium -> chlorosis
       const cIn = P(t, at('chlorosis') + 0.2, 0.7, easeOut);
       op(plantC, cIn); tr(plantC, CXp, GY + (1 - cIn) * 24);
-      [0, 1, 2, 3].forEach(i => plantC.yellow(i, clamp(yel * 1.25 - (3 - i) * 0.08)));
+      [0, 1, 2, 3].forEach(i => plantC.yellow(i, clamp(yel * 1.25 - i * 0.08)));       // older (lower) leaves first: magnesium moves to new growth
       popAt(lblC, CXp, 688, t, at('chlorosis') + 0.3);
       const cl = P(t, mid('chlorosis', 0.3), 0.5, pop);
       op(chlChip, clamp(cl * 2)); tr(chlChip, 790, 172, Math.max(0.01, 0.6 + 0.4 * cl));

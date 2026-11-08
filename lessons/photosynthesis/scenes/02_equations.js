@@ -99,7 +99,7 @@ scene('equations', S => {
   const onArr = G(eqG);
   const sunG = G(onArr); const sunA = sun(sunG, 20);
   const lightT = T(onArr, ARR.x + 40, EQY - 40, 'light', { size: 30, weight: 700, fill: C.energy });
-  const chl = chip(onArr, 'chlorophyll', { size: 27, fill: C.plantDk, stroke: '#9EF0B4', color: '#FFFFFF' });
+  const chl = chip(onArr, 'chlorophyll', { size: 30, fill: C.plantDk, stroke: '#9EF0B4', color: '#FFFFFF' });   // still 24 px when the equation shrinks to 0.8
   const enSrc = chip(onArr, 'energy source', { size: 28, fill: C.card2, stroke: C.energy, color: C.energy });
   tr(enSrc, ARR.x, EQY - 140);
   const enLine = E('line', { x1: ARR.x, y1: EQY - 116, x2: ARR.x, y2: EQY - 84, stroke: C.energy, 'stroke-width': 3, 'stroke-dasharray': '5 5' }, onArr);

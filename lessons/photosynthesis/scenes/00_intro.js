@@ -120,17 +120,30 @@ scene('intro', S => {
   });
 
   /* ---------- roadmap ---------- */
+  /* a small copy of the shared leaf cross-section (03_chloro.js, 04_leaf.js, 05_supply.js): the same layers
+     and colours. Waxy cuticle, clear upper epidermis, palisade columns lined with chloroplasts, round spongy
+     cells in pale-blue air spaces, one vein (xylem blue, phloem amber), and a stoma between two guard cells */
   function miniSection(g) {
-    E('rect', { x: -104, y: -64, width: 208, height: 9, rx: 4.5, fill: '#DFF6E6', opacity: 0.9 }, g);
-    for (let i = 0; i < 8; i++) E('rect', { x: -104 + i * 26, y: -55, width: 26, height: 14, fill: 'rgba(230,250,236,0.12)', stroke: '#A6DDB8', 'stroke-width': 1.5 }, g);
+    const CELL = '#1D5239', WALL = '#6FD08C', CLEAR = 'rgba(205,240,225,0.10)', EDGE = '#A9DCC2';
+    let chl = '';
+    const dot = (x, y) => { chl += `M${x - 2.6},${y} a2.6,4 0 1,0 5.2,0 a2.6,4 0 1,0 -5.2,0 `; };
+    const bricks = (x0, x1, y0, h, n) => { const w = (x1 - x0) / n; for (let i = 0; i < n; i++) E('rect', { x: x0 + i * w + 0.8, y: y0, width: w - 1.6, height: h, rx: 4, fill: CLEAR, stroke: EDGE, 'stroke-width': 1.5 }, g); };
+    E('rect', { x: -104, y: 5, width: 208, height: 49, fill: C.air, 'fill-opacity': 0.13 }, g);
+    E('rect', { x: -104, y: -67, width: 208, height: 5, fill: '#E6F6C6', opacity: 0.5 }, g);
+    E('line', { x1: -104, y1: -67, x2: 104, y2: -67, stroke: '#F6FFE6', 'stroke-width': 1.5 }, g);
+    bricks(-104, 104, -61, 14, 8);
     for (let i = 0; i < 7; i++) {
-      const x = -102 + i * 29.4;
-      E('rect', { x, y: -39, width: 26, height: 48, rx: 11, fill: 'rgba(91,210,122,0.22)', stroke: C.chloro, 'stroke-width': 2 }, g);
-      for (let k = 0; k < 3; k++) E('circle', { cx: x + 13 + (k % 2 ? 4 : -4), cy: -28 + k * 13, r: 4, fill: C.chloroDk }, g);
+      const x = -104 + i * 29.75;
+      E('rect', { x: x + 0.8, y: -45, width: 28.1, height: 49, rx: 9, fill: CELL, stroke: WALL, 'stroke-width': 1.8 }, g);
+      for (let k = 0; k < 3; k++) { dot(x + 8, -35 + k * 14); dot(x + 21, -30 + k * 14); }
     }
-    [[-84, 28], [-50, 36], [-16, 26], [18, 37], [52, 27], [86, 36]].forEach(([x, y]) => E('circle', { cx: x, cy: y, r: 14, fill: 'rgba(91,210,122,0.18)', stroke: C.chloro, 'stroke-width': 2 }, g));
-    E('path', { d: 'M-104,58 L-22,58 M22,58 L104,58', stroke: '#A6DDB8', 'stroke-width': 9, 'stroke-linecap': 'round' }, g);
-    [-11, 11].forEach(x => E('ellipse', { cx: x, cy: 58, rx: 10, ry: 7, fill: ball(C.plant, C.plantDk) }, g));
+    [[-84, 24], [-54, 38], [-26, 22], [44, 22], [84, 34]].forEach(([x, y]) => { E('circle', { cx: x, cy: y, r: 12.5, fill: CELL, stroke: WALL, 'stroke-width': 1.8 }, g); dot(x - 4, y - 2); dot(x + 5, y + 3); });
+    E('circle', { cx: 12, cy: 28, r: 14, fill: '#215A43', stroke: '#8EE3A4', 'stroke-width': 1.8 }, g);
+    E('path', { d: 'M3,23 a3.5,3.5 0 1,0 7,0 a3.5,3.5 0 1,0 -7,0 M11,20 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0', fill: '#0D3346', stroke: C.water, 'stroke-width': 1.8 }, g);
+    E('path', { d: 'M4,33 a2.6,2.6 0 1,0 5.2,0 a2.6,2.6 0 1,0 -5.2,0 M11,35 a2.6,2.6 0 1,0 5.2,0 a2.6,2.6 0 1,0 -5.2,0', fill: '#4D3B12', stroke: C.glucose, 'stroke-width': 1.4 }, g);
+    bricks(-104, 44, 53, 12, 6); bricks(68, 104, 53, 12, 1);
+    [50, 62].forEach(x => E('ellipse', { cx: x, cy: 59, rx: 5.6, ry: 6.5, fill: '#2E7D50', stroke: '#9BEAB2', 'stroke-width': 1.5 }, g));
+    E('path', { d: chl, fill: '#4CC56F', stroke: C.chloroDk, 'stroke-width': 1 }, g);
   }
   function starchLeaf(g) {
     const lf = G(g); tr(lf, -84, 34, 0.8, -8);

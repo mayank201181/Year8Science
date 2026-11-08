@@ -27,9 +27,13 @@ scene('glucose', S => {
     segs.forEach(s => { if (typeof s === 'string') s = [s]; E('tspan', { fill: s[1], 'font-weight': s[2] }, t).textContent = s[0]; });
     return t;
   }
-  /* a small glucose hexagon in one element (molGlucose without the ring oxygen), for chains and flyers */
+  /* a small glucose hexagon in one element, for chains and flyers: molGlucose's look, with its ring oxygen
+     drawn by a marker on the path's first corner (the same corner as molGlucose's), so it costs no element */
+  const ringO = E('marker', { id: 'phGlucoseRingO', viewBox: '-3 -3 6 6', markerWidth: 6, markerHeight: 6, markerUnits: 'strokeWidth', overflow: 'visible' }, defs());
+  E('circle', { r: 1.3, fill: C.oxygen, stroke: C.oxygenDk, 'stroke-width': 0.6 }, ringO);
   function miniHex(parent, s) {
-    return E('path', { d: polyD(hexPts(s)), fill: ball(C.glucose, C.glucoseDk), stroke: C.glucoseDk, 'stroke-width': Math.max(1.5, s * 0.13), 'stroke-linejoin': 'round' }, parent);
+    const p = hexPts(s);
+    return E('path', { d: polyD(p.slice(1).concat([p[0]])), fill: ball(C.glucose, C.glucoseDk), stroke: C.glucoseDk, 'stroke-width': Math.max(1.5, s * 0.13), 'stroke-linejoin': 'round', 'marker-start': 'url(#phGlucoseRingO)' }, parent);
   }
   /* light molecules for flyers: lib's molO2 / molH2O geometry, one circle per atom */
   const atomC = (parent, kind, r, x, y) => { const [c, dk] = ATOM[kind]; return E('circle', { cx: x, cy: y, r, fill: ball(c, dk), stroke: dk, 'stroke-width': Math.max(1.5, r * 0.08) }, parent); };
@@ -60,25 +64,41 @@ scene('glucose', S => {
     E('path', { d: 'M0,-36 A36,36 0 1 0 0,36 A24,36 0 0 1 0,-36 Z', fill: '#F3F0D8', stroke: '#FFFBE6', 'stroke-width': 2, transform: `translate(${(r * 0.25).toFixed(1)} 0) scale(${(r / 36).toFixed(3)})` }, g);
     return g;
   }
-  /* the lesson's potted plant: a stem with kit leaves in a terracotta pot. Origin: the middle of the soil
-     surface. o: h (stem height), pw (pot half-width), ph (pot height), leaves [[height, side, angle, scale]] */
-  function pottedPlant(parent, o) {
+  /* ---------- shared art: the lesson's potted plant, exactly as drawn in the intro (00_intro.js) ----------
+     The same code is in every chapter that shows a potted plant. Origin: the middle of the soil surface;
+     about 230 x 545 at o.s = 1. o.s scales it; o.see makes the pot see-through, as in 01_bigidea.js, and
+     g.soil is then the layer for roots and anything else in the soil; o.k stretches the stem (1 = the
+     intro's height); o.ls scales the leaves; o.bare draws the pot only. g.leaves[i] = { el, blade, x, y, r, s }
+     are the intro's four leaves, then its two tip leaves; g.grow(k) restretches the stem; g.leafPt(i, f) is
+     the point f of the way along leaf i and g.topY() the stem tip, both in g's own coordinates. */
+  function introPlant(parent, o) {
     o = o || {};
-    const g = G(parent), h = o.h || 220, pw = o.pw || 60, ph = o.ph || 92;
-    const top = G(g);
-    const stem = E('path', { fill: 'none', stroke: C.stem, 'stroke-width': o.sw || 9, 'stroke-linecap': 'round' }, top);
-    const LV = o.leaves || [[0.3, -1, 22, 0.5], [0.5, 1, 22, 0.5], [0.72, -1, 34, 0.44], [0.93, 1, 52, 0.38]];
-    g.leaves = LV.map(([f, side, ang, s]) => ({ g: leafL(top, s), f, side, ang }));
-    E('path', { d: `M${-pw + 4},4 Q0,-16 ${pw - 4},4 Z`, fill: C.soil, stroke: '#4E3524', 'stroke-width': 2 }, g);
-    E('path', { d: `M${-pw},12 L${pw},12 L${(pw * 0.78).toFixed(1)},${ph} Q${(pw * 0.78).toFixed(1)},${ph + 6} ${(pw * 0.7).toFixed(1)},${ph + 6} L${(-pw * 0.7).toFixed(1)},${ph + 6} Q${(-pw * 0.78).toFixed(1)},${ph + 6} ${(-pw * 0.78).toFixed(1)},${ph} Z`, fill: ball('#D2743F', '#8E4220'), stroke: '#E89A6A', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, g);
-    E('rect', { x: -pw - 8, y: -2, width: 2 * pw + 16, height: 22, rx: 6, fill: ball('#DD8A52', '#9A4E1E'), stroke: '#F0B48A', 'stroke-width': 2.5 }, g);
+    const g = G(parent), pg = G(g), S = o.s || 1, ls = o.ls || 1, f1 = v => +v.toFixed(1);
+    if (S !== 1) tr(pg, 0, 0, S);
+    if (o.see) {
+      E('path', { d: 'M-110,-6 L110,-6 L110,24 L100,24 L80,164 Q78,176 66,176 L-66,176 Q-78,176 -80,164 L-100,24 L-110,24 Z', fill: linGrad('#7A5538', '#3E2818', true) }, pg);
+      g.soil = G(pg);
+    }
+    const stem = o.bare ? null : E('path', { fill: 'none', stroke: C.stem, 'stroke-width': 12, 'stroke-linecap': 'round' }, pg);
+    g.leaves = (o.bare ? [] : [[-5, -75, 198, 0.62], [5, -135, -24, 0.66], [-4, -205, 206, 0.7], [4, -262, -30, 0.56], [0, -328, -64, 0.2], [0, -328, -116, 0.2]]).map(([x, y, r, s], i) => {
+      const el = leaf(pg, s * ls), parts = Array.from(el.firstChild.children), veins = parts.slice(2);
+      if (i < 4) veins[0].setAttribute('d', veins.map(v => v.getAttribute('d')).join(' '));   // one path for the side veins
+      veins.slice(i < 4 ? 1 : 0).forEach(v => v.remove());                                    // (too small to see on the tip leaves)
+      return { el, blade: parts[0], x, y, r, s: s * ls };
+    });
+    E('path', { d: 'M-100,22 L100,22 L80,164 Q78,176 66,176 L-66,176 Q-78,176 -80,164 Z', fill: o.see ? 'rgba(217,130,74,0.2)' : ball('#D9824A', '#9A4E1E'), stroke: '#F0B48A', 'stroke-width': 3, 'stroke-linejoin': 'round' }, pg);
+    E('rect', { x: -114, y: -6, width: 228, height: 32, rx: 9, fill: o.see ? 'rgba(227,149,94,0.3)' : ball('#E3955E', '#A9592A'), stroke: '#F0B48A', 'stroke-width': 3 }, pg);
+    E('ellipse', { cx: 0, cy: -6, rx: 113, ry: 12, fill: '#EBA26C', stroke: '#F0B48A', 'stroke-width': 3 }, pg);
+    E('ellipse', { cx: 0, cy: -5, rx: 99, ry: 8, fill: C.soil }, pg);
+    let kNow = 1;
     g.grow = k => {
-      const hh = h * k;
-      stem.setAttribute('d', `M0,6 C6,${(-hh * 0.35).toFixed(1)} -6,${(-hh * 0.7).toFixed(1)} 0,${(-hh).toFixed(1)}`);
-      g.leaves.forEach(L => L.g.setAttribute('transform', `translate(${L.side * 3} ${(-L.f * hh).toFixed(1)}) rotate(${L.side > 0 ? -L.ang : 180 + L.ang})`));
+      kNow = k;
+      if (stem) stem.setAttribute('d', `M0,-6 C-9,${f1(-90 * k)} 10,${f1(-180 * k)} 0,${f1(-268 * k)} C-4,${f1(-298 * k)} 0,${f1(-318 * k)} 0,${f1(-330 * k)}`);
+      g.leaves.forEach(L => tr(L.el, L.x, L.y * k, 1, L.r));
     };
-    g.grow(1);
-    g.leafAt = (i, along) => { const L = g.leaves[i], a = (L.side > 0 ? -L.ang : 180 + L.ang) * Math.PI / 180, d = 205 * LV[i][3] * (along === undefined ? 0.5 : along); return [L.side * 3 + Math.cos(a) * d, -L.f * h + Math.sin(a) * d]; };
+    g.grow(o.k || 1);
+    g.leafPt = (i, f) => { const L = g.leaves[i], a = L.r * Math.PI / 180, d = 205 * L.s * f; return [S * (L.x + Math.cos(a) * d), S * (L.y * kNow + Math.sin(a) * d)]; };
+    g.topY = () => -330 * kNow * S;
     return g;
   }
   /* a smooth connector from the hub to a card: leaves level, arrives level. g.set(p) draws it; g.pt(u) */
@@ -157,8 +177,8 @@ scene('glucose', S => {
   const sunG = G(root);
   const sunJ = sun(sunG, 32); tr(sunJ, 662, 168);
   const plantG = G(root);
-  const plant = pottedPlant(plantG, { h: 230, pw: 64 }); tr(plant, RX0, 568);
-  const plantSugar = [[0, 0.62], [1, 0.55], [2, 0.6], [3, 0.55], [1, 0.25]].map(([i, f], k) => { const g = miniHex(plantG, 12); const p = plant.leafAt(i, f); return { g, x: RX0 + p[0], y: 568 + p[1], k }; });
+  const plant = introPlant(plantG, { s: 0.7 }); tr(plant, RX0, 568);
+  const plantSugar = [[0, 0.62], [1, 0.55], [2, 0.6], [3, 0.55], [1, 0.25]].map(([i, f], k) => { const g = miniHex(plantG, 12); const p = plant.leafPt(i, f); return { g, x: RX0 + p[0], y: 568 + p[1], k }; });
   const JB = G(root);
   const qMark = T(JB, 1040, 360, '?', { size: 120, weight: 700, anchor: 'middle', fill: C.glucoseLt });
   const usesChip = chip(JB, '4 main uses', { size: 32, fill: C.card2, stroke: C.glucose, color: C.glucoseLt });

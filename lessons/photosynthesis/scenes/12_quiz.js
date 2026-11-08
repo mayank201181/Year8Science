@@ -1,7 +1,7 @@
 /* Quick-fire quiz: five question cards. After each question a countdown ring runs through the silent
    thinking time, then the answer appears with a small picture and a progress dot fills.
    Pictures: carbon dioxide + water; a leaf reflecting green light into an eye; stomata between guard
-   cells; ethanol turning green beside a leaf going pale; a tree drawing carbon dioxide from the air.
+   cells; ethanol turning green beside a leaf going pale; the potted plant drawing carbon dioxide from the air.
    Outro: "Brilliant work!" with a burst of sparks and leaves. */
 scene('quiz', S => {
   const { at, end, mid } = S, root = S.root;
@@ -70,22 +70,44 @@ scene('quiz', S => {
       tr(sR, -78, 30, 0.7 + 0.3 * wave(t, 0.8)); tr(sB, -50, 26, 0.7 + 0.3 * wave(t, 0.8, 0.5));
     };
   }
-  // 3. stomata on the underside of a leaf, each between two guard cells; carbon dioxide drifts in
+  // 3. one stoma seen from the underside of the leaf, between its two guard cells (the leaf chapter's
+  //    close-up, 04_leaf.js); carbon dioxide drifts in through the pore
+  /* a stoma seen from below: two kidney-shaped guard cells around a pore; g.set(open 0..1). Copied from 04_leaf.js */
+  function stomaFace(parent) {
+    const g = G(parent);
+    const pr = rng(77);
+    for (let i = 0; i < 9; i++) {      // walls of the neighbouring epidermis cells
+      const a = -Math.PI / 2 + i * TAU / 9 + (pr() - 0.5) * 0.3, r0 = 104, r1 = 190, pts = [];
+      for (let k = 0; k <= 5; k++) { const rk = lerp(r0, r1, k / 5); pts.push([Math.cos(a + Math.sin(k * 1.7 + i) * 0.08) * rk * 0.82, Math.sin(a + Math.sin(k * 1.7 + i) * 0.08) * rk]); }
+      E('path', { d: openPath(pts), fill: 'none', stroke: '#A9DCC2', 'stroke-width': 3, opacity: 0.55 }, g);
+    }
+    const pore = E('path', { fill: '#06131B', stroke: '#16402B', 'stroke-width': 2 }, g);
+    const cells = [-1, 1].map(s => ({ s, el: E('path', { fill: '#2E7D50', stroke: '#9BEAB2', 'stroke-width': 3.5, 'stroke-linejoin': 'round' }, g), wall: E('path', { fill: 'none', stroke: '#173F2B', 'stroke-width': 6, 'stroke-linecap': 'round' }, g), chl: [0, 1, 2].map(() => E('ellipse', { rx: 6, ry: 9.5, fill: ball(C.chloro, C.chloroDk) }, g)) }));
+    g.set = v => {
+      v = clamp(v);
+      const ho = 96, wo = 68 + 8 * v, hp = 60 + 6 * v, wp = 3 + 19 * v;
+      attr(pore, 'd', `M0,${-hp} Q${-2 * wp},0 0,${hp} Q${2 * wp},0 0,${-hp} Z`);
+      cells.forEach(c => {
+        const s = c.s, k = 4 / 3 * wo;
+        attr(c.el, 'd', `M0,${-ho} C${s * -k},${-ho} ${s * -k},${ho} 0,${ho} L0,${hp} Q${s * -2 * wp},0 0,${-hp} Z`);
+        attr(c.wall, 'd', `M0,${hp} Q${s * -2 * wp},0 0,${-hp}`);
+        c.chl.forEach((e, i) => { const y = (i - 1) * 42, xi = wp * (1 - (y / hp) ** 2), xo = wo * Math.sqrt(Math.max(0, 1 - (y / ho) ** 2)); attr(e, 'cx', -s * (xi + xo) / 2); attr(e, 'cy', y); });
+      });
+    };
+    g.set(0.5);
+    return g;
+  }
   function picStomata(g) {
-    E('rect', { x: -158, y: -78, width: 316, height: 146, rx: 26, fill: 'rgba(91,210,122,0.14)', stroke: C.chloroDk, 'stroke-width': 3 }, g);
-    E('path', { d: 'M-158,-30 H158 M-158,20 H158 M-100,-78 V-30 M-30,-30 V20 M40,-78 V-30 M110,-30 V20 M-80,20 V68 M60,20 V68', stroke: 'rgba(91,210,122,0.28)', 'stroke-width': 2.5, fill: 'none' }, g);
-    [-98, 0, 98].forEach((x, i) => {
-      const s = i === 1 ? 1.15 : 0.9;
-      const st = G(g); tr(st, x, -4, s);
-      E('path', { d: 'M-3,-30 C-30,-30 -32,30 -3,30 C-12,14 -12,-14 -3,-30 Z', fill: ball(C.chloro, C.chloroDk), stroke: C.chloroDk, 'stroke-width': 2.5 }, st);
-      E('path', { d: 'M3,-30 C30,-30 32,30 3,30 C12,14 12,-14 3,-30 Z', fill: ball(C.chloro, C.chloroDk), stroke: C.chloroDk, 'stroke-width': 2.5 }, st);
-      E('path', { d: 'M0,-24 C6,-10 6,10 0,24 C-6,10 -6,-10 0,-24 Z', fill: '#0B1F14' }, st);
-    });
+    const clip = E('clipPath', { id: 'phQuizStoma' }, defs());
+    E('rect', { x: -140, y: -132, width: 280, height: 224, rx: 24 }, clip);
+    card(g, -140, -132, 280, 224, { fill: '#163A2E', stroke: C.line });
+    const faceG = G(g); faceG.setAttribute('clip-path', 'url(#phQuizStoma)');
+    const face = stomaFace(faceG); tr(face, 0, -20, 0.74); face.set(0.85);
     const mols = [0, 1].map(() => molCO2(g, 8));
-    T(g, 0, 104, 'stomata', { size: 30, weight: 700, anchor: 'middle', fill: C.chloro });
+    T(g, 0, 130, 'one stoma', { size: 30, weight: 700, anchor: 'middle', fill: C.chloro });
     return t => mols.forEach((m, k) => {
       const u = ((t * 0.38 * calm) + k / 2) % 1, p = easeIn(u);
-      tr(m, lerp(70 - k * 140, 0, p), lerp(-118, -4, p), 1 - 0.55 * p, 30 * Math.sin(u * 4));
+      tr(m, lerp(k ? -96 : 98, 0, p), lerp(k ? 56 : -104, -20, p), 1 - 0.6 * p, (k ? -50 : 40) + 30 * Math.sin(u * 4));
       op(m, Math.min(1, u * 6) * (1 - P(u, 0.78, 0.22, linear)));
     });
   }
@@ -107,19 +129,54 @@ scene('quiz', S => {
       bs.upd(t * calm);
     };
   }
-  // 5. a tree takes in carbon dioxide from the air
-  function picTree(g) {
-    E('path', { d: 'M-140,112 Q0,100 140,112', stroke: '#7A5538', 'stroke-width': 8, 'stroke-linecap': 'round', fill: 'none' }, g);
-    E('path', { d: 'M-13,110 C-9,74 -11,40 -6,10 L6,10 C11,40 9,74 13,110 Z M-4,40 C-20,30 -30,20 -42,4 M4,30 C20,22 30,10 38,-2', fill: '#8A5A36', stroke: '#8A5A36', 'stroke-width': 7, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);
-    const pts = []; for (let i = 0; i < 14; i++) { const a = i / 14 * TAU, k = i % 2 ? 0.88 : 1.04; pts.push([Math.cos(a) * 86 * k, -36 + Math.sin(a) * 64 * k]); }
-    E('path', { d: closedPath(pts), fill: linGrad('#6FDB8C', '#2B8A4A', true), stroke: '#9EF0B4', 'stroke-width': 2.5 }, g);
-    E('path', { d: 'M-52,-58 q14,-16 30,-5 M6,-74 q14,-16 30,-5 M-30,-22 q14,-16 30,-5 M30,-30 q12,-14 26,-4 M-64,-12 q10,-12 22,-4', fill: 'none', stroke: '#B4F5C6', 'stroke-width': 4, 'stroke-linecap': 'round', opacity: 0.55 }, g);
+  /* ---------- shared art: the lesson's potted plant, exactly as drawn in the intro (00_intro.js) ----------
+     The same code is in every chapter that shows a potted plant. Origin: the middle of the soil surface;
+     about 230 x 545 at o.s = 1. o.s scales it; o.see makes the pot see-through, as in 01_bigidea.js, and
+     g.soil is then the layer for roots and anything else in the soil; o.k stretches the stem (1 = the
+     intro's height); o.ls scales the leaves; o.bare draws the pot only. g.leaves[i] = { el, blade, x, y, r, s }
+     are the intro's four leaves, then its two tip leaves; g.grow(k) restretches the stem; g.leafPt(i, f) is
+     the point f of the way along leaf i and g.topY() the stem tip, both in g's own coordinates. */
+  function introPlant(parent, o) {
+    o = o || {};
+    const g = G(parent), pg = G(g), S = o.s || 1, ls = o.ls || 1, f1 = v => +v.toFixed(1);
+    if (S !== 1) tr(pg, 0, 0, S);
+    if (o.see) {
+      E('path', { d: 'M-110,-6 L110,-6 L110,24 L100,24 L80,164 Q78,176 66,176 L-66,176 Q-78,176 -80,164 L-100,24 L-110,24 Z', fill: linGrad('#7A5538', '#3E2818', true) }, pg);
+      g.soil = G(pg);
+    }
+    const stem = o.bare ? null : E('path', { fill: 'none', stroke: C.stem, 'stroke-width': 12, 'stroke-linecap': 'round' }, pg);
+    g.leaves = (o.bare ? [] : [[-5, -75, 198, 0.62], [5, -135, -24, 0.66], [-4, -205, 206, 0.7], [4, -262, -30, 0.56], [0, -328, -64, 0.2], [0, -328, -116, 0.2]]).map(([x, y, r, s], i) => {
+      const el = leaf(pg, s * ls), parts = Array.from(el.firstChild.children), veins = parts.slice(2);
+      if (i < 4) veins[0].setAttribute('d', veins.map(v => v.getAttribute('d')).join(' '));   // one path for the side veins
+      veins.slice(i < 4 ? 1 : 0).forEach(v => v.remove());                                    // (too small to see on the tip leaves)
+      return { el, blade: parts[0], x, y, r, s: s * ls };
+    });
+    E('path', { d: 'M-100,22 L100,22 L80,164 Q78,176 66,176 L-66,176 Q-78,176 -80,164 Z', fill: o.see ? 'rgba(217,130,74,0.2)' : ball('#D9824A', '#9A4E1E'), stroke: '#F0B48A', 'stroke-width': 3, 'stroke-linejoin': 'round' }, pg);
+    E('rect', { x: -114, y: -6, width: 228, height: 32, rx: 9, fill: o.see ? 'rgba(227,149,94,0.3)' : ball('#E3955E', '#A9592A'), stroke: '#F0B48A', 'stroke-width': 3 }, pg);
+    E('ellipse', { cx: 0, cy: -6, rx: 113, ry: 12, fill: '#EBA26C', stroke: '#F0B48A', 'stroke-width': 3 }, pg);
+    E('ellipse', { cx: 0, cy: -5, rx: 99, ry: 8, fill: C.soil }, pg);
+    let kNow = 1;
+    g.grow = k => {
+      kNow = k;
+      if (stem) stem.setAttribute('d', `M0,-6 C-9,${f1(-90 * k)} 10,${f1(-180 * k)} 0,${f1(-268 * k)} C-4,${f1(-298 * k)} 0,${f1(-318 * k)} 0,${f1(-330 * k)}`);
+      g.leaves.forEach(L => tr(L.el, L.x, L.y * k, 1, L.r));
+    };
+    g.grow(o.k || 1);
+    g.leafPt = (i, f) => { const L = g.leaves[i], a = L.r * Math.PI / 180, d = 205 * L.s * f; return [S * (L.x + Math.cos(a) * d), S * (L.y * kNow + Math.sin(a) * d)]; };
+    g.topY = () => -330 * kNow * S;
+    return g;
+  }
+  // 5. the lesson's potted plant takes in carbon dioxide from the air (its soil gives almost none of the mass)
+  function picPlant(g) {
+    const PS = 0.4, PY = 128 - 176 * PS;                                      // pot bottom at y = 128
+    const plant = introPlant(g, { s: PS }); tr(plant, 0, PY);
     const mols = [0, 1, 2].map(() => molCO2(g, 10));
-    const air = chip(g, 'from the air', { size: 26, fill: C.card2, stroke: C.co2, sw: 2 }); tr(air, -96, -126);
-    const SRC = [[96, -120], [112, -70], [62, -136]];
+    const air = chip(g, 'from the air', { size: 26, fill: C.card2, stroke: C.co2, sw: 2 }); tr(air, -100, -128);
+    const SRC = [[118, -112], [124, -46], [96, -146]];                         // in the air, clear of the answer text
+    const TGT = [plant.leafPt(3, 0.6), plant.leafPt(1, 0.6), plant.leafPt(2, 0.6)].map(p => [p[0], PY + p[1]]);
     return t => mols.forEach((m, k) => {
       const u = ((t * 0.3 * calm) + k / 3) % 1, p = ease(u);
-      tr(m, lerp(SRC[k][0], 14, p), lerp(SRC[k][1], -40, p), 1 - 0.5 * p, u * 120);
+      tr(m, lerp(SRC[k][0], TGT[k][0], p), lerp(SRC[k][1], TGT[k][1], p), 1 - 0.5 * p, u * 120);
       op(m, Math.min(1, u * 6) * (1 - P(u, 0.8, 0.2, linear)));
     });
   }
@@ -130,7 +187,7 @@ scene('quiz', S => {
     { q: 'Why do leaves look green?', a: [[['Chlorophyll ', C.ink], ['reflects', Y, 800]], [['green', GREEN, 800], [' light, and absorbs', C.ink]], [['mainly ', C.ink], ['red', RED, 800], [' and ', C.ink], ['blue', '#7FB0FF', 800], ['.', C.ink]]], pic: picLeaf, small: true },
     { q: 'Through which tiny pores does\ncarbon dioxide get into a leaf?', a: [[['The ', C.ink], ['stomata', Y, 800], ['.', C.ink]]], pic: picStomata },
     { q: 'In the starch test, why is the\nleaf boiled in ethanol?', a: [[['To ', C.ink], ['remove the', Y, 800]], [['chlorophyll', Y, 800], [', so the colour', C.ink]], [['change is easy to see.', C.ink]]], pic: picEthanol, small: true },
-    { q: "Where does most of a plant's\ndry mass come from?", a: [[['Carbon dioxide', C.co2, 800]], [['from the air.', C.ink]], [['Not the soil!', C.bad, 800]]], pic: picTree, small: true },
+    { q: "Where does most of a plant's\ndry mass come from?", a: [[['Carbon dioxide', C.co2, 800]], [['from the air.', C.ink]], [['Not the soil!', C.bad, 800]]], pic: picPlant, small: true },
   ].map((d, i) => {
     const g = G(root);
     const qc = G(g);

@@ -49,6 +49,43 @@ scene('recap', S => {
     E('path', { d: 'M14.67,-23.85 A28,28 0 1 0 14.67,23.85 A24,24 0 1 1 14.67,-23.85 Z', fill: '#E4ECF5', transform: `scale(${k.toFixed(3)})` }, g);
     return g;
   }
+  /* ---------- shared art: the lesson's potted plant, exactly as drawn in the intro (00_intro.js) ----------
+     The same code is in every chapter that shows a potted plant. Origin: the middle of the soil surface;
+     about 230 x 545 at o.s = 1. o.s scales it; o.see makes the pot see-through, as in 01_bigidea.js, and
+     g.soil is then the layer for roots and anything else in the soil; o.k stretches the stem (1 = the
+     intro's height); o.ls scales the leaves; o.bare draws the pot only. g.leaves[i] = { el, blade, x, y, r, s }
+     are the intro's four leaves, then its two tip leaves; g.grow(k) restretches the stem; g.leafPt(i, f) is
+     the point f of the way along leaf i and g.topY() the stem tip, both in g's own coordinates. */
+  function introPlant(parent, o) {
+    o = o || {};
+    const g = G(parent), pg = G(g), S = o.s || 1, ls = o.ls || 1, f1 = v => +v.toFixed(1);
+    if (S !== 1) tr(pg, 0, 0, S);
+    if (o.see) {
+      E('path', { d: 'M-110,-6 L110,-6 L110,24 L100,24 L80,164 Q78,176 66,176 L-66,176 Q-78,176 -80,164 L-100,24 L-110,24 Z', fill: linGrad('#7A5538', '#3E2818', true) }, pg);
+      g.soil = G(pg);
+    }
+    const stem = o.bare ? null : E('path', { fill: 'none', stroke: C.stem, 'stroke-width': 12, 'stroke-linecap': 'round' }, pg);
+    g.leaves = (o.bare ? [] : [[-5, -75, 198, 0.62], [5, -135, -24, 0.66], [-4, -205, 206, 0.7], [4, -262, -30, 0.56], [0, -328, -64, 0.2], [0, -328, -116, 0.2]]).map(([x, y, r, s], i) => {
+      const el = leaf(pg, s * ls), parts = Array.from(el.firstChild.children), veins = parts.slice(2);
+      if (i < 4) veins[0].setAttribute('d', veins.map(v => v.getAttribute('d')).join(' '));   // one path for the side veins
+      veins.slice(i < 4 ? 1 : 0).forEach(v => v.remove());                                    // (too small to see on the tip leaves)
+      return { el, blade: parts[0], x, y, r, s: s * ls };
+    });
+    E('path', { d: 'M-100,22 L100,22 L80,164 Q78,176 66,176 L-66,176 Q-78,176 -80,164 Z', fill: o.see ? 'rgba(217,130,74,0.2)' : ball('#D9824A', '#9A4E1E'), stroke: '#F0B48A', 'stroke-width': 3, 'stroke-linejoin': 'round' }, pg);
+    E('rect', { x: -114, y: -6, width: 228, height: 32, rx: 9, fill: o.see ? 'rgba(227,149,94,0.3)' : ball('#E3955E', '#A9592A'), stroke: '#F0B48A', 'stroke-width': 3 }, pg);
+    E('ellipse', { cx: 0, cy: -6, rx: 113, ry: 12, fill: '#EBA26C', stroke: '#F0B48A', 'stroke-width': 3 }, pg);
+    E('ellipse', { cx: 0, cy: -5, rx: 99, ry: 8, fill: C.soil }, pg);
+    let kNow = 1;
+    g.grow = k => {
+      kNow = k;
+      if (stem) stem.setAttribute('d', `M0,-6 C-9,${f1(-90 * k)} 10,${f1(-180 * k)} 0,${f1(-268 * k)} C-4,${f1(-298 * k)} 0,${f1(-318 * k)} 0,${f1(-330 * k)}`);
+      g.leaves.forEach(L => tr(L.el, L.x, L.y * k, 1, L.r));
+    };
+    g.grow(o.k || 1);
+    g.leafPt = (i, f) => { const L = g.leaves[i], a = L.r * Math.PI / 180, d = 205 * L.s * f; return [S * (L.x + Math.cos(a) * d), S * (L.y * kNow + Math.sin(a) * d)]; };
+    g.topY = () => -330 * kNow * S;
+    return g;
+  }
   /* centres for a row of labels inside a card, spread across maxW */
   function rowX(labels, size, maxW) {
     const ws = labels.map(s => textWidth(s, size, FD, 700));
@@ -98,8 +135,8 @@ scene('recap', S => {
   title(k1, "Cars Won't Go On Grass");
   const car = G(k1.front); tr(car, 196, -76);
   E('path', { d: 'M-58,24 Q-40,14 -22,24 Q-4,14 14,24 Q32,14 50,24 L58,24 L58,32 L-58,32 Z', fill: C.plant, stroke: C.plantDk, 'stroke-width': 2 }, car);
-  E('path', { d: 'M-50,14 L-50,0 Q-49,-8 -38,-10 L-24,-28 Q-19,-33 -10,-33 L16,-33 Q24,-33 29,-27 L40,-11 Q52,-9 52,2 L52,14 Z', fill: ball('#FF7A5C', '#C2453A'), stroke: '#FFC4B5', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, car);
-  E('path', { d: 'M-34,-11 L-21,-27 L-4,-27 L-4,-11 Z M2,-11 L2,-27 L15,-27 Q20,-27 23,-23 L32,-11 Z', fill: '#BFE6F7' }, car);
+  E('path', { d: 'M-50,14 L-50,0 Q-49,-8 -38,-10 L-24,-28 Q-19,-33 -10,-33 L16,-33 Q24,-33 29,-27 L40,-11 Q52,-9 52,2 L52,14 Z', fill: ball('#5B8DEF', '#2A55B5'), stroke: '#B5CEFF', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, car);   // the blue car of 02_equations.js
+  E('path', { d: 'M-34,-11 L-21,-27 L-4,-27 L-4,-11 Z M2,-11 L2,-27 L15,-27 Q20,-27 23,-23 L32,-11 Z', fill: '#CFE6FF' }, car);
   [-28, 30].forEach(x => { E('circle', { cx: x, cy: 15, r: 11, fill: '#2B3540', stroke: '#0F1720', 'stroke-width': 2 }, car); E('circle', { cx: x, cy: 15, r: 4.5, fill: '#C9D6DE' }, car); });
   rich(k1.front, -228, 10, [['c', Y, 800], ['arbon dioxide', C.co2, 700], ' + ', ['w', Y, 800], ['ater', C.water, 700], ' →'], { size: 30 });
   rich(k1.front, -228, 56, [['g', Y, 800], ['lucose', C.glucose, 700], ' + ', ['o', Y, 800], ['xygen', C.oxygen, 700]], { size: 30 });
@@ -115,12 +152,14 @@ scene('recap', S => {
   const grain = G(k2.front); tr(grain, 42, 16);
   E('ellipse', { rx: 17, ry: 13, fill: '#F2EAD3', stroke: '#BCA97A', 'stroke-width': 2.5 }, grain);
   E('path', { d: 'M-10,1 a10,7 0 1,0 20,0 a10,7 0 1,0 -20,0 M-4,1 a4,3 0 1,0 8,0 a4,3 0 1,0 -8,0', fill: 'none', stroke: '#BCA97A', 'stroke-width': 2 }, grain);
-  const wall = G(k2.front); tr(wall, -208, 74);
-  E('rect', { x: -16, y: -16, width: 32, height: 32, rx: 6, fill: 'rgba(91,210,122,0.18)', stroke: C.chloro, 'stroke-width': 5 }, wall);
-  E('path', { d: 'M-8,-4 a4,3 0 1,0 8,0 a4,3 0 1,0 -8,0 M2,6 a4,3 0 1,0 8,0 a4,3 0 1,0 -8,0', fill: C.chloroDk }, wall);
-  const beads = G(k2.front); tr(beads, 42, 74);
-  E('path', { d: 'M-18,6 L-9,-6 L0,6 L9,-6 L18,6', fill: 'none', stroke: '#9DB0BF', 'stroke-width': 3 }, beads);
-  [['#B48CFF', -18, 6], ['#FF8A94', -9, -6], ['#56D69B', 0, 6], ['#FFC247', 9, -6], ['#4CC9F0', 18, 6]].forEach(([c, x, y]) => E('circle', { cx: x, cy: y, r: 6.5, fill: ball(c, c) }, beads));
+  // the cellulose (cell wall of fibres) and protein (bead chain) icons of the uses-of-glucose cards, 06_glucose.js
+  const wall = G(k2.front); tr(wall, -208, 74, 0.68);
+  E('rect', { x: -26, y: -21, width: 52, height: 42, rx: 9, fill: 'rgba(91,210,122,0.12)', stroke: '#7FE09A', 'stroke-width': 6 }, wall);
+  E('path', { d: 'M-26,-8 L-13,-21 M-26,8 L3,-21 M-20,21 L19,-21 M-4,21 L26,-11 M12,21 L26,7', stroke: '#C9F2D3', 'stroke-width': 2, opacity: 0.7 }, wall);
+  const beads = G(k2.front); tr(beads, 40, 74, 0.72);
+  const BP2 = [[-24, 10], [-12, -6], [2, 8], [15, -8], [26, 6]];
+  E('path', { d: 'M' + BP2.map(p => p.join(',')).join(' L'), fill: 'none', stroke: '#E9EEF2', 'stroke-width': 3, opacity: 0.7 }, beads);
+  BP2.forEach((p, k) => E('circle', { cx: p[0], cy: p[1], r: 8.5, fill: ball(['#FF8FB1', '#7AD3FF', '#FFD166', '#9BE38A', '#C9A0FF'][k], '#55606B') }, beads));
   [[-180, 26, 'respiration'], [70, 26, 'starch'], [-180, 84, 'cellulose'], [70, 84, 'proteins']].forEach(([x, y, w]) => rich(k2.front, x, y, [[w[0], Y, 800], [w.slice(1), C.ink]], { size: 28, weight: 700 }));
 
   // 3. Light Cools Things: the three limiting factors
@@ -234,10 +273,7 @@ scene('recap', S => {
     trapGroup('Plants only respire at night', ['Plants respire ', ['all the time', Y, 800]], g => {
       const sun = sunIcon(g, 24); tr(sun, -150, -8);
       const moon = moonIcon(g, 28); tr(moon, 150, -8);
-      const plant = G(g); tr(plant, 0, 8);
-      E('path', { d: 'M-26,20 L26,20 L20,52 L-20,52 Z', fill: '#B5653A', stroke: '#7F4022', 'stroke-width': 3 }, plant);
-      E('path', { d: 'M0,20 C0,0 -2,-18 0,-40', stroke: C.stem, 'stroke-width': 6, fill: 'none', 'stroke-linecap': 'round' }, plant);
-      E('path', { d: 'M0,-10 C-24,-14 -36,-30 -40,-44 C-22,-42 -6,-30 0,-10 Z M0,-24 C22,-30 32,-46 34,-58 C16,-54 4,-42 0,-24 Z', fill: C.plant, stroke: C.plantDk, 'stroke-width': 2 }, plant);
+      const plant = introPlant(g, { s: 0.21 }); tr(plant, 0, 62 - 176 * 0.21);     // pot bottom at y = 62
       const tk1 = tick(g, 11); tr(tk1, -150, 56);
       const tk2 = tick(g, 11); tr(tk2, 150, 56);
       const sp = spark(g, 10, { seed: 4 }); tr(sp, 0, -20);

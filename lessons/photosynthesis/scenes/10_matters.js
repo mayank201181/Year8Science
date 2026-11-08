@@ -63,24 +63,59 @@ scene('matters', S => {
     });
     return E('path', { d, fill: linGrad('#86E89F', '#2C8C4C', true), stroke: '#2C8C4C', 'stroke-width': 1.5, 'stroke-linejoin': 'round' }, parent);
   }
-  /* a broad tree, origin at the foot of the trunk; about 280 wide and 360 tall */
+  /* a broad tree in the lesson's plant style: a trunk and branches (the willow's colours, 07_minerals.js)
+     under a crown of the kit leaf (00_intro.js's leaves: same shape, fill and midrib; one group per leaf,
+     without the tiny side veins). Origin at the foot of the trunk; about 300 wide and 370 tall. */
   function bigTree(parent) {
     const g = G(parent);
-    E('path', { d: 'M-24,0 C-16,-60 -20,-120 -10,-176 L10,-176 C20,-120 16,-60 24,0 Z M-8,-110 C-36,-128 -56,-150 -74,-182 M6,-130 C34,-146 52,-168 66,-196', fill: '#8A5A36', stroke: '#8A5A36', 'stroke-width': 10, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);
-    const pts = []; for (let i = 0; i < 18; i++) { const a = i / 18 * TAU, k = i % 2 ? 0.9 : 1.03; pts.push([Math.cos(a) * 140 * k, -252 + Math.sin(a) * 104 * k]); }
-    E('path', { d: closedPath(pts), fill: linGrad('#6FDB8C', '#2B8A4A', true), stroke: '#9EF0B4', 'stroke-width': 3 }, g);
-    E('path', { d: 'M-90,-290 q20,-22 44,-7 M-10,-320 q20,-22 44,-7 M60,-282 q18,-20 40,-6 M-60,-236 q20,-22 44,-7 M22,-228 q20,-22 44,-7 M-112,-214 q16,-18 36,-5', fill: 'none', stroke: '#B4F5C6', 'stroke-width': 6, 'stroke-linecap': 'round', opacity: 0.5 }, g);
+    E('path', { d: 'M-6,-150 C-30,-176 -62,-196 -98,-214 M5,-160 C30,-188 62,-206 98,-222 M-2,-178 C-10,-220 -18,-262 -30,-300 M2,-178 C10,-222 20,-266 34,-304', fill: 'none', stroke: '#7A563A', 'stroke-width': 11, 'stroke-linecap': 'round' }, g);
+    E('path', { d: 'M-22,4 C-17,-60 -18,-120 -10,-186 L10,-186 C18,-120 17,-60 22,4 Z', fill: ball('#9A7050', '#5A3E2A'), stroke: '#6B4A33', 'stroke-width': 2 }, g);
+    E('ellipse', { cx: 0, cy: -262, rx: 118, ry: 84, fill: '#1F6B39' }, g);
+    const LEAF_PATH = 'M0,0 C40,-60 150,-70 205,0 C150,70 40,60 0,0 Z';
+    [[-96, -214, 196, 0.48], [98, -222, -16, 0.48], [-30, -300, 244, 0.5], [34, -304, -64, 0.5], [-70, -250, 214, 0.56], [72, -258, -34, 0.56],
+      [-2, -296, -92, 0.46], [-40, -228, 176, 0.5], [44, -234, 4, 0.5], [-16, -262, 232, 0.5], [18, -266, -52, 0.5], [0, -232, 200, 0.44], [6, -236, -20, 0.44]]
+      .forEach(([x, y, r, s]) => {
+        const lg = G(g); tr(lg, x, y, s, r);
+        E('path', { d: LEAF_PATH, fill: ball(C.plant, C.plantDk), stroke: C.plantDk, 'stroke-width': 3 }, lg);
+        E('path', { d: 'M-10,0 L200,0', stroke: '#C9F2D3', 'stroke-width': 4, 'stroke-linecap': 'round', opacity: 0.8 }, lg);
+      });
     return g;
   }
-  /* shared art: the potted plant (stem, kit leaves, terracotta pot, soil); origin at the bottom of the pot */
-  function potPlant(parent) {
-    const g = G(parent);
-    E('path', { d: 'M0,-96 C-8,-170 10,-250 0,-330 C-3,-348 1,-362 0,-372', fill: 'none', stroke: C.stem, 'stroke-width': 11, 'stroke-linecap': 'round' }, g);
-    [[-3, -160, 196, 0.62], [3, -208, -18, 0.62], [-1, -272, 208, 0.52], [1, -316, -32, 0.48]].forEach(([x, y, r, s]) => tr(leaf(g, s), x, y, 1, r));
-    tr(leaf(g, 0.34), 0, -366, 1, -76);
-    E('path', { d: 'M-50,0 L-62,-84 L62,-84 L50,0 Q49,6 42,6 L-42,6 Q-49,6 -50,0 Z', fill: ball('#D9824A', '#9A4E1E'), stroke: '#F0B48A', 'stroke-width': 3, 'stroke-linejoin': 'round' }, g);
-    E('rect', { x: -72, y: -102, width: 144, height: 24, rx: 7, fill: ball('#E3925A', '#A4552A'), stroke: '#F0B48A', 'stroke-width': 3 }, g);
-    E('rect', { x: -63, y: -108, width: 126, height: 10, rx: 5, fill: C.soil }, g);
+  /* ---------- shared art: the lesson's potted plant, exactly as drawn in the intro (00_intro.js) ----------
+     The same code is in every chapter that shows a potted plant. Origin: the middle of the soil surface;
+     about 230 x 545 at o.s = 1. o.s scales it; o.see makes the pot see-through, as in 01_bigidea.js, and
+     g.soil is then the layer for roots and anything else in the soil; o.k stretches the stem (1 = the
+     intro's height); o.ls scales the leaves; o.bare draws the pot only. g.leaves[i] = { el, blade, x, y, r, s }
+     are the intro's four leaves, then its two tip leaves; g.grow(k) restretches the stem; g.leafPt(i, f) is
+     the point f of the way along leaf i and g.topY() the stem tip, both in g's own coordinates. */
+  function introPlant(parent, o) {
+    o = o || {};
+    const g = G(parent), pg = G(g), S = o.s || 1, ls = o.ls || 1, f1 = v => +v.toFixed(1);
+    if (S !== 1) tr(pg, 0, 0, S);
+    if (o.see) {
+      E('path', { d: 'M-110,-6 L110,-6 L110,24 L100,24 L80,164 Q78,176 66,176 L-66,176 Q-78,176 -80,164 L-100,24 L-110,24 Z', fill: linGrad('#7A5538', '#3E2818', true) }, pg);
+      g.soil = G(pg);
+    }
+    const stem = o.bare ? null : E('path', { fill: 'none', stroke: C.stem, 'stroke-width': 12, 'stroke-linecap': 'round' }, pg);
+    g.leaves = (o.bare ? [] : [[-5, -75, 198, 0.62], [5, -135, -24, 0.66], [-4, -205, 206, 0.7], [4, -262, -30, 0.56], [0, -328, -64, 0.2], [0, -328, -116, 0.2]]).map(([x, y, r, s], i) => {
+      const el = leaf(pg, s * ls), parts = Array.from(el.firstChild.children), veins = parts.slice(2);
+      if (i < 4) veins[0].setAttribute('d', veins.map(v => v.getAttribute('d')).join(' '));   // one path for the side veins
+      veins.slice(i < 4 ? 1 : 0).forEach(v => v.remove());                                    // (too small to see on the tip leaves)
+      return { el, blade: parts[0], x, y, r, s: s * ls };
+    });
+    E('path', { d: 'M-100,22 L100,22 L80,164 Q78,176 66,176 L-66,176 Q-78,176 -80,164 Z', fill: o.see ? 'rgba(217,130,74,0.2)' : ball('#D9824A', '#9A4E1E'), stroke: '#F0B48A', 'stroke-width': 3, 'stroke-linejoin': 'round' }, pg);
+    E('rect', { x: -114, y: -6, width: 228, height: 32, rx: 9, fill: o.see ? 'rgba(227,149,94,0.3)' : ball('#E3955E', '#A9592A'), stroke: '#F0B48A', 'stroke-width': 3 }, pg);
+    E('ellipse', { cx: 0, cy: -6, rx: 113, ry: 12, fill: '#EBA26C', stroke: '#F0B48A', 'stroke-width': 3 }, pg);
+    E('ellipse', { cx: 0, cy: -5, rx: 99, ry: 8, fill: C.soil }, pg);
+    let kNow = 1;
+    g.grow = k => {
+      kNow = k;
+      if (stem) stem.setAttribute('d', `M0,-6 C-9,${f1(-90 * k)} 10,${f1(-180 * k)} 0,${f1(-268 * k)} C-4,${f1(-298 * k)} 0,${f1(-318 * k)} 0,${f1(-330 * k)}`);
+      g.leaves.forEach(L => tr(L.el, L.x, L.y * k, 1, L.r));
+    };
+    g.grow(o.k || 1);
+    g.leafPt = (i, f) => { const L = g.leaves[i], a = L.r * Math.PI / 180, d = 205 * L.s * f; return [S * (L.x + Math.cos(a) * d), S * (L.y * kNow + Math.sin(a) * d)]; };
+    g.topY = () => -330 * kNow * S;
     return g;
   }
   /* a gas-exchange arrow (quadratic) carrying molecules; g.width(w) sets its thickness, g.flow(t, speed, on) */
@@ -283,11 +318,11 @@ scene('matters', S => {
   E('path', { d: 'M0,-36 A36,36 0 1 0 0,36 A24,36 0 0 1 0,-36 Z', fill: '#F3F0D8', stroke: '#FFFBE6', 'stroke-width': 2 }, moonG);
   const sunE = sun(skyG, 42);
   E('path', { d: `M${PX},588 H${PX + PW} V629 Q${PX + PW},655 ${PX + PW - 26},655 H${PX + 26} Q${PX},655 ${PX},629 Z`, fill: linGrad('#7A5538', '#4A3120', true) }, Eg);
-  const plantE = potPlant(Eg); tr(plantE, 600, 606, 0.86);
-  const psIn = gasFlow(Eg, [110, 352], [470, 420], -36, C.plant, g => co2m(g, 11), 3);
-  const psOut = gasFlow(Eg, [730, 420], [1090, 352], -36, C.plant, g => o2m(g, 12), 3);
-  const rIn = gasFlow(Eg, [130, 494], [478, 472], 22, RED, g => o2m(g, 11), 2);
-  const rOut = gasFlow(Eg, [722, 472], [1070, 494], 22, RED, g => co2m(g, 10), 2);
+  const plantE = introPlant(Eg, { s: 0.66 }); tr(plantE, 600, 606 - 176 * 0.66);     // pot bottom at y = 606
+  const psIn = gasFlow(Eg, [110, 352], [486, 412], -36, C.plant, g => co2m(g, 11), 3);
+  const psOut = gasFlow(Eg, [708, 404], [1090, 352], -36, C.plant, g => o2m(g, 12), 3);
+  const rIn = gasFlow(Eg, [130, 494], [492, 468], 22, RED, g => o2m(g, 11), 2);
+  const rOut = gasFlow(Eg, [708, 468], [1070, 494], 22, RED, g => co2m(g, 10), 2);
   const gasLbl = [[150, 318, 'CO₂ in', C.co2, C.plant], [1050, 318, 'O₂ out', O2T, C.plant], [170, 542, 'O₂ in', O2T, RED], [1030, 542, 'CO₂ out', C.co2, RED]].map(([x, y, s, col, stroke]) => {
     const p = chip(Eg, s, { size: 26, fill: C.card, stroke, sw: 3, color: col });
     tr(p, x, y);
