@@ -3,14 +3,15 @@ import type { TopicExtras } from "../types";
 // Engagement extras for photosynthesis. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const photosynthesisExtras: TopicExtras = {
+  lesson: { href: "/lessons/photosynthesis.html", minutes: 15, chapters: 13 },
   interactive: "photosynthesis-rate",
-  hook: "Almost every atom of your body was once floating in the air as an invisible gas — until a plant grabbed it using nothing but sunlight. How can a silent leaf build solid food out of air and water, with no mouth, no muscles and no machinery?",
+  hook: "Almost every carbon atom in your body was once floating in the air as an invisible gas — until a plant grabbed it using nothing but sunlight. How can a silent leaf build solid food out of air and water, with no mouth, no muscles and no machinery?",
   didYouKnow: [
     "The oxygen in roughly every second breath you take was made by microscopic plant-like life in the ocean, not by trees on land.",
     "A single large tree can pull more than 20 kilograms of carbon dioxide out of the air in one year and lock it away as wood.",
     "Leaves look green because chlorophyll throws AWAY green light — it absorbs red and blue and reflects the green it can't use, so green is the colour a plant rejects.",
     "Photosynthesis is incredibly slow to capture energy: a leaf turns less than about 1% of the sunlight that lands on it into chemical energy, yet that tiny fraction feeds nearly all life on Earth.",
-    "The first organisms to release oxygen poisoned the early planet — the build-up of this 'waste gas' billions of years ago caused one of the biggest mass extinctions ever, the Great Oxidation Event.",
+    "The first organisms to release oxygen poisoned the early planet — the build-up of this 'waste gas' billions of years ago, the Great Oxidation Event, may have caused one of the biggest mass extinctions ever.",
   ],
   experiments: [
     {

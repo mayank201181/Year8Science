@@ -3,6 +3,7 @@ import type { TopicExtras } from "../types";
 // Engagement extras for acids-metals. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const acidsMetalsExtras: TopicExtras = {
+  lesson: { href: "/lessons/acids-metals.html", minutes: 16, chapters: 15 },
   interactive: "ph-slider",
   hook: "Chop a red cabbage and you have accidentally made a spy gadget: a liquid that flashes pink, purple or green depending on what secret it touches. What is it actually detecting, and could you use it to unmask the hidden chemicals in your own kitchen?",
   didYouKnow: [
@@ -10,7 +11,7 @@ export const acidsMetalsExtras: TopicExtras = {
     "Diluting an acid and neutralising it are different: adding water lowers its concentration, while adding a suitable base causes a chemical reaction.",
     "The pH scale is logarithmic: lemon juice (pH 2) is about ten times more acidic than orange juice (pH 3) and a hundred times more acidic than tomato juice (pH 4).",
     "Some metals are so reactive that they fizz, hiss or even catch fire in plain water — caesium can explode the instant it touches a puddle.",
-    "Indicators like the dye in red cabbage are made by plants partly to attract insects, but they happen to change colour when acids or alkalis tweak their molecular shape.",
+    "Indicators like the dye in red cabbage are pigments plants make for their own reasons (in flowers, the same kind of pigment helps attract insects), but they happen to change colour when acids or alkalis tweak their molecular shape.",
   ],
   experiments: [
     {
@@ -67,7 +68,7 @@ export const acidsMetalsExtras: TopicExtras = {
   <text x="405" y="130" font-family="sans-serif" font-size="10" text-anchor="middle" fill="#374151">bleach</text>
 </svg>`,
       caption:
-        "Low numbers are acids, 7 is neutral, and high numbers are alkalis — each step of 1 means a tenfold change in strength.",
+        "Low numbers are acids, 7 is neutral, and high numbers are alkalis — each step of 1 means a tenfold change in hydrogen-ion concentration.",
     },
     {
       title: "Acid plus metal reaction",

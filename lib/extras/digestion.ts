@@ -3,11 +3,12 @@ import type { TopicExtras } from "../types";
 // Engagement extras for digestion. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const digestionExtras: TopicExtras = {
+  lesson: { href: "/lessons/digestion.html", minutes: 15, chapters: 12 },
   interactive: "digestion-lab",
-  hook: "Right now, coiled up inside you, is a tube about the length of a small car turned on its end — and a sandwich you ate at lunch is being taken apart, molecule by molecule, by acid strong enough to dissolve metal. So why doesn't your stomach simply digest itself?",
+  hook: "Right now, coiled up inside you, is a tube about as long as two cars parked end to end — and a sandwich you ate at lunch is being taken apart, molecule by molecule, in acid strong enough to dissolve metal. So why doesn't your stomach simply digest itself?",
   didYouKnow: [
-    "Your small intestine is about 6–7 metres long, but it folds up to fit inside you — and its inner wall has so many tiny finger-like folds that, spread flat, the lining would cover an area roughly the size of a tennis court.",
-    "Stomach acid is hydrochloric acid with a pH of around 1.5–2, strong enough to dissolve a razor blade over time — your stomach protects itself by making a fresh layer of slimy mucus every few days.",
+    "Your small intestine is about 6–7 metres long, but it folds up to fit inside you — and its inner wall has so many tiny finger-like folds that, spread flat, the lining would cover about 30 square metres, roughly half a badminton court.",
+    "Stomach acid is hydrochloric acid with a pH of around 1.5–2, strong enough to dissolve a razor blade over time — your stomach protects itself with a thick layer of slimy mucus, and replaces the cells of its lining every few days.",
     "It takes food roughly 24–72 hours to travel all the way through you, but it leaves your stomach in just 2–4 hours.",
     "The muscular squeezing called peristalsis means you could swallow and digest a meal even while hanging upside down — gravity is not what moves food along.",
     "You make around 1–1.5 litres of saliva every single day, and it already contains an enzyme (amylase) that starts breaking down starch before food even leaves your mouth.",

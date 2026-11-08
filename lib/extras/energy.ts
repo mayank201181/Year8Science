@@ -3,6 +3,7 @@ import type { TopicExtras } from "../types";
 // Engagement extras for energy. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const energyExtras: TopicExtras = {
+  lesson: { href: "/lessons/energy.html", minutes: 14, chapters: 11 },
   interactive: "energy-stores",
   hook: "Every single thing that has ever happened — your heartbeat, a lightning bolt, a rocket launch, the Sun shining — is energy quietly moving from one store to another. And here is the astonishing part: not one single joule of it has ever been created or destroyed since the universe began. So where does all the energy you 'use up' today actually go?",
   didYouKnow: [

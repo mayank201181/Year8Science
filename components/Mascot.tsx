@@ -14,6 +14,8 @@ export function Mascot() {
   const pathname = usePathname();
 
   useEffect(() => {
+    // A hydration flag: render nothing on the server, then show once mounted in the browser.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHydrated(true);
     // Show on first mount unless dismissed earlier this session.
     try {
@@ -56,7 +58,7 @@ export function Mascot() {
   if (!hydrated || pathname?.startsWith("/parent")) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 print:hidden">
+    <div data-mascot className="fixed bottom-4 right-4 z-50 print:hidden">
       {open ? (
         <div className="flex max-w-xs items-end gap-2 animate-pop">
           <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-indigo-600 text-2xl shadow-lg">🧑‍🔬</div>

@@ -1,0 +1,919 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "intro",
+   "title": "Same temperature, different feel",
+   "short": "Intro",
+   "card": false,
+   "start": 0.0,
+   "end": 28.344,
+   "lines": [
+    {
+     "id": "hook",
+     "start": 0.6,
+     "end": 7.448,
+     "cap": "Step out of bed onto a tiled floor and it feels **freezing**. Step onto the wooden floor next door, and it feels **cosy**."
+    },
+    {
+     "id": "same",
+     "start": 7.948,
+     "end": 13.623,
+     "cap": "Yet a thermometer says they're **exactly the same temperature**. So why does one feel so much colder?"
+    },
+    {
+     "id": "def",
+     "start": 14.123,
+     "end": 19.605,
+     "cap": "The answer is all about **heat**: energy that always flows from hotter things to colder ones."
+    },
+    {
+     "id": "plan",
+     "start": 20.105,
+     "end": 27.444,
+     "cap": "Let's see how heat differs from temperature, follow it by **conduction**, **convection** and **radiation**, and learn how to trap it."
+    }
+   ]
+  },
+  {
+   "id": "temp",
+   "title": "Heat is not the same as temperature",
+   "short": "Heat vs temperature",
+   "card": true,
+   "start": 28.344,
+   "end": 103.151,
+   "lines": [
+    {
+     "id": "mix",
+     "start": 30.144,
+     "end": 34.069,
+     "cap": "First, two words that people often mix up: **heat** and **temperature**."
+    },
+    {
+     "id": "temp",
+     "start": 34.569,
+     "end": 40.031,
+     "cap": "**Temperature** is **how hot** something is. It's measured with a **thermometer**, in **degrees Celsius**, °C."
+    },
+    {
+     "id": "heat",
+     "start": 40.531,
+     "end": 46.141,
+     "cap": "**Heat** is a type of **energy**, called **thermal energy**. Like all energy, it's measured in **joules**, J."
+    },
+    {
+     "id": "spark",
+     "start": 46.641,
+     "end": 57.137,
+     "cap": "A sparkler's sparks are over **1000 °C**, yet one landing on your hand barely stings. Each spark is so tiny, it carries almost **no thermal energy**."
+    },
+    {
+     "id": "bath",
+     "start": 57.637,
+     "end": 65.36,
+     "cap": "A warm bath is only about **40 °C**, but there's so much water that it holds a **huge** amount of thermal energy."
+    },
+    {
+     "id": "big",
+     "start": 65.86,
+     "end": 70.319,
+     "cap": "So a big, warm object can hold **more heat** than a small, very hot one."
+    },
+    {
+     "id": "rule",
+     "start": 70.819,
+     "end": 76.813,
+     "cap": "Now the golden rule: thermal energy always flows from **hotter** to **colder**. Never the other way."
+    },
+    {
+     "id": "equal",
+     "start": 77.613,
+     "end": 82.84,
+     "cap": "It keeps flowing until both are at the **same temperature**. That's called **thermal equilibrium**."
+    },
+    {
+     "id": "ice",
+     "start": 83.34,
+     "end": 90.231,
+     "cap": "So when you hold an ice cube, cold doesn't flow into your hand. **Thermal energy** flows **out** of your hand, into the ice."
+    },
+    {
+     "id": "zero",
+     "start": 90.731,
+     "end": 102.251,
+     "cap": "Cold just means less thermal energy. The coldest possible temperature is **absolute zero**, about **−273 °C**, where particles barely move."
+    }
+   ]
+  },
+  {
+   "id": "particles",
+   "title": "Particles and thermal energy",
+   "short": "Particles",
+   "card": true,
+   "start": 103.151,
+   "end": 170.693,
+   "lines": [
+    {
+     "id": "zoom",
+     "start": 104.951,
+     "end": 111.351,
+     "cap": "Zoom right in. Everything is made of tiny **particles**, atoms and molecules, and they're **always moving**."
+    },
+    {
+     "id": "kinetic",
+     "start": 111.851,
+     "end": 114.944,
+     "cap": "The energy of their movement is called **kinetic energy**."
+    },
+    {
+     "id": "total",
+     "start": 115.444,
+     "end": 120.671,
+     "cap": "Add up the kinetic energy of **all** the particles in an object, and you get its **thermal energy**."
+    },
+    {
+     "id": "average",
+     "start": 121.171,
+     "end": 126.077,
+     "cap": "**Temperature** is different: it measures the **average** kinetic energy of the particles."
+    },
+    {
+     "id": "faster",
+     "start": 126.577,
+     "end": 131.399,
+     "cap": "Heat something, and you give its particles **more kinetic energy**, so they move **faster**."
+    },
+    {
+     "id": "solid",
+     "start": 132.199,
+     "end": 138.599,
+     "cap": "In a **solid**, particles **vibrate** about fixed positions. Heating makes them vibrate faster and further."
+    },
+    {
+     "id": "liquid",
+     "start": 139.099,
+     "end": 144.027,
+     "cap": "In a **liquid**, they're close together but can **move past** each other. Heating speeds them up."
+    },
+    {
+     "id": "gas",
+     "start": 144.527,
+     "end": 150.137,
+     "cap": "In a **gas**, they're far apart and move **freely**. Heating makes the particles move even faster."
+    },
+    {
+     "id": "cups",
+     "start": 150.637,
+     "end": 156.099,
+     "cap": "A cup and a bucket of water at the **same temperature** have particles with the same average energy..."
+    },
+    {
+     "id": "bucket",
+     "start": 156.599,
+     "end": 160.908,
+     "cap": "...but the bucket has far more particles, so it holds far **more thermal energy**."
+    },
+    {
+     "id": "jiggle",
+     "start": 161.708,
+     "end": 169.793,
+     "cap": "To remember it: **Joules Jiggle, Celsius Counts hotness**. Heat, in joules, is all that jiggling. Celsius counts how hot."
+    }
+   ]
+  },
+  {
+   "id": "conduction",
+   "title": "Conduction: passing energy along",
+   "short": "Conduction",
+   "card": true,
+   "start": 170.693,
+   "end": 261.099,
+   "lines": [
+    {
+     "id": "first",
+     "start": 172.493,
+     "end": 178.595,
+     "cap": "The first way thermal energy travels is **conduction**. It's the main way energy moves through **solids**."
+    },
+    {
+     "id": "end",
+     "start": 179.095,
+     "end": 183.681,
+     "cap": "Heat one end of a metal bar, and the particles there start to **vibrate faster**."
+    },
+    {
+     "id": "bump",
+     "start": 184.181,
+     "end": 189.387,
+     "cap": "They bump into their **neighbours** and pass the energy along, like people jostling in a crowd."
+    },
+    {
+     "id": "along",
+     "start": 190.287,
+     "end": 195.343,
+     "cap": "Step by step, the energy reaches the **cold end**, but the bar itself doesn't move."
+    },
+    {
+     "id": "metals",
+     "start": 196.143,
+     "end": 203.311,
+     "cap": "**Metals** are the best conductors, because they have **free electrons**: tiny charged particles that move all through the metal."
+    },
+    {
+     "id": "zip",
+     "start": 203.811,
+     "end": 210.573,
+     "cap": "Free electrons race from the hot end to the cold end, carrying energy far faster than vibrations alone."
+    },
+    {
+     "id": "conductors",
+     "start": 211.373,
+     "end": 217.133,
+     "cap": "**Conductors** let thermal energy pass easily: metals like **copper**, **aluminium** and **iron**."
+    },
+    {
+     "id": "insulators",
+     "start": 217.633,
+     "end": 224.652,
+     "cap": "**Insulators** slow it down: **wood**, **plastic**, **glass**, **wool** and **air**. Many insulators work by trapping air."
+    },
+    {
+     "id": "floor",
+     "start": 225.152,
+     "end": 232.256,
+     "cap": "Now the mystery from the start. The tiles and the wood are the **same temperature**, but tiles are much better **conductors**."
+    },
+    {
+     "id": "feet",
+     "start": 232.756,
+     "end": 239.199,
+     "cap": "They carry thermal energy out of your warm feet much **faster**. The chill you feel is your own heat escaping."
+    },
+    {
+     "id": "spoon",
+     "start": 239.699,
+     "end": 246.717,
+     "cap": "Metal feels cold for the same reason. It isn't colder than wood: it just conducts heat out of your hand faster."
+    },
+    {
+     "id": "ice",
+     "start": 247.217,
+     "end": 253.724,
+     "cap": "Try it at home: put ice cubes on a **metal** tray, a **wooden** board and a **plastic** plate, all at the same moment."
+    },
+    {
+     "id": "melts",
+     "start": 254.224,
+     "end": 259.899,
+     "cap": "The ice on the metal melts **first**, because metal conducts thermal energy **into** the ice fastest."
+    }
+   ]
+  },
+  {
+   "id": "convection",
+   "title": "Convection: currents in fluids",
+   "short": "Convection",
+   "card": true,
+   "start": 261.099,
+   "end": 343.268,
+   "lines": [
+    {
+     "id": "second",
+     "start": 262.899,
+     "end": 268.531,
+     "cap": "The second way is **convection**. It happens in **fluids**: liquids and gases, which can flow."
+    },
+    {
+     "id": "moves",
+     "start": 269.031,
+     "end": 273.553,
+     "cap": "In convection, the warm fluid itself **moves**, carrying its energy with it."
+    },
+    {
+     "id": "pan",
+     "start": 274.053,
+     "end": 280.56,
+     "cap": "Heat a pan of water from below. The water at the bottom warms up, its particles spread out, and it **expands**."
+    },
+    {
+     "id": "dense",
+     "start": 281.06,
+     "end": 284.345,
+     "cap": "Now it's **less dense** than the water around it, so it **rises**."
+    },
+    {
+     "id": "sinks",
+     "start": 285.145,
+     "end": 289.327,
+     "cap": "Cooler, **denser** water **sinks** to take its place, and gets heated in turn."
+    },
+    {
+     "id": "cools",
+     "start": 289.827,
+     "end": 293.795,
+     "cap": "At the top, the warm water cools, becomes denser, and sinks again."
+    },
+    {
+     "id": "loop",
+     "start": 294.295,
+     "end": 298.647,
+     "cap": "Round and round it goes: a circulating loop called a **convection current**."
+    },
+    {
+     "id": "lifts",
+     "start": 301.147,
+     "end": 309.531,
+     "cap": "Remember: **Hot Air Lifts**, just like a hot-air balloon. In an exam, say warm fluid rises because it's **less dense**, not just 'lighter'."
+    },
+    {
+     "id": "solids",
+     "start": 310.031,
+     "end": 313.721,
+     "cap": "Convection **can't** happen in solids, because solids can't flow."
+    },
+    {
+     "id": "radiator",
+     "start": 314.221,
+     "end": 321.475,
+     "cap": "A **radiator** warms the air beside it. The warm air rises, and a convection current carries the warmth around the room."
+    },
+    {
+     "id": "land",
+     "start": 321.975,
+     "end": 327.351,
+     "cap": "**Sea breezes** are convection too. On a sunny day, the **land** warms up faster than the sea."
+    },
+    {
+     "id": "breeze",
+     "start": 327.851,
+     "end": 334.187,
+     "cap": "Warm air rises over the land, and cooler air flows in from the sea to take its place: a **sea breeze**."
+    },
+    {
+     "id": "snake",
+     "start": 334.987,
+     "end": 342.368,
+     "cap": "Try it at home: hang a paper spiral above a warm radiator, never a flame. The rising warm air makes it **spin**."
+    }
+   ]
+  },
+  {
+   "id": "radiation",
+   "title": "Radiation: heat that travels as waves",
+   "short": "Radiation",
+   "card": true,
+   "start": 343.268,
+   "end": 428.472,
+   "lines": [
+    {
+     "id": "third",
+     "start": 345.068,
+     "end": 352.855,
+     "cap": "The third way is completely different: **thermal radiation**, also called **infrared radiation**. It travels as **waves**."
+    },
+    {
+     "id": "waves",
+     "start": 353.355,
+     "end": 362.464,
+     "cap": "These are **electromagnetic waves**, like light. They need **no particles**, so they're the **only** way energy can cross a **vacuum**: totally empty space."
+    },
+    {
+     "id": "sun",
+     "start": 362.964,
+     "end": 369.321,
+     "cap": "That's how the Sun's energy crosses about **150 million kilometres** of empty space to reach us."
+    },
+    {
+     "id": "fire",
+     "start": 370.121,
+     "end": 374.367,
+     "cap": "It's also why you feel the warmth of a fire on your face from across the room."
+    },
+    {
+     "id": "all",
+     "start": 374.867,
+     "end": 381.437,
+     "cap": "**All** objects give out infrared radiation, even you. The **hotter** an object is, the **more** it gives out."
+    },
+    {
+     "id": "dark",
+     "start": 381.937,
+     "end": 388.188,
+     "cap": "The surface matters. **Dark, matt** surfaces are the **best emitters** and the **best absorbers** of radiation."
+    },
+    {
+     "id": "shiny",
+     "start": 388.688,
+     "end": 394.576,
+     "cap": "**Light, shiny** surfaces are **poor emitters** and **poor absorbers**. They **reflect** radiation instead."
+    },
+    {
+     "id": "drinks",
+     "start": 395.376,
+     "end": 397.872,
+     "cap": "Remember: **Dark Drinks, Shiny Reflects**."
+    },
+    {
+     "id": "panels",
+     "start": 398.372,
+     "end": 401.849,
+     "cap": "That's why solar panels are **black**: to soak up sunshine."
+    },
+    {
+     "id": "white",
+     "start": 402.349,
+     "end": 406.915,
+     "cap": "It's why houses in hot countries are often painted **white**: to reflect it."
+    },
+    {
+     "id": "foil",
+     "start": 407.415,
+     "end": 414.241,
+     "cap": "And it's why marathon runners wrap up in **shiny foil blankets**, which reflect their body's radiation back to them."
+    },
+    {
+     "id": "three",
+     "start": 414.741,
+     "end": 422.251,
+     "cap": "So that's all three ways: **conduction** through solids, **convection** in fluids, and **radiation**, even across empty space."
+    },
+    {
+     "id": "cats",
+     "start": 422.751,
+     "end": 427.572,
+     "cap": "To remember them: **Cats Can't Radiate**. Conduction, convection, radiation."
+    }
+   ]
+  },
+  {
+   "id": "insulation",
+   "title": "Insulation: trapping thermal energy",
+   "short": "Insulation",
+   "card": true,
+   "start": 428.472,
+   "end": 520.489,
+   "lines": [
+    {
+     "id": "fins",
+     "start": 430.272,
+     "end": 439.36,
+     "cap": "Sometimes we want thermal energy to escape: a computer chip has metal **cooling fins** to get rid of it. But often, we want to **stop** it escaping."
+    },
+    {
+     "id": "loft",
+     "start": 439.86,
+     "end": 446.985,
+     "cap": "**Loft insulation** is a thick, woolly layer in the roof. It traps air, cutting **conduction** and **convection** upwards."
+    },
+    {
+     "id": "cavity",
+     "start": 447.485,
+     "end": 454.483,
+     "cap": "**Cavity wall insulation** fills the gap between two walls with foam, which stops **convection currents** inside the wall."
+    },
+    {
+     "id": "glazing",
+     "start": 454.983,
+     "end": 461.361,
+     "cap": "**Double glazing** has two panes of glass with trapped air, or a vacuum, between them, which cuts **conduction**."
+    },
+    {
+     "id": "air",
+     "start": 461.861,
+     "end": 468.688,
+     "cap": "Trapped air is a brilliant insulator: air conducts poorly, and when it's trapped, it can't form convection currents."
+    },
+    {
+     "id": "flask",
+     "start": 469.188,
+     "end": 473.86,
+     "cap": "The classic example is the **vacuum flask**, which beats all three ways at once."
+    },
+    {
+     "id": "vacuum",
+     "start": 474.36,
+     "end": 480.077,
+     "cap": "Between its two walls is a **vacuum**. No particles means no **conduction** and no **convection**."
+    },
+    {
+     "id": "silver",
+     "start": 480.977,
+     "end": 486.417,
+     "cap": "The walls are **silvered**, so they're shiny, and they **reflect** infrared **radiation** back in."
+    },
+    {
+     "id": "stopper",
+     "start": 487.317,
+     "end": 491.883,
+     "cap": "And the **stopper** cuts the losses from the top, by convection and evaporation."
+    },
+    {
+     "id": "cold",
+     "start": 492.383,
+     "end": 497.268,
+     "cap": "The same flask keeps a cold drink **cold**, because it slows energy flowing **in**, too."
+    },
+    {
+     "id": "perfect",
+     "start": 497.768,
+     "end": 504.573,
+     "cap": "No flask is perfect, though. A little energy leaks through the stopper and supports, so in the end the drink cools down."
+    },
+    {
+     "id": "jumper",
+     "start": 505.073,
+     "end": 512.433,
+     "cap": "Remember: insulators never **add** heat. A woolly jumper just traps air, which **slows** the thermal energy leaving your body."
+    },
+    {
+     "id": "animals",
+     "start": 512.933,
+     "end": 519.589,
+     "cap": "Animals insulate too. **Fur** and **feathers** trap air, and seals and whales have a thick layer of fat called **blubber**."
+    }
+   ]
+  },
+  {
+   "id": "expansion",
+   "title": "Thermal expansion and contraction",
+   "short": "Expansion",
+   "card": true,
+   "start": 520.489,
+   "end": 586.356,
+   "lines": [
+    {
+     "id": "apart",
+     "start": 522.289,
+     "end": 526.769,
+     "cap": "Heat a solid, and its particles vibrate more and move a little **further apart**."
+    },
+    {
+     "id": "bigger",
+     "start": 527.269,
+     "end": 531.088,
+     "cap": "So the whole object gets slightly **bigger**. That's **thermal expansion**."
+    },
+    {
+     "id": "shrink",
+     "start": 531.888,
+     "end": 537.051,
+     "cap": "Cool it, and the particles move closer together, so it shrinks. That's **thermal contraction**."
+    },
+    {
+     "id": "mass",
+     "start": 537.551,
+     "end": 543.78,
+     "cap": "The **mass** doesn't change: it's the same particles, just spread further apart. Only the **volume** goes up."
+    },
+    {
+     "id": "order",
+     "start": 544.28,
+     "end": 550.36,
+     "cap": "**Gases** expand the most, then **liquids**, then **solids**, whose particles are held together most tightly."
+    },
+    {
+     "id": "force",
+     "start": 550.86,
+     "end": 555.383,
+     "cap": "Expansion can push with enormous **forces**, so engineers have to plan for it."
+    },
+    {
+     "id": "gaps",
+     "start": 555.883,
+     "end": 561.941,
+     "cap": "**Bridges** have expansion joints, and railway lines can have small **gaps**, so they don't **buckle** on a hot day."
+    },
+    {
+     "id": "wires",
+     "start": 562.841,
+     "end": 567.983,
+     "cap": "**Overhead power lines** are hung slightly **loose**, so they don't snap when they contract in winter."
+    },
+    {
+     "id": "strip",
+     "start": 568.483,
+     "end": 575.139,
+     "cap": "A **bimetallic strip** is two metals joined together that expand by different amounts. When it's heated, it **bends**."
+    },
+    {
+     "id": "thermostat",
+     "start": 576.039,
+     "end": 581.607,
+     "cap": "That bend can flip a switch, so **thermostats** use these strips to turn a heater off when it's warm enough."
+    },
+    {
+     "id": "useful",
+     "start": 582.107,
+     "end": 585.456,
+     "cap": "And expansion is how a liquid-in-glass **thermometer** works."
+    }
+   ]
+  },
+  {
+   "id": "thermometers",
+   "title": "Measuring temperature",
+   "short": "Thermometers",
+   "card": true,
+   "start": 586.356,
+   "end": 662.836,
+   "lines": [
+    {
+     "id": "device",
+     "start": 588.156,
+     "end": 591.996,
+     "cap": "A **thermometer** is any device that gives you a number for temperature."
+    },
+    {
+     "id": "glass",
+     "start": 592.496,
+     "end": 599.323,
+     "cap": "Most school thermometers are **liquid-in-glass**: a bulb of liquid, joined to a very thin tube called a **capillary**."
+    },
+    {
+     "id": "rises",
+     "start": 599.823,
+     "end": 605.924,
+     "cap": "As the bulb warms, the liquid **expands** and rises **up** the tube, against a scale in degrees Celsius."
+    },
+    {
+     "id": "liquid",
+     "start": 606.724,
+     "end": 612.932,
+     "cap": "They're cheap and simple. The liquid is usually coloured **alcohol**; older thermometers used **mercury**."
+    },
+    {
+     "id": "thin",
+     "start": 613.432,
+     "end": 619.363,
+     "cap": "The thinner the tube, the further the liquid moves for each degree, so small changes are easy to see."
+    },
+    {
+     "id": "fixed",
+     "start": 619.863,
+     "end": 629.441,
+     "cap": "The **Celsius** scale is fixed by pure water: it **freezes** at **0 °C** and **boils** at **100 °C**, at normal air pressure."
+    },
+    {
+     "id": "hundred",
+     "start": 629.941,
+     "end": 633.333,
+     "cap": "The space between is split into **100** equal degrees."
+    },
+    {
+     "id": "digital",
+     "start": 633.833,
+     "end": 641.961,
+     "cap": "A **digital** thermometer uses a **thermistor**, whose electrical resistance changes with temperature. It's fast and easy to read."
+    },
+    {
+     "id": "infrared",
+     "start": 642.461,
+     "end": 651.251,
+     "cap": "An **infrared** thermometer detects the **radiation** an object gives out, so it works **without touching**: great for very hot or faraway things."
+    },
+    {
+     "id": "settle",
+     "start": 651.751,
+     "end": 656.572,
+     "cap": "For a good reading, let it **settle**, and don't let the bulb touch the side of the container."
+    },
+    {
+     "id": "eye",
+     "start": 657.072,
+     "end": 661.936,
+     "cap": "And read it at **eye level**. Reading it from above or below causes a **parallax error**."
+    }
+   ]
+  },
+  {
+   "id": "evaporation",
+   "title": "Evaporation: a cooling effect",
+   "short": "Evaporation",
+   "card": true,
+   "start": 662.836,
+   "end": 725.712,
+   "lines": [
+    {
+     "id": "speeds",
+     "start": 664.636,
+     "end": 670.609,
+     "cap": "One last idea. In a liquid, the particles move at different speeds: some slow, and some **fast**."
+    },
+    {
+     "id": "escape",
+     "start": 671.109,
+     "end": 676.144,
+     "cap": "The **fastest** ones near the surface can **escape** and become a gas. That's **evaporation**."
+    },
+    {
+     "id": "below",
+     "start": 676.944,
+     "end": 680.763,
+     "cap": "It happens well below the **boiling point**: think of a puddle drying up."
+    },
+    {
+     "id": "left",
+     "start": 681.263,
+     "end": 688.281,
+     "cap": "Here's the clever part. When the fastest particles leave, the ones **left behind** have a **lower average** kinetic energy."
+    },
+    {
+     "id": "cooler",
+     "start": 689.181,
+     "end": 695.709,
+     "cap": "Temperature measures that average, so the liquid left behind is **cooler**. Evaporation is a **cooling effect**."
+    },
+    {
+     "id": "sweat",
+     "start": 696.209,
+     "end": 701.671,
+     "cap": "That's why **sweating** cools you down: as sweat evaporates, it carries energy away from your skin."
+    },
+    {
+     "id": "breeze",
+     "start": 702.171,
+     "end": 709.424,
+     "cap": "Wet skin feels even colder in a **breeze**, because moving air carries the escaped particles away, so more can evaporate."
+    },
+    {
+     "id": "pool",
+     "start": 709.924,
+     "end": 713.764,
+     "cap": "That's why climbing out of a swimming pool on a windy day feels freezing."
+    },
+    {
+     "id": "faster",
+     "start": 714.264,
+     "end": 720.579,
+     "cap": "Evaporation is faster when it's **warmer**, **windier** or **drier**, or when the liquid has a **bigger surface area**."
+    },
+    {
+     "id": "washing",
+     "start": 721.079,
+     "end": 724.812,
+     "cap": "So washing on a line dries fastest on a warm, breezy day."
+    }
+   ]
+  },
+  {
+   "id": "recap",
+   "title": "Recap: memory hooks and exam traps",
+   "short": "Recap",
+   "card": true,
+   "start": 725.712,
+   "end": 782.628,
+   "lines": [
+    {
+     "id": "lock",
+     "start": 727.512,
+     "end": 728.856,
+     "cap": "Let's lock it all in."
+    },
+    {
+     "id": "jiggle",
+     "start": 729.356,
+     "end": 737.335,
+     "cap": "**Joules Jiggle, Celsius Counts hotness**: heat is thermal energy, in joules. Temperature is how hot, in degrees Celsius."
+    },
+    {
+     "id": "cats",
+     "start": 737.835,
+     "end": 741.653,
+     "cap": "**Cats Can't Radiate**: conduction, convection and radiation."
+    },
+    {
+     "id": "lifts",
+     "start": 742.153,
+     "end": 746.804,
+     "cap": "**Hot Air Lifts**: a heated fluid expands, becomes less dense, and rises."
+    },
+    {
+     "id": "drinks",
+     "start": 747.304,
+     "end": 754.195,
+     "cap": "**Dark Drinks, Shiny Reflects**: dark, matt surfaces absorb and emit best. Shiny surfaces reflect."
+    },
+    {
+     "id": "traps",
+     "start": 754.695,
+     "end": 756.956,
+     "cap": "Now, five exam traps to avoid."
+    },
+    {
+     "id": "t1",
+     "start": 757.456,
+     "end": 762.021,
+     "cap": "One: thermal energy flows from **hot to cold**. Never from cold to hot."
+    },
+    {
+     "id": "t2",
+     "start": 762.521,
+     "end": 766.212,
+     "cap": "Two: **convection** needs a fluid. It can't happen in solids."
+    },
+    {
+     "id": "t3",
+     "start": 766.712,
+     "end": 770.787,
+     "cap": "Three: **radiation** needs no particles, so it can cross a **vacuum**."
+    },
+    {
+     "id": "t4",
+     "start": 771.287,
+     "end": 776.321,
+     "cap": "Four: metals conduct well because of their **free electrons**, not because they're shiny."
+    },
+    {
+     "id": "t5",
+     "start": 776.821,
+     "end": 781.728,
+     "cap": "Five: when something expands, its **volume** goes up, but its **mass** stays the same."
+    }
+   ]
+  },
+  {
+   "id": "quiz",
+   "title": "Quick-fire quiz",
+   "short": "Quiz",
+   "card": true,
+   "start": 782.628,
+   "end": 856.248,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 784.428,
+     "end": 788.076,
+     "cap": "Quick-fire quiz! Say each answer out loud before it appears."
+    },
+    {
+     "id": "q1",
+     "start": 788.576,
+     "end": 791.669,
+     "cap": "What is temperature measured in? And what is heat measured in?"
+    },
+    {
+     "id": "a1",
+     "start": 796.169,
+     "end": 801.951,
+     "cap": "Temperature is measured in **degrees Celsius**. Heat, or thermal energy, is measured in **joules**."
+    },
+    {
+     "id": "q2",
+     "start": 802.451,
+     "end": 804.435,
+     "cap": "Why are metals the best conductors?"
+    },
+    {
+     "id": "a2",
+     "start": 808.935,
+     "end": 812.732,
+     "cap": "They have **free electrons**, which carry energy quickly through the metal."
+    },
+    {
+     "id": "q3",
+     "start": 813.232,
+     "end": 817.413,
+     "cap": "A fire warms your face from across the room. How does the energy reach you?"
+    },
+    {
+     "id": "a3",
+     "start": 821.913,
+     "end": 825.796,
+     "cap": "By **radiation**: infrared waves, which need no particles."
+    },
+    {
+     "id": "q4",
+     "start": 826.296,
+     "end": 829.304,
+     "cap": "How does the vacuum in a vacuum flask keep a drink hot?"
+    },
+    {
+     "id": "a4",
+     "start": 833.804,
+     "end": 837.601,
+     "cap": "It has **no particles**, so there's no **conduction** and no **convection**."
+    },
+    {
+     "id": "q5",
+     "start": 838.101,
+     "end": 839.851,
+     "cap": "Why does sweating cool you down?"
+    },
+    {
+     "id": "a5",
+     "start": 844.351,
+     "end": 849.108,
+     "cap": "As sweat **evaporates**, the fastest particles escape, so your skin is left **cooler**."
+    },
+    {
+     "id": "outro",
+     "start": 849.608,
+     "end": 855.048,
+     "cap": "Brilliant work. Now try the Heat & Temperature quiz in your Science Lab, to lock it in."
+    }
+   ]
+  }
+ ],
+ "total": 856.248
+}

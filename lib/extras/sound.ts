@@ -3,12 +3,13 @@ import type { TopicExtras } from "../types";
 // Engagement extras for sound. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const soundExtras: TopicExtras = {
+  lesson: { href: "/lessons/sound.html", minutes: 15, chapters: 14 },
   interactive: "sound-wave",
   hook: "Out in space, a star can explode with the force of billions of bombs and you would hear absolutely nothing. Why does the loudest event imaginable make total silence?",
   didYouKnow: [
     "Sound cannot travel through empty space because it needs something to vibrate; in the vacuum of space there is nothing to carry the wave, so no one can hear an explosion.",
-    "Sound travels about four times faster in water than in air, which is how whales can call to each other across hundreds of kilometres of ocean.",
-    "Some sounds are too high for humans to hear at all — dogs hear pitches almost twice as high as we can, and bats use ultrasound far above our limit to 'see' in the dark with echoes.",
+    "Sound travels about four times faster in water than in air, and water carries it so well that whales can call to each other across hundreds of kilometres of ocean.",
+    "Some sounds are too high for humans to hear at all — dogs hear pitches more than twice as high as we can, and bats use ultrasound far above our limit to 'see' in the dark with echoes.",
     "Elephants make rumbles so low you cannot hear them, and they can sense these vibrations through their feet from kilometres away.",
     "The 'crack' of a whip is a tiny sonic boom: the tip moves faster than the speed of sound, breaking the sound barrier in your back garden.",
   ],

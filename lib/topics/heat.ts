@@ -24,7 +24,7 @@ export const heat: Topic = {
         "A small hot spark can have less thermal energy than a large warm object.",
       ],
       thinkDeeper:
-        "A bath at 40 °C can scald you over time but a 1000 °C sparkler spark does not. If the spark is far hotter, why does the bath transfer more energy to your skin?",
+        "A bath at 40 °C warms your whole body, but a 1000 °C sparkler spark barely stings. If the spark is far hotter, why does the bath transfer more energy to your skin?",
     },
     {
       id: "particles",
@@ -159,7 +159,7 @@ export const heat: Topic = {
   mnemonics: [
     {
       topic: "The three ways thermal energy travels",
-      device: "Cats Cant Radiate (Conduction, Convection, Radiation)",
+      device: "Cats Can't Radiate (Conduction, Convection, Radiation)",
       explanation:
         "Conduction = through solids (touch), Convection = in fluids (currents), Radiation = waves through empty space.",
     },
@@ -230,7 +230,7 @@ export const heat: Topic = {
     {
       question: "Does water always expand when heated?",
       detail:
-        "Almost all materials expand when heated, but water is famously odd between 0 °C and 4 °C — it actually contracts as it warms, then expands. This 'anomalous expansion' means ice is less dense than water and floats, which lets fish survive under frozen ponds.",
+        "Almost all materials expand when heated, but water is famously odd between 0 °C and 4 °C — it actually contracts as it warms, then expands. This is called 'anomalous expansion'. Water also expands as it freezes, so ice is less dense than water and floats, which lets fish survive under frozen ponds.",
     },
     {
       question: "Can a vacuum flask keep something hot forever?",

@@ -1,0 +1,853 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "intro",
+   "title": "From dangerous elements to table salt",
+   "short": "Intro",
+   "card": false,
+   "start": 0.0,
+   "end": 27.427,
+   "lines": [
+    {
+     "id": "hook",
+     "start": 0.6,
+     "end": 8.856,
+     "cap": "Here are two dangerous elements: a soft metal that can explode in water, and a poisonous green gas once used as a weapon in war."
+    },
+    {
+     "id": "salt",
+     "start": 9.356,
+     "end": 15.372,
+     "cap": "They're **sodium** and **chlorine**. Join them together, and they make **table salt**, which you sprinkle on your chips."
+    },
+    {
+     "id": "how",
+     "start": 15.872,
+     "end": 20.544,
+     "cap": "How? It all comes down to **atoms**, and whether they're **joined** together or just **mixed**."
+    },
+    {
+     "id": "plan",
+     "start": 21.044,
+     "end": 26.527,
+     "cap": "Let's meet **elements**, **compounds** and **mixtures**, then learn how chemists pull mixtures apart."
+    }
+   ]
+  },
+  {
+   "id": "atoms",
+   "title": "Atoms, elements and symbols",
+   "short": "Elements",
+   "card": true,
+   "start": 27.427,
+   "end": 94.619,
+   "lines": [
+    {
+     "id": "atoms",
+     "start": 29.227,
+     "end": 37.973,
+     "cap": "Everything around you, from the air to your phone, is made of tiny particles called **atoms**, too small to see even with an ordinary microscope."
+    },
+    {
+     "id": "element",
+     "start": 38.473,
+     "end": 45.833,
+     "cap": "An **element** is a substance made of only **one type of atom**. Every atom in a bar of pure gold is a gold atom."
+    },
+    {
+     "id": "simpler",
+     "start": 46.333,
+     "end": 52.776,
+     "cap": "With only one kind of atom, an element **can't be broken down** into anything simpler by a chemical reaction."
+    },
+    {
+     "id": "table",
+     "start": 53.276,
+     "end": 62.385,
+     "cap": "There are about **118** elements, all listed in the **periodic table**: oxygen, iron, gold, carbon, hydrogen and the rest."
+    },
+    {
+     "id": "symbol",
+     "start": 62.885,
+     "end": 70.715,
+     "cap": "Each element has a **chemical symbol** of one or two letters. Carbon is **C**, oxygen is **O**, and magnesium is **Mg**."
+    },
+    {
+     "id": "rules",
+     "start": 71.215,
+     "end": 77.444,
+     "cap": "The rules are strict: the **first letter is always a capital**, and any **second letter is always lower case**."
+    },
+    {
+     "id": "big",
+     "start": 77.944,
+     "end": 82.467,
+     "cap": "Think **Big then small**. Sodium is **Na**: a big N, followed by a small a."
+    },
+    {
+     "id": "cobalt",
+     "start": 82.967,
+     "end": 93.719,
+     "cap": "It really matters. **Co**, with a small o, is the metal **cobalt**. But **CO**, with two capitals, is **carbon monoxide**, a compound of carbon and oxygen."
+    }
+   ]
+  },
+  {
+   "id": "compounds",
+   "title": "Compounds and formulae",
+   "short": "Compounds",
+   "card": true,
+   "start": 94.619,
+   "end": 175.577,
+   "lines": [
+    {
+     "id": "def",
+     "start": 96.419,
+     "end": 101.88,
+     "cap": "When atoms of **two or more different elements** are **chemically bonded** together, they make a **compound**."
+    },
+    {
+     "id": "ratio",
+     "start": 102.38,
+     "end": 107.137,
+     "cap": "The atoms are joined in a **fixed ratio**, which never changes for that compound."
+    },
+    {
+     "id": "water",
+     "start": 107.637,
+     "end": 114.123,
+     "cap": "**Water** is always two hydrogen atoms bonded to one oxygen atom. Its **formula** is **H₂O**."
+    },
+    {
+     "id": "others",
+     "start": 114.623,
+     "end": 125.161,
+     "cap": "**Carbon dioxide** is one carbon and two oxygens: **CO₂**. Table salt, **sodium chloride**, is **NaCl**: one sodium for every chlorine."
+    },
+    {
+     "id": "subs",
+     "start": 125.661,
+     "end": 132.595,
+     "cap": "The small numbers written low are **subscripts**. Each one counts the atom just before it, and no number means one."
+    },
+    {
+     "id": "miss",
+     "start": 133.095,
+     "end": 139.495,
+     "cap": "Leave one out, and you've written something else: **HO** isn't water, and **CO** isn't carbon dioxide."
+    },
+    {
+     "id": "props",
+     "start": 139.995,
+     "end": 146.117,
+     "cap": "Now the most surprising idea: a compound has **completely different properties** from the elements in it."
+    },
+    {
+     "id": "fire",
+     "start": 146.617,
+     "end": 154.063,
+     "cap": "Hydrogen is an explosive gas, and oxygen helps things burn. Yet bonded together as **water**, they put fires out."
+    },
+    {
+     "id": "salt",
+     "start": 154.563,
+     "end": 162.008,
+     "cap": "Remember sodium and chlorine? A dangerous metal and a poisonous gas, bonded together, make **harmless table salt**."
+    },
+    {
+     "id": "joined",
+     "start": 162.508,
+     "end": 167.5,
+     "cap": "So the properties of a substance depend not just on its atoms, but on **how they're joined**."
+    },
+    {
+     "id": "react",
+     "start": 168.0,
+     "end": 174.677,
+     "cap": "Making or breaking a compound takes a **chemical reaction**, so it's hard to split one back into its elements."
+    }
+   ]
+  },
+  {
+   "id": "molecules",
+   "title": "Molecules and particle pictures",
+   "short": "Particle pictures",
+   "card": true,
+   "start": 175.577,
+   "end": 255.597,
+   "lines": [
+    {
+     "id": "def",
+     "start": 177.377,
+     "end": 182.711,
+     "cap": "A **molecule** is a particle made of **two or more atoms joined together** by chemical bonds."
+    },
+    {
+     "id": "elem",
+     "start": 183.211,
+     "end": 194.773,
+     "cap": "Some molecules contain only **one element**. Oxygen gas is made of **O₂** molecules: two oxygen atoms, joined. Hydrogen is **H₂**, and nitrogen is **N₂**."
+    },
+    {
+     "id": "still",
+     "start": 195.273,
+     "end": 198.58,
+     "cap": "They're still **elements**, because every atom is the same type."
+    },
+    {
+     "id": "comp",
+     "start": 199.08,
+     "end": 205.672,
+     "cap": "Other molecules contain different elements. **Water** and **carbon dioxide** are molecules of **compounds**."
+    },
+    {
+     "id": "pictures",
+     "start": 206.172,
+     "end": 216.028,
+     "cap": "Scientists draw **particle pictures** to show the difference. Each circle is an atom. Its **colour** shows its type, and if atoms are drawn **joined**, they're bonded."
+    },
+    {
+     "id": "ask",
+     "start": 216.528,
+     "end": 223.056,
+     "cap": "To read one, ask two questions. Are the atoms the **same or different**? And are they **joined**, or just **mixed**?"
+    },
+    {
+     "id": "element",
+     "start": 223.556,
+     "end": 228.911,
+     "cap": "All the atoms the same colour, alone or in identical molecules? That's an **element**."
+    },
+    {
+     "id": "compound",
+     "start": 229.411,
+     "end": 233.144,
+     "cap": "Different atoms **joined** in identical groups? That's a **compound**."
+    },
+    {
+     "id": "mixture",
+     "start": 233.644,
+     "end": 238.465,
+     "cap": "Different particles, **not joined** to each other, just jumbled together? That's a **mixture**."
+    },
+    {
+     "id": "sbf",
+     "start": 238.965,
+     "end": 246.411,
+     "cap": "Remember: **Same, Bonded, Free**. Element: same atoms. Compound: different atoms, bonded. Mixture: particles free."
+    },
+    {
+     "id": "trap",
+     "start": 246.911,
+     "end": 254.697,
+     "cap": "One trap: identical atoms joined in pairs are bonded, but they're still an **element**. A compound needs **different** elements."
+    }
+   ]
+  },
+  {
+   "id": "mixtures",
+   "title": "Mixtures: mixed, not bonded",
+   "short": "Mixtures",
+   "card": true,
+   "start": 255.597,
+   "end": 333.975,
+   "lines": [
+    {
+     "id": "def",
+     "start": 257.397,
+     "end": 262.027,
+     "cap": "A **mixture** is two or more substances **mixed together**, but **not chemically bonded**."
+    },
+    {
+     "id": "own",
+     "start": 262.527,
+     "end": 266.26,
+     "cap": "Because nothing is bonded, each substance **keeps its own properties**."
+    },
+    {
+     "id": "ratio",
+     "start": 266.76,
+     "end": 272.392,
+     "cap": "You can mix them in **any ratio**, a little or a lot. A compound's ratio is always fixed."
+    },
+    {
+     "id": "separate",
+     "start": 272.892,
+     "end": 278.055,
+     "cap": "And you can usually **separate** them again by **physical methods**, with no chemical reaction needed."
+    },
+    {
+     "id": "air",
+     "start": 278.555,
+     "end": 287.749,
+     "cap": "**Air** is a mixture of gases: about **78% nitrogen** and **21% oxygen**, plus a little argon and carbon dioxide."
+    },
+    {
+     "id": "sea",
+     "start": 288.249,
+     "end": 293.348,
+     "cap": "**Sea water** is a mixture too: water with salt and other substances dissolved in it."
+    },
+    {
+     "id": "alloys",
+     "start": 293.848,
+     "end": 301.251,
+     "cap": "**Alloys** are mixtures of metals, or of a metal and carbon. **Brass** is copper and zinc; **steel** is iron and carbon."
+    },
+    {
+     "id": "looks",
+     "start": 301.751,
+     "end": 309.687,
+     "cap": "An alloy looks like one shiny metal, but it's a **mixture**: its metals aren't bonded in a fixed ratio, and the recipe can vary."
+    },
+    {
+     "id": "gold",
+     "start": 310.187,
+     "end": 317.547,
+     "cap": "Even gold jewellery is usually an alloy. Pure gold is so soft that other metals are added to make it tough enough to wear."
+    },
+    {
+     "id": "compound",
+     "start": 318.047,
+     "end": 327.369,
+     "cap": "So a compound isn't just a very well-mixed mixture. A compound is **bonded**, in a **fixed ratio**, and takes a **chemical reaction** to make or break."
+    },
+    {
+     "id": "mixture",
+     "start": 327.869,
+     "end": 333.075,
+     "cap": "A mixture is **not bonded**, can be in **any ratio**, and comes apart by **physical methods**."
+    }
+   ]
+  },
+  {
+   "id": "pure",
+   "title": "Pure substances and melting points",
+   "short": "Purity",
+   "card": true,
+   "start": 333.975,
+   "end": 406.661,
+   "lines": [
+    {
+     "id": "juice",
+     "start": 335.775,
+     "end": 343.199,
+     "cap": "In everyday life, '**pure** orange juice' just means nothing has been added. In chemistry, pure means something much stricter."
+    },
+    {
+     "id": "def",
+     "start": 343.699,
+     "end": 351.464,
+     "cap": "A **pure substance** is a **single element or a single compound**, with nothing else mixed in. Pure water is **only** H₂O."
+    },
+    {
+     "id": "impure",
+     "start": 351.964,
+     "end": 356.401,
+     "cap": "Anything with other substances mixed in is **impure**. It's really a mixture."
+    },
+    {
+     "id": "test",
+     "start": 356.901,
+     "end": 360.891,
+     "cap": "So how can you tell? Measure its **melting point**, or its **boiling point**."
+    },
+    {
+     "id": "sharp",
+     "start": 361.391,
+     "end": 372.591,
+     "cap": "A pure substance melts and boils at **one exact, sharp temperature**. Pure ice melts at exactly **0 °C**, and pure water boils at **100 °C**."
+    },
+    {
+     "id": "impurity",
+     "start": 373.391,
+     "end": 380.559,
+     "cap": "But an impurity **lowers the melting point** and **raises the boiling point**, spreading each one over a **range** of temperatures."
+    },
+    {
+     "id": "roads",
+     "start": 381.359,
+     "end": 389.145,
+     "cap": "That's why we **grit icy roads**. The salt lowers the melting point of the ice, so it melts even below **0 °C**."
+    },
+    {
+     "id": "check",
+     "start": 389.645,
+     "end": 397.155,
+     "cap": "Chemists check their products this way. A medicine that melts **sharply**, at just the right temperature, is very likely pure."
+    },
+    {
+     "id": "today",
+     "start": 397.655,
+     "end": 405.761,
+     "cap": "But is anything ever **100% pure**? Not quite. There are always tiny traces of something else, so 'pure enough' depends on the job."
+    }
+   ]
+  },
+  {
+   "id": "solutions",
+   "title": "Solutions: solute, solvent, solubility",
+   "short": "Solutions",
+   "card": true,
+   "start": 406.661,
+   "end": 483.42,
+   "lines": [
+    {
+     "id": "tea",
+     "start": 408.461,
+     "end": 414.584,
+     "cap": "Stir sugar into tea and it seems to vanish. It has **dissolved**, making a mixture called a **solution**."
+    },
+    {
+     "id": "words",
+     "start": 415.084,
+     "end": 423.105,
+     "cap": "The **solute** is what dissolves, like the sugar. The **solvent** is the liquid it's **in**, like the water. Together they make the **solution**."
+    },
+    {
+     "id": "soluble",
+     "start": 423.605,
+     "end": 429.6,
+     "cap": "A substance that dissolves, like salt, is **soluble**. One that doesn't, like sand, is **insoluble**."
+    },
+    {
+     "id": "saturated",
+     "start": 430.1,
+     "end": 436.308,
+     "cap": "Keep adding sugar, and eventually no more will dissolve at that temperature: the solution is **saturated**."
+    },
+    {
+     "id": "solubility",
+     "start": 436.808,
+     "end": 447.027,
+     "cap": "The most solute that can dissolve in a fixed amount of solvent is its **solubility**. It usually **rises with temperature**: hot tea dissolves more sugar than cold."
+    },
+    {
+     "id": "conc",
+     "start": 447.527,
+     "end": 457.319,
+     "cap": "**Concentration** tells you how much solute is dissolved in a given volume. A **dilute** solution has **few** solute particles; a **concentrated** one has **many**."
+    },
+    {
+     "id": "squash",
+     "start": 457.819,
+     "end": 463.813,
+     "cap": "Think of squash. Add more squash to make it more **concentrated**, or more water to make it more **dilute**."
+    },
+    {
+     "id": "notgone",
+     "start": 464.313,
+     "end": 471.289,
+     "cap": "And a dissolved solute is **not destroyed**. Its particles are still there, just spread out between the water particles."
+    },
+    {
+     "id": "mass",
+     "start": 471.789,
+     "end": 482.52,
+     "cap": "Dissolve **10 g** of salt in **100 g** of water, and the solution weighs **110 g**. Nothing is lost, and **evaporating** the water gets the salt back."
+    }
+   ]
+  },
+  {
+   "id": "filter",
+   "title": "Filter, evaporate, crystallise",
+   "short": "Filtration",
+   "card": true,
+   "start": 483.42,
+   "end": 569.388,
+   "lines": [
+    {
+     "id": "physical",
+     "start": 485.22,
+     "end": 490.959,
+     "cap": "A mixture isn't bonded, so **physical methods** can separate it. The trick is choosing the right one."
+    },
+    {
+     "id": "filtration",
+     "start": 491.459,
+     "end": 496.408,
+     "cap": "**Filtration** separates an **insoluble solid** from a **liquid**, like sand from water."
+    },
+    {
+     "id": "pour",
+     "start": 496.908,
+     "end": 503.948,
+     "cap": "Pour the mixture through **filter paper** in a funnel. The solid bits are too big to fit through the paper's tiny holes."
+    },
+    {
+     "id": "names",
+     "start": 504.748,
+     "end": 510.316,
+     "cap": "The liquid that passes through is the **filtrate**. The solid left on the paper is the **residue**."
+    },
+    {
+     "id": "cant",
+     "start": 510.816,
+     "end": 517.387,
+     "cap": "But you **can't filter salt water**. The salt is dissolved, and its tiny particles slip straight through the paper."
+    },
+    {
+     "id": "evap",
+     "start": 517.887,
+     "end": 526.185,
+     "cap": "To get a dissolved solid back, heat the solution in an **evaporating basin**. The water **evaporates**, and the solid is left behind."
+    },
+    {
+     "id": "cryst",
+     "start": 526.685,
+     "end": 535.837,
+     "cap": "For purer, better-shaped crystals, use **crystallisation**. First, gently heat the solution to evaporate **some** of the water, until it's **saturated**."
+    },
+    {
+     "id": "cool",
+     "start": 536.337,
+     "end": 542.929,
+     "cap": "Then stop heating, and leave it to **cool slowly**. Neat **crystals** grow as the solute comes out of the solution."
+    },
+    {
+     "id": "dry",
+     "start": 543.829,
+     "end": 550.549,
+     "cap": "Finally, **filter** off the crystals and **dry** them, by patting them with filter paper or leaving them somewhere warm."
+    },
+    {
+     "id": "key",
+     "start": 551.049,
+     "end": 558.047,
+     "cap": "So filtration traps an **undissolved** solid, while evaporation and crystallisation recover a **dissolved** one."
+    },
+    {
+     "id": "home",
+     "start": 558.547,
+     "end": 568.488,
+     "cap": "Try it at home: stir salty sand into warm water, filter out the sand, and leave the clear liquid on a dark plate. Salt crystals appear in a day or two."
+    }
+   ]
+  },
+  {
+   "id": "distil",
+   "title": "Distillation and chromatography",
+   "short": "Distillation & inks",
+   "card": true,
+   "start": 569.388,
+   "end": 661.725,
+   "lines": [
+    {
+     "id": "want",
+     "start": 571.188,
+     "end": 575.135,
+     "cap": "What if you want the **water** back, not the salt? Use **simple distillation**."
+    },
+    {
+     "id": "boil",
+     "start": 575.635,
+     "end": 582.739,
+     "cap": "Heat the salt water. The water **boils** into vapour, but the salt, with a far higher boiling point, stays behind."
+    },
+    {
+     "id": "condense",
+     "start": 583.239,
+     "end": 590.961,
+     "cap": "The vapour passes into a **condenser**, where it **cools** and **condenses** back into liquid. Pure water drips into a clean beaker."
+    },
+    {
+     "id": "diff",
+     "start": 591.861,
+     "end": 596.853,
+     "cap": "So remember: **evaporation keeps the solid**, but **distillation keeps the liquid**."
+    },
+    {
+     "id": "fractional",
+     "start": 597.353,
+     "end": 604.308,
+     "cap": "**Fractional distillation** separates a mixture of **liquids** with **different boiling points**, using a tall **fractionating column**."
+    },
+    {
+     "id": "first",
+     "start": 604.808,
+     "end": 609.203,
+     "cap": "The liquid with the **lowest boiling point** comes off first, at the top of the column."
+    },
+    {
+     "id": "fuels",
+     "start": 609.703,
+     "end": 617.233,
+     "cap": "That's how **crude oil** is split into petrol, diesel and jet fuel, and how liquid air is split into nitrogen and oxygen."
+    },
+    {
+     "id": "chroma",
+     "start": 617.733,
+     "end": 622.128,
+     "cap": "**Chromatography** separates **coloured substances**, like the dyes in an ink."
+    },
+    {
+     "id": "paper",
+     "start": 622.628,
+     "end": 629.199,
+     "cap": "Put a spot of ink near the bottom of special paper, and stand it in a **solvent**, with the spot just above the liquid."
+    },
+    {
+     "id": "travel",
+     "start": 629.699,
+     "end": 638.104,
+     "cap": "As the solvent soaks upwards, each dye travels a **different distance**, depending on how soluble it is and how much it sticks to the paper."
+    },
+    {
+     "id": "identify",
+     "start": 639.004,
+     "end": 647.879,
+     "cap": "It can **identify** substances too. Run known dyes beside the unknown: if two spots end up **level**, they're very likely the **same substance**."
+    },
+    {
+     "id": "forensic",
+     "start": 648.379,
+     "end": 652.901,
+     "cap": "That's how **forensic scientists** can match the ink on a note to a particular pen."
+    },
+    {
+     "id": "felt",
+     "start": 653.401,
+     "end": 660.825,
+     "cap": "Try it with a felt-tip pen, a strip of kitchen paper and a little water. One black ink can split into several colours!"
+    }
+   ]
+  },
+  {
+   "id": "funnel",
+   "title": "Separating funnels and magnets",
+   "short": "Funnels & magnets",
+   "card": true,
+   "start": 661.725,
+   "end": 744.057,
+   "lines": [
+    {
+     "id": "two",
+     "start": 663.525,
+     "end": 665.531,
+     "cap": "Two more methods complete your toolkit."
+    },
+    {
+     "id": "layers",
+     "start": 666.031,
+     "end": 674.201,
+     "cap": "Some liquids, like **oil and water**, don't mix. These **immiscible** liquids settle into two **layers**, with the less dense oil on top."
+    },
+    {
+     "id": "funnel",
+     "start": 674.701,
+     "end": 679.203,
+     "cap": "Pour them into a **separating funnel**: a glass funnel with a **tap** at the bottom."
+    },
+    {
+     "id": "tap",
+     "start": 679.703,
+     "end": 688.343,
+     "cap": "Open the tap, and the **lower layer**, the water, drains out first. Close it just as the boundary reaches the tap, and the oil stays behind."
+    },
+    {
+     "id": "magnet",
+     "start": 689.243,
+     "end": 696.88,
+     "cap": "**Magnetic separation** is for mixtures where one solid is **magnetic**, like **iron filings** mixed with sand or sulfur."
+    },
+    {
+     "id": "lift",
+     "start": 697.38,
+     "end": 702.351,
+     "cap": "Hold a **magnet** over the mixture. It pulls out the iron, and leaves the rest behind."
+    },
+    {
+     "id": "only",
+     "start": 702.851,
+     "end": 707.8,
+     "cap": "But it only works for magnetic metals, such as **iron**, **steel**, **nickel** and **cobalt**."
+    },
+    {
+     "id": "ask",
+     "start": 708.3,
+     "end": 715.724,
+     "cap": "So, to choose a method, ask: are the substances solids, liquids or dissolved? Do they mix? Is anything magnetic?"
+    },
+    {
+     "id": "fecd",
+     "start": 716.224,
+     "end": 725.803,
+     "cap": "And remember **FECD**: **Filter** an insoluble solid, **Evaporate** or **Crystallise** a dissolved one, and **Distil** to get the liquid back."
+    },
+    {
+     "id": "puzzle",
+     "start": 726.303,
+     "end": 732.703,
+     "cap": "Now a puzzle: sand, iron filings and salt, all jumbled together. How would you get all three back?"
+    },
+    {
+     "id": "solve",
+     "start": 736.203,
+     "end": 743.157,
+     "cap": "Use a **magnet** for the iron. Then add water to dissolve the salt, **filter** out the sand, and **crystallise** the salt."
+    }
+   ]
+  },
+  {
+   "id": "recap",
+   "title": "Recap: memory hooks and exam traps",
+   "short": "Recap",
+   "card": true,
+   "start": 744.057,
+   "end": 804.579,
+   "lines": [
+    {
+     "id": "lock",
+     "start": 745.857,
+     "end": 747.201,
+     "cap": "Let's lock it all in."
+    },
+    {
+     "id": "sbf",
+     "start": 747.701,
+     "end": 756.0,
+     "cap": "**Same, Bonded, Free**: an element has the same atoms; a compound has different atoms, bonded; a mixture's particles are free."
+    },
+    {
+     "id": "big",
+     "start": 756.5,
+     "end": 762.943,
+     "cap": "**Big then small**: a capital first letter, and a lower-case second letter, as in **Na** and **Mg**."
+    },
+    {
+     "id": "solute",
+     "start": 763.443,
+     "end": 767.283,
+     "cap": "The **solute** is what dissolves; the **solvent** is the liquid it's **in**."
+    },
+    {
+     "id": "fecd",
+     "start": 767.783,
+     "end": 771.708,
+     "cap": "**FECD**: Filter, Evaporate, Crystallise, Distil."
+    },
+    {
+     "id": "traps",
+     "start": 772.208,
+     "end": 774.469,
+     "cap": "Now, five exam traps to avoid."
+    },
+    {
+     "id": "t1",
+     "start": 774.969,
+     "end": 783.439,
+     "cap": "One: two capitals means a compound. Cobalt is **Co**, but **CO** is carbon monoxide."
+    },
+    {
+     "id": "t2",
+     "start": 783.939,
+     "end": 788.483,
+     "cap": "Two: you **can't filter** salt out of salt water. Evaporate it, or distil it."
+    },
+    {
+     "id": "t3",
+     "start": 788.983,
+     "end": 793.079,
+     "cap": "Three: **evaporation** keeps the solid; **distillation** keeps the liquid."
+    },
+    {
+     "id": "t4",
+     "start": 793.579,
+     "end": 797.589,
+     "cap": "Four: impurities **lower** the melting point, and spread it over a range."
+    },
+    {
+     "id": "t5",
+     "start": 798.089,
+     "end": 803.679,
+     "cap": "Five: a dissolved solute isn't destroyed. It's still there, and its mass is **conserved**."
+    }
+   ]
+  },
+  {
+   "id": "quiz",
+   "title": "Quick-fire quiz",
+   "short": "Quiz",
+   "card": true,
+   "start": 804.579,
+   "end": 873.932,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 806.379,
+     "end": 810.027,
+     "cap": "Quick-fire quiz! Say each answer out loud before it appears."
+    },
+    {
+     "id": "q1",
+     "start": 810.527,
+     "end": 812.617,
+     "cap": "What's the chemical formula for water?"
+    },
+    {
+     "id": "a1",
+     "start": 817.117,
+     "end": 821.32,
+     "cap": "**H₂O**: two hydrogen atoms bonded to one oxygen atom."
+    },
+    {
+     "id": "q2",
+     "start": 821.82,
+     "end": 824.743,
+     "cap": "Air: is it an element, a compound or a mixture?"
+    },
+    {
+     "id": "a2",
+     "start": 829.243,
+     "end": 832.336,
+     "cap": "A **mixture**. Its gases are mixed, but not bonded."
+    },
+    {
+     "id": "q3",
+     "start": 832.836,
+     "end": 836.1,
+     "cap": "How does an impurity change a substance's melting point?"
+    },
+    {
+     "id": "a3",
+     "start": 840.6,
+     "end": 842.968,
+     "cap": "It **lowers** it, and spreads it over a **range**."
+    },
+    {
+     "id": "q4",
+     "start": 843.468,
+     "end": 846.156,
+     "cap": "Which method separates the different dyes in an ink?"
+    },
+    {
+     "id": "a4",
+     "start": 850.656,
+     "end": 851.851,
+     "cap": "**Chromatography.**"
+    },
+    {
+     "id": "q5",
+     "start": 852.351,
+     "end": 856.297,
+     "cap": "True or false: when sugar dissolves in water, it's destroyed."
+    },
+    {
+     "id": "a5",
+     "start": 860.797,
+     "end": 865.832,
+     "cap": "**False.** Its particles spread out among the water particles, and the mass stays the same."
+    },
+    {
+     "id": "outro",
+     "start": 866.332,
+     "end": 872.732,
+     "cap": "Brilliant work. Now try the Elements, Compounds and Mixtures quiz in your Science Lab, to lock it in."
+    }
+   ]
+  }
+ ],
+ "total": 873.932
+}

@@ -1,0 +1,911 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "intro",
+   "title": "Where was the energy hiding?",
+   "short": "Intro",
+   "card": false,
+   "start": 0.0,
+   "end": 29.432,
+   "lines": [
+    {
+     "id": "hook",
+     "start": 0.6,
+     "end": 6.659,
+     "cap": "Strike a match, and a tiny stick of wood suddenly gives out light and heat. Where was all that energy hiding?"
+    },
+    {
+     "id": "stored",
+     "start": 7.159,
+     "end": 12.108,
+     "cap": "It was stored in the match and the oxygen around it. A **chemical reaction** released it."
+    },
+    {
+     "id": "swap",
+     "start": 12.608,
+     "end": 20.48,
+     "cap": "In every reaction, the atoms **change partners** to make **brand-new substances**: cooking an egg, rusting iron, burning fuel."
+    },
+    {
+     "id": "plan",
+     "start": 20.98,
+     "end": 28.532,
+     "cap": "Let's learn to spot a reaction, write its equation, prove that no mass is lost, and find out what makes reactions fast."
+    }
+   ]
+  },
+  {
+   "id": "physical",
+   "title": "Physical or chemical change?",
+   "short": "Physical vs chemical",
+   "card": true,
+   "start": 29.432,
+   "end": 87.429,
+   "lines": [
+    {
+     "id": "two",
+     "start": 31.232,
+     "end": 34.24,
+     "cap": "Changes come in two kinds: **physical** and **chemical**."
+    },
+    {
+     "id": "phys",
+     "start": 34.74,
+     "end": 40.415,
+     "cap": "A **physical change** alters how a substance looks, or its state, but **no new substance is made**."
+    },
+    {
+     "id": "egs",
+     "start": 40.915,
+     "end": 48.211,
+     "cap": "Melting ice, boiling water, or sugar dissolving into tea: the water is still water, and the sugar is still sugar."
+    },
+    {
+     "id": "rev",
+     "start": 48.711,
+     "end": 54.343,
+     "cap": "Physical changes are usually **easy to reverse**. Freeze the water, and you get your ice back."
+    },
+    {
+     "id": "chem",
+     "start": 54.843,
+     "end": 60.624,
+     "cap": "A **chemical change**, or **chemical reaction**, makes **one or more new substances**, with **new properties**."
+    },
+    {
+     "id": "wood",
+     "start": 61.124,
+     "end": 69.188,
+     "cap": "Burning wood makes ash, smoke and gases, and you can't turn them back into wood. Chemical changes are usually **hard to reverse**."
+    },
+    {
+     "id": "test",
+     "start": 69.688,
+     "end": 77.56,
+     "cap": "So the key question is: has a **new substance** been made? Burning, rusting, cooking and neutralising all make new substances."
+    },
+    {
+     "id": "egg",
+     "start": 78.06,
+     "end": 86.529,
+     "cap": "Frying an egg makes no flames or smoke, but it's still chemical: the runny egg turns into new substances that you can never un-cook."
+    }
+   ]
+  },
+  {
+   "id": "signs",
+   "title": "Five signs of a reaction",
+   "short": "Signs",
+   "card": true,
+   "start": 87.429,
+   "end": 162.957,
+   "lines": [
+    {
+     "id": "evidence",
+     "start": 89.229,
+     "end": 94.605,
+     "cap": "Because a reaction makes new substances, you can often **see**, **feel** or **hear** the evidence."
+    },
+    {
+     "id": "colour",
+     "start": 95.105,
+     "end": 99.735,
+     "cap": "One: a **colour change**, like shiny grey iron turning orange-brown rust."
+    },
+    {
+     "id": "gas",
+     "start": 100.235,
+     "end": 104.416,
+     "cap": "Two: a **gas given off**: bubbles or fizzing, when nothing is boiling."
+    },
+    {
+     "id": "temp",
+     "start": 104.916,
+     "end": 109.908,
+     "cap": "Three: a **temperature change**. The mixture gets hotter, or colder, all on its own."
+    },
+    {
+     "id": "precip",
+     "start": 110.408,
+     "end": 115.229,
+     "cap": "Four: a **precipitate**. Two clear solutions mix, and a cloudy solid appears."
+    },
+    {
+     "id": "define",
+     "start": 115.729,
+     "end": 120.572,
+     "cap": "A precipitate is an **insoluble solid** that forms when two solutions react."
+    },
+    {
+     "id": "light",
+     "start": 121.072,
+     "end": 125.339,
+     "cap": "And five: **light or sound**, like a flame, a glow, a bang or a pop."
+    },
+    {
+     "id": "glow",
+     "start": 125.839,
+     "end": 131.513,
+     "cap": "A glow stick is a reaction you can watch in the dark: it gives out light, but hardly any heat."
+    },
+    {
+     "id": "mnem",
+     "start": 132.013,
+     "end": 138.605,
+     "cap": "To remember all five: **Cool Guys Take Pretty Lasses**. Colour, Gas, Temperature, Precipitate, Light."
+    },
+    {
+     "id": "clue",
+     "start": 139.105,
+     "end": 144.225,
+     "cap": "One sign alone is only a **clue**. Several together make a reaction almost certain."
+    },
+    {
+     "id": "careful",
+     "start": 144.725,
+     "end": 152.427,
+     "cap": "But watch out: bubbles from boiling water, or the colour from a drop of food dye, are **physical**. No new substance is made."
+    },
+    {
+     "id": "balloon",
+     "start": 152.927,
+     "end": 162.057,
+     "cap": "Try it at home: tip baking soda from a balloon into a bottle of vinegar. It fizzes, and the new gas, **carbon dioxide**, blows up the balloon."
+    }
+   ]
+  },
+  {
+   "id": "equations",
+   "title": "Reactants, products and equations",
+   "short": "Equations",
+   "card": true,
+   "start": 162.957,
+   "end": 220.261,
+   "lines": [
+    {
+     "id": "rp",
+     "start": 164.757,
+     "end": 169.963,
+     "cap": "The substances you start with are the **reactants**. The new substances made are the **products**."
+    },
+    {
+     "id": "arrow",
+     "start": 170.463,
+     "end": 175.177,
+     "cap": "We join them with an **arrow**, which means '**turns into**'. Never use an equals sign."
+    },
+    {
+     "id": "word",
+     "start": 175.677,
+     "end": 181.523,
+     "cap": "A **word equation** uses names: **magnesium + oxygen → magnesium oxide**."
+    },
+    {
+     "id": "carbon",
+     "start": 182.023,
+     "end": 185.585,
+     "cap": "Or **carbon + oxygen → carbon dioxide**."
+    },
+    {
+     "id": "symbol",
+     "start": 186.085,
+     "end": 194.683,
+     "cap": "A **symbol equation** uses formulae instead: **C + O₂ → CO₂**. It's more precise, because it lets us **count the atoms**."
+    },
+    {
+     "id": "formula",
+     "start": 195.483,
+     "end": 203.099,
+     "cap": "A formula shows which atoms there are, and how many. **H₂O** has two hydrogen atoms and one oxygen atom."
+    },
+    {
+     "id": "sub",
+     "start": 203.599,
+     "end": 207.14,
+     "cap": "A **small subscript** number only counts the atom just before it."
+    },
+    {
+     "id": "big",
+     "start": 207.64,
+     "end": 215.256,
+     "cap": "A **big number** in front, called a **coefficient**, multiplies the **whole formula**. **2H₂O** means two water molecules."
+    },
+    {
+     "id": "atoms",
+     "start": 215.756,
+     "end": 219.361,
+     "cap": "That's **four** hydrogen atoms and **two** oxygen atoms in all."
+    }
+   ]
+  },
+  {
+   "id": "mass",
+   "title": "Conservation of mass",
+   "short": "Mass",
+   "card": true,
+   "start": 220.261,
+   "end": 286.037,
+   "lines": [
+    {
+     "id": "rearr",
+     "start": 222.061,
+     "end": 227.693,
+     "cap": "In a chemical reaction, atoms are **rearranged**. None are created, and none are destroyed."
+    },
+    {
+     "id": "law",
+     "start": 228.193,
+     "end": 235.255,
+     "cap": "So the total mass of the **products** equals the total mass of the **reactants**. That's the **law of conservation of mass**."
+    },
+    {
+     "id": "hide",
+     "start": 235.755,
+     "end": 238.357,
+     "cap": "Remember: **Atoms can't hide, and can't die.**"
+    },
+    {
+     "id": "sealed",
+     "start": 238.857,
+     "end": 243.615,
+     "cap": "Burn magnesium in a **sealed** container, and the balance reading doesn't change at all."
+    },
+    {
+     "id": "open",
+     "start": 244.515,
+     "end": 247.757,
+     "cap": "But burn it in the open air, and it seems to get **heavier**."
+    },
+    {
+     "id": "why",
+     "start": 248.257,
+     "end": 255.041,
+     "cap": "That's because **oxygen** from the air joins on. It's part of the product now, but it wasn't on the balance before."
+    },
+    {
+     "id": "carbonate",
+     "start": 255.541,
+     "end": 263.243,
+     "cap": "The opposite happens when a gas **escapes**. Heat a metal carbonate in an open tube, and it gives off carbon dioxide gas."
+    },
+    {
+     "id": "lighter",
+     "start": 263.743,
+     "end": 267.22,
+     "cap": "The gas drifts away, so the solid left behind is **lighter**."
+    },
+    {
+     "id": "closed",
+     "start": 267.72,
+     "end": 274.867,
+     "cap": "But in a **closed** system nothing can get in or out, so the total mass stays **exactly the same**. That's the real rule."
+    },
+    {
+     "id": "candle",
+     "start": 275.367,
+     "end": 285.137,
+     "cap": "So a burning candle seems to lose mass, as its carbon dioxide and water vapour escape, while burning steel wool gains mass, as oxygen joins on."
+    }
+   ]
+  },
+  {
+   "id": "balance",
+   "title": "Balancing symbol equations",
+   "short": "Balancing",
+   "card": true,
+   "start": 286.037,
+   "end": 372.349,
+   "lines": [
+    {
+     "id": "same",
+     "start": 287.837,
+     "end": 295.667,
+     "cap": "Because atoms are conserved, a symbol equation must have the **same number of each type of atom** on both sides. It must be **balanced**."
+    },
+    {
+     "id": "rule",
+     "start": 296.167,
+     "end": 301.265,
+     "cap": "To balance it, put **big numbers** in front of formulae. **Never change a small subscript**."
+    },
+    {
+     "id": "why",
+     "start": 301.765,
+     "end": 310.107,
+     "cap": "Changing a subscript changes the substance. **H₂O** is water, but **H₂O₂** is hydrogen peroxide, a bleach."
+    },
+    {
+     "id": "method",
+     "start": 310.607,
+     "end": 317.028,
+     "cap": "The method: **count** each type of atom on both sides, **add** big numbers to even them up, and then **count again**."
+    },
+    {
+     "id": "start",
+     "start": 317.528,
+     "end": 322.285,
+     "cap": "Let's balance hydrogen burning: **H₂ + O₂ → H₂O**."
+    },
+    {
+     "id": "counto",
+     "start": 322.785,
+     "end": 327.777,
+     "cap": "Count the oxygen: **two** atoms on the left, but only **one** on the right. Not balanced."
+    },
+    {
+     "id": "fixo",
+     "start": 328.277,
+     "end": 333.056,
+     "cap": "Put a big **2** in front of the water. Now there are two oxygen atoms on each side."
+    },
+    {
+     "id": "counth",
+     "start": 333.856,
+     "end": 340.939,
+     "cap": "But that big **2** doubles the hydrogen as well. Now there are **two** hydrogen atoms on the left, and **four** on the right."
+    },
+    {
+     "id": "fixh",
+     "start": 341.439,
+     "end": 346.836,
+     "cap": "So put a **2** in front of the hydrogen: **2H₂ + O₂ → 2H₂O**."
+    },
+    {
+     "id": "check",
+     "start": 347.636,
+     "end": 352.884,
+     "cap": "Count again: **four** hydrogen atoms and **two** oxygen atoms on each side. **Balanced!**"
+    },
+    {
+     "id": "try",
+     "start": 353.784,
+     "end": 358.136,
+     "cap": "Your turn: balance **Mg + O₂ → MgO**."
+    },
+    {
+     "id": "ans",
+     "start": 361.636,
+     "end": 371.449,
+     "cap": "Two oxygens on the left need **2MgO** on the right, and that needs **2Mg** on the left: **2Mg + O₂ → 2MgO**."
+    }
+   ]
+  },
+  {
+   "id": "types",
+   "title": "Families of reactions",
+   "short": "Types",
+   "card": true,
+   "start": 372.349,
+   "end": 471.643,
+   "lines": [
+    {
+     "id": "families",
+     "start": 374.149,
+     "end": 379.483,
+     "cap": "Many reactions belong to families. Spot the family, and you can **predict the products**."
+    },
+    {
+     "id": "combust",
+     "start": 379.983,
+     "end": 390.116,
+     "cap": "**Combustion** is burning: a fuel reacts with **oxygen**, releasing energy. Methane, the gas in many cookers, burns to make **carbon dioxide and water**."
+    },
+    {
+     "id": "oxid",
+     "start": 390.616,
+     "end": 397.059,
+     "cap": "**Oxidation** means a substance **gains oxygen**. The slow oxidation of iron is called **rusting**."
+    },
+    {
+     "id": "rust",
+     "start": 397.559,
+     "end": 406.156,
+     "cap": "Iron needs **both oxygen and water** to rust: **iron + oxygen + water → hydrated iron oxide**, which is rust."
+    },
+    {
+     "id": "nails",
+     "start": 406.656,
+     "end": 413.013,
+     "cap": "Iron in completely dry air doesn't rust, and nor does iron in boiled water with the air driven out."
+    },
+    {
+     "id": "prevent",
+     "start": 413.513,
+     "end": 418.868,
+     "cap": "That's why we paint, oil or galvanise iron: to keep the oxygen and water away."
+    },
+    {
+     "id": "reduce",
+     "start": 419.368,
+     "end": 428.307,
+     "cap": "**Reduction** is the opposite: a substance **loses oxygen**. Heat iron oxide with carbon, and the iron oxide is reduced to iron."
+    },
+    {
+     "id": "pair",
+     "start": 428.807,
+     "end": 435.911,
+     "cap": "Oxidation and reduction go together. Here, the carbon gains the oxygen that the iron oxide loses."
+    },
+    {
+     "id": "decomp",
+     "start": 436.411,
+     "end": 446.736,
+     "cap": "In **thermal decomposition**, heat breaks one compound into simpler ones. Green copper carbonate turns into black copper oxide, giving off carbon dioxide."
+    },
+    {
+     "id": "neutral",
+     "start": 447.236,
+     "end": 456.836,
+     "cap": "**Neutralisation**: **acid + base → salt + water**. Hydrochloric acid and sodium hydroxide make sodium chloride and water."
+    },
+    {
+     "id": "absw",
+     "start": 457.336,
+     "end": 461.027,
+     "cap": "Remember **A-B-S-W**: Acid, Base, Salt, Water."
+    },
+    {
+     "id": "displace",
+     "start": 461.527,
+     "end": 470.743,
+     "cap": "**Displacement**: a more reactive metal pushes a less reactive one out of its compound. An iron nail in copper sulfate gets coated in copper."
+    }
+   ]
+  },
+  {
+   "id": "energy",
+   "title": "Exothermic and endothermic",
+   "short": "Energy changes",
+   "card": true,
+   "start": 471.643,
+   "end": 543.952,
+   "lines": [
+    {
+     "id": "energy",
+     "start": 473.443,
+     "end": 476.771,
+     "cap": "Reactions also exchange **energy** with their surroundings."
+    },
+    {
+     "id": "exo",
+     "start": 477.271,
+     "end": 482.839,
+     "cap": "An **exothermic** reaction **gives out** energy, usually as heat, so the surroundings get **hotter**."
+    },
+    {
+     "id": "exoegs",
+     "start": 483.339,
+     "end": 492.32,
+     "cap": "Combustion, neutralisation and many oxidation reactions are exothermic. Some hand warmers work by making iron rust very fast!"
+    },
+    {
+     "id": "exit",
+     "start": 492.82,
+     "end": 496.639,
+     "cap": "Think **EXO = EXIT**: energy exits, so it gets warmer."
+    },
+    {
+     "id": "endo",
+     "start": 497.139,
+     "end": 501.491,
+     "cap": "An **endothermic** reaction **takes energy in**, so the surroundings get **colder**."
+    },
+    {
+     "id": "endoegs",
+     "start": 501.991,
+     "end": 510.609,
+     "cap": "Thermal decomposition is endothermic, and so is dissolving certain salts. That's how instant **cold packs** for sports injuries work."
+    },
+    {
+     "id": "enter",
+     "start": 511.109,
+     "end": 515.013,
+     "cap": "Think **ENDO = ENTER**: energy enters, so it gets colder."
+    },
+    {
+     "id": "thermo",
+     "start": 515.513,
+     "end": 525.689,
+     "cap": "A **thermometer** tells you which: a temperature **rise** means exothermic; a **fall** means endothermic. That's why a temperature change is a sign of a reaction."
+    },
+    {
+     "id": "trap",
+     "start": 526.189,
+     "end": 532.333,
+     "cap": "So an endothermic reaction feels **cold**, not hot: heat flows out of your hand and **into** the reaction."
+    },
+    {
+     "id": "bonds",
+     "start": 532.833,
+     "end": 543.052,
+     "cap": "Where does the energy come from? **Bonds**. Breaking bonds takes energy in, and making new bonds gives energy out. If more comes out, the reaction is exothermic."
+    }
+   ]
+  },
+  {
+   "id": "combustion",
+   "title": "Complete and incomplete combustion",
+   "short": "Combustion",
+   "card": true,
+   "start": 543.952,
+   "end": 624.308,
+   "lines": [
+    {
+     "id": "fuel",
+     "start": 545.752,
+     "end": 554.115,
+     "cap": "A **fuel** is a substance we burn to release energy. Most fuels, like petrol, methane and wood, contain **carbon** and **hydrogen**."
+    },
+    {
+     "id": "depends",
+     "start": 554.615,
+     "end": 557.623,
+     "cap": "What they make depends on how much **oxygen** there is."
+    },
+    {
+     "id": "complete",
+     "start": 558.123,
+     "end": 566.059,
+     "cap": "With **plenty of oxygen**, you get **complete combustion**. The carbon becomes **carbon dioxide**, and the hydrogen becomes **water**."
+    },
+    {
+     "id": "methane",
+     "start": 566.559,
+     "end": 574.409,
+     "cap": "**Methane + oxygen → carbon dioxide + water**. It releases the **most energy**, with a clean **blue flame**."
+    },
+    {
+     "id": "incomplete",
+     "start": 574.909,
+     "end": 581.949,
+     "cap": "When oxygen is **limited**, you get **incomplete combustion**. It releases **less energy**, with a smoky **yellow flame**."
+    },
+    {
+     "id": "products",
+     "start": 582.449,
+     "end": 588.508,
+     "cap": "And it makes **soot**, tiny bits of carbon, and a toxic gas, **carbon monoxide**, as well as water."
+    },
+    {
+     "id": "co",
+     "start": 589.008,
+     "end": 594.469,
+     "cap": "Carbon monoxide is colourless and has no smell, and it stops your blood carrying oxygen."
+    },
+    {
+     "id": "danger",
+     "start": 594.969,
+     "end": 601.924,
+     "cap": "That's why faulty gas heaters and blocked chimneys are so dangerous, and why homes have **carbon monoxide alarms**."
+    },
+    {
+     "id": "bunsen",
+     "start": 602.424,
+     "end": 608.291,
+     "cap": "You can see both on a **Bunsen burner**. With the air hole **closed**, the flame is yellow and smoky."
+    },
+    {
+     "id": "open",
+     "start": 608.791,
+     "end": 614.359,
+     "cap": "Open the air hole, more oxygen mixes in, and the flame turns **blue**: hotter, and roaring."
+    },
+    {
+     "id": "cells",
+     "start": 615.259,
+     "end": 623.408,
+     "cap": "Your cells run a gentle, controlled version of this, called **respiration**: glucose reacts with oxygen, with no flame at all."
+    }
+   ]
+  },
+  {
+   "id": "rate",
+   "title": "How fast? The rate of reaction",
+   "short": "Rate",
+   "card": true,
+   "start": 624.308,
+   "end": 692.597,
+   "lines": [
+    {
+     "id": "range",
+     "start": 626.108,
+     "end": 632.337,
+     "cap": "Some reactions are over in a flash, like an explosion. Others crawl along for years, like rusting."
+    },
+    {
+     "id": "rate",
+     "start": 632.837,
+     "end": 636.72,
+     "cap": "The **rate** of a reaction is how fast the reactants turn into products."
+    },
+    {
+     "id": "collide",
+     "start": 637.22,
+     "end": 645.988,
+     "cap": "To react, particles must **collide**, with enough energy. More collisions, or harder ones, mean a faster reaction. That's the **collision idea**."
+    },
+    {
+     "id": "temp",
+     "start": 646.488,
+     "end": 652.717,
+     "cap": "**Temperature**: heating gives particles more energy, so they move faster and collide **more often** and **harder**."
+    },
+    {
+     "id": "conc",
+     "start": 653.217,
+     "end": 660.492,
+     "cap": "**Concentration**: a more concentrated solution packs more particles into the same space, so they collide **more often**."
+    },
+    {
+     "id": "surface",
+     "start": 660.992,
+     "end": 666.987,
+     "cap": "**Surface area**: crush a lump into a **powder**, and much more surface is exposed for particles to hit."
+    },
+    {
+     "id": "marble",
+     "start": 667.487,
+     "end": 675.337,
+     "cap": "So in acid, marble powder fizzes much faster than a marble chip, though the same mass makes the **same amount of gas** in the end."
+    },
+    {
+     "id": "catalyst",
+     "start": 675.837,
+     "end": 683.837,
+     "cap": "And a **catalyst**: a substance that speeds up a reaction **without being used up**. It gives the particles an **easier route** to react."
+    },
+    {
+     "id": "sum",
+     "start": 684.337,
+     "end": 691.697,
+     "cap": "Every factor works through collisions: more of them, harder ones, or, with a catalyst, ones that succeed more easily."
+    }
+   ]
+  },
+  {
+   "id": "catalysts",
+   "title": "Catalysts at work",
+   "short": "Catalysts",
+   "card": true,
+   "start": 692.597,
+   "end": 757.857,
+   "lines": [
+    {
+     "id": "reuse",
+     "start": 694.397,
+     "end": 699.176,
+     "cap": "Because a catalyst isn't used up, a tiny amount can be used **over and over again**."
+    },
+    {
+     "id": "enzymes",
+     "start": 699.676,
+     "end": 707.463,
+     "cap": "Living things use **biological catalysts** called **enzymes**: special proteins that speed up the reactions inside them."
+    },
+    {
+     "id": "amylase",
+     "start": 707.963,
+     "end": 715.728,
+     "cap": "The **amylase** in your saliva speeds up the breakdown of starch, and enzymes in **yeast** speed up fermentation for bread and brewing."
+    },
+    {
+     "id": "body",
+     "start": 716.228,
+     "end": 723.993,
+     "cap": "Without enzymes, the reactions that keep you alive would be far too slow at body temperature, **37 °C**."
+    },
+    {
+     "id": "converter",
+     "start": 724.493,
+     "end": 730.616,
+     "cap": "Cars use catalysts too. A **catalytic converter** in the exhaust contains metals like **platinum**."
+    },
+    {
+     "id": "co",
+     "start": 731.116,
+     "end": 739.031,
+     "cap": "They speed up reactions that turn harmful gases, like **carbon monoxide**, into less harmful ones, like **carbon dioxide**."
+    },
+    {
+     "id": "test",
+     "start": 739.531,
+     "end": 746.528,
+     "cap": "How do you know something is a catalyst? The reaction goes **faster**, and at the end you get back **the same mass** of catalyst."
+    },
+    {
+     "id": "not",
+     "start": 747.028,
+     "end": 752.383,
+     "cap": "But a catalyst **doesn't** make more product, or different products. It just gets there **faster**."
+    },
+    {
+     "id": "exoendo",
+     "start": 752.883,
+     "end": 756.957,
+     "cap": "And it doesn't change whether a reaction is exothermic or endothermic."
+    }
+   ]
+  },
+  {
+   "id": "recap",
+   "title": "Recap: memory hooks and exam traps",
+   "short": "Recap",
+   "card": true,
+   "start": 757.857,
+   "end": 812.043,
+   "lines": [
+    {
+     "id": "lock",
+     "start": 759.657,
+     "end": 761.001,
+     "cap": "Let's lock it all in."
+    },
+    {
+     "id": "cgtpl",
+     "start": 761.501,
+     "end": 767.027,
+     "cap": "**Cool Guys Take Pretty Lasses**: colour, gas, temperature, precipitate, light or sound."
+    },
+    {
+     "id": "exo",
+     "start": 767.527,
+     "end": 772.22,
+     "cap": "**EXO = EXIT**: heat out, so hotter. **ENDO = ENTER**: heat in, so colder."
+    },
+    {
+     "id": "hide",
+     "start": 772.72,
+     "end": 779.056,
+     "cap": "Remember: **atoms can't hide, and can't die**. The mass of the products equals the mass of the reactants."
+    },
+    {
+     "id": "absw",
+     "start": 779.556,
+     "end": 782.457,
+     "cap": "And **acid + base → salt + water**."
+    },
+    {
+     "id": "traps",
+     "start": 782.957,
+     "end": 785.219,
+     "cap": "Now, five exam traps to avoid."
+    },
+    {
+     "id": "t1",
+     "start": 785.719,
+     "end": 789.132,
+     "cap": "One: equations use an **arrow**, never an equals sign."
+    },
+    {
+     "id": "t2",
+     "start": 789.632,
+     "end": 793.685,
+     "cap": "Two: balance with **big numbers** in front. Never change a subscript."
+    },
+    {
+     "id": "t3",
+     "start": 794.185,
+     "end": 799.028,
+     "cap": "Three: mass is never destroyed. If it seems to drop, a **gas has escaped**."
+    },
+    {
+     "id": "t4",
+     "start": 799.528,
+     "end": 804.264,
+     "cap": "Four: iron needs **oxygen and water** to rust; dry air alone won't do it."
+    },
+    {
+     "id": "t5",
+     "start": 804.764,
+     "end": 811.143,
+     "cap": "Five: incomplete combustion makes **carbon monoxide** and soot. Don't just write carbon dioxide."
+    }
+   ]
+  },
+  {
+   "id": "quiz",
+   "title": "Quick-fire quiz",
+   "short": "Quiz",
+   "card": true,
+   "start": 812.043,
+   "end": 887.497,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 813.843,
+     "end": 817.491,
+     "cap": "Quick-fire quiz! Say each answer out loud before it appears."
+    },
+    {
+     "id": "q1",
+     "start": 817.991,
+     "end": 822.919,
+     "cap": "Which is a chemical change: ice melting, sugar dissolving, or iron rusting?"
+    },
+    {
+     "id": "a1",
+     "start": 827.419,
+     "end": 830.427,
+     "cap": "**Iron rusting.** It makes a new substance: rust."
+    },
+    {
+     "id": "q2",
+     "start": 830.927,
+     "end": 835.257,
+     "cap": "Magnesium burns in a sealed container. What happens to the total mass?"
+    },
+    {
+     "id": "a2",
+     "start": 839.757,
+     "end": 842.595,
+     "cap": "It **stays the same**. Nothing can get in or out."
+    },
+    {
+     "id": "q3",
+     "start": 843.095,
+     "end": 845.953,
+     "cap": "How many hydrogen atoms are there in **2H₂O**?"
+    },
+    {
+     "id": "a3",
+     "start": 850.453,
+     "end": 854.293,
+     "cap": "**Four**: two water molecules, each with two hydrogen atoms."
+    },
+    {
+     "id": "q4",
+     "start": 854.793,
+     "end": 859.785,
+     "cap": "A reaction makes a test tube feel cold. Is it exothermic or endothermic?"
+    },
+    {
+     "id": "a4",
+     "start": 864.285,
+     "end": 867.699,
+     "cap": "It's **endothermic**: it's taking in heat from its surroundings."
+    },
+    {
+     "id": "q5",
+     "start": 868.199,
+     "end": 871.825,
+     "cap": "True or false: a catalyst gets used up in a reaction."
+    },
+    {
+     "id": "a5",
+     "start": 876.325,
+     "end": 880.485,
+     "cap": "**False.** It speeds the reaction up, and is left unchanged at the end."
+    },
+    {
+     "id": "outro",
+     "start": 880.985,
+     "end": 886.297,
+     "cap": "Brilliant work. Now try the Chemical Reactions quiz in your Science Lab, to lock it in."
+    }
+   ]
+  }
+ ],
+ "total": 887.497
+}

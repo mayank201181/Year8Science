@@ -3,10 +3,11 @@ import type { TopicExtras } from "../types";
 // Engagement extras for breathing. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const breathingExtras: TopicExtras = {
+  lesson: { href: "/lessons/breathing.html", minutes: 13, chapters: 11 },
   interactive: "breathing-lab",
   hook: "You breathe about 22,000 times a day without ever deciding to — but your lungs have no muscles of their own and can't pull in a single breath by themselves. So what is the hidden muscle that sucks the air in, and why would your lungs be useless on the surface of the Moon?",
   didYouKnow: [
-    "If you unfolded all the tiny air sacs (alveoli) in your lungs and laid them out flat, they would cover an area about the size of a tennis court.",
+    "If you unfolded all the tiny air sacs (alveoli) in your lungs and laid them out flat, they would cover an area about the size of a badminton court.",
     "Your lungs are not symmetrical — the left lung is smaller and has only two sections instead of three, to leave room for your heart.",
     "You don't breathe in because your body 'wants oxygen' — the urge to breathe is actually triggered by rising carbon dioxide in your blood, which is why you can't hold your breath forever.",
     "Air rushes into your lungs because your diaphragm flattening makes the space bigger and the pressure inside LOWER than the air outside — you don't really 'pull' air, the outside air pushes in.",
@@ -39,7 +40,7 @@ export const breathingExtras: TopicExtras = {
       emoji: "🌬️",
       materials: [
         "A large bowl of water",
-        "A clear 1.5–2 litre bottle filled with water",
+        "A clear 3–5 litre plastic bottle filled with water (most Year 8 lungs can empty a 2-litre bottle in one breath)",
         "A length of bendy tube or a long straw",
         "A marker pen",
       ],

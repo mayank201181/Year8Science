@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Respiration, Animated</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="A narrated, animated Year 8 lesson on respiration in twelve short chapters.">
+<meta name="description" content="A narrated, animated Year 8 Science lesson: Respiration.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700;800&family=Fredoka:wght@500;600;700&display=swap">
@@ -93,10 +93,23 @@ h1{font-size:clamp(2.2rem,6.4vw,3.5rem);font-weight:600;letter-spacing:-.01em}
 
 .player.theater,.player:fullscreen{position:fixed;inset:0;z-index:100;border-radius:0;justify-content:center;background:#05101A;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
 .player:-webkit-full-screen{position:fixed;inset:0;z-index:100;border-radius:0;justify-content:center;background:#05101A}
-.player.theater .stage-wrap,.player:fullscreen .stage-wrap{width:min(100%,calc((100dvh - 170px) * 1.6))}
-.player:-webkit-full-screen .stage-wrap{width:min(100%,calc((100vh - 170px) * 1.6))}
-.player.theater .screen,.player:fullscreen .screen,.player.theater .controls,.player:fullscreen .controls{width:100%;max-width:min(100%,calc((100dvh - 170px) * 1.6));margin:0 auto}
+.player.theater .stage-wrap,.player:fullscreen .stage-wrap{width:min(100%,calc((100dvh - 190px) * 1.6))}
+.player:-webkit-full-screen .stage-wrap{width:min(100%,calc((100vh - 190px) * 1.6))}
+.player.theater .screen,.player:fullscreen .screen,.player.theater .controls,.player:fullscreen .controls{width:100%;max-width:min(100%,calc((100dvh - 190px) * 1.6));margin:0 auto}
 
+/* Phones held sideways: in full screen the caption and controls sit beside the picture, so it can use the full height */
+@media (orientation:landscape) and (max-height:520px){
+  .player.theater,.player:fullscreen{display:grid;grid-template-columns:minmax(0,calc(100vh * 1.6)) minmax(200px,1fr);grid-template-columns:minmax(0,calc(100dvh * 1.6)) minmax(200px,1fr);grid-template-rows:minmax(0,1fr) auto;align-content:stretch}
+  .player:-webkit-full-screen{display:grid;grid-template-columns:minmax(0,calc(100vh * 1.6)) minmax(200px,1fr);grid-template-rows:minmax(0,1fr) auto;align-content:stretch}
+  .player.theater .screen,.player:fullscreen .screen,.player:-webkit-full-screen .screen{display:contents}
+  .player.theater .stage-wrap,.player:fullscreen .stage-wrap,.player:-webkit-full-screen .stage-wrap{grid-column:1;grid-row:1 / span 2;width:100%;max-width:100%;align-self:center}
+  .player.theater .caption,.player:fullscreen .caption,.player:-webkit-full-screen .caption{grid-column:2;grid-row:1;min-height:0;overflow:auto;border-top:0;border-left:1px solid var(--scr-rule);font-size:1rem;padding:12px 14px}
+  .player.theater .controls,.player:fullscreen .controls,.player:-webkit-full-screen .controls{grid-column:2;grid-row:2;width:auto;max-width:none;margin:0;border-left:1px solid var(--scr-rule);padding:4px 8px 8px}
+  .player.theater .bar,.player:fullscreen .bar,.player:-webkit-full-screen .bar{gap:2px;justify-content:center}
+  .player.theater .spacer,.player:fullscreen .spacer,.player:-webkit-full-screen .spacer{flex-basis:100%;height:0}
+  .player.theater .ic,.player.theater .txtbtn,.player:fullscreen .ic,.player:fullscreen .txtbtn{min-width:38px;height:40px}
+  .player.theater .ic.play,.player:fullscreen .ic.play{width:44px;height:44px}
+}
 .rotate-tip{display:none;color:var(--muted);font-size:.95rem;margin-top:-12px}
 @media (max-width:600px) and (orientation:portrait){.rotate-tip{display:block}}
 @media (max-width:560px){.bp-main{padding:6px 16px 6px 6px;gap:10px;font-size:1rem}.bp-ic{width:38px;height:38px}.bp-len{display:none}.bigplay{bottom:5%}.bp-alt{font-size:.85rem;padding:4px 12px}}
@@ -129,6 +142,10 @@ h1{font-size:clamp(2.2rem,6.4vw,3.5rem);font-weight:600;letter-spacing:-.01em}
 .ts:hover{color:var(--accent)}
 footer{color:var(--muted);font-size:.92rem;max-width:46rem}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+/* embedded in the Science Lab Watch tab: the app supplies the header and gutter */
+:root[data-embed] body{background:transparent}
+:root[data-embed] .top,:root[data-embed] footer,:root[data-embed] .rotate-tip{display:none}
+:root[data-embed] .wrap{max-width:none;padding-block:0 8px;padding-left:0;padding-right:0;gap:20px}
 </style>
 
 </head>
@@ -136,13 +153,13 @@ footer{color:var(--muted);font-size:.92rem;max-width:46rem}
 
 <main class="wrap">
   <header class="top">
-    <a class="back" href="/topic/respiration">← Back to Respiration</a>
+    <a class="back" href="/topic/respiration" target="_top">← Back to Respiration</a>
     <p class="kicker">Year 8 Science · Biology</p>
     <h1>Respiration, animated</h1>
     <p class="dek">A narrated lesson in twelve short chapters. Follow glucose into a cell, watch its atoms rearrange, and see what happens when oxygen runs out.</p>
   </header>
 
-  <section class="player" id="player" data-audio="respiration-narration.mp3" aria-label="Lesson player">
+  <section class="player" id="player" data-audio="respiration-narration.mp3" data-topic="respiration" data-name="Respiration" aria-label="Lesson player">
     <div class="screen">
       <div class="stage-wrap">
         <svg id="stage" viewBox="0 0 1200 750" role="img" aria-label="Animation" preserveAspectRatio="xMidYMid meet"></svg>
@@ -152,7 +169,7 @@ footer{color:var(--muted);font-size:.92rem;max-width:46rem}
         </div>
         <div class="endcard" id="endcard" hidden>
           <p class="end-title">Lesson complete</p>
-          <div class="end-actions"><button type="button" id="end-replay">Watch again</button><a href="/topic/respiration" >Try the Respiration quiz</a></div>
+          <div class="end-actions"><button type="button" id="end-replay">Watch again</button><a href="/topic/respiration?tab=quiz" target="_top">Try the Respiration quiz</a></div>
         </div>
       </div>
       <p class="caption" id="caption" aria-live="off"></p>
@@ -186,7 +203,7 @@ footer{color:var(--muted);font-size:.92rem;max-width:46rem}
     <div id="transcript-body"></div>
   </details>
 
-  <footer>The voice is computer-generated. The lesson follows the Respiration topic in the <a href="/topic/respiration" >Year 8 Science Lab</a>, where the quiz and question bank are.</footer>
+  <footer>The voice is computer-generated. The lesson follows the Respiration topic in the <a href="/topic/respiration" target="_top">Year 8 Science Lab</a>, where the quiz and question bank are.</footer>
 </main>
 <script id="timeline" type="application/json">{"voice":"af_heart","speed":0.95,"chapters":[{"id":"intro","title":"Burning breakfast, without flames","short":"Intro","card":false,"start":0.0,"end":26.211,"lines":[{"id":"hook","start":0.6,"end":5.549,"cap":"Right now, inside trillions of your cells, something is quietly burning your breakfast."},{"id":"noflame","start":6.049,"end":9.441,"cap":"No flames, no smoke, and nothing hot enough to cook you."},{"id":"def","start":9.941,"end":17.408,"cap":"It's called **respiration**: the chemical reaction that releases the energy stored in food, so every cell can stay alive."},{"id":"plan","start":17.908,"end":25.311,"cap":"Let's follow a sugar called **glucose** into a cell, find out where its energy goes, and see what happens when oxygen runs out."}]},{"id":"what","title":"Respiration is not breathing","short":"Not breathing","card":true,"start":26.211,"end":87.408,"lines":[{"id":"notsame","start":28.011,"end":32.448,"cap":"First, one thing to get straight: respiration is **not** the same as breathing."},{"id":"breathing","start":32.948,"end":42.847,"cap":"**Breathing**, which scientists call **ventilation**, moves air in and out of your lungs. It's a physical process, done by muscles, your ribs and your diaphragm."},{"id":"resp","start":43.347,"end":48.936,"cap":"**Respiration** is a **chemical reaction** inside cells. It releases energy from glucose."},{"id":"every","start":49.436,"end":57.095,"cap":"It happens in **every** living cell, all the time: in your skin, your brain and your muscles, and in plants and bacteria too."},{"id":"nolungs","start":57.595,"end":65.765,"cap":"So it doesn't need lungs. A goldfish has gills, and a tree has no lungs at all, yet every one of their cells is respiring right now."},{"id":"released","start":66.265,"end":74.18,"cap":"Use the right word: respiration **releases** energy. It never makes or creates energy, because energy can't be created."},{"id":"transfer","start":74.68,"end":79.971,"cap":"The chemical energy stored in glucose is simply **transferred** into forms the cell can use."},{"id":"source","start":80.471,"end":86.508,"cap":"And the glucose? Animals get it by **digesting food**. Plants make their own by **photosynthesis**."}]},{"id":"aerobic","title":"Aerobic respiration: the equations","short":"Aerobic equations","card":true,"start":87.408,"end":182.877,"lines":[{"id":"aerobic","start":89.208,"end":97.272,"cap":"The main type of respiration uses oxygen. It's called **aerobic** respiration: aerobic means 'with air', or with oxygen."},{"id":"word","start":97.772,"end":105.111,"cap":"Here's the word equation: **glucose + oxygen → carbon dioxide + water**, and energy is released."},{"id":"owls","start":106.011,"end":113.456,"cap":"To remember the order, think: **G**lad **O**wls **C**arry **W**et **E**ggs. Glucose, oxygen, carbon dioxide, water, energy."},{"id":"reactants","start":113.956,"end":121.359,"cap":"Glucose and oxygen are the **reactants**: what goes in. Carbon dioxide and water are the **products**: what comes out."},{"id":"brackets","start":121.859,"end":126.552,"cap":"Energy goes in brackets, because it's released. It isn't a chemical substance."},{"id":"symbol","start":127.052,"end":134.711,"cap":"Now the symbol equation: **C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O**"},{"id":"count","start":135.711,"end":146.548,"cap":"Let's check it's balanced. On the left: **6** carbon atoms, **12** hydrogen atoms and **18** oxygen atoms: 6 from glucose and 12 from the oxygen."},{"id":"watch","start":147.048,"end":148.925,"cap":"Now watch the atoms rearrange."},{"id":"right","start":152.625,"end":164.487,"cap":"On the right: still **6** carbons, **12** hydrogens and **18** oxygens, now shared between carbon dioxide and water. No atoms are lost or made, so **mass is conserved**."},{"id":"lots","start":164.987,"end":173.968,"cap":"Aerobic respiration releases **a large amount of energy** from each glucose. That's why it's the main type in humans, animals and plants."},{"id":"blood","start":174.468,"end":181.977,"cap":"Your **blood** brings oxygen to your cells, and carries the waste carbon dioxide back to your lungs, so you can breathe it out."}]},{"id":"mito","title":"Mitochondria: where it happens","short":"Mitochondria","card":true,"start":182.877,"end":259.24,"lines":[{"id":"where","start":184.677,"end":192.699,"cap":"So where does aerobic respiration happen? Inside tiny structures called **mitochondria**. Just one is called a **mitochondrion**."},{"id":"power","start":193.199,"end":198.959,"cap":"They're often called the **powerhouses** of the cell, because this is where most of the energy is released."},{"id":"folds","start":199.459,"end":203.448,"cap":"Look inside one. The inner membrane is folded, again and again."},{"id":"unfold","start":204.248,"end":210.733,"cap":"Unfold it, and it's far longer. The folds give a **large surface area** for the reactions of respiration."},{"id":"active","start":211.533,"end":214.925,"cap":"The more active a cell is, the **more mitochondria** it has."},{"id":"muscle","start":215.425,"end":220.247,"cap":"**Muscle cells** are packed with them, because contracting muscles need lots of energy."},{"id":"sperm","start":220.747,"end":224.928,"cap":"**Sperm cells** have many in their middle section, to power the tail for swimming."},{"id":"liver","start":225.428,"end":230.889,"cap":"**Liver cells** are full of them, because the liver carries out lots of energy-hungry reactions."},{"id":"fat","start":231.389,"end":235.165,"cap":"But a **fat-storage cell** needs little energy, so it has only a few."},{"id":"predict","start":235.665,"end":240.252,"cap":"So if you see lots of mitochondria, you can predict a **high energy demand**."},{"id":"chloro","start":240.752,"end":248.389,"cap":"Don't mix them up with chloroplasts. **Photosynthesis** happens in **chloroplasts**; **respiration** happens in **mitochondria**."},{"id":"bacteria","start":248.889,"end":258.34,"cap":"A bonus fact: scientists think mitochondria were once free-living **bacteria** that moved into bigger cells long ago. They even have their own **DNA**."}]},{"id":"uses","title":"What the energy is used for","short":"Uses of energy","card":true,"start":259.24,"end":330.888,"lines":[{"id":"what","start":261.04,"end":266.245,"cap":"What's all that energy for? It powers the **life processes** that keep an organism alive."},{"id":"move","start":266.745,"end":272.057,"cap":"**Movement**: muscles contracting. That's why exercising muscles respire faster."},{"id":"grow","start":272.557,"end":277.016,"cap":"**Growth**: building new cells and tissues, to get bigger or to repair damage."},{"id":"build","start":277.516,"end":284.471,"cap":"**Making big molecules**: joining small molecules into large ones, like building proteins from amino acids."},{"id":"active","start":284.971,"end":293.867,"cap":"**Active transport**: moving substances across cell membranes **against a concentration gradient**, like a root taking in minerals from the soil."},{"id":"warm","start":294.367,"end":300.511,"cap":"**Keeping warm**: mammals and birds use some of the energy as heat, to keep a steady body temperature."},{"id":"nerve","start":301.011,"end":304.659,"cap":"And **nerve impulses**, plus lots of other jobs inside cells."},{"id":"heat","start":305.159,"end":313.991,"cap":"Not all of the energy is useful. Some is always **transferred to the surroundings as heat**. For mammals and birds, though, that heat keeps them warm."},{"id":"bird","start":314.491,"end":322.235,"cap":"That's why a small bird must eat almost all day in cold weather, while a lizard the same size can go much longer without food."},{"id":"brain","start":322.735,"end":329.988,"cap":"And your brain is only about **2%** of your body mass, yet it uses around **a fifth** of your energy, even while you sleep."}]},{"id":"anaerobic","title":"Anaerobic respiration in humans","short":"Anaerobic (humans)","card":true,"start":330.888,"end":408.681,"lines":[{"id":"sprint","start":332.688,"end":339.344,"cap":"Sometimes your muscles need energy faster than your blood can deliver oxygen. Think of a flat-out sprint."},{"id":"switch","start":339.844,"end":347.631,"cap":"When there isn't enough oxygen, muscle cells switch to **anaerobic** respiration. The prefix **an-** means **absent**: no oxygen."},{"id":"eq","start":348.131,"end":353.357,"cap":"The word equation is: **glucose → lactic acid**, and a little energy is released."},{"id":"less","start":354.157,"end":360.877,"cap":"It releases **much less energy** than aerobic respiration, because the glucose is only **partly** broken down."},{"id":"noco2","start":361.377,"end":365.879,"cap":"And it makes **no carbon dioxide** and no water. Just lactic acid."},{"id":"fatigue","start":366.379,"end":374.123,"cap":"Lactic acid builds up in the muscles. It's linked to the burning feeling, and to **muscle fatigue**, when muscles get tired and ache."},{"id":"debt","start":374.623,"end":381.62,"cap":"Afterwards, your body needs extra oxygen to break the lactic acid down. This is called the **oxygen debt**."},{"id":"pant","start":382.12,"end":386.835,"cap":"That's why you keep panting, and your heart keeps pounding, for a while after you stop."},{"id":"sprinter","start":387.335,"end":395.74,"cap":"So a sprinter relies far more on anaerobic respiration than a marathon runner, and that's why no one can sprint flat out for very long."},{"id":"modern","start":396.24,"end":407.781,"cap":"Scientists now know the burn is a bit more complicated, and next-day soreness is mostly tiny muscle damage. But for your exam: **lactic acid**, **fatigue** and **oxygen debt**."}]},{"id":"yeast","title":"Yeast and fermentation","short":"Yeast","card":true,"start":408.681,"end":480.005,"lines":[{"id":"yeast","start":410.481,"end":416.753,"cap":"**Yeast** is a single-celled fungus. When yeast respires without oxygen, it's called **fermentation**."},{"id":"eq","start":417.253,"end":424.613,"cap":"Its products are different from ours: **glucose → ethanol + carbon dioxide**, and a little energy is released."},{"id":"ethanol","start":425.413,"end":428.485,"cap":"**Ethanol** is the alcohol in alcoholic drinks."},{"id":"lazy","start":428.985,"end":436.431,"cap":"To remember who makes what: **L**azy **A**thletes, **E**nergetic **Y**east. **L**actic acid for athletes, **e**thanol for yeast."},{"id":"history","start":436.931,"end":440.067,"cap":"People have used fermentation for thousands of years."},{"id":"bread","start":440.567,"end":446.753,"cap":"In **bread-making**, yeast in the dough makes **carbon dioxide** gas, and the bubbles make the dough **rise**."},{"id":"bake","start":447.653,"end":453.627,"cap":"In the oven, the ethanol evaporates, but the holes stay behind, so the bread is light and airy."},{"id":"brew","start":454.127,"end":460.975,"cap":"In **brewing** and wine-making, the **ethanol** makes the alcoholic drink, and the carbon dioxide can make it fizzy."},{"id":"products","start":461.475,"end":467.832,"cap":"Fermentation releases only a little energy, but for bakers and brewers it's the **products** that matter."},{"id":"balloon","start":468.332,"end":479.105,"cap":"Try it at home: warm water, sugar and yeast in a bottle, with a balloon stretched over the top. In half an hour or so, the balloon starts to fill with **carbon dioxide**."}]},{"id":"compare","title":"Aerobic vs anaerobic","short":"Compare","card":true,"start":480.005,"end":533.449,"lines":[{"id":"side","start":481.805,"end":490.765,"cap":"Let's put them side by side. Both start with **glucose**, and both release energy. They differ in three ways: **oxygen**, **energy** and **products**."},{"id":"aer","start":491.265,"end":497.303,"cap":"**Aerobic**: uses oxygen, releases **a lot** of energy, and makes **carbon dioxide and water**."},{"id":"human","start":497.803,"end":503.435,"cap":"**Anaerobic, in humans**: no oxygen, releases **a little** energy, and makes **lactic acid**."},{"id":"yeast","start":503.935,"end":510.804,"cap":"**Anaerobic, in yeast**: no oxygen, releases **a little** energy, and makes **ethanol and carbon dioxide**."},{"id":"why","start":511.304,"end":516.296,"cap":"Why so much more energy from aerobic? Because the glucose is **completely** broken down."},{"id":"locked","start":516.796,"end":525.777,"cap":"In anaerobic respiration it's only **partly** broken down, so most of its energy stays **locked inside** the lactic acid or the ethanol."},{"id":"backup","start":526.277,"end":532.549,"cap":"So anaerobic respiration isn't better just because it works without oxygen. It's a **short-term backup**."}]},{"id":"photo","title":"Respiration, photosynthesis and breathing","short":"vs photosynthesis","card":true,"start":533.449,"end":615.615,"lines":[{"id":"three","start":535.249,"end":540.519,"cap":"Three processes often get muddled up: **respiration**, **photosynthesis** and **breathing**."},{"id":"opposite","start":541.019,"end":544.389,"cap":"Respiration and photosynthesis are roughly **opposites**."},{"id":"resp","start":544.889,"end":554.425,"cap":"Respiration: glucose + oxygen → carbon dioxide + water, **releasing** energy. It happens in **all** living cells, **all the time**."},{"id":"photo","start":554.925,"end":566.552,"cap":"Photosynthesis: carbon dioxide + water → glucose + oxygen, **storing** energy from light. It happens only in **green plant cells** with chlorophyll, and only **in the light**."},{"id":"both","start":567.052,"end":576.567,"cap":"A green plant does both. And here's the big one: plants **respire all the time**, day and night, in every living cell: roots, stems, flowers and leaves."},{"id":"day","start":577.067,"end":585.877,"cap":"In bright light, photosynthesis runs faster than respiration, so overall the plant takes in **carbon dioxide** and gives out **oxygen**."},{"id":"night","start":586.377,"end":594.377,"cap":"At night there's no photosynthesis, so only respiration shows: the plant takes in **oxygen** and gives out **carbon dioxide**."},{"id":"breathe","start":594.877,"end":602.792,"cap":"And breathing? **Breathing**, or **ventilation**, is the muscular movement of air in and out of the lungs. It isn't a chemical reaction."},{"id":"link","start":603.292,"end":611.569,"cap":"Breathing **supplies** the oxygen for aerobic respiration, and **removes** the carbon dioxide it makes. Linked, but not the same."},{"id":"crlv","start":612.069,"end":614.715,"cap":"Remember: **C**ells **R**espire, **L**ungs **V**entilate."}]},{"id":"investigate","title":"Investigating respiration","short":"Experiments","card":true,"start":615.615,"end":694.723,"lines":[{"id":"detect","start":617.415,"end":622.193,"cap":"We can't see respiration directly, so experiments detect its **products** and effects."},{"id":"lime","start":622.693,"end":630.544,"cap":"Test one: carbon dioxide. **Limewater** turns from clear to **milky**, or cloudy, when carbon dioxide bubbles through it."},{"id":"inout","start":631.044,"end":642.863,"cap":"Bubble air you breathe **in** through one tube, and air you breathe **out** through another. The breathed-out air turns the limewater milky much faster, because respiration has added carbon dioxide."},{"id":"flasks","start":643.763,"end":651.912,"cap":"Test two: heat. Put living, **germinating peas** in one vacuum flask, and **boiled**, dead peas in another, each with a thermometer."},{"id":"warmer","start":652.412,"end":662.14,"cap":"Over a few days, the flask of living seeds gets **warmer**, because respiration releases heat. Dead seeds can't respire, so their temperature doesn't rise."},{"id":"control","start":662.94,"end":670.385,"cap":"The boiled seeds are the **control**. And washing the seeds in **disinfectant** first stops microbes from making heat instead."},{"id":"respirometer","start":670.885,"end":684.709,"cap":"Test three: oxygen. Living things in a sealed tube use up oxygen. In a **respirometer**, a chemical soaks up the carbon dioxide, so a drop of coloured liquid creeps along the tube as the oxygen is used."},{"id":"fair","start":685.609,"end":693.823,"cap":"Whatever you test, make it a **fair test**: change just one variable, keep everything else the same, and include a **control** to compare with."}]},{"id":"recap","title":"Recap: memory hooks and exam traps","short":"Recap","card":true,"start":694.723,"end":749.207,"lines":[{"id":"lock","start":696.523,"end":697.867,"cap":"Let's lock it all in."},{"id":"owls","start":698.367,"end":705.044,"cap":"**Glad Owls Carry Wet Eggs**: glucose + oxygen → carbon dioxide + water (+ energy)."},{"id":"an","start":705.544,"end":709.192,"cap":"**Aerobic** means with oxygen, while **an**aerobic means without it."},{"id":"lazy","start":709.692,"end":716.839,"cap":"**Lazy Athletes, Energetic Yeast**: lactic acid in humans; ethanol and carbon dioxide in yeast."},{"id":"crlv","start":717.339,"end":719.451,"cap":"**Cells Respire, Lungs Ventilate.**"},{"id":"traps","start":719.951,"end":722.212,"cap":"Now, five exam traps to avoid."},{"id":"t1","start":722.712,"end":726.083,"cap":"One: respiration **releases** energy. It doesn't make it."},{"id":"t2","start":726.583,"end":732.449,"cap":"Two: write **(+ energy)** in your equations, and check the **sixes** in the symbol equation."},{"id":"t3","start":732.949,"end":739.029,"cap":"Three: anaerobic respiration in humans makes **lactic acid only**. No carbon dioxide."},{"id":"t4","start":739.529,"end":742.9,"cap":"Four: plants respire **all the time**, not just at night."},{"id":"t5","start":743.4,"end":748.307,"cap":"Five: anaerobic respiration releases **less** energy than aerobic, not more."}]},{"id":"quiz","title":"Quick-fire quiz","short":"Quiz","card":true,"start":749.207,"end":814.08,"lines":[{"id":"intro","start":751.007,"end":754.655,"cap":"Quick-fire quiz! Say each answer out loud before it appears."},{"id":"q1","start":755.155,"end":757.821,"cap":"Where in the cell does aerobic respiration happen?"},{"id":"a1","start":762.321,"end":763.601,"cap":"In the **mitochondria**."},{"id":"q2","start":764.101,"end":767.045,"cap":"What does yeast make when it respires without oxygen?"},{"id":"a2","start":771.545,"end":773.551,"cap":"**Ethanol and carbon dioxide.**"},{"id":"q3","start":774.051,"end":777.784,"cap":"What happens to limewater when carbon dioxide bubbles through it?"},{"id":"a3","start":782.284,"end":783.927,"cap":"It turns from clear to **milky**."},{"id":"q4","start":784.427,"end":786.453,"cap":"Why do you keep panting after a sprint?"},{"id":"a4","start":790.953,"end":796.457,"cap":"To take in extra oxygen and repay the **oxygen debt**, breaking down the lactic acid."},{"id":"q5","start":796.957,"end":799.944,"cap":"True or false: plants only respire at night."},{"id":"a5","start":804.444,"end":807.388,"cap":"**False.** Plants respire all the time, day and night."},{"id":"outro","start":807.888,"end":812.88,"cap":"Brilliant work. Now try the Respiration quiz in your Science Lab, to lock it in."}]}],"total":814.08}</script>
 <script>
@@ -659,7 +676,303 @@ function ring(parent, r, color) {
 const SCENES = {};
 function scene(id, build) { SCENES[id] = build; }
 
-/* ---- scenes/00_intro.js ---- */
+/* ==========================================================================
+   kit.js: the shared lab kit and scenery, bundled after lib.js. Same rules as
+   lib.js: each primitive draws around its own origin and returns a <g>;
+   animated ones take g.set(...) and/or g.upd(t). Use these so glassware,
+   circuits, magnets, waves, particles and people look the same in every
+   chapter of every lesson.
+   ========================================================================== */
+
+let _kitId = 0;
+function _clipUrl(d) { const id = 'kc' + (++_kitId); const cp = E('clipPath', { id }, defs()); E('path', { d }, cp); return `url(#${id})`; }
+const GLASS = { stroke: '#CFE7F5', fill: 'rgba(200,230,250,0.10)', shine: 'rgba(255,255,255,0.28)' };
+
+/* ---------- glassware: g.set(level 0..1, color) fills it from the bottom ---------- */
+function _liquid(g, d, top, bottom, o) {
+  const clip = _clipUrl(d);
+  const liq = E('rect', { x: -400, y: bottom, width: 800, height: 0, fill: o.liquid || C.water, opacity: o.opacity || 0.85, 'clip-path': clip }, g);
+  const surf = E('rect', { x: -400, y: bottom, width: 800, height: 4, fill: '#ffffff', opacity: 0.35, 'clip-path': clip }, g);
+  g.set = (level, color) => {
+    level = clamp(level); const y = bottom - (bottom - top) * level;
+    attr(liq, 'y', y); attr(liq, 'height', bottom - y + 2); attr(surf, 'y', y);
+    surf.style.opacity = level > 0.01 ? '' : '0';
+    if (color) liq.setAttribute('fill', color);
+  };
+  g.liquid = liq;
+  g.set(o.level !== undefined ? o.level : 0.5);
+}
+/* beaker about w x h; o: level, liquid (colour), marks (default true) */
+function beaker(parent, w, h, o) {
+  w = w || 140; h = h || 170; o = o || {};
+  const g = G(parent), r = 14, x0 = -w / 2, x1 = w / 2, y0 = -h / 2, y1 = h / 2;
+  const body = `M${x0},${y0 + 4} L${x0},${y1 - r} Q${x0},${y1} ${x0 + r},${y1} L${x1 - r},${y1} Q${x1},${y1} ${x1},${y1 - r} L${x1},${y0 + 4} Z`;
+  E('path', { d: body, fill: GLASS.fill }, g);
+  _liquid(g, body, y0 + 18, y1, o);
+  if (o.marks !== false) for (let i = 1; i <= 3; i++) E('line', { x1: x0 + 8, x2: x0 + 26, y1: y1 - i * h / 4.5, y2: y1 - i * h / 4.5, stroke: GLASS.stroke, 'stroke-width': 2.5, opacity: 0.7 }, g);
+  E('path', { d: `M${x0 - 10},${y0} L${x0},${y0 + 6} L${x0},${y1 - r} Q${x0},${y1} ${x0 + r},${y1} L${x1 - r},${y1} Q${x1},${y1} ${x1},${y1 - r} L${x1},${y0 + 6} L${x1 + 4},${y0}`, fill: 'none', stroke: GLASS.stroke, 'stroke-width': 4, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
+  E('rect', { x: x1 - 22, y: y0 + 20, width: 7, height: h - 50, rx: 3.5, fill: GLASS.shine }, g);
+  return g;
+}
+/* test tube about w x h, rounded bottom; o: level, liquid */
+function testTube(parent, w, h, o) {
+  w = w || 46; h = h || 200; o = o || {};
+  const g = G(parent), x0 = -w / 2, x1 = w / 2, y0 = -h / 2, y1 = h / 2, r = w / 2;
+  const body = `M${x0},${y0} L${x0},${y1 - r} A${r},${r} 0 0 0 ${x1},${y1 - r} L${x1},${y0} Z`;
+  E('path', { d: body, fill: GLASS.fill }, g);
+  _liquid(g, body, y0 + 10, y1, o);
+  E('path', { d: `M${x0},${y0} L${x0},${y1 - r} A${r},${r} 0 0 0 ${x1},${y1 - r} L${x1},${y0}`, fill: 'none', stroke: GLASS.stroke, 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
+  E('ellipse', { cx: 0, cy: y0, rx: r + 4, ry: 5, fill: 'none', stroke: GLASS.stroke, 'stroke-width': 3.5 }, g);
+  E('rect', { x: x1 - 13, y: y0 + 14, width: 5, height: h - r - 30, rx: 2.5, fill: GLASS.shine }, g);
+  return g;
+}
+/* conical flask, about 160 wide x 190 tall at s=1; o: level, liquid */
+function flask(parent, s, o) {
+  s = s || 1; o = o || {};
+  const g = G(parent), inner = G(g); tr(inner, 0, 0, s);
+  const body = 'M-17,-95 L-17,-38 L-76,78 Q-80,92 -66,92 L66,92 Q80,92 76,78 L17,-38 L17,-95 Z';
+  E('path', { d: body, fill: GLASS.fill }, inner);
+  _liquid(inner, body, -38, 92, o);
+  E('path', { d: 'M-17,-95 L-17,-38 L-76,78 Q-80,92 -66,92 L66,92 Q80,92 76,78 L17,-38 L17,-95', fill: 'none', stroke: GLASS.stroke, 'stroke-width': 4, 'stroke-linejoin': 'round' }, inner);
+  E('path', { d: 'M-23,-97 L23,-97', stroke: GLASS.stroke, 'stroke-width': 5, 'stroke-linecap': 'round' }, inner);
+  g.set = inner.set; g.liquid = inner.liquid;
+  return g;
+}
+/* Bunsen burner, about 70 wide x 150 tall, tube top at (0,-120); g.set('off'|'yellow'|'blue'), g.upd(t) */
+function bunsen(parent, s) {
+  s = s || 1;
+  const g = G(parent), inner = G(g); tr(inner, 0, 0, s);
+  E('rect', { x: -40, y: 0, width: 80, height: 18, rx: 6, fill: '#6B7A88', stroke: '#9DB0BF', 'stroke-width': 2 }, inner);
+  E('rect', { x: -11, y: -120, width: 22, height: 122, rx: 3, fill: linGrad('#B9C6D2', '#7D8C99'), stroke: '#9DB0BF', 'stroke-width': 2 }, inner);
+  E('rect', { x: -15, y: -40, width: 30, height: 16, rx: 3, fill: '#8E9CA9', stroke: '#B9C6D2', 'stroke-width': 2 }, inner);
+  E('path', { d: 'M40,10 L70,10', stroke: '#E07A3E', 'stroke-width': 8, 'stroke-linecap': 'round' }, inner);
+  const fl = G(inner); tr(fl, 0, -120);
+  const halo = E('ellipse', { cx: 0, cy: -55, rx: 50, ry: 80, fill: glow('#FFB347') }, fl);
+  const outer = E('path', { d: 'M0,0 C-22,-22 -20,-70 0,-118 C20,-70 22,-22 0,0 Z' }, fl);
+  const core = E('path', { d: 'M0,-2 C-10,-14 -10,-40 0,-66 C10,-40 10,-14 0,-2 Z' }, fl);
+  let mode = 'blue';
+  g.set = m => {
+    mode = m;
+    op(fl, m === 'off' ? 0 : 1);
+    if (m === 'yellow') { outer.setAttribute('fill', '#FFB13B'); core.setAttribute('fill', '#FFE07A'); halo.setAttribute('opacity', 0.9); }
+    else { outer.setAttribute('fill', '#5AA8FF'); core.setAttribute('fill', '#BFE3FF'); halo.setAttribute('opacity', 0.35); }
+  };
+  g.upd = t => { const k = mode === 'yellow' ? 0.12 : 0.05; fl.setAttribute('transform', `translate(0 -120) scale(${(1 + k * 0.4 * Math.sin(t * 9)).toFixed(3)} ${(1 + k * Math.sin(t * 13 + 1)).toFixed(3)})`); };
+  g.set('blue'); g.upd(0);
+  return g;
+}
+
+/* ---------- circuits: standard symbols, wires carry current dots ---------- */
+const WIRE = '#F2F7FA';
+function _sym(parent, len) { const g = G(parent); E('path', { d: `M${-len},0 L${len},0`, stroke: WIRE, 'stroke-width': 5, 'stroke-linecap': 'round' }, g); return g; }
+/* cell: long thin plate (+) on the left, short thick plate (-) on the right. o.cells for a battery of n cells */
+function cellSym(parent, o) {
+  o = o || {}; const n = o.cells || 1, gap = 34, wTot = (n - 1) * gap + 16;
+  const g = G(parent);
+  E('path', { d: `M${-wTot / 2 - 34},0 L${-wTot / 2},0 M${wTot / 2},0 L${wTot / 2 + 34},0`, stroke: WIRE, 'stroke-width': 5, 'stroke-linecap': 'round' }, g);
+  E('rect', { x: -wTot / 2 + 1, y: -4, width: wTot - 2, height: 8, fill: C.bg0 }, g);
+  for (let i = 0; i < n; i++) {
+    const x = -wTot / 2 + i * gap;
+    E('line', { x1: x, x2: x, y1: -30, y2: 30, stroke: WIRE, 'stroke-width': 5, 'stroke-linecap': 'round' }, g);
+    E('line', { x1: x + 16, x2: x + 16, y1: -15, y2: 15, stroke: WIRE, 'stroke-width': 10, 'stroke-linecap': 'round' }, g);
+    if (i < n - 1) E('line', { x1: x + 16, x2: x + gap, y1: 0, y2: 0, stroke: WIRE, 'stroke-width': 4, 'stroke-dasharray': '4 5' }, g);
+  }
+  if (o.signs !== false) { T(g, -wTot / 2 - 4, -40, '+', { size: 30, weight: 700, anchor: 'middle', fill: C.bad }); T(g, wTot / 2 + 4, -40, '−', { size: 30, weight: 700, anchor: 'middle', fill: C.water }); }
+  return g;
+}
+/* lamp: circle with a cross; g.set(on 0..1) lights it */
+function bulbSym(parent) {
+  const g = _sym(parent, 46);
+  const halo = E('circle', { r: 64, fill: glow(C.energy) }, g);
+  E('circle', { r: 24, fill: C.bg0, stroke: WIRE, 'stroke-width': 5 }, g);
+  const fillC = E('circle', { r: 20, fill: C.energy }, g);
+  E('path', { d: 'M-17,-17 L17,17 M17,-17 L-17,17', stroke: WIRE, 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
+  g.set = v => { v = clamp(v); halo.style.opacity = v.toFixed(3); fillC.style.opacity = (0.95 * v).toFixed(3); };
+  g.set(0);
+  return g;
+}
+/* switch: g.set(closed 0..1) */
+function switchSym(parent) {
+  const g = G(parent);
+  E('path', { d: 'M-50,0 L-24,0 M24,0 L50,0', stroke: WIRE, 'stroke-width': 5, 'stroke-linecap': 'round' }, g);
+  E('circle', { cx: -24, cy: 0, r: 6, fill: WIRE }, g); E('circle', { cx: 24, cy: 0, r: 6, fill: C.bg0, stroke: WIRE, 'stroke-width': 4 }, g);
+  const lever = E('line', { x1: -24, y1: 0, x2: 26, y2: 0, stroke: WIRE, 'stroke-width': 5, 'stroke-linecap': 'round' }, g);
+  g.set = c => lever.setAttribute('transform', `rotate(${(-32 * (1 - clamp(c))).toFixed(2)} -24 0)`);
+  g.set(0);
+  return g;
+}
+function resistorSym(parent) { const g = _sym(parent, 54); E('rect', { x: -30, y: -13, width: 60, height: 26, rx: 3, fill: C.bg0, stroke: WIRE, 'stroke-width': 5 }, g); return g; }
+/* meter: letter 'A' (ammeter) or 'V' (voltmeter); g.set(text) shows a reading beside it */
+function meterSym(parent, letter) {
+  const g = _sym(parent, 46);
+  E('circle', { r: 24, fill: C.bg0, stroke: WIRE, 'stroke-width': 5 }, g);
+  T(g, 0, 10, letter || 'A', { size: 28, weight: 700, anchor: 'middle', fill: WIRE });
+  const rd = T(g, 0, -38, '', { size: 26, weight: 700, anchor: 'middle', fill: C.energy });
+  g.set = s => setText(rd, s || '');
+  return g;
+}
+/* wire through points [[x,y],...] in parent coordinates; g.upd(t, speed) moves current dots from the
+   first point to the last (conventional current: + to -); g.set(on 0..1) shows/hides the dots */
+function wire(parent, pts, o) {
+  o = o || {};
+  const g = G(parent);
+  E('path', { d: 'M' + pts.map(p => p[0] + ',' + p[1]).join(' L'), fill: 'none', stroke: o.color || WIRE, 'stroke-width': o.width || 5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
+  const segs = []; let L = 0;
+  for (let i = 0; i < pts.length - 1; i++) { const l = Math.hypot(pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1]); segs.push([L, l, pts[i], pts[i + 1]]); L += l; }
+  const n = Math.max(2, Math.round(L / (o.spacing || 46))), dots = [];
+  for (let k = 0; k < n; k++) dots.push(E('circle', { r: o.dot || 5.5, fill: o.dotColor || C.energy }, g));
+  const at = s => { s = ((s % L) + L) % L; for (const [s0, l, a, b] of segs) if (s <= s0 + l) { const p = (s - s0) / (l || 1); return [a[0] + (b[0] - a[0]) * p, a[1] + (b[1] - a[1]) * p]; } return pts[pts.length - 1]; };
+  let on = 1;
+  g.set = v => { on = clamp(v); dots.forEach(d => { d.style.opacity = on.toFixed(3); }); };
+  g.upd = (t, speed) => { const sp = speed === undefined ? 60 : speed; dots.forEach((d, k) => { const q = at(k * L / n + t * sp); attr(d, 'cx', q[0]); attr(d, 'cy', q[1]); }); };
+  g.length = L; g.set(o.on === undefined ? 1 : o.on); g.upd(0);
+  return g;
+}
+
+/* ---------- magnets and waves ---------- */
+/* bar magnet w x h, N (red) on the left; o.flip puts N on the right */
+function magnet(parent, w, h, o) {
+  w = w || 220; h = h || 60; o = o || {};
+  const g = G(parent), nLeft = !o.flip;
+  const red = '#E8424F', blue = '#3B82F6';
+  E('rect', { x: -w / 2, y: -h / 2, width: w / 2, height: h, rx: 10, fill: ball(nLeft ? red : blue, nLeft ? '#A4232E' : '#1E4FA8') }, g);
+  E('rect', { x: 0, y: -h / 2, width: w / 2, height: h, rx: 10, fill: ball(nLeft ? blue : red, nLeft ? '#1E4FA8' : '#A4232E') }, g);
+  E('rect', { x: -12, y: -h / 2, width: 24, height: h, fill: nLeft ? blue : red, opacity: 0 }, g);
+  T(g, -w / 4, h * 0.2, nLeft ? 'N' : 'S', { size: h * 0.55, weight: 700, anchor: 'middle', fill: '#fff' });
+  T(g, w / 4, h * 0.2, nLeft ? 'S' : 'N', { size: h * 0.55, weight: 700, anchor: 'middle', fill: '#fff' });
+  return g;
+}
+/* sine wave from x=0 to x=w around y=0; g.set({ amp, wl, phase }) (phase in wavelengths).
+   (Not `wave`: that name is lib.js's timing helper, wave(t, period, phase).) */
+function sineWave(parent, o) {
+  o = o || {};
+  const g = G(parent), w = o.w || 600;
+  const p = E('path', { fill: 'none', stroke: o.color || C.water, 'stroke-width': o.width || 5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);
+  let st = { amp: o.amp || 50, wl: o.wl || 150, phase: 0 };
+  g.set = v => {
+    st = Object.assign(st, v || {});
+    let d = '';
+    for (let x = 0; x <= w; x += 4) { const y = -st.amp * Math.sin(TAU * (x / st.wl - st.phase)); d += (x ? 'L' : 'M') + x + ',' + y.toFixed(1); }
+    p.setAttribute('d', d);
+  };
+  g.set();
+  return g;
+}
+
+/* ---------- particles: solid / liquid / gas ---------- */
+/* box w x h (top-left at 0,0) of n particles. g.set(state, t, energy 0..1) arranges them:
+   'solid' a vibrating lattice, 'liquid' touching but jumbled and sliding, 'gas' far apart and fast.
+   o: n, r, color, box (draw the container, default true), seed */
+function particleBox(parent, w, h, o) {
+  o = o || {};
+  const g = G(parent), n = o.n || 30, r = o.r || 11, rr = rng(o.seed || 17);
+  if (o.box !== false) E('rect', { x: -6, y: -6, width: w + 12, height: h + 12, rx: 10, fill: 'rgba(200,230,250,0.06)', stroke: GLASS.stroke, 'stroke-width': 3 }, g);
+  const cols = Math.ceil(Math.sqrt(n * w / h)), rows = Math.ceil(n / cols), ps = [];
+  for (let i = 0; i < n; i++) {
+    const c = i % cols, rw = Math.floor(i / cols);
+    ps.push({
+      el: E('circle', { r, fill: ball(o.color || C.water, o.dark || C.waterDk) }, g),
+      lx: (c + 0.5) * Math.min(w / cols, 2.3 * r), ly: h - (rw + 0.5) * Math.min(h / rows, 2.3 * r),
+      jx: (c + 0.5 + (rr() - 0.5) * 0.6) * Math.min(w / cols, 2.3 * r), jy: h - (rw + 0.5 + (rr() - 0.5) * 0.5) * 2.05 * r,
+      gx: r + rr() * (w - 2 * r), gy: r + rr() * (h - 2 * r), vx: (rr() - 0.5) * 2, vy: (rr() - 0.5) * 2, ph: rr() * TAU,
+    });
+  }
+  const lw = Math.min(w / cols, 2.3 * r) * cols, offx = (w - lw) / 2;
+  const bounce = (u, a, b) => { const L = b - a, m = ((u - a) % (2 * L) + 2 * L) % (2 * L); return a + (m < L ? m : 2 * L - m); };
+  g.set = (state, t, e) => {
+    e = e === undefined ? 0.4 : clamp(e);
+    ps.forEach(p => {
+      let x, y;
+      if (state === 'gas') { x = bounce(p.gx + p.vx * t * (60 + 140 * e), r, w - r); y = bounce(p.gy + p.vy * t * (60 + 140 * e), r, h - r); }
+      else if (state === 'liquid') { x = offx + p.jx + Math.sin(t * 1.3 + p.ph) * (3 + 5 * e) + Math.sin(t * 0.35 + p.ph) * 10; y = p.jy + Math.cos(t * 1.7 + p.ph) * (2 + 3 * e); }
+      else { x = offx + p.lx + Math.sin(t * 19 + p.ph) * (0.8 + 5 * e); y = p.ly + Math.cos(t * 23 + p.ph) * (0.8 + 5 * e); }
+      attr(p.el, 'cx', x); attr(p.el, 'cy', y);
+    });
+  };
+  g.set(o.state || 'solid', 0);
+  return g;
+}
+
+/* ---------- people ---------- */
+/* a simple person about 190 tall, feet at (0,0). g.pose({ lean, armL:[shoulder, elbow], armR, legL:[hip, knee], legR })
+   with angles in degrees (0 = hanging straight down, positive swings forward). o: shirt, skin, hair, shorts, shoes */
+function person(parent, o) {
+  o = o || {};
+  const g = G(parent), body = G(g);
+  const skin = o.skin || '#C98E62', shirt = o.shirt || '#5B8DEF', shorts = o.shorts || '#A9BCD4', hair = o.hair || '#2B1D14', shoes = o.shoes || '#F2F7FA';
+  const AU = 33, AL = 31, LU = 45, LL = 45;
+  const limb = (upCol, lowCol, w, lu, ll, foot) => {
+    const a = G(body);
+    const up = E('line', { x1: 0, y1: 0, x2: 0, y2: lu, stroke: upCol, 'stroke-width': w, 'stroke-linecap': 'round' }, a);
+    const lo = G(a);
+    const low = E('line', { x1: 0, y1: 0, x2: 0, y2: ll, stroke: lowCol, 'stroke-width': w * 0.85, 'stroke-linecap': 'round' }, lo);
+    if (foot) E('path', { d: `M-5,${ll - 2} Q-6,${ll + 7} 4,${ll + 7} L15,${ll + 7} Q19,${ll + 2} 12,${ll - 3} Z`, fill: shoes }, lo);
+    else E('circle', { cx: 0, cy: ll + 2, r: w * 0.55, fill: skin }, lo);
+    return { a, lo, up, low };
+  };
+  const legB = limb(shorts, skin, 15, LU, LL, true), armB = limb(shirt, skin, 11, AU, AL, false);
+  E('path', { d: 'M-18,-152 Q0,-160 18,-152 L15,-92 Q0,-86 -15,-92 Z', fill: shirt }, body);
+  const legF = limb(shorts, skin, 15, LU, LL, true), armF = limb(shirt, skin, 11, AU, AL, false);
+  const head = G(body);
+  E('rect', { x: -6, y: -160, width: 12, height: 10, fill: skin }, head);
+  E('circle', { cx: 0, cy: -174, r: 19, fill: skin }, head);
+  E('path', { d: 'M-19,-178 Q-16,-198 2,-196 Q18,-195 19,-180 Q8,-188 -19,-178 Z', fill: hair }, head);
+  const setLimb = (L, x, y, a, b, seg) => { L.a.setAttribute('transform', `translate(${x} ${y}) rotate(${(-a).toFixed(1)})`); L.lo.setAttribute('transform', `translate(0 ${seg}) rotate(${(-b).toFixed(1)})`); };
+  g.pose = p => {
+    p = p || {};
+    body.setAttribute('transform', `rotate(${(p.lean || 0).toFixed(1)} 0 -92)`);
+    const aL = p.armL || [8, 10], aR = p.armR || [-8, 10], lL = p.legL || [3, -3], lR = p.legR || [-3, -3];
+    setLimb(armB, 0, -146, aL[0], aL[1], AU); setLimb(armF, 0, -146, aR[0], aR[1], AU);
+    setLimb(legB, 0, -92, lL[0], lL[1], LU); setLimb(legF, 0, -92, lR[0], lR[1], LU);
+  };
+  g.pose();
+  return g;
+}
+/* running / walking poses for person(): pass the result to g.pose(...) */
+function runPose(t, speed) {
+  const s = Math.sin(t * TAU * (speed || 1.6)), c = Math.cos(t * TAU * (speed || 1.6));
+  return { lean: 10, armL: [-55 * s, 85], armR: [55 * s, 85], legL: [45 * s, -(40 + 40 * Math.max(0, c))], legR: [-45 * s, -(40 + 40 * Math.max(0, -c))] };
+}
+function walkPose(t, speed) {
+  const s = Math.sin(t * TAU * (speed || 0.9));
+  return { lean: 2, armL: [-22 * s, 12], armR: [22 * s, 12], legL: [22 * s, -10 - 10 * Math.max(0, s)], legR: [-22 * s, -10 - 10 * Math.max(0, -s)] };
+}
+
+/* ---------- scenery ---------- */
+/* sun of radius r with rays; g.upd(t) turns the rays slowly */
+function sun(parent, r) {
+  r = r || 50;
+  const g = G(parent);
+  E('circle', { r: r * 2.6, fill: glow('#FFD24A') }, g);
+  const rays = G(g);
+  for (let i = 0; i < 12; i++) { const a = i * TAU / 12; E('line', { x1: Math.cos(a) * r * 1.25, y1: Math.sin(a) * r * 1.25, x2: Math.cos(a) * r * 1.6, y2: Math.sin(a) * r * 1.6, stroke: '#FFD24A', 'stroke-width': r * 0.12, 'stroke-linecap': 'round' }, rays); }
+  E('circle', { r, fill: ball('#FFE066', '#F5A300') }, g);
+  g.upd = t => tr(rays, 0, 0, 1 + 0.05 * Math.sin(t * 2), (t * 8) % 360);
+  return g;
+}
+/* leaf about 200 long pointing right from (0,0); o.color */
+function leaf(parent, s, o) {
+  s = s || 1; o = o || {};
+  const g = G(parent), inner = G(g); tr(inner, 0, 0, s);
+  E('path', { d: 'M0,0 C40,-60 150,-70 205,0 C150,70 40,60 0,0 Z', fill: ball(o.color || C.plant, C.plantDk), stroke: C.plantDk, 'stroke-width': 3 }, inner);
+  E('path', { d: 'M-10,0 L200,0', stroke: '#C9F2D3', 'stroke-width': 4, 'stroke-linecap': 'round', opacity: 0.8 }, inner);
+  for (let i = 1; i <= 4; i++) { const x = i * 38; E('path', { d: `M${x},0 Q${x + 16},-${18 + i * 2} ${x + 26},-${30 - i * 2} M${x},0 Q${x + 16},${18 + i * 2} ${x + 26},${30 - i * 2}`, fill: 'none', stroke: '#C9F2D3', 'stroke-width': 2.5, opacity: 0.6 }, inner); }
+  return g;
+}
+/* label text at (x,y) with a leader line to the point (tx,ty); g.set(p 0..1) fades it in. o: size, fill, anchor */
+function labelLine(parent, x, y, tx, ty, text, o) {
+  o = o || {};
+  const g = G(parent);
+  const size = o.size || 26, anchor = o.anchor || (tx < x ? 'start' : 'end');
+  const ex = anchor === 'start' ? x - 8 : x + 8;
+  E('line', { x1: ex, y1: y - size * 0.32, x2: tx, y2: ty, stroke: o.line || C.muted, 'stroke-width': 2.5 }, g);
+  E('circle', { cx: tx, cy: ty, r: 4.5, fill: o.line || C.muted }, g);
+  T(g, x, y, text, { size, weight: o.weight || 600, fill: o.fill || C.ink, anchor });
+  g.set = p => op(g, p);
+  return g;
+}
+
+/* ---- respiration/scenes/00_intro.js ---- */
 (function () {
 /* Intro: trillions of cells -> zoom into one -> toast feeds it glucose -> energy sparks.
    "No flames, no smoke" icons -> title -> a three-step roadmap. */
@@ -821,7 +1134,7 @@ scene('intro', S => {
 });
 
 })();
-/* ---- scenes/01_what.js ---- */
+/* ---- respiration/scenes/01_what.js ---- */
 (function () {
 /* Chapter 1: Respiration is not breathing.
    Beats: breathing vs respiration panels -> every living cell -> no lungs needed (fish, tree)
@@ -1152,7 +1465,7 @@ scene('what', S => {
 });
 
 })();
-/* ---- scenes/02_aerobic.js ---- */
+/* ---- respiration/scenes/02_aerobic.js ---- */
 (function () {
 /* Chapter 2: Aerobic respiration and its equations.
    Beats: aerobic = with oxygen -> word equation -> Glad Owls Carry Wet Eggs -> reactants / products
@@ -1493,7 +1806,7 @@ scene('aerobic', S => {
 });
 
 })();
-/* ---- scenes/03_mito.js ---- */
+/* ---- respiration/scenes/03_mito.js ---- */
 (function () {
 /* Chapter 3, Mitochondria: where it happens.
    A cell full of mitochondria -> the powerhouses -> inside one: the folded inner membrane
@@ -1868,7 +2181,7 @@ scene('mito', S => {
 });
 
 })();
-/* ---- scenes/04_uses.js ---- */
+/* ---- respiration/scenes/04_uses.js ---- */
 (function () {
 /* Chapter 4, What the energy is used for.
    An energy hub with six empty slots -> it moves left and a panel shows each use in turn:
@@ -2253,7 +2566,7 @@ scene('uses', S => {
 });
 
 })();
-/* ---- scenes/05_anaerobic.js ---- */
+/* ---- respiration/scenes/05_anaerobic.js ---- */
 (function () {
 /* Chapter 5: anaerobic respiration in humans.
    A sprint outruns the oxygen supply; muscle cells switch to anaerobic respiration
@@ -2682,7 +2995,7 @@ scene('anaerobic', S => {
 });
 
 })();
-/* ---- scenes/06_yeast.js ---- */
+/* ---- respiration/scenes/06_yeast.js ---- */
 (function () {
 /* Chapter 6: yeast and fermentation.
    Yeast under a microscope -> glucose -> ethanol + carbon dioxide (+ a little energy) ->
@@ -3114,7 +3427,7 @@ scene('yeast', S => {
 });
 
 })();
-/* ---- scenes/07_compare.js ---- */
+/* ---- respiration/scenes/07_compare.js ---- */
 (function () {
 /* Compare: aerobic vs anaerobic. A table fills in step with the narration (oxygen, energy,
    products for each type), then two panels show why the energy differs: glucose fully broken
@@ -3330,7 +3643,7 @@ scene('compare', S => {
 });
 
 })();
-/* ---- scenes/08_photo.js ---- */
+/* ---- respiration/scenes/08_photo.js ---- */
 (function () {
 /* Respiration vs photosynthesis vs breathing.
    Three muddled chips settle -> the two reactions as opposite arrows between the same boxes ->
@@ -3660,7 +3973,7 @@ scene('photo', S => {
 });
 
 })();
-/* ---- scenes/09_investigate.js ---- */
+/* ---- respiration/scenes/09_investigate.js ---- */
 (function () {
 /* Investigating respiration: what experiments detect -> limewater test -> breathed-in vs breathed-out air
    -> germinating vs boiled peas in vacuum flasks -> the control and disinfectant -> a respirometer
@@ -4020,7 +4333,7 @@ scene('investigate', S => {
 });
 
 })();
-/* ---- scenes/10_recap.js ---- */
+/* ---- respiration/scenes/10_recap.js ---- */
 (function () {
 /* Recap: a padlock clicks shut -> four memory-hook cards build a 2x2 grid -> "5 exam traps":
    each trap shows the wrong idea struck out and the right idea ticked, with a small picture. */
@@ -4243,7 +4556,7 @@ scene('recap', S => {
 });
 
 })();
-/* ---- scenes/11_quiz.js ---- */
+/* ---- respiration/scenes/11_quiz.js ---- */
 (function () {
 /* Quick-fire quiz: five question cards. After each question a countdown ring runs through the
    silent thinking time, then the answer appears with a small picture and a progress dot fills.
@@ -4437,6 +4750,9 @@ scene('quiz', S => {
    ========================================================================== */
 (function () {
   'use strict';
+  /* Inside the Science Lab's Watch tab (?embed=1 in an iframe) the app supplies the header and theme. */
+  const EMBED = window.parent !== window && /[?&]embed=1\b/.test(location.search);
+  if (EMBED) { document.documentElement.setAttribute('data-embed', ''); document.documentElement.setAttribute('data-theme', 'light'); }
   /* Scenes measure label widths, so build them only once the stage fonts are in (or after 3 s). */
   function waitFonts() {
     const f = document.fonts;
@@ -4450,7 +4766,11 @@ scene('quiz', S => {
   const REDUCE = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   const $ = s => document.querySelector(s);
   const svg = $('#stage');
-  const KEY = 'resp-lesson-v1';
+  const PL = document.getElementById('player');
+  const TOPIC = PL.getAttribute('data-topic') || 'lesson', NAME = PL.getAttribute('data-name') || '';
+  const KEY = TOPIC === 'respiration' ? 'resp-lesson-v1' : 'lesson-v1-' + TOPIC;   // respiration keeps its first key
+  /* messages to the Science Lab when embedded: hello, height, chapter-done, complete, theater */
+  const post = (type, extra) => { if (!EMBED) return; try { window.parent.postMessage(Object.assign({ source: 'y8-lesson', type, topic: TOPIC }, extra || {}), location.origin); } catch (e) { /* no parent */ } };
   const store = {
     get() { try { return JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { return {}; } },
     set(o) { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) { /* storage blocked: fine */ } },
@@ -4630,7 +4950,7 @@ scene('quiz', S => {
     kick();
   }
   function jumpTo(t, autoplay) { seek(t); if (autoplay && !playing()) play(); }
-  function ended() { wake(false); syncButtons(); savePos(true, 0); endcard.hidden = false; kick(); }
+  function ended() { wake(false); syncButtons(); savePos(true, 0); endcard.hidden = false; post('complete'); kick(); }
 
   async function loadAudio() {
     const src = player.getAttribute('data-audio') || 'narration.mp3';
@@ -4714,7 +5034,7 @@ scene('quiz', S => {
     let line = null; for (const l of ch.lines) { if (gt >= l.start - 0.05) line = l; else break; }
     if (line !== lastLine) { lastLine = line; captionEl.innerHTML = line ? md(line.cap) : ''; }
     // a chapter counts as watched only when playback runs through its last line
-    if (playing() && !done.has(ch.id) && gt >= ch.lines[ch.lines.length - 1].end - 0.15) { done.add(ch.id); savePos(true); }
+    if (playing() && !done.has(ch.id) && gt >= ch.lines[ch.lines.length - 1].end - 0.15) { done.add(ch.id); savePos(true); post('chapter-done', { chapter: ch.id }); }
     segs.forEach((sg, k) => { const c = CH[k]; sg.f.style.width = (clamp((gt - c.start) / (c.end - c.start)) * 100).toFixed(2) + '%'; });
     const s = segs[i].s; knob.style.left = (s.offsetLeft + s.offsetWidth * clamp((gt - ch.start) / (ch.end - ch.start))).toFixed(1) + 'px';
     if (i !== lastCh) {
@@ -4796,9 +5116,9 @@ scene('quiz', S => {
   function fsActive() { return document.fullscreenElement || document.webkitFullscreenElement || player.classList.contains('theater'); }
   function toggleFS() {
     if (document.fullscreenElement || document.webkitFullscreenElement) { (document.exitFullscreen || document.webkitExitFullscreen).call(document); return; }
-    if (player.classList.contains('theater')) { player.classList.remove('theater'); document.body.classList.remove('no-scroll'); syncFS(); return; }
+    if (player.classList.contains('theater')) { player.classList.remove('theater'); document.body.classList.remove('no-scroll'); post('theater', { on: false }); syncFS(); return; }
     const req = player.requestFullscreen || player.webkitRequestFullscreen;
-    const theater = () => { player.classList.add('theater'); document.body.classList.add('no-scroll'); syncFS(); };
+    const theater = () => { player.classList.add('theater'); document.body.classList.add('no-scroll'); post('theater', { on: true }); syncFS(); };
     if (req) { try { const r = req.call(player); if (r && r.catch) r.catch(theater); } catch (e) { theater(); } } else theater();
   }
   function syncFS() { const on = !!fsActive(); btnFS.setAttribute('aria-pressed', String(on)); btnFS.setAttribute('aria-label', on ? 'Exit full screen' : 'Full screen'); requestAnimationFrame(() => { lastSec = -1; kick(); }); }
@@ -4828,7 +5148,7 @@ scene('quiz', S => {
   /* ---------- lock screen controls, screen wake ---------- */
   function mediaMeta(i) {
     if (!('mediaSession' in navigator)) return;
-    try { navigator.mediaSession.metadata = new MediaMetadata({ title: CH[i].title, artist: 'Year 8 Science Lab', album: 'Respiration, animated' }); } catch (e) { /* unsupported */ }
+    try { navigator.mediaSession.metadata = new MediaMetadata({ title: CH[i].title, artist: 'Year 8 Science Lab', album: NAME + ', animated' }); } catch (e) { /* unsupported */ }
   }
   if ('mediaSession' in navigator) {
     const set = (a, f) => { try { navigator.mediaSession.setActionHandler(a, f); } catch (e) { /* unsupported */ } };
@@ -4844,6 +5164,22 @@ scene('quiz', S => {
     } catch (e) { lock = null; }
   }
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && playing()) wake(true); });
+
+  /* ---------- embedded: report height, take watched chapters from the learner's progress ---------- */
+  if (EMBED) {
+    let lastH = 0;
+    const sendH = () => { const h = Math.ceil(document.documentElement.getBoundingClientRect().height); if (h !== lastH && !player.classList.contains('theater')) { lastH = h; post('height', { value: h }); } };
+    if (window.ResizeObserver) new ResizeObserver(sendH).observe(document.documentElement);
+    window.addEventListener('load', sendH);
+    sendH();
+    window.addEventListener('message', e => {
+      if (e.origin !== location.origin || e.source !== window.parent) return;
+      const m = e.data;
+      if (!m || m.source !== 'y8-app') return;
+      if (m.type === 'watched' && Array.isArray(m.ids)) { m.ids.forEach(id => { if (CH.some(c => c.id === id)) done.add(id); }); kick(); }
+    });
+    post('hello', { chapters: CH.map(c => c.id) });
+  }
 
   /* ---------- start ---------- */
   let startAt = 0, startLabel = '';

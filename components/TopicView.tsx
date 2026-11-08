@@ -5,15 +5,18 @@ import Link from "next/link";
 import type { Topic } from "@/lib/types";
 import { ACCENT, metaById } from "@/lib/topics/_meta";
 import { useStore } from "@/lib/store";
+import { getExtras } from "@/lib/extras";
 import { GuideView } from "./GuideView";
 import { InteractiveTab } from "./InteractiveTab";
+import { LessonTab } from "./LessonTab";
 import { LearnSmart } from "./LearnSmart";
 import { QuizTab } from "./QuizTab";
 import { QuestionBank } from "./QuestionBank";
 
-type Tab = "guide" | "interactive" | "smart" | "quiz" | "papers";
+type Tab = "guide" | "watch" | "interactive" | "smart" | "quiz" | "papers";
 const TABS: { id: Tab; label: string; emoji: string }[] = [
   { id: "guide", label: "Guide", emoji: "📖" },
+  { id: "watch", label: "Watch", emoji: "🎬" },
   { id: "interactive", label: "Interactive", emoji: "🧪" },
   { id: "smart", label: "Learn Smart", emoji: "🧠" },
   { id: "quiz", label: "Quick Quiz", emoji: "⚡" },
@@ -25,17 +28,21 @@ export function TopicView({ topic }: { topic: Topic }) {
   const accent = ACCENT[meta?.accent ?? "violet"];
   const { setLast } = useStore();
   const [tab, setTab] = useState<Tab>("guide");
+  // The Watch tab appears only for topics that have an animated lesson.
+  const tabs = getExtras(topic.id).lesson ? TABS : TABS.filter((t) => t.id !== "watch");
 
   // initial tab from ?tab= ; remember activity for "resume".
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const t = params.get("tab") as Tab | null;
-    if (t && TABS.some((x) => x.id === t)) setTab(t);
+    // Read ?tab= after hydration: the server render has no URL, so reading it during render would mismatch.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (t && tabs.some((x) => x.id === t)) setTab(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    const label = `${topic.title} · ${TABS.find((t) => t.id === tab)?.label}`;
+    const label = `${topic.title} · ${tabs.find((t) => t.id === tab)?.label}`;
     setLast({ href: `/topic/${topic.id}?tab=${tab}`, label, topicId: topic.id });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab, topic.id]);
@@ -72,7 +79,7 @@ export function TopicView({ topic }: { topic: Topic }) {
       {/* tabs */}
       <div className="sticky top-[57px] z-30 -mx-4 mt-5 border-b border-slate-200 bg-[var(--background)]/95 px-4 backdrop-blur">
         <div className="flex gap-1 overflow-x-auto">
-          {TABS.map((t) => (
+          {tabs.map((t) => (
             <button
               key={t.id}
               onClick={() => setTab(t.id)}
@@ -90,7 +97,16 @@ export function TopicView({ topic }: { topic: Topic }) {
       </div>
 
       <div className="mt-6">
-        {tab === "guide" && <GuideView topic={topic} />}
+        {tab === "guide" && (
+          <GuideView
+            topic={topic}
+            onWatch={() => {
+              setTab("watch");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          />
+        )}
+        {tab === "watch" && <LessonTab topic={topic} />}
         {tab === "interactive" && <InteractiveTab topic={topic} />}
         {tab === "smart" && <LearnSmart topic={topic} />}
         {tab === "quiz" && <QuizTab topic={topic} />}

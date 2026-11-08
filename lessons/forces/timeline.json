@@ -1,0 +1,853 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "intro",
+   "title": "The hammer and the feather",
+   "short": "Intro",
+   "card": false,
+   "start": 0.0,
+   "end": 28.685,
+   "lines": [
+    {
+     "id": "hook",
+     "start": 0.6,
+     "end": 4.781,
+     "cap": "Drop a hammer and a feather at the same moment, and the hammer wins easily."
+    },
+    {
+     "id": "moon",
+     "start": 5.281,
+     "end": 10.359,
+     "cap": "But on the airless Moon, an Apollo astronaut tried it, and they hit the ground **together**."
+    },
+    {
+     "id": "why",
+     "start": 10.859,
+     "end": 19.051,
+     "cap": "So is it really the feather's lightness that holds it back? To find out, we need **forces**: the pushes and pulls behind every movement."
+    },
+    {
+     "id": "plan",
+     "start": 19.551,
+     "end": 27.785,
+     "cap": "Let's balance forces, weigh things on the Moon, fight friction, time a journey, stretch a spring, and find out how forces turn and press."
+    }
+   ]
+  },
+  {
+   "id": "force",
+   "title": "What a force is",
+   "short": "What is a force?",
+   "card": true,
+   "start": 28.685,
+   "end": 98.956,
+   "lines": [
+    {
+     "id": "push",
+     "start": 30.485,
+     "end": 32.533,
+     "cap": "A **force** is simply a **push** or a **pull**."
+    },
+    {
+     "id": "see",
+     "start": 33.033,
+     "end": 36.361,
+     "cap": "You can't see a force itself, but you can always see what it **does**."
+    },
+    {
+     "id": "does",
+     "start": 36.861,
+     "end": 42.579,
+     "cap": "A force can make something **start** moving, **speed up**, **slow down**, change **direction**, or change **shape**."
+    },
+    {
+     "id": "sssds",
+     "start": 43.079,
+     "end": 48.945,
+     "cap": "Remember those five as **S, S, S, D, S**: Start, Speed up, Slow down, Direction, Shape."
+    },
+    {
+     "id": "newtons",
+     "start": 49.445,
+     "end": 55.141,
+     "cap": "Forces are measured in **newtons**, written **N**, after the scientist **Isaac Newton**."
+    },
+    {
+     "id": "meter",
+     "start": 55.641,
+     "end": 59.204,
+     "cap": "We measure them with a **newtonmeter**, also called a spring balance."
+    },
+    {
+     "id": "apple",
+     "start": 59.704,
+     "end": 66.275,
+     "cap": "A small apple weighs about **1 N**, and a **1 kg** bag of sugar about **10 N**, here on Earth."
+    },
+    {
+     "id": "arrow",
+     "start": 66.775,
+     "end": 72.577,
+     "cap": "A force has a **size** and a **direction**, so we draw it as an **arrow**, pointing the way the force acts."
+    },
+    {
+     "id": "longer",
+     "start": 73.077,
+     "end": 79.221,
+     "cap": "A **longer** arrow means a **bigger** force: a 10 N arrow is twice as long as a 5 N one."
+    },
+    {
+     "id": "contact",
+     "start": 79.721,
+     "end": 89.641,
+     "cap": "Forces come in two families. **Contact forces** act only when objects touch: friction, air resistance, tension, and the normal force from a surface."
+    },
+    {
+     "id": "noncontact",
+     "start": 90.141,
+     "end": 98.056,
+     "cap": "**Non-contact forces** act at a distance: **gravity**, **magnetism**, and **electrostatic** forces, from static electricity."
+    }
+   ]
+  },
+  {
+   "id": "types",
+   "title": "Types of force",
+   "short": "Types of force",
+   "card": true,
+   "start": 98.956,
+   "end": 172.579,
+   "lines": [
+    {
+     "id": "names",
+     "start": 100.756,
+     "end": 105.193,
+     "cap": "There are lots of named forces, but each one is still just a push or a pull."
+    },
+    {
+     "id": "weight",
+     "start": 105.693,
+     "end": 112.456,
+     "cap": "**Weight** is the pull of **gravity** on an object. It acts straight **down**, towards the centre of the Earth, without touching."
+    },
+    {
+     "id": "friction",
+     "start": 112.956,
+     "end": 119.953,
+     "cap": "**Friction** acts between surfaces that slide, or try to slide, past each other. It always **opposes** the motion."
+    },
+    {
+     "id": "drag",
+     "start": 120.453,
+     "end": 128.645,
+     "cap": "**Air resistance**, or **drag**, is friction from a fluid, like air or water. It opposes motion too, and grows as you go faster."
+    },
+    {
+     "id": "upthrust",
+     "start": 129.145,
+     "end": 137.039,
+     "cap": "**Upthrust** is the upward push from a liquid or gas. It's what makes things **float**: a floating swimmer's weight is balanced by upthrust."
+    },
+    {
+     "id": "tension",
+     "start": 137.539,
+     "end": 142.125,
+     "cap": "**Tension** is the pulling force in a stretched rope, string, cable or spring."
+    },
+    {
+     "id": "normal",
+     "start": 142.625,
+     "end": 150.988,
+     "cap": "The **normal force** is the support push from a surface, at **right angles** to it. A table pushes up on a book; the floor pushes up on your feet."
+    },
+    {
+     "id": "charges",
+     "start": 151.488,
+     "end": 161.429,
+     "cap": "And two more non-contact forces: **magnetic** forces, between magnets and magnetic materials, and **electrostatic** forces, between electric charges."
+    },
+    {
+     "id": "sort",
+     "start": 161.929,
+     "end": 171.679,
+     "cap": "So weight, magnetic and electrostatic forces are **non-contact**, while friction, drag, tension, upthrust and the normal force are **contact** forces."
+    }
+   ]
+  },
+  {
+   "id": "balanced",
+   "title": "Balanced and unbalanced forces",
+   "short": "Balanced or not?",
+   "card": true,
+   "start": 172.579,
+   "end": 259.124,
+   "lines": [
+    {
+     "id": "many",
+     "start": 174.379,
+     "end": 182.165,
+     "cap": "Usually, several forces act on an object at once. To predict what happens, add them up, taking their directions into account."
+    },
+    {
+     "id": "resultant",
+     "start": 182.665,
+     "end": 185.951,
+     "cap": "The single overall force is called the **resultant force**."
+    },
+    {
+     "id": "balanced",
+     "start": 186.451,
+     "end": 193.704,
+     "cap": "**Balanced forces** are equal in size but opposite in direction, so they cancel out. The resultant force is **zero**."
+    },
+    {
+     "id": "still",
+     "start": 194.204,
+     "end": 201.436,
+     "cap": "With balanced forces, a still object **stays still**, and a moving object keeps moving at a **constant speed in a straight line**."
+    },
+    {
+     "id": "cruise",
+     "start": 201.936,
+     "end": 212.091,
+     "cap": "So you don't need an overall force to keep something moving, only to **change** its motion. A cruising car's driving force is exactly balanced by friction and drag."
+    },
+    {
+     "id": "unbalanced",
+     "start": 212.591,
+     "end": 218.009,
+     "cap": "**Unbalanced forces** don't cancel, so there's a resultant force, and it **changes the motion**."
+    },
+    {
+     "id": "speeds",
+     "start": 218.509,
+     "end": 227.32,
+     "cap": "Acting in the direction of motion, it **speeds the object up**; acting against the motion, it **slows it down**. It can also **change its direction**."
+    },
+    {
+     "id": "add",
+     "start": 227.82,
+     "end": 235.009,
+     "cap": "To find the resultant along a line, **add** forces acting the same way, and **subtract** forces acting the opposite way."
+    },
+    {
+     "id": "example",
+     "start": 235.509,
+     "end": 243.616,
+     "cap": "A **30 N** push against **12 N** of friction gives 30 − 12 = **18 N** forwards, so the box speeds up."
+    },
+    {
+     "id": "skydiver",
+     "start": 244.516,
+     "end": 249.657,
+     "cap": "A skydiver shows it all. At first, their weight is bigger than the drag, so they **speed up**."
+    },
+    {
+     "id": "terminal",
+     "start": 250.157,
+     "end": 257.624,
+     "cap": "But drag grows with speed, until it **balances** their weight. Then they fall at a steady speed, called **terminal velocity**."
+    }
+   ]
+  },
+  {
+   "id": "mass",
+   "title": "Mass versus weight",
+   "short": "Mass vs weight",
+   "card": true,
+   "start": 259.124,
+   "end": 333.503,
+   "lines": [
+    {
+     "id": "same",
+     "start": 260.924,
+     "end": 265.66,
+     "cap": "In everyday talk, **mass** and **weight** mean the same thing. In physics, they're different."
+    },
+    {
+     "id": "mass",
+     "start": 266.16,
+     "end": 273.243,
+     "cap": "**Mass** is the **amount of matter** in an object. It's measured in **kilograms (kg)**, and it **never changes**, wherever you take it."
+    },
+    {
+     "id": "weight",
+     "start": 273.743,
+     "end": 281.508,
+     "cap": "**Weight** is the **force of gravity** on that mass. It's a force, so it's measured in **newtons (N)**, and it changes if gravity changes."
+    },
+    {
+     "id": "matter",
+     "start": 282.008,
+     "end": 287.405,
+     "cap": "Remember: **Mass is Matter**, in kilograms; **Weight is the Wrench** of gravity, in newtons."
+    },
+    {
+     "id": "formula",
+     "start": 287.905,
+     "end": 294.924,
+     "cap": "**weight = mass × gravitational field strength**, or **W = m × g**. Think: **We Most Go**."
+    },
+    {
+     "id": "g",
+     "start": 295.424,
+     "end": 300.715,
+     "cap": "On Earth, **g** is about **10 N/kg**: more precisely, 9.8."
+    },
+    {
+     "id": "bag",
+     "start": 301.215,
+     "end": 304.969,
+     "cap": "So a **2 kg** bag weighs 2 × 10 = **20 N**."
+    },
+    {
+     "id": "moon",
+     "start": 305.469,
+     "end": 313.064,
+     "cap": "On the **Moon**, g is only about **1.6 N/kg**: about **one sixth** of Earth's, or six times weaker."
+    },
+    {
+     "id": "moonbag",
+     "start": 313.564,
+     "end": 322.353,
+     "cap": "The bag still has a mass of **2 kg**, but it weighs only about **3.2 N**. That's why astronauts bounce around so easily."
+    },
+    {
+     "id": "orbit",
+     "start": 322.853,
+     "end": 332.603,
+     "cap": "And astronauts floating on the Space Station haven't lost their mass, or escaped gravity. They float because they're **falling** around the Earth, along with the station."
+    }
+   ]
+  },
+  {
+   "id": "friction",
+   "title": "Friction and drag",
+   "short": "Friction & drag",
+   "card": true,
+   "start": 333.503,
+   "end": 422.995,
+   "lines": [
+    {
+     "id": "friction",
+     "start": 335.303,
+     "end": 344.817,
+     "cap": "**Friction** acts between two touching surfaces that slide, or try to slide, past each other. It acts **opposite** to the motion, so it slows things down."
+    },
+    {
+     "id": "bumps",
+     "start": 345.317,
+     "end": 351.269,
+     "cap": "Zoom right in, and even smooth-looking surfaces are **rough**. Their tiny bumps catch on each other."
+    },
+    {
+     "id": "drag",
+     "start": 351.769,
+     "end": 361.668,
+     "cap": "**Drag** is friction from a fluid: **air resistance** in air, **water resistance** in water. It gets **bigger the faster you go**, and the bigger the area pushing through."
+    },
+    {
+     "id": "useful",
+     "start": 362.168,
+     "end": 368.291,
+     "cap": "Friction can be **useful**: it lets you **walk** without slipping, lets **tyres grip** the road, and makes **brakes** work."
+    },
+    {
+     "id": "chute",
+     "start": 368.791,
+     "end": 373.121,
+     "cap": "And a **parachute** uses a huge area to make lots of drag, slowing a fall."
+    },
+    {
+     "id": "waste",
+     "start": 373.621,
+     "end": 381.92,
+     "cap": "But friction can be a **nuisance** too: in machines, it **wastes energy as heat** and wears parts out, and drag slows cars and cyclists."
+    },
+    {
+     "id": "reduce",
+     "start": 382.42,
+     "end": 392.681,
+     "cap": "**Reduce** friction with **lubricants** like oil, or with wheels and rollers. Reduce drag by **streamlining**: a smooth, pointed shape the air flows past easily."
+    },
+    {
+     "id": "increase",
+     "start": 393.181,
+     "end": 399.219,
+     "cap": "To **increase** friction, use rougher surfaces, like the **treads** on tyres, or the **studs** on football boots."
+    },
+    {
+     "id": "feather",
+     "start": 399.719,
+     "end": 404.988,
+     "cap": "Now, the feather. It has a big area for its tiny weight, so on Earth, drag holds it back."
+    },
+    {
+     "id": "moon",
+     "start": 405.488,
+     "end": 414.725,
+     "cap": "On the Moon, with no air, there's **no drag**. When the astronaut David Scott dropped the hammer and feather there in 1971, they landed **together**."
+    },
+    {
+     "id": "fall",
+     "start": 415.225,
+     "end": 422.095,
+     "cap": "So without air resistance, **all objects fall at the same rate**. It's drag, not weight, that makes the difference."
+    }
+   ]
+  },
+  {
+   "id": "speed",
+   "title": "Speed and distance-time graphs",
+   "short": "Speed",
+   "card": true,
+   "start": 422.995,
+   "end": 491.473,
+   "lines": [
+    {
+     "id": "speed",
+     "start": 424.795,
+     "end": 429.189,
+     "cap": "**Speed** tells you how fast something moves: how far it goes in a certain time."
+    },
+    {
+     "id": "formula",
+     "start": 429.689,
+     "end": 432.335,
+     "cap": "**speed = distance ÷ time**"
+    },
+    {
+     "id": "units",
+     "start": 432.835,
+     "end": 441.24,
+     "cap": "With distance in **metres** and time in **seconds**, speed is in **metres per second (m/s)**. You'll also see kilometres per hour, and miles per hour."
+    },
+    {
+     "id": "runner",
+     "start": 441.74,
+     "end": 449.505,
+     "cap": "A runner covers **100 m** in **20 s**. Their speed is 100 ÷ 20 = **5 m/s**."
+    },
+    {
+     "id": "average",
+     "start": 450.005,
+     "end": 457.536,
+     "cap": "Few journeys go at one steady speed, so we often use **average speed**: the **total distance ÷ total time**."
+    },
+    {
+     "id": "car",
+     "start": 458.036,
+     "end": 464.372,
+     "cap": "A car speeds up, slows down and stops at traffic lights, but its average speed sums up the whole trip."
+    },
+    {
+     "id": "graph",
+     "start": 464.872,
+     "end": 470.269,
+     "cap": "A **distance-time graph** pictures a journey: time along the bottom, and distance up the side."
+    },
+    {
+     "id": "flat",
+     "start": 470.769,
+     "end": 477.639,
+     "cap": "A **flat** line means the distance isn't changing: the object is **stationary**. It's not going backwards, just stopped."
+    },
+    {
+     "id": "slope",
+     "start": 478.139,
+     "end": 480.677,
+     "cap": "A straight **sloping** line means a **steady speed**."
+    },
+    {
+     "id": "steep",
+     "start": 481.177,
+     "end": 487.236,
+     "cap": "And the **steeper** the line, the **faster** the speed. In fact, the **gradient**, or steepness, **equals the speed**."
+    },
+    {
+     "id": "frozen",
+     "start": 487.736,
+     "end": 490.573,
+     "cap": "Remember: **Steeper is Speedier, Flat is Frozen**."
+    }
+   ]
+  },
+  {
+   "id": "hooke",
+   "title": "Hooke's law and springs",
+   "short": "Springs",
+   "card": true,
+   "start": 491.473,
+   "end": 561.089,
+   "lines": [
+    {
+     "id": "stretch",
+     "start": 493.273,
+     "end": 497.049,
+     "cap": "Pull on a spring, and it stretches. Let go, and it springs back."
+    },
+    {
+     "id": "extension",
+     "start": 497.549,
+     "end": 502.669,
+     "cap": "The amount it gets longer is its **extension**: the **new length minus the original length**."
+    },
+    {
+     "id": "example",
+     "start": 503.169,
+     "end": 508.801,
+     "cap": "A **10 cm** spring stretched to **13 cm** has an extension of **3 cm**."
+    },
+    {
+     "id": "law",
+     "start": 509.301,
+     "end": 514.123,
+     "cap": "**Hooke's law** says that the **extension** of a spring is **proportional** to the **force** stretching it."
+    },
+    {
+     "id": "double",
+     "start": 514.623,
+     "end": 520.831,
+     "cap": "Proportional means **double the force, double the extension**. Treble the force, and the extension trebles."
+    },
+    {
+     "id": "graph",
+     "start": 521.331,
+     "end": 525.853,
+     "cap": "So a graph of force against extension is a **straight line** through the origin."
+    },
+    {
+     "id": "limit",
+     "start": 526.353,
+     "end": 533.777,
+     "cap": "But only up to the **elastic limit**. Below it, the spring is elastic: it goes back to its original length when you let go."
+    },
+    {
+     "id": "past",
+     "start": 534.277,
+     "end": 541.723,
+     "cap": "Stretch it **past the elastic limit**, and the line curves away. The spring is **permanently stretched**, and won't go back to its shape."
+    },
+    {
+     "id": "meter",
+     "start": 542.623,
+     "end": 549.791,
+     "cap": "That's how a **newtonmeter** works: each newton stretches its spring by the same amount, so its scale has **evenly spaced** marks."
+    },
+    {
+     "id": "home",
+     "start": 550.291,
+     "end": 560.189,
+     "cap": "Make your own: hang a cup from a soft spring or a rubber band, add coins one at a time, and measure the stretch. Equal coins should add roughly equal stretches."
+    }
+   ]
+  },
+  {
+   "id": "moments",
+   "title": "Moments: the turning effect",
+   "short": "Moments",
+   "card": true,
+   "start": 561.089,
+   "end": 632.711,
+   "lines": [
+    {
+     "id": "turn",
+     "start": 562.889,
+     "end": 568.415,
+     "cap": "Forces can also make things **turn** around a **pivot**, like a door on its hinges, or a seesaw."
+    },
+    {
+     "id": "moment",
+     "start": 568.915,
+     "end": 574.397,
+     "cap": "This turning effect is called a **moment**: **moment = force × distance from the pivot**."
+    },
+    {
+     "id": "right",
+     "start": 574.897,
+     "end": 581.276,
+     "cap": "The distance is measured from the pivot, at **right angles** to the force. Moments are measured in **newton metres (N m)**."
+    },
+    {
+     "id": "bigger",
+     "start": 581.776,
+     "end": 585.787,
+     "cap": "So a force turns more if it's **bigger**, or if it acts **further from the pivot**."
+    },
+    {
+     "id": "spanner",
+     "start": 586.287,
+     "end": 592.964,
+     "cap": "That's why a **long spanner** loosens a tight bolt more easily, and why door handles are placed far from the hinges."
+    },
+    {
+     "id": "door",
+     "start": 593.464,
+     "end": 599.501,
+     "cap": "Try it: push a door open near its hinges, then near the handle. Near the hinges, it's much harder!"
+    },
+    {
+     "id": "levers",
+     "start": 600.001,
+     "end": 605.612,
+     "cap": "**Levers**, like crowbars, seesaws and wheelbarrows, use this idea to make jobs easier."
+    },
+    {
+     "id": "balance",
+     "start": 606.112,
+     "end": 613.707,
+     "cap": "A seesaw **balances** when the moments are equal: **force × distance** on one side equals **force × distance** on the other."
+    },
+    {
+     "id": "kids",
+     "start": 614.207,
+     "end": 624.297,
+     "cap": "So a lighter child sitting further out can balance a heavier one near the middle: **300 N** at **2 m** balances **600 N** at **1 m**."
+    },
+    {
+     "id": "myth",
+     "start": 625.197,
+     "end": 631.811,
+     "cap": "A bigger force doesn't always win: a small force far from the pivot can turn more than a big force close to it."
+    }
+   ]
+  },
+  {
+   "id": "pressure",
+   "title": "Pressure",
+   "short": "Pressure",
+   "card": true,
+   "start": 632.711,
+   "end": 715.867,
+   "lines": [
+    {
+     "id": "what",
+     "start": 634.511,
+     "end": 638.223,
+     "cap": "**Pressure** tells you how concentrated a force is on a surface."
+    },
+    {
+     "id": "formula",
+     "start": 638.723,
+     "end": 641.219,
+     "cap": "**pressure = force ÷ area**"
+    },
+    {
+     "id": "units",
+     "start": 641.719,
+     "end": 648.993,
+     "cap": "Force is in newtons and area in square metres, so pressure is in **newtons per square metre (N/m²)**, also called **pascals (Pa)**."
+    },
+    {
+     "id": "example",
+     "start": 649.493,
+     "end": 656.832,
+     "cap": "So **100 N** pressing on **2 m²** gives 100 ÷ 2 = **50 N/m²**."
+    },
+    {
+     "id": "same",
+     "start": 657.332,
+     "end": 663.049,
+     "cap": "The **same force** gives a **bigger pressure** on a **smaller area**, and a smaller pressure on a larger area."
+    },
+    {
+     "id": "sharp",
+     "start": 663.549,
+     "end": 672.317,
+     "cap": "That's why **sharp** knives, pins and nails work: a tiny area turns an ordinary force into a huge pressure, which cuts or pierces."
+    },
+    {
+     "id": "myth",
+     "start": 672.817,
+     "end": 680.007,
+     "cap": "So a sharp knife doesn't cut better because you push harder. The same force on a smaller area gives a much higher pressure."
+    },
+    {
+     "id": "wide",
+     "start": 680.507,
+     "end": 688.272,
+     "cap": "And it's why **wide** snowshoes, skis and tractor tyres stop you sinking: a large area spreads the force into a small pressure."
+    },
+    {
+     "id": "camel",
+     "start": 688.772,
+     "end": 697.156,
+     "cap": "A camel weighs far more than a person, yet its wide, flat feet barely sink into soft sand, while a stiletto heel sinks into a lawn."
+    },
+    {
+     "id": "pin",
+     "start": 697.656,
+     "end": 707.64,
+     "cap": "Try it, with an adult's help: one drawing pin pops a balloon with a gentle push, but spread the same push over lots of pins, and the balloon often survives."
+    },
+    {
+     "id": "pares",
+     "start": 708.14,
+     "end": 714.967,
+     "cap": "Remember: **Moments multiply, Pressure pares down**: force × distance, but force ÷ area."
+    }
+   ]
+  },
+  {
+   "id": "recap",
+   "title": "Recap: memory hooks and exam traps",
+   "short": "Recap",
+   "card": true,
+   "start": 715.867,
+   "end": 772.868,
+   "lines": [
+    {
+     "id": "lock",
+     "start": 717.667,
+     "end": 719.011,
+     "cap": "Let's lock it all in."
+    },
+    {
+     "id": "sssds",
+     "start": 719.511,
+     "end": 723.415,
+     "cap": "**Start, Speed up, Slow down, Direction, Shape**: what a force can do."
+    },
+    {
+     "id": "matter",
+     "start": 723.915,
+     "end": 731.893,
+     "cap": "**Mass is Matter**, in kilograms; **Weight is the Wrench** of gravity, in newtons. And **We Most Go**: W = m × g."
+    },
+    {
+     "id": "steeper",
+     "start": 732.393,
+     "end": 736.255,
+     "cap": "**Steeper is Speedier, Flat is Frozen**, on a distance-time graph."
+    },
+    {
+     "id": "moments",
+     "start": 736.755,
+     "end": 739.187,
+     "cap": "**Moments multiply, Pressure pares down.**"
+    },
+    {
+     "id": "traps",
+     "start": 739.687,
+     "end": 741.948,
+     "cap": "Now, five exam traps to avoid."
+    },
+    {
+     "id": "t1",
+     "start": 742.448,
+     "end": 746.373,
+     "cap": "One: mass is in **kilograms**, but weight is a force, in **newtons**."
+    },
+    {
+     "id": "t2",
+     "start": 746.873,
+     "end": 753.935,
+     "cap": "Two: with **balanced** forces, a moving object keeps a **steady speed**. It doesn't need an overall forward force."
+    },
+    {
+     "id": "t3",
+     "start": 754.435,
+     "end": 759.213,
+     "cap": "Three: friction and drag always **oppose** motion, and drag **grows** with speed."
+    },
+    {
+     "id": "t4",
+     "start": 759.713,
+     "end": 767.735,
+     "cap": "Four: speed = distance **÷** time, and pressure = force **÷** area. Divide, don't multiply!"
+    },
+    {
+     "id": "t5",
+     "start": 768.235,
+     "end": 771.968,
+     "cap": "Five: a spring only obeys Hooke's law up to its **elastic limit**."
+    }
+   ]
+  },
+  {
+   "id": "quiz",
+   "title": "Quick-fire quiz",
+   "short": "Quiz",
+   "card": true,
+   "start": 772.868,
+   "end": 841.581,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 774.668,
+     "end": 778.316,
+     "cap": "Quick-fire quiz! Say each answer out loud before it appears."
+    },
+    {
+     "id": "q1",
+     "start": 778.816,
+     "end": 780.373,
+     "cap": "What is the unit of force?"
+    },
+    {
+     "id": "a1",
+     "start": 784.873,
+     "end": 785.769,
+     "cap": "The **newton**, N."
+    },
+    {
+     "id": "q2",
+     "start": 786.269,
+     "end": 791.389,
+     "cap": "A box slides at a steady speed in a straight line. What can you say about the forces on it?"
+    },
+    {
+     "id": "a2",
+     "start": 795.889,
+     "end": 798.513,
+     "cap": "They're **balanced**: the resultant force is **zero**."
+    },
+    {
+     "id": "q3",
+     "start": 799.013,
+     "end": 802.725,
+     "cap": "A bag has a mass of 3 kg. What is its weight on Earth?"
+    },
+    {
+     "id": "a3",
+     "start": 807.225,
+     "end": 809.359,
+     "cap": "**30 N**: 3 × 10."
+    },
+    {
+     "id": "q4",
+     "start": 809.859,
+     "end": 815.128,
+     "cap": "A cyclist rides 200 m in 25 s. What is their average speed?"
+    },
+    {
+     "id": "a4",
+     "start": 819.628,
+     "end": 823.361,
+     "cap": "**8 m/s**: 200 ÷ 25."
+    },
+    {
+     "id": "q5",
+     "start": 823.861,
+     "end": 826.528,
+     "cap": "Why does a sharp knife cut better than a blunt one?"
+    },
+    {
+     "id": "a5",
+     "start": 831.028,
+     "end": 834.569,
+     "cap": "Its tiny area gives a much **higher pressure** for the same force."
+    },
+    {
+     "id": "outro",
+     "start": 835.069,
+     "end": 840.381,
+     "cap": "Brilliant work. Now try the Forces & Motion quiz in your Science Lab, to lock it in."
+    }
+   ]
+  }
+ ],
+ "total": 841.581
+}

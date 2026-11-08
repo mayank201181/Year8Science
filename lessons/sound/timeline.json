@@ -1,0 +1,927 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "intro",
+   "title": "The silent explosion",
+   "short": "Intro",
+   "card": false,
+   "start": 0.0,
+   "end": 25.549,
+   "lines": [
+    {
+     "id": "hook",
+     "start": 0.6,
+     "end": 7.043,
+     "cap": "Out in space, a star can explode with the force of billions of bombs, and you would hear absolutely **nothing**."
+    },
+    {
+     "id": "why",
+     "start": 7.543,
+     "end": 11.297,
+     "cap": "So why does the loudest event imaginable make total silence?"
+    },
+    {
+     "id": "def",
+     "start": 11.797,
+     "end": 17.173,
+     "cap": "It's all down to what **sound** really is: a **vibration**, passed from particle to particle."
+    },
+    {
+     "id": "plan",
+     "start": 17.673,
+     "end": 24.649,
+     "cap": "Let's see how sound travels, what makes it high or low, loud or quiet, and how we use sounds we can't even hear."
+    }
+   ]
+  },
+  {
+   "id": "vibrate",
+   "title": "Sound is made by vibrations",
+   "short": "Vibrations",
+   "card": true,
+   "start": 25.549,
+   "end": 76.497,
+   "lines": [
+    {
+     "id": "start",
+     "start": 27.349,
+     "end": 30.507,
+     "cap": "Every sound you've ever heard began with something **vibrating**."
+    },
+    {
+     "id": "vibrate",
+     "start": 31.007,
+     "end": 39.007,
+     "cap": "To **vibrate** means to move quickly **back and forth** about a fixed position. Sound is a form of **energy** made by those vibrations."
+    },
+    {
+     "id": "string",
+     "start": 39.507,
+     "end": 42.536,
+     "cap": "Pluck a guitar or violin **string**, and it vibrates."
+    },
+    {
+     "id": "drum",
+     "start": 43.036,
+     "end": 45.148,
+     "cap": "Hit a **drum**, and its skin vibrates."
+    },
+    {
+     "id": "voice",
+     "start": 45.648,
+     "end": 52.24,
+     "cap": "When you speak, your **vocal cords** vibrate: two flaps of tissue in your throat. Hum, and you can feel them buzz."
+    },
+    {
+     "id": "speaker",
+     "start": 52.74,
+     "end": 56.26,
+     "cap": "A loudspeaker's **cone** vibrates in and out, pushing on the air."
+    },
+    {
+     "id": "ruler",
+     "start": 56.76,
+     "end": 62.115,
+     "cap": "Twang a ruler over the edge of a desk, and you can see it: the end blurs as it vibrates."
+    },
+    {
+     "id": "stop",
+     "start": 63.215,
+     "end": 68.271,
+     "cap": "Press a finger on a ringing bell, and the sound **stops**, because you've stopped the vibration."
+    },
+    {
+     "id": "source",
+     "start": 68.771,
+     "end": 75.597,
+     "cap": "That's strong evidence that **vibration is the source of all sound**, even when it's too small or too fast to see."
+    }
+   ]
+  },
+  {
+   "id": "wave",
+   "title": "Sound travels as a wave",
+   "short": "Sound waves",
+   "card": true,
+   "start": 76.497,
+   "end": 154.285,
+   "lines": [
+    {
+     "id": "knock",
+     "start": 78.297,
+     "end": 84.015,
+     "cap": "So how does a vibration reach your ear? The vibrating object knocks into the **particles** next to it."
+    },
+    {
+     "id": "pass",
+     "start": 84.515,
+     "end": 92.429,
+     "cap": "They bump into their neighbours, which bump into theirs, passing the disturbance along. That travelling disturbance is a **sound wave**."
+    },
+    {
+     "id": "medium",
+     "start": 92.929,
+     "end": 101.036,
+     "cap": "The material it travels through is the **medium**: a **solid**, a **liquid** or a **gas**. In a cup-and-string telephone, it's the tight string."
+    },
+    {
+     "id": "one",
+     "start": 101.536,
+     "end": 109.408,
+     "cap": "Watch one particle. It vibrates back and forth as the wave passes, but it **doesn't travel with the wave**. It ends up where it started."
+    },
+    {
+     "id": "energy",
+     "start": 111.108,
+     "end": 118.575,
+     "cap": "So no air has to flow from a singer to your ear. Each particle just vibrates in place; it's the **energy** that travels."
+    },
+    {
+     "id": "long",
+     "start": 119.075,
+     "end": 125.368,
+     "cap": "Sound is a **longitudinal** wave: the particles vibrate in the **same direction** that the wave travels."
+    },
+    {
+     "id": "comp",
+     "start": 125.868,
+     "end": 135.191,
+     "cap": "That makes regions where particles are squeezed together, called **compressions**, and regions where they're spread out, called **rarefactions**, moving out from the source."
+    },
+    {
+     "id": "line",
+     "start": 135.691,
+     "end": 142.795,
+     "cap": "It's like a line of people, shoulder to shoulder. Shove the first, and a bump passes down the line, but everyone stays put."
+    },
+    {
+     "id": "rice",
+     "start": 143.295,
+     "end": 153.385,
+     "cap": "Try it at home: sprinkle rice on cling film stretched over a bowl, then bang a baking tray nearby. The sound makes the film vibrate, and the rice **jumps**!"
+    }
+   ]
+  },
+  {
+   "id": "vacuum",
+   "title": "Sound can't cross a vacuum",
+   "short": "Vacuum",
+   "card": true,
+   "start": 154.285,
+   "end": 217.683,
+   "lines": [
+    {
+     "id": "need",
+     "start": 156.085,
+     "end": 163.808,
+     "cap": "Here's the secret of the silent star. Sound needs particles to pass the vibration along, so it **cannot travel through a vacuum**."
+    },
+    {
+     "id": "vacuum",
+     "start": 164.308,
+     "end": 168.212,
+     "cap": "A **vacuum** is a space with **no particles** at all, like outer space."
+    },
+    {
+     "id": "jar",
+     "start": 168.712,
+     "end": 177.544,
+     "cap": "In the **bell-jar experiment**, an electric bell hangs inside a sealed glass jar, not touching the sides. At first, you can hear it clearly."
+    },
+    {
+     "id": "pump",
+     "start": 178.044,
+     "end": 182.545,
+     "cap": "Then a vacuum pump removes the air, and the ringing gets **quieter and quieter**..."
+    },
+    {
+     "id": "see",
+     "start": 184.245,
+     "end": 190.069,
+     "cap": "...even though you can still **see** the hammer hitting the bell. With almost all the air gone, you can hardly hear it."
+    },
+    {
+     "id": "back",
+     "start": 190.569,
+     "end": 193.065,
+     "cap": "Let the air back in, and the sound returns."
+    },
+    {
+     "id": "proves",
+     "start": 193.565,
+     "end": 197.64,
+     "cap": "So sound **needs a medium**, but **light doesn't**: you can still see the bell."
+    },
+    {
+     "id": "space",
+     "start": 198.14,
+     "end": 206.631,
+     "cap": "That's why space is **silent**, even though light crosses it easily. You'd hear nothing from a real explosion in space, whatever the films show!"
+    },
+    {
+     "id": "radio",
+     "start": 207.131,
+     "end": 213.189,
+     "cap": "So astronauts on a spacewalk talk by **radio**: radio waves, like light, can cross a vacuum."
+    },
+    {
+     "id": "aware",
+     "start": 213.689,
+     "end": 216.783,
+     "cap": "Remember: **No air, no aware**. No medium, no sound."
+    }
+   ]
+  },
+  {
+   "id": "speed",
+   "title": "The speed of sound",
+   "short": "Speed of sound",
+   "card": true,
+   "start": 217.683,
+   "end": 301.269,
+   "lines": [
+    {
+     "id": "time",
+     "start": 219.483,
+     "end": 229.851,
+     "cap": "Sound takes time to travel. In air, it moves at about **330 to 340 metres per second (m/s)**: roughly **1 kilometre every 3 seconds**."
+    },
+    {
+     "id": "depends",
+     "start": 230.351,
+     "end": 237.135,
+     "cap": "The speed depends on the medium: the more closely the particles are packed, the faster they pass the vibration along."
+    },
+    {
+     "id": "gas",
+     "start": 237.635,
+     "end": 240.131,
+     "cap": "So sound is **slowest in gases**, like air."
+    },
+    {
+     "id": "liquid",
+     "start": 240.631,
+     "end": 246.945,
+     "cap": "It's **faster in liquids**: about **1,500 m/s** in water, more than four times faster."
+    },
+    {
+     "id": "solid",
+     "start": 247.445,
+     "end": 252.16,
+     "cap": "And it's **fastest in solids**: about **5,000 m/s** in steel."
+    },
+    {
+     "id": "solids",
+     "start": 252.66,
+     "end": 259.764,
+     "cap": "So sound isn't fastest in air, as many people think: it's slowest! Remember: **Solids Speed, Gases Go slow**."
+    },
+    {
+     "id": "light",
+     "start": 260.264,
+     "end": 267.133,
+     "cap": "Light is far faster: about **300,000,000 m/s**, nearly a **million times** quicker than sound."
+    },
+    {
+     "id": "storm",
+     "start": 267.633,
+     "end": 274.737,
+     "cap": "So in a thunderstorm, you see the lightning at once, but hear the thunder **seconds later**, as the sound crawls behind."
+    },
+    {
+     "id": "count",
+     "start": 275.237,
+     "end": 282.875,
+     "cap": "Count the seconds between the flash and the bang, and **divide by three**. That's roughly how far away the storm is, in **kilometres**."
+    },
+    {
+     "id": "six",
+     "start": 283.375,
+     "end": 286.255,
+     "cap": "Count to 6, and it's about **2 kilometres** away."
+    },
+    {
+     "id": "warm",
+     "start": 287.155,
+     "end": 294.131,
+     "cap": "And 340 is only a typical value: sound is a little faster in warm air than in cold air."
+    },
+    {
+     "id": "whip",
+     "start": 294.631,
+     "end": 300.369,
+     "cap": "Fun fact: the **crack** of a whip is a tiny sonic boom, because its tip moves faster than sound!"
+    }
+   ]
+  },
+  {
+   "id": "pitch",
+   "title": "Pitch and loudness",
+   "short": "Pitch & loudness",
+   "card": true,
+   "start": 301.269,
+   "end": 374.5,
+   "lines": [
+    {
+     "id": "two",
+     "start": 303.069,
+     "end": 309.149,
+     "cap": "Sounds differ in two ways: **pitch** and **loudness**. Each depends on a different feature of the vibration."
+    },
+    {
+     "id": "pitch",
+     "start": 309.649,
+     "end": 318.161,
+     "cap": "**Pitch** is how high or low a sound seems. It depends on the **frequency**: the number of complete vibrations, or waves, each second."
+    },
+    {
+     "id": "hertz",
+     "start": 318.661,
+     "end": 323.653,
+     "cap": "Frequency is measured in **hertz (Hz)**. **1 Hz** means **one vibration per second**."
+    },
+    {
+     "id": "high",
+     "start": 324.153,
+     "end": 328.185,
+     "cap": "A **high frequency** gives a **high pitch**, like a whistle or a small bird."
+    },
+    {
+     "id": "low",
+     "start": 328.685,
+     "end": 333.485,
+     "cap": "A **low frequency** gives a **low pitch**, like a bass drum or a big dog's growl."
+    },
+    {
+     "id": "loud",
+     "start": 333.985,
+     "end": 340.535,
+     "cap": "**Loudness** depends on the **amplitude**: the size of the vibration, from the rest position to the furthest point."
+    },
+    {
+     "id": "big",
+     "start": 341.035,
+     "end": 345.472,
+     "cap": "A **big amplitude** gives a **loud** sound; a **small amplitude**, a **quiet** one."
+    },
+    {
+     "id": "fast",
+     "start": 345.972,
+     "end": 352.649,
+     "cap": "Remember: **Fast Pitch, Big Bang**. Fast vibrations give a high pitch; big vibrations give a big bang."
+    },
+    {
+     "id": "indep",
+     "start": 353.149,
+     "end": 360.787,
+     "cap": "The two are **independent**: a sound can be high and quiet, or low and loud. A higher note is **not** automatically louder."
+    },
+    {
+     "id": "guitar",
+     "start": 361.687,
+     "end": 368.364,
+     "cap": "So to play a **higher note** on a guitar, raise the frequency: **tighten** the string, **shorten** it, or use a **thinner** one."
+    },
+    {
+     "id": "harder",
+     "start": 368.864,
+     "end": 373.6,
+     "cap": "To play **louder**, pluck **harder**. That gives a **bigger amplitude**, but the same pitch."
+    }
+   ]
+  },
+  {
+   "id": "scope",
+   "title": "Seeing sound on an oscilloscope",
+   "short": "Oscilloscope",
+   "card": true,
+   "start": 374.5,
+   "end": 440.952,
+   "lines": [
+    {
+     "id": "mic",
+     "start": 376.3,
+     "end": 382.764,
+     "cap": "We can't see sound, but we can **picture** it. A **microphone** turns the vibrations into an electrical signal."
+    },
+    {
+     "id": "scope",
+     "start": 383.264,
+     "end": 387.765,
+     "cap": "An **oscilloscope** draws that signal on a screen as a wavy line, called a **trace**."
+    },
+    {
+     "id": "spacing",
+     "start": 388.265,
+     "end": 395.881,
+     "cap": "The **spacing** of the waves shows the **frequency**: waves packed close together mean a high pitch; waves spread out, a low pitch."
+    },
+    {
+     "id": "height",
+     "start": 396.381,
+     "end": 401.544,
+     "cap": "The **height** of the waves shows the **amplitude**: tall waves are **loud**; short waves are **quiet**."
+    },
+    {
+     "id": "louder",
+     "start": 402.044,
+     "end": 408.465,
+     "cap": "Make a sound **louder**, and the waves grow **taller**. If the pitch hasn't changed, the spacing stays the same."
+    },
+    {
+     "id": "higher",
+     "start": 409.765,
+     "end": 417.232,
+     "cap": "Make it **higher**, and **more waves** squeeze into the same width of screen. If the loudness hasn't changed, the height stays the same."
+    },
+    {
+     "id": "try",
+     "start": 418.532,
+     "end": 425.764,
+     "cap": "Your turn. Trace **A** has tall waves, far apart. Trace **B** has short waves, close together. Describe each sound."
+    },
+    {
+     "id": "answer",
+     "start": 428.864,
+     "end": 433.067,
+     "cap": "Trace **A** is **loud** and **low-pitched**. Trace **B** is **quiet** and **high-pitched**."
+    },
+    {
+     "id": "words",
+     "start": 433.567,
+     "end": 440.052,
+     "cap": "In the exam, use the right words: **amplitude** for loudness, and **frequency**, or wave spacing, for pitch."
+    }
+   ]
+  },
+  {
+   "id": "ear",
+   "title": "The ear and hearing range",
+   "short": "The ear",
+   "card": true,
+   "start": 440.952,
+   "end": 511.052,
+   "lines": [
+    {
+     "id": "ear",
+     "start": 442.752,
+     "end": 447.595,
+     "cap": "Your **ear** turns sound waves into signals for your brain. Let's follow a sound in."
+    },
+    {
+     "id": "pinna",
+     "start": 448.095,
+     "end": 451.807,
+     "cap": "The **pinna**, the flap you can see, funnels sound into the **ear canal**."
+    },
+    {
+     "id": "drum",
+     "start": 452.307,
+     "end": 457.747,
+     "cap": "The wave makes the **ear drum** vibrate: a thin, tight membrane, like the skin of a drum."
+    },
+    {
+     "id": "bones",
+     "start": 458.247,
+     "end": 466.012,
+     "cap": "Three tiny **bones** in the middle ear pass the vibrations on to the **cochlea**: a coiled, fluid-filled tube in the inner ear."
+    },
+    {
+     "id": "nerve",
+     "start": 466.512,
+     "end": 472.336,
+     "cap": "Sensitive cells in the cochlea turn the vibrations into **nerve signals**, which travel to your **brain**."
+    },
+    {
+     "id": "range",
+     "start": 472.836,
+     "end": 479.748,
+     "cap": "But you can only hear a certain range of frequencies, called the **hearing range**: about **20 Hz to 20,000 Hz**."
+    },
+    {
+     "id": "twenty",
+     "start": 480.248,
+     "end": 484.493,
+     "cap": "Remember the two twenties: **20 to 20k**, where k means **thousand**."
+    },
+    {
+     "id": "whistle",
+     "start": 484.993,
+     "end": 493.505,
+     "cap": "Sounds outside that range are still real sound. A dog hears a dog whistle at about **25,000 Hz**, but you hear nothing at all."
+    },
+    {
+     "id": "age",
+     "start": 494.005,
+     "end": 497.44,
+     "cap": "The top of your range drops as you get older, which is normal."
+    },
+    {
+     "id": "damage",
+     "start": 497.94,
+     "end": 505.087,
+     "cap": "**Very loud sounds** carry lots of energy, and can damage the delicate cells in the cochlea, sometimes **permanently**."
+    },
+    {
+     "id": "protect",
+     "start": 505.587,
+     "end": 510.152,
+     "cap": "So wear **ear defenders** near loud machinery, and keep your headphones turned down."
+    }
+   ]
+  },
+  {
+   "id": "echo",
+   "title": "Echoes and ultrasound",
+   "short": "Echoes & ultrasound",
+   "card": true,
+   "start": 511.052,
+   "end": 594.647,
+   "lines": [
+    {
+     "id": "reflect",
+     "start": 512.852,
+     "end": 519.337,
+     "cap": "Sound can **reflect**, or bounce, off surfaces, especially hard, flat ones like a cliff or a tiled wall."
+    },
+    {
+     "id": "echo",
+     "start": 519.837,
+     "end": 524.275,
+     "cap": "A reflected sound that you hear a moment after the original is an **echo**."
+    },
+    {
+     "id": "absorb",
+     "start": 524.775,
+     "end": 531.644,
+     "cap": "Soft materials, like curtains and carpet, **absorb** sound instead. That's why an empty room sounds echoey."
+    },
+    {
+     "id": "ultra",
+     "start": 532.144,
+     "end": 538.139,
+     "cap": "**Ultrasound** is sound with a frequency **above 20,000 Hz**: too high for humans to hear."
+    },
+    {
+     "id": "scan",
+     "start": 538.639,
+     "end": 548.431,
+     "cap": "It reflects off boundaries inside the body, so in **medical scans**, the echoes build a picture, like a baby before it's born, with no harmful radiation."
+    },
+    {
+     "id": "clean",
+     "start": 548.931,
+     "end": 554.371,
+     "cap": "In **cleaning**, ultrasound shaken through a liquid scrubs the dirt off jewellery and lenses."
+    },
+    {
+     "id": "sonar",
+     "start": 554.871,
+     "end": 563.98,
+     "cap": "And in **sonar**, ships and submarines send ultrasound pulses into the water and time the echoes. With a known speed, the time gives the distance."
+    },
+    {
+     "id": "ship",
+     "start": 564.48,
+     "end": 574.251,
+     "cap": "Try one. A pulse goes straight down, and its echo returns **4 seconds** later. In water, sound travels at about **1,500 m/s**."
+    },
+    {
+     "id": "halve",
+     "start": 576.351,
+     "end": 586.676,
+     "cap": "In 4 seconds, the sound travels 1,500 × 4 = **6,000 m**. But that's **there and back**, so cut it in half: the sea is **3,000 m** deep."
+    },
+    {
+     "id": "bats",
+     "start": 587.176,
+     "end": 593.747,
+     "cap": "Bats and dolphins find their way using the echoes of their own high-pitched squeaks. It's called **echolocation**."
+    }
+   ]
+  },
+  {
+   "id": "measure",
+   "title": "Wavelength, frequency and speed",
+   "short": "Describing waves",
+   "card": true,
+   "start": 594.647,
+   "end": 658.904,
+   "lines": [
+    {
+     "id": "measure",
+     "start": 596.447,
+     "end": 603.06,
+     "cap": "Scientists describe any wave with a few key measurements. You've met two already: **frequency** and **amplitude**."
+    },
+    {
+     "id": "length",
+     "start": 603.56,
+     "end": 611.624,
+     "cap": "**Wavelength** is the length of one complete wave, say from one compression to the next. It's a distance, so it's measured in **metres**."
+    },
+    {
+     "id": "lambda",
+     "start": 612.124,
+     "end": 614.321,
+     "cap": "Its symbol is the Greek letter **lambda**: **λ**."
+    },
+    {
+     "id": "period",
+     "start": 614.821,
+     "end": 619.621,
+     "cap": "The **time period**, **T**, is the **time** for one complete wave to pass, in **seconds**."
+    },
+    {
+     "id": "five",
+     "start": 620.121,
+     "end": 629.337,
+     "cap": "It's the opposite of frequency. At **5 Hz**, five waves pass each second, so each one takes **one fifth of a second**: 0.2 s."
+    },
+    {
+     "id": "formula",
+     "start": 629.837,
+     "end": 635.384,
+     "cap": "So **T = 1 ÷ f**: the period is one divided by the frequency."
+    },
+    {
+     "id": "equation",
+     "start": 635.884,
+     "end": 640.876,
+     "cap": "And it all links up in the **wave equation**: **speed = frequency × wavelength**."
+    },
+    {
+     "id": "metre",
+     "start": 641.376,
+     "end": 651.061,
+     "cap": "So if a speaker sends out **340** waves a second, and sound covers **340 metres** in that second, each wave must be **1 metre** long."
+    },
+    {
+     "id": "shorter",
+     "start": 651.561,
+     "end": 658.004,
+     "cap": "In air, sound has the same speed whatever its pitch. So a **higher frequency** must mean a **shorter wavelength**."
+    }
+   ]
+  },
+  {
+   "id": "kinds",
+   "title": "Longitudinal and transverse waves",
+   "short": "Two kinds of wave",
+   "card": true,
+   "start": 658.904,
+   "end": 712.604,
+   "lines": [
+    {
+     "id": "families",
+     "start": 660.704,
+     "end": 667.488,
+     "cap": "Waves come in two families, sorted by the direction of the **vibration** compared with the direction the wave travels."
+    },
+    {
+     "id": "long",
+     "start": 667.988,
+     "end": 676.095,
+     "cap": "In a **longitudinal** wave, the vibrations go **back and forth, along** the direction of travel, making compressions and rarefactions."
+    },
+    {
+     "id": "slinky",
+     "start": 676.595,
+     "end": 682.995,
+     "cap": "Push a slinky spring in and out, and squashes and stretches travel along it. **Sound is longitudinal**."
+    },
+    {
+     "id": "trans",
+     "start": 683.495,
+     "end": 688.487,
+     "cap": "In a **transverse** wave, the vibrations are **at right angles** to the direction of travel."
+    },
+    {
+     "id": "rope",
+     "start": 688.987,
+     "end": 696.624,
+     "cap": "Flick a rope up and down: the wobble travels along, but each bit of rope just moves up and down, making **crests** and **troughs**."
+    },
+    {
+     "id": "light",
+     "start": 697.124,
+     "end": 702.415,
+     "cap": "**Light** is transverse, like all electromagnetic waves. So are the **ripples** on water."
+    },
+    {
+     "id": "key",
+     "start": 702.915,
+     "end": 711.704,
+     "cap": "Both kinds carry **energy** without carrying the material along. The difference is the direction of vibration: **along** the wave, or **across** it."
+    }
+   ]
+  },
+  {
+   "id": "infra",
+   "title": "Infrasound: below our hearing",
+   "short": "Infrasound",
+   "card": true,
+   "start": 712.604,
+   "end": 758.7,
+   "lines": [
+    {
+     "id": "below",
+     "start": 714.404,
+     "end": 720.484,
+     "cap": "At the other end from ultrasound is **infrasound**: sound **below 20 Hz**, too **low** for us to hear."
+    },
+    {
+     "id": "elephant",
+     "start": 720.984,
+     "end": 728.301,
+     "cap": "**Elephants** use deep infrasound rumbles to keep in touch with herds kilometres away, and can even sense them through their feet."
+    },
+    {
+     "id": "whale",
+     "start": 728.801,
+     "end": 733.281,
+     "cap": "**Whales** make very low calls that carry across huge distances of ocean."
+    },
+    {
+     "id": "quake",
+     "start": 733.781,
+     "end": 742.08,
+     "cap": "**Earthquakes**, **volcanoes** and big **storms** make infrasound too, and scientists use special detectors to pick it up and help give warnings."
+    },
+    {
+     "id": "animals",
+     "start": 742.58,
+     "end": 749.428,
+     "cap": "Some animals seem to sense it before people notice anything, which may be why they act strangely before an earthquake."
+    },
+    {
+     "id": "slice",
+     "start": 749.928,
+     "end": 757.8,
+     "cap": "So between infrasound below **20 Hz** and ultrasound above **20,000 Hz**, the sound we hear is just a **slice** of it all."
+    }
+   ]
+  },
+  {
+   "id": "recap",
+   "title": "Recap: memory hooks and exam traps",
+   "short": "Recap",
+   "card": true,
+   "start": 758.7,
+   "end": 811.499,
+   "lines": [
+    {
+     "id": "lock",
+     "start": 760.5,
+     "end": 761.844,
+     "cap": "Let's lock it all in."
+    },
+    {
+     "id": "fast",
+     "start": 762.344,
+     "end": 767.357,
+     "cap": "**Fast Pitch, Big Bang**: frequency sets the pitch; amplitude sets the loudness."
+    },
+    {
+     "id": "aware",
+     "start": 767.857,
+     "end": 770.46,
+     "cap": "**No air, no aware**: no medium, no sound."
+    },
+    {
+     "id": "solids",
+     "start": 770.96,
+     "end": 773.2,
+     "cap": "**Solids Speed, Gases Go slow.**"
+    },
+    {
+     "id": "twenty",
+     "start": 773.7,
+     "end": 776.601,
+     "cap": "**20 to 20k**: our hearing range, in hertz."
+    },
+    {
+     "id": "traps",
+     "start": 777.101,
+     "end": 779.363,
+     "cap": "Now, five exam traps to avoid."
+    },
+    {
+     "id": "t1",
+     "start": 779.863,
+     "end": 784.3,
+     "cap": "One: sound **can't** travel through a vacuum. There are no particles to vibrate."
+    },
+    {
+     "id": "t2",
+     "start": 784.8,
+     "end": 790.197,
+     "cap": "Two: **pitch** depends on **frequency**, and **loudness** depends on **amplitude**. Don't mix them up."
+    },
+    {
+     "id": "t3",
+     "start": 790.697,
+     "end": 796.265,
+     "cap": "Three: the particles **don't travel** with the wave. They vibrate; it's the **energy** that travels."
+    },
+    {
+     "id": "t4",
+     "start": 796.765,
+     "end": 804.275,
+     "cap": "Four: sound is about **340 m/s**, and light about **300,000,000 m/s**. They're not similar at all!"
+    },
+    {
+     "id": "t5",
+     "start": 804.775,
+     "end": 810.599,
+     "cap": "Five: in echo and sonar sums, the sound goes **there and back**, so cut the distance **in half**."
+    }
+   ]
+  },
+  {
+   "id": "quiz",
+   "title": "Quick-fire quiz",
+   "short": "Quiz",
+   "card": true,
+   "start": 811.499,
+   "end": 879.849,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 813.299,
+     "end": 816.947,
+     "cap": "Quick-fire quiz! Say each answer out loud before it appears."
+    },
+    {
+     "id": "q1",
+     "start": 817.447,
+     "end": 819.623,
+     "cap": "Why can't sound travel through a vacuum?"
+    },
+    {
+     "id": "a1",
+     "start": 824.123,
+     "end": 827.557,
+     "cap": "A vacuum has **no particles** to pass the vibration along."
+    },
+    {
+     "id": "q2",
+     "start": 828.057,
+     "end": 832.047,
+     "cap": "A sound gets louder, but its pitch stays the same. What has changed?"
+    },
+    {
+     "id": "a2",
+     "start": 836.547,
+     "end": 839.768,
+     "cap": "Its **amplitude** is bigger. Its frequency is the same."
+    },
+    {
+     "id": "q3",
+     "start": 840.268,
+     "end": 842.956,
+     "cap": "Is sound fastest through air, water or steel?"
+    },
+    {
+     "id": "a3",
+     "start": 847.456,
+     "end": 849.845,
+     "cap": "**Steel.** Sound is fastest in solids."
+    },
+    {
+     "id": "q4",
+     "start": 850.345,
+     "end": 851.625,
+     "cap": "What is ultrasound?"
+    },
+    {
+     "id": "a4",
+     "start": 856.125,
+     "end": 859.88,
+     "cap": "Sound **above 20,000 Hz**: too high for humans to hear."
+    },
+    {
+     "id": "q5",
+     "start": 860.38,
+     "end": 865.884,
+     "cap": "You see lightning, then hear the thunder 3 seconds later. About how far away is the storm?"
+    },
+    {
+     "id": "a5",
+     "start": 870.384,
+     "end": 873.733,
+     "cap": "About **1 kilometre**: three seconds, divided by three."
+    },
+    {
+     "id": "outro",
+     "start": 874.233,
+     "end": 878.649,
+     "cap": "Brilliant work. Now try the Sound quiz in your Science Lab, to lock it in."
+    }
+   ]
+  }
+ ],
+ "total": 879.849
+}

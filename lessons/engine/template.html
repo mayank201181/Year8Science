@@ -1,0 +1,203 @@
+<title>@@TITLE@@</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="A narrated, animated Year 8 Science lesson: @@NAME@@.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700;800&family=Fredoka:wght@500;600;700&display=swap">
+<!--@@LOCALFONTS@@-->
+<style>
+/* Layout: one centred column. The player is a dark lab "screen" in both themes (like any video player);
+   the page around it follows the viewer's theme. Energy-yellow marks progress and the current moment. */
+:root{
+  --bg:#EDF3F1; --surface:#FFFFFF; --ink:#10221E; --muted:#4C625D; --rule:#CBDAD5; --accent:#0B7A69; --accent-ink:#FFFFFF; --shadow:0 18px 40px -24px rgba(16,34,30,.55);
+  --scr:#0A1B27; --scr-2:#0E2431; --scr-ink:#F2F7FA; --scr-muted:#A4BCCB; --scr-rule:#24485A; --scr-hi:#FFE45C; --scr-hi-ink:#0A1B27;
+  --f-display:"Fredoka","Nunito","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0B1412;--surface:#121F1C;--ink:#E2EEEA;--muted:#9CB2AC;--rule:#24352F;--accent:#4CCFB3;--accent-ink:#06201A;--shadow:0 18px 40px -24px rgba(0,0,0,.8);color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#0B1412;--surface:#121F1C;--ink:#E2EEEA;--muted:#9CB2AC;--rule:#24352F;--accent:#4CCFB3;--accent-ink:#06201A;--shadow:0 18px 40px -24px rgba(0,0,0,.8);color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.55}
+body.no-scroll{overflow:hidden}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.1}
+p{margin:0}
+a{color:var(--accent);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:10px}
+button{font:inherit;color:inherit}
+
+.wrap{max-width:70rem;margin:0 auto;padding-block:26px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:26px}
+.top{display:grid;gap:8px;max-width:46rem}
+.back{justify-self:start;font-weight:700;text-decoration:none;font-size:.95rem;margin-bottom:6px}
+.back:hover{text-decoration:underline}
+.kicker{font-size:.82rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:clamp(2.2rem,6.4vw,3.5rem);font-weight:600;letter-spacing:-.01em}
+.dek{font-size:1.1rem;color:var(--muted);max-width:40rem}
+
+/* ---------- player ---------- */
+.player{background:var(--scr);color:var(--scr-ink);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.player :focus-visible{outline-color:var(--scr-hi)}
+.screen{display:flex;flex-direction:column}
+.stage-wrap{position:relative;width:100%;max-width:100%;aspect-ratio:16/10;background:var(--scr);margin:0 auto}
+#stage{position:absolute;inset:0;width:100%;height:100%;display:block}
+.caption{min-height:calc(2.9em + 24px);padding:12px clamp(14px,3vw,26px) 12px;background:var(--scr-2);border-top:1px solid var(--scr-rule);font-size:clamp(1.02rem,1.9vw,1.32rem);line-height:1.45;color:var(--scr-ink);max-width:100%}
+.caption strong{color:var(--scr-hi);font-weight:800}
+.caption .cap-hint{color:var(--scr-muted)}
+.player.cc-off .caption{display:none}
+
+.bigplay{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;width:max-content;max-width:92%}
+.bp-main{display:inline-flex;align-items:center;gap:14px;padding:10px 22px 10px 10px;border-radius:999px;border:2px solid rgba(255,228,92,.55);background:rgba(10,27,39,.86);color:var(--scr-ink);cursor:pointer;font-family:var(--f-display);font-weight:600;font-size:clamp(1.05rem,2.4vw,1.4rem);box-shadow:0 10px 30px -10px rgba(0,0,0,.7)}
+.bp-main:hover{border-color:var(--scr-hi)}
+.bp-ic{display:grid;place-items:center;width:clamp(44px,6vw,58px);height:clamp(44px,6vw,58px);border-radius:50%;background:var(--scr-hi);color:var(--scr-hi-ink)}
+.bp-len{font-family:var(--f-body);font-weight:600;font-size:.82em;color:var(--scr-muted);font-variant-numeric:tabular-nums}
+.bp-alt{border:0;background:rgba(10,27,39,.8);color:var(--scr-muted);border-radius:999px;padding:6px 14px;cursor:pointer;font-size:.95rem}
+.bp-alt:hover{color:var(--scr-ink)}
+.endcard{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:16px;background:rgba(10,27,39,.82);text-align:center;padding:16px}
+.end-title{font-family:var(--f-display);font-size:clamp(1.6rem,4.4vw,2.6rem);font-weight:600}
+.end-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.end-actions button,.end-actions a{border-radius:999px;padding:10px 18px;font-weight:700;font-size:1rem;cursor:pointer;text-decoration:none}
+.end-actions button{border:2px solid var(--scr-hi);background:transparent;color:var(--scr-ink)}
+.end-actions a{background:var(--scr-hi);color:var(--scr-hi-ink);border:2px solid var(--scr-hi)}
+
+.controls{padding:6px clamp(8px,2vw,16px) 10px;display:grid;gap:4px;background:var(--scr)}
+.scrub{position:relative;height:26px;cursor:pointer;touch-action:none;display:flex;align-items:center}
+.segs{display:flex;gap:3px;width:100%;height:6px;transition:height .12s}
+.scrub:hover .segs,.scrub:focus-visible .segs{height:9px}
+.seg{position:relative;flex-basis:0;min-width:2px;height:100%;border-radius:3px;background:rgba(164,188,203,.28);overflow:hidden}
+.seg i{position:absolute;inset:0 auto 0 0;width:0;background:var(--scr-hi);border-radius:3px}
+.knob{position:absolute;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:var(--scr-hi);box-shadow:0 0 0 4px rgba(255,228,92,.22);pointer-events:none}
+.bar{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.ic,.txtbtn{display:inline-grid;place-items:center;min-width:44px;height:44px;border-radius:12px;border:0;background:transparent;color:var(--scr-ink);cursor:pointer}
+.ic:hover,.txtbtn:hover{background:rgba(255,255,255,.08)}
+.ic svg{width:24px;height:24px}
+.ic.play{width:50px;height:50px;border-radius:50%;background:var(--scr-hi);color:var(--scr-hi-ink);margin:0 4px}
+.ic.play:hover{background:#FFF07F}
+.ic.play .i-pause{display:none}
+.player.is-playing .ic.play .i-play{display:none}
+.player.is-playing .ic.play .i-pause{display:block}
+.txtbtn{font-weight:800;font-size:.95rem;padding:0 8px;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+#btn-cc[aria-pressed="false"]{color:var(--scr-muted);text-decoration:line-through}
+.time{font-variant-numeric:tabular-nums;color:var(--scr-muted);font-size:.95rem;padding:0 6px;white-space:nowrap}
+.spacer{flex:1}
+.player-note{padding:10px 18px 14px;color:var(--scr-muted);font-size:.95rem;background:var(--scr)}
+
+.player.theater,.player:fullscreen{position:fixed;inset:0;z-index:100;border-radius:0;justify-content:center;background:#05101A;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+.player:-webkit-full-screen{position:fixed;inset:0;z-index:100;border-radius:0;justify-content:center;background:#05101A}
+.player.theater .stage-wrap,.player:fullscreen .stage-wrap{width:min(100%,calc((100dvh - 190px) * 1.6))}
+.player:-webkit-full-screen .stage-wrap{width:min(100%,calc((100vh - 190px) * 1.6))}
+.player.theater .screen,.player:fullscreen .screen,.player.theater .controls,.player:fullscreen .controls{width:100%;max-width:min(100%,calc((100dvh - 190px) * 1.6));margin:0 auto}
+
+/* Phones held sideways: in full screen the caption and controls sit beside the picture, so it can use the full height */
+@media (orientation:landscape) and (max-height:520px){
+  .player.theater,.player:fullscreen{display:grid;grid-template-columns:minmax(0,calc(100vh * 1.6)) minmax(200px,1fr);grid-template-columns:minmax(0,calc(100dvh * 1.6)) minmax(200px,1fr);grid-template-rows:minmax(0,1fr) auto;align-content:stretch}
+  .player:-webkit-full-screen{display:grid;grid-template-columns:minmax(0,calc(100vh * 1.6)) minmax(200px,1fr);grid-template-rows:minmax(0,1fr) auto;align-content:stretch}
+  .player.theater .screen,.player:fullscreen .screen,.player:-webkit-full-screen .screen{display:contents}
+  .player.theater .stage-wrap,.player:fullscreen .stage-wrap,.player:-webkit-full-screen .stage-wrap{grid-column:1;grid-row:1 / span 2;width:100%;max-width:100%;align-self:center}
+  .player.theater .caption,.player:fullscreen .caption,.player:-webkit-full-screen .caption{grid-column:2;grid-row:1;min-height:0;overflow:auto;border-top:0;border-left:1px solid var(--scr-rule);font-size:1rem;padding:12px 14px}
+  .player.theater .controls,.player:fullscreen .controls,.player:-webkit-full-screen .controls{grid-column:2;grid-row:2;width:auto;max-width:none;margin:0;border-left:1px solid var(--scr-rule);padding:4px 8px 8px}
+  .player.theater .bar,.player:fullscreen .bar,.player:-webkit-full-screen .bar{gap:2px;justify-content:center}
+  .player.theater .spacer,.player:fullscreen .spacer,.player:-webkit-full-screen .spacer{flex-basis:100%;height:0}
+  .player.theater .ic,.player.theater .txtbtn,.player:fullscreen .ic,.player:fullscreen .txtbtn{min-width:38px;height:40px}
+  .player.theater .ic.play,.player:fullscreen .ic.play{width:44px;height:44px}
+}
+.rotate-tip{display:none;color:var(--muted);font-size:.95rem;margin-top:-12px}
+@media (max-width:600px) and (orientation:portrait){.rotate-tip{display:block}}
+@media (max-width:560px){.bp-main{padding:6px 16px 6px 6px;gap:10px;font-size:1rem}.bp-ic{width:38px;height:38px}.bp-len{display:none}.bigplay{bottom:5%}.bp-alt{font-size:.85rem;padding:4px 12px}}
+@media (max-width:430px){.time{font-size:.8rem;padding:0 2px}.ic,.txtbtn{min-width:34px}.ic.play{width:44px;height:44px;margin:0 2px}.bar{gap:2px}.txtbtn{padding:0 4px}}
+
+/* ---------- chapters, tips, transcript ---------- */
+.sec-h{font-size:1.45rem;font-weight:600;margin-bottom:12px}
+.chapters{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,16.5rem),1fr));gap:10px}
+.ch{position:relative;width:100%;display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:12px;padding:12px 14px 15px;border-radius:14px;border:1.5px solid var(--rule);background:var(--surface);color:var(--ink);text-align:left;cursor:pointer;overflow:hidden}
+.ch:hover{border-color:var(--accent)}
+.ch-n{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--bg);border:1.5px solid var(--rule);font-family:var(--f-display);font-weight:600;font-size:1rem;color:var(--ink)}
+.ch-t{font-weight:700;line-height:1.25;min-width:0}
+.ch-d{color:var(--muted);font-size:.9rem;font-variant-numeric:tabular-nums}
+.ch-bar{position:absolute;left:0;right:0;bottom:0;height:4px;background:transparent}
+.ch-bar i{display:block;height:100%;width:0;background:var(--accent)}
+.ch[aria-current="step"]{border-color:var(--accent);box-shadow:0 0 0 1.5px var(--accent) inset}
+.ch[aria-current="step"] .ch-n{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.ch.done:not([aria-current="step"]) .ch-n{color:transparent;position:relative}
+.ch.done:not([aria-current="step"]) .ch-n::after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:var(--accent);font-weight:800}
+.tips{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--muted);font-size:.95rem}
+.tips kbd{font-family:var(--f-body);font-weight:700;font-size:.85rem;color:var(--ink);background:var(--surface);border:1.5px solid var(--rule);border-bottom-width:3px;border-radius:7px;padding:1px 7px;margin-right:4px}
+@media (hover:none){.tips{display:none}}
+.transcript{border:1.5px solid var(--rule);border-radius:16px;background:var(--surface);padding:4px 18px}
+.transcript summary{cursor:pointer;font-family:var(--f-display);font-weight:600;font-size:1.2rem;padding:12px 0}
+#transcript-body{display:grid;gap:22px;padding:6px 0 18px;max-width:46rem}
+#transcript-body section{display:grid;gap:8px}
+#transcript-body h3{font-size:1.15rem;font-weight:600;color:var(--accent)}
+#transcript-body p{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:baseline}
+.ts{border:0;background:var(--bg);color:var(--muted);border-radius:8px;padding:1px 7px;font-size:.82rem;font-variant-numeric:tabular-nums;cursor:pointer}
+.ts:hover{color:var(--accent)}
+footer{color:var(--muted);font-size:.92rem;max-width:46rem}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+/* embedded in the Science Lab Watch tab: the app supplies the header and gutter */
+:root[data-embed] body{background:transparent}
+:root[data-embed] .top,:root[data-embed] footer,:root[data-embed] .rotate-tip{display:none}
+:root[data-embed] .wrap{max-width:none;padding-block:0 8px;padding-left:0;padding-right:0;gap:20px}
+</style>
+<!--@@BODY@@-->
+<main class="wrap">
+  <header class="top">
+    <!--@@BACK@@-->
+    <p class="kicker">@@KICKER@@</p>
+    <h1>@@H1@@</h1>
+    <p class="dek">@@DEK@@</p>
+  </header>
+
+  <section class="player" id="player" data-audio="@@AUDIO@@" data-topic="@@TOPIC@@" data-name="@@NAME@@" aria-label="Lesson player">
+    <div class="screen">
+      <div class="stage-wrap">
+        <svg id="stage" viewBox="0 0 1200 750" role="img" aria-label="Animation" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="bigplay" id="bigplay">
+          <button type="button" class="bp-main"><span class="bp-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span><span class="bp-label">Play the lesson</span><span class="bp-len" id="total">14 min</span></button>
+          <button type="button" class="bp-alt" id="bp-restart" hidden>Start from the beginning</button>
+        </div>
+        <div class="endcard" id="endcard" hidden>
+          <p class="end-title">Lesson complete</p>
+          <div class="end-actions"><button type="button" id="end-replay">Watch again</button><a href="@@QUIZURL@@" @@LABTARGET@@>Try the @@QUIZNAME@@ quiz</a></div>
+        </div>
+      </div>
+      <p class="caption" id="caption" aria-live="off"></p>
+    </div>
+    <div class="controls">
+      <div class="scrub" id="scrub" role="slider" tabindex="0" aria-label="Lesson position" aria-valuemin="0" aria-valuemax="@@TOTALSEC@@" aria-valuenow="0"><div class="segs" id="segs"></div><span class="knob" id="knob"></span></div>
+      <div class="bar">
+        <button type="button" id="btn-prev" class="ic" aria-label="Previous chapter" title="Previous chapter ([)"><svg viewBox="0 0 24 24"><path d="M6 5h2.4v14H6zM20 5.6v12.8L9.6 12z" fill="currentColor"/></svg></button>
+        <button type="button" id="btn-play" class="ic play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg><svg class="i-pause" viewBox="0 0 24 24"><rect x="6.5" y="5" width="4" height="14" rx="1.2" fill="currentColor"/><rect x="13.5" y="5" width="4" height="14" rx="1.2" fill="currentColor"/></svg></button>
+        <button type="button" id="btn-next" class="ic" aria-label="Next chapter" title="Next chapter (])"><svg viewBox="0 0 24 24"><path d="M15.6 5H18v14h-2.4zM4 5.6v12.8L14.4 12z" fill="currentColor"/></svg></button>
+        <span class="time" id="time">0:00</span>
+        <span class="spacer"></span>
+        <button type="button" id="btn-speed" class="txtbtn" aria-label="Playback speed 1 times" title="Speed">1×</button>
+        <button type="button" id="btn-cc" class="txtbtn" aria-pressed="true" aria-label="Captions" title="Captions (c)">CC</button>
+        <button type="button" id="btn-fs" class="ic" aria-pressed="false" aria-label="Full screen" title="Full screen (f)"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </div>
+    <p class="player-note" id="player-note" hidden></p>
+  </section>
+  <p class="rotate-tip">Turn your phone sideways and tap full screen for a bigger picture.</p>
+
+  <section aria-labelledby="chh">
+    <h2 class="sec-h" id="chh">Chapters</h2>
+    <ol class="chapters" id="chapters"></ol>
+  </section>
+
+  <p class="tips"><span><kbd>Space</kbd>play or pause</span><span><kbd>←</kbd><kbd>→</kbd>5 seconds</span><span><kbd>[</kbd><kbd>]</kbd>chapters</span><span><kbd>C</kbd>captions</span><span><kbd>F</kbd>full screen</span></p>
+
+  <details class="transcript">
+    <summary>Read the whole script</summary>
+    <div id="transcript-body"></div>
+  </details>
+
+  <footer>The voice is computer-generated. The lesson follows the @@NAME@@ topic in the <a href="@@LABURL@@" @@LABTARGET@@>Year 8 Science Lab</a>, where the quiz and question bank are.</footer>
+</main>
+<script id="timeline" type="application/json">@@TIMELINE@@</script>
+<script>
+@@JS@@
+</script>

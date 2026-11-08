@@ -3,6 +3,7 @@ import type { TopicExtras } from "../types";
 // Engagement extras for heat. Content (hook, didYouKnow, experiments,
 // bonusDiagrams) is filled by a content agent; interactive widget is wired here.
 export const heatExtras: TopicExtras = {
+  lesson: { href: "/lessons/heat.html", minutes: 14, chapters: 12 },
   interactive: "convection",
   hook: "Step out of bed onto a tiled floor and it feels freezing, but the wooden floor next door feels cosy — even though a thermometer says they are exactly the same temperature. So why does one feel so much colder than the other?",
   didYouKnow: [

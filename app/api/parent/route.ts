@@ -20,6 +20,16 @@ export async function POST(req: Request) {
     acc.profiles.map(async (profile) => {
       const d = await getProgress(acc.id, profile.id);
       const a = d.analytics;
+      // Animated-lesson progress, from the stars awarded per chapter ("lesson:<topic>:<chapter>")
+      // and for finishing ("lesson:<topic>").
+      const lessons: Record<string, { chapters: number; done: boolean }> = {};
+      for (const key of Object.keys(d.awarded)) {
+        const m = /^lesson:([a-z-]+)(?::([a-z]+))?$/.exec(key);
+        if (!m) continue;
+        const entry = (lessons[m[1]] ??= { chapters: 0, done: false });
+        if (m[2]) entry.chapters += 1;
+        else entry.done = true;
+      }
       return {
         profile,
         stars: d.stars,
@@ -35,6 +45,7 @@ export async function POST(req: Request) {
         lastActiveAt: a.lastActiveAt,
         days: a.days,
         topics: a.topics,
+        lessons,
         log: a.log.slice(-40).reverse(),
       };
     }),
