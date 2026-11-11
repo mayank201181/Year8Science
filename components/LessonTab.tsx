@@ -152,7 +152,7 @@ function TopicCompanions({ topic }: { topic: Topic }) {
               </a>
               {kind === "sitcom" && (
                 <a
-                  href="/sitcom/index.html"
+                  href="/season1"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-center text-xs font-semibold text-slate-500 hover:text-emerald-700"

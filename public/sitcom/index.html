@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-<title>CELLMATES & LABMATES! · Season 1 (All 14 Year 8 Science Sitcom Episodes)</title>
+<title>Vanshika's Year 8 Science · Season 1 (All 14 Sitcom Episodes)</title>
+<meta name="description" content="Watch all 14 Tanglin Year 8 Science animated sitcom episodes starring Zara, Coach Mito & Guest Stars — with live lab demos, Cap-or-Fact roasts, and Boss-Fight quizzes!" />
+<meta property="og:title" content="🍿 Vanshika's Year 8 Science · Season 1 (TV Series)" />
+<meta property="og:description" content="14 hilarious animated science episodes + Cap-or-Fact roast games + Boss-Fight quizzes for Biology, Chemistry & Physics!" />
+<meta property="og:type" content="website" />
 <style>
   :root {
     --bg-ink: #0b1021;
@@ -138,13 +142,14 @@
 <div class="shell">
   <header class="topbar">
     <div class="show-brand">
-      <span class="tv-pill" id="topSubjectBadge">🍿 Season 1 · 14-Episode Sitcom</span>
-      <h1 class="show-title" id="topEpisodeTitle">CELLMATES! · Year 8 Science TV Series</h1>
+      <span class="tv-pill" id="topSubjectBadge">🍿 Vanshika's Year 8 · Season 1</span>
+      <h1 class="show-title" id="topEpisodeTitle">Vanshika's Year 8 Science · Season 1</h1>
     </div>
     <nav class="nav-tabs">
       <button class="tab-btn active" id="tabBtnWatch" onclick="switchMainView('watch')">🎬 Watch Episode</button>
       <button class="tab-btn" id="tabBtnCap" onclick="switchMainView('cap')">🧢 Cap or Fact? <span id="capBestBadge"></span></button>
       <button class="tab-btn" id="tabBtnBoss" onclick="switchMainView('boss')">⚡ Boss-Fight Quiz <span id="bossBestBadge"></span></button>
+      <button class="tab-btn" id="shareFriendsBtn" onclick="shareSeriesWithFriends()" style="color:#fde047;">📲 Share</button>
     </nav>
   </header>
 
@@ -2381,6 +2386,19 @@ window.PHYS_SCENES = {
     if (!document.fullscreenElement && card.requestFullscreen) card.requestFullscreen().catch(()=>{});
     else if (document.fullscreenElement) document.exitFullscreen();
   };
+  window.shareSeriesWithFriends = function() {
+    const shareTitle = "Vanshika's Year 8 Science · Season 1";
+    const shareText = `Watch ${curEp().sitcomTitle} on Vanshika's Year 8 Science TV Series!`;
+    const shareUrl = window.location.href;
+    if (navigator.share) {
+      navigator.share({ title: shareTitle, text: shareText, url: shareUrl }).catch(() => {});
+    } else if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        const b = document.getElementById('shareFriendsBtn');
+        if (b) { b.textContent = '✓ Link Copied!'; setTimeout(() => { b.textContent = '📲 Share'; }, 2200); }
+      }).catch(() => {});
+    }
+  };
   window.switchMainView = function(view) {
     if (view !== 'watch' && playing) { playing = false; stopTalking(); updateUI(); }
     ['watch', 'cap', 'boss'].forEach(v => document.getElementById('view-' + v).classList.toggle('active', v === view));
@@ -2860,6 +2878,11 @@ window.PHYS_SCENES = {
     else if (e.code === 'Escape' && document.body.classList.contains('yt-clean-mode')) window.toggleCleanTvMode();
   });
 
+  const startSlug = new URLSearchParams(window.location.search).get('ep');
+  if (startSlug) {
+    const foundIdx = EPISODES.findIndex(x => x.slug === startSlug);
+    if (foundIdx >= 0) epIdx = foundIdx;
+  }
   updateUI();
   renderCapGame();
   renderBoss();
