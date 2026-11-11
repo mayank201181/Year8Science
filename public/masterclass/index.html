@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Year 8 Science — All 14 Narrated Studio Masterclasses</title>
+<style>
+  /* System + progressive web font stack */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(circle at 20% 0%, #111f3d 0%, #060a14 68%);
+    color: #f8fafc; font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; padding: 28px 22px 56px;
+  }
+  .wrap { max-width: 1320px; margin: 0 auto; }
+  .hero {
+    border-radius: 24px; padding: 32px; margin-bottom: 24px;
+    background: linear-gradient(135deg, rgba(16,185,129,0.14), rgba(56,189,248,0.12), rgba(168,85,247,0.14));
+    border: 1px solid rgba(148,163,184,0.22);
+    display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.7rem, 3vw, 2.4rem); margin: 8px 0; }
+  .hero p { color: #cbd5e1; max-width: 680px; line-height: 1.55; font-size: 0.96rem; }
+  .filters { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .f-btn {
+    background: #0d1424; color: #cbd5e1; border: 1px solid rgba(148,163,184,0.22);
+    padding: 9px 18px; border-radius: 999px; font-family: inherit; font-weight: 700; font-size: 0.86rem; cursor: pointer;
+  }
+  .f-btn.active { background: #38bdf8; color: #041019; border-color: transparent; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(295px, 1fr)); gap: 16px; }
+  .topic-card {
+    text-align: left; font-family: inherit; cursor: pointer; text-decoration: none; color: inherit; background: #0d1424;
+    border: 1px solid rgba(148,163,184,0.18); border-radius: 18px; padding: 20px;
+    display: flex; flex-direction: column; gap: 10px; transition: transform 0.18s ease, border-color 0.18s ease;
+  }
+  .topic-card:hover { transform: translateY(-3px); border-color: var(--card-accent); box-shadow: 0 16px 36px rgba(0,0,0,0.45); }
+  .card-top { display: flex; justify-content: space-between; align-items: center; font-size: 0.76rem; font-weight: 800; }
+  .subj-pill { color: var(--card-accent); background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 999px; border: 1px solid var(--card-border); }
+  .meta-pill { color: #94a3b8; }
+  .card-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; color: #fff; }
+  .card-desc { color: #94a3b8; font-size: 0.87rem; line-height: 1.48; flex: 1; }
+  .card-footer { display: flex; justify-content: space-between; font-size: 0.76rem; color: #cbd5e1; padding-top: 10px; border-top: 1px solid rgba(148,163,184,0.14); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <div style="color:#6ee7b7;font-size:0.78rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;">Year 8 Science Lab · Tanglin Trust Curriculum</div>
+      <h1>14 Narrated Animated Studio Masterclasses</h1>
+      <p>Every Biology, Chemistry, and Physics topic brought to life with bespoke 60fps scientific animations, natural clause-paced UK voice narration, Think Deeper reasoning vaults, and auto-marked exam checks.</p>
+    </div>
+    <button type="button" onclick="window.location.assign('/')" style="border:none;cursor:pointer;background:#10b981;color:#04131a;font-weight:800;padding:12px 22px;border-radius:999px;font-size:0.9rem;">← Back to Science Lab Dashboard</button>
+  </div>
+  <div class="filters">
+    <button class="f-btn active" onclick="filterSubj('ALL', this)">All 14 Topics</button>
+    <button class="f-btn" onclick="filterSubj('Biology', this)">🌱 Biology (4)</button>
+    <button class="f-btn" onclick="filterSubj('Chemistry', this)">⚛️ Chemistry (4)</button>
+    <button class="f-btn" onclick="filterSubj('Physics', this)">⚡ Physics (6)</button>
+  </div>
+  <div class="grid" id="cardsGrid">
+    
+        <button type="button" class="topic-card" data-subject="Biology" data-href="photosynthesis.html" onclick="openTopic(this.dataset.href)" style="--card-accent:#10b981;--card-border:rgba(16,185,129,0.38);">
+          <div class="card-top">
+            <span class="subj-pill">🌱 Biology</span>
+            <span class="meta-pill">13 Chs · ~15m</span>
+          </div>
+          <h2 class="card-title">Plants & Photosynthesis</h2>
+          <p class="card-desc">How green plants make their own food from light.</p>
+          <div class="card-footer">
+            <span>🎬 60fps Animated Video</span>
+            <span>🧠 8 Think Deeper</span>
+          </div>
+        </button>
+        <button type="button" class="topic-card" data-subject="Biology" data-href="respiration.html" onclick="openTopic(this.dataset.href)" style="--card-accent:#10b981;--card-border:rgba(16,185,129,0.38);">
+          <div class="card-top">
+            <span class="subj-pill">🫁 Biology</span>
+            <span class="meta-pill">12 Chs · ~14m</span>
+          </div>
+          <h2 class="card-title">Respiration</h2>
+          <p class="card-desc">How living cells release energy from glucose.</p>
+          <div class="card-footer">
+            <span>🎬 60fps Animated Video</span>
+            <span>🧠 9 Think Deeper</span>
+          </div>
+        </button>
+        <button type="button" class="topic-card" data-subject="Biology" data-href="breathing.html" onclick="openTopic(this.dataset.href)" style="--card-accent:#10b981;--card-border:rgba(16,185,129,0.38);">
+          <div class="card-top">
+            <span class="subj-pill">🌬️ Biology</span>
+            <span class="meta-pill">11 Chs · ~13m</span>
+          </div>
+          <h2 class="card-title">Breathing & Gas Exchange</h2>
+          <p class="card-desc">How the lungs swap oxygen and carbon dioxide.</p>
+          <div class="card-footer">
+            <span>🎬 60fps Animated Video</span>
+            <span>🧠 8 Think Deeper</span>
+          </div>
+        </button>
+        <button type="button" class="topic-card" data-subject="Biology" data-href="digestion.html" onclick="openTopic(this.dataset.href)" style="--card-accent:#10b981;--card-border:rgba(16,185,129,0.38);">
+          <div class="card-top">
+            <span class="subj-pill">🍎 Biology</span>
+            <span class="meta-pill">12 Chs · ~15m</span>
+          </div>
+          <h2 class="card-title">Food & Digestion</h2>
+          <p class="card-desc">A balanced diet and how the gut breaks down food.</p>
+          <div class="card-footer">
+            <span>🎬 60fps Animated Video</span>
+            <span>🧠 9 Think Deeper</span>
+          </div>
+        </button>
+        <button type="button" class="topic-card" data-subject="Chemistry" data-href="periodic-table.html" onclick="openTopic(this.dataset.href)" style="--card-accent:#a855f7;--card-border:rgba(168,85,247,0.38);">
+          <div class="card-top">
+            <span class="subj-pill">⚛️ Chemistry</span>
+            <span class="meta-pill">11 Chs · ~14m</span>
+          </div>
+          <h2 class="card-title">The Periodic Table</h2>
+          <p class="card-desc">How elements are organised into groups and periods.</p>
+          <div class="card-footer">
+            <span>🎬 60fps Animated Video</span>
+            <span>🧠 8 Think Deeper</span>
+          </div>
+        </button>
+        <button type="button" class="topic-card" data-subject="Chemistry" data-href="elements-compounds-mixtures.html" onclick="openTopic(this.dataset.href)" style="--card-accent:#a855f7;--card-border:rgba(168,85,247,0.38);">
+          <div class="card-top">
+            <span class="subj-pill">🧪 Chemistry</span>
+            <span class="meta-pill">12 Chs · ~15m</span>
+          </div>
+          <h2 class="card-title">Elements, Compounds & Mixtures</h2>
+          <p class="card-desc">The building blocks of all matter and how to separate them.</p>
+          <div class="card-footer">
+            <span>🎬 60fps Animated Video</span>
+            <span>🧠 9 Think Deeper</span>
+          </div>
+        </button>
+        <button type="button" class="topic-card" data-subject="Chemistry" data-href="chemical-reactions.html" onclick="openTopic(this.dataset.href)" style="--card-accent:#a855f7;--card-border:rgba(168,85,247,0.38);">
+          <div class="card-top">
+            <span class="subj-pill">🔥 Chemistry</span>
+            <span class="meta-pill">13 Chs · ~15m</span>
+          </div>
+          <h2 class="card-title">Chemical Reactions</h2>
+          <p class="card-desc">How new substances form, and the signs of a reaction.</p>
+          <div class="card-footer">
+            <span>🎬 60fps Animated Video</span>
+            <span>🧠 10 Think Deeper</span>
+          </div>
+        </button>
+        <button type="button" class="topic-card" data-subject="Chemistry" data-href="acids-metals.html" onclick="openTopic(this.dataset.href)" style="--card-accent:#a855f7;--card-border:rgba(168,85,247,0.38);">
+          <div class="card-top">
+            <span class="subj-pill">⚗️ Chemistry</span>
+            <span class="meta-pill">15 Chs · ~16m</span>
+          </div>
+          <h2 class="card-title">Acids, Bases & Metals</h2>
+          <p class="card-desc">The pH scale, neutralisation and the reactivity series.</p>
+          <div class="card-footer">
+            <span>🎬 60fps Animated Video</span>
+            <span>🧠 12 Think Deeper</span>
+          </div>
+        </button>
+        <button type="button" class="topic-card" data-subject="Physics" data-href="heat.html" onclick="openTopic(this.dataset.href)" style="--card-accent:#38bdf8;--card-border:rgba(56,189,248,0.38);">
+          <div class="card-top">
+            <span class="subj-pill">🌡️ Physics</span>
+            <span class="meta-pill">12 Chs · ~14m</span>
+          </div>
+          <h2 class="card-title">Heat & Temperature</h2>
+          <p class="card-desc">Conduction, convection, radiation and thermal energy.</p>
+          <div class="card-footer">
+            <span>🎬 60fps Animated Video</span>
+            <span>🧠 9 Think Deeper</span>
+          </div>
+        </button>
+        <button type="button" class="topic-card" data-subject="Physics" data-href="light.html" onclick="openTopic(this.dataset.href)" style="--card-accent:#38bdf8;--card-border:rgba(56,189,248,0.38);">
+          <div class="card-top">
+            <span class="subj-pill">💡 Physics</span>
+            <span class="meta-pill">14 Chs · ~16m</span>
+          </div>
+          <h2 class="card-title">Light & Optics</h2>
+          <p class="card-desc">Reflection, refraction, colour and how we see.</p>
+          <div class="card-footer">
+            <span>🎬 60fps Animated Video</span>
+            <span>🧠 12 Think Deeper</span>
+          </div>
+        </button>
+        <button type="button" class="topic-card" data-subject="Physics" data-href="sound.html" onclick="openTopic(this.dataset.href)" style="--card-accent:#38bdf8;--card-border:rgba(56,189,248,0.38);">
+          <div class="card-top">
+            <span class="subj-pill">🔊 Physics</span>
+            <span class="meta-pill">14 Chs · ~15m</span>
+          </div>
+          <h2 class="card-title">Sound</h2>
+          <p class="card-desc">How sound waves travel, and pitch and loudness.</p>
+          <div class="card-footer">
+            <span>🎬 60fps Animated Video</span>
+            <span>🧠 11 Think Deeper</span>
+          </div>
+        </button>
+        <button type="button" class="topic-card" data-subject="Physics" data-href="magnetism-electricity.html" onclick="openTopic(this.dataset.href)" style="--card-accent:#38bdf8;--card-border:rgba(56,189,248,0.38);">
+          <div class="card-top">
+            <span class="subj-pill">🧲 Physics</span>
+            <span class="meta-pill">15 Chs · ~16m</span>
+          </div>
+          <h2 class="card-title">Magnetism & Electricity</h2>
+          <p class="card-desc">Magnets, circuits, current and electromagnets.</p>
+          <div class="card-footer">
+            <span>🎬 60fps Animated Video</span>
+            <span>🧠 13 Think Deeper</span>
+          </div>
+        </button>
+        <button type="button" class="topic-card" data-subject="Physics" data-href="forces.html" onclick="openTopic(this.dataset.href)" style="--card-accent:#38bdf8;--card-border:rgba(56,189,248,0.38);">
+          <div class="card-top">
+            <span class="subj-pill">🏋️ Physics</span>
+            <span class="meta-pill">12 Chs · ~14m</span>
+          </div>
+          <h2 class="card-title">Forces & Motion</h2>
+          <p class="card-desc">Pushes and pulls, balanced forces, speed, springs and pressure.</p>
+          <div class="card-footer">
+            <span>🎬 60fps Animated Video</span>
+            <span>🧠 8 Think Deeper</span>
+          </div>
+        </button>
+        <button type="button" class="topic-card" data-subject="Physics" data-href="energy.html" onclick="openTopic(this.dataset.href)" style="--card-accent:#38bdf8;--card-border:rgba(56,189,248,0.38);">
+          <div class="card-top">
+            <span class="subj-pill">⚡ Physics</span>
+            <span class="meta-pill">11 Chs · ~14m</span>
+          </div>
+          <h2 class="card-title">Energy: Stores & Transfers</h2>
+          <p class="card-desc">The eight energy stores, transfers, efficiency and resources.</p>
+          <div class="card-footer">
+            <span>🎬 60fps Animated Video</span>
+            <span>🧠 8 Think Deeper</span>
+          </div>
+        </button>
+  </div>
+</div>
+<script>
+function openTopic(u) { window.location.assign(u); }
+function filterSubj(s, btn) {
+  document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.topic-card').forEach(c => {
+    c.style.display = (s === 'ALL' || c.getAttribute('data-subject') === s) ? 'flex' : 'none';
+  });
+}
+</script>
+</body>
+</html>

@@ -9,7 +9,7 @@ import { useStore } from "@/lib/store";
 const CHAPTER_STARS = 1;
 const LESSON_STARS = 5;
 
-/** Messages the lesson page (public/lessons/<topic>.html?embed=1) posts to this window. */
+/** Messages the lesson page (public/lessons/<topic>.html?embed=1 or /masterclass/<topic>.html?embed=1) posts to this window. */
 type LessonMessage =
   | { source: "y8-lesson"; topic: string; type: "hello"; chapters: unknown }
   | { source: "y8-lesson"; topic: string; type: "height"; value: unknown }
@@ -37,48 +37,120 @@ const LAB_TOPICS: Record<string, string> = {
   "magnetism-electricity": "magnetism",
 };
 
+type CompanionKind = "masterclass" | "video" | "lab";
+
 function TopicCompanions({ topic }: { topic: Topic }) {
-  const [active, setActive] = useState<"video" | "lab" | null>(null);
+  const [active, setActive] = useState<CompanionKind | null>(null);
+  const [companionHeight, setCompanionHeight] = useState<number>(840);
+  const companionFrame = useRef<HTMLIFrameElement>(null);
+  const { award } = useStore();
   const labTopic = LAB_TOPICS[topic.id];
   if (!labTopic) return null;
 
-  const resources = {
+  useEffect(() => {
+    if (active !== "masterclass") return;
+    function onCompanionMessage(e: MessageEvent) {
+      if (e.origin !== window.location.origin || !companionFrame.current || e.source !== companionFrame.current.contentWindow) return;
+      const m = e.data as LessonMessage;
+      if (!m || m.source !== "y8-lesson" || m.topic !== topic.id) return;
+      if (m.type === "height" && typeof m.value === "number" && m.value > 320 && m.value < 12000) {
+        setCompanionHeight(Math.ceil(m.value));
+      } else if (m.type === "chapter-done" && typeof m.chapter === "string") {
+        award(lessonChapterKey(topic.id, m.chapter), CHAPTER_STARS);
+      } else if (m.type === "complete") {
+        award(`lesson:${topic.id}`, LESSON_STARS);
+      }
+    }
+    window.addEventListener("message", onCompanionMessage);
+    return () => window.removeEventListener("message", onCompanionMessage);
+  }, [active, topic.id, award]);
+
+  const resources: Record<
+    CompanionKind,
+    { title: string; badge?: string; description: string; action: string; embedHref: string; newTabHref: string }
+  > = {
+    masterclass: {
+      title: "Studio Masterclass",
+      badge: "New · 60fps",
+      description:
+        "Narrated 60fps cinema animations with live syllabus notes, Think Deeper vaults, and auto-marked exam questions.",
+      action: "Play Studio Masterclass",
+      embedHref: `/masterclass/${encodeURIComponent(topic.id)}.html?embed=1`,
+      newTabHref: `/masterclass/${encodeURIComponent(topic.id)}.html`,
+    },
     video: {
       title: "Watch & Think",
       description: "Watch the narrated video, answer questions along the way, and learn from each explanation.",
       action: "Play video + questions",
-      href: `https://respiration-watch-and-think.mr201181.chatgpt.site/lesson.html?lesson=${encodeURIComponent(topic.id)}`,
+      embedHref: `https://respiration-watch-and-think.mr201181.chatgpt.site/lesson.html?lesson=${encodeURIComponent(topic.id)}`,
+      newTabHref: `https://respiration-watch-and-think.mr201181.chatgpt.site/lesson.html?lesson=${encodeURIComponent(topic.id)}`,
     },
     lab: {
       title: "3D Lab",
       description: "Rotate the model, change the experiment, and test your understanding of this topic.",
       action: "Explore 3D Lab",
-      href: `https://year8-science-3d.mr201181.chatgpt.site/#${labTopic}`,
+      embedHref: `https://year8-science-3d.mr201181.chatgpt.site/#${labTopic}`,
+      newTabHref: `https://year8-science-3d.mr201181.chatgpt.site/#${labTopic}`,
     },
   };
 
   return (
     <section aria-label={`More ways to learn ${topic.title}`} className="space-y-4">
-      <div className="grid gap-3 sm:grid-cols-2">
-        {(["video", "lab"] as const).map((kind) => {
+      <div className="grid gap-3 sm:grid-cols-3">
+        {(["masterclass", "video", "lab"] as const).map((kind) => {
           const resource = resources[kind];
+          const isMasterclass = kind === "masterclass";
           return (
-            <div key={kind} className="flex flex-col rounded-2xl border border-indigo-200 bg-white p-5">
-              <h2 className="font-bold text-slate-900">{resource.title}</h2>
+            <div
+              key={kind}
+              className={`flex flex-col rounded-2xl border p-5 ${
+                isMasterclass
+                  ? "border-emerald-300 bg-gradient-to-b from-emerald-50/70 to-white"
+                  : "border-indigo-200 bg-white"
+              }`}
+            >
+              <div className="flex items-center justify-between gap-2">
+                <h2 className="font-bold text-slate-900">{resource.title}</h2>
+                {resource.badge && (
+                  <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-bold text-emerald-800">
+                    {resource.badge}
+                  </span>
+                )}
+              </div>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{resource.description}</p>
               <button
                 type="button"
-                onClick={() => setActive(kind)}
+                onClick={() => setActive(active === kind ? null : kind)}
                 aria-expanded={active === kind}
                 aria-controls="topic-companion"
-                className="mt-4 min-h-11 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-bold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className={`mt-4 min-h-11 rounded-xl px-4 py-2.5 text-sm font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2 ${
+                  isMasterclass
+                    ? "bg-emerald-600 hover:bg-emerald-700 focus-visible:outline-emerald-600"
+                    : "bg-indigo-600 hover:bg-indigo-700 focus-visible:outline-indigo-600"
+                }`}
               >
-                {resource.action}
+                {active === kind ? `Hide ${resource.title}` : resource.action}
               </button>
-              <a href={resource.href} target="_blank" rel="noopener noreferrer"
-                className="mt-2 inline-flex min-h-11 items-center justify-center text-sm font-semibold text-indigo-700 underline underline-offset-4">
+              <a
+                href={resource.newTabHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`mt-2 inline-flex min-h-11 items-center justify-center text-sm font-semibold underline underline-offset-4 ${
+                  isMasterclass ? "text-emerald-700" : "text-indigo-700"
+                }`}
+              >
                 Open {resource.title} in a new tab ↗
               </a>
+              {isMasterclass && (
+                <a
+                  href="/masterclass/index.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-center text-xs font-semibold text-slate-500 hover:text-emerald-700"
+                >
+                  Browse all 14 Studio Masterclasses ↗
+                </a>
+              )}
             </div>
           );
         })}
@@ -87,21 +159,31 @@ function TopicCompanions({ topic }: { topic: Topic }) {
         <div id="topic-companion" className="overflow-hidden rounded-2xl border border-indigo-200 bg-white">
           <div className="flex flex-wrap items-center justify-between gap-3 bg-indigo-50 p-4">
             <div>
-              <h3 className="font-bold text-indigo-900">{topic.title} · {resources[active].title}</h3>
-              <p className="mt-1 text-xs text-slate-600">Use the new-tab link above for more room.</p>
+              <h3 className="font-bold text-indigo-900">
+                {topic.title} · {resources[active].title}
+              </h3>
+              <p className="mt-1 text-xs text-slate-600">Use the new-tab link above for full-window cinema mode.</p>
             </div>
-            <button type="button" onClick={() => setActive(null)}
-              className="min-h-11 rounded-lg border border-indigo-200 bg-white px-3 py-2 text-sm font-semibold text-indigo-800 hover:bg-indigo-100">
+            <button
+              type="button"
+              onClick={() => setActive(null)}
+              className="min-h-11 rounded-lg border border-indigo-200 bg-white px-3 py-2 text-sm font-semibold text-indigo-800 hover:bg-indigo-100"
+            >
               Close activity
             </button>
           </div>
           <iframe
+            ref={active === "masterclass" ? companionFrame : undefined}
             key={`${topic.id}:${active}`}
-            src={resources[active].href}
+            src={resources[active].embedHref}
             title={`${topic.title}: ${resources[active].title}`}
-            className="block min-h-[540px] w-full border-0"
-            style={{ height: "min(80dvh, 960px)" }}
-            allow="fullscreen; autoplay"
+            className="block min-h-[620px] w-full border-0"
+            style={
+              active === "masterclass"
+                ? { height: Math.max(760, companionHeight) }
+                : { height: "min(80dvh, 960px)" }
+            }
+            allow="fullscreen; autoplay; screen-wake-lock"
             allowFullScreen
           />
         </div>
