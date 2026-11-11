@@ -19,6 +19,97 @@ type LessonMessage =
 
 export const lessonChapterKey = (topicId: string, chapterId: string) => `lesson:${topicId}:${chapterId}`;
 
+// The companion lab uses shorter names for some topics than this dashboard.
+const LAB_TOPICS: Record<string, string> = {
+  photosynthesis: "photosynthesis",
+  respiration: "respiration",
+  breathing: "breathing",
+  digestion: "digestion",
+  "elements-compounds-mixtures": "materials",
+  "periodic-table": "periodic",
+  "chemical-reactions": "reactions",
+  "acids-metals": "acids",
+  forces: "forces",
+  energy: "energy",
+  heat: "heat",
+  light: "light",
+  sound: "sound",
+  "magnetism-electricity": "magnetism",
+};
+
+function TopicCompanions({ topic }: { topic: Topic }) {
+  const [active, setActive] = useState<"video" | "lab" | null>(null);
+  const labTopic = LAB_TOPICS[topic.id];
+  if (!labTopic) return null;
+
+  const resources = {
+    video: {
+      title: "Watch & Think",
+      description: "Watch the narrated video, answer questions along the way, and learn from each explanation.",
+      action: "Play video + questions",
+      href: `https://respiration-watch-and-think.mr201181.chatgpt.site/lesson.html?lesson=${encodeURIComponent(topic.id)}`,
+    },
+    lab: {
+      title: "3D Lab",
+      description: "Rotate the model, change the experiment, and test your understanding of this topic.",
+      action: "Explore 3D Lab",
+      href: `https://year8-science-3d.mr201181.chatgpt.site/#${labTopic}`,
+    },
+  };
+
+  return (
+    <section aria-label={`More ways to learn ${topic.title}`} className="space-y-4">
+      <div className="grid gap-3 sm:grid-cols-2">
+        {(["video", "lab"] as const).map((kind) => {
+          const resource = resources[kind];
+          return (
+            <div key={kind} className="flex flex-col rounded-2xl border border-indigo-200 bg-white p-5">
+              <h2 className="font-bold text-slate-900">{resource.title}</h2>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{resource.description}</p>
+              <button
+                type="button"
+                onClick={() => setActive(kind)}
+                aria-expanded={active === kind}
+                aria-controls="topic-companion"
+                className="mt-4 min-h-11 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-bold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                {resource.action}
+              </button>
+              <a href={resource.href} target="_blank" rel="noopener noreferrer"
+                className="mt-2 inline-flex min-h-11 items-center justify-center text-sm font-semibold text-indigo-700 underline underline-offset-4">
+                Open {resource.title} in a new tab ↗
+              </a>
+            </div>
+          );
+        })}
+      </div>
+      {active && (
+        <div id="topic-companion" className="overflow-hidden rounded-2xl border border-indigo-200 bg-white">
+          <div className="flex flex-wrap items-center justify-between gap-3 bg-indigo-50 p-4">
+            <div>
+              <h3 className="font-bold text-indigo-900">{topic.title} · {resources[active].title}</h3>
+              <p className="mt-1 text-xs text-slate-600">Use the new-tab link above for more room.</p>
+            </div>
+            <button type="button" onClick={() => setActive(null)}
+              className="min-h-11 rounded-lg border border-indigo-200 bg-white px-3 py-2 text-sm font-semibold text-indigo-800 hover:bg-indigo-100">
+              Close activity
+            </button>
+          </div>
+          <iframe
+            key={`${topic.id}:${active}`}
+            src={resources[active].href}
+            title={`${topic.title}: ${resources[active].title}`}
+            className="block min-h-[540px] w-full border-0"
+            style={{ height: "min(80dvh, 960px)" }}
+            allow="fullscreen; autoplay"
+            allowFullScreen
+          />
+        </div>
+      )}
+    </section>
+  );
+}
+
 export function LessonTab({ topic }: { topic: Topic }) {
   const lesson = getExtras(topic.id).lesson;
   const { award, hasAward } = useStore();
@@ -84,6 +175,7 @@ export function LessonTab({ topic }: { topic: Topic }) {
   const watched = chapters.filter((id) => hasAward(lessonChapterKey(topic.id, id))).length;
   return (
     <div className="space-y-4">
+      <TopicCompanions key={topic.id} topic={topic} />
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border-l-4 border-emerald-400 bg-emerald-50 p-4">
         <div className="min-w-0 flex-1">
           <p className="text-xs font-bold uppercase tracking-wide text-emerald-700">🎬 Watch and listen</p>
