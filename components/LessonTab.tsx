@@ -45,7 +45,6 @@ function TopicCompanions({ topic }: { topic: Topic }) {
   const companionFrame = useRef<HTMLIFrameElement>(null);
   const { award } = useStore();
   const labTopic = LAB_TOPICS[topic.id];
-  if (!labTopic) return null;
 
   useEffect(() => {
     if (active !== "masterclass" && active !== "sitcom") return;
@@ -64,6 +63,8 @@ function TopicCompanions({ topic }: { topic: Topic }) {
     window.addEventListener("message", onCompanionMessage);
     return () => window.removeEventListener("message", onCompanionMessage);
   }, [active, topic.id, award]);
+
+  if (!labTopic) return null;
 
   const resources: Record<
     CompanionKind,
@@ -152,7 +153,7 @@ function TopicCompanions({ topic }: { topic: Topic }) {
               </a>
               {kind === "sitcom" && (
                 <a
-                  href="/season1"
+                  href="/season1/index.html"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-center text-xs font-semibold text-slate-500 hover:text-emerald-700"
@@ -192,13 +193,13 @@ function TopicCompanions({ topic }: { topic: Topic }) {
             </button>
           </div>
           <iframe
-            ref={(active === "masterclass" || active === "sitcom") || active === "sitcom" ? companionFrame : undefined}
+            ref={active === "masterclass" || active === "sitcom" ? companionFrame : undefined}
             key={`${topic.id}:${active}`}
             src={resources[active].embedHref}
             title={`${topic.title}: ${resources[active].title}`}
             className="block min-h-[620px] w-full border-0"
             style={
-              (active === "masterclass" || active === "sitcom")
+              active === "masterclass" || active === "sitcom"
                 ? { height: Math.max(760, companionHeight) }
                 : { height: "min(80dvh, 960px)" }
             }
