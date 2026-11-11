@@ -37,7 +37,7 @@ const LAB_TOPICS: Record<string, string> = {
   "magnetism-electricity": "magnetism",
 };
 
-type CompanionKind = "masterclass" | "video" | "lab";
+type CompanionKind = "sitcom" | "masterclass" | "video" | "lab";
 
 function TopicCompanions({ topic }: { topic: Topic }) {
   const [active, setActive] = useState<CompanionKind | null>(null);
@@ -48,7 +48,7 @@ function TopicCompanions({ topic }: { topic: Topic }) {
   if (!labTopic) return null;
 
   useEffect(() => {
-    if (active !== "masterclass") return;
+    if (active !== "masterclass" && active !== "sitcom") return;
     function onCompanionMessage(e: MessageEvent) {
       if (e.origin !== window.location.origin || !companionFrame.current || e.source !== companionFrame.current.contentWindow) return;
       const m = e.data as LessonMessage;
@@ -69,6 +69,15 @@ function TopicCompanions({ topic }: { topic: Topic }) {
     CompanionKind,
     { title: string; badge?: string; description: string; action: string; embedHref: string; newTabHref: string }
   > = {
+    sitcom: {
+      title: "Cartoon Sitcom Episode",
+      badge: "🍿 TV Series",
+      description:
+        "Funny 3-character animated TV episode (Zara, Coach Mito & Guest Stars) with word-synced voices, live lab demos, and Cap-or-Fact roasts!",
+      action: "Watch Sitcom Episode",
+      embedHref: `/sitcom/${encodeURIComponent(topic.id)}.html?embed=1`,
+      newTabHref: `/sitcom/${encodeURIComponent(topic.id)}.html`,
+    },
     masterclass: {
       title: "Studio Masterclass",
       badge: "New · 60fps",
@@ -96,10 +105,10 @@ function TopicCompanions({ topic }: { topic: Topic }) {
 
   return (
     <section aria-label={`More ways to learn ${topic.title}`} className="space-y-4">
-      <div className="grid gap-3 sm:grid-cols-3">
-        {(["masterclass", "video", "lab"] as const).map((kind) => {
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {(["sitcom", "masterclass", "video", "lab"] as const).map((kind) => {
           const resource = resources[kind];
-          const isMasterclass = kind === "masterclass";
+          const isMasterclass = kind === "masterclass" || kind === "sitcom";
           return (
             <div
               key={kind}
@@ -141,7 +150,17 @@ function TopicCompanions({ topic }: { topic: Topic }) {
               >
                 Open {resource.title} in a new tab ↗
               </a>
-              {isMasterclass && (
+              {kind === "sitcom" && (
+                <a
+                  href="/sitcom/index.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-center text-xs font-semibold text-slate-500 hover:text-emerald-700"
+                >
+                  Browse all 14 Season 1 Sitcom Episodes ↗
+                </a>
+              )}
+              {kind === "masterclass" && (
                 <a
                   href="/masterclass/index.html"
                   target="_blank"
@@ -173,13 +192,13 @@ function TopicCompanions({ topic }: { topic: Topic }) {
             </button>
           </div>
           <iframe
-            ref={active === "masterclass" ? companionFrame : undefined}
+            ref={(active === "masterclass" || active === "sitcom") || active === "sitcom" ? companionFrame : undefined}
             key={`${topic.id}:${active}`}
             src={resources[active].embedHref}
             title={`${topic.title}: ${resources[active].title}`}
             className="block min-h-[620px] w-full border-0"
             style={
-              active === "masterclass"
+              (active === "masterclass" || active === "sitcom")
                 ? { height: Math.max(760, companionHeight) }
                 : { height: "min(80dvh, 960px)" }
             }
