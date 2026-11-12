@@ -1,0 +1,983 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "cold",
+   "title": "Cold open",
+   "short": "Cold open",
+   "card": false,
+   "start": 0.0,
+   "end": 53.725,
+   "lines": [
+    {
+     "id": "kavya",
+     "start": 0.6,
+     "end": 7.021,
+     "cap": "**Narrator:** This is Kavya. She is twelve. In one week, she has her Science practical test: build a circuit.",
+     "who": "narr"
+    },
+    {
+     "id": "plan",
+     "start": 7.641,
+     "end": 12.847,
+     "cap": "**Kavya:** I've watched four videos about circuits. I've built zero circuits. My plan is confidence.",
+     "who": "kavya"
+    },
+    {
+     "id": "small",
+     "start": 13.767,
+     "end": 18.289,
+     "cap": "**Narrator:** But this documentary is not about Kavya. It is about a drawer.",
+     "who": "narr"
+    },
+    {
+     "id": "drawer",
+     "start": 19.109,
+     "end": 24.571,
+     "cap": "**Narrator:** Behind Lab Three, there's a drawer: 'Electricity and Magnetism. Do not touch.'",
+     "who": "narr"
+    },
+    {
+     "id": "hi",
+     "start": 25.291,
+     "end": 28.747,
+     "cap": "**Cecil:** Hi. Cecil. I'm a **cell**. **1.5 V**.",
+     "who": "cecil"
+    },
+    {
+     "id": "battery",
+     "start": 29.367,
+     "end": 34.551,
+     "cap": "**Cecil:** And no, I'm not a battery. A **battery** is two or more cells joined together. I'm one cell.",
+     "who": "cecil"
+    },
+    {
+     "id": "since",
+     "start": 35.271,
+     "end": 41.201,
+     "cap": "**Cecil:** I've been in this drawer since twenty fifteen. Still a perfect **1.5 V**. I don't get out much.",
+     "who": "cecil"
+    },
+    {
+     "id": "rubber",
+     "start": 42.121,
+     "end": 46.964,
+     "cap": "**Cecil:** Last year, a boy in Year Eight used a rubber band as a wire. We don't talk about it.",
+     "who": "cecil"
+    },
+    {
+     "id": "title",
+     "start": 48.084,
+     "end": 51.625,
+     "cap": "**Narrator:** Drawer 8B. Episode twelve: The Practical.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "loop",
+   "title": "No loop, no glow",
+   "short": "The loop",
+   "card": true,
+   "start": 53.725,
+   "end": 159.984,
+   "lines": [
+    {
+     "id": "monday",
+     "start": 55.525,
+     "end": 59.6,
+     "cap": "**Narrator:** Monday. Practice run one: a cell, a lamp, and two wires.",
+     "who": "narr"
+    },
+    {
+     "id": "dimitri",
+     "start": 60.12,
+     "end": 64.152,
+     "cap": "**Dimitri:** At last! Dimitri. The **lamp**. The star of every circuit.",
+     "who": "dimitri"
+    },
+    {
+     "id": "thdimitri",
+     "start": 64.772,
+     "end": 69.487,
+     "cap": "**Cecil:** Dimitri thinks the circuit exists so he can shine. Honestly? It sort of does.",
+     "who": "cecil"
+    },
+    {
+     "id": "eddies",
+     "start": 70.407,
+     "end": 75.911,
+     "cap": "**Narrator:** In the copper wire live the **electrons**: tiny particles with a **negative** charge.",
+     "who": "narr"
+    },
+    {
+     "id": "eddie",
+     "start": 76.231,
+     "end": 81.009,
+     "cap": "**Eddie:** Hi hi! Eddie! Electron! That's Eddie. That's also Eddie. We're all Eddie. It saves time.",
+     "who": "eddie"
+    },
+    {
+     "id": "current",
+     "start": 81.829,
+     "end": 87.696,
+     "cap": "**Narrator:** **Electric current** is the flow of **charge** around a circuit: here, the Eddies on the move.",
+     "who": "narr"
+    },
+    {
+     "id": "pump",
+     "start": 88.016,
+     "end": 92.752,
+     "cap": "**Cecil:** I'm the pump. I push the charge round. I don't make the Eddies. They're in the wire already.",
+     "who": "cecil"
+    },
+    {
+     "id": "oneway",
+     "start": 93.372,
+     "end": 95.548,
+     "cap": "**Kavya:** Wire from the cell to the lamp. Done?",
+     "who": "kavya"
+    },
+    {
+     "id": "nothing",
+     "start": 96.368,
+     "end": 98.437,
+     "cap": "**Dimitri:** Nothing. I feel nothing.",
+     "who": "dimitri"
+    },
+    {
+     "id": "gap",
+     "start": 99.357,
+     "end": 104.328,
+     "cap": "**Cecil:** There's a gap. Current only flows round a **complete loop**. Any gap, and it stops **everywhere**.",
+     "who": "cecil"
+    },
+    {
+     "id": "shine",
+     "start": 104.948,
+     "end": 107.721,
+     "cap": "**Dimitri:** LIGHT! She closed the loop! I'm SHINING!",
+     "who": "dimitri"
+    },
+    {
+     "id": "back",
+     "start": 108.341,
+     "end": 111.285,
+     "cap": "**Eddie:** And we all come back to Cecil! The current isn't used up!",
+     "who": "eddie"
+    },
+    {
+     "id": "energy",
+     "start": 111.605,
+     "end": 116.149,
+     "cap": "**Cecil:** What gets passed on is **energy**. From me, to Dimitri, to the room, as light.",
+     "who": "cecil"
+    },
+    {
+     "id": "copper",
+     "start": 116.769,
+     "end": 121.783,
+     "cap": "**Narrator:** Metals, like copper, are **conductors**: they let current flow. So does carbon.",
+     "who": "narr"
+    },
+    {
+     "id": "plastic",
+     "start": 122.103,
+     "end": 129.249,
+     "cap": "**Narrator:** Plastic is an **insulator**, like rubber, glass and wood. The coat keeps the current in, and Kavya safe.",
+     "who": "narr"
+    },
+    {
+     "id": "hence",
+     "start": 129.569,
+     "end": 131.745,
+     "cap": "**Cecil:** Hence, the rubber band incident.",
+     "who": "cecil"
+    },
+    {
+     "id": "arrows",
+     "start": 132.765,
+     "end": 139.123,
+     "cap": "**Narrator:** Current arrows on circuit diagrams go from **+ to −**. That's called **conventional current**.",
+     "who": "narr"
+    },
+    {
+     "id": "minus",
+     "start": 139.443,
+     "end": 143.197,
+     "cap": "**Eddie:** But we're negative, so we really go from **− to +**! The other way!",
+     "who": "eddie"
+    },
+    {
+     "id": "why",
+     "start": 143.817,
+     "end": 148.895,
+     "cap": "**Cecil:** Scientists chose the direction before anyone knew electrons existed. It stuck.",
+     "who": "cecil"
+    },
+    {
+     "id": "theddie",
+     "start": 149.515,
+     "end": 153.205,
+     "cap": "**Eddie:** Two hundred years of arrows pointing the other way. Nobody asks us.",
+     "who": "eddie"
+    },
+    {
+     "id": "exam",
+     "start": 154.125,
+     "end": 158.584,
+     "cap": "**Cecil:** In exams, draw current arrows from **+ to −**. Just be consistent.",
+     "who": "cecil"
+    }
+   ]
+  },
+  {
+   "id": "series",
+   "title": "Two lamps, one loop",
+   "short": "Series",
+   "card": true,
+   "start": 159.984,
+   "end": 241.708,
+   "lines": [
+    {
+     "id": "tuesday",
+     "start": 161.784,
+     "end": 166.52,
+     "cap": "**Narrator:** Tuesday. Two lamps **in series**: one single loop, one after another.",
+     "who": "narr"
+    },
+    {
+     "id": "share",
+     "start": 167.04,
+     "end": 169.621,
+     "cap": "**Dimitri:** Two lamps? I don't share a stage.",
+     "who": "dimitri"
+    },
+    {
+     "id": "now",
+     "start": 170.241,
+     "end": 171.5,
+     "cap": "**Cecil:** You do now.",
+     "who": "cecil"
+    },
+    {
+     "id": "symbols",
+     "start": 172.32,
+     "end": 178.293,
+     "cap": "**Narrator:** Kavya draws it first, with **circuit symbols**. In this drawer, they're on everyone's staff pass.",
+     "who": "narr"
+    },
+    {
+     "id": "cell",
+     "start": 178.613,
+     "end": 182.539,
+     "cap": "**Cecil:** Mine: a **long, thin** line, the **positive** side, and a **short, thick** one.",
+     "who": "cecil"
+    },
+    {
+     "id": "lamp",
+     "start": 182.859,
+     "end": 185.931,
+     "cap": "**Dimitri:** Mine: a circle with a cross. Iconic.",
+     "who": "dimitri"
+    },
+    {
+     "id": "amy",
+     "start": 186.551,
+     "end": 190.967,
+     "cap": "**Amy:** Amy. **Ammeter**. I measure **current**, in **amps**. I stand **in the line**: in **series**.",
+     "who": "amy"
+    },
+    {
+     "id": "same",
+     "start": 191.287,
+     "end": 197.943,
+     "cap": "**Amy:** **0.2 A** before the lamps. **0.2 A** after. The current is the **same everywhere** in a series loop.",
+     "who": "amy"
+    },
+    {
+     "id": "thamy",
+     "start": 198.263,
+     "end": 202.145,
+     "cap": "**Cecil:** Amy loves a queue. She queued for this interview. Nobody else was here.",
+     "who": "cecil"
+    },
+    {
+     "id": "vic",
+     "start": 203.065,
+     "end": 209.508,
+     "cap": "**Cecil:** That's Vic. **Voltmeter**. **Voltage**, or **potential difference**, in **volts**. He stands **across** a component: **in parallel**.",
+     "who": "cecil"
+    },
+    {
+     "id": "signs",
+     "start": 210.128,
+     "end": 212.667,
+     "cap": "**Cecil:** Vic doesn't talk. He holds up signs.",
+     "who": "cecil"
+    },
+    {
+     "id": "shared",
+     "start": 213.887,
+     "end": 219.284,
+     "cap": "**Narrator:** In series, the cell's **voltage** is **shared**. Two identical lamps get **half** each.",
+     "who": "narr"
+    },
+    {
+     "id": "dim",
+     "start": 219.604,
+     "end": 223.124,
+     "cap": "**Dimitri:** Half?! I'm DIM! Do you know what it's like to be DIM?",
+     "who": "dimitri"
+    },
+    {
+     "id": "name",
+     "start": 223.844,
+     "end": 225.849,
+     "cap": "**Cecil:** Dimitri. It's in your name.",
+     "who": "cecil"
+    },
+    {
+     "id": "dimmer",
+     "start": 226.969,
+     "end": 229.935,
+     "cap": "**Narrator:** More lamps in series? They **all** get **dimmer**.",
+     "who": "narr"
+    },
+    {
+     "id": "unscrew",
+     "start": 230.255,
+     "end": 231.876,
+     "cap": "**Kavya:** And if I unscrew one...",
+     "who": "kavya"
+    },
+    {
+     "id": "dark",
+     "start": 232.496,
+     "end": 237.019,
+     "cap": "**Narrator:** The loop breaks. In series, if one lamp goes, they **all go out**.",
+     "who": "narr"
+    },
+    {
+     "id": "betrayal",
+     "start": 237.939,
+     "end": 240.008,
+     "cap": "**Dimitri:** In the dark: betrayal.",
+     "who": "dimitri"
+    }
+   ]
+  },
+  {
+   "id": "parallel",
+   "title": "Branches, and Auntie Rez",
+   "short": "Parallel",
+   "card": true,
+   "start": 241.708,
+   "end": 321.211,
+   "lines": [
+    {
+     "id": "wednesday",
+     "start": 243.508,
+     "end": 247.156,
+     "cap": "**Narrator:** Wednesday. **Parallel**: each lamp gets its own **branch**.",
+     "who": "narr"
+    },
+    {
+     "id": "bright",
+     "start": 247.676,
+     "end": 250.535,
+     "cap": "**Dimitri:** I'm BRIGHT again! Nobody touch anything!",
+     "who": "dimitri"
+    },
+    {
+     "id": "full",
+     "start": 251.155,
+     "end": 257.277,
+     "cap": "**Narrator:** Each branch gets the **full voltage** of the cell, so the lamps stay bright, even when you add more.",
+     "who": "narr"
+    },
+    {
+     "id": "split",
+     "start": 257.597,
+     "end": 260.477,
+     "cap": "**Eddie:** At the junction, we split up! Some go left, some go right!",
+     "who": "eddie"
+    },
+    {
+     "id": "addup",
+     "start": 260.797,
+     "end": 267.197,
+     "cap": "**Amy:** **0.4 A** in each branch. **0.8 A** from the cell. The branch currents **add up** to the total.",
+     "who": "amy"
+    },
+    {
+     "id": "unscrew",
+     "start": 267.817,
+     "end": 270.1,
+     "cap": "**Narrator:** Kavya unscrews one lamp.",
+     "who": "narr"
+    },
+    {
+     "id": "still",
+     "start": 270.42,
+     "end": 272.937,
+     "cap": "**Dimitri:** I'm... still on. I'm still ON!",
+     "who": "dimitri"
+    },
+    {
+     "id": "keep",
+     "start": 273.557,
+     "end": 278.848,
+     "cap": "**Narrator:** If one branch breaks, the others **keep working**. So homes are wired in **parallel**.",
+     "who": "narr"
+    },
+    {
+     "id": "aircon",
+     "start": 279.168,
+     "end": 283.691,
+     "cap": "**Kavya:** So if my brother's lamp blows, the aircon stays on. Correct priorities.",
+     "who": "kavya"
+    },
+    {
+     "id": "rez",
+     "start": 284.511,
+     "end": 288.393,
+     "cap": "**Narrator:** Next on the worksheet: a **resistor**. Enter Auntie Rez.",
+     "who": "narr"
+    },
+    {
+     "id": "hi",
+     "start": 288.913,
+     "end": 293.095,
+     "cap": "**Auntie Rez:** Rez. **Resistor**. I make it **harder** for current to flow. Somebody has to.",
+     "who": "rez"
+    },
+    {
+     "id": "less",
+     "start": 293.815,
+     "end": 296.545,
+     "cap": "**Amy:** **More resistance** means a **smaller current**.",
+     "who": "amy"
+    },
+    {
+     "id": "ohms",
+     "start": 297.065,
+     "end": 301.14,
+     "cap": "**Auntie Rez:** Measured in **ohms**. Symbol: **Ω**, omega. Like a little horseshoe. Very nice.",
+     "who": "rez"
+    },
+    {
+     "id": "wire",
+     "start": 301.46,
+     "end": 306.175,
+     "cap": "**Auntie Rez:** Even wires resist. A **longer** wire, **more** resistance. A **thinner** wire, **more** again.",
+     "who": "rez"
+    },
+    {
+     "id": "threz",
+     "start": 306.795,
+     "end": 311.189,
+     "cap": "**Cecil:** Auntie Rez limits the current, to protect other components. Still annoying.",
+     "who": "cecil"
+    },
+    {
+     "id": "nephew",
+     "start": 312.109,
+     "end": 319.811,
+     "cap": "**Auntie Rez:** My nephew is a **variable resistor**, a **rheostat**. Slide him, and the lamp dims. He works in **dimmer switches** and **volume controls**.",
+     "who": "rez"
+    }
+   ]
+  },
+  {
+   "id": "magnets",
+   "title": "Forty years, two poles",
+   "short": "Magnets",
+   "card": true,
+   "start": 321.211,
+   "end": 405.037,
+   "lines": [
+    {
+     "id": "thursday",
+     "start": 323.011,
+     "end": 327.469,
+     "cap": "**Narrator:** Thursday. Magnetism. Meet the drawer's longest-married couple.",
+     "who": "narr"
+    },
+    {
+     "id": "nora",
+     "start": 327.989,
+     "end": 329.653,
+     "cap": "**Nora:** Hello! Nora. **North pole**.",
+     "who": "nora"
+    },
+    {
+     "id": "stan",
+     "start": 329.973,
+     "end": 333.323,
+     "cap": "**Stan:** Stan. **South pole**. Same **bar magnet**. Forty years.",
+     "who": "stan"
+    },
+    {
+     "id": "rule",
+     "start": 334.043,
+     "end": 338.309,
+     "cap": "**Narrator:** The golden rule: **like poles repel**. **Unlike poles attract**.",
+     "who": "narr"
+    },
+    {
+     "id": "away",
+     "start": 338.629,
+     "end": 340.955,
+     "cap": "**Nora:** Ugh. Another north pole. Get AWAY from me.",
+     "who": "nora"
+    },
+    {
+     "id": "met",
+     "start": 341.575,
+     "end": 343.921,
+     "cap": "**Stan:** But a north and a south? That's how we met.",
+     "who": "stan"
+    },
+    {
+     "id": "cut",
+     "start": 344.841,
+     "end": 348.02,
+     "cap": "**Kavya:** What if I cut you in half? You'd finally get some space.",
+     "who": "kavya"
+    },
+    {
+     "id": "two",
+     "start": 348.64,
+     "end": 352.459,
+     "cap": "**Nora:** Doesn't work, sweetie. You'd get **two smaller magnets**, each with a north **and** a south.",
+     "who": "nora"
+    },
+    {
+     "id": "materials",
+     "start": 352.779,
+     "end": 359.371,
+     "cap": "**Narrator:** Magnets attract **magnetic materials**: **iron, steel, nickel and cobalt**. I See No Cobwebs.",
+     "who": "narr"
+    },
+    {
+     "id": "thnora",
+     "start": 359.691,
+     "end": 362.869,
+     "cap": "**Nora:** Not all metals, though. Copper? Aluminium? Gold? We feel nothing.",
+     "who": "nora"
+    },
+    {
+     "id": "field",
+     "start": 363.689,
+     "end": 370.751,
+     "cap": "**Narrator:** A **magnetic field** is the region where magnetic materials feel a force. We draw it with **field lines**.",
+     "who": "narr"
+    },
+    {
+     "id": "lines",
+     "start": 371.071,
+     "end": 374.953,
+     "cap": "**Stan:** Outside the magnet, they go from **north to south**, and they **never cross**.",
+     "who": "stan"
+    },
+    {
+     "id": "strong",
+     "start": 375.273,
+     "end": 378.324,
+     "cap": "**Nora:** They're **closest together** at the **poles**. That's where we're **strongest**.",
+     "who": "nora"
+    },
+    {
+     "id": "filings",
+     "start": 378.944,
+     "end": 383.765,
+     "cap": "**Narrator:** **Iron filings** show the pattern. A **plotting compass** shows the direction.",
+     "who": "narr"
+    },
+    {
+     "id": "compass",
+     "start": 384.085,
+     "end": 390.976,
+     "cap": "**Narrator:** A **compass** is a tiny magnet, free to spin. It points north, because the **Earth** is a giant magnet.",
+     "who": "narr"
+    },
+    {
+     "id": "core",
+     "start": 391.296,
+     "end": 397.568,
+     "cap": "**Stan:** Its field comes from molten iron in its core. Near the geographic North Pole is a magnetic **south** pole.",
+     "who": "stan"
+    },
+    {
+     "id": "loves",
+     "start": 397.888,
+     "end": 401.323,
+     "cap": "**Stan:** Unlike poles attract. A north always falls for a south.",
+     "who": "stan"
+    },
+    {
+     "id": "married",
+     "start": 402.043,
+     "end": 403.237,
+     "cap": "**Nora:** I married one.",
+     "who": "nora"
+    }
+   ]
+  },
+  {
+   "id": "electro",
+   "title": "The magnet with an off switch",
+   "short": "Electromagnet",
+   "card": true,
+   "start": 405.037,
+   "end": 493.24,
+   "lines": [
+    {
+     "id": "friday",
+     "start": 406.837,
+     "end": 408.971,
+     "cap": "**Narrator:** Friday. The **electromagnet**.",
+     "who": "narr"
+    },
+    {
+     "id": "sol",
+     "start": 409.491,
+     "end": 414.803,
+     "cap": "**Sol:** Hey. Sol. **Solenoid**. A coil of wire round an iron nail. Right now? A nail in a scarf.",
+     "who": "sol"
+    },
+    {
+     "id": "wire",
+     "start": 415.623,
+     "end": 421.34,
+     "cap": "**Narrator:** Current in a wire makes a **magnetic field**. Coil the wire, and the loops' fields add up.",
+     "who": "narr"
+    },
+    {
+     "id": "on",
+     "start": 421.66,
+     "end": 424.348,
+     "cap": "**Sol:** Current's ON! North pole! South pole! I'm a MAGNET!",
+     "who": "sol"
+    },
+    {
+     "id": "thsol",
+     "start": 424.968,
+     "end": 428.424,
+     "cap": "**Cecil:** Switched on, Sol is unbearable. Switched off, he's a nail.",
+     "who": "cecil"
+    },
+    {
+     "id": "switch",
+     "start": 429.344,
+     "end": 434.165,
+     "cap": "**Narrator:** That's an electromagnet's big advantage: you can switch it **on and off**.",
+     "who": "narr"
+    },
+    {
+     "id": "off",
+     "start": 434.485,
+     "end": 435.573,
+     "cap": "**Sol:** And... I'm a nail again.",
+     "who": "sol"
+    },
+    {
+     "id": "reverse",
+     "start": 436.693,
+     "end": 439.744,
+     "cap": "**Narrator:** Reverse the current, and the **poles swap** over.",
+     "who": "narr"
+    },
+    {
+     "id": "tic",
+     "start": 440.064,
+     "end": 443.755,
+     "cap": "**Sol:** Want me stronger? **TIC**. More **turns**. **Increase** the current. Iron **core**.",
+     "who": "sol"
+    },
+    {
+     "id": "more",
+     "start": 444.075,
+     "end": 445.504,
+     "cap": "**Eddie:** More current? That's more of us!",
+     "who": "eddie"
+    },
+    {
+     "id": "bigger",
+     "start": 446.124,
+     "end": 450.86,
+     "cap": "**Cecil:** And a bigger cell won't help Nora and Stan. **Permanent magnets** don't run on cells.",
+     "who": "cecil"
+    },
+    {
+     "id": "iron",
+     "start": 451.58,
+     "end": 457.553,
+     "cap": "**Narrator:** Sol's core is **pure iron**: a **temporary magnet**. It loses its magnetism easily.",
+     "who": "narr"
+    },
+    {
+     "id": "steel",
+     "start": 457.873,
+     "end": 461.649,
+     "cap": "**Stan:** We're made of **steel**. **Permanent**. We keep our magnetism for years.",
+     "who": "stan"
+    },
+    {
+     "id": "domains",
+     "start": 461.969,
+     "end": 465.468,
+     "cap": "**Nora:** Inside us, tiny regions called **domains** all point the same way.",
+     "who": "nora"
+    },
+    {
+     "id": "stroke",
+     "start": 465.988,
+     "end": 473.113,
+     "cap": "**Narrator:** To **magnetise** steel, stroke it with a magnet **in one direction**, again and again. The domains line up.",
+     "who": "narr"
+    },
+    {
+     "id": "heat",
+     "start": 473.433,
+     "end": 478.212,
+     "cap": "**Nora:** **Heat** us or **hammer** us, and they jumble. We'd be **demagnetised**. So stop dropping us, Year Eight.",
+     "who": "nora"
+    },
+    {
+     "id": "crane",
+     "start": 478.932,
+     "end": 487.572,
+     "cap": "**Narrator:** Scrapyard cranes lift cars with electromagnets, and switch off to drop them. **Bells**, **loudspeakers** and **motors** use them too.",
+     "who": "narr"
+    },
+    {
+     "id": "cousin",
+     "start": 487.892,
+     "end": 491.54,
+     "cap": "**Sol:** My cousin drops a car every day. On purpose. Living the dream.",
+     "who": "sol"
+    }
+   ]
+  },
+  {
+   "id": "static",
+   "title": "Test day, bad hair day",
+   "short": "Static",
+   "card": true,
+   "start": 493.24,
+   "end": 572.923,
+   "lines": [
+    {
+     "id": "monday",
+     "start": 495.04,
+     "end": 500.693,
+     "cap": "**Narrator:** Monday. Test day. Kavya combs her hair with a plastic comb. Thirty-one times.",
+     "who": "narr"
+    },
+    {
+     "id": "hair",
+     "start": 501.313,
+     "end": 503.724,
+     "cap": "**Kavya:** Why is my hair standing up? Why TODAY?!",
+     "who": "kavya"
+    },
+    {
+     "id": "friction",
+     "start": 504.444,
+     "end": 508.625,
+     "cap": "**Eddie:** That was us! Rubbing two **insulators** together moves electrons, by **friction**!",
+     "who": "eddie"
+    },
+    {
+     "id": "static",
+     "start": 508.945,
+     "end": 514.748,
+     "cap": "**Narrator:** This is **static electricity**: charge that builds up and **stays put**, instead of flowing.",
+     "who": "narr"
+    },
+    {
+     "id": "gained",
+     "start": 515.068,
+     "end": 521.959,
+     "cap": "**Narrator:** The comb **gained** electrons, so it's **negatively** charged. Her hair **lost** electrons, so it's **positive**.",
+     "who": "narr"
+    },
+    {
+     "id": "only",
+     "start": 522.279,
+     "end": 525.756,
+     "cap": "**Eddie:** Only electrons move! The positive charges just sit there.",
+     "who": "eddie"
+    },
+    {
+     "id": "like",
+     "start": 526.476,
+     "end": 529.953,
+     "cap": "**Narrator:** **Like charges repel**. **Unlike charges attract**.",
+     "who": "narr"
+    },
+    {
+     "id": "strands",
+     "start": 530.273,
+     "end": 534.049,
+     "cap": "**Kavya:** So all my hairs have the same charge, and they're repelling each other.",
+     "who": "kavya"
+    },
+    {
+     "id": "same",
+     "start": 534.669,
+     "end": 536.803,
+     "cap": "**Nora:** Likes repel, sweetie. We've been saying.",
+     "who": "nora"
+    },
+    {
+     "id": "paper",
+     "start": 537.623,
+     "end": 542.359,
+     "cap": "**Narrator:** The charged comb can even pick up tiny bits of **uncharged** paper.",
+     "who": "narr"
+    },
+    {
+     "id": "earth",
+     "start": 542.679,
+     "end": 550.785,
+     "cap": "**Narrator:** **Earthing** removes charge: a conductor to the ground lets the electrons flow away. Fuel tankers are earthed for safety.",
+     "who": "narr"
+    },
+    {
+     "id": "lightning",
+     "start": 551.105,
+     "end": 554.028,
+     "cap": "**Kavya:** And lightning? We get it almost every afternoon here.",
+     "who": "kavya"
+    },
+    {
+     "id": "sky",
+     "start": 554.548,
+     "end": 559.369,
+     "cap": "**Cecil:** A giant static spark, between a cloud and the ground. Very big sky static.",
+     "who": "cecil"
+    },
+    {
+     "id": "test",
+     "start": 560.189,
+     "end": 564.563,
+     "cap": "**Narrator:** Ten a.m. Amy in series, Vic across the lamp. It lights.",
+     "who": "narr"
+    },
+    {
+     "id": "marks",
+     "start": 565.283,
+     "end": 568.269,
+     "cap": "**Kavya:** Full marks. I'd like to thank... nobody. It's a drawer.",
+     "who": "kavya"
+    },
+    {
+     "id": "thanks",
+     "start": 569.089,
+     "end": 571.223,
+     "cap": "**Dimitri:** I'd like to thank... me.",
+     "who": "dimitri"
+    }
+   ]
+  },
+  {
+   "id": "traps",
+   "title": "The drawer saves you some marks",
+   "short": "Exam traps",
+   "card": true,
+   "start": 572.923,
+   "end": 631.936,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 574.723,
+     "end": 578.989,
+     "cap": "**Narrator:** Before the drawer closes, the cast would like to save you some marks.",
+     "who": "narr"
+    },
+    {
+     "id": "t1",
+     "start": 579.609,
+     "end": 582.255,
+     "cap": "**Nora:** One. **Like** poles **repel**. **Unlike** poles **attract**.",
+     "who": "nora"
+    },
+    {
+     "id": "t2",
+     "start": 582.875,
+     "end": 588.592,
+     "cap": "**Stan:** Two. Field lines go **north to south**, never crossing. Earth's magnetic **south** pole is up north.",
+     "who": "stan"
+    },
+    {
+     "id": "t3",
+     "start": 589.212,
+     "end": 594.737,
+     "cap": "**Amy:** Three. **Ammeter** in **series**, measuring **amps**. **Voltmeter** **across**, in **parallel**, measuring **volts**.",
+     "who": "amy"
+    },
+    {
+     "id": "t4",
+     "start": 595.357,
+     "end": 599.688,
+     "cap": "**Dimitri:** Four. More lamps in **series** means **dimmer**. Never brighter. Trust me.",
+     "who": "dimitri"
+    },
+    {
+     "id": "t5",
+     "start": 600.308,
+     "end": 604.66,
+     "cap": "**Sol:** Five. Switch off the current, and an electromagnet's magnetism **disappears**.",
+     "who": "sol"
+    },
+    {
+     "id": "t6",
+     "start": 605.28,
+     "end": 608.075,
+     "cap": "**Eddie:** Six! Current is **not** used up! Every Eddie comes back!",
+     "who": "eddie"
+    },
+    {
+     "id": "t7",
+     "start": 608.695,
+     "end": 613.815,
+     "cap": "**Cecil:** Seven. Metals **conduct**. Plastic and rubber **insulate**. A rubber band is not a wire.",
+     "who": "cecil"
+    },
+    {
+     "id": "return",
+     "start": 614.735,
+     "end": 617.124,
+     "cap": "**Narrator:** Drawer 8B will return.",
+     "who": "narr"
+    },
+    {
+     "id": "vic",
+     "start": 618.444,
+     "end": 622.092,
+     "cap": "**Cecil:** Vic. Ten years in a drawer together. Anything you'd like to say?",
+     "who": "cecil"
+    },
+    {
+     "id": "volts",
+     "start": 623.812,
+     "end": 626.18,
+     "cap": "**Vic:** ...**1.4 V**.",
+     "who": "vic"
+    },
+    {
+     "id": "camera",
+     "start": 627.7,
+     "end": 629.236,
+     "cap": "**Cecil:** ...Turn the camera off.",
+     "who": "cecil"
+    }
+   ]
+  }
+ ],
+ "total": 631.936
+}
