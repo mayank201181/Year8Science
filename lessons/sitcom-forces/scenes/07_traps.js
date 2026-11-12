@@ -135,7 +135,7 @@ scene('traps', S => {
     E('path', { d: 'M-60,-40 L60,-40 M-50,-40 L-44,30 M50,-40 L44,30', stroke: '#3F5BD9', 'stroke-width': 6, fill: 'none' }, ph);
     E('path', { d: 'M-30,-38 L-12,-22 L-34,-8 L-6,6 L-30,22 L-8,40 M20,-38 L34,-16 L14,0 L40,14 L22,34', stroke: '#9AA6B2', 'stroke-width': 4, fill: 'none' }, ph);
     E('path', { d: 'M40,-100 L86,-100 L86,-54 Z', fill: '#111111' }, ph);
-    T(ph, 0, 84, 'Uncle Coil', { size: 26, weight: 800, anchor: 'middle', fill: '#FFE6B0' });
+    T(ph, 0, 84, 'Uncle Boing', { size: 26, weight: 800, anchor: 'middle', fill: '#FFE6B0' });
   }
   // 6 Norm: flat line = stationary
   {
