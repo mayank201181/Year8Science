@@ -11,7 +11,7 @@ usage:
 
 A topic folder holds script.py (META + CHAPTERS), timeline.json (from
 make_audio.py), scenes/NN_<chapter id>.js and optionally lib.js (art shared by
-that topic's scenes). The bundle is: engine/lib.js, engine/kit.js, <topic>/lib.js, each scene
+that topic's scenes). The bundle is: engine/lib.js, engine/kit.js, engine/<META kit>.js, <topic>/lib.js, each scene
 in its own function scope, then engine/engine.js. --only id1,id2 bundles just
 those scenes; the rest render as placeholders.
 """
@@ -38,9 +38,11 @@ def load_script(topic):
     return mod
 
 
-def bundle_js(topic, only=None):
+def bundle_js(topic, only=None, kit=None):
     globals_src = [("engine/lib.js", open(os.path.join(ENGINE, "lib.js")).read()),
                    ("engine/kit.js", open(os.path.join(ENGINE, "kit.js")).read())]
+    if kit:   # META["kit"] = "sitcom" adds engine/sitcom.js (the shared sitcom cast kit)
+        globals_src.append((f"engine/{kit}.js", open(os.path.join(ENGINE, f"{kit}.js")).read()))
     topic_lib = os.path.join(LESSONS, topic, "lib.js")
     if os.path.exists(topic_lib):
         globals_src.append((f"{topic}/lib.js", open(topic_lib).read()))
@@ -96,7 +98,7 @@ def build(topic, variant, out=None, timeline=None, fonts=None, audio=None, mp3=N
         "@@TIMELINE@@": json.dumps(tl, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/"),
         "@@AUDIO@@": audio_src, "@@LABURL@@": lab, "@@QUIZURL@@": quiz, "@@LABTARGET@@": target,
         "@@TOTALSEC@@": str(int(tl["total"])),
-        "@@TOPIC@@": esc(topic), "@@NAME@@": esc(name), "@@KICKER@@": esc(meta["kicker"]),
+        "@@TOPIC@@": esc(topic), "@@POSTTOPIC@@": esc(meta.get("lab", topic)), "@@NAME@@": esc(name), "@@KICKER@@": esc(meta["kicker"]),
         "@@TITLE@@": esc(meta.get("title", f"{name}, Animated")),
         "@@H1@@": esc(meta.get("h1", f"{name}, animated")),
         "@@DEK@@": esc(meta["dek"].replace("{chapters}", words[n_ch] if n_ch < len(words) else str(n_ch))),
@@ -107,7 +109,7 @@ def build(topic, variant, out=None, timeline=None, fonts=None, audio=None, mp3=N
     doc = open(os.path.join(ENGINE, "template.html")).read()
     for k, v in rep.items():
         doc = doc.replace(k, v)
-    doc = doc.replace("@@JS@@", bundle_js(topic, only))
+    doc = doc.replace("@@JS@@", bundle_js(topic, only, meta.get("kit")))
     head, body = doc.split("<!--@@BODY@@-->")
     if variant == "artifact":
         doc = head + body
