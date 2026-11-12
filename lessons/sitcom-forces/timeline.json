@@ -1,0 +1,927 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "cold",
+   "title": "Cold open",
+   "short": "Cold open",
+   "card": false,
+   "start": 0.0,
+   "end": 61.817,
+   "lines": [
+    {
+     "id": "kavya",
+     "start": 0.6,
+     "end": 6.659,
+     "cap": "**Narrator:** This is Kavya. She is twelve. Today, her family is moving out of the flat she grew up in.",
+     "who": "narr"
+    },
+    {
+     "id": "boxes",
+     "start": 7.179,
+     "end": 12.619,
+     "cap": "**Kavya:** We have forty-seven boxes. Forty-six of them say 'MISC'. My dad did the labels.",
+     "who": "kavya"
+    },
+    {
+     "id": "small",
+     "start": 13.439,
+     "end": 19.967,
+     "cap": "**Narrator:** But this documentary isn't about Kavya. It's about the invisible crew that does the real moving.",
+     "who": "narr"
+    },
+    {
+     "id": "every",
+     "start": 20.487,
+     "end": 25.735,
+     "cap": "**Narrator:** Whenever anything here moves, stops or turns, they did it. This is the foreman.",
+     "who": "narr"
+    },
+    {
+     "id": "hi",
+     "start": 26.355,
+     "end": 30.131,
+     "cap": "**Rex:** Rex. I'm the **resultant force**. Basically, the manager.",
+     "who": "rex"
+    },
+    {
+     "id": "job",
+     "start": 30.651,
+     "end": 36.453,
+     "cap": "**Rex:** Everybody pushes, everybody pulls. I add it all up. Whatever's left over... is me.",
+     "who": "rex"
+    },
+    {
+     "id": "decide",
+     "start": 37.073,
+     "end": 42.599,
+     "cap": "**Rex:** I decide what actually happens. Speed up, slow down, turn... or nothing.",
+     "who": "rex"
+    },
+    {
+     "id": "nothing",
+     "start": 43.419,
+     "end": 44.997,
+     "cap": "**Rex:** Nothing is my favourite.",
+     "who": "rex"
+    },
+    {
+     "id": "since",
+     "start": 46.217,
+     "end": 50.164,
+     "cap": "**Rex:** Been in this business since the Big Bang. Never once been thanked.",
+     "who": "rex"
+    },
+    {
+     "id": "sofa",
+     "start": 50.684,
+     "end": 55.335,
+     "cap": "**Rex:** People say, 'the sofa moved'. The sofa didn't move. We moved the sofa.",
+     "who": "rex"
+    },
+    {
+     "id": "title",
+     "start": 56.155,
+     "end": 59.717,
+     "cap": "**Narrator:** Push and Pull. Episode thirteen: Moving Day.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "crew",
+   "title": "The morning briefing",
+   "short": "The crew",
+   "card": true,
+   "start": 61.817,
+   "end": 161.632,
+   "lines": [
+    {
+     "id": "seven",
+     "start": 63.617,
+     "end": 68.353,
+     "cap": "**Narrator:** Seven a.m. Before the humans wake up, Rex holds the briefing.",
+     "who": "narr"
+    },
+    {
+     "id": "rule1",
+     "start": 68.873,
+     "end": 73.375,
+     "cap": "**Rex:** Rule one. Each of us is a **push** or a **pull**. That's all a **force** is.",
+     "who": "rex"
+    },
+    {
+     "id": "rule2",
+     "start": 73.895,
+     "end": 77.265,
+     "cap": "**Rex:** Rule two. Nobody sees us. Only what we **do**.",
+     "who": "rex"
+    },
+    {
+     "id": "do",
+     "start": 77.585,
+     "end": 82.961,
+     "cap": "**Rex:** We make things **start** moving, **speed up**, **slow down**, change **direction**, or change **shape**.",
+     "who": "rex"
+    },
+    {
+     "id": "pushpa",
+     "start": 83.481,
+     "end": 88.004,
+     "cap": "**Pushpa:** Hi hi! Pushpa! I'm a **push**! It's my first day! I've been practising on a door!",
+     "who": "pushpa"
+    },
+    {
+     "id": "thpushpa",
+     "start": 88.524,
+     "end": 95.052,
+     "cap": "**Rex:** Pushpa's an applied force. She's new. She has a lot of energy. Not literally. Different episode.",
+     "who": "rex"
+    },
+    {
+     "id": "newtons",
+     "start": 95.872,
+     "end": 101.568,
+     "cap": "**Rex:** We're measured in **newtons**, **N**. A small apple weighs about **1 N**.",
+     "who": "rex"
+    },
+    {
+     "id": "arrows",
+     "start": 101.888,
+     "end": 107.819,
+     "cap": "**Rex:** On paper, we're **arrows**. The arrow points the way we act. Longer arrow, bigger force.",
+     "who": "rex"
+    },
+    {
+     "id": "contact",
+     "start": 108.339,
+     "end": 113.096,
+     "cap": "**Narrator:** Most of the crew are **contact forces**: they only work when things touch.",
+     "who": "narr"
+    },
+    {
+     "id": "frieda",
+     "start": 113.416,
+     "end": 116.445,
+     "cap": "**Frieda:** Frieda. **Friction**. Whatever you're doing, I'm against it.",
+     "who": "frieda"
+    },
+    {
+     "id": "norm",
+     "start": 117.265,
+     "end": 123.537,
+     "cap": "**Norm:** Norm. **Normal force**. I push back from surfaces, at right angles. Nobody's heard of me.",
+     "who": "norm"
+    },
+    {
+     "id": "tess",
+     "start": 124.357,
+     "end": 130.139,
+     "cap": "**Tess:** Tess! **Tension**! I pull, in ropes and springs. I'm very, very tense.",
+     "who": "tess"
+    },
+    {
+     "id": "noncontact",
+     "start": 130.759,
+     "end": 135.495,
+     "cap": "**Narrator:** Others act from a distance, without touching. **Non-contact forces**.",
+     "who": "narr"
+    },
+    {
+     "id": "graham",
+     "start": 135.815,
+     "end": 140.807,
+     "cap": "**Graham:** Hello! Graham! **Gravity**! My pull on you is your **weight**. I work remotely.",
+     "who": "graham"
+    },
+    {
+     "id": "cousins",
+     "start": 141.427,
+     "end": 147.507,
+     "cap": "**Graham:** So do my cousins, **magnetic** and **electrostatic** forces. Never touch anybody.",
+     "who": "graham"
+    },
+    {
+     "id": "thgraham",
+     "start": 148.127,
+     "end": 153.524,
+     "cap": "**Rex:** Graham pulls everything down, towards the centre of the Earth. He's very clingy.",
+     "who": "rex"
+    },
+    {
+     "id": "upthrust",
+     "start": 154.344,
+     "end": 160.232,
+     "cap": "**Narrator:** **Upthrust**, the upward push of water, has the day off. No swimming pool in this episode.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "sofa",
+   "title": "The sofa will not move",
+   "short": "The sofa",
+   "card": true,
+   "start": 161.632,
+   "end": 247.651,
+   "lines": [
+    {
+     "id": "nine",
+     "start": 163.432,
+     "end": 167.827,
+     "cap": "**Narrator:** Nine a.m. Kavya tries to push the sofa to the door.",
+     "who": "narr"
+    },
+    {
+     "id": "go",
+     "start": 168.347,
+     "end": 170.885,
+     "cap": "**Pushpa:** Pushing! A hundred newtons! Go, go, go!",
+     "who": "pushpa"
+    },
+    {
+     "id": "objection",
+     "start": 171.205,
+     "end": 174.064,
+     "cap": "**Frieda:** A hundred newtons, straight back at you. Objection.",
+     "who": "frieda"
+    },
+    {
+     "id": "stuck",
+     "start": 174.584,
+     "end": 177.443,
+     "cap": "**Kavya:** Why is it not moving? I am pushing SO hard.",
+     "who": "kavya"
+    },
+    {
+     "id": "balanced",
+     "start": 178.063,
+     "end": 183.844,
+     "cap": "**Rex:** Because the forces are **balanced**. Same size, opposite directions. They cancel out.",
+     "who": "rex"
+    },
+    {
+     "id": "zero",
+     "start": 184.164,
+     "end": 189.263,
+     "cap": "**Rex:** Resultant force: **zero**. So a still sofa **stays still**. And I'm on my break.",
+     "who": "rex"
+    },
+    {
+     "id": "up",
+     "start": 190.083,
+     "end": 196.611,
+     "cap": "**Norm:** Same with me. Graham pulls the sofa down, I push up just as hard. So it doesn't sink into the floor.",
+     "who": "norm"
+    },
+    {
+     "id": "thanks",
+     "start": 197.131,
+     "end": 200.373,
+     "cap": "**Norm:** Nobody ever says thank you to the floor.",
+     "who": "norm"
+    },
+    {
+     "id": "dad",
+     "start": 201.493,
+     "end": 203.968,
+     "cap": "**Narrator:** Then Kavya's dad joins in.",
+     "who": "narr"
+    },
+    {
+     "id": "three",
+     "start": 204.488,
+     "end": 206.493,
+     "cap": "**Pushpa:** Two of us now! Three hundred newtons!",
+     "who": "pushpa"
+    },
+    {
+     "id": "limit",
+     "start": 206.813,
+     "end": 210.525,
+     "cap": "**Frieda:** Two hundred is the most I can do. Fine. I still object.",
+     "who": "frieda"
+    },
+    {
+     "id": "subtract",
+     "start": 211.045,
+     "end": 217.829,
+     "cap": "**Rex:** Three hundred forwards, two hundred back. **Subtract**: **100 N forwards**. That's me. I'm up.",
+     "who": "rex"
+    },
+    {
+     "id": "unbalanced",
+     "start": 218.349,
+     "end": 224.664,
+     "cap": "**Narrator:** **Unbalanced forces** leave a **resultant force**, which **changes the motion**. The sofa **speeds up**.",
+     "who": "narr"
+    },
+    {
+     "id": "trolley",
+     "start": 224.984,
+     "end": 229.613,
+     "cap": "**Narrator:** In the corridor, the sofa rolls along on a trolley at a steady speed.",
+     "who": "narr"
+    },
+    {
+     "id": "harder",
+     "start": 229.933,
+     "end": 233.453,
+     "cap": "**Pushpa:** To keep it moving, I have to push harder and harder, right? RIGHT?",
+     "who": "pushpa"
+    },
+    {
+     "id": "no",
+     "start": 234.273,
+     "end": 235.041,
+     "cap": "**Rex:** No.",
+     "who": "rex"
+    },
+    {
+     "id": "steady",
+     "start": 235.861,
+     "end": 242.347,
+     "cap": "**Rex:** Your push just equals the friction on the wheels. Balanced. So: **steady speed**, **straight line**.",
+     "who": "rex"
+    },
+    {
+     "id": "change",
+     "start": 242.867,
+     "end": 246.451,
+     "cap": "**Rex:** You only need a resultant force to **change** the motion.",
+     "who": "rex"
+    }
+   ]
+  },
+  {
+   "id": "weigh",
+   "title": "The heaviest box",
+   "short": "Mass & weight",
+   "card": true,
+   "start": 247.651,
+   "end": 351.647,
+   "lines": [
+    {
+     "id": "box",
+     "start": 249.451,
+     "end": 254.592,
+     "cap": "**Narrator:** Ten a.m. Box thirty-one. It says 'MISC'. It is very heavy.",
+     "who": "narr"
+    },
+    {
+     "id": "twenty",
+     "start": 255.112,
+     "end": 257.693,
+     "cap": "**Kavya:** This box weighs twenty kilograms. Minimum.",
+     "who": "kavya"
+    },
+    {
+     "id": "mass",
+     "start": 258.313,
+     "end": 260.895,
+     "cap": "**Rex:** That's its **mass**, Kavya. Not its weight.",
+     "who": "rex"
+    },
+    {
+     "id": "matter",
+     "start": 261.215,
+     "end": 266.74,
+     "cap": "**Rex:** **Mass** is the **amount of matter**, in **kilograms**. It never changes, wherever you take it.",
+     "who": "rex"
+    },
+    {
+     "id": "weight",
+     "start": 267.26,
+     "end": 272.593,
+     "cap": "**Graham:** And **weight** is me! The **force** of gravity on that mass. So it's in **newtons**!",
+     "who": "graham"
+    },
+    {
+     "id": "wmg",
+     "start": 273.113,
+     "end": 279.961,
+     "cap": "**Graham:** **Weight = mass × gravitational field strength**. **W = m × g**!",
+     "who": "graham"
+    },
+    {
+     "id": "g",
+     "start": 280.281,
+     "end": 286.724,
+     "cap": "**Graham:** On Earth, g is about **10 N/kg**. So, twenty kilograms times ten...",
+     "who": "graham"
+    },
+    {
+     "id": "arms",
+     "start": 287.344,
+     "end": 290.224,
+     "cap": "**Kavya:** **200 N**. That explains my arms.",
+     "who": "kavya"
+    },
+    {
+     "id": "moon",
+     "start": 290.944,
+     "end": 293.013,
+     "cap": "**Kavya:** Can we just move to the Moon instead?",
+     "who": "kavya"
+    },
+    {
+     "id": "moong",
+     "start": 293.633,
+     "end": 301.783,
+     "cap": "**Graham:** On the Moon, g is only **1.6 N/kg**. Same mass, but it weighs just **32 N**.",
+     "who": "graham"
+    },
+    {
+     "id": "sixth",
+     "start": 302.103,
+     "end": 307.457,
+     "cap": "**Graham:** Please don't move to the Moon. I'd only be one sixth as attached to you.",
+     "who": "graham"
+    },
+    {
+     "id": "meter",
+     "start": 308.477,
+     "end": 313.363,
+     "cap": "**Narrator:** Rex checks with a **newtonmeter**: a spring balance. Inside it is Tess.",
+     "who": "narr"
+    },
+    {
+     "id": "ext",
+     "start": 313.883,
+     "end": 321.221,
+     "cap": "**Tess:** Pull me, I stretch! The stretch is my **extension**: new length, minus original length.",
+     "who": "tess"
+    },
+    {
+     "id": "hooke",
+     "start": 321.741,
+     "end": 329.272,
+     "cap": "**Tess:** My extension is **proportional** to the force. Double the force, double the stretch! **Hooke's law**.",
+     "who": "tess"
+    },
+    {
+     "id": "line",
+     "start": 329.792,
+     "end": 334.805,
+     "cap": "**Rex:** So a graph of force against extension is a **straight line** through the origin.",
+     "who": "rex"
+    },
+    {
+     "id": "limit",
+     "start": 335.325,
+     "end": 343.069,
+     "cap": "**Tess:** But only up to my **elastic limit**! Past that, I'm **permanently stretched**. I don't go back.",
+     "who": "tess"
+    },
+    {
+     "id": "uncle",
+     "start": 343.689,
+     "end": 350.047,
+     "cap": "**Tess:** It happened to my uncle. He worked in a trampoline. He's never been the same shape.",
+     "who": "tess"
+    }
+   ]
+  },
+  {
+   "id": "slide",
+   "title": "Frieda is not the villain",
+   "short": "Friction",
+   "card": true,
+   "start": 351.647,
+   "end": 424.615,
+   "lines": [
+    {
+     "id": "mop",
+     "start": 353.447,
+     "end": 358.204,
+     "cap": "**Narrator:** Eleven a.m. Mum has mopped the floor. Kavya is wearing socks.",
+     "who": "narr"
+    },
+    {
+     "id": "whoa",
+     "start": 359.024,
+     "end": 360.581,
+     "cap": "**Kavya:** No, no, no, no, NO!",
+     "who": "kavya"
+    },
+    {
+     "id": "wet",
+     "start": 361.201,
+     "end": 364.999,
+     "cap": "**Frieda:** Wet floor, smooth socks. Hardly any of me. That's why you're sliding.",
+     "who": "frieda"
+    },
+    {
+     "id": "thfrieda",
+     "start": 365.519,
+     "end": 371.471,
+     "cap": "**Frieda:** People think I'm the villain. Yes, I always act **against the motion**. But without me, you couldn't even **walk**.",
+     "who": "frieda"
+    },
+    {
+     "id": "useful",
+     "start": 371.991,
+     "end": 375.681,
+     "cap": "**Frieda:** Tyres wouldn't **grip**. **Brakes** wouldn't work. You'd all slide into walls.",
+     "who": "frieda"
+    },
+    {
+     "id": "bumps",
+     "start": 376.301,
+     "end": 382.701,
+     "cap": "**Narrator:** Friction comes from tiny bumps. Even smooth surfaces are rough close up, and the bumps catch.",
+     "who": "narr"
+    },
+    {
+     "id": "squeak",
+     "start": 383.021,
+     "end": 388.184,
+     "cap": "**Narrator:** But in the trolley's wheels, friction **wastes energy as heat**, and wears the parts out.",
+     "who": "narr"
+    },
+    {
+     "id": "oil",
+     "start": 388.704,
+     "end": 391.733,
+     "cap": "**Rex:** So we **reduce** it: **oil** the wheels. A **lubricant**.",
+     "who": "rex"
+    },
+    {
+     "id": "object",
+     "start": 392.253,
+     "end": 393.64,
+     "cap": "**Frieda:** Objection, Rex.",
+     "who": "frieda"
+    },
+    {
+     "id": "overruled",
+     "start": 394.16,
+     "end": 395.931,
+     "cap": "**Rex:** Objection overruled.",
+     "who": "rex"
+    },
+    {
+     "id": "grip",
+     "start": 396.751,
+     "end": 402.959,
+     "cap": "**Narrator:** To **increase** friction, use rougher surfaces, like rubber soles. Kavya changes her shoes.",
+     "who": "narr"
+    },
+    {
+     "id": "drag",
+     "start": 403.279,
+     "end": 407.567,
+     "cap": "**Frieda:** Outside, in the air, I go by another name. **Air resistance**. Or **drag**.",
+     "who": "frieda"
+    },
+    {
+     "id": "faster",
+     "start": 408.087,
+     "end": 412.609,
+     "cap": "**Frieda:** Drag is friction from air or water. The **faster** you go, the **more** of me there is.",
+     "who": "frieda"
+    },
+    {
+     "id": "stream",
+     "start": 413.129,
+     "end": 418.527,
+     "cap": "**Rex:** That's why fast things are **streamlined**: smooth and pointed, so the air slips past.",
+     "who": "rex"
+    },
+    {
+     "id": "lorry",
+     "start": 419.047,
+     "end": 423.015,
+     "cap": "**Frieda:** The removal lorry is not streamlined. The removal lorry is a box.",
+     "who": "frieda"
+    }
+   ]
+  },
+  {
+   "id": "lorry",
+   "title": "The longest half hour",
+   "short": "Speed",
+   "card": true,
+   "start": 424.615,
+   "end": 492.84,
+   "lines": [
+    {
+     "id": "noon",
+     "start": 426.415,
+     "end": 433.263,
+     "cap": "**Narrator:** Noon. The movers arrive. Their lorry takes everything **15 km** to the new flat, in **half an hour**.",
+     "who": "narr"
+    },
+    {
+     "id": "speed",
+     "start": 433.583,
+     "end": 437.465,
+     "cap": "**Rex:** How fast? **Speed = distance ÷ time**.",
+     "who": "rex"
+    },
+    {
+     "id": "units",
+     "start": 437.985,
+     "end": 443.212,
+     "cap": "**Rex:** In metres and seconds, that's **metres per second**, **m/s**. On roads, **kilometres per hour**.",
+     "who": "rex"
+    },
+    {
+     "id": "calc",
+     "start": 443.532,
+     "end": 448.908,
+     "cap": "**Kavya:** Fifteen divided by a half... **30 km/h**. My grandma drives faster than that.",
+     "who": "kavya"
+    },
+    {
+     "id": "average",
+     "start": 449.528,
+     "end": 455.416,
+     "cap": "**Rex:** That's the **average speed**: **total distance ÷ total time**. It wasn't steady.",
+     "who": "rex"
+    },
+    {
+     "id": "graph",
+     "start": 455.736,
+     "end": 461.88,
+     "cap": "**Narrator:** Here's the journey as a **distance-time graph**. Time along the bottom, distance up the side.",
+     "who": "narr"
+    },
+    {
+     "id": "slope",
+     "start": 462.2,
+     "end": 468.195,
+     "cap": "**Rex:** A straight sloping line means a **steady speed**. And the **steeper** the line, the **faster** it's going.",
+     "who": "rex"
+    },
+    {
+     "id": "express",
+     "start": 468.515,
+     "end": 470.691,
+     "cap": "**Pushpa:** That steep bit is the expressway! Wheee!",
+     "who": "pushpa"
+    },
+    {
+     "id": "flat",
+     "start": 471.311,
+     "end": 474.105,
+     "cap": "**Pushpa:** Oh no. Now the line's flat. Did we go backwards?",
+     "who": "pushpa"
+    },
+    {
+     "id": "stopped",
+     "start": 474.925,
+     "end": 480.237,
+     "cap": "**Rex:** Flat means **stationary**. The distance isn't changing. That was the traffic jam.",
+     "who": "rex"
+    },
+    {
+     "id": "jam",
+     "start": 480.757,
+     "end": 483.061,
+     "cap": "**Rex:** Ten minutes. Not moving at all.",
+     "who": "rex"
+    },
+    {
+     "id": "best",
+     "start": 483.581,
+     "end": 485.352,
+     "cap": "**Frieda:** Best ten minutes of my day.",
+     "who": "frieda"
+    },
+    {
+     "id": "gradient",
+     "start": 486.172,
+     "end": 491.74,
+     "cap": "**Narrator:** In fact, the **gradient** of a distance-time graph, its steepness, **equals the speed**.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "newflat",
+   "title": "Turning and pressing",
+   "short": "Moments & pressure",
+   "card": true,
+   "start": 492.84,
+   "end": 588.884,
+   "lines": [
+    {
+     "id": "one",
+     "start": 494.64,
+     "end": 498.608,
+     "cap": "**Narrator:** One p.m. The new flat. It smells of fresh paint.",
+     "who": "narr"
+    },
+    {
+     "id": "door",
+     "start": 499.128,
+     "end": 503.373,
+     "cap": "**Narrator:** The front door is heavy. Pushpa pushes it right next to the hinges.",
+     "who": "narr"
+    },
+    {
+     "id": "stuck",
+     "start": 503.693,
+     "end": 505.144,
+     "cap": "**Pushpa:** It's... not... turning!",
+     "who": "pushpa"
+    },
+    {
+     "id": "moment",
+     "start": 505.664,
+     "end": 512.085,
+     "cap": "**Rex:** Turning effect, Pushpa. It's called a **moment**. **Moment = force × distance from the pivot**.",
+     "who": "rex"
+    },
+    {
+     "id": "piv",
+     "start": 512.405,
+     "end": 516.779,
+     "cap": "**Rex:** That's the pivot. Piv. Everything turns around Piv. Piv doesn't talk.",
+     "who": "rex"
+    },
+    {
+     "id": "handle",
+     "start": 518.099,
+     "end": 525.885,
+     "cap": "**Rex:** Push at the handle, far from the pivot. Same force, more distance, bigger moment. Same reason long spanners work.",
+     "who": "rex"
+    },
+    {
+     "id": "opens",
+     "start": 526.205,
+     "end": 528.253,
+     "cap": "**Pushpa:** It opened! I didn't even push harder!",
+     "who": "pushpa"
+    },
+    {
+     "id": "seesaw",
+     "start": 528.773,
+     "end": 535.195,
+     "cap": "**Rex:** A seesaw **balances** when the moments are equal: **force × distance** is the same on each side.",
+     "who": "rex"
+    },
+    {
+     "id": "kids",
+     "start": 535.515,
+     "end": 544.944,
+     "cap": "**Narrator:** Kavya, **400 N**, one metre from Piv. Her brother, **200 N**, two metres out. **400 N m** each. Balanced.",
+     "who": "narr"
+    },
+    {
+     "id": "tv",
+     "start": 545.464,
+     "end": 547.661,
+     "cap": "**Kavya:** Did you just say my weight on television?",
+     "who": "kavya"
+    },
+    {
+     "id": "legs",
+     "start": 548.681,
+     "end": 553.375,
+     "cap": "**Narrator:** Then the sofa goes down, on four tiny legs, onto the new floor.",
+     "who": "narr"
+    },
+    {
+     "id": "ow",
+     "start": 553.895,
+     "end": 557.521,
+     "cap": "**Norm:** Ouch. Ouch, ouch, ouch. Those legs are tiny.",
+     "who": "norm"
+    },
+    {
+     "id": "pressure",
+     "start": 558.041,
+     "end": 565.657,
+     "cap": "**Rex:** **Pressure = force ÷ area**. Same weight on a tiny area: huge pressure. That dents floors.",
+     "who": "rex"
+    },
+    {
+     "id": "pascal",
+     "start": 565.977,
+     "end": 570.052,
+     "cap": "**Rex:** Pressure is in **newtons per square metre**, **N/m²**. Also called **pascals**, **Pa**.",
+     "who": "rex"
+    },
+    {
+     "id": "pads",
+     "start": 570.372,
+     "end": 575.471,
+     "cap": "**Narrator:** Mum sticks wide felt pads under the legs. Bigger area, smaller pressure.",
+     "who": "narr"
+    },
+    {
+     "id": "lovely",
+     "start": 575.991,
+     "end": 580.599,
+     "cap": "**Norm:** Oh. That's lovely. Nobody's ever done anything nice for me before.",
+     "who": "norm"
+    },
+    {
+     "id": "cutter",
+     "start": 581.619,
+     "end": 587.784,
+     "cap": "**Narrator:** A sharp box cutter works the other way: tiny edge, huge pressure. It slices through tape.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "traps",
+   "title": "The crew saves you some marks",
+   "short": "Exam traps",
+   "card": true,
+   "start": 588.884,
+   "end": 650.653,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 590.684,
+     "end": 594.311,
+     "cap": "**Narrator:** Before the credits, the crew would like to save you some marks.",
+     "who": "narr"
+    },
+    {
+     "id": "t1",
+     "start": 594.831,
+     "end": 599.673,
+     "cap": "**Graham:** One! **Mass** is in **kilograms**. **Weight** is a force, so it's in **newtons**!",
+     "who": "graham"
+    },
+    {
+     "id": "t2",
+     "start": 600.193,
+     "end": 605.804,
+     "cap": "**Pushpa:** Two! Moving things don't need a forward force to keep going. Balanced forces mean a **steady speed**!",
+     "who": "pushpa"
+    },
+    {
+     "id": "t3",
+     "start": 606.324,
+     "end": 610.911,
+     "cap": "**Frieda:** Three. Friction and drag always **oppose** the motion. And drag **grows** with speed.",
+     "who": "frieda"
+    },
+    {
+     "id": "t4",
+     "start": 611.431,
+     "end": 618.599,
+     "cap": "**Rex:** Four. Speed is distance **divided by** time. Pressure is force **divided by** area. Don't multiply!",
+     "who": "rex"
+    },
+    {
+     "id": "t5",
+     "start": 619.119,
+     "end": 624.879,
+     "cap": "**Tess:** Five! Hooke's law only works up to the **elastic limit**! Ask my uncle!",
+     "who": "tess"
+    },
+    {
+     "id": "t6",
+     "start": 625.399,
+     "end": 631.82,
+     "cap": "**Norm:** Six. A flat line on a distance-time graph means **stationary**. Not backwards. Like me. Forever.",
+     "who": "norm"
+    },
+    {
+     "id": "return",
+     "start": 632.64,
+     "end": 634.816,
+     "cap": "**Narrator:** Push and Pull will return.",
+     "who": "narr"
+    },
+    {
+     "id": "ask",
+     "start": 636.136,
+     "end": 638.163,
+     "cap": "**Rex:** Piv. Anything you'd like to add?",
+     "who": "rex"
+    },
+    {
+     "id": "me",
+     "start": 639.883,
+     "end": 642.72,
+     "cap": "**Piv:** ...Everything revolves around me.",
+     "who": "piv"
+    },
+    {
+     "id": "wrong",
+     "start": 644.04,
+     "end": 645.683,
+     "cap": "**Norm:** ...He's not wrong.",
+     "who": "norm"
+    },
+    {
+     "id": "dont",
+     "start": 646.503,
+     "end": 647.953,
+     "cap": "**Rex:** Don't encourage him.",
+     "who": "rex"
+    }
+   ]
+  }
+ ],
+ "total": 650.653
+}
