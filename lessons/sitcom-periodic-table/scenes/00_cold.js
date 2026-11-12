@@ -190,7 +190,7 @@ scene('cold', S => {
       op(epi, P(t, mid('title', 0.45), 0.4, linear));
       const castT = k => mid('title', 0.5) + ORDER.indexOf(k) * 0.12;
       const X = k => 120 + ORDER.indexOf(k) * 137;
-      const put = (c, k) => { const p = P(t, castT(k), 0.45, pop); op(c, clamp(p * 3)); tr(c, X(k), 590 + 30 * (1 - clamp(p)), Math.max(0.01, (k === 'kavya' ? 0.5 : 0.55) * p)); c.set({ t, mood: MOOD[k] }); };
+      const put = (c, k) => { const p = P(t, castT(k), 0.45, pop); op(c, clamp(p * 3)); tr(c, X(k), 590 + 30 * (1 - clamp(p)), Math.max(0.01, (k === 'kavya' ? 0.5 : k === 'ahgong' ? 0.68 : 0.55) * p)); c.set({ t, mood: MOOD[k] }); };
       extras.forEach(e => put(e.c, e.k));
       put(kav, 'kavya'); put(silas, 'silas'); put(sonny, 'sonny');
       kavOn = silOn = sonOn = 1;
