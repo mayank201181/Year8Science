@@ -1,0 +1,948 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "cold",
+   "title": "Cold open",
+   "short": "Cold open",
+   "card": false,
+   "start": 0.0,
+   "end": 60.159,
+   "lines": [
+    {
+     "id": "kavya",
+     "start": 0.6,
+     "end": 6.125,
+     "cap": "**Narrator:** This is Kavya. She is twelve. It is Saturday, and she is doing absolutely nothing.",
+     "who": "narr"
+    },
+    {
+     "id": "resting",
+     "start": 6.745,
+     "end": 11.673,
+     "cap": "**Kavya:** I'm resting. It's thirty-four degrees outside. The aircon is on. This is a lifestyle.",
+     "who": "kavya"
+    },
+    {
+     "id": "count",
+     "start": 12.493,
+     "end": 16.952,
+     "cap": "**Narrator:** Since I started talking, Kavya has breathed in and out four times.",
+     "who": "narr"
+    },
+    {
+     "id": "inside",
+     "start": 17.572,
+     "end": 21.54,
+     "cap": "**Narrator:** Because inside her chest is the busiest place in her body.",
+     "who": "narr"
+    },
+    {
+     "id": "airport",
+     "start": 22.16,
+     "end": 28.453,
+     "cap": "**Narrator:** Welcome to Lung International. Two terminals, one per lung. Twenty thousand flights a day.",
+     "who": "narr"
+    },
+    {
+     "id": "hi",
+     "start": 29.173,
+     "end": 32.288,
+     "cap": "**Dennis:** Hi. Dennis. **Diaphragm**. Head of Ground Operations.",
+     "who": "dennis"
+    },
+    {
+     "id": "floor",
+     "start": 32.908,
+     "end": 36.769,
+     "cap": "**Dennis:** I'm the dome of muscle under the lungs. I am, literally, the floor.",
+     "who": "dennis"
+    },
+    {
+     "id": "every",
+     "start": 37.589,
+     "end": 41.728,
+     "cap": "**Dennis:** Every breath she takes, that's me. Contract. Relax. Contract. Relax.",
+     "who": "dennis"
+    },
+    {
+     "id": "born",
+     "start": 42.348,
+     "end": 45.719,
+     "cap": "**Dennis:** Since the day she was born. Twelve years. No lunch break.",
+     "who": "dennis"
+    },
+    {
+     "id": "number",
+     "start": 46.539,
+     "end": 50.464,
+     "cap": "**Dennis:** That was breath eighty-seven million, six hundred thousand and twelve.",
+     "who": "dennis"
+    },
+    {
+     "id": "thirteen",
+     "start": 51.384,
+     "end": 52.749,
+     "cap": "**Dennis:** And thirteen.",
+     "who": "dennis"
+    },
+    {
+     "id": "title",
+     "start": 54.069,
+     "end": 58.059,
+     "cap": "**Narrator:** Lung Haul. Episode three: Arrivals and Departures.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "arrivals",
+   "title": "Arrivals: the long way down",
+   "short": "Arrivals",
+   "card": true,
+   "start": 60.159,
+   "end": 148.492,
+   "lines": [
+    {
+     "id": "batch",
+     "start": 61.959,
+     "end": 66.055,
+     "cap": "**Narrator:** Arrivals. A fresh breath is coming in through Kavya's nose.",
+     "who": "narr"
+    },
+    {
+     "id": "ozzie",
+     "start": 66.575,
+     "end": 70.116,
+     "cap": "**Ozzie:** Hello! Ozzie! **Oxygen**! First time in a lung! I brought a backpack!",
+     "who": "ozzie"
+    },
+    {
+     "id": "thozzie",
+     "start": 70.736,
+     "end": 74.555,
+     "cap": "**Dennis:** Ozzie is oxygen. Two atoms. One molecule. Zero chill.",
+     "who": "dennis"
+    },
+    {
+     "id": "nose",
+     "start": 75.475,
+     "end": 81.021,
+     "cap": "**Narrator:** The best way in is the **nose**. It **warms** the air, makes it **moist**, and **filters** it.",
+     "who": "narr"
+    },
+    {
+     "id": "spa",
+     "start": 81.341,
+     "end": 83.731,
+     "cap": "**Ozzie:** Warm, damp, and a bit hairy. It's like a spa!",
+     "who": "ozzie"
+    },
+    {
+     "id": "trachea",
+     "start": 84.551,
+     "end": 90.225,
+     "cap": "**Narrator:** Next, the **trachea**, or windpipe. **C-shaped rings of cartilage** stop it collapsing.",
+     "who": "narr"
+    },
+    {
+     "id": "goblet",
+     "start": 90.545,
+     "end": 95.879,
+     "cap": "**Narrator:** Its lining has **goblet cells**, which make sticky **mucus** to trap dust and germs.",
+     "who": "narr"
+    },
+    {
+     "id": "cilia",
+     "start": 96.199,
+     "end": 102.257,
+     "cap": "**Narrator:** And **ciliated cells**, whose tiny **cilia** **sweep** the mucus up to the throat, to be swallowed.",
+     "who": "narr"
+    },
+    {
+     "id": "thescal",
+     "start": 102.577,
+     "end": 107.761,
+     "cap": "**Dennis:** We call it the **mucus escalator**. The only escalator where, at the top, you get swallowed.",
+     "who": "dennis"
+    },
+    {
+     "id": "eating",
+     "start": 108.681,
+     "end": 110.58,
+     "cap": "**Kavya:** I'm literally eating right now.",
+     "who": "kavya"
+    },
+    {
+     "id": "bronchi",
+     "start": 111.7,
+     "end": 117.033,
+     "cap": "**Narrator:** The trachea splits into two **bronchi**, one per lung. Just one is a **bronchus**.",
+     "who": "narr"
+    },
+    {
+     "id": "bronchioles",
+     "start": 117.353,
+     "end": 122.708,
+     "cap": "**Narrator:** Each bronchus branches again and again, into tiny tubes called **bronchioles**.",
+     "who": "narr"
+    },
+    {
+     "id": "maze",
+     "start": 123.028,
+     "end": 126.783,
+     "cap": "**Ozzie:** Left, right, left, left... This is worse than an MRT interchange!",
+     "who": "ozzie"
+    },
+    {
+     "id": "alveoli",
+     "start": 127.503,
+     "end": 133.348,
+     "cap": "**Narrator:** At the very ends: tiny air sacs called **alveoli**. Just one is an **alveolus**.",
+     "who": "narr"
+    },
+    {
+     "id": "tbba",
+     "start": 133.668,
+     "end": 139.961,
+     "cap": "**Dennis:** Trachea, bronchi, bronchioles, alveoli. **Tall Brontosaurs Breathe Air**. Don't ask me why. I'm a muscle.",
+     "who": "dennis"
+    },
+    {
+     "id": "nigel",
+     "start": 140.781,
+     "end": 146.392,
+     "cap": "**Narrator:** Also arriving: Nigel. Nigel is **nitrogen**. We'll come back to Nigel.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "ground",
+   "title": "Ground operations",
+   "short": "Breathing in & out",
+   "card": true,
+   "start": 148.492,
+   "end": 240.641,
+   "lines": [
+    {
+     "id": "vent",
+     "start": 150.292,
+     "end": 156.351,
+     "cap": "**Narrator:** **Breathing**, or **ventilation**, just moves air in and out. No chemistry. Only muscles.",
+     "who": "narr"
+    },
+    {
+     "id": "nomuscle",
+     "start": 156.671,
+     "end": 161.257,
+     "cap": "**Dennis:** Here's what nobody knows. The lungs have **no muscles**. They can't move themselves.",
+     "who": "dennis"
+    },
+    {
+     "id": "sponges",
+     "start": 161.877,
+     "end": 165.099,
+     "cap": "**Dennis:** They're two big, pink sponges. Lovely. Useless.",
+     "who": "dennis"
+    },
+    {
+     "id": "iggy",
+     "start": 165.919,
+     "end": 170.292,
+     "cap": "**Iggy:** So who does the work? US! Iggy! **Intercostal muscles**! I live between the ribs!",
+     "who": "iggy"
+    },
+    {
+     "id": "thiggy",
+     "start": 170.912,
+     "end": 175.179,
+     "cap": "**Dennis:** Iggy is the muscles between the ribs. To Iggy, every day is rib day.",
+     "who": "dennis"
+    },
+    {
+     "id": "rule",
+     "start": 176.099,
+     "end": 181.411,
+     "cap": "**Narrator:** Air follows one simple rule: gas moves from **high pressure** to **low pressure**.",
+     "who": "narr"
+    },
+    {
+     "id": "in",
+     "start": 181.731,
+     "end": 185.123,
+     "cap": "**Dennis:** Breathing in. I **contract**, and I **flatten**. I move down.",
+     "who": "dennis"
+    },
+    {
+     "id": "up",
+     "start": 185.643,
+     "end": 189.547,
+     "cap": "**Iggy:** Me too! I **contract**! I pull the ribs **up and out**! Up and OUT, baby!",
+     "who": "iggy"
+    },
+    {
+     "id": "volume",
+     "start": 190.167,
+     "end": 196.695,
+     "cap": "**Narrator:** The chest gets bigger: its **volume increases**. The air inside spreads out, so its **pressure falls**.",
+     "who": "narr"
+    },
+    {
+     "id": "rush",
+     "start": 197.015,
+     "end": 201.047,
+     "cap": "**Narrator:** Now it's lower than the pressure outside, so air is **pushed in**.",
+     "who": "narr"
+    },
+    {
+     "id": "suck",
+     "start": 201.367,
+     "end": 203.223,
+     "cap": "**Kavya:** So my lungs suck the air in?",
+     "who": "kavya"
+    },
+    {
+     "id": "nobody",
+     "start": 204.743,
+     "end": 209.393,
+     "cap": "**Dennis:** Nobody sucks anything. We make the room bigger, and the air outside pushes in.",
+     "who": "dennis"
+    },
+    {
+     "id": "out",
+     "start": 210.313,
+     "end": 216.692,
+     "cap": "**Narrator:** Breathing out is the reverse. The muscles **relax**: Dennis domes up, the ribs drop **down and in**.",
+     "who": "narr"
+    },
+    {
+     "id": "outvol",
+     "start": 217.012,
+     "end": 221.449,
+     "cap": "**Narrator:** The **volume decreases**, the **pressure rises**, and air is **pushed out**.",
+     "who": "narr"
+    },
+    {
+     "id": "passive",
+     "start": 221.769,
+     "end": 227.273,
+     "cap": "**Dennis:** At rest, breathing out is mostly **passive**. The stretched lungs just spring back. My favourite part.",
+     "who": "dennis"
+    },
+    {
+     "id": "relax",
+     "start": 227.893,
+     "end": 229.472,
+     "cap": "**Dennis:** I just... relax.",
+     "who": "dennis"
+    },
+    {
+     "id": "chain",
+     "start": 230.692,
+     "end": 235.065,
+     "cap": "**Dennis:** So. **Volume up, pressure down, air in. Volume down, pressure up, air out.**",
+     "who": "dennis"
+    },
+    {
+     "id": "hand",
+     "start": 235.785,
+     "end": 239.241,
+     "cap": "**Iggy:** Breathing IN, the muscles **contract**! Not relax! Write it on your hand!",
+     "who": "iggy"
+    }
+   ]
+  },
+  {
+   "id": "gates",
+   "title": "Gate 271,000,004",
+   "short": "Gas exchange",
+   "card": true,
+   "start": 240.641,
+   "end": 362.883,
+   "lines": [
+    {
+     "id": "end",
+     "start": 242.441,
+     "end": 246.111,
+     "cap": "**Narrator:** Ozzie reaches the end of the line: one alveolus.",
+     "who": "narr"
+    },
+    {
+     "id": "alvi",
+     "start": 246.631,
+     "end": 252.049,
+     "cap": "**Alvi:** Welcome to Gate two hundred and seventy-one million and four! I'm Alvi! I'm an **alveolus**!",
+     "who": "alvi"
+    },
+    {
+     "id": "thalvi",
+     "start": 252.669,
+     "end": 257.299,
+     "cap": "**Alvi:** There are between three and five hundred million of us. I'm the one with the lanyard.",
+     "who": "alvi"
+    },
+    {
+     "id": "all",
+     "start": 258.019,
+     "end": 259.171,
+     "cap": "**Alvi:** We all have lanyards.",
+     "who": "alvi"
+    },
+    {
+     "id": "net",
+     "start": 260.191,
+     "end": 265.268,
+     "cap": "**Narrator:** Each alveolus is wrapped in a net of **capillaries**, the tiniest blood vessels.",
+     "who": "narr"
+    },
+    {
+     "id": "back",
+     "start": 265.588,
+     "end": 270.964,
+     "cap": "**Narrator:** This blood is back from the body: **low in oxygen**, **high in carbon dioxide**.",
+     "who": "narr"
+    },
+    {
+     "id": "diffusion",
+     "start": 271.284,
+     "end": 277.257,
+     "cap": "**Narrator:** So the gases swap by **diffusion**: each spreads from a **high concentration** to a **low** one.",
+     "who": "narr"
+    },
+    {
+     "id": "off",
+     "start": 277.577,
+     "end": 281.524,
+     "cap": "**Alvi:** Lots of oxygen in here, not much in the blood. Off you go, Ozzie!",
+     "who": "alvi"
+    },
+    {
+     "id": "whee",
+     "start": 281.844,
+     "end": 283.487,
+     "cap": "**Ozzie:** I'm diffusing! Look at me go!",
+     "who": "ozzie"
+    },
+    {
+     "id": "rbc",
+     "start": 284.107,
+     "end": 288.523,
+     "cap": "**Narrator:** In the blood, a **red blood cell** picks Ozzie up, using **haemoglobin**.",
+     "who": "narr"
+    },
+    {
+     "id": "co2",
+     "start": 288.843,
+     "end": 293.92,
+     "cap": "**Narrator:** And **carbon dioxide** diffuses the other way, from the blood into the air.",
+     "who": "narr"
+    },
+    {
+     "id": "colin",
+     "start": 294.24,
+     "end": 298.4,
+     "cap": "**Colin:** Colin. **Carbon dioxide**. Business class. Do keep up.",
+     "who": "colin"
+    },
+    {
+     "id": "pumps",
+     "start": 299.22,
+     "end": 301.097,
+     "cap": "**Kavya:** Wait. Who pushes them across?",
+     "who": "kavya"
+    },
+    {
+     "id": "nopump",
+     "start": 301.417,
+     "end": 304.767,
+     "cap": "**Alvi:** Nobody! It's **passive**! Just the **concentration gradient**!",
+     "who": "alvi"
+    },
+    {
+     "id": "steep",
+     "start": 305.387,
+     "end": 310.357,
+     "cap": "**Dennis:** And every breath brings fresh air, keeping the gradient **steep**. That's why I can't stop. Ever.",
+     "who": "dennis"
+    },
+    {
+     "id": "area",
+     "start": 311.277,
+     "end": 318.403,
+     "cap": "**Alvi:** Why are we so fast? One! A **huge surface area**. Together we cover about seventy square metres. A badminton court!",
+     "who": "alvi"
+    },
+    {
+     "id": "thin",
+     "start": 318.723,
+     "end": 323.608,
+     "cap": "**Alvi:** Two! My wall is **one cell thick**. So is the capillary's. A tiny **distance** to diffuse.",
+     "who": "alvi"
+    },
+    {
+     "id": "thdiet",
+     "start": 323.928,
+     "end": 326.253,
+     "cap": "**Alvi:** It's not a diet. It's a job requirement.",
+     "who": "alvi"
+    },
+    {
+     "id": "moist",
+     "start": 327.173,
+     "end": 331.461,
+     "cap": "**Alvi:** Three! I'm **moist** inside. Gases must **dissolve** before they can diffuse.",
+     "who": "alvi"
+    },
+    {
+     "id": "stop",
+     "start": 331.781,
+     "end": 333.467,
+     "cap": "**Kavya:** Please stop saying moist.",
+     "who": "kavya"
+    },
+    {
+     "id": "blood",
+     "start": 334.387,
+     "end": 339.165,
+     "cap": "**Alvi:** Four! A **rich blood supply** carries the oxygen away, so the gradient stays steep!",
+     "who": "alvi"
+    },
+    {
+     "id": "tims",
+     "start": 339.485,
+     "end": 344.499,
+     "cap": "**Dennis:** **TIMS**. **T**hin walls, lots of blood **I**n the capillaries, **M**oist lining, big **S**urface area.",
+     "who": "dennis"
+    },
+    {
+     "id": "three",
+     "start": 345.219,
+     "end": 351.512,
+     "cap": "**Narrator:** So: **breathing** moves air. **Gas exchange** swaps gases. **Respiration** happens in cells.",
+     "who": "narr"
+    },
+    {
+     "id": "eq",
+     "start": 351.832,
+     "end": 358.083,
+     "cap": "**Dennis:** Ozzie's off to a muscle cell, for respiration: **glucose + oxygen → carbon dioxide + water**.",
+     "who": "dennis"
+    },
+    {
+     "id": "mitch",
+     "start": 358.403,
+     "end": 361.283,
+     "cap": "**Dennis:** Say hi to Mitch for me. He won't say hi back.",
+     "who": "dennis"
+    }
+   ]
+  },
+  {
+   "id": "departures",
+   "title": "Departures",
+   "short": "Air in vs air out",
+   "card": true,
+   "start": 362.883,
+   "end": 433.431,
+   "lines": [
+    {
+     "id": "board",
+     "start": 364.683,
+     "end": 369.205,
+     "cap": "**Narrator:** Departures. The air Kavya breathes out isn't the air she breathed in.",
+     "who": "narr"
+    },
+    {
+     "id": "oxygen",
+     "start": 369.525,
+     "end": 375.392,
+     "cap": "**Narrator:** **Oxygen**: about **21%** of the air going in. About **16%** coming out.",
+     "who": "narr"
+    },
+    {
+     "id": "plane",
+     "start": 375.712,
+     "end": 380.832,
+     "cap": "**Colin:** Most of the oxygen never even gets off the plane. That's why rescue breaths work.",
+     "who": "colin"
+    },
+    {
+     "id": "me",
+     "start": 381.552,
+     "end": 389.68,
+     "cap": "**Colin:** And me. **Carbon dioxide**: about **0.04%** in, about **4%** out. A hundred times more. I'm trending.",
+     "who": "colin"
+    },
+    {
+     "id": "pure",
+     "start": 390.4,
+     "end": 392.939,
+     "cap": "**Kavya:** So I breathe out pure carbon dioxide?",
+     "who": "kavya"
+    },
+    {
+     "id": "wish",
+     "start": 393.259,
+     "end": 396.224,
+     "cap": "**Colin:** Darling, I wish. I'm only four percent.",
+     "who": "colin"
+    },
+    {
+     "id": "vapour",
+     "start": 397.144,
+     "end": 401.091,
+     "cap": "**Narrator:** Breathed-out air also has more **water vapour**, and it's **warmer**.",
+     "who": "narr"
+    },
+    {
+     "id": "nitrogen",
+     "start": 401.411,
+     "end": 407.875,
+     "cap": "**Narrator:** And Nigel. **Nitrogen**: about **78%** of the air. In. Out. **Unchanged**.",
+     "who": "narr"
+    },
+    {
+     "id": "thnigel",
+     "start": 408.795,
+     "end": 412.549,
+     "cap": "**Dennis:** The body doesn't use nitrogen. Nigel just likes the trip.",
+     "who": "dennis"
+    },
+    {
+     "id": "lime",
+     "start": 413.769,
+     "end": 420.105,
+     "cap": "**Narrator:** To test for carbon dioxide, use **limewater**. It turns from **clear** to **cloudy**, or milky.",
+     "who": "narr"
+    },
+    {
+     "id": "carpet",
+     "start": 420.425,
+     "end": 424.799,
+     "cap": "**Colin:** Clear to cloudy. Some call it a test. I call it a red carpet.",
+     "who": "colin"
+    },
+    {
+     "id": "proves",
+     "start": 425.619,
+     "end": 432.531,
+     "cap": "**Narrator:** Breathed-out air turns limewater cloudy much **faster** than room air. It has far **more carbon dioxide**.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "run",
+   "title": "The fitness test",
+   "short": "Exercise",
+   "card": true,
+   "start": 433.431,
+   "end": 507.821,
+   "lines": [
+    {
+     "id": "monday",
+     "start": 435.231,
+     "end": 439.732,
+     "cap": "**Narrator:** Monday. The school fitness test: the two point four kilometre run.",
+     "who": "narr"
+    },
+    {
+     "id": "names",
+     "start": 440.352,
+     "end": 444.875,
+     "cap": "**Kavya:** Two point four kilometres. Thirty-four degrees. Who designed this? I want names.",
+     "who": "kavya"
+    },
+    {
+     "id": "faster",
+     "start": 445.695,
+     "end": 451.583,
+     "cap": "**Narrator:** As she runs, the cells in her leg muscles **respire faster**, to release more energy.",
+     "who": "narr"
+    },
+    {
+     "id": "need",
+     "start": 451.903,
+     "end": 455.892,
+     "cap": "**Narrator:** So they need **more oxygen**, and make **more carbon dioxide**.",
+     "who": "narr"
+    },
+    {
+     "id": "brain",
+     "start": 456.212,
+     "end": 462.932,
+     "cap": "**Narrator:** Her **brain** monitors the carbon dioxide in her blood. When it **rises**: breathe faster, and deeper!",
+     "who": "narr"
+    },
+    {
+     "id": "thcolin",
+     "start": 463.252,
+     "end": 468.692,
+     "cap": "**Colin:** The brain doesn't watch oxygen, darling. The brain watches **me**. I'm basically famous.",
+     "who": "colin"
+    },
+    {
+     "id": "rate",
+     "start": 469.612,
+     "end": 472.791,
+     "cap": "**Dennis:** **Breathing rate** up! More breaths per minute! Go, go, go!",
+     "who": "dennis"
+    },
+    {
+     "id": "depth",
+     "start": 473.311,
+     "end": 476.873,
+     "cap": "**Iggy:** And **breathing depth** up! Bigger breaths! This is the BEST day of my LIFE!",
+     "who": "iggy"
+    },
+    {
+     "id": "heart",
+     "start": 477.593,
+     "end": 482.713,
+     "cap": "**Narrator:** Her **heart rate** rises too, pumping oxygen-rich blood to her muscles faster.",
+     "who": "narr"
+    },
+    {
+     "id": "done",
+     "start": 483.033,
+     "end": 485.017,
+     "cap": "**Kavya:** Finished. Lying down. Forever.",
+     "who": "kavya"
+    },
+    {
+     "id": "debt",
+     "start": 485.937,
+     "end": 493.34,
+     "cap": "**Narrator:** After she stops, she keeps panting to repay the **oxygen debt**: extra oxygen to break down **lactic acid**.",
+     "who": "narr"
+    },
+    {
+     "id": "larry",
+     "start": 493.66,
+     "end": 495.772,
+     "cap": "**Dennis:** Larry's been here. I can tell.",
+     "who": "dennis"
+    },
+    {
+     "id": "recovery",
+     "start": 496.692,
+     "end": 502.367,
+     "cap": "**Narrator:** A fitter person's breathing gets back to normal faster. That's a better **recovery rate**.",
+     "who": "narr"
+    },
+    {
+     "id": "thagain",
+     "start": 502.687,
+     "end": 506.121,
+     "cap": "**Dennis:** Iggy has asked if we can do that again tomorrow. We cannot.",
+     "who": "dennis"
+    }
+   ]
+  },
+  {
+   "id": "smoke",
+   "title": "Security training video",
+   "short": "Smoking",
+   "card": true,
+   "start": 507.821,
+   "end": 585.979,
+   "lines": [
+    {
+     "id": "drill",
+     "start": 509.621,
+     "end": 515.68,
+     "cap": "**Dennis:** Relax. It's a training video. Kavya is twelve and doesn't smoke. But every airport should know this face.",
+     "who": "dennis"
+    },
+    {
+     "id": "smokey",
+     "start": 516.4,
+     "end": 520.901,
+     "cap": "**Smokey:** Evening. Name's Smokey. **Tobacco smoke**. I've brought a little luggage.",
+     "who": "smokey"
+    },
+    {
+     "id": "tar",
+     "start": 521.621,
+     "end": 525.717,
+     "cap": "**Narrator:** First, **tar**: a sticky brown substance that coats the airways.",
+     "who": "narr"
+    },
+    {
+     "id": "cancer",
+     "start": 526.037,
+     "end": 530.453,
+     "cap": "**Narrator:** Tar contains chemicals that cause **cancer**. It is a **carcinogen**.",
+     "who": "narr"
+    },
+    {
+     "id": "cilia",
+     "start": 530.773,
+     "end": 538.133,
+     "cap": "**Narrator:** Tar also paralyses the **cilia**, so the mucus escalator stops: **smoker's cough** and chest infections.",
+     "who": "narr"
+    },
+    {
+     "id": "order",
+     "start": 538.453,
+     "end": 541.099,
+     "cap": "**Dennis:** Escalator out of order. Indefinitely.",
+     "who": "dennis"
+    },
+    {
+     "id": "co",
+     "start": 541.919,
+     "end": 548.873,
+     "cap": "**Narrator:** Next, **carbon monoxide**, a poisonous gas. It grabs **haemoglobin** more strongly than oxygen does.",
+     "who": "narr"
+    },
+    {
+     "id": "seats",
+     "start": 549.193,
+     "end": 552.415,
+     "cap": "**Ozzie:** Hey! Those are our seats! Now the blood carries **less oxygen**!",
+     "who": "ozzie"
+    },
+    {
+     "id": "nicotine",
+     "start": 553.035,
+     "end": 557.92,
+     "cap": "**Smokey:** And **nicotine**. The **addictive** drug. Once you've met me, I'm very hard to leave.",
+     "who": "smokey"
+    },
+    {
+     "id": "selling",
+     "start": 558.54,
+     "end": 560.524,
+     "cap": "**Dennis:** That is not a selling point.",
+     "who": "dennis"
+    },
+    {
+     "id": "emph",
+     "start": 561.344,
+     "end": 568.917,
+     "cap": "**Narrator:** Years of smoking can cause **emphysema**: the walls between alveoli break down into fewer, bigger sacs.",
+     "who": "narr"
+    },
+    {
+     "id": "area",
+     "start": 569.237,
+     "end": 575.424,
+     "cap": "**Alvi:** Fewer walls, **less surface area**. Less oxygen gets in, so the person is breathless, even at rest.",
+     "who": "alvi"
+    },
+    {
+     "id": "cancers",
+     "start": 576.144,
+     "end": 580.155,
+     "cap": "**Narrator:** Smoking also causes **lung cancer** and **bronchitis**.",
+     "who": "narr"
+    },
+    {
+     "id": "escort",
+     "start": 580.475,
+     "end": 584.379,
+     "cap": "**Dennis:** Security, please escort Smokey out. And do not let him back in.",
+     "who": "dennis"
+    }
+   ]
+  },
+  {
+   "id": "traps",
+   "title": "The staff save you some marks",
+   "short": "Exam traps",
+   "card": true,
+   "start": 585.979,
+   "end": 650.567,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 587.779,
+     "end": 593.091,
+     "cap": "**Narrator:** Lung International never closes. But first: some free marks from the staff.",
+     "who": "narr"
+    },
+    {
+     "id": "t1",
+     "start": 593.711,
+     "end": 598.937,
+     "cap": "**Dennis:** One. Breathing is **not** respiration. Respiration is a chemical reaction in your cells.",
+     "who": "dennis"
+    },
+    {
+     "id": "t2",
+     "start": 599.557,
+     "end": 604.4,
+     "cap": "**Iggy:** Two! Breathing **in**, the diaphragm and intercostals **contract**! Breathing out, they relax!",
+     "who": "iggy"
+    },
+    {
+     "id": "t3",
+     "start": 605.02,
+     "end": 610.247,
+     "cap": "**Kavya:** Three. Lungs don't suck. The **pressure** in your chest drops, and air gets pushed in. I listened.",
+     "who": "kavya"
+    },
+    {
+     "id": "t4",
+     "start": 610.867,
+     "end": 614.984,
+     "cap": "**Alvi:** Four! Oxygen gets into the blood by **diffusion**. Nobody pumps it!",
+     "who": "alvi"
+    },
+    {
+     "id": "t5",
+     "start": 615.604,
+     "end": 621.471,
+     "cap": "**Colin:** Five. Breathed-out air is still about **16% oxygen**. I'm only about **4%**.",
+     "who": "colin"
+    },
+    {
+     "id": "t6",
+     "start": 622.091,
+     "end": 626.315,
+     "cap": "**Ozzie:** Six! Limewater turns **cloudy** with carbon dioxide. It doesn't go clear!",
+     "who": "ozzie"
+    },
+    {
+     "id": "water",
+     "start": 626.935,
+     "end": 633.313,
+     "cap": "**Ozzie:** Also, I've been respired. Half of me is in one water molecule, half in another. Long story. Ask Mitch!",
+     "who": "ozzie"
+    },
+    {
+     "id": "return",
+     "start": 634.333,
+     "end": 637.597,
+     "cap": "**Narrator:** Lung Haul will return. In about four seconds.",
+     "who": "narr"
+    },
+    {
+     "id": "anything",
+     "start": 638.917,
+     "end": 642.779,
+     "cap": "**Dennis:** Nigel. You've been here the whole episode. Anything you'd like to say?",
+     "who": "dennis"
+    },
+    {
+     "id": "no",
+     "start": 644.499,
+     "end": 645.203,
+     "cap": "**Nigel:** No.",
+     "who": "nigel"
+    },
+    {
+     "id": "unchanged",
+     "start": 646.523,
+     "end": 647.867,
+     "cap": "**Dennis:** Unchanged.",
+     "who": "dennis"
+    }
+   ]
+  }
+ ],
+ "total": 650.567
+}
