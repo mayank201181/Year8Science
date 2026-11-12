@@ -1,4 +1,4 @@
-# LIGHT WORK, Episode 1 "The Plant That Does Nothing": storyboard
+# LEAF INC., Episode 1 "The Plant That Does Nothing": storyboard
 
 Claude Sitcom, Ep 1 (Plants & Photosynthesis). A mockumentary (a documentary crew films; characters talk to
 camera) that teaches Photosynthesis. Audience: a 12-year-old watching while eating. It must be FUNNY first and
@@ -77,7 +77,7 @@ card). A school lab bench for scene 6: draw it in that scene from kit art (`beak
   MIX-UP: 0" is visible; a plaque "SOLAR POWERED SINCE: over a billion years ago". Clive in the middle with his
   clipboard (`scClipboard`), looking at it, neutral.
 - does: back to the confessional, close (camera k 1.3), Clive deadpan. Slow push-in through the 1.0 s pause.
-- title: `phTitle` + `phLogo` "LIGHT WORK" (logo pops), then "Episode 1: The Plant That Does Nothing"; the whole cast
+- title: `phTitle` + `phLogo` "LEAF INC." (logo pops), then "Episode 1: The Plant That Does Nothing"; the whole cast
   pops in below in a row, bobbing, in their default moods (Gus happy, Olive deadpan, Guards deadpan, Kavya annoyed,
   Clive deadpan, Phyllis smug). Hold it.
 
@@ -281,7 +281,7 @@ top, the leaf (`phTestLeaf`) at the centre of every step. Clive and Phyllis watc
   5 "plants respire ALL the time, not just at night";
   6 "a plateau means ANOTHER factor is limiting (not 'the plant is full')";
   7 "heat ethanol in a WATER BATH, flame OFF (flammable)".
-- return: `phTitle` + `phLogo`: "LIGHT WORK will return".
+- return: `phTitle` + `phLogo`: "LEAF INC. will return".
 - ask (stinger): the stoma door at dusk; the Guards (s 1.4) either side, deadpan; Clive (small) at the side asking.
   Hold 1.4 s of silence: the Guards do not move.
 - closed: both Guards say "...Closed." (both mouths) and the stoma closes (`open` 1 → 0).

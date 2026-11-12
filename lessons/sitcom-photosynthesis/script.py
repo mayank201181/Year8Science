@@ -1,4 +1,4 @@
-"""LIGHT WORK, episode 1 ("The Plant That Does Nothing"): a mockumentary sitcom that teaches Photosynthesis.
+"""LEAF INC., episode 1 ("The Plant That Does Nothing"): a mockumentary sitcom that teaches Photosynthesis.
 
 An original comedy: Kavya (12) has been given a pot plant to keep alive for a term and is sure it does
 nothing. A documentary crew goes inside one of its leaves and finds a solar-powered factory run by Clive,
@@ -11,15 +11,15 @@ Content follows lib/topics/photosynthesis.ts and lessons/photosynthesis/script.p
 """
 
 META = {
-    "name": "Light Work",
+    "name": "Leaf Inc.",
     "kicker": "Claude Sitcom · Ep 1 · Plants & Photosynthesis",
     "dek": "A mockumentary sitcom from inside a pot plant that, according to its owner, does nothing. {chapters} scenes.",
     "gap": 0.32,          # shorter gaps between lines than the lessons: dialogue moves fast
     "unit": "Scene",
     "lab": "photosynthesis",
     "kit": "sitcom",
-    "title": "Claude Sitcom Ep 1: Light Work (Plants & Photosynthesis)",
-    "h1": "Light Work",
+    "title": "Claude Sitcom Ep 1: Leaf Inc. (Plants & Photosynthesis)",
+    "h1": "Leaf Inc.",
 }
 
 # voice, speed, caption name
@@ -59,7 +59,7 @@ CHAPTERS = [
             L("exams", "clive", "Every year, thousands of students mix us up. In exams. For marks.", 0.6),
             L("billion", "narr", "Clive's family has run on sunlight for a billion years."),
             L("does", "clive", "And she says we don't do anything.", 1.0),
-            L("title", "narr", "Light Work. Episode one: The Plant That Does Nothing.", 1.2),
+            L("title", "narr", "Leaf Inc. Episode one: The Plant That Does Nothing.", 1.2, "Leaf Ink. Episode one: The Plant That Does Nothing."),
         ],
     },
     {
@@ -218,7 +218,7 @@ CHAPTERS = [
             L("t5", "gus", "Five! Plants respire **all the time**! Not just at night!", 0.3),
             L("t6", "dewi", "Six. A flat graph doesn't mean the plant is full. It means **another factor** is limiting.", 0.3),
             L("t7", "kavya", "Seven. In the starch test, heat ethanol in a **water bath**, flame **off**.", 0.4),
-            L("return", "narr", "Light Work will return.", 1.0),
+            L("return", "narr", "Leaf Inc. will return.", 1.0, "Leaf Ink will return."),
             L("ask", "clive", "So. The Guards. Anything you'd like to add?", 1.4),
             L("closed", "guards", "...Closed.", 1.0, say="Closed."),
             L("stuck", "narr", "The documentary crew is now locked inside the leaf until morning.", 1.5),

@@ -1,4 +1,4 @@
-/* LIGHT WORK (Claude Sitcom Ep 1, Photosynthesis): cast, sets and props. Bundled after engine lib.js, kit.js
+/* LEAF INC. (Claude Sitcom Ep 1, Photosynthesis): cast, sets and props. Bundled after engine lib.js, kit.js
    and sitcom.js, so everything in those (scTalk, scMake, scKavya, scKavyaBody, scConfessional, scLowerThird,
    scVideoCall, scClipboard, chip, molCO2, molH2O, molO2, molGlucose, leaf, sun, beaker, testTube, bunsen ...)
    is available. Every global here starts with `ph`, except `cast`.
@@ -43,7 +43,7 @@
                            g.at = { cuticle, upper, palisade, spongy, vein, xylem, phloem, lower, stoma } -> [x, y]
                            g.hi(name, p) glows the outline of that part (same names); g.set({ t, sun 0..1 })
      phTitle(parent)       title-card background: deep green, sun and turning rays, leaf corners. g.set(t)
-     phLogo(parent)        the show logo "LIGHT WORK" (about 760 x 130, centred on its origin) with a sun on the
+     phLogo(parent)        the show logo "LEAF INC." (about 760 x 130, centred on its origin) with a sun on the
                            left and a leaf on the right; g.sun (spin it).  Rays/glow centre of phTitle: (600, 220).
    PROPS (drawn around their origin; place with tr)
      phPlant(parent, s)    Plant in its pot, origin at the bottom of the pot, about 270 tall. A sticky note "PLANT" on the pot.
@@ -660,7 +660,7 @@ function phLogo(parent) {
   let d = '';
   for (let i = 0; i < 10; i++) { const a = i / 10 * TAU; d += `M${(Math.cos(a) * 52).toFixed(1)},${(Math.sin(a) * 52).toFixed(1)} L${(Math.cos(a) * 66).toFixed(1)},${(Math.sin(a) * 66).toFixed(1)} `; }
   E('path', { d, stroke: '#FFE45C', 'stroke-width': 7, 'stroke-linecap': 'round' }, sunG);
-  const t = T(g, 30, 0, 'LIGHT WORK', { size: 96, weight: 800, anchor: 'middle', fill: '#B8F27A' });
+  const t = T(g, 30, 0, 'LEAF INC.', { size: 96, weight: 800, anchor: 'middle', fill: '#B8F27A' });
   t.setAttribute('stroke', '#163D12'); t.setAttribute('stroke-width', 12); t.setAttribute('paint-order', 'stroke'); t.setAttribute('stroke-linejoin', 'round');
   const lf = G(g); leaf(lf, 0.42); tr(lf, 300, -40, 1, -40);
   g.sun = sunG;
