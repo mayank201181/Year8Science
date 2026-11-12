@@ -22,10 +22,10 @@
   const $ = s => document.querySelector(s);
   const svg = $('#stage');
   const PL = document.getElementById('player');
-  const TOPIC = PL.getAttribute('data-topic') || 'lesson', NAME = PL.getAttribute('data-name') || '';
+  const TOPIC = PL.getAttribute('data-topic') || 'lesson', POST_TOPIC = PL.getAttribute('data-post-topic') || TOPIC, NAME = PL.getAttribute('data-name') || '';
   const KEY = TOPIC === 'respiration' ? 'resp-lesson-v1' : 'lesson-v1-' + TOPIC;   // respiration keeps its first key
   /* messages to the Science Lab when embedded: hello, height, chapter-done, complete, theater */
-  const post = (type, extra) => { if (!EMBED) return; try { window.parent.postMessage(Object.assign({ source: 'y8-lesson', type, topic: TOPIC }, extra || {}), location.origin); } catch (e) { /* no parent */ } };
+  const post = (type, extra) => { if (!EMBED) return; try { window.parent.postMessage(Object.assign({ source: 'y8-lesson', type, topic: POST_TOPIC }, extra || {}), location.origin); } catch (e) { /* no parent */ } };
   const store = {
     get() { try { return JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { return {}; } },
     set(o) { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) { /* storage blocked: fine */ } },
@@ -111,7 +111,7 @@
       cardFor = i;
       setText(cardNum, NUM[i]);
       setText(cardTitle, ch.title);
-      setText(cardSub, NUM[i] === '★' ? 'RECAP' : NUM[i] === '?' ? 'QUIZ' : `CHAPTER ${NUM[i]} OF ${CORE}`);
+      setText(cardSub, NUM[i] === '★' ? 'RECAP' : NUM[i] === '?' ? 'QUIZ' : `${(TL.unit || 'Chapter').toUpperCase()} ${NUM[i]} OF ${CORE}`);
     }
     const p = P(t, 0.2, 0.7, easeOut);
     tr(cardInner, 600, 380 + (1 - p) * 24, 0.94 + 0.06 * p);

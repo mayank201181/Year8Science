@@ -1,0 +1,941 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "cold",
+   "title": "Cold open",
+   "short": "Cold open",
+   "card": false,
+   "start": 0.0,
+   "end": 60.293,
+   "lines": [
+    {
+     "id": "kavya",
+     "start": 0.6,
+     "end": 6.531,
+     "cap": "**Narrator:** This is Kavya. She is twelve. It is June, in Singapore, and it is **34 °C**.",
+     "who": "narr"
+    },
+    {
+     "id": "rule",
+     "start": 7.251,
+     "end": 11.155,
+     "cap": "**Kavya:** My mum has a rule. The aircon only goes on after **9 p.m.**",
+     "who": "kavya"
+    },
+    {
+     "id": "soup",
+     "start": 11.775,
+     "end": 14.761,
+     "cap": "**Kavya:** It is 2 p.m. I am basically soup.",
+     "who": "kavya"
+    },
+    {
+     "id": "block",
+     "start": 15.681,
+     "end": 17.964,
+     "cap": "**Narrator:** She lives in Block **34**.",
+     "who": "narr"
+    },
+    {
+     "id": "dont",
+     "start": 18.984,
+     "end": 19.795,
+     "cap": "**Kavya:** Don't.",
+     "who": "kavya"
+    },
+    {
+     "id": "see",
+     "start": 20.715,
+     "end": 27.371,
+     "cap": "**Narrator:** But this documentary is not about Kavya. It is about something in this flat that nobody can see.",
+     "who": "narr"
+    },
+    {
+     "id": "move",
+     "start": 27.891,
+     "end": 31.539,
+     "cap": "**Narrator:** It is never still. And it only ever travels one way.",
+     "who": "narr"
+    },
+    {
+     "id": "jules",
+     "start": 32.259,
+     "end": 36.739,
+     "cap": "**Jules:** Heyyy! Jules! **Thermal energy**! Most people call me **heat**. I'm in deliveries!",
+     "who": "jules"
+    },
+    {
+     "id": "brand",
+     "start": 37.359,
+     "end": 41.305,
+     "cap": "**Jules:** Like **joules**, the unit I'm measured in. Different spelling. It's my brand.",
+     "who": "jules"
+    },
+    {
+     "id": "thcel",
+     "start": 42.125,
+     "end": 47.843,
+     "cap": "**Cel:** Cel. Thermometer. Kitchen wall. I've said **34 °C** since nine this morning.",
+     "who": "cel"
+    },
+    {
+     "id": "thsigh",
+     "start": 48.463,
+     "end": 53.732,
+     "cap": "**Cel:** People look at me, sigh, and walk away. I don't make the weather. I just read it out.",
+     "who": "cel"
+    },
+    {
+     "id": "title",
+     "start": 54.652,
+     "end": 58.193,
+     "cap": "**Narrator:** Block 34. Episode 9: The Aircon Rule.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "temp",
+   "title": "Heat is not temperature",
+   "short": "Heat vs temperature",
+   "card": true,
+   "start": 60.293,
+   "end": 146.304,
+   "lines": [
+    {
+     "id": "ice",
+     "start": 62.093,
+     "end": 66.147,
+     "cap": "**Narrator:** Two fifteen. Kavya is holding an ice cube against her neck.",
+     "who": "narr"
+    },
+    {
+     "id": "cold",
+     "start": 66.767,
+     "end": 69.199,
+     "cap": "**Kavya:** Ahhh. I can feel the cold going into me.",
+     "who": "kavya"
+    },
+    {
+     "id": "no",
+     "start": 70.519,
+     "end": 71.863,
+     "cap": "**Cel:** Nope. Not happening.",
+     "who": "cel"
+    },
+    {
+     "id": "out",
+     "start": 72.683,
+     "end": 77.739,
+     "cap": "**Jules:** That's ME, leaving! OUT of your warm neck, INTO the ice! **Hot to cold**! Never the other way!",
+     "who": "jules"
+    },
+    {
+     "id": "thing",
+     "start": 78.359,
+     "end": 86.657,
+     "cap": "**Cel:** **Cold** isn't a thing that flows. It just means **less thermal energy**. The ice isn't giving you cold. It's taking Jules.",
+     "who": "cel"
+    },
+    {
+     "id": "rob",
+     "start": 87.377,
+     "end": 89.276,
+     "cap": "**Kavya:** So the ice cube is robbing me.",
+     "who": "kavya"
+    },
+    {
+     "id": "yes",
+     "start": 89.996,
+     "end": 91.447,
+     "cap": "**Cel:** Basically. Yes.",
+     "who": "cel"
+    },
+    {
+     "id": "mix",
+     "start": 92.467,
+     "end": 96.349,
+     "cap": "**Narrator:** Two words everybody mixes up: **heat** and **temperature**.",
+     "who": "narr"
+    },
+    {
+     "id": "temp",
+     "start": 96.669,
+     "end": 101.384,
+     "cap": "**Cel:** **Temperature** is **how hot** something is. I measure it, in **degrees Celsius**.",
+     "who": "cel"
+    },
+    {
+     "id": "heat",
+     "start": 101.704,
+     "end": 105.736,
+     "cap": "**Jules:** And **heat** is me! **Thermal energy**! Measured in **joules**, like all energy!",
+     "who": "jules"
+    },
+    {
+     "id": "thdept",
+     "start": 106.056,
+     "end": 112.797,
+     "cap": "**Cel:** I do temperature. Jules is heat. Different department. Different units. We're not even the same shape.",
+     "who": "cel"
+    },
+    {
+     "id": "tube",
+     "start": 113.717,
+     "end": 120.245,
+     "cap": "**Cel:** I'm a **liquid-in-glass** thermometer. Warm me up, and my liquid **expands** and climbs my thin tube.",
+     "who": "cel"
+    },
+    {
+     "id": "fixed",
+     "start": 120.565,
+     "end": 129.163,
+     "cap": "**Cel:** **0 °C** is where pure water **freezes**. **100 °C** is where it **boils**. Today I've been stuck on **34**.",
+     "who": "cel"
+    },
+    {
+     "id": "equal",
+     "start": 129.983,
+     "end": 135.935,
+     "cap": "**Narrator:** Thermal energy flows until both are the **same temperature**: **thermal equilibrium**.",
+     "who": "narr"
+    },
+    {
+     "id": "gone",
+     "start": 136.255,
+     "end": 139.519,
+     "cap": "**Kavya:** My ice cube's gone. Now it's just warm neck water.",
+     "who": "kavya"
+    },
+    {
+     "id": "thjules",
+     "start": 140.339,
+     "end": 144.904,
+     "cap": "**Jules:** Cold to hot? Never. Not once. It's in my contract. **Hot to cold**, all day!",
+     "who": "jules"
+    }
+   ]
+  },
+  {
+   "id": "party",
+   "title": "The particle party",
+   "short": "Particles",
+   "card": true,
+   "start": 146.304,
+   "end": 254.205,
+   "lines": [
+    {
+     "id": "zoom",
+     "start": 148.104,
+     "end": 153.053,
+     "cap": "**Narrator:** To understand Jules, zoom in. Way in. Into Kavya's iced water.",
+     "who": "narr"
+    },
+    {
+     "id": "every",
+     "start": 153.373,
+     "end": 157.235,
+     "cap": "**Narrator:** Everything is made of **particles**, and they are **always moving**.",
+     "who": "narr"
+    },
+    {
+     "id": "gus",
+     "start": 157.555,
+     "end": 162.611,
+     "cap": "**Gus:** Yo. Gus. Water particle. **H₂O**. Frozen in an ice cube. Living the dream.",
+     "who": "gus"
+    },
+    {
+     "id": "solid",
+     "start": 163.331,
+     "end": 168.003,
+     "cap": "**Gus:** In a **solid**, we just **vibrate** in our places. Like a queue for chicken rice.",
+     "who": "gus"
+    },
+    {
+     "id": "here",
+     "start": 168.823,
+     "end": 171.255,
+     "cap": "**Jules:** Delivery! Thermal energy for the ice cube!",
+     "who": "jules"
+    },
+    {
+     "id": "faster",
+     "start": 171.575,
+     "end": 175.244,
+     "cap": "**Gus:** Oh, that's nice. I'm vibrating faster. A LOT faster.",
+     "who": "gus"
+    },
+    {
+     "id": "ke",
+     "start": 175.764,
+     "end": 182.932,
+     "cap": "**Narrator:** Heating gives particles more **kinetic energy**, the energy of movement. They move **faster**, and the ice **melts**.",
+     "who": "narr"
+    },
+    {
+     "id": "liquid",
+     "start": 183.252,
+     "end": 188.223,
+     "cap": "**Gus:** Now I'm a **liquid**! Still close, but we can **slide past** each other. Freedom, bro.",
+     "who": "gus"
+    },
+    {
+     "id": "total",
+     "start": 188.943,
+     "end": 197.007,
+     "cap": "**Cel:** Jules isn't really a separate thing. **Thermal energy** is the **total** kinetic energy of **all** the particles, added up.",
+     "who": "cel"
+    },
+    {
+     "id": "rude",
+     "start": 197.327,
+     "end": 199.012,
+     "cap": "**Jules:** Rude. Accurate. But rude.",
+     "who": "jules"
+    },
+    {
+     "id": "average",
+     "start": 199.832,
+     "end": 205.293,
+     "cap": "**Cel:** **Temperature** is different. It measures the **average** kinetic energy of the particles.",
+     "who": "cel"
+    },
+    {
+     "id": "quiz",
+     "start": 205.613,
+     "end": 211.587,
+     "cap": "**Narrator:** Which has more thermal energy? A cup of tea at **80 °C**, or a swimming pool at **30 °C**?",
+     "who": "narr"
+    },
+    {
+     "id": "pool",
+     "start": 212.707,
+     "end": 220.408,
+     "cap": "**Cel:** The **pool**. It's cooler, so its particles are slower on **average**. But it has so many more, the **total** is enormous.",
+     "who": "cel"
+    },
+    {
+     "id": "got",
+     "start": 220.728,
+     "end": 223.544,
+     "cap": "**Kavya:** So the tea is hotter, but the pool holds more heat.",
+     "who": "kavya"
+    },
+    {
+     "id": "correct",
+     "start": 223.864,
+     "end": 226.488,
+     "cap": "**Cel:** Most correct thing said in this flat all year.",
+     "who": "cel"
+    },
+    {
+     "id": "sweat",
+     "start": 227.408,
+     "end": 232.229,
+     "cap": "**Narrator:** Meanwhile, Gus is in a drop of sweat on Kavya's arm. Don't ask how.",
+     "who": "narr"
+    },
+    {
+     "id": "escape",
+     "start": 233.049,
+     "end": 239.897,
+     "cap": "**Gus:** Some of us are slow, some fast. The **fastest** ones **escape** from the surface into the air. **Evaporation**! Later!",
+     "who": "gus"
+    },
+    {
+     "id": "cooler",
+     "start": 240.517,
+     "end": 248.389,
+     "cap": "**Cel:** The slow ones left behind have a lower **average** kinetic energy. The sweat gets **cooler**. That's how sweating **cools** you.",
+     "who": "cel"
+    },
+    {
+     "id": "thgus",
+     "start": 248.709,
+     "end": 252.805,
+     "cap": "**Gus:** I'm a **gas** now. Far apart, moving **freely**. Best day of my life.",
+     "who": "gus"
+    }
+   ]
+  },
+  {
+   "id": "floor",
+   "title": "The floor is the coolest",
+   "short": "Conduction",
+   "card": true,
+   "start": 254.205,
+   "end": 341.041,
+   "lines": [
+    {
+     "id": "three",
+     "start": 256.005,
+     "end": 260.699,
+     "cap": "**Narrator:** Three p.m. Kavya has found the coolest place in the flat.",
+     "who": "narr"
+    },
+    {
+     "id": "floor",
+     "start": 261.319,
+     "end": 265.607,
+     "cap": "**Kavya:** The floor. The tiles are the only cold thing in this flat. I live here now.",
+     "who": "kavya"
+    },
+    {
+     "id": "same",
+     "start": 266.527,
+     "end": 271.647,
+     "cap": "**Cel:** The tiles are thirty-four degrees. So is the wooden table. **Same temperature**.",
+     "who": "cel"
+    },
+    {
+     "id": "why",
+     "start": 271.967,
+     "end": 274.121,
+     "cap": "**Kavya:** Then why do the tiles feel colder?",
+     "who": "kavya"
+    },
+    {
+     "id": "cond",
+     "start": 274.441,
+     "end": 278.793,
+     "cap": "**Narrator:** **Conduction**: the main way thermal energy travels through **solids**.",
+     "who": "narr"
+    },
+    {
+     "id": "pass",
+     "start": 279.113,
+     "end": 284.297,
+     "cap": "**Jules:** Your skin particles jiggle into the tile particles, and pass me along. **Neighbour to neighbour**!",
+     "who": "jules"
+    },
+    {
+     "id": "gossip",
+     "start": 284.617,
+     "end": 290.1,
+     "cap": "**Jules:** Like gossip at a hawker centre. Nobody leaves their table, but the news reaches every stall.",
+     "who": "jules"
+    },
+    {
+     "id": "better",
+     "start": 290.92,
+     "end": 299.133,
+     "cap": "**Cel:** Tiles are better **conductors** than wood, so they carry thermal energy **out** of you faster. That chill is your own heat leaving.",
+     "who": "cel"
+    },
+    {
+     "id": "metals",
+     "start": 299.853,
+     "end": 304.44,
+     "cap": "**Narrator:** The best conductors of all are **metals**. Like the spoon by Kavya's head.",
+     "who": "narr"
+    },
+    {
+     "id": "zip",
+     "start": 304.96,
+     "end": 307.755,
+     "cap": "**Zip:** COMING THROUGH! Zip! **Free electron**! Metals are full of us!",
+     "who": "zip"
+    },
+    {
+     "id": "free",
+     "start": 308.275,
+     "end": 312.819,
+     "cap": "**Zip:** We're not stuck to any particle! We zoom through the metal, carrying energy super fast!",
+     "who": "zip"
+    },
+    {
+     "id": "thzip",
+     "start": 313.139,
+     "end": 318.451,
+     "cap": "**Cel:** Zip has had seven coffees. Electrons don't drink coffee. That's just Zip.",
+     "who": "cel"
+    },
+    {
+     "id": "shiny",
+     "start": 319.471,
+     "end": 322.223,
+     "cap": "**Kavya:** I thought metals conduct well because they're shiny.",
+     "who": "kavya"
+    },
+    {
+     "id": "look",
+     "start": 322.543,
+     "end": 325.999,
+     "cap": "**Zip:** The shine is just my look! It's the **free electrons** that do the work!",
+     "who": "zip"
+    },
+    {
+     "id": "insul",
+     "start": 326.619,
+     "end": 333.04,
+     "cap": "**Narrator:** Materials that slow thermal energy down are **insulators**: **wood**, **plastic**, **wool** and **air**.",
+     "who": "narr"
+    },
+    {
+     "id": "woolly",
+     "start": 333.36,
+     "end": 339.141,
+     "cap": "**Woolly:** Hello. I'm Woolly. A woollen jumper. Back of the cupboard. Nobody wants me in June.",
+     "who": "woolly"
+    }
+   ]
+  },
+  {
+   "id": "ray",
+   "title": "Ray goes live",
+   "short": "Radiation",
+   "card": true,
+   "start": 341.041,
+   "end": 419.233,
+   "lines": [
+    {
+     "id": "four",
+     "start": 342.841,
+     "end": 348.665,
+     "cap": "**Narrator:** Four p.m. Kavya walks to the MRT. The covered walkway has ended.",
+     "who": "narr"
+    },
+    {
+     "id": "attack",
+     "start": 349.285,
+     "end": 352.08,
+     "cap": "**Kavya:** Why does the sun feel like it's personally attacking me?",
+     "who": "kavya"
+    },
+    {
+     "id": "ray",
+     "start": 352.7,
+     "end": 356.476,
+     "cap": "**Ray:** Because it IS, bestie! Ray! **Infrared radiation**! I'm live, from the Sun!",
+     "who": "ray"
+    },
+    {
+     "id": "waves",
+     "start": 357.096,
+     "end": 362.323,
+     "cap": "**Ray:** I'm not particles. I'm **electromagnetic waves**, like light. You can't see me, but you can **feel** me.",
+     "who": "ray"
+    },
+    {
+     "id": "vacuum",
+     "start": 362.943,
+     "end": 368.34,
+     "cap": "**Ray:** I need **no particles**, so I'm the **only** way energy can cross a **vacuum**: totally empty space.",
+     "who": "ray"
+    },
+    {
+     "id": "thray",
+     "start": 368.66,
+     "end": 379.391,
+     "cap": "**Cel:** Ray crossed **150 million km** of empty space to get here. Conduction and convection can't: no particles. Ray mentions this a lot.",
+     "who": "cel"
+    },
+    {
+     "id": "all",
+     "start": 380.311,
+     "end": 384.961,
+     "cap": "**Ray:** And **everything** gives off infrared. The road. The buses. You! **Hotter** things give off **more**.",
+     "who": "ray"
+    },
+    {
+     "id": "me",
+     "start": 385.281,
+     "end": 387.009,
+     "cap": "**Kavya:** I'm giving off radiation?",
+     "who": "kavya"
+    },
+    {
+     "id": "glow",
+     "start": 387.329,
+     "end": 389.079,
+     "cap": "**Ray:** You're glowing, bestie. In infrared.",
+     "who": "ray"
+    },
+    {
+     "id": "shirt",
+     "start": 389.899,
+     "end": 392.608,
+     "cap": "**Narrator:** Kavya is wearing a **black** T-shirt.",
+     "who": "narr"
+    },
+    {
+     "id": "dark",
+     "start": 393.728,
+     "end": 400.235,
+     "cap": "**Ray:** **Dark, matt** surfaces are the **best absorbers** of radiation, and the **best emitters**. That shirt is my biggest fan.",
+     "who": "ray"
+    },
+    {
+     "id": "shiny",
+     "start": 400.955,
+     "end": 405.691,
+     "cap": "**Ray:** **Light, shiny** surfaces are **poor absorbers** and poor emitters. They **reflect** me. So rude.",
+     "who": "ray"
+    },
+    {
+     "id": "shade",
+     "start": 406.311,
+     "end": 410.279,
+     "cap": "**Narrator:** That's why cars wear **shiny sunshades** in their windscreens.",
+     "who": "narr"
+    },
+    {
+     "id": "wrong",
+     "start": 410.599,
+     "end": 413.927,
+     "cap": "**Kavya:** Dark absorbs. Shiny reflects. I'm wearing the wrong shirt.",
+     "who": "kavya"
+    },
+    {
+     "id": "drinks",
+     "start": 414.747,
+     "end": 417.733,
+     "cap": "**Ray:** Remember: **Dark Drinks, Shiny Reflects**! Like and subscribe!",
+     "who": "ray"
+    }
+   ]
+  },
+  {
+   "id": "flask",
+   "title": "Woolly and the flask",
+   "short": "Insulation",
+   "card": true,
+   "start": 419.233,
+   "end": 492.375,
+   "lines": [
+    {
+     "id": "five",
+     "start": 421.033,
+     "end": 426.239,
+     "cap": "**Narrator:** Five p.m. On the MRT, the aircon is set to 'Arctic'.",
+     "who": "narr"
+    },
+    {
+     "id": "freeze",
+     "start": 426.859,
+     "end": 430.208,
+     "cap": "**Kavya:** How is it thirty-four degrees outside and freezing in here?",
+     "who": "kavya"
+    },
+    {
+     "id": "mum",
+     "start": 430.828,
+     "end": 434.135,
+     "cap": "**Narrator:** Luckily, Kavya's mum made her pack a jumper.",
+     "who": "narr"
+    },
+    {
+     "id": "needed",
+     "start": 434.455,
+     "end": 437.292,
+     "cap": "**Woolly:** I'm needed. I'm finally needed.",
+     "who": "woolly"
+    },
+    {
+     "id": "warm",
+     "start": 438.412,
+     "end": 440.311,
+     "cap": "**Kavya:** Thanks, Woolly. You're so warm.",
+     "who": "kavya"
+    },
+    {
+     "id": "notwarm",
+     "start": 440.631,
+     "end": 444.833,
+     "cap": "**Woolly:** I'm not warm, actually. I **don't add any heat**. Never have.",
+     "who": "woolly"
+    },
+    {
+     "id": "trap",
+     "start": 445.553,
+     "end": 451.783,
+     "cap": "**Woolly:** I just **trap air**. Trapped air is a great **insulator**: it **slows** Jules down as she leaves you.",
+     "who": "woolly"
+    },
+    {
+     "id": "slow",
+     "start": 452.103,
+     "end": 454.556,
+     "cap": "**Jules:** I'm still leaving! Just... very... slowly.",
+     "who": "jules"
+    },
+    {
+     "id": "flask",
+     "start": 455.276,
+     "end": 463.127,
+     "cap": "**Narrator:** In Kavya's bag is a **vacuum flask** of iced water. Between its walls lives the quietest member of the cast.",
+     "who": "narr"
+    },
+    {
+     "id": "vic",
+     "start": 463.847,
+     "end": 467.644,
+     "cap": "**Jules:** That's Vic. Vic is a **vacuum**. Vic is nothing. No particles at all.",
+     "who": "jules"
+    },
+    {
+     "id": "blocked",
+     "start": 468.764,
+     "end": 475.399,
+     "cap": "**Jules:** No particles means **no conduction** and **no convection**. I can't get across Vic. I've tried. So many times.",
+     "who": "jules"
+    },
+    {
+     "id": "silver",
+     "start": 476.119,
+     "end": 479.084,
+     "cap": "**Ray:** And its walls are **silvered**. Shiny! They **reflect** me straight back.",
+     "who": "ray"
+    },
+    {
+     "id": "stopper",
+     "start": 479.704,
+     "end": 483.352,
+     "cap": "**Narrator:** And the **stopper** stops warm air sneaking in through the top.",
+     "who": "narr"
+    },
+    {
+     "id": "soup",
+     "start": 483.672,
+     "end": 486.531,
+     "cap": "**Kavya:** Wait. Mum uses this same flask for hot soup.",
+     "who": "kavya"
+    },
+    {
+     "id": "both",
+     "start": 486.851,
+     "end": 491.075,
+     "cap": "**Jules:** Works both ways! It slows me getting **out** of hot soup, and **into** iced water!",
+     "who": "jules"
+    }
+   ]
+  },
+  {
+   "id": "aircon",
+   "title": "Nine p.m.: the aircon goes on",
+   "short": "Convection",
+   "card": true,
+   "start": 492.375,
+   "end": 580.608,
+   "lines": [
+    {
+     "id": "nine",
+     "start": 494.175,
+     "end": 497.844,
+     "cap": "**Narrator:** Back at Block 34, it is 8:59 p.m.",
+     "who": "narr"
+    },
+    {
+     "id": "count",
+     "start": 498.564,
+     "end": 499.972,
+     "cap": "**Kavya:** Three. Two. One.",
+     "who": "kavya"
+    },
+    {
+     "id": "on",
+     "start": 500.592,
+     "end": 503.195,
+     "cap": "**Narrator:** Nine p.m. The aircon goes on.",
+     "who": "narr"
+    },
+    {
+     "id": "expand",
+     "start": 503.915,
+     "end": 510.485,
+     "cap": "**Cel:** Quick lesson. Heat something, and its particles move **faster** and spread **further apart**. It **expands**.",
+     "who": "cel"
+    },
+    {
+     "id": "mass",
+     "start": 510.805,
+     "end": 517.611,
+     "cap": "**Cel:** Its **volume** goes **up**. Its **mass** stays exactly the **same**. Same particles. More personal space.",
+     "who": "cel"
+    },
+    {
+     "id": "order",
+     "start": 518.331,
+     "end": 524.155,
+     "cap": "**Gus:** **Gases** expand the most, then **liquids**, then **solids**. We gases love personal space, bro.",
+     "who": "gus"
+    },
+    {
+     "id": "bridge",
+     "start": 524.775,
+     "end": 529.468,
+     "cap": "**Narrator:** That's why bridges have **expansion gaps**, so they don't **buckle** on hot days.",
+     "who": "narr"
+    },
+    {
+     "id": "dense",
+     "start": 529.788,
+     "end": 536.06,
+     "cap": "**Narrator:** Warm air expands, so it's **less dense**, so it **rises**. Cold air is **denser**, so it **sinks**.",
+     "who": "narr"
+    },
+    {
+     "id": "loop",
+     "start": 536.38,
+     "end": 542.567,
+     "cap": "**Gus:** Cold air sinks... gets warmed... rises... cools by the aircon... sinks again! Round and round!",
+     "who": "gus"
+    },
+    {
+     "id": "current",
+     "start": 542.887,
+     "end": 549.927,
+     "cap": "**Narrator:** That loop is a **convection current**. It only happens in **fluids**, liquids and gases, because they can **flow**.",
+     "who": "narr"
+    },
+    {
+     "id": "zip",
+     "start": 550.247,
+     "end": 552.337,
+     "cap": "**Zip:** Oh! Can I do convection? Can I? Please?",
+     "who": "zip"
+    },
+    {
+     "id": "nozip",
+     "start": 552.657,
+     "end": 556.903,
+     "cap": "**Cel:** Zip, you live in a spoon. Spoons are **solid**. Solids can't flow.",
+     "who": "cel"
+    },
+    {
+     "id": "sad",
+     "start": 557.623,
+     "end": 558.817,
+     "cap": "**Zip:** ...Coming through. Sadly.",
+     "who": "zip"
+    },
+    {
+     "id": "rises",
+     "start": 559.737,
+     "end": 561.743,
+     "cap": "**Kavya:** So basically, heat rises.",
+     "who": "kavya"
+    },
+    {
+     "id": "warmair",
+     "start": 563.063,
+     "end": 568.78,
+     "cap": "**Cel:** **Warm air** rises. Because it's **less dense**. Not 'heat rises'. Not 'lighter'. **Less dense**.",
+     "who": "cel"
+    },
+    {
+     "id": "high",
+     "start": 569.5,
+     "end": 575.217,
+     "cap": "**Narrator:** That's why the aircon is **high** on the wall: the cold, dense air sinks through the whole room.",
+     "who": "narr"
+    },
+    {
+     "id": "new",
+     "start": 575.537,
+     "end": 578.908,
+     "cap": "**Cel:** **25 °C**. A new number. I'm emotional.",
+     "who": "cel"
+    }
+   ]
+  },
+  {
+   "id": "traps",
+   "title": "The residents save you some marks",
+   "short": "Exam traps",
+   "card": true,
+   "start": 580.608,
+   "end": 651.601,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 582.408,
+     "end": 587.869,
+     "cap": "**Narrator:** Before the credits, the residents of Block 34 would like to save you some marks.",
+     "who": "narr"
+    },
+    {
+     "id": "t1",
+     "start": 588.489,
+     "end": 597.364,
+     "cap": "**Cel:** One. **Heat** and **temperature** are different. Heat is energy, measured in **joules**. Temperature is how hot, measured in **degrees Celsius**.",
+     "who": "cel"
+    },
+    {
+     "id": "t2",
+     "start": 597.984,
+     "end": 603.595,
+     "cap": "**Jules:** Two! Thermal energy flows from **hot to cold**! Never the other way! Cold doesn't flow anywhere!",
+     "who": "jules"
+    },
+    {
+     "id": "t3",
+     "start": 604.215,
+     "end": 608.417,
+     "cap": "**Zip:** Three! Metals conduct well because of **free electrons**! NOT because they're shiny!",
+     "who": "zip"
+    },
+    {
+     "id": "t4",
+     "start": 609.037,
+     "end": 614.904,
+     "cap": "**Gus:** Four. **Convection** needs a **fluid**. And warm fluid rises because it's **less dense**, not 'lighter'.",
+     "who": "gus"
+    },
+    {
+     "id": "t5",
+     "start": 615.524,
+     "end": 621.583,
+     "cap": "**Ray:** Five! Radiation needs **no particles**, so it crosses a **vacuum**. And shiny surfaces are **poor absorbers**!",
+     "who": "ray"
+    },
+    {
+     "id": "t6",
+     "start": 622.203,
+     "end": 627.387,
+     "cap": "**Woolly:** Six. Insulators **don't add heat**. They only **slow** thermal energy down.",
+     "who": "woolly"
+    },
+    {
+     "id": "t7",
+     "start": 628.007,
+     "end": 633.66,
+     "cap": "**Kavya:** Seven. When things **expand**, the **volume** goes up, but the **mass** stays the same. Yes. I was listening.",
+     "who": "kavya"
+    },
+    {
+     "id": "return",
+     "start": 634.58,
+     "end": 636.884,
+     "cap": "**Narrator:** Block 34 will return.",
+     "who": "narr"
+    },
+    {
+     "id": "vic",
+     "start": 638.204,
+     "end": 640.103,
+     "cap": "**Narrator:** Vic? Any final thoughts?",
+     "who": "narr"
+    },
+    {
+     "id": "cant",
+     "start": 642.023,
+     "end": 646.247,
+     "cap": "**Jules:** He can't talk. **Sound** needs particles to travel. Vic hasn't got any.",
+     "who": "jules"
+    },
+    {
+     "id": "best",
+     "start": 647.067,
+     "end": 648.901,
+     "cap": "**Cel:** Best colleague I've ever had.",
+     "who": "cel"
+    }
+   ]
+  }
+ ],
+ "total": 651.601
+}

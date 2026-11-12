@@ -1,0 +1,934 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "cold",
+   "title": "Cold open",
+   "short": "Cold open",
+   "card": false,
+   "start": 0.0,
+   "end": 67.748,
+   "lines": [
+    {
+     "id": "kavya",
+     "start": 0.6,
+     "end": 7.704,
+     "cap": "**Narrator:** This is Kavya. She is twelve. It is Saturday, 34 °C, and the aircon has been on since breakfast.",
+     "who": "narr"
+    },
+    {
+     "id": "mum",
+     "start": 8.324,
+     "end": 11.567,
+     "cap": "**Mum:** Kavya! Switch off the aircon! You're using up all the energy!",
+     "who": "mum"
+    },
+    {
+     "id": "actually",
+     "start": 12.087,
+     "end": 17.164,
+     "cap": "**Kavya:** Actually, Mum, energy can't be used up. It can't be destroyed. We learnt it in science.",
+     "who": "kavya"
+    },
+    {
+     "id": "half",
+     "start": 17.984,
+     "end": 22.635,
+     "cap": "**Narrator:** Kavya is half right. So is her mum. Neither of them will admit it.",
+     "who": "narr"
+    },
+    {
+     "id": "meter",
+     "start": 23.555,
+     "end": 30.296,
+     "cap": "**Narrator:** But this documentary is not about Kavya. It is about the electricity meter outside her front door.",
+     "who": "narr"
+    },
+    {
+     "id": "inside",
+     "start": 30.616,
+     "end": 37.293,
+     "cap": "**Narrator:** Inside is a tiny accounting firm. Its job: to account for every joule that comes through the door.",
+     "who": "narr"
+    },
+    {
+     "id": "hi",
+     "start": 38.013,
+     "end": 42.173,
+     "cap": "**Constance:** Constance. Senior auditor. I am the **law of conservation of energy**.",
+     "who": "con"
+    },
+    {
+     "id": "law",
+     "start": 42.893,
+     "end": 48.312,
+     "cap": "**Constance:** Energy cannot be **created** or **destroyed**. It can only be **transferred** from one store to another.",
+     "who": "con"
+    },
+    {
+     "id": "never",
+     "start": 48.932,
+     "end": 54.479,
+     "cap": "**Constance:** I have never been broken. Not once in 13.8 billion years. And people have tried.",
+     "who": "con"
+    },
+    {
+     "id": "case",
+     "start": 55.399,
+     "end": 60.049,
+     "cap": "**Constance:** Now somebody says energy is being '**used up**'. Not on my watch. I'm opening a case.",
+     "who": "con"
+    },
+    {
+     "id": "title",
+     "start": 60.869,
+     "end": 65.648,
+     "cap": "**Narrator:** Every Joule Counts. Episode 14: The Case of the Missing Joules.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "stores",
+   "title": "The eight departments",
+   "short": "Eight stores",
+   "card": true,
+   "start": 67.748,
+   "end": 151.617,
+   "lines": [
+    {
+     "id": "file",
+     "start": 69.548,
+     "end": 73.409,
+     "cap": "**Narrator:** Case file one. Constance questions her only witness.",
+     "who": "narr"
+    },
+    {
+     "id": "hi",
+     "start": 74.029,
+     "end": 78.851,
+     "cap": "**Jules:** Hi hi hi! I'm Jules! I'm a **joule**! Energy is measured in **joules**, J for short!",
+     "who": "jules"
+    },
+    {
+     "id": "thjules",
+     "start": 79.371,
+     "end": 84.363,
+     "cap": "**Constance:** A joule is tiny. Lifting a small apple up by one metre takes about one joule.",
+     "who": "con"
+    },
+    {
+     "id": "apple",
+     "start": 84.983,
+     "end": 88.289,
+     "cap": "**Jules:** I lifted an apple once! A whole metre! Best day of my life.",
+     "who": "jules"
+    },
+    {
+     "id": "kilo",
+     "start": 89.209,
+     "end": 93.625,
+     "cap": "**Constance:** So we usually count in **kilojoules**. **1 kJ = 1000 J**.",
+     "who": "con"
+    },
+    {
+     "id": "banana",
+     "start": 93.945,
+     "end": 98.425,
+     "cap": "**Jules:** A banana holds about four hundred thousand of us. It's a very crowded banana.",
+     "who": "jules"
+    },
+    {
+     "id": "stores",
+     "start": 99.345,
+     "end": 104.785,
+     "cap": "**Narrator:** Every joule is always in one of **eight stores**. The firm has a department for each.",
+     "who": "narr"
+    },
+    {
+     "id": "tour",
+     "start": 105.105,
+     "end": 106.833,
+     "cap": "**Constance:** The tour. Keep up, Jules.",
+     "who": "con"
+    },
+    {
+     "id": "kin",
+     "start": 107.353,
+     "end": 111.727,
+     "cap": "**Constance:** **Kinetic**: anything **moving**. **Gravitational potential**: anything **high up**.",
+     "who": "con"
+    },
+    {
+     "id": "gerald",
+     "start": 112.047,
+     "end": 115.268,
+     "cap": "**Jules:** That's Gerald, on the top shelf. He's got a lot of potential.",
+     "who": "jules"
+    },
+    {
+     "id": "elastic",
+     "start": 116.488,
+     "end": 121.715,
+     "cap": "**Constance:** **Elastic potential**: stretched or squashed things. **Chemical**: food, fuels and batteries.",
+     "who": "con"
+    },
+    {
+     "id": "thermal",
+     "start": 122.035,
+     "end": 127.773,
+     "cap": "**Constance:** **Thermal**: warm things, with jiggling particles. **Nuclear**: energy in the **nucleus** of an atom.",
+     "who": "con"
+    },
+    {
+     "id": "electro",
+     "start": 128.093,
+     "end": 134.6,
+     "cap": "**Constance:** **Electrostatic**: charges that attract or repel. And **magnetic**: magnets that attract or repel.",
+     "who": "con"
+    },
+    {
+     "id": "mnemonic",
+     "start": 135.12,
+     "end": 138.896,
+     "cap": "**Jules:** **K**ind **G**orillas **E**at **C**hocolate, **T**igers **N**ever **E**at **M**ango!",
+     "who": "jules"
+    },
+    {
+     "id": "thgorillas",
+     "start": 139.516,
+     "end": 143.356,
+     "cap": "**Constance:** Jules made that up. He's very proud of it. He's told the gorillas.",
+     "who": "con"
+    },
+    {
+     "id": "where",
+     "start": 144.276,
+     "end": 147.988,
+     "cap": "**Kavya:** Hang on. Where's the electricity department? Or light? Or heat?",
+     "who": "kavya"
+    },
+    {
+     "id": "not",
+     "start": 148.708,
+     "end": 149.817,
+     "cap": "**Constance:** Not stores.",
+     "who": "con"
+    }
+   ]
+  },
+  {
+   "id": "pat",
+   "title": "Pat is not a store",
+   "short": "Pathways",
+   "card": true,
+   "start": 151.617,
+   "end": 229.296,
+   "lines": [
+    {
+     "id": "pat",
+     "start": 153.417,
+     "end": 159.433,
+     "cap": "**Narrator:** Energy moves between stores along **transfer pathways**. In this firm, that means Pat.",
+     "who": "narr"
+    },
+    {
+     "id": "hi",
+     "start": 159.953,
+     "end": 163.132,
+     "cap": "**Pat:** Pat. Courier. I don't **keep** energy. I **move** it. Big difference.",
+     "who": "pat"
+    },
+    {
+     "id": "thpat",
+     "start": 163.852,
+     "end": 168.588,
+     "cap": "**Constance:** Pat is a pathway. People keep trying to file things with Pat. Pat hates that.",
+     "who": "con"
+    },
+    {
+     "id": "mech",
+     "start": 169.408,
+     "end": 173.269,
+     "cap": "**Pat:** Four routes. One: **mechanically**. A **force** pushes, pulls or stretches something.",
+     "who": "pat"
+    },
+    {
+     "id": "kick",
+     "start": 173.589,
+     "end": 177.045,
+     "cap": "**Pat:** Kick a ball: I carry energy mechanically into its **kinetic** store.",
+     "who": "pat"
+    },
+    {
+     "id": "elec",
+     "start": 177.365,
+     "end": 181.12,
+     "cap": "**Pat:** Two: **electrically**. An **electric current** in a circuit. Like charging your phone.",
+     "who": "pat"
+    },
+    {
+     "id": "heat",
+     "start": 181.44,
+     "end": 185.408,
+     "cap": "**Pat:** Three: **by heating**. From a **hotter** thing to a **colder** thing. Hot pan, cold egg.",
+     "who": "pat"
+    },
+    {
+     "id": "rad",
+     "start": 185.728,
+     "end": 190.336,
+     "cap": "**Pat:** Four: **by radiation**. Carried by **waves**: light, infrared, sound. Sunshine. Your speaker.",
+     "who": "pat"
+    },
+    {
+     "id": "leave",
+     "start": 190.656,
+     "end": 193.429,
+     "cap": "**Jules:** Hey, Pat! Can I leave this light energy with you for a bit?",
+     "who": "jules"
+    },
+    {
+     "id": "no",
+     "start": 194.049,
+     "end": 195.521,
+     "cap": "**Pat:** I'm. Not. A. Store.",
+     "who": "pat"
+    },
+    {
+     "id": "rule",
+     "start": 196.741,
+     "end": 203.227,
+     "cap": "**Constance:** **Stores** are **where** energy is held. **Pathways** are **how** it moves. **Heat, light, sound** and **electricity** are pathways.",
+     "who": "con"
+    },
+    {
+     "id": "kettle",
+     "start": 203.947,
+     "end": 210.752,
+     "cap": "**Narrator:** Example: Kavya's dad is boiling the kettle for his kopi. At thirty-four degrees. He does not care.",
+     "who": "narr"
+    },
+    {
+     "id": "first",
+     "start": 211.472,
+     "end": 214.629,
+     "cap": "**Pat:** First I go **electrically**, from the mains to the **heating element**.",
+     "who": "pat"
+    },
+    {
+     "id": "then",
+     "start": 214.949,
+     "end": 217.979,
+     "cap": "**Pat:** Then **by heating**, from the element into the water's **thermal store**.",
+     "who": "pat"
+    },
+    {
+     "id": "so",
+     "start": 218.599,
+     "end": 222.396,
+     "cap": "**Kavya:** So that's electrically, then by heating. Two pathways, one kettle.",
+     "who": "kavya"
+    },
+    {
+     "id": "correct",
+     "start": 222.716,
+     "end": 224.145,
+     "cap": "**Constance:** Correct. Annoyingly.",
+     "who": "con"
+    },
+    {
+     "id": "thcorrect",
+     "start": 225.065,
+     "end": 227.796,
+     "cap": "**Kavya:** She said I was correct. I'm telling everyone.",
+     "who": "kavya"
+    }
+   ]
+  },
+  {
+   "id": "tea",
+   "title": "The bubble tea incident",
+   "short": "Conservation",
+   "card": true,
+   "start": 229.296,
+   "end": 296.165,
+   "lines": [
+    {
+     "id": "four",
+     "start": 231.096,
+     "end": 233.4,
+     "cap": "**Narrator:** Four p.m. A tragedy.",
+     "who": "narr"
+    },
+    {
+     "id": "cup",
+     "start": 234.12,
+     "end": 240.584,
+     "cap": "**Narrator:** Kavya's bubble tea is on the edge of the table. Her elbow is about to make a terrible decision.",
+     "who": "narr"
+    },
+    {
+     "id": "before",
+     "start": 241.304,
+     "end": 246.701,
+     "cap": "**Constance:** Before it falls, the cup has energy in its **gravitational potential** store. Because it's **high up**.",
+     "who": "con"
+    },
+    {
+     "id": "falling",
+     "start": 247.021,
+     "end": 251.501,
+     "cap": "**Jules:** It's falling! Gravitational store emptying! **Kinetic** store filling! It's speeding up!",
+     "who": "jules"
+    },
+    {
+     "id": "no",
+     "start": 251.921,
+     "end": 253.436,
+     "cap": "**Kavya:** No no no no no!",
+     "who": "kavya"
+    },
+    {
+     "id": "lands",
+     "start": 253.956,
+     "end": 257.924,
+     "cap": "**Constance:** Just before it lands, nearly all of it is **kinetic**. Then: splat.",
+     "who": "con"
+    },
+    {
+     "id": "theo",
+     "start": 258.744,
+     "end": 262.52,
+     "cap": "**Theo:** And then it all comes down to me. Hello. Theo. **Thermal store**.",
+     "who": "theo"
+    },
+    {
+     "id": "splat",
+     "start": 263.24,
+     "end": 268.339,
+     "cap": "**Theo:** Some went off as **sound**. The rest warmed the floor, the tea and the pearls. A tiny bit.",
+     "who": "theo"
+    },
+    {
+     "id": "total",
+     "start": 269.059,
+     "end": 274.264,
+     "cap": "**Constance:** The **total energy before** equals the **total energy after**. Every joule. I counted.",
+     "who": "con"
+    },
+    {
+     "id": "flow",
+     "start": 274.984,
+     "end": 281.171,
+     "cap": "**Constance:** We file it as an **energy flow diagram**: **gravitational potential → kinetic → thermal + sound**.",
+     "who": "con"
+    },
+    {
+     "id": "toy",
+     "start": 281.491,
+     "end": 287.336,
+     "cap": "**Jules:** Same with a wind-up toy! **Elastic** store in the spring, to **kinetic**, plus a bit of **thermal** from friction!",
+     "who": "jules"
+    },
+    {
+     "id": "pearls",
+     "start": 287.956,
+     "end": 290.964,
+     "cap": "**Kavya:** I don't care about the joules. I care about my pearls.",
+     "who": "kavya"
+    },
+    {
+     "id": "thpearls",
+     "start": 291.884,
+     "end": 294.465,
+     "cap": "**Constance:** The pearls are fine. Energetically speaking.",
+     "who": "con"
+    }
+   ]
+  },
+  {
+   "id": "basement",
+   "title": "Theo's basement",
+   "short": "Wasted energy",
+   "card": true,
+   "start": 296.165,
+   "end": 372.124,
+   "lines": [
+    {
+     "id": "fan",
+     "start": 297.965,
+     "end": 304.173,
+     "cap": "**Narrator:** Five p.m. The aircon is finally off. Kavya has switched to an old fan. It rattles.",
+     "who": "narr"
+    },
+    {
+     "id": "useful",
+     "start": 304.793,
+     "end": 310.297,
+     "cap": "**Constance:** Energy that goes where we **want** is **useful**. For a fan, that's the **kinetic** store of the moving air.",
+     "who": "con"
+    },
+    {
+     "id": "wasted",
+     "start": 310.617,
+     "end": 316.292,
+     "cap": "**Constance:** Energy that goes where we **don't** want is **wasted**. Usually into the **thermal store** of the surroundings.",
+     "who": "con"
+    },
+    {
+     "id": "me",
+     "start": 316.812,
+     "end": 322.849,
+     "cap": "**Theo:** That's me. The motor gets warm. The rattle is sound, and that ends up as heat too. It all ends up with me.",
+     "who": "theo"
+    },
+    {
+     "id": "theo",
+     "start": 323.669,
+     "end": 328.555,
+     "cap": "**Theo:** Nobody comes down here on purpose. They just end up here. Like a lost umbrella.",
+     "who": "theo"
+    },
+    {
+     "id": "gone",
+     "start": 329.475,
+     "end": 331.8,
+     "cap": "**Jules:** So the wasted energy just vanishes? Poof?",
+     "who": "jules"
+    },
+    {
+     "id": "denied",
+     "start": 332.52,
+     "end": 333.736,
+     "cap": "**Constance:** Denied.",
+     "who": "con"
+    },
+    {
+     "id": "spread",
+     "start": 334.656,
+     "end": 340.907,
+     "cap": "**Constance:** Wasted energy is never destroyed. It **dissipates**: it spreads out into the surroundings, thinner and thinner.",
+     "who": "con"
+    },
+    {
+     "id": "thin",
+     "start": 341.227,
+     "end": 348.373,
+     "cap": "**Theo:** I've got all of it. But it's spread so thin, nobody can collect it and use it again. My legacy: a slightly warmer room.",
+     "who": "theo"
+    },
+    {
+     "id": "friction",
+     "start": 349.293,
+     "end": 357.592,
+     "cap": "**Narrator:** Waste often comes from **friction** and **air resistance**, transferring energy to **thermal** stores. That's why bike brakes get hot.",
+     "who": "narr"
+    },
+    {
+     "id": "rub",
+     "start": 357.912,
+     "end": 364.888,
+     "cap": "**Narrator:** Try it. Rub your palms together fast. Friction transfers energy into the **thermal store** of your skin.",
+     "who": "narr"
+    },
+    {
+     "id": "cool",
+     "start": 365.608,
+     "end": 367.976,
+     "cap": "**Kavya:** Ooh. Warm. Okay, that's actually cool.",
+     "who": "kavya"
+    },
+    {
+     "id": "warm",
+     "start": 368.596,
+     "end": 370.324,
+     "cap": "**Theo:** It's actually warm.",
+     "who": "theo"
+    }
+   ]
+  },
+  {
+   "id": "review",
+   "title": "Effie's performance review",
+   "short": "Efficiency",
+   "card": true,
+   "start": 372.124,
+   "end": 453.603,
+   "lines": [
+    {
+     "id": "effie",
+     "start": 373.924,
+     "end": 378.127,
+     "cap": "**Narrator:** Every device in the flat gets a yearly review. From Effie.",
+     "who": "narr"
+    },
+    {
+     "id": "hi",
+     "start": 378.747,
+     "end": 383.205,
+     "cap": "**Effie:** Effie. **Efficiency**. I measure how much of your energy actually does the job.",
+     "who": "effie"
+    },
+    {
+     "id": "theffie",
+     "start": 383.825,
+     "end": 387.516,
+     "cap": "**Effie:** I've reviewed every appliance in this flat. The rice cooker cried.",
+     "who": "effie"
+    },
+    {
+     "id": "formula",
+     "start": 388.436,
+     "end": 393.791,
+     "cap": "**Effie:** **efficiency = useful energy transferred ÷ total energy supplied**",
+     "who": "effie"
+    },
+    {
+     "id": "uot",
+     "start": 394.111,
+     "end": 396.287,
+     "cap": "**Jules:** Useful Over Total! Useful Over Total!",
+     "who": "jules"
+    },
+    {
+     "id": "fan",
+     "start": 396.907,
+     "end": 402.283,
+     "cap": "**Effie:** The fan. You were supplied with **200 J**. Only **150 J** went into moving air.",
+     "who": "effie"
+    },
+    {
+     "id": "divide",
+     "start": 402.803,
+     "end": 409.843,
+     "cap": "**Effie:** **150 ÷ 200 = 0.75**. Times 100: **75%**.",
+     "who": "effie"
+    },
+    {
+     "id": "waste",
+     "start": 410.463,
+     "end": 414.943,
+     "cap": "**Effie:** The other **50 J**, **25%**, was wasted. Mostly as heat.",
+     "who": "effie"
+    },
+    {
+     "id": "hello",
+     "start": 415.563,
+     "end": 416.971,
+     "cap": "**Theo:** Hello again.",
+     "who": "theo"
+    },
+    {
+     "id": "never",
+     "start": 417.791,
+     "end": 423.209,
+     "cap": "**Effie:** **No** real device is **100%** efficient. There's always some waste, usually heat.",
+     "who": "effie"
+    },
+    {
+     "id": "more",
+     "start": 423.729,
+     "end": 426.012,
+     "cap": "**Jules:** What if I write down a hundred and ten per cent?",
+     "who": "jules"
+    },
+    {
+     "id": "check",
+     "start": 426.732,
+     "end": 430.7,
+     "cap": "**Constance:** Denied. Check your working. You can't get more energy out than you put in.",
+     "who": "con"
+    },
+    {
+     "id": "sankey",
+     "start": 431.52,
+     "end": 437.216,
+     "cap": "**Narrator:** Effie's favourite chart: the **Sankey diagram**. Arrow **width** shows the **amount** of energy.",
+     "who": "narr"
+    },
+    {
+     "id": "branch",
+     "start": 437.536,
+     "end": 443.147,
+     "cap": "**Effie:** Useful energy carries straight on. Wasted energy **peels off** in a branch, usually downwards.",
+     "who": "effie"
+    },
+    {
+     "id": "fat",
+     "start": 443.467,
+     "end": 448.693,
+     "cap": "**Effie:** Fat wasted branch: inefficient. Thin wasted branch: efficient. Simple. Brutal. Beautiful.",
+     "who": "effie"
+    },
+    {
+     "id": "always",
+     "start": 449.513,
+     "end": 451.903,
+     "cap": "**Theo:** I'm the branch. I'm always the branch.",
+     "who": "theo"
+    }
+   ]
+  },
+  {
+   "id": "supply",
+   "title": "Where the joules come from",
+   "short": "Resources",
+   "card": true,
+   "start": 453.603,
+   "end": 585.387,
+   "lines": [
+    {
+     "id": "where",
+     "start": 455.403,
+     "end": 458.731,
+     "cap": "**Narrator:** One question remains: where do the joules come from?",
+     "who": "narr"
+    },
+    {
+     "id": "hi",
+     "start": 459.251,
+     "end": 464.285,
+     "cap": "**Colin:** Colin. **Coal**. Three hundred million years underground. I'm a **fossil fuel**.",
+     "who": "colin"
+    },
+    {
+     "id": "family",
+     "start": 464.905,
+     "end": 471.668,
+     "cap": "**Colin:** Me, my brother **Oil**, my cousin **Natural Gas**. Burn us, and the energy in our **chemical store** is released.",
+     "who": "colin"
+    },
+    {
+     "id": "station",
+     "start": 471.988,
+     "end": 479.028,
+     "cap": "**Colin:** In a power station, we heat water into **steam**. The steam spins a **turbine**. The turbine turns a **generator**.",
+     "who": "colin"
+    },
+    {
+     "id": "chain",
+     "start": 479.348,
+     "end": 485.983,
+     "cap": "**Constance:** **Chemical → thermal** store of the steam **→ kinetic** store of the turbine. Then **electrically**, down the wires, to here.",
+     "who": "con"
+    },
+    {
+     "id": "skip",
+     "start": 486.603,
+     "end": 491.787,
+     "cap": "**Jules:** Wind and falling water spin turbines directly! Solar cells don't even need a turbine!",
+     "who": "jules"
+    },
+    {
+     "id": "reliable",
+     "start": 492.307,
+     "end": 497.021,
+     "cap": "**Colin:** I'm **reliable**. Day or night. A little of me releases a lot of energy.",
+     "who": "colin"
+    },
+    {
+     "id": "but",
+     "start": 497.641,
+     "end": 505.791,
+     "cap": "**Constance:** But burning fossil fuels releases **carbon dioxide**, a greenhouse gas linked to **climate change**. And they're **non-renewable**. They'll run out.",
+     "who": "con"
+    },
+    {
+     "id": "thcolin",
+     "start": 506.111,
+     "end": 512.404,
+     "cap": "**Colin:** Three hundred million years to make me. Twenty minutes to burn me. Nobody respects the process.",
+     "who": "colin"
+    },
+    {
+     "id": "nuclear",
+     "start": 513.324,
+     "end": 517.975,
+     "cap": "**Jules:** What about nuclear? It hardly makes any carbon dioxide. So it's renewable, right?",
+     "who": "jules"
+    },
+    {
+     "id": "uranium",
+     "start": 518.695,
+     "end": 524.497,
+     "cap": "**Constance:** Denied. Nuclear fuel is **uranium**. It's mined, and it will run out. Nuclear is **non-renewable**.",
+     "who": "con"
+    },
+    {
+     "id": "renew",
+     "start": 525.117,
+     "end": 534.931,
+     "cap": "**Narrator:** **Renewable** resources are constantly replaced, so they won't run out: **solar**, **wind**, **hydroelectric**, **tidal**, **wave**, **geothermal** and **biomass**.",
+     "who": "narr"
+    },
+    {
+     "id": "horses",
+     "start": 535.251,
+     "end": 537.384,
+     "cap": "**Jules:** **S**ix **W**ild **H**orses **T**ook **W**et **G**rass **B**ack!",
+     "who": "jules"
+    },
+    {
+     "id": "unreliable",
+     "start": 538.004,
+     "end": 544.767,
+     "cap": "**Constance:** Most release little carbon dioxide. But many are **unreliable**: no solar at night, no wind on a calm day.",
+     "who": "con"
+    },
+    {
+     "id": "mix",
+     "start": 545.087,
+     "end": 554.281,
+     "cap": "**Narrator:** So countries use a **mix**. Singapore gets most of its electricity from **natural gas**, and puts solar panels on HDB roofs.",
+     "who": "narr"
+    },
+    {
+     "id": "so",
+     "start": 554.601,
+     "end": 558.271,
+     "cap": "**Kavya:** So nothing was used up. It was all just... in Theo's basement?",
+     "who": "kavya"
+    },
+    {
+     "id": "closed",
+     "start": 558.991,
+     "end": 564.921,
+     "cap": "**Constance:** Case closed. No joule was destroyed. But plenty were **wasted**: spread out as heat, doing nothing useful.",
+     "who": "con"
+    },
+    {
+     "id": "save",
+     "start": 565.641,
+     "end": 571.103,
+     "cap": "**Constance:** **Saving energy** doesn't mean stopping joules vanishing. It means **wasting less** of what we pay for.",
+     "who": "con"
+    },
+    {
+     "id": "how",
+     "start": 571.423,
+     "end": 578.505,
+     "cap": "**Narrator:** So: **insulate** homes, choose **efficient appliances**, and **switch off** things instead of leaving them on **standby**.",
+     "who": "narr"
+    },
+    {
+     "id": "mum",
+     "start": 579.125,
+     "end": 581.429,
+     "cap": "**Kavya:** Mum. You were right. I'm switching it off.",
+     "who": "kavya"
+    },
+    {
+     "id": "who",
+     "start": 582.249,
+     "end": 583.487,
+     "cap": "**Mum:** Who are you talking to?",
+     "who": "mum"
+    }
+   ]
+  },
+  {
+   "id": "traps",
+   "title": "The firm saves you some marks",
+   "short": "Exam traps",
+   "card": true,
+   "start": 585.387,
+   "end": 643.027,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 587.187,
+     "end": 590.856,
+     "cap": "**Narrator:** Before the credits, the firm would like to save you some marks.",
+     "who": "narr"
+    },
+    {
+     "id": "t1",
+     "start": 591.476,
+     "end": 596.276,
+     "cap": "**Constance:** One. Energy is **never created or destroyed**. Not used up. Not lost. **Transferred**.",
+     "who": "con"
+    },
+    {
+     "id": "t2",
+     "start": 596.896,
+     "end": 601.12,
+     "cap": "**Pat:** Two. **Heat, light, sound** and **electricity** are **pathways**, not stores. I'm. Not. A. Store.",
+     "who": "pat"
+    },
+    {
+     "id": "t3",
+     "start": 601.74,
+     "end": 607.116,
+     "cap": "**Theo:** Three. Wasted energy **dissipates** into the **thermal store** of the surroundings. Hello again.",
+     "who": "theo"
+    },
+    {
+     "id": "t4",
+     "start": 607.736,
+     "end": 611.939,
+     "cap": "**Effie:** Four. Efficiency is **never** more than **100%**. Never. I've checked.",
+     "who": "effie"
+    },
+    {
+     "id": "t5",
+     "start": 612.559,
+     "end": 617.124,
+     "cap": "**Colin:** Five. **Nuclear** is **non-renewable**. Uranium runs out. Like me.",
+     "who": "colin"
+    },
+    {
+     "id": "t6",
+     "start": 617.844,
+     "end": 621.769,
+     "cap": "**Jules:** Six! Energy is measured in **joules**! Not watts! Not degrees! That's me!",
+     "who": "jules"
+    },
+    {
+     "id": "return",
+     "start": 622.489,
+     "end": 624.751,
+     "cap": "**Narrator:** Every Joule Counts will return.",
+     "who": "narr"
+    },
+    {
+     "id": "gerald",
+     "start": 626.071,
+     "end": 628.183,
+     "cap": "**Constance:** Gerald. Anything you'd like to add?",
+     "who": "con"
+    },
+    {
+     "id": "finally",
+     "start": 629.903,
+     "end": 631.076,
+     "cap": "**Gerald:** ...Finally!",
+     "who": "gerald"
+    },
+    {
+     "id": "filed",
+     "start": 631.796,
+     "end": 634.868,
+     "cap": "**Constance:** Gravitational potential, to kinetic. Filed.",
+     "who": "con"
+    },
+    {
+     "id": "mine",
+     "start": 635.488,
+     "end": 638.325,
+     "cap": "**Theo:** And now his joules are in my department.",
+     "who": "theo"
+    },
+    {
+     "id": "worth",
+     "start": 639.245,
+     "end": 640.227,
+     "cap": "**Gerald:** Worth it.",
+     "who": "gerald"
+    }
+   ]
+  }
+ ],
+ "total": 643.027
+}

@@ -1,0 +1,934 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "cold",
+   "title": "Cold open",
+   "short": "Cold open",
+   "card": false,
+   "start": 0.0,
+   "end": 62.22,
+   "lines": [
+    {
+     "id": "kavya",
+     "start": 0.6,
+     "end": 7.149,
+     "cap": "**Narrator:** This is Kavya. She is twelve. Her science teacher has given her a plant to keep alive all term.",
+     "who": "narr"
+    },
+    {
+     "id": "nothing",
+     "start": 7.869,
+     "end": 11.688,
+     "cap": "**Kavya:** It's a plant. It doesn't DO anything. It just sits there. Being green.",
+     "who": "kavya"
+    },
+    {
+     "id": "name",
+     "start": 12.508,
+     "end": 14.385,
+     "cap": "**Narrator:** The plant has a name.",
+     "who": "narr"
+    },
+    {
+     "id": "plant",
+     "start": 15.005,
+     "end": 16.328,
+     "cap": "**Kavya:** It's called Plant.",
+     "who": "kavya"
+    },
+    {
+     "id": "small",
+     "start": 17.548,
+     "end": 25.121,
+     "cap": "**Narrator:** But this documentary is not about Kavya. It is about what Plant does all day. Which, it turns out, is a lot.",
+     "who": "narr"
+    },
+    {
+     "id": "leaf",
+     "start": 25.441,
+     "end": 32.759,
+     "cap": "**Narrator:** Inside each leaf are millions of cells. And inside each cell are dozens of tiny green factories.",
+     "who": "narr"
+    },
+    {
+     "id": "this",
+     "start": 33.079,
+     "end": 34.657,
+     "cap": "**Narrator:** This is one of them.",
+     "who": "narr"
+    },
+    {
+     "id": "hi",
+     "start": 35.477,
+     "end": 37.461,
+     "cap": "**Clive:** Hi. Clive. **Chloroplast**.",
+     "who": "clive"
+    },
+    {
+     "id": "not",
+     "start": 38.081,
+     "end": 43.095,
+     "cap": "**Clive:** Not chloro-PHYLL. Chloro-PLAST. Chlorophyll is the green stuff. I'm the building it works in.",
+     "who": "clive"
+    },
+    {
+     "id": "exams",
+     "start": 43.715,
+     "end": 47.789,
+     "cap": "**Clive:** Every year, thousands of students mix us up. In exams. For marks.",
+     "who": "clive"
+    },
+    {
+     "id": "billion",
+     "start": 48.709,
+     "end": 52.635,
+     "cap": "**Narrator:** Clive's family has run on sunlight for a billion years.",
+     "who": "narr"
+    },
+    {
+     "id": "does",
+     "start": 52.955,
+     "end": 55.067,
+     "cap": "**Clive:** And she says we don't do anything.",
+     "who": "clive"
+    },
+    {
+     "id": "title",
+     "start": 56.387,
+     "end": 60.12,
+     "cap": "**Narrator:** Leaf Inc. Episode one: The Plant That Does Nothing.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "lights",
+   "title": "Lights on",
+   "short": "Lights on",
+   "card": true,
+   "start": 62.22,
+   "end": 125.807,
+   "lines": [
+    {
+     "id": "seven",
+     "start": 64.02,
+     "end": 69.951,
+     "cap": "**Narrator:** Seven a.m. Sunrise over Kavya's HDB block. Plant's working day begins.",
+     "who": "narr"
+    },
+    {
+     "id": "lights",
+     "start": 70.471,
+     "end": 72.924,
+     "cap": "**Clive:** Lights on, everyone! Phyllis! You're on!",
+     "who": "clive"
+    },
+    {
+     "id": "phyllis",
+     "start": 73.444,
+     "end": 78.137,
+     "cap": "**Phyllis:** Darling. Phyllis. **Chlorophyll**. The green **pigment**. I'm the reason this leaf looks fabulous.",
+     "who": "phyllis"
+    },
+    {
+     "id": "thphyllis",
+     "start": 78.857,
+     "end": 82.975,
+     "cap": "**Clive:** Phyllis is chlorophyll. Millions of her work in here. All lead singers.",
+     "who": "clive"
+    },
+    {
+     "id": "job",
+     "start": 83.895,
+     "end": 88.311,
+     "cap": "**Phyllis:** My job is to **absorb light energy**. Mostly **red** and **blue** light. Delicious.",
+     "who": "phyllis"
+    },
+    {
+     "id": "green",
+     "start": 88.931,
+     "end": 91.555,
+     "cap": "**Kavya:** So it eats green light. That's why it's green.",
+     "who": "kavya"
+    },
+    {
+     "id": "ugh",
+     "start": 92.775,
+     "end": 94.076,
+     "cap": "**Phyllis:** Green? Yuck. No.",
+     "who": "phyllis"
+    },
+    {
+     "id": "reflect",
+     "start": 94.796,
+     "end": 99.425,
+     "cap": "**Phyllis:** I **reflect** green light. It bounces back into your eyes. That's why leaves look green.",
+     "who": "phyllis"
+    },
+    {
+     "id": "wears",
+     "start": 99.745,
+     "end": 103.201,
+     "cap": "**Clive:** She rejects green, and then she wears it. That's Phyllis for you.",
+     "who": "clive"
+    },
+    {
+     "id": "word",
+     "start": 104.121,
+     "end": 110.628,
+     "cap": "**Narrator:** **Photo** means light. **Synthesis** means making. **Photosynthesis**: making food, using light.",
+     "who": "narr"
+    },
+    {
+     "id": "soil",
+     "start": 110.948,
+     "end": 113.316,
+     "cap": "**Kavya:** I thought plants got their food from the soil.",
+     "who": "kavya"
+    },
+    {
+     "id": "producers",
+     "start": 114.436,
+     "end": 119.428,
+     "cap": "**Clive:** Plants are **producers**: we make our own food. From the soil, we just take **water** and **minerals**.",
+     "who": "clive"
+    },
+    {
+     "id": "three",
+     "start": 120.048,
+     "end": 124.507,
+     "cap": "**Clive:** We need **light**, **carbon dioxide** and **water**. Light's here. Where are the other two?",
+     "who": "clive"
+    }
+   ]
+  },
+  {
+   "id": "tour",
+   "title": "The factory tour",
+   "short": "Leaf tour",
+   "card": true,
+   "start": 125.807,
+   "end": 207.969,
+   "lines": [
+    {
+     "id": "shape",
+     "start": 127.607,
+     "end": 133.089,
+     "cap": "**Clive:** First, the tour. The leaf is **broad** and **flat**, to catch light, and **thin**, so gases don't travel far.",
+     "who": "clive"
+    },
+    {
+     "id": "roof",
+     "start": 133.409,
+     "end": 138.145,
+     "cap": "**Clive:** The roof: a **waxy cuticle**. Clear, to let light in. Waterproof, to keep water in.",
+     "who": "clive"
+    },
+    {
+     "id": "top",
+     "start": 138.465,
+     "end": 144.844,
+     "cap": "**Clive:** Top floor: the **palisade** cells. Tall, packed with chloroplasts, and first to get the light. Most food is made here.",
+     "who": "clive"
+    },
+    {
+     "id": "spongy",
+     "start": 145.364,
+     "end": 150.228,
+     "cap": "**Clive:** Downstairs: the **spongy** layer, with **air spaces**, so gases can reach every cell.",
+     "who": "clive"
+    },
+    {
+     "id": "doors",
+     "start": 150.548,
+     "end": 155.305,
+     "cap": "**Clive:** On the underside are the doors: tiny pores called **stomata**. One is a **stoma**.",
+     "who": "clive"
+    },
+    {
+     "id": "guards",
+     "start": 155.625,
+     "end": 161.449,
+     "cap": "**Clive:** Each stoma has two **guard cells**. They open and close it, controlling gas exchange and water loss.",
+     "who": "clive"
+    },
+    {
+     "id": "talk",
+     "start": 161.769,
+     "end": 163.924,
+     "cap": "**Clive:** They don't talk. They've never talked.",
+     "who": "clive"
+    },
+    {
+     "id": "cosmo",
+     "start": 165.244,
+     "end": 168.06,
+     "cap": "**Cosmo:** Hey. Cosmo. **Carbon dioxide**. From the air.",
+     "who": "cosmo"
+    },
+    {
+     "id": "diffuse",
+     "start": 168.68,
+     "end": 173.821,
+     "cap": "**Cosmo:** I don't walk in. I **diffuse**: from where there's **lots** of me, outside, to where there's **less**, inside.",
+     "who": "cosmo"
+    },
+    {
+     "id": "effort",
+     "start": 174.141,
+     "end": 177.213,
+     "cap": "**Cosmo:** And **diffusion** needs **no energy**. Which suits me.",
+     "who": "cosmo"
+    },
+    {
+     "id": "dewi",
+     "start": 178.133,
+     "end": 181.867,
+     "cap": "**Dewi:** Coming through! Dewi! **Water**! Up from the ROOTS! Do you know how far that is?",
+     "who": "dewi"
+    },
+    {
+     "id": "roots",
+     "start": 182.587,
+     "end": 187.664,
+     "cap": "**Dewi:** **Root hair cells** soaked me up from the soil. Then I came up the **xylem**: long, hollow tubes.",
+     "who": "dewi"
+    },
+    {
+     "id": "up",
+     "start": 187.984,
+     "end": 189.733,
+     "cap": "**Kavya:** Wait. How does water go UP?",
+     "who": "kavya"
+    },
+    {
+     "id": "straw",
+     "start": 190.453,
+     "end": 195.765,
+     "cap": "**Dewi:** Water **evaporates** from the leaf, and that pulls more of us up. Like you, sucking a bubble tea straw.",
+     "who": "dewi"
+    },
+    {
+     "id": "transp",
+     "start": 196.085,
+     "end": 201.12,
+     "cap": "**Clive:** It's called **transpiration**. Plant drinks bubble tea all day. Without the bubbles. Or the tea.",
+     "who": "clive"
+    },
+    {
+     "id": "veins",
+     "start": 202.14,
+     "end": 206.769,
+     "cap": "**Clive:** **Xylem** brings water in. **Phloem** carries sugar away. Both run in the **veins**.",
+     "who": "clive"
+    }
+   ]
+  },
+  {
+   "id": "recipe",
+   "title": "The recipe",
+   "short": "The recipe",
+   "card": true,
+   "start": 207.969,
+   "end": 294.341,
+   "lines": [
+    {
+     "id": "go",
+     "start": 209.769,
+     "end": 213.289,
+     "cap": "**Clive:** Right. Phyllis: light energy, please. Cosmo, Dewi: in you go.",
+     "who": "clive"
+    },
+    {
+     "id": "join",
+     "start": 213.809,
+     "end": 220.529,
+     "cap": "**Narrator:** Chlorophyll traps light energy, which joins carbon dioxide and water into a sugar: **glucose**.",
+     "who": "narr"
+    },
+    {
+     "id": "gus",
+     "start": 221.049,
+     "end": 225.871,
+     "cap": "**Gus:** Hiii! Gus! **Glucose**! Is this my first day? Is THIS my desk? I love it here!",
+     "who": "gus"
+    },
+    {
+     "id": "thgus",
+     "start": 226.591,
+     "end": 232.671,
+     "cap": "**Clive:** Gus is glucose. The light energy is now stored in him, as **chemical energy**. A packed lunch, basically.",
+     "who": "clive"
+    },
+    {
+     "id": "olive",
+     "start": 233.591,
+     "end": 236.94,
+     "cap": "**Olive:** And then there's me. Olive. **Oxygen**. The **waste product**.",
+     "who": "olive"
+    },
+    {
+     "id": "rubbish",
+     "start": 237.66,
+     "end": 242.119,
+     "cap": "**Olive:** Nobody in here needs me. They open the stomata and put me out. Like the rubbish.",
+     "who": "olive"
+    },
+    {
+     "id": "mine",
+     "start": 242.939,
+     "end": 248.037,
+     "cap": "**Dewi:** Olive came out of ME, you know. Light energy splits **water**, and that's where oxygen comes from.",
+     "who": "dewi"
+    },
+    {
+     "id": "word",
+     "start": 248.357,
+     "end": 252.283,
+     "cap": "**Clive:** So: **carbon dioxide + water → glucose + oxygen**.",
+     "who": "clive"
+    },
+    {
+     "id": "cars",
+     "start": 252.603,
+     "end": 257.125,
+     "cap": "**Kavya:** **C**ars **W**on't **G**o **O**n **G**rass. Carbon dioxide, water, glucose, oxygen.",
+     "who": "kavya"
+    },
+    {
+     "id": "sun",
+     "start": 257.745,
+     "end": 261.415,
+     "cap": "**Kavya:** So the ingredients are carbon dioxide, water... and sunlight?",
+     "who": "kavya"
+    },
+    {
+     "id": "arrow",
+     "start": 262.735,
+     "end": 268.068,
+     "cap": "**Clive:** No. Light isn't an ingredient. It's the **energy source**. Light and chlorophyll go **over the arrow**.",
+     "who": "clive"
+    },
+    {
+     "id": "talent",
+     "start": 268.388,
+     "end": 272.655,
+     "cap": "**Phyllis:** We're needed, darling, but never used up. I'm not an ingredient. I'm the talent.",
+     "who": "phyllis"
+    },
+    {
+     "id": "eq",
+     "start": 273.575,
+     "end": 280.316,
+     "cap": "**Clive:** The balanced **symbol equation**: **6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂**",
+     "who": "clive"
+    },
+    {
+     "id": "six",
+     "start": 281.036,
+     "end": 282.124,
+     "cap": "**Cosmo:** Six of me...",
+     "who": "cosmo"
+    },
+    {
+     "id": "sixw",
+     "start": 282.444,
+     "end": 283.447,
+     "cap": "**Dewi:** ...and six of me...",
+     "who": "dewi"
+    },
+    {
+     "id": "one",
+     "start": 283.767,
+     "end": 285.772,
+     "cap": "**Gus:** ...make just ONE of me? I'm so expensive!",
+     "who": "gus"
+    },
+    {
+     "id": "count",
+     "start": 286.492,
+     "end": 293.041,
+     "cap": "**Clive:** Count them: **six** carbons, **twelve** hydrogens, **eighteen** oxygens, on each side. Forget the **sixes**, and it won't balance.",
+     "who": "clive"
+    }
+   ]
+  },
+  {
+   "id": "careers",
+   "title": "Gus's careers day",
+   "short": "Careers day",
+   "card": true,
+   "start": 294.341,
+   "end": 374.521,
+   "lines": [
+    {
+     "id": "noon",
+     "start": 296.141,
+     "end": 300.323,
+     "cap": "**Narrator:** Noon. Thousands of Guses have been made. Each one needs a job.",
+     "who": "narr"
+    },
+    {
+     "id": "job",
+     "start": 300.843,
+     "end": 302.784,
+     "cap": "**Gus:** What's my job? Can I be a manager?",
+     "who": "gus"
+    },
+    {
+     "id": "resp",
+     "start": 303.504,
+     "end": 310.971,
+     "cap": "**Clive:** Four jobs. One: **respiration**. The mitochondria next door break glucose down to **release energy**. Nice guys. Very tired.",
+     "who": "clive"
+    },
+    {
+     "id": "both",
+     "start": 311.791,
+     "end": 317.188,
+     "cap": "**Clive:** Yes, plants respire too. **All the time**, day and night. We only photosynthesise in the light.",
+     "who": "clive"
+    },
+    {
+     "id": "starch",
+     "start": 317.808,
+     "end": 323.163,
+     "cap": "**Clive:** Two: **storage**. Spare glucose is joined into **starch**, and stored in leaves, stems and seeds.",
+     "who": "clive"
+    },
+    {
+     "id": "chain",
+     "start": 323.483,
+     "end": 325.829,
+     "cap": "**Gus:** Ooh, it's me, holding hands with hundreds of me!",
+     "who": "gus"
+    },
+    {
+     "id": "insol",
+     "start": 326.449,
+     "end": 331.612,
+     "cap": "**Clive:** Starch is **insoluble**, so it doesn't upset the cell's water balance. Perfect for storage.",
+     "who": "clive"
+    },
+    {
+     "id": "cell",
+     "start": 331.932,
+     "end": 336.54,
+     "cap": "**Clive:** Three: **cellulose**, tough fibres for **cell walls**, so the plant can stand up straight.",
+     "who": "clive"
+    },
+    {
+     "id": "prot",
+     "start": 336.86,
+     "end": 341.532,
+     "cap": "**Clive:** Four: **proteins**, for growth. For those, we also need **nitrates** from the soil.",
+     "who": "clive"
+    },
+    {
+     "id": "rscp",
+     "start": 342.052,
+     "end": 346.425,
+     "cap": "**Gus:** **R**eally **S**weet **C**runchy **P**lants! Respiration, starch, cellulose, proteins!",
+     "who": "gus"
+    },
+    {
+     "id": "mg",
+     "start": 347.145,
+     "end": 350.004,
+     "cap": "**Phyllis:** And to make me, darling, the plant needs **magnesium**.",
+     "who": "phyllis"
+    },
+    {
+     "id": "yellow",
+     "start": 350.324,
+     "end": 355.231,
+     "cap": "**Phyllis:** Without it, leaves turn **yellow**: **chlorosis**. Less of me, less light absorbed, less food.",
+     "who": "phyllis"
+    },
+    {
+     "id": "talk",
+     "start": 355.851,
+     "end": 357.493,
+     "cap": "**Phyllis:** I don't want to talk about it.",
+     "who": "phyllis"
+    },
+    {
+     "id": "mass",
+     "start": 358.413,
+     "end": 363.981,
+     "cap": "**Narrator:** Last question: where does a growing plant's new mass come from? Most people say the soil.",
+     "who": "narr"
+    },
+    {
+     "id": "me",
+     "start": 364.601,
+     "end": 368.911,
+     "cap": "**Cosmo:** It's me. Most of a plant's **dry mass** comes from **carbon dioxide** in the air.",
+     "who": "cosmo"
+    },
+    {
+     "id": "wood",
+     "start": 369.231,
+     "end": 372.921,
+     "cap": "**Cosmo:** Wood? Mostly me. Trees are basically made of thin air. You're welcome.",
+     "who": "cosmo"
+    }
+   ]
+  },
+  {
+   "id": "limits",
+   "title": "Kavya tries to help",
+   "short": "Limiting factors",
+   "card": true,
+   "start": 374.521,
+   "end": 468.005,
+   "lines": [
+    {
+     "id": "two",
+     "start": 376.321,
+     "end": 380.503,
+     "cap": "**Narrator:** Two p.m. Kavya wants Plant to photosynthesise faster.",
+     "who": "narr"
+    },
+    {
+     "id": "lamp",
+     "start": 381.023,
+     "end": 384.799,
+     "cap": "**Kavya:** More light, more food, right? Here. Have my desk lamp. You're welcome.",
+     "who": "kavya"
+    },
+    {
+     "id": "rises",
+     "start": 385.519,
+     "end": 390.063,
+     "cap": "**Narrator:** The rate of photosynthesis rises. And then it levels off.",
+     "who": "narr"
+    },
+    {
+     "id": "full",
+     "start": 390.783,
+     "end": 392.596,
+     "cap": "**Kavya:** Why did it stop? Is it full?",
+     "who": "kavya"
+    },
+    {
+     "id": "notfull",
+     "start": 393.716,
+     "end": 400.692,
+     "cap": "**Clive:** We're not full. We're out of Cosmo. Light isn't holding us back now. **Carbon dioxide** is. In normal air, it often does.",
+     "who": "clive"
+    },
+    {
+     "id": "define",
+     "start": 401.012,
+     "end": 409.183,
+     "cap": "**Narrator:** A **limiting factor** is whatever's in **shortest supply**. Increase it: the rate rises. Increase anything else: nothing.",
+     "who": "narr"
+    },
+    {
+     "id": "plateau",
+     "start": 409.503,
+     "end": 414.239,
+     "cap": "**Clive:** On a graph, that flat bit is a **plateau**. It means **another factor** is now limiting.",
+     "who": "clive"
+    },
+    {
+     "id": "lct",
+     "start": 414.559,
+     "end": 421.364,
+     "cap": "**Kavya:** Three limiting factors. **L**ight **C**ools **T**hings: **light intensity**, **carbon dioxide concentration**, **temperature**.",
+     "who": "kavya"
+    },
+    {
+     "id": "hot",
+     "start": 421.984,
+     "end": 425.717,
+     "cap": "**Kavya:** What if I put you by the aircon compressor? It's super hot there.",
+     "who": "kavya"
+    },
+    {
+     "id": "enzymes",
+     "start": 426.637,
+     "end": 433.613,
+     "cap": "**Clive:** Warmer helps, up to a point. We run on **enzymes**. But above about **40 to 45 °C**, they **denature**.",
+     "who": "clive"
+    },
+    {
+     "id": "crash",
+     "start": 433.933,
+     "end": 438.179,
+     "cap": "**Clive:** Their shape is destroyed and the rate crashes. Please. Not the compressor.",
+     "who": "clive"
+    },
+    {
+     "id": "sunset",
+     "start": 439.099,
+     "end": 445.669,
+     "cap": "**Narrator:** Seven p.m. Sunset. No light, so photosynthesis stops. Respiration carries on.",
+     "who": "narr"
+    },
+    {
+     "id": "night",
+     "start": 446.189,
+     "end": 451.523,
+     "cap": "**Gus:** So at night, the plant only respires! It takes in **oxygen**, and gives out **carbon dioxide**!",
+     "who": "gus"
+    },
+    {
+     "id": "day",
+     "start": 451.843,
+     "end": 458.968,
+     "cap": "**Clive:** By day, we photosynthesise **faster** than we respire. So overall, we take in **carbon dioxide** and give out **oxygen**.",
+     "who": "clive"
+    },
+    {
+     "id": "opposite",
+     "start": 459.288,
+     "end": 466.605,
+     "cap": "**Narrator:** Photosynthesis **stores** energy in glucose. Respiration **releases** it. They're almost exact **opposites**.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "starch",
+   "title": "The starch inspection",
+   "short": "Starch test",
+   "card": true,
+   "start": 468.005,
+   "end": 575.069,
+   "lines": [
+    {
+     "id": "friday",
+     "start": 469.805,
+     "end": 476.056,
+     "cap": "**Narrator:** Friday. Kavya must prove Plant has been photosynthesising, by testing a leaf for **starch**.",
+     "who": "narr"
+    },
+    {
+     "id": "destarch",
+     "start": 476.576,
+     "end": 482.507,
+     "cap": "**Narrator:** First, the plant is **destarched**: kept in the dark for a day or two, to use up old starch.",
+     "who": "narr"
+    },
+    {
+     "id": "did",
+     "start": 483.127,
+     "end": 486.924,
+     "cap": "**Kavya:** Already done. By accident. It was in my wardrobe last weekend.",
+     "who": "kavya"
+    },
+    {
+     "id": "remember",
+     "start": 487.744,
+     "end": 488.896,
+     "cap": "**Clive:** We remember.",
+     "who": "clive"
+    },
+    {
+     "id": "foil",
+     "start": 490.116,
+     "end": 493.999,
+     "cap": "**Kavya:** Then I covered part of one leaf with **foil**, so that bit got no light.",
+     "who": "kavya"
+    },
+    {
+     "id": "boil",
+     "start": 494.319,
+     "end": 501.081,
+     "cap": "**Narrator:** Step one: **boil it in water**. That kills the leaf, and breaks down membranes so iodine can get in.",
+     "who": "narr"
+    },
+    {
+     "id": "kevin",
+     "start": 501.601,
+     "end": 504.908,
+     "cap": "**Clive:** Not my leaf. That's Kevin's leaf. Kevin knew the risks.",
+     "who": "clive"
+    },
+    {
+     "id": "ethanol",
+     "start": 505.928,
+     "end": 512.627,
+     "cap": "**Narrator:** Step two: **boil it in ethanol**, to remove the green **chlorophyll**, so the colour change is easy to see.",
+     "who": "narr"
+    },
+    {
+     "id": "outrage",
+     "start": 512.947,
+     "end": 515.613,
+     "cap": "**Phyllis:** They're removing ME? This is an outrage, darling!",
+     "who": "phyllis"
+    },
+    {
+     "id": "safety",
+     "start": 516.333,
+     "end": 520.728,
+     "cap": "**Kavya:** Ethanol is **flammable**. So the Bunsen goes **off**, and it's heated in a **water bath**.",
+     "who": "kavya"
+    },
+    {
+     "id": "warm",
+     "start": 521.048,
+     "end": 529.24,
+     "cap": "**Narrator:** Step three: **warm water**, to soften it. Step four: **iodine solution**. Orange-brown turns **blue-black** where there's starch.",
+     "who": "narr"
+    },
+    {
+     "id": "wewi",
+     "start": 529.56,
+     "end": 533.315,
+     "cap": "**Kavya:** **W**e **E**nd **W**ith **I**odine. Water, ethanol, warm water, iodine.",
+     "who": "kavya"
+    },
+    {
+     "id": "result",
+     "start": 533.935,
+     "end": 538.756,
+     "cap": "**Kavya:** Blue-black! Except under the foil. That bit stayed orange-brown. No light, no starch.",
+     "who": "kavya"
+    },
+    {
+     "id": "controls",
+     "start": 539.476,
+     "end": 550.057,
+     "cap": "**Narrator:** On a green and white **variegated** leaf, only the green parts go blue-black: **chlorophyll** is needed. Remove carbon dioxide with **soda lime**: no starch.",
+     "who": "narr"
+    },
+    {
+     "id": "report",
+     "start": 550.377,
+     "end": 552.745,
+     "cap": "**Kavya:** Conclusion. Plant does not do nothing.",
+     "who": "kavya"
+    },
+    {
+     "id": "chain",
+     "start": 553.665,
+     "end": 561.452,
+     "cap": "**Narrator:** Photosynthesis starts nearly every **food chain**. If you're eating right now, it began as sunlight, caught by a leaf.",
+     "who": "narr"
+    },
+    {
+     "id": "air",
+     "start": 562.172,
+     "end": 567.1,
+     "cap": "**Olive:** And the **oxygen** you're breathing? Made by photosynthesis. Plants, and plankton in the sea.",
+     "who": "olive"
+    },
+    {
+     "id": "main",
+     "start": 567.72,
+     "end": 570.024,
+     "cap": "**Olive:** So really, I'm the main character.",
+     "who": "olive"
+    },
+    {
+     "id": "unbear",
+     "start": 570.944,
+     "end": 573.269,
+     "cap": "**Clive:** She's going to be unbearable now.",
+     "who": "clive"
+    }
+   ]
+  },
+  {
+   "id": "traps",
+   "title": "The staff save you some marks",
+   "short": "Exam traps",
+   "card": true,
+   "start": 575.069,
+   "end": 634.493,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 576.869,
+     "end": 580.709,
+     "cap": "**Narrator:** Before the credits: exam advice from the staff of Plant.",
+     "who": "narr"
+    },
+    {
+     "id": "t1",
+     "start": 581.329,
+     "end": 586.833,
+     "cap": "**Clive:** One. **Chloroplast**: the structure. **Chlorophyll**: the green pigment inside it. Get our names right.",
+     "who": "clive"
+    },
+    {
+     "id": "t2",
+     "start": 587.453,
+     "end": 591.869,
+     "cap": "**Phyllis:** Two. Chlorophyll **reflects** green light, darling. It absorbs mainly **red** and **blue**.",
+     "who": "phyllis"
+    },
+    {
+     "id": "t3",
+     "start": 592.489,
+     "end": 596.841,
+     "cap": "**Cosmo:** Three. Light goes **over the arrow**, not in as a reactant. And keep the **sixes**.",
+     "who": "cosmo"
+    },
+    {
+     "id": "t4",
+     "start": 597.461,
+     "end": 603.221,
+     "cap": "**Olive:** Four. Photosynthesis takes **in** carbon dioxide and gives **out** oxygen. Not the other way round.",
+     "who": "olive"
+    },
+    {
+     "id": "t5",
+     "start": 603.841,
+     "end": 606.572,
+     "cap": "**Gus:** Five! Plants respire **all the time**! Not just at night!",
+     "who": "gus"
+    },
+    {
+     "id": "t6",
+     "start": 607.192,
+     "end": 612.056,
+     "cap": "**Dewi:** Six. A flat graph doesn't mean the plant is full. It means **another factor** is limiting.",
+     "who": "dewi"
+    },
+    {
+     "id": "t7",
+     "start": 612.676,
+     "end": 616.751,
+     "cap": "**Kavya:** Seven. In the starch test, heat ethanol in a **water bath**, flame **off**.",
+     "who": "kavya"
+    },
+    {
+     "id": "return",
+     "start": 617.471,
+     "end": 619.241,
+     "cap": "**Narrator:** Leaf Inc. will return.",
+     "who": "narr"
+    },
+    {
+     "id": "ask",
+     "start": 620.561,
+     "end": 623.207,
+     "cap": "**Clive:** So. The Guards. Anything you'd like to add?",
+     "who": "clive"
+    },
+    {
+     "id": "closed",
+     "start": 624.927,
+     "end": 625.908,
+     "cap": "**The Guards:** ...Closed.",
+     "who": "guards"
+    },
+    {
+     "id": "stuck",
+     "start": 627.228,
+     "end": 631.793,
+     "cap": "**Narrator:** The documentary crew is now locked inside the leaf until morning.",
+     "who": "narr"
+    }
+   ]
+  }
+ ],
+ "total": 634.493
+}

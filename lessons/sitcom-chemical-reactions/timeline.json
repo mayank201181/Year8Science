@@ -1,0 +1,983 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "cold",
+   "title": "Cold open",
+   "short": "Cold open",
+   "card": false,
+   "start": 0.0,
+   "end": 66.577,
+   "lines": [
+    {
+     "id": "kavya",
+     "start": 0.6,
+     "end": 7.448,
+     "cap": "**Narrator:** This is Kavya. She is twelve. The science lab is 34 °C, because the aircon is broken.",
+     "who": "narr"
+    },
+    {
+     "id": "stare",
+     "start": 8.068,
+     "end": 13.828,
+     "cap": "**Kavya:** We're meant to 'observe a chemical reaction'. I've been staring at this test tube for five minutes. Nothing.",
+     "who": "kavya"
+    },
+    {
+     "id": "weekend",
+     "start": 14.448,
+     "end": 16.283,
+     "cap": "**Kavya:** It's like watching my weekend.",
+     "who": "kavya"
+    },
+    {
+     "id": "small",
+     "start": 17.203,
+     "end": 22.813,
+     "cap": "**Narrator:** But this documentary is not about Kavya. It is about the bottom of her test tube.",
+     "who": "narr"
+    },
+    {
+     "id": "shrink",
+     "start": 23.133,
+     "end": 28.104,
+     "cap": "**Narrator:** Shrink down to the size of atoms, and there's a cooking competition going on.",
+     "who": "narr"
+    },
+    {
+     "id": "hi",
+     "start": 28.824,
+     "end": 30.829,
+     "cap": "**Arrow:** Hello. I'm Arrow. Head judge.",
+     "who": "arrow"
+    },
+    {
+     "id": "rules",
+     "start": 31.449,
+     "end": 36.847,
+     "cap": "**Arrow:** Simple rules. You start with ingredients. You finish with a brand-new dish. That's a **chemical reaction**.",
+     "who": "arrow"
+    },
+    {
+     "id": "noteq",
+     "start": 37.467,
+     "end": 41.307,
+     "cap": "**Arrow:** And yes, I'm an arrow. I mean '**turns into**'. I am **not** an equals sign.",
+     "who": "arrow"
+    },
+    {
+     "id": "therapy",
+     "start": 42.027,
+     "end": 46.997,
+     "cap": "**Arrow:** People still call me 'Equals'. I'm in therapy for it. My therapist is a question mark.",
+     "who": "arrow"
+    },
+    {
+     "id": "tonight",
+     "start": 48.217,
+     "end": 55.407,
+     "cap": "**Narrator:** Tonight's final: a celebrity guest chef, a strict auditor, and a contestant who is slowly turning orange.",
+     "who": "narr"
+    },
+    {
+     "id": "ferris",
+     "start": 56.127,
+     "end": 59.583,
+     "cap": "**Ferris:** Hi. Ferris. I'm an iron nail. Don't mind me.",
+     "who": "ferris"
+    },
+    {
+     "id": "title",
+     "start": 60.503,
+     "end": 64.577,
+     "cap": "**Narrator:** Test Tube Kitchen. Episode seven: Nothing Is Lost.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "newdish",
+   "title": "Is it a new dish?",
+   "short": "New dish?",
+   "card": true,
+   "start": 66.577,
+   "end": 156.369,
+   "lines": [
+    {
+     "id": "round",
+     "start": 68.377,
+     "end": 72.857,
+     "cap": "**Narrator:** Round one: the signature dish. Every dish must be a **new substance**.",
+     "who": "narr"
+    },
+    {
+     "id": "olly",
+     "start": 73.377,
+     "end": 77.175,
+     "cap": "**Olly:** Hello, Kitchen! Olly! **Oxygen**! Guest chef! I react with EVERYTHING!",
+     "who": "olly"
+    },
+    {
+     "id": "tharrow",
+     "start": 77.795,
+     "end": 81.315,
+     "cap": "**Arrow:** Olly is oxygen. Nobody invites him. He just... joins in.",
+     "who": "arrow"
+    },
+    {
+     "id": "choc",
+     "start": 82.135,
+     "end": 84.055,
+     "cap": "**Olly:** First up: melted chocolate! Ta-da!",
+     "who": "olly"
+    },
+    {
+     "id": "same",
+     "start": 84.675,
+     "end": 88.536,
+     "cap": "**Arrow:** That's chocolate. It was chocolate before. It's still chocolate. Just... sadder.",
+     "who": "arrow"
+    },
+    {
+     "id": "phys",
+     "start": 89.356,
+     "end": 95.095,
+     "cap": "**Arrow:** Melting is a **physical change**: **no new substance** is made. And it's **easy to reverse**. Put it in the fridge.",
+     "who": "arrow"
+    },
+    {
+     "id": "sugar",
+     "start": 95.415,
+     "end": 96.716,
+     "cap": "**Olly:** Sugar, dissolved in tea!",
+     "who": "olly"
+    },
+    {
+     "id": "still",
+     "start": 97.036,
+     "end": 99.169,
+     "cap": "**Arrow:** Still sugar. Still tea. Physical.",
+     "who": "arrow"
+    },
+    {
+     "id": "egg",
+     "start": 99.889,
+     "end": 100.721,
+     "cap": "**Olly:** A fried egg!",
+     "who": "olly"
+    },
+    {
+     "id": "chem",
+     "start": 101.241,
+     "end": 107.919,
+     "cap": "**Arrow:** Now that's new. The runny egg has turned into **new substances**, with new properties. You can't un-fry it. A **chemical change**.",
+     "who": "arrow"
+    },
+    {
+     "id": "taste",
+     "start": 108.639,
+     "end": 113.375,
+     "cap": "**Kavya:** How do I tell if MY test tube reacted? We're not allowed to taste anything. I asked.",
+     "who": "kavya"
+    },
+    {
+     "id": "signs",
+     "start": 114.195,
+     "end": 118.333,
+     "cap": "**Narrator:** Luckily, reactions usually leave **evidence**. Five signs.",
+     "who": "narr"
+    },
+    {
+     "id": "colour",
+     "start": 118.653,
+     "end": 120.488,
+     "cap": "**Olly:** Okay! First sign: a **colour change**!",
+     "who": "olly"
+    },
+    {
+     "id": "gas",
+     "start": 120.808,
+     "end": 123.133,
+     "cap": "**Olly:** Sign two! A **gas given off**! Fizzing! Bubbles!",
+     "who": "olly"
+    },
+    {
+     "id": "temp",
+     "start": 123.453,
+     "end": 126.269,
+     "cap": "**Olly:** Sign three! A **temperature change**! Hotter, or colder!",
+     "who": "olly"
+    },
+    {
+     "id": "precip",
+     "start": 126.589,
+     "end": 131.987,
+     "cap": "**Olly:** Sign four! A **precipitate**! Two solutions mix, and a cloudy **insoluble solid** appears!",
+     "who": "olly"
+    },
+    {
+     "id": "light",
+     "start": 132.307,
+     "end": 135.528,
+     "cap": "**Olly:** And sign five! **Light or sound**! Bangs! Pops! My favourite!",
+     "who": "olly"
+    },
+    {
+     "id": "mnem",
+     "start": 136.148,
+     "end": 142.441,
+     "cap": "**Arrow:** Remember them as **Cool Guys Take Pretty Lasses**. Colour, Gas, Temperature, Precipitate, Light. I didn't write it.",
+     "who": "arrow"
+    },
+    {
+     "id": "boil",
+     "start": 143.261,
+     "end": 145.395,
+     "cap": "**Kavya:** My water's bubbling! It's reacting!",
+     "who": "kavya"
+    },
+    {
+     "id": "vapour",
+     "start": 146.015,
+     "end": 149.983,
+     "cap": "**Arrow:** It's boiling. Those bubbles are just **water vapour**. Still water. **Physical**.",
+     "who": "arrow"
+    },
+    {
+     "id": "clue",
+     "start": 150.703,
+     "end": 154.969,
+     "cap": "**Arrow:** One sign is only a **clue**. The real question: has a **new substance** been made?",
+     "who": "arrow"
+    }
+   ]
+  },
+  {
+   "id": "menu",
+   "title": "Writing the menu",
+   "short": "Equations",
+   "card": true,
+   "start": 156.369,
+   "end": 224.823,
+   "lines": [
+    {
+     "id": "round",
+     "start": 158.169,
+     "end": 163.332,
+     "cap": "**Narrator:** Round two: write the menu. In chemistry, the menu is called an **equation**.",
+     "who": "narr"
+    },
+    {
+     "id": "rp",
+     "start": 163.852,
+     "end": 168.439,
+     "cap": "**Arrow:** The ingredients you start with are the **reactants**. The new dishes you make are the **products**.",
+     "who": "arrow"
+    },
+    {
+     "id": "me",
+     "start": 168.759,
+     "end": 171.596,
+     "cap": "**Arrow:** And in between: me. The arrow. It means '**turns into**'.",
+     "who": "arrow"
+    },
+    {
+     "id": "special",
+     "start": 172.216,
+     "end": 174.605,
+     "cap": "**Olly:** Today's special! Magnesium, cooked with ME!",
+     "who": "olly"
+    },
+    {
+     "id": "whoa",
+     "start": 175.125,
+     "end": 177.707,
+     "cap": "**Kavya:** WHOA. Okay. That is definitely a reaction.",
+     "who": "kavya"
+    },
+    {
+     "id": "word",
+     "start": 178.427,
+     "end": 183.952,
+     "cap": "**Arrow:** **Word equation**: **magnesium + oxygen → magnesium oxide**. A white powder.",
+     "who": "arrow"
+    },
+    {
+     "id": "equals",
+     "start": 184.272,
+     "end": 185.531,
+     "cap": "**Olly:** Great equation, Equals!",
+     "who": "olly"
+    },
+    {
+     "id": "arrow",
+     "start": 186.151,
+     "end": 187.815,
+     "cap": "**Arrow:** My name is Arrow.",
+     "who": "arrow"
+    },
+    {
+     "id": "symbol",
+     "start": 188.935,
+     "end": 194.225,
+     "cap": "**Narrator:** Chemists also write a **symbol equation**, with **formulae**, to **count the atoms**.",
+     "who": "narr"
+    },
+    {
+     "id": "sub",
+     "start": 194.545,
+     "end": 200.455,
+     "cap": "**Arrow:** **O₂** means two oxygen atoms, joined. The small **subscript** number counts only the atom before it.",
+     "who": "arrow"
+    },
+    {
+     "id": "gorgeous",
+     "start": 200.775,
+     "end": 203.313,
+     "cap": "**Olly:** That's me! Two atoms! One gorgeous molecule!",
+     "who": "olly"
+    },
+    {
+     "id": "big",
+     "start": 204.033,
+     "end": 210.476,
+     "cap": "**Arrow:** A **big number** in front, the **coefficient**, multiplies the **whole formula**. **2H₂O** means two water molecules.",
+     "who": "arrow"
+    },
+    {
+     "id": "two",
+     "start": 210.796,
+     "end": 212.652,
+     "cap": "**Olly:** So that's... two hydrogen atoms!",
+     "who": "olly"
+    },
+    {
+     "id": "four",
+     "start": 213.472,
+     "end": 218.272,
+     "cap": "**Arrow:** Four. Two molecules, two hydrogens each. **Four hydrogen** and **two oxygen** atoms.",
+     "who": "arrow"
+    },
+    {
+     "id": "thconf",
+     "start": 218.992,
+     "end": 223.323,
+     "cap": "**Arrow:** Olly is very confident, and very often wrong. It's a powerful combination.",
+     "who": "arrow"
+    }
+   ]
+  },
+  {
+   "id": "audit",
+   "title": "The audit",
+   "short": "Mass audit",
+   "card": true,
+   "start": 224.823,
+   "end": 321.911,
+   "lines": [
+    {
+     "id": "round",
+     "start": 226.623,
+     "end": 230.1,
+     "cap": "**Narrator:** Round three. Every dish must now pass... the **audit**.",
+     "who": "narr"
+    },
+    {
+     "id": "hi",
+     "start": 230.82,
+     "end": 235.279,
+     "cap": "**Madam Mass:** Madam Mass. Auditor. I weigh everything going in, and everything coming out.",
+     "who": "mass"
+    },
+    {
+     "id": "rule",
+     "start": 235.899,
+     "end": 242.683,
+     "cap": "**Madam Mass:** Atoms are only **rearranged**: none made, none destroyed. So the mass of the **products** equals the mass of the **reactants**.",
+     "who": "mass"
+    },
+    {
+     "id": "law",
+     "start": 243.003,
+     "end": 245.776,
+     "cap": "**Narrator:** The **law of conservation of mass**.",
+     "who": "narr"
+    },
+    {
+     "id": "motto",
+     "start": 246.296,
+     "end": 248.771,
+     "cap": "**Madam Mass:** Atoms can't hide, and atoms can't die.",
+     "who": "mass"
+    },
+    {
+     "id": "heavier",
+     "start": 249.591,
+     "end": 253.409,
+     "cap": "**Kavya:** Um. My magnesium got HEAVIER when I burned it. Did I make atoms?",
+     "who": "kavya"
+    },
+    {
+     "id": "no",
+     "start": 254.129,
+     "end": 254.983,
+     "cap": "**Madam Mass:** No.",
+     "who": "mass"
+    },
+    {
+     "id": "joined",
+     "start": 255.803,
+     "end": 258.235,
+     "cap": "**Olly:** That was ME! I came in from the air, and joined on!",
+     "who": "olly"
+    },
+    {
+     "id": "fizz",
+     "start": 258.555,
+     "end": 264.741,
+     "cap": "**Narrator:** Now the opposite. Marble chips fizz in acid in an open flask, and the reading goes **down**.",
+     "who": "narr"
+    },
+    {
+     "id": "escaped",
+     "start": 265.061,
+     "end": 270.544,
+     "cap": "**Madam Mass:** Carbon dioxide gas **escaped** into the room. Nobody leaves my kitchen without signing out.",
+     "who": "mass"
+    },
+    {
+     "id": "sealed",
+     "start": 271.364,
+     "end": 276.441,
+     "cap": "**Madam Mass:** In a **sealed** flask, nothing gets in or out, and the total mass stays **exactly the same**.",
+     "who": "mass"
+    },
+    {
+     "id": "thmass",
+     "start": 277.061,
+     "end": 282.693,
+     "cap": "**Madam Mass:** Twenty-three years. Same mass in, same mass out. I have never been surprised. I would quite like to be.",
+     "who": "mass"
+    },
+    {
+     "id": "balanced",
+     "start": 283.713,
+     "end": 290.007,
+     "cap": "**Narrator:** So a symbol equation must be **balanced**: the same number of each type of atom on both sides.",
+     "who": "narr"
+    },
+    {
+     "id": "hydrogen",
+     "start": 290.327,
+     "end": 294.977,
+     "cap": "**Olly:** Next! Hydrogen, cooked with me! **H₂ + O₂ → H₂O**!",
+     "who": "olly"
+    },
+    {
+     "id": "count",
+     "start": 295.297,
+     "end": 298.775,
+     "cap": "**Madam Mass:** Oxygen atoms: two on the left. One on the right. Unbalanced.",
+     "who": "mass"
+    },
+    {
+     "id": "cheat",
+     "start": 299.395,
+     "end": 301.635,
+     "cap": "**Olly:** Easy! Just make the water **H₂O₂**!",
+     "who": "olly"
+    },
+    {
+     "id": "bleach",
+     "start": 302.355,
+     "end": 308.221,
+     "cap": "**Arrow:** That's **hydrogen peroxide**. You've made bleach. **Never change a subscript**. Only put big numbers in front.",
+     "who": "arrow"
+    },
+    {
+     "id": "fix",
+     "start": 308.941,
+     "end": 316.579,
+     "cap": "**Arrow:** A **2** in front of the water fixes the oxygen. Then a **2** in front of the hydrogen: **2H₂ + O₂ → 2H₂O**.",
+     "who": "arrow"
+    },
+    {
+     "id": "approved",
+     "start": 316.899,
+     "end": 320.611,
+     "cap": "**Madam Mass:** Four hydrogen, two oxygen, each side. **Balanced**. Approved.",
+     "who": "mass"
+    }
+   ]
+  },
+  {
+   "id": "heat",
+   "title": "The heat round",
+   "short": "Heat & fire",
+   "card": true,
+   "start": 321.911,
+   "end": 412.508,
+   "lines": [
+    {
+     "id": "round",
+     "start": 323.711,
+     "end": 328.468,
+     "cap": "**Narrator:** Round four: heat. Reactions also **give out**, or **take in**, energy.",
+     "who": "narr"
+    },
+    {
+     "id": "exo",
+     "start": 328.788,
+     "end": 335.209,
+     "cap": "**Arrow:** An **exothermic** reaction **gives out** heat, so the surroundings get **hotter**: burning, neutralisation, hand warmers.",
+     "who": "arrow"
+    },
+    {
+     "id": "warmer",
+     "start": 335.529,
+     "end": 341.311,
+     "cap": "**Ferris:** Some hand warmers are just iron rusting, really fast. My life, on fast-forward.",
+     "who": "ferris"
+    },
+    {
+     "id": "exit",
+     "start": 342.131,
+     "end": 345.715,
+     "cap": "**Arrow:** **Exo** sounds like **exit**: energy exits, so it gets warmer.",
+     "who": "arrow"
+    },
+    {
+     "id": "endo",
+     "start": 346.035,
+     "end": 351.539,
+     "cap": "**Arrow:** An **endothermic** reaction **takes in** heat, so the surroundings get **colder**. **Endo** sounds like **enter**.",
+     "who": "arrow"
+    },
+    {
+     "id": "pack",
+     "start": 352.059,
+     "end": 354.896,
+     "cap": "**Kavya:** So my cold pack is pushing cold INTO my hand?",
+     "who": "kavya"
+    },
+    {
+     "id": "nocold",
+     "start": 355.716,
+     "end": 359.812,
+     "cap": "**Arrow:** No. **Heat** flows **out of your hand**, into the reaction. That's why it feels cold.",
+     "who": "arrow"
+    },
+    {
+     "id": "main",
+     "start": 360.432,
+     "end": 365.957,
+     "cap": "**Narrator:** The main event: **combustion**. A **fuel** burns in oxygen, releasing energy.",
+     "who": "narr"
+    },
+    {
+     "id": "methane",
+     "start": 366.277,
+     "end": 374.555,
+     "cap": "**Olly:** Methane, from the gas cooker! Plenty of me: **complete combustion**! **Methane + oxygen → carbon dioxide + water**!",
+     "who": "olly"
+    },
+    {
+     "id": "blue",
+     "start": 374.875,
+     "end": 377.221,
+     "cap": "**Arrow:** A clean **blue flame**. The **most energy**.",
+     "who": "arrow"
+    },
+    {
+     "id": "limited",
+     "start": 377.841,
+     "end": 386.908,
+     "cap": "**Narrator:** With **limited** oxygen: **incomplete combustion**. A smoky **yellow flame**, **less energy**, black **soot**, and a guest nobody invited.",
+     "who": "narr"
+    },
+    {
+     "id": "monty",
+     "start": 387.728,
+     "end": 392.357,
+     "cap": "**Monty:** Heh. Monty. **Carbon monoxide**. You can't see me. You can't smell me.",
+     "who": "monty"
+    },
+    {
+     "id": "toxic",
+     "start": 393.077,
+     "end": 396.512,
+     "cap": "**Arrow:** Monty is **toxic**. He stops your blood carrying oxygen.",
+     "who": "arrow"
+    },
+    {
+     "id": "alarm",
+     "start": 397.132,
+     "end": 402.615,
+     "cap": "**Monty:** Nobody can catch me. Except... that **carbon monoxide alarm**. I hate that alarm.",
+     "who": "monty"
+    },
+    {
+     "id": "bunsen",
+     "start": 403.435,
+     "end": 407.445,
+     "cap": "**Kavya:** Oh! So that's why my Bunsen flame is yellow with the air hole closed...",
+     "who": "kavya"
+    },
+    {
+     "id": "open",
+     "start": 407.965,
+     "end": 411.208,
+     "cap": "**Narrator:** ...and **blue** with it open. More oxygen mixes in.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "ferris",
+   "title": "Ferris and the reaction families",
+   "short": "Families",
+   "card": true,
+   "start": 412.508,
+   "end": 509.951,
+   "lines": [
+    {
+     "id": "round",
+     "start": 414.308,
+     "end": 419.769,
+     "cap": "**Narrator:** Round five: reaction families. Spot the family, and you can **predict the products**.",
+     "who": "narr"
+    },
+    {
+     "id": "first",
+     "start": 420.089,
+     "end": 422.756,
+     "cap": "**Narrator:** First: Ferris. Still turning orange.",
+     "who": "narr"
+    },
+    {
+     "id": "rust",
+     "start": 423.376,
+     "end": 428.411,
+     "cap": "**Ferris:** It's called **rusting**: an **oxidation**. Oxidation means **gaining oxygen**.",
+     "who": "ferris"
+    },
+    {
+     "id": "welcome",
+     "start": 428.731,
+     "end": 429.541,
+     "cap": "**Olly:** You're welcome!",
+     "who": "olly"
+    },
+    {
+     "id": "both",
+     "start": 430.361,
+     "end": 439.193,
+     "cap": "**Ferris:** But oxygen alone can't do it. Rusting needs **oxygen AND water**: **iron + oxygen + water → hydrated iron oxide**.",
+     "who": "ferris"
+    },
+    {
+     "id": "dry",
+     "start": 439.513,
+     "end": 444.335,
+     "cap": "**Arrow:** In completely **dry air**, or in **boiled water** with the air driven out, Ferris won't rust.",
+     "who": "arrow"
+    },
+    {
+     "id": "paint",
+     "start": 444.655,
+     "end": 450.137,
+     "cap": "**Ferris:** That's why we paint bridges: to keep out oxygen and water. I'd love a coat of paint.",
+     "who": "ferris"
+    },
+    {
+     "id": "reduce",
+     "start": 450.957,
+     "end": 458.808,
+     "cap": "**Narrator:** The opposite is **reduction**: **losing oxygen**. Heat iron oxide with carbon, and the carbon takes the oxygen away.",
+     "who": "narr"
+    },
+    {
+     "id": "decomp",
+     "start": 459.128,
+     "end": 467.853,
+     "cap": "**Olly:** **Thermal decomposition**! Heat breaks **one compound** into **simpler** ones: green **copper carbonate** into black **copper oxide**, and **carbon dioxide**!",
+     "who": "olly"
+    },
+    {
+     "id": "lime",
+     "start": 468.173,
+     "end": 473.827,
+     "cap": "**Narrator:** Bubble that gas through **limewater**: it turns **milky**. The test for **carbon dioxide**.",
+     "who": "narr"
+    },
+    {
+     "id": "neutral",
+     "start": 474.447,
+     "end": 479.588,
+     "cap": "**Narrator:** **Neutralisation**: **acid + base → salt + water**.",
+     "who": "narr"
+    },
+    {
+     "id": "salt",
+     "start": 479.908,
+     "end": 487.417,
+     "cap": "**Arrow:** **A, B, S, W**. Hydrochloric acid and sodium hydroxide make **sodium chloride**, and water. Salt. On a cooking show. Finally.",
+     "who": "arrow"
+    },
+    {
+     "id": "displace",
+     "start": 488.237,
+     "end": 494.296,
+     "cap": "**Narrator:** And **displacement**: a **more reactive** metal pushes a less reactive one out of its compound.",
+     "who": "narr"
+    },
+    {
+     "id": "dip",
+     "start": 494.616,
+     "end": 500.12,
+     "cap": "**Ferris:** Put me in blue **copper sulfate**, and I push the copper out. I'm **more reactive** than copper!",
+     "who": "ferris"
+    },
+    {
+     "id": "winning",
+     "start": 500.74,
+     "end": 504.26,
+     "cap": "**Ferris:** I'm coated in copper! I'm shiny! I'm WINNING!",
+     "who": "ferris"
+    },
+    {
+     "id": "thhappy",
+     "start": 505.08,
+     "end": 508.451,
+     "cap": "**Arrow:** First time I've ever seen Ferris happy. It's unsettling.",
+     "who": "arrow"
+    }
+   ]
+  },
+  {
+   "id": "speed",
+   "title": "The speed round",
+   "short": "Speed round",
+   "card": true,
+   "start": 509.951,
+   "end": 590.704,
+   "lines": [
+    {
+     "id": "round",
+     "start": 511.751,
+     "end": 517.468,
+     "cap": "**Narrator:** The final round: speed. An explosion is over in a flash. Rusting takes years.",
+     "who": "narr"
+    },
+    {
+     "id": "rate",
+     "start": 517.788,
+     "end": 523.783,
+     "cap": "**Arrow:** The **rate** is how fast reactants turn into products. To react, particles must **collide**, with enough energy.",
+     "who": "arrow"
+    },
+    {
+     "id": "temp",
+     "start": 524.103,
+     "end": 529.863,
+     "cap": "**Narrator:** Raise the **temperature**: particles move faster, so they collide **more often**, and **harder**.",
+     "who": "narr"
+    },
+    {
+     "id": "conc",
+     "start": 530.183,
+     "end": 536.135,
+     "cap": "**Narrator:** Raise the **concentration**: more particles crammed into the same space, so **more collisions**.",
+     "who": "narr"
+    },
+    {
+     "id": "mrt",
+     "start": 536.455,
+     "end": 538.119,
+     "cap": "**Olly:** Like the MRT at rush hour!",
+     "who": "olly"
+    },
+    {
+     "id": "surface",
+     "start": 538.839,
+     "end": 544.279,
+     "cap": "**Narrator:** Increase the **surface area**: crush a lump into **powder**, and far more of it can be hit.",
+     "who": "narr"
+    },
+    {
+     "id": "cat",
+     "start": 544.599,
+     "end": 546.647,
+     "cap": "**Narrator:** And finally... a **catalyst**.",
+     "who": "narr"
+    },
+    {
+     "id": "kat",
+     "start": 547.467,
+     "end": 551.712,
+     "cap": "**Arrow:** This is Kat. She's a **catalyst**. She **speeds up** a reaction, **without being used up**.",
+     "who": "arrow"
+    },
+    {
+     "id": "route",
+     "start": 552.332,
+     "end": 557.217,
+     "cap": "**Arrow:** She gives particles an **easier route** to react, then walks off, completely unchanged.",
+     "who": "arrow"
+    },
+    {
+     "id": "more",
+     "start": 558.037,
+     "end": 559.445,
+     "cap": "**Olly:** Ooh! So she makes MORE food!",
+     "who": "olly"
+    },
+    {
+     "id": "same",
+     "start": 560.165,
+     "end": 562.896,
+     "cap": "**Arrow:** No. Same products. Same amount. Just **faster**.",
+     "who": "arrow"
+    },
+    {
+     "id": "enzymes",
+     "start": 563.716,
+     "end": 570.991,
+     "cap": "**Narrator:** Living things use catalysts called **enzymes**. **Amylase**, in saliva, speeds up the breakdown of starch.",
+     "who": "narr"
+    },
+    {
+     "id": "bread",
+     "start": 571.311,
+     "end": 576.431,
+     "cap": "**Kavya:** That's why bread tastes sweeter if you chew it for ages. I've been chewing this for three minutes.",
+     "who": "kavya"
+    },
+    {
+     "id": "car",
+     "start": 577.251,
+     "end": 585.059,
+     "cap": "**Narrator:** And a car's **catalytic converter**, with metals like **platinum**, turns carbon monoxide into **carbon dioxide**.",
+     "who": "narr"
+    },
+    {
+     "id": "boring",
+     "start": 585.379,
+     "end": 589.304,
+     "cap": "**Monty:** Carbon dioxide? Me? I'm going to be so... boring.",
+     "who": "monty"
+    }
+   ]
+  },
+  {
+   "id": "traps",
+   "title": "The judges save you some marks",
+   "short": "Exam traps",
+   "card": true,
+   "start": 590.704,
+   "end": 657.455,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 592.504,
+     "end": 596.963,
+     "cap": "**Narrator:** Before the judges decide, the cast would like to save you some marks.",
+     "who": "narr"
+    },
+    {
+     "id": "t1",
+     "start": 597.583,
+     "end": 601.081,
+     "cap": "**Arrow:** One. Equations use an **arrow**. Never an equals sign. Please.",
+     "who": "arrow"
+    },
+    {
+     "id": "t2",
+     "start": 601.701,
+     "end": 606.565,
+     "cap": "**Olly:** Two! Balance with **big numbers** in front. Never change a subscript! I learned the hard way!",
+     "who": "olly"
+    },
+    {
+     "id": "t3",
+     "start": 607.185,
+     "end": 611.367,
+     "cap": "**Madam Mass:** Three. Mass is **never destroyed**. If it seems to drop, a **gas escaped**.",
+     "who": "mass"
+    },
+    {
+     "id": "t4",
+     "start": 611.987,
+     "end": 615.933,
+     "cap": "**Ferris:** Four. Rusting needs **oxygen and water**. Not just air.",
+     "who": "ferris"
+    },
+    {
+     "id": "t5",
+     "start": 616.553,
+     "end": 623.188,
+     "cap": "**Monty:** Five. Incomplete combustion makes **carbon monoxide** and soot. Not just carbon dioxide. Write ME.",
+     "who": "monty"
+    },
+    {
+     "id": "t6",
+     "start": 623.808,
+     "end": 627.968,
+     "cap": "**Arrow:** Six. Temperature **rises**: **exothermic**. Temperature **falls**: **endothermic**.",
+     "who": "arrow"
+    },
+    {
+     "id": "winner",
+     "start": 628.588,
+     "end": 631.127,
+     "cap": "**Narrator:** And the winner of Test Tube Kitchen is...",
+     "who": "narr"
+    },
+    {
+     "id": "ferris",
+     "start": 632.147,
+     "end": 636.669,
+     "cap": "**Arrow:** Ferris. Copper, pushed out of copper sulfate. Genuinely new substances. Well done.",
+     "who": "arrow"
+    },
+    {
+     "id": "happy",
+     "start": 637.389,
+     "end": 640.376,
+     "cap": "**Ferris:** I won? I'm so happy, I could rust.",
+     "who": "ferris"
+    },
+    {
+     "id": "return",
+     "start": 641.396,
+     "end": 643.849,
+     "cap": "**Narrator:** Test Tube Kitchen will return.",
+     "who": "narr"
+    },
+    {
+     "id": "tired",
+     "start": 645.069,
+     "end": 648.035,
+     "cap": "**Arrow:** Kat. Twelve reactions today. You must be exhausted.",
+     "who": "arrow"
+    },
+    {
+     "id": "weigh",
+     "start": 649.255,
+     "end": 652.604,
+     "cap": "**Madam Mass:** Five point zero zero grams. Same as this morning.",
+     "who": "mass"
+    },
+    {
+     "id": "again",
+     "start": 653.624,
+     "end": 654.755,
+     "cap": "**Kat:** ...Again.",
+     "who": "kat"
+    }
+   ]
+  }
+ ],
+ "total": 657.455
+}

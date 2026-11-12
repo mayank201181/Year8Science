@@ -1,0 +1,243 @@
+"""BLOCK 118, episode 5 ("Mind the Gap"): a mockumentary sitcom that teaches The Periodic Table.
+
+An original comedy. Kavya (12) is cramming for tomorrow's test in front of the periodic-table
+poster on her bedroom wall. Look closely and the poster is a block of flats: one element per flat,
+groups are the stacks (columns), periods are the floors (rows, and floor 1 is at the top).
+A documentary crew follows Silas, the tired silicon caretaker who lives on the staircase between
+the metals and the non-metals, and his residents: Sonny (sodium, one electron to give away),
+Chloe (chlorine, needs just one), Helena (helium, the penthouse; "No thank you, darling, I'm full"),
+Harold (hydrogen, flat 1, nobody's family), Gemma (germanium, who moved into Mendeleev's empty flat)
+and Ah Gong (argon, on a plastic stool, has not reacted to anything since 1894).
+
+Every line has a speaker (`who`, a key of CAST); make_audio.py voices each speaker differently.
+Captions show the speaker's name. `pause` adds silence after a line (comic timing).
+Content follows lib/topics/periodic-table.ts and lessons/periodic-table/script.py.
+Respellings in `say` (checked with the Kokoro phonemizer): "Sighlas" (Silas), "bro-meen" (bromine),
+"Mendelayev" (Mendeleev), symbols read as letters ("N-A", "C-L two").
+"""
+
+META = {
+    "name": "Block 118",
+    "kicker": "Claude Sitcom · Ep 5 · The Periodic Table",
+    "dek": "A mockumentary about the 118 residents of one very strangely numbered block of flats. {chapters} scenes.",
+    "gap": 0.32,          # shorter gaps between lines than the lessons: dialogue moves fast
+    "unit": "Scene",
+    "lab": "periodic-table",
+    "kit": "sitcom",
+    "title": "Claude Sitcom Ep 5: Block 118 (The Periodic Table)",
+    "h1": "Block 118",
+}
+
+# voice, speed, caption name
+CAST = {
+    "narr":   {"voice": "bm_george",  "speed": 0.96, "name": "Narrator"},
+    "kavya":  {"voice": "af_sky",     "speed": 1.02, "name": "Kavya"},
+    "silas":  {"voice": "am_michael", "speed": 0.95, "name": "Silas"},
+    "sonny":  {"voice": "am_puck",    "speed": 1.12, "name": "Sonny"},
+    "chloe":  {"voice": "af_bella",   "speed": 1.08, "name": "Chloe"},
+    "helena": {"voice": "bf_emma",    "speed": 0.93, "name": "Helena"},
+    "harold": {"voice": "bm_lewis",   "speed": 0.88, "name": "Harold"},
+    "gemma":  {"voice": "af_nova",    "speed": 1.04, "name": "Gemma"},
+    "ahgong": {"voice": "am_santa",   "speed": 0.85, "name": "Ah Gong"},
+}
+
+
+def L(id, who, text, pause=0.0, say=None):
+    line = {"id": id, "who": who, "cap": f"**{CAST[who]['name']}:** {text}", "pause": pause}
+    line["say"] = say if say else text.replace("**", "")
+    return line
+
+
+CHAPTERS = [
+    {
+        "id": "cold", "title": "Cold open", "short": "Cold open", "card": False,
+        "lines": [
+            L("kavya", "narr", "This is Kavya. She is twelve. Tomorrow, she has a Science test on the periodic table.", 0.3),
+            L("late", "narr", "It is eleven p.m. She has been staring at this poster for forty minutes.", 0.3),
+            L("letters", "kavya", "Sodium is **Na**. Potassium is **K**. Who is doing the spelling here?", 0.6,
+              say="Sodium is N-A. Potassium is K. Who is doing the spelling here?"),
+            L("poster", "narr", "But this documentary is not about Kavya. It is about the poster."),
+            L("block", "narr", "Look closely. It is not a table. It is a block of flats. One hundred and eighteen flats, one **element** in each.", 0.6),
+            L("hi", "silas", "Oh. The film crew. Hi. Silas. **Silicon**. I'm the caretaker.", 0.3,
+              say="Oh. The film crew. Hi. Sighlas. Silicon. I'm the caretaker."),
+            L("water", "sonny", "SILAS! There's a cup of WATER on the void deck! Can I touch it?!",
+              say="SIGHLAS! There's a cup of WATER on the void deck! Can I touch it?!"),
+            L("no", "silas", "No, Sonny.", 0.6),
+            L("thsonny", "silas", "That was sodium. You'll meet him. Sorry in advance.", 0.6),
+            L("title", "narr", "Block 118. Episode five: Mind the Gap.", 1.2,
+              say="Block, one one eight. Episode five. Mind, the gap."),
+        ],
+    },
+    {
+        "id": "block", "title": "Welcome to Block 118", "short": "The block",
+        "lines": [
+            L("element", "silas", "Every resident here is an **element**: made of only **one kind of atom**. No chemical reaction can break it down into anything simpler.", 0.3),
+            L("order", "narr", "Flats are numbered by **atomic number**, or **proton number**: the number of protons in each atom."),
+            L("harold", "harold", "Flat one. **Hydrogen**. One proton. Harold.", 0.6),
+            L("helena", "helena", "Flat two. **Helium**. Two protons. No photographs, darling.", 0.5),
+            L("mass", "kavya", "Hang on. Isn't it in order of how **heavy** they are?", 0.4),
+            L("notmass", "silas", "Everyone thinks that. It's **atomic number**, not mass. Go by mass and some land in the wrong family."),
+            L("letterbox", "narr", "Every letterbox shows the element's **symbol**, **name**, **atomic number** and **mass number**."),
+            L("sodium", "silas", "Sodium's letterbox. Symbol **Na**, from his Latin name, natrium. Atomic number **11**. Mass number **23**.", 0.3,
+              say="Sodium's letterbox. Symbol, N-A, from his Latin name, natrium. Atomic number, eleven. Mass number, twenty-three."),
+            L("group", "narr", "A column of flats is a **group**, like a stack in an HDB block. A row is a **period**, like a floor."),
+            L("thtop", "silas", "Period one is the top row. So the first floor is at the top. The building was designed by chemists.", 0.7),
+        ],
+    },
+    {
+        "id": "atom", "title": "The flat inspection", "short": "Inside an atom",
+        "lines": [
+            L("inspect", "narr", "Annual flat inspection. Flat eleven: sodium.", 0.2),
+            L("sonny", "sonny", "SILAS, my man! Sonny! **Sodium**! Come in, come in! Mind the oil!", 0.3,
+              say="SIGHLAS, my man! Sonny! Sodium! Come in, come in! Mind the oil!"),
+            L("nucleus", "narr", "Every atom is like a flat. In the middle: a tiny **nucleus**, of **protons** and **neutrons**."),
+            L("charges", "silas", "**Protons** are **positive**. **Neutrons** have **no charge**. They just sit there, adding weight.", 0.3),
+            L("electrons", "narr", "Around it, tiny **negative** **electrons** move in **shells**."),
+            L("atomicno", "silas", "**Atomic number**: the number of **protons**. It decides which element you are."),
+            L("massno", "silas", "**Mass number** is **protons plus neutrons**. Electrons are too light to count."),
+            L("guess", "kavya", "So he has twenty-three neutrons?", 0.6),
+            L("subtract", "silas", "You **subtract**. 23 − 11 = **12 neutrons**.", 0.3,
+              say="You subtract. Twenty-three minus eleven. Twelve neutrons."),
+            L("neutral", "sonny", "Eleven electrons too! Same as my protons! The charges cancel!", 0.3),
+            L("carbon", "narr", "Flat six: carbon-12 and carbon-14. Both: **6 protons**. But **6 neutrons** and **8 neutrons**.",
+              say="Flat six: carbon twelve and carbon fourteen. Both: six protons. But six neutrons, and eight neutrons."),
+            L("isotopes", "silas", "Same element, different numbers of neutrons: **isotopes**. Same flat, same reactions.", 0.3),
+            L("shells", "silas", "Electrons fill shells from the inside out: up to **2** in the first, **8** in the second, **8** in the third.",
+              say="Electrons fill shells from the inside out: up to two in the first, eight in the second, eight in the third."),
+            L("mine", "sonny", "So I'm **2, 8, 1**! And that ONE outer electron? Up for grabs!",
+              say="So I'm two, eight, one! And that ONE outer electron? Up for grabs!"),
+            L("flyer", "sonny", "Free electron! Free electron! Anyone? Free electron!", 0.6),
+            L("thflyer", "silas", "He's handed it out since the day he moved in. Like the flyer guy at the MRT.", 0.6),
+        ],
+    },
+    {
+        "id": "stacks", "title": "Same stack, same layout", "short": "Groups & periods",
+        "lines": [
+            L("same", "silas", "Same stack, same layout: everyone in a **group** has the **same number of outer electrons**."),
+            L("family", "sonny", "Lithium upstairs, me, Potassium downstairs! One outer electron each! FAMILY!", 0.3),
+            L("similar", "narr", "**Outer electrons** decide how an atom reacts. So a group shares **similar chemical properties**."),
+            L("number", "silas", "**Group number** = number of outer electrons. Group 1: one. Group 7: seven.",
+              say="The group number is the number of outer electrons. Group one: one. Group seven: seven."),
+            L("harold", "harold", "One outer electron, like them. But I'm a gas. They never invite me.", 0.6),
+            L("thharold", "silas", "Harold is the most common element in the universe. And somehow, still the loneliest.", 0.7),
+            L("shellsrow", "narr", "A **period** tells you the **number of shells**."),
+            L("chloe", "chloe", "Hi! Chloe! **Chlorine**! I'm **2, 8, 7**! Seven outer electrons, so **Group 7**! Three shells, so **Period 3**!",
+              say="Hi! Chloe! Chlorine! I'm two, eight, seven! Seven outer electrons, so Group seven! Three shells, so Period three!"),
+            L("one", "chloe", "I'm ONE electron away from a full outer shell. ONE! Anybody?", 0.2),
+            L("me", "sonny", "Me! Me! I have one!", 0.2),
+            L("notnow", "silas", "Not in this scene.", 0.6),
+            L("metals", "narr", "**Metals** live on the **left** and in the **centre**. **Non-metals**, on the **right**."),
+            L("stairs", "silas", "Between them, a zig-zag line: the **staircase**. That's where I live.", 0.3),
+            L("thstairs", "silas", "I'm a **metalloid**. A bit of both. I get complaints from both sides.", 0.6),
+            L("shiny", "narr", "Metals are **shiny**, **good conductors**, **malleable** and **ductile**. Most are solids with **high melting points**."),
+            L("dull", "narr", "Non-metals are often **dull** and **brittle**, many are **gases**, and they're **poor conductors**."),
+            L("graphite", "silas", "Except **graphite**, a form of carbon: a non-metal that **conducts electricity**. There's always one.", 0.5),
+        ],
+    },
+    {
+        "id": "alkali", "title": "Free electron, anyone?", "short": "Group 1",
+        "lines": [
+            L("meet", "narr", "Group 1: the **alkali metals**. **Lithium**, **sodium** and **potassium**.",
+              say="Group one: the alkali metals. Lithium, sodium and potassium."),
+            L("oil", "silas", "The oil? Alkali metals react with the **oxygen** and **water** in air. So they're **stored under oil**."),
+            L("soft", "sonny", "And I'm so **soft**, you can cut me with a knife! Go on!", 0.3),
+            L("cut", "silas", "I'm not cutting you, Sonny.", 0.6),
+            L("float", "narr", "They're so light, they even **float** on water."),
+            L("water", "sonny", "Did somebody say... WATER?!", 0.4),
+            L("li", "narr", "**Lithium** fizzes gently.", 0.8),
+            L("na", "narr", "**Sodium** melts into a shiny ball and whizzes across the surface.", 0.1),
+            L("whee", "sonny", "WHEEEEEEE!", 0.6, say="Wheeeeeeeee!"),
+            L("k", "narr", "**Potassium** reacts so fast, the hydrogen catches fire, with a **lilac** flame.", 1.0),
+            L("hydrogen", "harold", "And the gas that comes off? **Hydrogen**. Me. Nobody ever says thank you.", 0.5),
+            L("equation", "silas", "**Sodium + water → sodium hydroxide + hydrogen**. Sodium hydroxide makes the water **alkaline**.",
+              say="Sodium plus water gives sodium hydroxide plus hydrogen. Sodium hydroxide makes the water alkaline."),
+            L("trend", "narr", "So reactivity **increases** as you go **down** Group 1.", say="So reactivity increases as you go down Group one."),
+            L("why", "kavya", "Why would the big ones be MORE dramatic?", 0.3),
+            L("bigger", "silas", "Going down, atoms get **bigger**, so the outer electron is **further from the nucleus**."),
+            L("shield", "silas", "And the inner shells get in the way: **shielding**. The nucleus can barely hold on."),
+            L("lost", "sonny", "So the outer electron is **lost more easily**! Potassium throws his at people!", 0.4),
+            L("group2", "narr", "Next door, **Group 2**, like magnesium and calcium: **two** outer electrons. Reactive, but **less** than Group 1.", 0.3,
+              say="Next door, Group two, like magnesium and calcium: two outer electrons. Reactive, but less than Group one."),
+        ],
+    },
+    {
+        "id": "halogens", "title": "Chloe just needs one", "short": "Group 7",
+        "lines": [
+            L("meet", "narr", "Group 7: the **halogens**. Reactive **non-metals**, with **seven** outer electrons.",
+              say="Group seven: the halogens. Reactive non-metals, with seven outer electrons."),
+            L("pair", "chloe", "And we go everywhere in pairs! Chlorine gas is **Cl₂**. This is my other half. She's also me.", 0.4,
+              say="And we go everywhere in pairs! Chlorine gas is C-L two. This is my other half. She's also me."),
+            L("colours", "narr", "**Fluorine**: **pale yellow gas**. **Chlorine**: **green-yellow gas**. **Bromine**: **red-brown liquid**. **Iodine**: **dark grey solid**, **purple** vapour.",
+              say="Fluorine: pale yellow gas. Chlorine: green-yellow gas. Bro-meen: red-brown liquid. Iodine: dark grey solid, purple vapour."),
+            L("state", "silas", "Gas, gas, liquid, solid: melting points **rise** going down."),
+            L("twist", "narr", "Now the twist. Reactivity **decreases** down Group 7. The **opposite** of Group 1.",
+              say="Now the twist. Reactivity decreases down Group seven. The opposite of Group one."),
+            L("auntie", "chloe", "My auntie, Fluorine, upstairs, is the most reactive. We don't visit.", 0.5),
+            L("trap", "kavya", "Wait. Group 1 gets MORE reactive going down, and Group 7 gets LESS?", 0.3,
+              say="Wait. Group one gets MORE reactive going down, and Group seven gets LESS?"),
+            L("gain", "silas", "Halogens react by **gaining** an electron. Lower down, it lands **further** from the nucleus, behind more **shielding**: a **weaker grip**."),
+            L("grip", "silas", "Group 1 **loses** an electron: a weak grip helps. Group 7 **gains** one: a weak grip hurts.",
+              say="Group one loses an electron: a weak grip helps. Group seven gains one: a weak grip hurts."),
+            L("partners", "narr", "Meanwhile: Sonny and Bromine, project partners. Together, **sodium bromide**.",
+              say="Meanwhile: Sonny and Bro-meen, project partners. Together, sodium bromide."),
+            L("move", "chloe", "Excuse me, Bromine. I'm **more reactive** than you. Move.", 0.5, say="Excuse me, Bro-meen. I'm more reactive than you. Move."),
+            L("displace", "narr", "A more reactive halogen **displaces** a less reactive one from its compound. The solution turns **orange**.",
+              say="A more reactive halogen displaces a less reactive one from its compound. The solution turns orange."),
+            L("equation", "silas", "**Chlorine + sodium bromide → sodium chloride + bromine**.", 0.3,
+              say="Chlorine plus sodium bromide gives sodium chloride plus bro-meen."),
+            L("finally", "sonny", "Chloe! You need one electron! I have ONE electron!"),
+            L("yes", "chloe", "SONNY!", 0.3),
+            L("salt", "narr", "Sodium gives chlorine its outer electron. Both now have **full outer shells**. Together: **sodium chloride**.", 0.2),
+            L("chicken", "kavya", "Wait. Sodium chloride is **salt**. That's on my chicken rice.", 0.4),
+            L("thsalt", "silas", "An exploding metal plus a poisonous gas equals your lunch. Chemistry is weird.", 0.7),
+        ],
+    },
+    {
+        "id": "penthouse", "title": "The penthouse and the empty flat", "short": "Group 0 & gaps",
+        "lines": [
+            L("top", "narr", "Top floor, far right. The penthouse. **Group 0**: the **noble gases**.",
+              say="Top floor, far right. The penthouse. Group zero: the noble gases."),
+            L("full", "helena", "We don't react, darling. My outer shell is **full**: two electrons. Neon is **2, 8**. Argon, **2, 8, 8**.", 0.3,
+              say="We don't react, darling. My outer shell is full: two electrons. Neon is two, eight. Argon, two, eight, eight."),
+            L("stable", "narr", "A full outer shell is very **stable**: nothing to gain, lose or share. So they're **unreactive**, or **inert**."),
+            L("offer", "sonny", "Hey, Helena! Free electron?", 0.3),
+            L("fullup", "helena", "No thank you, darling. I'm **full**.", 0.7),
+            L("empty", "kavya", "So noble gases don't react because their outer shell is **empty**?", 0.3),
+            L("gasp", "helena", "EMPTY?! **Full**, darling. FULL.", 0.6),
+            L("uses", "helena", "And terribly useful. Helium is lighter than air and can't burn: **balloons**. It also chills **MRI scanners**."),
+            L("neon", "narr", "**Neon** glows **orange-red** in signs. **Argon** fills light bulbs, and protects hot metal in **welding**."),
+            L("thahgong", "silas", "That's Ah Gong. Argon. On that stool since eighteen ninety-four. Never reacted to anything.", 0.8),
+            L("plans", "narr", "In 1869, the Russian chemist **Dmitri Mendeleev** drew up the plans for this block.",
+              say="In eighteen sixty-nine, the Russian chemist Dmitri Mendelayev drew up the plans for this block."),
+            L("gaps", "narr", "He grouped elements by their properties, and where the pattern broke, he **left gaps**.", 0.3),
+            L("empties", "silas", "Empty flats, for elements not yet found. And he **predicted** what they'd be like."),
+            L("thlisting", "silas", "The flat below mine sat empty for years. The listing: grey, atomic mass about 72.", 0.3,
+              say="The flat below mine sat empty for years. The listing: grey, atomic mass about seventy-two."),
+            L("gemma", "gemma", "Hi! Gemma! **Germanium**! Grey, mass 72.6! I'm here about the flat?", 0.4,
+              say="Hi! Gemma! Germanium! Grey, mass seventy-two point six! I'm here about the flat?"),
+            L("match", "narr", "Germanium turned up in 1886, just as predicted: **evidence** of a **real pattern** in nature.",
+              say="Germanium turned up in eighteen eighty-six, just as predicted: evidence of a real pattern in nature."),
+            L("mind", "silas", "Please mind the gap.", 0.9),
+        ],
+    },
+    {
+        "id": "traps", "title": "The residents save you some marks", "short": "Exam traps",
+        "lines": [
+            L("intro", "narr", "Before the credits, the residents would like to save you some marks.", 0.3),
+            L("t1", "silas", "One. The table is in order of **atomic number**, the number of protons. **Not** mass.", 0.3),
+            L("t2", "gemma", "Two. Atomic number is the **smaller** number. For neutrons, do **mass number minus atomic number**.", 0.3),
+            L("t3", "kavya", "Three. **Groups** are **columns**, going down. **Periods** are **rows**, going across. I've GOT this.", 0.3),
+            L("t4", "sonny", "Four! Group 1 metals are **super reactive**, and reactivity **increases** down Group 1!", 0.2,
+              say="Four! Group one metals are super reactive, and reactivity increases down Group one!"),
+            L("t5", "chloe", "Five! But it **decreases** down Group 7! Opposite! Don't mix us up!", 0.3,
+              say="Five! But it decreases down Group seven! Opposite! Don't mix us up!"),
+            L("t6", "helena", "Six. Noble gases are unreactive because their outer shell is **full**. Not empty. **Full**, darling.", 0.3),
+            L("t7", "harold", "Seven. Group 1 metal plus water gives off **hydrogen**. Me. Please, remember me.", 0.8,
+              say="Seven. Group one metal plus water gives off hydrogen. Me. Please, remember me."),
+            L("return", "narr", "Block 118 will return.", 1.0, say="Block one one eight will return."),
+            L("ahgong", "silas", "So, Ah Gong. Anything you'd like to add?", 1.4),
+            L("noreaction", "ahgong", "...No reaction.", 1.0, say="No reaction."),
+            L("since", "silas", "That's the first thing he's said since eighteen ninety-four.", 1.5),
+        ],
+    },
+]

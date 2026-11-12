@@ -37,7 +37,14 @@ const LAB_TOPICS: Record<string, string> = {
   "magnetism-electricity": "magnetism",
 };
 
-type CompanionKind = "sitcom" | "masterclass" | "video" | "lab";
+type CompanionKind = "claude" | "sitcom" | "masterclass" | "video" | "lab";
+
+/** Topics with a Claude Sitcom episode (public/lessons/sitcom-<topic>.html, built from lessons/sitcom-<topic>). */
+const CLAUDE_SITCOMS = new Set<string>(["photosynthesis", "respiration", "breathing", "digestion", "periodic-table", "elements-compounds-mixtures", "chemical-reactions", "acids-metals", "heat", "light", "sound", "magnetism-electricity", "forces", "energy"]);
+/** Stars for a Claude Sitcom are kept apart from the animated lesson's (both use ids like "cold" or "energy"). */
+const claudeSitcomId = (topicId: string) => `claude-sitcom-${topicId}`;
+/** Companions that post y8-lesson messages (height, chapter-done, complete). */
+const isPlayer = (kind: CompanionKind | null) => kind === "masterclass" || kind === "sitcom" || kind === "claude";
 
 function TopicCompanions({ topic }: { topic: Topic }) {
   const [active, setActive] = useState<CompanionKind | null>(null);
@@ -47,7 +54,8 @@ function TopicCompanions({ topic }: { topic: Topic }) {
   const labTopic = LAB_TOPICS[topic.id];
 
   useEffect(() => {
-    if (active !== "masterclass" && active !== "sitcom") return;
+    if (!isPlayer(active)) return;
+    const starId = active === "claude" ? claudeSitcomId(topic.id) : topic.id;
     function onCompanionMessage(e: MessageEvent) {
       if (e.origin !== window.location.origin || !companionFrame.current || e.source !== companionFrame.current.contentWindow) return;
       const m = e.data as LessonMessage;
@@ -55,9 +63,9 @@ function TopicCompanions({ topic }: { topic: Topic }) {
       if (m.type === "height" && typeof m.value === "number" && m.value > 320 && m.value < 12000) {
         setCompanionHeight(Math.ceil(m.value));
       } else if (m.type === "chapter-done" && typeof m.chapter === "string") {
-        award(lessonChapterKey(topic.id, m.chapter), CHAPTER_STARS);
+        award(lessonChapterKey(starId, m.chapter), CHAPTER_STARS);
       } else if (m.type === "complete") {
-        award(`lesson:${topic.id}`, LESSON_STARS);
+        award(`lesson:${starId}`, LESSON_STARS);
       }
     }
     window.addEventListener("message", onCompanionMessage);
@@ -70,12 +78,21 @@ function TopicCompanions({ topic }: { topic: Topic }) {
     CompanionKind,
     { title: string; badge?: string; description: string; action: string; embedHref: string; newTabHref: string }
   > = {
-    sitcom: {
-      title: "Cartoon Sitcom Episode",
-      badge: "🍿 TV Series",
+    claude: {
+      title: "Claude Sitcom",
+      badge: "🎬 By Claude",
       description:
-        "Funny 3-character animated TV episode (Zara, Coach Mito & Guest Stars) with word-synced voices, live lab demos, and Cap-or-Fact roasts!",
-      action: "Watch Sitcom Episode",
+        "A 10-minute mockumentary comedy made by Claude: sarcastic characters, Kavya (12) and the real science of this topic, with every key idea and exam trap. Good with dinner.",
+      action: "Watch Claude Sitcom",
+      embedHref: `/lessons/sitcom-${encodeURIComponent(topic.id)}.html?embed=1`,
+      newTabHref: `/lessons/sitcom-${encodeURIComponent(topic.id)}.html`,
+    },
+    sitcom: {
+      title: "Gemini Sitcom",
+      badge: "🍿 By Gemini",
+      description:
+        "Funny 3-character animated TV episode made by Gemini (Zara, Coach Mito & Guest Stars) with word-synced voices, live lab demos, and Cap-or-Fact roasts!",
+      action: "Watch Gemini Sitcom",
       embedHref: `/sitcom/${encodeURIComponent(topic.id)}.html?embed=1`,
       newTabHref: `/sitcom/${encodeURIComponent(topic.id)}.html`,
     },
@@ -104,12 +121,15 @@ function TopicCompanions({ topic }: { topic: Topic }) {
     },
   };
 
+  const hasClaude = CLAUDE_SITCOMS.has(topic.id);
+  const kinds: CompanionKind[] = hasClaude ? ["claude", "sitcom", "masterclass", "video", "lab"] : ["sitcom", "masterclass", "video", "lab"];
+
   return (
     <section aria-label={`More ways to learn ${topic.title}`} className="space-y-4">
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {(["sitcom", "masterclass", "video", "lab"] as const).map((kind) => {
+      <div className={`grid gap-3 sm:grid-cols-2 ${hasClaude ? "lg:grid-cols-3 xl:grid-cols-5" : "lg:grid-cols-4"}`}>
+        {kinds.map((kind) => {
           const resource = resources[kind];
-          const isMasterclass = kind === "masterclass" || kind === "sitcom";
+          const isMasterclass = isPlayer(kind);
           return (
             <div
               key={kind}
@@ -158,7 +178,7 @@ function TopicCompanions({ topic }: { topic: Topic }) {
                   rel="noopener noreferrer"
                   className="text-center text-xs font-semibold text-slate-500 hover:text-emerald-700"
                 >
-                  Browse all 14 Season 1 Sitcom Episodes ↗
+                  Browse all 14 Gemini Sitcom Episodes ↗
                 </a>
               )}
               {kind === "masterclass" && (
@@ -193,13 +213,13 @@ function TopicCompanions({ topic }: { topic: Topic }) {
             </button>
           </div>
           <iframe
-            ref={active === "masterclass" || active === "sitcom" ? companionFrame : undefined}
+            ref={isPlayer(active) ? companionFrame : undefined}
             key={`${topic.id}:${active}`}
             src={resources[active].embedHref}
             title={`${topic.title}: ${resources[active].title}`}
             className="block min-h-[620px] w-full border-0"
             style={
-              active === "masterclass" || active === "sitcom"
+              isPlayer(active)
                 ? { height: Math.max(760, companionHeight) }
                 : { height: "min(80dvh, 960px)" }
             }

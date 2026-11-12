@@ -1,0 +1,913 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "cold",
+   "title": "Cold open",
+   "short": "Cold open",
+   "card": false,
+   "start": 0.0,
+   "end": 51.013,
+   "lines": [
+    {
+     "id": "kavya",
+     "start": 0.6,
+     "end": 6.424,
+     "cap": "**Narrator:** This is Kavya. She is twelve. Tomorrow, she has a Science test on the periodic table.",
+     "who": "narr"
+    },
+    {
+     "id": "late",
+     "start": 7.044,
+     "end": 12.292,
+     "cap": "**Narrator:** It is eleven p.m. She has been staring at this poster for forty minutes.",
+     "who": "narr"
+    },
+    {
+     "id": "letters",
+     "start": 12.912,
+     "end": 16.773,
+     "cap": "**Kavya:** Sodium is **Na**. Potassium is **K**. Who is doing the spelling here?",
+     "who": "kavya"
+    },
+    {
+     "id": "poster",
+     "start": 17.693,
+     "end": 22.28,
+     "cap": "**Narrator:** But this documentary is not about Kavya. It is about the poster.",
+     "who": "narr"
+    },
+    {
+     "id": "block",
+     "start": 22.6,
+     "end": 30.024,
+     "cap": "**Narrator:** Look closely. It is not a table. It is a block of flats. One hundred and eighteen flats, one **element** in each.",
+     "who": "narr"
+    },
+    {
+     "id": "hi",
+     "start": 30.944,
+     "end": 34.891,
+     "cap": "**Silas:** Oh. The film crew. Hi. Silas. **Silicon**. I'm the caretaker.",
+     "who": "silas"
+    },
+    {
+     "id": "water",
+     "start": 35.511,
+     "end": 38.775,
+     "cap": "**Sonny:** SILAS! There's a cup of WATER on the void deck! Can I touch it?!",
+     "who": "sonny"
+    },
+    {
+     "id": "no",
+     "start": 39.095,
+     "end": 40.204,
+     "cap": "**Silas:** No, Sonny.",
+     "who": "silas"
+    },
+    {
+     "id": "thsonny",
+     "start": 41.124,
+     "end": 44.111,
+     "cap": "**Silas:** That was sodium. You'll meet him. Sorry in advance.",
+     "who": "silas"
+    },
+    {
+     "id": "title",
+     "start": 45.031,
+     "end": 48.913,
+     "cap": "**Narrator:** Block 118. Episode five: Mind the Gap.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "block",
+   "title": "Welcome to Block 118",
+   "short": "The block",
+   "card": true,
+   "start": 51.013,
+   "end": 118.871,
+   "lines": [
+    {
+     "id": "element",
+     "start": 52.813,
+     "end": 61.539,
+     "cap": "**Silas:** Every resident here is an **element**: made of only **one kind of atom**. No chemical reaction can break it down into anything simpler.",
+     "who": "silas"
+    },
+    {
+     "id": "order",
+     "start": 62.159,
+     "end": 68.175,
+     "cap": "**Narrator:** Flats are numbered by **atomic number**, or **proton number**: the number of protons in each atom.",
+     "who": "narr"
+    },
+    {
+     "id": "harold",
+     "start": 68.495,
+     "end": 72.143,
+     "cap": "**Harold:** Flat one. **Hydrogen**. One proton. Harold.",
+     "who": "harold"
+    },
+    {
+     "id": "helena",
+     "start": 73.063,
+     "end": 76.583,
+     "cap": "**Helena:** Flat two. **Helium**. Two protons. No photographs, darling.",
+     "who": "helena"
+    },
+    {
+     "id": "mass",
+     "start": 77.403,
+     "end": 80.112,
+     "cap": "**Kavya:** Hang on. Isn't it in order of how **heavy** they are?",
+     "who": "kavya"
+    },
+    {
+     "id": "notmass",
+     "start": 80.832,
+     "end": 87.637,
+     "cap": "**Silas:** Everyone thinks that. It's **atomic number**, not mass. Go by mass and some land in the wrong family.",
+     "who": "silas"
+    },
+    {
+     "id": "letterbox",
+     "start": 87.957,
+     "end": 93.376,
+     "cap": "**Narrator:** Every letterbox shows the element's **symbol**, **name**, **atomic number** and **mass number**.",
+     "who": "narr"
+    },
+    {
+     "id": "sodium",
+     "start": 93.696,
+     "end": 102.293,
+     "cap": "**Silas:** Sodium's letterbox. Symbol **Na**, from his Latin name, natrium. Atomic number **11**. Mass number **23**.",
+     "who": "silas"
+    },
+    {
+     "id": "group",
+     "start": 102.913,
+     "end": 109.911,
+     "cap": "**Narrator:** A column of flats is a **group**, like a stack in an HDB block. A row is a **period**, like a floor.",
+     "who": "narr"
+    },
+    {
+     "id": "thtop",
+     "start": 110.231,
+     "end": 117.271,
+     "cap": "**Silas:** Period one is the top row. So the first floor is at the top. The building was designed by chemists.",
+     "who": "silas"
+    }
+   ]
+  },
+  {
+   "id": "atom",
+   "title": "The flat inspection",
+   "short": "Inside an atom",
+   "card": true,
+   "start": 118.871,
+   "end": 205.305,
+   "lines": [
+    {
+     "id": "inspect",
+     "start": 120.671,
+     "end": 124.212,
+     "cap": "**Narrator:** Annual flat inspection. Flat eleven: sodium.",
+     "who": "narr"
+    },
+    {
+     "id": "sonny",
+     "start": 124.732,
+     "end": 128.081,
+     "cap": "**Sonny:** SILAS, my man! Sonny! **Sodium**! Come in, come in! Mind the oil!",
+     "who": "sonny"
+    },
+    {
+     "id": "nucleus",
+     "start": 128.701,
+     "end": 135.059,
+     "cap": "**Narrator:** Every atom is like a flat. In the middle: a tiny **nucleus**, of **protons** and **neutrons**.",
+     "who": "narr"
+    },
+    {
+     "id": "charges",
+     "start": 135.379,
+     "end": 141.032,
+     "cap": "**Silas:** **Protons** are **positive**. **Neutrons** have **no charge**. They just sit there, adding weight.",
+     "who": "silas"
+    },
+    {
+     "id": "electrons",
+     "start": 141.652,
+     "end": 145.129,
+     "cap": "**Narrator:** Around it, tiny **negative** **electrons** move in **shells**.",
+     "who": "narr"
+    },
+    {
+     "id": "atomicno",
+     "start": 145.449,
+     "end": 150.591,
+     "cap": "**Silas:** **Atomic number**: the number of **protons**. It decides which element you are.",
+     "who": "silas"
+    },
+    {
+     "id": "massno",
+     "start": 150.911,
+     "end": 156.201,
+     "cap": "**Silas:** **Mass number** is **protons plus neutrons**. Electrons are too light to count.",
+     "who": "silas"
+    },
+    {
+     "id": "guess",
+     "start": 156.521,
+     "end": 158.484,
+     "cap": "**Kavya:** So he has twenty-three neutrons?",
+     "who": "kavya"
+    },
+    {
+     "id": "subtract",
+     "start": 159.404,
+     "end": 163.351,
+     "cap": "**Silas:** You **subtract**. 23 − 11 = **12 neutrons**.",
+     "who": "silas"
+    },
+    {
+     "id": "neutral",
+     "start": 163.971,
+     "end": 167.917,
+     "cap": "**Sonny:** Eleven electrons too! Same as my protons! The charges cancel!",
+     "who": "sonny"
+    },
+    {
+     "id": "carbon",
+     "start": 168.537,
+     "end": 176.132,
+     "cap": "**Narrator:** Flat six: carbon-12 and carbon-14. Both: **6 protons**. But **6 neutrons** and **8 neutrons**.",
+     "who": "narr"
+    },
+    {
+     "id": "isotopes",
+     "start": 176.452,
+     "end": 182.191,
+     "cap": "**Silas:** Same element, different numbers of neutrons: **isotopes**. Same flat, same reactions.",
+     "who": "silas"
+    },
+    {
+     "id": "shells",
+     "start": 182.811,
+     "end": 190.021,
+     "cap": "**Silas:** Electrons fill shells from the inside out: up to **2** in the first, **8** in the second, **8** in the third.",
+     "who": "silas"
+    },
+    {
+     "id": "mine",
+     "start": 190.341,
+     "end": 193.989,
+     "cap": "**Sonny:** So I'm **2, 8, 1**! And that ONE outer electron? Up for grabs!",
+     "who": "sonny"
+    },
+    {
+     "id": "flyer",
+     "start": 194.309,
+     "end": 197.488,
+     "cap": "**Sonny:** Free electron! Free electron! Anyone? Free electron!",
+     "who": "sonny"
+    },
+    {
+     "id": "thflyer",
+     "start": 198.408,
+     "end": 203.805,
+     "cap": "**Silas:** He's handed it out since the day he moved in. Like the flyer guy at the MRT.",
+     "who": "silas"
+    }
+   ]
+  },
+  {
+   "id": "stacks",
+   "title": "Same stack, same layout",
+   "short": "Groups & periods",
+   "card": true,
+   "start": 205.305,
+   "end": 300.048,
+   "lines": [
+    {
+     "id": "same",
+     "start": 207.105,
+     "end": 213.036,
+     "cap": "**Silas:** Same stack, same layout: everyone in a **group** has the **same number of outer electrons**.",
+     "who": "silas"
+    },
+    {
+     "id": "family",
+     "start": 213.356,
+     "end": 218.049,
+     "cap": "**Sonny:** Lithium upstairs, me, Potassium downstairs! One outer electron each! FAMILY!",
+     "who": "sonny"
+    },
+    {
+     "id": "similar",
+     "start": 218.669,
+     "end": 224.899,
+     "cap": "**Narrator:** **Outer electrons** decide how an atom reacts. So a group shares **similar chemical properties**.",
+     "who": "narr"
+    },
+    {
+     "id": "number",
+     "start": 225.219,
+     "end": 231.512,
+     "cap": "**Silas:** **Group number** = number of outer electrons. Group 1: one. Group 7: seven.",
+     "who": "silas"
+    },
+    {
+     "id": "harold",
+     "start": 231.832,
+     "end": 236.611,
+     "cap": "**Harold:** One outer electron, like them. But I'm a gas. They never invite me.",
+     "who": "harold"
+    },
+    {
+     "id": "thharold",
+     "start": 237.531,
+     "end": 243.099,
+     "cap": "**Silas:** Harold is the most common element in the universe. And somehow, still the loneliest.",
+     "who": "silas"
+    },
+    {
+     "id": "shellsrow",
+     "start": 244.119,
+     "end": 246.807,
+     "cap": "**Narrator:** A **period** tells you the **number of shells**.",
+     "who": "narr"
+    },
+    {
+     "id": "chloe",
+     "start": 247.127,
+     "end": 254.828,
+     "cap": "**Chloe:** Hi! Chloe! **Chlorine**! I'm **2, 8, 7**! Seven outer electrons, so **Group 7**! Three shells, so **Period 3**!",
+     "who": "chloe"
+    },
+    {
+     "id": "one",
+     "start": 255.148,
+     "end": 258.988,
+     "cap": "**Chloe:** I'm ONE electron away from a full outer shell. ONE! Anybody?",
+     "who": "chloe"
+    },
+    {
+     "id": "me",
+     "start": 259.508,
+     "end": 260.596,
+     "cap": "**Sonny:** Me! Me! I have one!",
+     "who": "sonny"
+    },
+    {
+     "id": "notnow",
+     "start": 261.116,
+     "end": 262.46,
+     "cap": "**Silas:** Not in this scene.",
+     "who": "silas"
+    },
+    {
+     "id": "metals",
+     "start": 263.38,
+     "end": 268.308,
+     "cap": "**Narrator:** **Metals** live on the **left** and in the **centre**. **Non-metals**, on the **right**.",
+     "who": "narr"
+    },
+    {
+     "id": "stairs",
+     "start": 268.628,
+     "end": 272.895,
+     "cap": "**Silas:** Between them, a zig-zag line: the **staircase**. That's where I live.",
+     "who": "silas"
+    },
+    {
+     "id": "thstairs",
+     "start": 273.515,
+     "end": 277.995,
+     "cap": "**Silas:** I'm a **metalloid**. A bit of both. I get complaints from both sides.",
+     "who": "silas"
+    },
+    {
+     "id": "shiny",
+     "start": 278.915,
+     "end": 285.72,
+     "cap": "**Narrator:** Metals are **shiny**, **good conductors**, **malleable** and **ductile**. Most are solids with **high melting points**.",
+     "who": "narr"
+    },
+    {
+     "id": "dull",
+     "start": 286.04,
+     "end": 291.672,
+     "cap": "**Narrator:** Non-metals are often **dull** and **brittle**, many are **gases**, and they're **poor conductors**.",
+     "who": "narr"
+    },
+    {
+     "id": "graphite",
+     "start": 291.992,
+     "end": 298.648,
+     "cap": "**Silas:** Except **graphite**, a form of carbon: a non-metal that **conducts electricity**. There's always one.",
+     "who": "silas"
+    }
+   ]
+  },
+  {
+   "id": "alkali",
+   "title": "Free electron, anyone?",
+   "short": "Group 1",
+   "card": true,
+   "start": 300.048,
+   "end": 388.133,
+   "lines": [
+    {
+     "id": "meet",
+     "start": 301.848,
+     "end": 306.435,
+     "cap": "**Narrator:** Group 1: the **alkali metals**. **Lithium**, **sodium** and **potassium**.",
+     "who": "narr"
+    },
+    {
+     "id": "oil",
+     "start": 306.755,
+     "end": 313.261,
+     "cap": "**Silas:** The oil? Alkali metals react with the **oxygen** and **water** in air. So they're **stored under oil**.",
+     "who": "silas"
+    },
+    {
+     "id": "soft",
+     "start": 313.581,
+     "end": 316.291,
+     "cap": "**Sonny:** And I'm so **soft**, you can cut me with a knife! Go on!",
+     "who": "sonny"
+    },
+    {
+     "id": "cut",
+     "start": 316.911,
+     "end": 318.703,
+     "cap": "**Silas:** I'm not cutting you, Sonny.",
+     "who": "silas"
+    },
+    {
+     "id": "float",
+     "start": 319.623,
+     "end": 322.567,
+     "cap": "**Narrator:** They're so light, they even **float** on water.",
+     "who": "narr"
+    },
+    {
+     "id": "water",
+     "start": 322.887,
+     "end": 324.423,
+     "cap": "**Sonny:** Did somebody say... WATER?!",
+     "who": "sonny"
+    },
+    {
+     "id": "li",
+     "start": 325.143,
+     "end": 327.319,
+     "cap": "**Narrator:** **Lithium** fizzes gently.",
+     "who": "narr"
+    },
+    {
+     "id": "na",
+     "start": 328.439,
+     "end": 332.897,
+     "cap": "**Narrator:** **Sodium** melts into a shiny ball and whizzes across the surface.",
+     "who": "narr"
+    },
+    {
+     "id": "whee",
+     "start": 333.317,
+     "end": 333.979,
+     "cap": "**Sonny:** WHEEEEEEE!",
+     "who": "sonny"
+    },
+    {
+     "id": "k",
+     "start": 334.899,
+     "end": 340.509,
+     "cap": "**Narrator:** **Potassium** reacts so fast, the hydrogen catches fire, with a **lilac** flame.",
+     "who": "narr"
+    },
+    {
+     "id": "hydrogen",
+     "start": 341.829,
+     "end": 346.843,
+     "cap": "**Harold:** And the gas that comes off? **Hydrogen**. Me. Nobody ever says thank you.",
+     "who": "harold"
+    },
+    {
+     "id": "equation",
+     "start": 347.663,
+     "end": 355.428,
+     "cap": "**Silas:** **Sodium + water → sodium hydroxide + hydrogen**. Sodium hydroxide makes the water **alkaline**.",
+     "who": "silas"
+    },
+    {
+     "id": "trend",
+     "start": 355.748,
+     "end": 359.78,
+     "cap": "**Narrator:** So reactivity **increases** as you go **down** Group 1.",
+     "who": "narr"
+    },
+    {
+     "id": "why",
+     "start": 360.1,
+     "end": 362.34,
+     "cap": "**Kavya:** Why would the big ones be MORE dramatic?",
+     "who": "kavya"
+    },
+    {
+     "id": "bigger",
+     "start": 362.96,
+     "end": 368.464,
+     "cap": "**Silas:** Going down, atoms get **bigger**, so the outer electron is **further from the nucleus**.",
+     "who": "silas"
+    },
+    {
+     "id": "shield",
+     "start": 368.784,
+     "end": 373.883,
+     "cap": "**Silas:** And the inner shells get in the way: **shielding**. The nucleus can barely hold on.",
+     "who": "silas"
+    },
+    {
+     "id": "lost",
+     "start": 374.203,
+     "end": 378.789,
+     "cap": "**Sonny:** So the outer electron is **lost more easily**! Potassium throws his at people!",
+     "who": "sonny"
+    },
+    {
+     "id": "group2",
+     "start": 379.509,
+     "end": 386.933,
+     "cap": "**Narrator:** Next door, **Group 2**, like magnesium and calcium: **two** outer electrons. Reactive, but **less** than Group 1.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "halogens",
+   "title": "Chloe just needs one",
+   "short": "Group 7",
+   "card": true,
+   "start": 388.133,
+   "end": 494.359,
+   "lines": [
+    {
+     "id": "meet",
+     "start": 389.933,
+     "end": 395.565,
+     "cap": "**Narrator:** Group 7: the **halogens**. Reactive **non-metals**, with **seven** outer electrons.",
+     "who": "narr"
+    },
+    {
+     "id": "pair",
+     "start": 395.885,
+     "end": 401.581,
+     "cap": "**Chloe:** And we go everywhere in pairs! Chlorine gas is **Cl₂**. This is my other half. She's also me.",
+     "who": "chloe"
+    },
+    {
+     "id": "colours",
+     "start": 402.301,
+     "end": 411.581,
+     "cap": "**Narrator:** **Fluorine**: **pale yellow gas**. **Chlorine**: **green-yellow gas**. **Bromine**: **red-brown liquid**. **Iodine**: **dark grey solid**, **purple** vapour.",
+     "who": "narr"
+    },
+    {
+     "id": "state",
+     "start": 411.901,
+     "end": 416.275,
+     "cap": "**Silas:** Gas, gas, liquid, solid: melting points **rise** going down.",
+     "who": "silas"
+    },
+    {
+     "id": "twist",
+     "start": 416.595,
+     "end": 422.397,
+     "cap": "**Narrator:** Now the twist. Reactivity **decreases** down Group 7. The **opposite** of Group 1.",
+     "who": "narr"
+    },
+    {
+     "id": "auntie",
+     "start": 422.717,
+     "end": 426.643,
+     "cap": "**Chloe:** My auntie, Fluorine, upstairs, is the most reactive. We don't visit.",
+     "who": "chloe"
+    },
+    {
+     "id": "trap",
+     "start": 427.463,
+     "end": 431.772,
+     "cap": "**Kavya:** Wait. Group 1 gets MORE reactive going down, and Group 7 gets LESS?",
+     "who": "kavya"
+    },
+    {
+     "id": "gain",
+     "start": 432.392,
+     "end": 441.096,
+     "cap": "**Silas:** Halogens react by **gaining** an electron. Lower down, it lands **further** from the nucleus, behind more **shielding**: a **weaker grip**.",
+     "who": "silas"
+    },
+    {
+     "id": "grip",
+     "start": 441.416,
+     "end": 448.093,
+     "cap": "**Silas:** Group 1 **loses** an electron: a weak grip helps. Group 7 **gains** one: a weak grip hurts.",
+     "who": "silas"
+    },
+    {
+     "id": "partners",
+     "start": 448.413,
+     "end": 453.555,
+     "cap": "**Narrator:** Meanwhile: Sonny and Bromine, project partners. Together, **sodium bromide**.",
+     "who": "narr"
+    },
+    {
+     "id": "move",
+     "start": 453.875,
+     "end": 457.139,
+     "cap": "**Chloe:** Excuse me, Bromine. I'm **more reactive** than you. Move.",
+     "who": "chloe"
+    },
+    {
+     "id": "displace",
+     "start": 457.959,
+     "end": 465.191,
+     "cap": "**Narrator:** A more reactive halogen **displaces** a less reactive one from its compound. The solution turns **orange**.",
+     "who": "narr"
+    },
+    {
+     "id": "equation",
+     "start": 465.511,
+     "end": 470.183,
+     "cap": "**Silas:** **Chlorine + sodium bromide → sodium chloride + bromine**.",
+     "who": "silas"
+    },
+    {
+     "id": "finally",
+     "start": 470.803,
+     "end": 473.533,
+     "cap": "**Sonny:** Chloe! You need one electron! I have ONE electron!",
+     "who": "sonny"
+    },
+    {
+     "id": "yes",
+     "start": 473.853,
+     "end": 474.429,
+     "cap": "**Chloe:** SONNY!",
+     "who": "chloe"
+    },
+    {
+     "id": "salt",
+     "start": 475.049,
+     "end": 482.388,
+     "cap": "**Narrator:** Sodium gives chlorine its outer electron. Both now have **full outer shells**. Together: **sodium chloride**.",
+     "who": "narr"
+    },
+    {
+     "id": "chicken",
+     "start": 482.908,
+     "end": 486.407,
+     "cap": "**Kavya:** Wait. Sodium chloride is **salt**. That's on my chicken rice.",
+     "who": "kavya"
+    },
+    {
+     "id": "thsalt",
+     "start": 487.127,
+     "end": 492.759,
+     "cap": "**Silas:** An exploding metal plus a poisonous gas equals your lunch. Chemistry is weird.",
+     "who": "silas"
+    }
+   ]
+  },
+  {
+   "id": "penthouse",
+   "title": "The penthouse and the empty flat",
+   "short": "Group 0 & gaps",
+   "card": true,
+   "start": 494.359,
+   "end": 591.9,
+   "lines": [
+    {
+     "id": "top",
+     "start": 496.159,
+     "end": 501.023,
+     "cap": "**Narrator:** Top floor, far right. The penthouse. **Group 0**: the **noble gases**.",
+     "who": "narr"
+    },
+    {
+     "id": "full",
+     "start": 501.343,
+     "end": 507.401,
+     "cap": "**Helena:** We don't react, darling. My outer shell is **full**: two electrons. Neon is **2, 8**. Argon, **2, 8, 8**.",
+     "who": "helena"
+    },
+    {
+     "id": "stable",
+     "start": 508.021,
+     "end": 515.275,
+     "cap": "**Narrator:** A full outer shell is very **stable**: nothing to gain, lose or share. So they're **unreactive**, or **inert**.",
+     "who": "narr"
+    },
+    {
+     "id": "offer",
+     "start": 515.595,
+     "end": 517.131,
+     "cap": "**Sonny:** Hey, Helena! Free electron?",
+     "who": "sonny"
+    },
+    {
+     "id": "fullup",
+     "start": 517.751,
+     "end": 519.735,
+     "cap": "**Helena:** No thank you, darling. I'm **full**.",
+     "who": "helena"
+    },
+    {
+     "id": "empty",
+     "start": 520.755,
+     "end": 524.488,
+     "cap": "**Kavya:** So noble gases don't react because their outer shell is **empty**?",
+     "who": "kavya"
+    },
+    {
+     "id": "gasp",
+     "start": 525.108,
+     "end": 527.007,
+     "cap": "**Helena:** EMPTY?! **Full**, darling. FULL.",
+     "who": "helena"
+    },
+    {
+     "id": "uses",
+     "start": 527.927,
+     "end": 534.732,
+     "cap": "**Helena:** And terribly useful. Helium is lighter than air and can't burn: **balloons**. It also chills **MRI scanners**.",
+     "who": "helena"
+    },
+    {
+     "id": "neon",
+     "start": 535.052,
+     "end": 541.985,
+     "cap": "**Narrator:** **Neon** glows **orange-red** in signs. **Argon** fills light bulbs, and protects hot metal in **welding**.",
+     "who": "narr"
+    },
+    {
+     "id": "thahgong",
+     "start": 542.305,
+     "end": 548.791,
+     "cap": "**Silas:** That's Ah Gong. Argon. On that stool since eighteen ninety-four. Never reacted to anything.",
+     "who": "silas"
+    },
+    {
+     "id": "plans",
+     "start": 549.911,
+     "end": 556.353,
+     "cap": "**Narrator:** In 1869, the Russian chemist **Dmitri Mendeleev** drew up the plans for this block.",
+     "who": "narr"
+    },
+    {
+     "id": "gaps",
+     "start": 556.673,
+     "end": 561.751,
+     "cap": "**Narrator:** He grouped elements by their properties, and where the pattern broke, he **left gaps**.",
+     "who": "narr"
+    },
+    {
+     "id": "empties",
+     "start": 562.371,
+     "end": 567.704,
+     "cap": "**Silas:** Empty flats, for elements not yet found. And he **predicted** what they'd be like.",
+     "who": "silas"
+    },
+    {
+     "id": "thlisting",
+     "start": 568.024,
+     "end": 575.043,
+     "cap": "**Silas:** The flat below mine sat empty for years. The listing: grey, atomic mass about 72.",
+     "who": "silas"
+    },
+    {
+     "id": "gemma",
+     "start": 575.663,
+     "end": 580.42,
+     "cap": "**Gemma:** Hi! Gemma! **Germanium**! Grey, mass 72.6! I'm here about the flat?",
+     "who": "gemma"
+    },
+    {
+     "id": "match",
+     "start": 581.14,
+     "end": 588.308,
+     "cap": "**Narrator:** Germanium turned up in 1886, just as predicted: **evidence** of a **real pattern** in nature.",
+     "who": "narr"
+    },
+    {
+     "id": "mind",
+     "start": 588.628,
+     "end": 590.1,
+     "cap": "**Silas:** Please mind the gap.",
+     "who": "silas"
+    }
+   ]
+  },
+  {
+   "id": "traps",
+   "title": "The residents save you some marks",
+   "short": "Exam traps",
+   "card": true,
+   "start": 591.9,
+   "end": 657.533,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 593.7,
+     "end": 597.732,
+     "cap": "**Narrator:** Before the credits, the residents would like to save you some marks.",
+     "who": "narr"
+    },
+    {
+     "id": "t1",
+     "start": 598.352,
+     "end": 604.133,
+     "cap": "**Silas:** One. The table is in order of **atomic number**, the number of protons. **Not** mass.",
+     "who": "silas"
+    },
+    {
+     "id": "t2",
+     "start": 604.753,
+     "end": 610.513,
+     "cap": "**Gemma:** Two. Atomic number is the **smaller** number. For neutrons, do **mass number minus atomic number**.",
+     "who": "gemma"
+    },
+    {
+     "id": "t3",
+     "start": 611.133,
+     "end": 616.04,
+     "cap": "**Kavya:** Three. **Groups** are **columns**, going down. **Periods** are **rows**, going across. I've GOT this.",
+     "who": "kavya"
+    },
+    {
+     "id": "t4",
+     "start": 616.66,
+     "end": 621.609,
+     "cap": "**Sonny:** Four! Group 1 metals are **super reactive**, and reactivity **increases** down Group 1!",
+     "who": "sonny"
+    },
+    {
+     "id": "t5",
+     "start": 622.129,
+     "end": 626.289,
+     "cap": "**Chloe:** Five! But it **decreases** down Group 7! Opposite! Don't mix us up!",
+     "who": "chloe"
+    },
+    {
+     "id": "t6",
+     "start": 626.909,
+     "end": 632.861,
+     "cap": "**Helena:** Six. Noble gases are unreactive because their outer shell is **full**. Not empty. **Full**, darling.",
+     "who": "helena"
+    },
+    {
+     "id": "t7",
+     "start": 633.481,
+     "end": 639.54,
+     "cap": "**Harold:** Seven. Group 1 metal plus water gives off **hydrogen**. Me. Please, remember me.",
+     "who": "harold"
+    },
+    {
+     "id": "return",
+     "start": 640.66,
+     "end": 643.135,
+     "cap": "**Narrator:** Block 118 will return.",
+     "who": "narr"
+    },
+    {
+     "id": "ahgong",
+     "start": 644.455,
+     "end": 647.292,
+     "cap": "**Silas:** So, Ah Gong. Anything you'd like to add?",
+     "who": "silas"
+    },
+    {
+     "id": "noreaction",
+     "start": 649.012,
+     "end": 650.249,
+     "cap": "**Ah Gong:** ...No reaction.",
+     "who": "ahgong"
+    },
+    {
+     "id": "since",
+     "start": 651.569,
+     "end": 654.833,
+     "cap": "**Silas:** That's the first thing he's said since eighteen ninety-four.",
+     "who": "silas"
+    }
+   ]
+  }
+ ],
+ "total": 657.533
+}
