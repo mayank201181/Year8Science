@@ -40,7 +40,7 @@ const LAB_TOPICS: Record<string, string> = {
 type CompanionKind = "claude" | "sitcom" | "masterclass" | "video" | "lab";
 
 /** Topics with a Claude Sitcom episode (public/lessons/sitcom-<topic>.html, built from lessons/sitcom-<topic>). */
-const CLAUDE_SITCOMS = new Set<string>(["respiration", "periodic-table", "sound", "forces"]);
+const CLAUDE_SITCOMS = new Set<string>(["respiration", "periodic-table", "light", "sound", "forces"]);
 /** Stars for a Claude Sitcom are kept apart from the animated lesson's (both use ids like "cold" or "energy"). */
 const claudeSitcomId = (topicId: string) => `claude-sitcom-${topicId}`;
 /** Companions that post y8-lesson messages (height, chapter-done, complete). */
