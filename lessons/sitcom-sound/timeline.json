@@ -1,0 +1,948 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "cold",
+   "title": "Cold open",
+   "short": "Cold open",
+   "card": false,
+   "start": 0.0,
+   "end": 67.776,
+   "lines": [
+    {
+     "id": "kavya",
+     "start": 0.6,
+     "end": 5.507,
+     "cap": "**Narrator:** This is Kavya. She is twelve. In the school band, she plays the **triangle**.",
+     "who": "narr"
+    },
+    {
+     "id": "bars",
+     "start": 6.427,
+     "end": 11.461,
+     "cap": "**Kavya:** Forty-six bars of nothing. Then one ding. Bar forty-seven. That's my whole job.",
+     "who": "kavya"
+    },
+    {
+     "id": "hall",
+     "start": 12.281,
+     "end": 17.188,
+     "cap": "**Narrator:** Band practice. Thirty-four degrees. The ceiling fans are doing their best.",
+     "who": "narr"
+    },
+    {
+     "id": "small",
+     "start": 17.908,
+     "end": 24.415,
+     "cap": "**Narrator:** But this documentary isn't about Kavya. It's about the air between her triangle and your ears.",
+     "who": "narr"
+    },
+    {
+     "id": "this",
+     "start": 24.735,
+     "end": 28.703,
+     "cap": "**Narrator:** Trillions of tiny air particles. This is one of them.",
+     "who": "narr"
+    },
+    {
+     "id": "hi",
+     "start": 29.523,
+     "end": 33.256,
+     "cap": "**Nigel:** Hi. Nigel. **Nitrogen** molecule. Air particle.",
+     "who": "nigel"
+    },
+    {
+     "id": "percent",
+     "start": 33.876,
+     "end": 39.785,
+     "cap": "**Nigel:** Seventy-eight percent of the air is nitrogen. And everyone only talks about oxygen.",
+     "who": "nigel"
+    },
+    {
+     "id": "job",
+     "start": 40.705,
+     "end": 46.145,
+     "cap": "**Nigel:** I work in sound. Deliveries. Every drum, every ding, every 'Kavya, focus!'",
+     "who": "nigel"
+    },
+    {
+     "id": "go",
+     "start": 46.865,
+     "end": 51.729,
+     "cap": "**Nigel:** People think I carry sound to your ear. I don't go anywhere. I **pass it on**.",
+     "who": "nigel"
+    },
+    {
+     "id": "echo",
+     "start": 52.349,
+     "end": 53.565,
+     "cap": "**Echo:** ...pass it on.",
+     "who": "echo"
+    },
+    {
+     "id": "thecho",
+     "start": 54.485,
+     "end": 58.752,
+     "cap": "**Nigel:** That's Echo. The back wall. She doesn't talk. She just repeats things.",
+     "who": "nigel"
+    },
+    {
+     "id": "echo2",
+     "start": 59.272,
+     "end": 60.851,
+     "cap": "**Echo:** ...repeats things.",
+     "who": "echo"
+    },
+    {
+     "id": "title",
+     "start": 62.071,
+     "end": 65.676,
+     "cap": "**Narrator:** Pass It On. Episode eleven: Bar Forty-Seven.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "vibrate",
+   "title": "Something is always vibrating",
+   "short": "Vibrations",
+   "card": true,
+   "start": 67.776,
+   "end": 135.411,
+   "lines": [
+    {
+     "id": "start",
+     "start": 69.576,
+     "end": 76.04,
+     "cap": "**Narrator:** Every sound starts with something **vibrating**: moving quickly **back and forth** about a fixed position.",
+     "who": "narr"
+    },
+    {
+     "id": "drum",
+     "start": 76.66,
+     "end": 79.668,
+     "cap": "**Nigel:** The drum. Hit it, and the drum **skin** vibrates.",
+     "who": "nigel"
+    },
+    {
+     "id": "guitar",
+     "start": 79.988,
+     "end": 82.868,
+     "cap": "**Nigel:** The guitar. Pluck it, and the **string** vibrates.",
+     "who": "nigel"
+    },
+    {
+     "id": "speaker",
+     "start": 83.188,
+     "end": 87.881,
+     "cap": "**Nigel:** The loudspeaker. Its **cone** vibrates in and out, shoving us. Rude.",
+     "who": "nigel"
+    },
+    {
+     "id": "hum",
+     "start": 88.601,
+     "end": 89.945,
+     "cap": "**Kavya:** Mmmmmm.",
+     "who": "kavya"
+    },
+    {
+     "id": "cords",
+     "start": 90.465,
+     "end": 97.783,
+     "cap": "**Nigel:** Kavya's **vocal cords**. Two flaps of tissue in her throat. They vibrate when she talks, sings or complains.",
+     "who": "nigel"
+    },
+    {
+     "id": "mostly",
+     "start": 98.403,
+     "end": 99.832,
+     "cap": "**Kavya:** Mostly complains.",
+     "who": "kavya"
+    },
+    {
+     "id": "archie",
+     "start": 100.752,
+     "end": 104.805,
+     "cap": "**Archie:** Hi hi hi! Archie! **Argon**! One percent of the air! It's my first day!",
+     "who": "archie"
+    },
+    {
+     "id": "thnigel",
+     "start": 105.425,
+     "end": 112.807,
+     "cap": "**Nigel:** Archie's a trainee. Argon's a noble gas. Chemically, he reacts to nothing. Emotionally, to everything.",
+     "who": "nigel"
+    },
+    {
+     "id": "test",
+     "start": 113.827,
+     "end": 116.557,
+     "cap": "**Nigel:** Proof? Kavya, ding the triangle. Then grab it.",
+     "who": "nigel"
+    },
+    {
+     "id": "grab",
+     "start": 116.877,
+     "end": 120.76,
+     "cap": "**Narrator:** She strikes it, then grips it. The sound **stops** at once.",
+     "who": "narr"
+    },
+    {
+     "id": "source",
+     "start": 121.48,
+     "end": 129.501,
+     "cap": "**Nigel:** Stop the vibration, stop the sound. **Vibration is the source of all sound**. And sound is a form of **energy**.",
+     "who": "nigel"
+    },
+    {
+     "id": "thkavya",
+     "start": 129.821,
+     "end": 133.811,
+     "cap": "**Kavya:** Can I do that again? That's more dinging than I get in the actual song.",
+     "who": "kavya"
+    }
+   ]
+  },
+  {
+   "id": "relay",
+   "title": "Pass it on (but don't go anywhere)",
+   "short": "Sound waves",
+   "card": true,
+   "start": 135.411,
+   "end": 211.832,
+   "lines": [
+    {
+     "id": "how",
+     "start": 137.211,
+     "end": 139.835,
+     "cap": "**Narrator:** So how does one ding cross the hall?",
+     "who": "narr"
+    },
+    {
+     "id": "run",
+     "start": 140.355,
+     "end": 142.616,
+     "cap": "**Archie:** Easy! I grab the sound and RUN it over there!",
+     "who": "archie"
+    },
+    {
+     "id": "no",
+     "start": 143.336,
+     "end": 144.083,
+     "cap": "**Nigel:** No.",
+     "who": "nigel"
+    },
+    {
+     "id": "knock",
+     "start": 145.003,
+     "end": 151.872,
+     "cap": "**Nigel:** The triangle knocks the particles next to it. They bump their neighbours, who bump theirs. All the way across.",
+     "who": "nigel"
+    },
+    {
+     "id": "back",
+     "start": 152.192,
+     "end": 158.827,
+     "cap": "**Nigel:** Each of us just vibrates **back and forth**, and ends up where we started. **We don't travel with the wave**.",
+     "who": "nigel"
+    },
+    {
+     "id": "wave",
+     "start": 159.447,
+     "end": 166.124,
+     "cap": "**Narrator:** That travelling disturbance is a **sound wave**. The particles stay put. It's the **energy** that travels.",
+     "who": "narr"
+    },
+    {
+     "id": "thnigel",
+     "start": 166.444,
+     "end": 172.332,
+     "cap": "**Nigel:** If the air really ran from the band to your ears, every drum solo would blow your hair off.",
+     "who": "nigel"
+    },
+    {
+     "id": "long",
+     "start": 173.352,
+     "end": 180.349,
+     "cap": "**Narrator:** Sound is a **longitudinal** wave: the particles vibrate in the **same direction** that the wave travels.",
+     "who": "narr"
+    },
+    {
+     "id": "squash",
+     "start": 180.669,
+     "end": 186.899,
+     "cap": "**Nigel:** So we bunch up, then spread out. Bunched up is a **compression**. Spread out is a **rarefaction**.",
+     "who": "nigel"
+    },
+    {
+     "id": "stadium",
+     "start": 187.219,
+     "end": 188.947,
+     "cap": "**Archie:** Oh! Oh! Is it like a stadium wave?",
+     "who": "archie"
+    },
+    {
+     "id": "across",
+     "start": 189.667,
+     "end": 196.173,
+     "cap": "**Nigel:** No. In a stadium wave, people move up and down, **across** the direction of travel. That's **transverse**.",
+     "who": "nigel"
+    },
+    {
+     "id": "light",
+     "start": 196.493,
+     "end": 202.573,
+     "cap": "**Nigel:** **Light** is transverse. So are ripples on water. Sound is longitudinal. We go **along**.",
+     "who": "nigel"
+    },
+    {
+     "id": "medium",
+     "start": 203.193,
+     "end": 210.532,
+     "cap": "**Narrator:** The material sound travels through is its **medium**: a **solid**, a **liquid** or a **gas**. Here, it's Nigel.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "jar",
+   "title": "Belle in a jar",
+   "short": "Vacuum",
+   "card": true,
+   "start": 211.832,
+   "end": 290.913,
+   "lines": [
+    {
+     "id": "lab",
+     "start": 213.632,
+     "end": 218.197,
+     "cap": "**Narrator:** Next door, the Year 8s are doing a science experiment. With a bell.",
+     "who": "narr"
+    },
+    {
+     "id": "belle",
+     "start": 218.817,
+     "end": 222.721,
+     "cap": "**Belle:** Hello. I'm Belle. Electric bell. I ring for the end of recess.",
+     "who": "belle"
+    },
+    {
+     "id": "nobody",
+     "start": 223.341,
+     "end": 226.243,
+     "cap": "**Belle:** Thirty years. Nobody has ever been happy to hear me.",
+     "who": "belle"
+    },
+    {
+     "id": "thnigel",
+     "start": 227.263,
+     "end": 231.209,
+     "cap": "**Nigel:** Belle. The least popular sound in the school. Below the recorder.",
+     "who": "nigel"
+    },
+    {
+     "id": "jar",
+     "start": 232.129,
+     "end": 240.215,
+     "cap": "**Narrator:** The **bell-jar experiment**. Belle hangs in a sealed glass jar, not touching the sides. She rings. Everyone hears her.",
+     "who": "narr"
+    },
+    {
+     "id": "pump",
+     "start": 240.535,
+     "end": 246.017,
+     "cap": "**Narrator:** Then a **vacuum pump** removes the air from the jar. Nigel's cousins, mostly.",
+     "who": "narr"
+    },
+    {
+     "id": "quiet",
+     "start": 246.637,
+     "end": 252.547,
+     "cap": "**Narrator:** The ringing gets **quieter and quieter**, even though you can still **see** the hammer hitting the bell.",
+     "who": "narr"
+    },
+    {
+     "id": "still",
+     "start": 252.867,
+     "end": 254.893,
+     "cap": "**Belle:** I'm still ringing! Can anyone hear me?",
+     "who": "belle"
+    },
+    {
+     "id": "vacuum",
+     "start": 256.013,
+     "end": 262.883,
+     "cap": "**Nigel:** Sound needs particles to pass it on. A **vacuum** has **no particles**. Nobody to pass it on to.",
+     "who": "nigel"
+    },
+    {
+     "id": "lightok",
+     "start": 263.503,
+     "end": 267.257,
+     "cap": "**Nigel:** But **light doesn't need a medium**. That's why they can still see her.",
+     "who": "nigel"
+    },
+    {
+     "id": "back",
+     "start": 267.577,
+     "end": 270.649,
+     "cap": "**Narrator:** Let the air back in, and the sound returns.",
+     "who": "narr"
+    },
+    {
+     "id": "happy",
+     "start": 271.369,
+     "end": 274.932,
+     "cap": "**Belle:** They're... happy to hear me? Nobody has ever been happy to hear me.",
+     "who": "belle"
+    },
+    {
+     "id": "space",
+     "start": 276.052,
+     "end": 280.575,
+     "cap": "**Nigel:** Space is a vacuum too. So space is **silent**. Whatever the films say.",
+     "who": "nigel"
+    },
+    {
+     "id": "radio",
+     "start": 280.895,
+     "end": 287.465,
+     "cap": "**Narrator:** So astronauts on spacewalks talk by **radio**. Radio waves, like light, cross a vacuum.",
+     "who": "narr"
+    },
+    {
+     "id": "rhyme",
+     "start": 287.785,
+     "end": 289.513,
+     "cap": "**Archie:** I made a rhyme! **No air, no aware**!",
+     "who": "archie"
+    }
+   ]
+  },
+  {
+   "id": "storm",
+   "title": "Lightning alert",
+   "short": "Speed of sound",
+   "card": true,
+   "start": 290.913,
+   "end": 370.963,
+   "lines": [
+    {
+     "id": "four",
+     "start": 292.713,
+     "end": 298.708,
+     "cap": "**Narrator:** Four p.m. A thunderstorm rolls in over the HDB blocks. Very Singapore.",
+     "who": "narr"
+    },
+    {
+     "id": "flash",
+     "start": 299.328,
+     "end": 304.064,
+     "cap": "**Narrator:** Kavya sees the lightning first. The thunder arrives **seconds later**.",
+     "who": "narr"
+    },
+    {
+     "id": "fast",
+     "start": 304.384,
+     "end": 313.088,
+     "cap": "**Nigel:** Light travels at about **300,000,000 m/s**. Sound in air? About **340 m/s**.",
+     "who": "nigel"
+    },
+    {
+     "id": "million",
+     "start": 313.408,
+     "end": 318.101,
+     "cap": "**Nigel:** Light is nearly a **million times** faster. We're not even in the same race.",
+     "who": "nigel"
+    },
+    {
+     "id": "count",
+     "start": 318.921,
+     "end": 326.452,
+     "cap": "**Narrator:** Count the seconds from flash to bang, and **divide by three**. That's roughly the storm's distance in **kilometres**.",
+     "who": "narr"
+    },
+    {
+     "id": "counting",
+     "start": 326.772,
+     "end": 329.012,
+     "cap": "**Kavya:** One... two... three... four... five... six.",
+     "who": "kavya"
+    },
+    {
+     "id": "two",
+     "start": 329.632,
+     "end": 331.893,
+     "cap": "**Archie:** Six divided by three! **Two kilometres**!",
+     "who": "archie"
+    },
+    {
+     "id": "hawker",
+     "start": 332.513,
+     "end": 336.972,
+     "cap": "**Kavya:** Two kilometres. That's the hawker centre. Somebody's chicken rice is getting wet.",
+     "who": "kavya"
+    },
+    {
+     "id": "gas",
+     "start": 337.992,
+     "end": 344.563,
+     "cap": "**Nigel:** Team Gas. That's us. In air, about **340 m/s**. We're the **slowest**.",
+     "who": "nigel"
+    },
+    {
+     "id": "liquid",
+     "start": 345.183,
+     "end": 351.54,
+     "cap": "**Narrator:** Team Liquid. Water. About **1,500 m/s**: more than four times faster.",
+     "who": "narr"
+    },
+    {
+     "id": "solid",
+     "start": 351.86,
+     "end": 357.62,
+     "cap": "**Narrator:** Team Solid. Steel. About **5,000 m/s**. The **fastest** of all.",
+     "who": "narr"
+    },
+    {
+     "id": "wrong",
+     "start": 358.24,
+     "end": 360.267,
+     "cap": "**Archie:** But air's so light and easy to push through!",
+     "who": "archie"
+    },
+    {
+     "id": "packed",
+     "start": 361.087,
+     "end": 369.663,
+     "cap": "**Nigel:** Everyone thinks that. It's backwards. The **closer** packed the particles, the **faster** they pass it on. **Solids speed, gases go slow.**",
+     "who": "nigel"
+    }
+   ]
+  },
+  {
+   "id": "scope",
+   "title": "Freq and Amp",
+   "short": "Pitch & loudness",
+   "card": true,
+   "start": 370.963,
+   "end": 488.135,
+   "lines": [
+    {
+     "id": "two",
+     "start": 372.763,
+     "end": 379.397,
+     "cap": "**Narrator:** Every sound has a **pitch**, how high or low it is, and a **loudness**. Meet two very different colleagues.",
+     "who": "narr"
+    },
+    {
+     "id": "freq",
+     "start": 380.017,
+     "end": 386.652,
+     "cap": "**Freq:** Hi! I'm Freq! **Frequency**! Vibrations per second, in **hertz**! **One hertz** is **one vibration per second**!",
+     "who": "freq"
+    },
+    {
+     "id": "amp",
+     "start": 387.172,
+     "end": 391.716,
+     "cap": "**Amp:** I'M AMP. **AMPLITUDE**. HOW FAR THE PARTICLES MOVE FROM THEIR **REST POSITION**.",
+     "who": "amp"
+    },
+    {
+     "id": "thnigel",
+     "start": 392.436,
+     "end": 396.681,
+     "cap": "**Nigel:** Freq runs on bubble tea. Amp does not have an indoor voice.",
+     "who": "nigel"
+    },
+    {
+     "id": "pitch",
+     "start": 397.601,
+     "end": 404.087,
+     "cap": "**Freq:** **Pitch** depends on me! **High frequency**, **high pitch**, like a whistle! **Low frequency**, **low pitch**, like a bass drum!",
+     "who": "freq"
+    },
+    {
+     "id": "loud",
+     "start": 404.407,
+     "end": 409.249,
+     "cap": "**Amp:** **LOUDNESS** DEPENDS ON ME. **BIG AMPLITUDE**, **LOUD**. **SMALL AMPLITUDE**, **QUIET**.",
+     "who": "amp"
+    },
+    {
+     "id": "same",
+     "start": 409.869,
+     "end": 411.555,
+     "cap": "**Archie:** So a high note is a loud note!",
+     "who": "archie"
+    },
+    {
+     "id": "whisper",
+     "start": 412.375,
+     "end": 415.212,
+     "cap": "**Freq:** (whispering) Nope. High pitch. Small amplitude. High and quiet.",
+     "who": "freq"
+    },
+    {
+     "id": "boom",
+     "start": 415.732,
+     "end": 418.271,
+     "cap": "**Amp:** LOW PITCH. BIG AMPLITUDE. LOW AND LOUD.",
+     "who": "amp"
+    },
+    {
+     "id": "indep",
+     "start": 418.891,
+     "end": 425.973,
+     "cap": "**Nigel:** They're **independent**. Pitch goes with frequency, loudness goes with amplitude. **Fast pitch, big bang.**",
+     "who": "nigel"
+    },
+    {
+     "id": "guitar",
+     "start": 426.593,
+     "end": 430.647,
+     "cap": "**Freq:** Higher note on a guitar? **Tighten** the string, **shorten** it, or use a **thinner** one!",
+     "who": "freq"
+    },
+    {
+     "id": "harder",
+     "start": 430.967,
+     "end": 432.865,
+     "cap": "**Amp:** LOUDER? PLUCK **HARDER**. SAME NOTE.",
+     "who": "amp"
+    },
+    {
+     "id": "scope",
+     "start": 433.485,
+     "end": 440.845,
+     "cap": "**Narrator:** A **microphone** turns sound into an electrical signal. An **oscilloscope** draws it as a wavy line: a **trace**.",
+     "who": "narr"
+    },
+    {
+     "id": "read",
+     "start": 441.165,
+     "end": 447.693,
+     "cap": "**Nigel:** **Height** shows **amplitude**: tall is **loud**. **Spacing** shows **frequency**: close together is **high-pitched**.",
+     "who": "nigel"
+    },
+    {
+     "id": "quiz",
+     "start": 448.013,
+     "end": 454.691,
+     "cap": "**Narrator:** Trace **A**: tall waves, far apart. Trace **B**: short waves, close together. Describe each sound.",
+     "who": "narr"
+    },
+    {
+     "id": "answer",
+     "start": 456.411,
+     "end": 458.565,
+     "cap": "**Archie:** A is **loud** and **low**! B is **quiet** and **high**!",
+     "who": "archie"
+    },
+    {
+     "id": "correct",
+     "start": 458.885,
+     "end": 461.253,
+     "cap": "**Nigel:** Correct. I'm as surprised as you are.",
+     "who": "nigel"
+    },
+    {
+     "id": "length",
+     "start": 462.173,
+     "end": 467.997,
+     "cap": "**Narrator:** One whole wave, say compression to compression, is a **wavelength**, measured in **metres**.",
+     "who": "narr"
+    },
+    {
+     "id": "period",
+     "start": 468.317,
+     "end": 475.784,
+     "cap": "**Freq:** And the **time period**, **T**, is the time for one wave! **T = 1 ÷ f**! Five hertz? A fifth of a second each!",
+     "who": "freq"
+    },
+    {
+     "id": "equation",
+     "start": 476.104,
+     "end": 486.835,
+     "cap": "**Nigel:** The **wave equation**: **speed = frequency × wavelength**. In air, every pitch has the same speed, so **higher frequency** means **shorter wavelength**.",
+     "who": "nigel"
+    }
+   ]
+  },
+  {
+   "id": "ear",
+   "title": "Out of range",
+   "short": "Ear & echoes",
+   "card": true,
+   "start": 488.135,
+   "end": 601.213,
+   "lines": [
+    {
+     "id": "arrive",
+     "start": 489.935,
+     "end": 493.54,
+     "cap": "**Narrator:** At last, the ding reaches its customer: Kavya's **ear**.",
+     "who": "narr"
+    },
+    {
+     "id": "coco",
+     "start": 494.06,
+     "end": 498.007,
+     "cap": "**Coco:** Welcome to the ear. I'm Coco, the **cochlea**. Front desk, inner ear.",
+     "who": "coco"
+    },
+    {
+     "id": "pinna",
+     "start": 498.627,
+     "end": 502.189,
+     "cap": "**Coco:** The **pinna**, the flap you can see, funnels sound into the **ear canal**.",
+     "who": "coco"
+    },
+    {
+     "id": "drum",
+     "start": 502.509,
+     "end": 506.157,
+     "cap": "**Coco:** The wave makes the **ear drum** vibrate: a thin, tight membrane.",
+     "who": "coco"
+    },
+    {
+     "id": "bones",
+     "start": 506.477,
+     "end": 512.067,
+     "cap": "**Coco:** Three tiny **bones** pass the vibrations on to me. I'm a coiled tube, full of fluid. It's a look.",
+     "who": "coco"
+    },
+    {
+     "id": "nerve",
+     "start": 512.687,
+     "end": 516.185,
+     "cap": "**Coco:** My cells turn the vibrations into **nerve signals** for the **brain**.",
+     "who": "coco"
+    },
+    {
+     "id": "range",
+     "start": 516.505,
+     "end": 525.081,
+     "cap": "**Coco:** But I only accept about **20 Hz** to **20,000 Hz**: the human **hearing range**. Twenty to twenty k. The top end drops with age.",
+     "who": "coco"
+    },
+    {
+     "id": "ultra",
+     "start": 525.401,
+     "end": 531.14,
+     "cap": "**Freq:** Above twenty thousand hertz, I'm **ultrasound**! Below twenty, I'm **infrasound**! Elephants rumble in it!",
+     "who": "freq"
+    },
+    {
+     "id": "dog",
+     "start": 531.76,
+     "end": 539.995,
+     "cap": "**Narrator:** Outside that range is still real sound. A dog hears a dog whistle at about **25,000 Hz**. You hear nothing.",
+     "who": "narr"
+    },
+    {
+     "id": "loud",
+     "start": 540.315,
+     "end": 545.051,
+     "cap": "**Coco:** **Very loud sounds** carry lots of energy. They can damage my cells **permanently**.",
+     "who": "coco"
+    },
+    {
+     "id": "sorry",
+     "start": 545.771,
+     "end": 546.475,
+     "cap": "**Amp:** SORRY.",
+     "who": "amp"
+    },
+    {
+     "id": "reflect",
+     "start": 547.395,
+     "end": 555.501,
+     "cap": "**Narrator:** Hard, flat surfaces, like tiled walls, **reflect** sound. A reflected sound you hear a moment later is an **echo**.",
+     "who": "narr"
+    },
+    {
+     "id": "echo",
+     "start": 555.821,
+     "end": 557.059,
+     "cap": "**Echo:** ...an echo.",
+     "who": "echo"
+    },
+    {
+     "id": "absorb",
+     "start": 557.779,
+     "end": 562.259,
+     "cap": "**Narrator:** Soft things, like curtains and carpet, **absorb** sound instead.",
+     "who": "narr"
+    },
+    {
+     "id": "mmf",
+     "start": 562.779,
+     "end": 563.995,
+     "cap": "**Echo:** ...mmf.",
+     "who": "echo"
+    },
+    {
+     "id": "scans",
+     "start": 565.015,
+     "end": 571.991,
+     "cap": "**Freq:** Ultrasound echoes make **medical scans**, like a baby before it's born! Ultrasound in a liquid **cleans** jewellery too!",
+     "who": "freq"
+    },
+    {
+     "id": "sonar",
+     "start": 572.311,
+     "end": 577.665,
+     "cap": "**Nigel:** And **sonar**. A ship sends ultrasound down into the sea, and times the echo.",
+     "who": "nigel"
+    },
+    {
+     "id": "sum",
+     "start": 577.985,
+     "end": 586.796,
+     "cap": "**Narrator:** The echo returns after **4 seconds**. Sound in water travels at about **1,500 m/s**. How deep is the sea?",
+     "who": "narr"
+    },
+    {
+     "id": "times",
+     "start": 588.516,
+     "end": 591.183,
+     "cap": "**Archie:** 1,500 × 4! **6,000 metres**!",
+     "who": "archie"
+    },
+    {
+     "id": "half",
+     "start": 591.803,
+     "end": 596.496,
+     "cap": "**Nigel:** That's **there and back**. Cut it in half. The sea is **3,000 metres** deep.",
+     "who": "nigel"
+    },
+    {
+     "id": "knew",
+     "start": 597.116,
+     "end": 597.82,
+     "cap": "**Archie:** I knew that.",
+     "who": "archie"
+    },
+    {
+     "id": "echo2",
+     "start": 598.34,
+     "end": 599.513,
+     "cap": "**Echo:** ...knew that.",
+     "who": "echo"
+    }
+   ]
+  },
+  {
+   "id": "traps",
+   "title": "The cast saves you some marks",
+   "short": "Exam traps",
+   "card": true,
+   "start": 601.213,
+   "end": 657.432,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 603.013,
+     "end": 606.768,
+     "cap": "**Narrator:** Before the credits, the cast would like to save you some marks.",
+     "who": "narr"
+    },
+    {
+     "id": "t1",
+     "start": 607.388,
+     "end": 611.463,
+     "cap": "**Belle:** One. Sound **cannot** travel through a vacuum. No particles. Trust me.",
+     "who": "belle"
+    },
+    {
+     "id": "t2",
+     "start": 612.083,
+     "end": 615.816,
+     "cap": "**Archie:** Two! Particles **don't** travel with the wave! They vibrate! The **energy** does!",
+     "who": "archie"
+    },
+    {
+     "id": "t3a",
+     "start": 616.436,
+     "end": 618.505,
+     "cap": "**Freq:** Three! **Pitch** depends on **frequency**!",
+     "who": "freq"
+    },
+    {
+     "id": "t3b",
+     "start": 618.825,
+     "end": 621.833,
+     "cap": "**Amp:** **LOUDNESS** DEPENDS ON **AMPLITUDE**. DON'T MIX US UP.",
+     "who": "amp"
+    },
+    {
+     "id": "t4",
+     "start": 622.453,
+     "end": 630.219,
+     "cap": "**Nigel:** Four. Sound is about **340 m/s**. Light is about **300,000,000 m/s**. Not similar.",
+     "who": "nigel"
+    },
+    {
+     "id": "t5",
+     "start": 630.839,
+     "end": 635.127,
+     "cap": "**Coco:** Five. Hertz for frequency. Metres per second for speed. Units matter.",
+     "who": "coco"
+    },
+    {
+     "id": "t6",
+     "start": 635.747,
+     "end": 639.395,
+     "cap": "**Archie:** Six! In echo sums, the sound goes **there and back**, so cut it in half!",
+     "who": "archie"
+    },
+    {
+     "id": "return",
+     "start": 640.015,
+     "end": 642.105,
+     "cap": "**Narrator:** Pass It On will return.",
+     "who": "narr"
+    },
+    {
+     "id": "bar",
+     "start": 643.225,
+     "end": 646.084,
+     "cap": "**Kavya:** Wait. Bar forty-seven. This is it. My moment.",
+     "who": "kavya"
+    },
+    {
+     "id": "ding",
+     "start": 647.204,
+     "end": 647.972,
+     "cap": "**Narrator:** Ding.",
+     "who": "narr"
+    },
+    {
+     "id": "echo",
+     "start": 649.492,
+     "end": 650.473,
+     "cap": "**Echo:** ...ding.",
+     "who": "echo"
+    },
+    {
+     "id": "nailed",
+     "start": 651.693,
+     "end": 652.696,
+     "cap": "**Kavya:** Nailed it.",
+     "who": "kavya"
+    },
+    {
+     "id": "last",
+     "start": 653.516,
+     "end": 654.732,
+     "cap": "**Echo:** ...nailed it.",
+     "who": "echo"
+    }
+   ]
+  }
+ ],
+ "total": 657.432
+}
