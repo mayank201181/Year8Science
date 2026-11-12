@@ -213,8 +213,8 @@ scene('cold', S => {
     }
     op(finalChip, sKit && t < cC ? win(t, cK + 1.1, cC - 0.1, 0.2) : 0);
     if (sKit && t < cC) tr(finalChip, 600, 300, 0.9 + 0.1 * P(t, cK + 1.1, 0.4, pop));
-    // Kat asleep on the right end of the island in every kitchen shot
-    if (sKit) { show(kat, 0, 0, 1, { mood: 'deadpan', still: true }); place(kat, camK, 1088, 548, 0.4); }
+    // Kat asleep on the left end of the island in every kitchen shot
+    if (sKit) { show(kat, 0, 0, 1, { mood: 'deadpan', still: true }); place(kat, camK, 170, 545, 0.45); }
 
     /* D: rules */
     const sD = on(t, cD, cE);
