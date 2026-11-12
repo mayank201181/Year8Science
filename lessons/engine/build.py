@@ -82,7 +82,9 @@ def build(topic, variant, out=None, timeline=None, fonts=None, audio=None, mp3=N
     n_ch = len(tl["chapters"])
     words = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve",
              "thirteen", "fourteen", "fifteen", "sixteen"]
-    lab_path = f"/topic/{topic}"
+    lab_path = f"/topic/{meta.get('lab', topic)}"   # a sitcom episode links back to its topic
+    if meta.get("unit"):
+        tl = dict(tl, unit=meta["unit"])           # card label: "SCENE 2 OF 7" instead of "CHAPTER"
     if variant == "artifact":
         audio_src, lab, quiz, target, page = "narration.mp3", SITE + lab_path, SITE + lab_path + "?tab=quiz", 'target="_blank" rel="noopener"', "index.html"
     elif variant == "app":

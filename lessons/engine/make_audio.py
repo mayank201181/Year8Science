@@ -33,7 +33,7 @@ def load_chapters(topic):
     spec = importlib.util.spec_from_file_location(f"script_{topic.replace('-', '_')}", path)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
-    return mod.CHAPTERS
+    return mod
 
 VOICE = "af_heart"   # same voice and pace as the earlier explainers
 SPEED = 0.95
@@ -54,16 +54,20 @@ def spoken(line):
 
 
 def main(topic, out_dir):
-    CHAPTERS = load_chapters(topic)
+    mod = load_chapters(topic)
+    CHAPTERS = mod.CHAPTERS
+    # Optional cast (sitcom episodes): each line's `who` picks a voice and speed.
+    CAST = getattr(mod, "CAST", {})
+    gap = getattr(mod, "META", {}).get("gap", GAP)
     model_dir = os.environ["KOKORO_DIR"]
     cache = os.path.join(out_dir, "cache")
     os.makedirs(cache, exist_ok=True)
     kok = None
     lock = None  # held for the whole run once synthesis starts (a local handle would close and release it)
 
-    def synth(text):
+    def synth(text, voice=VOICE, speed=SPEED):
         nonlocal kok, lock
-        key = hashlib.sha1(f"{VOICE}|{SPEED}|{text}".encode()).hexdigest()[:16]
+        key = hashlib.sha1(f"{voice}|{speed}|{text}".encode()).hexdigest()[:16]
         path = os.path.join(cache, key + ".wav")
         if os.path.exists(path):
             a, _ = sf.read(path, dtype="float32")
@@ -77,7 +81,8 @@ def main(topic, out_dir):
                 fcntl.flock(lock, fcntl.LOCK_EX)
             kok = Kokoro(os.path.join(model_dir, "kokoro-v1.0.onnx"),
                          os.path.join(model_dir, "voices-v1.0.bin"))
-        a, sr = kok.create(text, voice=VOICE, speed=SPEED, lang="en-us")
+        lang = "en-gb" if voice.startswith("b") else "en-us"
+        a, sr = kok.create(text, voice=voice, speed=speed, lang=lang)
         assert sr == SR
         sf.write(path, a, SR)
         print(f"  synth {len(a)/SR:5.2f}s  {text[:70]}", flush=True)
@@ -106,12 +111,16 @@ def main(topic, out_dir):
             silence(CARD)
         lines = []
         for li, line in enumerate(ch["lines"]):
-            a = synth(spoken(line))
+            who = CAST.get(line.get("who"), {})
+            a = synth(spoken(line), who.get("voice", VOICE), who.get("speed", SPEED))
             start = t
             audio(a)
-            lines.append({"id": line["id"], "start": round(start, 3), "end": round(t, 3), "cap": line["cap"]})
+            entry = {"id": line["id"], "start": round(start, 3), "end": round(t, 3), "cap": line["cap"]}
+            if line.get("who"):
+                entry["who"] = line["who"]
+            lines.append(entry)
             last = li == len(ch["lines"]) - 1
-            silence(line.get("pause", 0.0) + (0 if last else GAP))
+            silence(line.get("pause", 0.0) + (0 if last else gap))
         silence(TAIL if ci < len(CHAPTERS) - 1 else END)
         timeline["chapters"].append({
             "id": ch["id"], "title": ch["title"], "short": ch["short"], "card": ch.get("card", True),

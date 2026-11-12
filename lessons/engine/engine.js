@@ -111,7 +111,7 @@
       cardFor = i;
       setText(cardNum, NUM[i]);
       setText(cardTitle, ch.title);
-      setText(cardSub, NUM[i] === '★' ? 'RECAP' : NUM[i] === '?' ? 'QUIZ' : `CHAPTER ${NUM[i]} OF ${CORE}`);
+      setText(cardSub, NUM[i] === '★' ? 'RECAP' : NUM[i] === '?' ? 'QUIZ' : `${(TL.unit || 'Chapter').toUpperCase()} ${NUM[i]} OF ${CORE}`);
     }
     const p = P(t, 0.2, 0.7, easeOut);
     tr(cardInner, 600, 380 + (1 - p) * 24, 0.94 + 0.06 * p);

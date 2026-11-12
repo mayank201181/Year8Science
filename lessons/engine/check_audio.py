@@ -54,13 +54,16 @@ def main():
         tokens=f"{m}/base.en-tokens.txt", language="en", task="transcribe", num_threads=4)
     want = set(a.lines.split(",")) if a.lines else None
     flagged = total = errs = words = 0
-    for ch in load_chapters(a.topic):
+    mod = load_chapters(a.topic)
+    cast = getattr(mod, "CAST", {})
+    for ch in mod.CHAPTERS:
         for line in ch["lines"]:
             lid = f"{ch['id']}.{line['id']}"
             if want and lid not in want:
                 continue
             text = spoken(line)
-            key = hashlib.sha1(f"{VOICE}|{SPEED}|{text}".encode()).hexdigest()[:16]
+            who = cast.get(line.get("who"), {})
+            key = hashlib.sha1(f"{who.get('voice', VOICE)}|{who.get('speed', SPEED)}|{text}".encode()).hexdigest()[:16]
             clip, sr = sf.read(os.path.join(a.audio_dir, "cache", key + ".wav"), dtype="float32")
             st = rec.create_stream()
             st.accept_waveform(sr, clip)

@@ -1,0 +1,211 @@
+"""THE POWERHOUSE, episode 1 ("Sports Day"): a mockumentary sitcom that teaches Respiration.
+
+An original comedy: a documentary crew follows Mitch, a tired, sarcastic mitochondrion in
+the thigh muscle of Kavya (12) on Sports Day. Every line has a speaker (`who`, a key of
+CAST); make_audio.py voices each speaker differently. Captions show the speaker's name.
+`pause` adds silence after a line (comic timing). Content follows lib/topics/respiration.ts.
+"""
+
+META = {
+    "name": "The Powerhouse",
+    "kicker": "Episode 1 · Sports Day · Respiration",
+    "dek": "A mockumentary sitcom from inside one very tired mitochondrion. {chapters} scenes.",
+    "gap": 0.32,          # shorter gaps between lines than the lessons: dialogue moves fast
+    "unit": "Scene",
+    "lab": "respiration",
+    "title": "The Powerhouse, Episode 1: Sports Day",
+    "h1": "The Powerhouse",
+}
+
+# voice, speed, caption name, colour hint for the animators
+CAST = {
+    "narr":   {"voice": "bm_george",  "speed": 0.96, "name": "Narrator"},
+    "mitch":  {"voice": "am_michael", "speed": 0.97, "name": "Mitch"},
+    "gloria": {"voice": "af_bella",   "speed": 1.08, "name": "Gloria"},
+    "otto":   {"voice": "am_puck",    "speed": 1.06, "name": "Otto"},
+    "oscar":  {"voice": "am_echo",    "speed": 1.06, "name": "Oscar"},
+    "carl":   {"voice": "bm_lewis",   "speed": 0.92, "name": "Carl"},
+    "larry":  {"voice": "am_eric",    "speed": 1.14, "name": "Larry"},
+    "kavya":  {"voice": "af_sky",     "speed": 1.02, "name": "Kavya"},
+    "fern":   {"voice": "bf_lily",    "speed": 1.0,  "name": "Fern"},
+    "bao":    {"voice": "bf_isabella","speed": 0.98, "name": "Bao"},
+    "wally":  {"voice": "am_onyx",    "speed": 0.85, "name": "Wally"},
+}
+
+
+def L(id, who, text, pause=0.0, say=None):
+    line = {"id": id, "who": who, "cap": f"**{CAST[who]['name']}:** {text}", "pause": pause}
+    line["say"] = say if say else text.replace("**", "")
+    return line
+
+
+CHAPTERS = [
+    {
+        "id": "cold", "title": "Cold open", "short": "Cold open", "card": False,
+        "lines": [
+            L("kavya", "narr", "This is Kavya. She is twelve. In two hours, she will run the eight hundred metres at Sports Day.", 0.4),
+            L("signed", "kavya", "I did not sign up for this. My PE teacher signed me up for this.", 0.5),
+            L("small", "narr", "But this documentary is not about Kavya. It is about something much, much smaller."),
+            L("thigh", "narr", "Inside her thigh are millions of muscle cells. And inside each cell are hundreds of tiny power stations."),
+            L("this", "narr", "This is one of them.", 0.5),
+            L("hi", "mitch", "Hi. Mitch. **Mitochondrion**.", 0.3),
+            L("before", "mitch", "And yes, before you say it. I am 'the powerhouse of the cell'.", 0.5),
+            L("mug", "mitch", "I know. Everyone knows. It's the only thing anyone remembers from Year 7. It's on a mug.", 0.4),
+            L("havemug", "mitch", "I have the mug.", 0.9),
+            L("family", "narr", "Mitch's family has been in the energy business for about two billion years."),
+            L("dayoff", "mitch", "Never had a day off. Not one. Not even on my birthday. I don't know when my birthday is.", 0.6),
+            L("title", "narr", "The Powerhouse. Episode one: Sports Day.", 1.2),
+        ],
+    },
+    {
+        "id": "delivery", "title": "The breakfast delivery", "short": "Delivery",
+        "lines": [
+            L("time", "narr", "Nine a.m. Kavya's breakfast has been digested. A delivery arrives, by blood.", 0.3),
+            L("gloria", "gloria", "Hiii! Gloria! **Glucose**! I'm a sugar! From the toast! I'm basically a snack with feelings!", 0.3,
+              say="Hi hi hi! Gloria! Glucose! I'm a sugar! From the toast! I'm basically a snack with feelings!"),
+            L("th_gloria", "mitch", "Gloria is glucose. She's the fuel. She's... a lot.", 0.6),
+            L("stored", "gloria", "I've got SO much energy stored in me, Mitch. In my chemical bonds! Want to see?"),
+            L("needox", "mitch", "Not yet. First I need oxygen.", 0.2),
+            L("otto1", "otto", "Did somebody say..."),
+            L("oscar1", "oscar", "...oxygen?", 0.2),
+            L("otto2", "otto", "I'm Otto."),
+            L("oscar2", "oscar", "I'm Oscar. We're oxygen. We always travel as a pair."),
+            L("otto3", "otto", "O two. It's a whole thing.", 0.4),
+            L("th_twins", "mitch", "The twins come in from the lungs, through the blood. They finish each other's sentences. It's exhausting.", 0.6),
+            L("aerobic", "narr", "When glucose meets oxygen inside a mitochondrion, we get **aerobic respiration**. Aerobic means **with oxygen**."),
+            L("word", "mitch", "**Glucose + oxygen → carbon dioxide + water**. And energy is **released**.",
+              say="Glucose plus oxygen gives carbon dioxide plus water. And energy is released."),
+            L("party", "gloria", "Ooh, it's like a dance where everybody swaps partners!"),
+            L("fine", "mitch", "It's a chemical reaction, Gloria. But... yes. Fine. The atoms swap partners.", 0.5),
+            L("carl", "carl", "And then... there's me. Carl. **Carbon dioxide**. The waste product.", 0.4),
+            L("thrown", "carl", "Nobody throws a party when I arrive. They throw me OUT. Into the blood, to the lungs, and out of her mouth.", 0.3),
+            L("breath", "carl", "Every time Kavya breathes out, that's me being thrown out. Rude.", 0.5),
+            L("wally", "mitch", "And that's **water**. Wally. Wally doesn't talk.", 1.0),
+            L("symbol", "narr", "Scientists write the same reaction as a **symbol equation**."),
+            L("eq", "mitch", "**C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O**",
+              say="C six H twelve O six, plus six O two, gives six C O two, plus six H two O.", pause=0.4),
+            L("six", "otto", "Six pairs of us? That's twelve oxygen atoms!"),
+            L("plus", "oscar", "Plus six inside Gloria. That's eighteen!"),
+            L("count", "otto", "And eighteen on the other side!", 0.2),
+            L("balance", "mitch", "No atoms are made, and none are destroyed. Same atoms, new partners. That's why the equation **balances**.", 0.4),
+            L("make", "gloria", "So you basically MAKE energy out of me!", 0.9),
+            L("no", "mitch", "No.", 0.6),
+            L("cant", "mitch", "Energy can't be made, Gloria. It was already stored in you. I **release** it."),
+            L("th_exam", "mitch", "Write 'respiration **releases** energy'. If you write 'makes energy', an examiner somewhere quietly cries into their tea.", 0.8),
+        ],
+    },
+    {
+        "id": "energy", "title": "Where does the energy go?", "short": "Energy",
+        "lines": [
+            L("where", "narr", "So where does all that released energy go?", 0.3),
+            L("list", "mitch", "Let's look at this morning's requests.", 0.3),
+            L("muscles", "mitch", "Muscles. Want energy to **move**. Always. Muscles never stop asking."),
+            L("growth", "mitch", "**Growth and repair**. Building new cells, and making big molecules like proteins.", 0.2),
+            L("warm", "mitch", "And **keeping warm**. Thirty-seven degrees. All day. Every day.", 0.4),
+            L("singapore", "kavya", "It's thirty-four degrees OUTSIDE. Why are you keeping me WARM?", 0.4),
+            L("mammal", "mitch", "Because you're a **mammal**, Kavya. Mammals and birds keep a steady body temperature. Not my rule. I just pay the bill.", 0.6),
+            L("many", "narr", "Cells that need a lot of energy, like muscle cells, are packed with mitochondria."),
+            L("colleagues", "mitch", "This muscle cell has about two thousand of us. Two thousand Mitches.", 0.4),
+            L("accounts", "mitch", "There's a Mitch in accounts I really don't like.", 0.7),
+            L("folds", "narr", "Inside each mitochondrion, the inner membrane is **folded**. That gives a large surface area for the reactions."),
+            L("accordion", "mitch", "We fold it, like a tiny, sad accordion. More folds, more room to work.", 0.6),
+        ],
+    },
+    {
+        "id": "breathing", "title": "Respiration is NOT breathing", "short": "Not breathing",
+        "lines": [
+            L("mistake", "narr", "Now. A very common mistake.", 0.2),
+            L("ask", "kavya", "Respiration is just breathing, right? Like the respiratory system?", 1.4),
+            L("stare", "mitch", "No.", 0.5),
+            L("breath", "mitch", "**Breathing** is your lungs moving air in and out, using muscles and your ribs. That's the delivery van."),
+            L("resp", "mitch", "**Respiration** is a **chemical reaction** inside every living cell. That's me. I'm the factory.", 0.3),
+            L("brings", "otto", "Breathing brings us in..."),
+            L("uses", "oscar", "...respiration uses us up.", 0.2),
+            L("out", "carl", "And breathing out gets rid of me. As usual.", 0.5),
+            L("everyone", "narr", "Fish respire. Bacteria respire. And plants respire."),
+            L("fern", "fern", "Hiii, Mitch!", say="Hello, Mitch!"),
+            L("fern2", "mitch", "Fern.", 0.3),
+            L("fernwork", "fern", "We plant cells respire **all the time**, day and night. Photosynthesis only happens when it's light."),
+            L("shifts", "fern", "So we do both! We're the day shift AND the night shift!", 0.4),
+            L("th_fern", "mitch", "Fern works in a pot plant on a windowsill. Fern has never once complained. I find that suspicious.", 0.6),
+            L("opposite", "narr", "Photosynthesis **stores** energy in glucose. Respiration **releases** it. They're roughly opposites.", 0.5),
+        ],
+    },
+    {
+        "id": "race", "title": "The eight hundred metres", "short": "The race",
+        "lines": [
+            L("eleven", "narr", "Eleven a.m. The eight hundred metres.", 0.3),
+            L("ready", "kavya", "Okay. Okay. I can do this. It's just two laps. Two... long... laps.", 0.4),
+            L("go", "narr", "The race starts. Suddenly, Kavya's leg muscles need far more energy, far more quickly.", 0.2),
+            L("allhands", "mitch", "All hands! Gloria! Twins! I need oxygen, NOW!"),
+            L("coming", "otto", "Coming! Her heart's beating faster!"),
+            L("deeper", "oscar", "She's breathing faster and deeper!"),
+            L("cant", "otto", "But we just can't get here fast enough!", 0.4),
+            L("noox", "mitch", "No oxygen, no aerobic respiration. I'm going to have to call... him.", 0.6),
+            L("anaerobic", "narr", "When there isn't enough oxygen, muscle cells switch to **anaerobic respiration**. Anaerobic means **without oxygen**.", 0.2),
+            L("larry", "larry", "HELLOOO! Larry! **Lactic acid**! Who ordered emergency energy?!", 0.4),
+            L("th_larry", "mitch", "Larry is what happens when you skip the oxygen. He's not evil. He's just... the cheap option.", 0.5),
+            L("larryeq", "larry", "**Glucose → lactic acid**. No oxygen needed! Super speedy!",
+              say="Glucose gives lactic acid. No oxygen needed! Super speedy!"),
+            L("little", "gloria", "Wait. You're only using a tiny bit of my energy?"),
+            L("hurry", "larry", "I'm in a hurry! You're only partly broken down, so you release **much less energy**.", 0.3),
+            L("worth", "mitch", "Much less energy. But it's fast, and it keeps her running.", 0.3),
+            L("fire", "kavya", "Why... do my legs... feel like they're on FIRE?", 0.3),
+            L("me", "larry", "That's me! Lactic acid builds up and makes your muscles tired and achy. It's called **muscle fatigue**!", 0.3),
+            L("welcome", "larry", "You're welcome!", 0.7),
+            L("finish", "narr", "Kavya crosses the line."),
+            L("fourth", "kavya", "I came fourth. Out of five. I'm lying down now. This is my life now.", 0.8),
+        ],
+    },
+    {
+        "id": "debt", "title": "Paying the oxygen debt", "short": "Oxygen debt",
+        "lines": [
+            L("still", "narr", "Kavya has stopped running. So why is she still panting?", 0.2),
+            L("why", "kavya", "I. Stopped. Running. Why. Am I. Still. Breathing like this?", 0.4),
+            L("mess", "mitch", "Because Larry left a mess. And you owe us oxygen."),
+            L("here", "otto", "We're here now!"),
+            L("whereis", "oscar", "Where's the lactic acid?", 0.3),
+            L("debt", "narr", "The extra oxygen needed to break down the lactic acid is called the **oxygen debt**. That's why you keep breathing hard after exercise."),
+            L("borrowed", "mitch", "You borrowed energy without oxygen. Now you pay it back, with oxygen.", 0.3),
+            L("bills", "mitch", "Even your cells have bills, Kavya.", 0.6),
+            L("bye", "larry", "This isn't goodbye! I'll be back at the next PE lesson!", 0.6),
+            L("compare", "mitch", "So. **Aerobic**: needs oxygen, releases **lots** of energy. **Anaerobic**: no oxygen, **a little** energy, and Larry.", 0.7),
+        ],
+    },
+    {
+        "id": "bao", "title": "Cousin Bao from the bakery", "short": "Yeast",
+        "lines": [
+            L("bakery", "narr", "Meanwhile, at the bakery across the road, a very different relative is hard at work.", 0.2),
+            L("hi", "bao", "Hello. I'm Bao. I'm a **yeast**. A single-celled **fungus**. Yes, a fungus. Don't make that face.", 0.5),
+            L("noox", "bao", "When I run out of oxygen, I don't make lactic acid like Larry. I do **fermentation**."),
+            L("eq", "bao", "**Glucose → ethanol + carbon dioxide**. And a little energy.",
+              say="Glucose gives ethanol plus carbon dioxide. And a little energy.", pause=0.4),
+            L("me", "carl", "Wait. Carbon dioxide? Me?"),
+            L("you", "bao", "You, Carl. Your bubbles make the bread dough **rise**. You make it soft and fluffy.", 0.8),
+            L("wants", "carl", "Someone... wants me?", 0.5),
+            L("cry", "carl", "I'm going to cry. I can't cry. I'm a gas.", 0.6),
+            L("ethanol", "bao", "The **ethanol** evaporates when the bread is baked. Adults also use fermentation to make wine and beer. We will not be discussing that. Kavya is twelve.", 0.6),
+            L("th_cousin", "mitch", "Bao is my cousin. Technically. Very technically. We both respire. Bao makes bread. I make sore legs.", 0.6),
+            L("limewater", "narr", "You can even catch Carl in the act. Bubble carbon dioxide through **limewater**, and it turns **milky**."),
+            L("trick", "carl", "It's my one party trick. Clear to cloudy. I've been practising for years.", 0.7),
+        ],
+    },
+    {
+        "id": "traps", "title": "The cast saves you some marks", "short": "Exam traps",
+        "lines": [
+            L("intro", "narr", "Before the credits, the cast would like to save you some marks.", 0.3),
+            L("t1", "mitch", "One. Respiration is **not** breathing. Breathing moves air. Respiration is a reaction in your cells.", 0.3),
+            L("t2", "gloria", "Two! Energy is **released**, never made! It was in me all along!", 0.3),
+            L("t3", "fern", "Three. Plants respire **all the time**. Day and night. Not just at night!", 0.3),
+            L("t4", "larry", "Four! Anaerobic respiration in muscles makes **lactic acid**. NOT ethanol! That's Bao's thing!", 0.3),
+            L("t5a", "otto", "Five. Aerobic releases..."),
+            L("t5b", "oscar", "...MUCH more energy than anaerobic.", 0.3),
+            L("t6", "carl", "Six. Anaerobic respiration in your muscles doesn't make any carbon dioxide at all.", 0.4),
+            L("story", "carl", "Story of my life.", 0.8),
+            L("return", "narr", "The Powerhouse will return.", 1.0),
+            L("wally", "mitch", "Wally. Anything you'd like to add?", 1.4),
+            L("hi", "wally", "...Hi.", 1.0),
+            L("saving", "mitch", "He's been saving that for two billion years.", 1.5),
+        ],
+    },
+]
