@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700;800&family=Fredoka:wght@500;600;700&display=swap">
 <!--@@LOCALFONTS@@-->
 <style>
+/* Fredoka's kerning pulls a bold capital I under its neighbours ("ACTIVE" reads "ACTVE"): no kerning in the animation. */
+#stage text{font-kerning:none}
 /* Layout: one centred column. The player is a dark lab "screen" in both themes (like any video player);
    the page around it follows the viewer's theme. Energy-yellow marks progress and the current moment. */
 :root{
