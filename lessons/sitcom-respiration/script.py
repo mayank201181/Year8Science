@@ -8,12 +8,12 @@ CAST); make_audio.py voices each speaker differently. Captions show the speaker'
 
 META = {
     "name": "The Powerhouse",
-    "kicker": "Episode 1 · Sports Day · Respiration",
-    "dek": "A mockumentary sitcom from inside one very tired mitochondrion. {chapters} scenes.",
+    "kicker": "Claude Sitcom · Ep 2 · Respiration",
+    "dek": "Sports Day, from inside one very tired mitochondrion. {chapters} scenes.",
     "gap": 0.32,          # shorter gaps between lines than the lessons: dialogue moves fast
     "unit": "Scene",
     "lab": "respiration",
-    "title": "The Powerhouse, Episode 1: Sports Day",
+    "title": "Claude Sitcom Ep 2: The Powerhouse (Respiration)",
     "h1": "The Powerhouse",
 }
 
@@ -54,7 +54,7 @@ CHAPTERS = [
             L("havemug", "mitch", "I have the mug.", 0.9),
             L("family", "narr", "Mitch's family has been in the energy business for about two billion years."),
             L("dayoff", "mitch", "Never had a day off. Not one. Not even on my birthday. I don't know when my birthday is.", 0.6),
-            L("title", "narr", "The Powerhouse. Episode one: Sports Day.", 1.2),
+            L("title", "narr", "The Powerhouse. Episode two: Sports Day.", 1.2),
         ],
     },
     {

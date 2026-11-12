@@ -139,7 +139,7 @@ scene('traps', S => {
   T(wBub, 0, 11, '...Hi.', { size: 30, weight: 700, anchor: 'middle', fill: SC_INK });
   const sE = { fx: G(fx) };
   T(sE.fx, 600, 175, 'THE POWERHOUSE', { size: 60, weight: 800, anchor: 'middle', fill: C.energy, ls: 3 });
-  T(sE.fx, 600, 226, 'Episode 1: Sports Day', { size: 32, weight: 600, anchor: 'middle', fill: C.ink });
+  T(sE.fx, 600, 226, 'Episode 2: Sports Day', { size: 32, weight: 600, anchor: 'middle', fill: C.ink });
 
   /* ---------- shots ---------- */
   const SHOTS = [['I', -9], ['1', at('t1') - 0.05], ['2', at('t2') - 0.05], ['3', at('t3') - 0.05], ['4', at('t4') - 0.05], ['5', at('t5a') - 0.05],

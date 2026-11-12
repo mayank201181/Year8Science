@@ -1,4 +1,4 @@
-# THE POWERHOUSE, Episode 1 "Sports Day": storyboard
+# THE POWERHOUSE (Claude Sitcom Ep 2) "Sports Day": storyboard
 
 A mockumentary sitcom (documentary crew, characters talk to camera) that teaches Respiration.
 Audience: a 12-year-old watching while eating. It must be FUNNY first, and teach every idea clearly.
@@ -49,7 +49,7 @@ Sets: `scOffice` (inside the mitochondrion), `scBlood` (blood vessel), `scTrack`
 - mug: Mitch lifts `scMug` ("#1 POWERHOUSE"). havemug: hold the mug up, deadpan, in silence (pause 0.9 s).
 - family: a framed family photo on the wall: a little rod-shaped bacterium, "Great-great-...-grandpa, 2 billion years ago".
 - dayoff: a calendar where every day says WORK. Mitch sad on "I don't know when my birthday is".
-- title: the show logo "THE POWERHOUSE" with "Episode 1: Sports Day"; the whole cast pops in below it in a
+- title: the show logo "THE POWERHOUSE" with "Episode 2: Sports Day"; the whole cast pops in below it in a
   row, bobbing (classic sitcom title card). Hold it.
 
 ## 1 delivery: The breakfast delivery

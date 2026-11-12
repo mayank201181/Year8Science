@@ -162,7 +162,7 @@ scene('cold', S => {
   logoT.setAttribute('stroke', '#5A2B07'); logoT.setAttribute('stroke-width', 12); logoT.setAttribute('paint-order', 'stroke'); logoT.setAttribute('stroke-linejoin', 'round');
   const lb1 = bolt(logo, 0.62); tr(lb1, -450, -30, 0.62, -12);
   const lb2 = bolt(logo, 0.62); tr(lb2, 450, -30, 0.62, 12);
-  const epi = T(Lfg, 600, 300, 'Episode 1: Sports Day', { size: 42, weight: 700, anchor: 'middle', fill: '#FFFFFF' });
+  const epi = T(Lfg, 600, 300, 'Episode 2: Sports Day', { size: 42, weight: 700, anchor: 'middle', fill: '#FFFFFF' });
 
   /* ================= the cast ================= */
   const kav = scChar(Lcast, 'kavya', { mood: 'annoyed' });

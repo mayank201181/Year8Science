@@ -56,7 +56,15 @@ export function SiteHeader() {
             rel="noopener noreferrer"
             className="ml-1 inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-rose-500 to-amber-500 px-3 py-1.5 text-xs font-extrabold text-white shadow-sm hover:opacity-95"
           >
-            🍿 Season 1 TV
+            🍿 Gemini Sitcoms
+          </a>
+          <a
+            href="/lessons/claude-sitcom.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-1 inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-violet-600 to-sky-500 px-3 py-1.5 text-xs font-extrabold text-white shadow-sm hover:opacity-95"
+          >
+            🎬 Claude Sitcoms
           </a>
         </nav>
 
@@ -95,7 +103,8 @@ export function SiteHeader() {
               </button>
               {menu && (
                 <div className="absolute right-0 mt-2 w-48 overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-lg">
-                  <a href="/season1/index.html" target="_blank" rel="noopener noreferrer" onClick={() => setMenu(false)} className="block px-4 py-2 text-sm font-bold text-rose-600 hover:bg-rose-50 sm:hidden">🍿 Season 1 TV</a>
+                  <a href="/season1/index.html" target="_blank" rel="noopener noreferrer" onClick={() => setMenu(false)} className="block px-4 py-2 text-sm font-bold text-rose-600 hover:bg-rose-50 sm:hidden">🍿 Gemini Sitcoms</a>
+                  <a href="/lessons/claude-sitcom.html" target="_blank" rel="noopener noreferrer" onClick={() => setMenu(false)} className="block px-4 py-2 text-sm font-bold text-violet-700 hover:bg-violet-50 sm:hidden">🎬 Claude Sitcoms</a>
                   <Link href="/progress" onClick={() => setMenu(false)} className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 sm:hidden">My Progress</Link>
                   <button onClick={() => { setMenu(false); switchProfile(); }} className="block w-full px-4 py-2 text-left text-sm text-slate-700 hover:bg-slate-50">🔄 Switch learner</button>
                   <Link href="/parent" onClick={() => setMenu(false)} className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">🔒 Parent dashboard</Link>
