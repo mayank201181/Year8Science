@@ -25,7 +25,7 @@
      scOffice(parent)               inside the mitochondrion: folded cristae walls, warm light (full stage)
      scBlood(parent)                a blood vessel with drifting red cells (full stage); g.upd(t)
      scTrack(parent)                Sports Day: blue sky, sun, running track, lane lines, school building (full stage); g.upd(t)
-     scVideoCall(parent, w, h, label)  laptop-style call window; put a character in g.slot
+     scVideoCall(parent, w, h, label)  laptop-style call window; put a character in g.screen (not "slot": that name is a built-in DOM property)
 */
 
 /* ---------- who is speaking ---------- */
@@ -335,7 +335,7 @@ function scVideoCall(parent, w, h, label) {
   E('rect', { x: -w / 2, y: -h / 2, width: w, height: h, rx: 8, fill: linGrad('#1F4A33', '#2E6E4A', true) }, g);
   const clipId = 'scvc' + Math.round(w * 13 + h * 7);
   const cp = E('clipPath', { id: clipId }, defs()); E('rect', { x: -w / 2, y: -h / 2, width: w, height: h, rx: 8 }, cp);
-  g.slot = G(g, { 'clip-path': `url(#${clipId})` });
+  g.screen = G(g, { 'clip-path': `url(#${clipId})` });
   return g;
 }
 
