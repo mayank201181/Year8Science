@@ -1,0 +1,941 @@
+{
+ "voice": "af_heart",
+ "speed": 0.95,
+ "chapters": [
+  {
+   "id": "cold",
+   "title": "Cold open",
+   "short": "Cold open",
+   "card": false,
+   "start": 0.0,
+   "end": 60.041,
+   "lines": [
+    {
+     "id": "kavya",
+     "start": 0.6,
+     "end": 7.555,
+     "cap": "**Narrator:** This is Kavya. She is twelve. It is seven a.m. on a Saturday, and she planned to sleep until lunch.",
+     "who": "narr"
+    },
+    {
+     "id": "sun",
+     "start": 8.275,
+     "end": 12.605,
+     "cap": "**Kavya:** Why is the sun in my face? It's Saturday. The sun doesn't even go to school.",
+     "who": "kavya"
+    },
+    {
+     "id": "small",
+     "start": 13.425,
+     "end": 19.655,
+     "cap": "**Narrator:** But this documentary is not about Kavya. It is about the thing that just hit her in the face.",
+     "who": "narr"
+    },
+    {
+     "id": "this",
+     "start": 19.975,
+     "end": 21.233,
+     "cap": "**Narrator:** This is him.",
+     "who": "narr"
+    },
+    {
+     "id": "hi",
+     "start": 22.053,
+     "end": 25.168,
+     "cap": "**Ray:** Hi. Ray. I'm a **ray of light**. I work in deliveries.",
+     "who": "ray"
+    },
+    {
+     "id": "commute",
+     "start": 25.788,
+     "end": 30.993,
+     "cap": "**Ray:** I left the Sun eight minutes ago. A hundred and fifty million kilometres. In a **straight line**.",
+     "who": "ray"
+    },
+    {
+     "id": "speed",
+     "start": 31.613,
+     "end": 37.437,
+     "cap": "**Narrator:** Light travels at about **300,000 km/s**. Nothing is faster.",
+     "who": "narr"
+    },
+    {
+     "id": "curves",
+     "start": 37.757,
+     "end": 43.155,
+     "cap": "**Ray:** And always in **straight lines**. I don't do curves. I don't do shortcuts. I don't do scenic routes.",
+     "who": "ray"
+    },
+    {
+     "id": "thboss",
+     "start": 43.875,
+     "end": 48.525,
+     "cap": "**Ray:** My boss is the Sun. **Luminous**: makes its own light. Never lets anyone forget it.",
+     "who": "ray"
+    },
+    {
+     "id": "tips",
+     "start": 49.345,
+     "end": 51.564,
+     "cap": "**Ray:** All that, to wake up one twelve-year-old.",
+     "who": "ray"
+    },
+    {
+     "id": "notip",
+     "start": 52.284,
+     "end": 53.351,
+     "cap": "**Ray:** Nobody tips.",
+     "who": "ray"
+    },
+    {
+     "id": "title",
+     "start": 54.571,
+     "end": 57.941,
+     "cap": "**Narrator:** Light Work. Episode ten: Return to Sender.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "seeing",
+   "title": "Your eyes are not lasers",
+   "short": "How we see",
+   "card": true,
+   "start": 60.041,
+   "end": 140.928,
+   "lines": [
+    {
+     "id": "window",
+     "start": 61.841,
+     "end": 68.092,
+     "cap": "**Narrator:** Seven oh five. Ray comes through the window. Glass is **transparent**: light goes straight through.",
+     "who": "narr"
+    },
+    {
+     "id": "curtain",
+     "start": 68.612,
+     "end": 73.156,
+     "cap": "**Ray:** The curtains are **translucent**. They let me in, but scatter me everywhere. Unprofessional.",
+     "who": "ray"
+    },
+    {
+     "id": "blanket",
+     "start": 73.776,
+     "end": 79.643,
+     "cap": "**Narrator:** Kavya pulls the blanket over her head. The blanket is **opaque**. No light gets through at all.",
+     "who": "narr"
+    },
+    {
+     "id": "neighbour",
+     "start": 80.263,
+     "end": 82.545,
+     "cap": "**Ray:** Opaque. Fine. I'll leave it with the neighbour.",
+     "who": "ray"
+    },
+    {
+     "id": "job",
+     "start": 83.565,
+     "end": 88.387,
+     "cap": "**Ray:** Here's the job. Light bounces off things and goes **into your eye**. That's how you **see** them.",
+     "who": "ray"
+    },
+    {
+     "id": "lasers",
+     "start": 88.707,
+     "end": 92.184,
+     "cap": "**Kavya:** Wait. I thought my eyes sent something out. Like little lasers.",
+     "who": "kavya"
+    },
+    {
+     "id": "no",
+     "start": 93.704,
+     "end": 94.301,
+     "cap": "**Ray:** No.",
+     "who": "ray"
+    },
+    {
+     "id": "receive",
+     "start": 95.121,
+     "end": 100.412,
+     "cap": "**Ray:** Your eyes don't send anything out. They only **receive** light. You're not a superhero. You're a letterbox.",
+     "who": "ray"
+    },
+    {
+     "id": "wall",
+     "start": 101.332,
+     "end": 104.959,
+     "cap": "**Narrator:** Her wall makes no light of its own. It's **non-luminous**.",
+     "who": "narr"
+    },
+    {
+     "id": "moon",
+     "start": 105.279,
+     "end": 107.796,
+     "cap": "**Kavya:** But the Moon glows. So the Moon makes light, right?",
+     "who": "kavya"
+    },
+    {
+     "id": "moonno",
+     "start": 108.416,
+     "end": 113.003,
+     "cap": "**Ray:** The Moon is **non-luminous**. It just reflects our sunlight, and takes all the credit.",
+     "who": "ray"
+    },
+    {
+     "id": "torch",
+     "start": 113.823,
+     "end": 119.113,
+     "cap": "**Narrator:** Fully awake and fully annoyed, Kavya makes a shadow puppet with her phone torch.",
+     "who": "narr"
+    },
+    {
+     "id": "roar",
+     "start": 119.433,
+     "end": 121.012,
+     "cap": "**Kavya:** It's a dinosaur. Roar.",
+     "who": "kavya"
+    },
+    {
+     "id": "shadow",
+     "start": 121.932,
+     "end": 127.393,
+     "cap": "**Ray:** Light travels in straight lines, so her hand **blocks** me. The dark patch behind it is a **shadow**.",
+     "who": "ray"
+    },
+    {
+     "id": "closer",
+     "start": 127.713,
+     "end": 131.831,
+     "cap": "**Narrator:** She moves her hand **closer to the torch**. The shadow gets **bigger**.",
+     "who": "narr"
+    },
+    {
+     "id": "big",
+     "start": 132.351,
+     "end": 133.887,
+     "cap": "**Kavya:** Big dinosaur. Roar.",
+     "who": "kavya"
+    },
+    {
+     "id": "lamp",
+     "start": 134.807,
+     "end": 139.628,
+     "cap": "**Narrator:** A big lamp gives a fuzzy shadow: a dark **umbra**, and a lighter **penumbra**.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "mirror",
+   "title": "Mirabel, the plane mirror",
+   "short": "Reflection",
+   "card": true,
+   "start": 140.928,
+   "end": 234.329,
+   "lines": [
+    {
+     "id": "bathroom",
+     "start": 142.728,
+     "end": 148.104,
+     "cap": "**Narrator:** Seven fifteen. The bathroom. Next stop for Ray: a very important client.",
+     "who": "narr"
+    },
+    {
+     "id": "hello",
+     "start": 148.724,
+     "end": 152.927,
+     "cap": "**Mirabel:** Hello, darling. Mirabel. **Plane mirror**. Flat, shiny, and frankly stunning.",
+     "who": "mirabel"
+    },
+    {
+     "id": "thmira",
+     "start": 153.647,
+     "end": 157.273,
+     "cap": "**Ray:** Mirabel reflects everything. Mostly, she reflects on herself.",
+     "who": "ray"
+    },
+    {
+     "id": "norman",
+     "start": 158.193,
+     "end": 163.292,
+     "cap": "**Norman:** Excuse me. Norman. **The normal**. An imaginary line at **90°** to the surface.",
+     "who": "norman"
+    },
+    {
+     "id": "thnorm",
+     "start": 163.612,
+     "end": 168.455,
+     "cap": "**Ray:** Norman turns up whenever light hits a surface. He's imaginary. He comes anyway.",
+     "who": "ray"
+    },
+    {
+     "id": "fromme",
+     "start": 169.275,
+     "end": 172.56,
+     "cap": "**Norman:** All angles are measured from me. **Not** from the mirror. From **me**.",
+     "who": "norman"
+    },
+    {
+     "id": "inout",
+     "start": 173.28,
+     "end": 177.355,
+     "cap": "**Mirabel:** The angle coming in equals the angle going out, darling. I'm a professional.",
+     "who": "mirabel"
+    },
+    {
+     "id": "law",
+     "start": 177.675,
+     "end": 184.907,
+     "cap": "**Narrator:** That's **the law of reflection**: the **angle of incidence** equals the **angle of reflection**. **i = r**.",
+     "who": "narr"
+    },
+    {
+     "id": "towel",
+     "start": 185.227,
+     "end": 190.901,
+     "cap": "**Narrator:** The towel is rough, so it scatters light in all directions. That's **diffuse reflection**.",
+     "who": "narr"
+    },
+    {
+     "id": "smooth",
+     "start": 191.221,
+     "end": 197.323,
+     "cap": "**Mirabel:** Whereas I'm smooth: **regular reflection**. Parallel rays stay parallel, so you see a clear picture. In me.",
+     "who": "mirabel"
+    },
+    {
+     "id": "behind",
+     "start": 198.043,
+     "end": 203.717,
+     "cap": "**Narrator:** Kavya's image seems to be **behind** the mirror, as far behind as she is in front.",
+     "who": "narr"
+    },
+    {
+     "id": "virtual",
+     "start": 204.037,
+     "end": 209.435,
+     "cap": "**Norman:** But no light actually goes behind the mirror. The image is **virtual**. You can't catch it on a screen.",
+     "who": "norman"
+    },
+    {
+     "id": "real",
+     "start": 209.755,
+     "end": 212.933,
+     "cap": "**Mirabel:** Virtual? My reflection is the most real thing in this flat!",
+     "who": "mirabel"
+    },
+    {
+     "id": "still",
+     "start": 213.653,
+     "end": 215.467,
+     "cap": "**Norman:** It's virtual, Mirabel.",
+     "who": "norman"
+    },
+    {
+     "id": "vusl",
+     "start": 216.487,
+     "end": 223.975,
+     "cap": "**Narrator:** A plane mirror image is **virtual**, **upright**, the **same size**, and **laterally inverted**. **V U S L**.",
+     "who": "narr"
+    },
+    {
+     "id": "wave",
+     "start": 224.295,
+     "end": 227.985,
+     "cap": "**Kavya:** I'm waving my right hand. My reflection is waving her left.",
+     "who": "kavya"
+    },
+    {
+     "id": "updown",
+     "start": 228.605,
+     "end": 232.829,
+     "cap": "**Mirabel:** But I never turn you upside down, darling. I'm a mirror, not a roller coaster.",
+     "who": "mirabel"
+    }
+   ]
+  },
+  {
+   "id": "pool",
+   "title": "Deeper than he looks",
+   "short": "Refraction",
+   "card": true,
+   "start": 234.329,
+   "end": 336.416,
+   "lines": [
+    {
+     "id": "pool",
+     "start": 236.129,
+     "end": 241.377,
+     "cap": "**Narrator:** Two p.m. The swimming complex. **33 °C**. Ray dives in.",
+     "who": "narr"
+    },
+    {
+     "id": "dennis",
+     "start": 241.897,
+     "end": 246.057,
+     "cap": "**Dennis:** Hello. I'm Dennis. I'm the water. People say I'm dense.",
+     "who": "dennis"
+    },
+    {
+     "id": "optical",
+     "start": 246.777,
+     "end": 249.465,
+     "cap": "**Dennis:** I prefer... **optically dense**.",
+     "who": "dennis"
+    },
+    {
+     "id": "bend",
+     "start": 250.485,
+     "end": 259.659,
+     "cap": "**Narrator:** Light travels **more slowly** in water than in air. Entering a new **medium** at an angle, that change in speed makes Ray **bend**: **refraction**.",
+     "who": "narr"
+    },
+    {
+     "id": "shortcut",
+     "start": 259.979,
+     "end": 262.539,
+     "cap": "**Kavya:** So light bends because it's taking a shortcut?",
+     "who": "kavya"
+    },
+    {
+     "id": "noshort",
+     "start": 263.859,
+     "end": 267.421,
+     "cap": "**Ray:** I don't do shortcuts. It's the **change in speed** that bends me.",
+     "who": "ray"
+    },
+    {
+     "id": "towards",
+     "start": 268.141,
+     "end": 272.856,
+     "cap": "**Norman:** Into a denser medium, he slows down and bends **towards** the normal. Towards me.",
+     "who": "norman"
+    },
+    {
+     "id": "away",
+     "start": 273.176,
+     "end": 276.717,
+     "cap": "**Norman:** Out into a less dense one, he speeds up and bends **away** from me.",
+     "who": "norman"
+    },
+    {
+     "id": "thnorm",
+     "start": 277.337,
+     "end": 281.945,
+     "cap": "**Norman:** People think light always bends towards me. I wish. Only when it slows down.",
+     "who": "norman"
+    },
+    {
+     "id": "sloto",
+     "start": 282.865,
+     "end": 285.319,
+     "cap": "**Narrator:** Remember: **SloTo, FastAway**.",
+     "who": "narr"
+    },
+    {
+     "id": "along",
+     "start": 285.939,
+     "end": 290.12,
+     "cap": "**Ray:** If I go in **along** the normal, I still slow down. But I don't bend at all.",
+     "who": "ray"
+    },
+    {
+     "id": "shallow",
+     "start": 290.74,
+     "end": 295.967,
+     "cap": "**Narrator:** Light bends as it leaves the water, so the pool looks **shallower** than it really is.",
+     "who": "narr"
+    },
+    {
+     "id": "deeper",
+     "start": 296.287,
+     "end": 300.297,
+     "cap": "**Dennis:** I'm deeper than I look. People say that about me a lot.",
+     "who": "dennis"
+    },
+    {
+     "id": "legs",
+     "start": 301.417,
+     "end": 305.535,
+     "cap": "**Kavya:** So that's why my legs look short in the pool. I thought it was just my legs.",
+     "who": "kavya"
+    },
+    {
+     "id": "parallel",
+     "start": 306.355,
+     "end": 315.443,
+     "cap": "**Narrator:** A **rectangular glass block** bends light twice, in and out. The ray comes out **parallel**, just shifted sideways: **lateral displacement**.",
+     "who": "narr"
+    },
+    {
+     "id": "critical",
+     "start": 316.063,
+     "end": 324.063,
+     "cap": "**Narrator:** Inside glass, beyond the **critical angle**, about **42°**, no light escapes. It all reflects back inside.",
+     "who": "narr"
+    },
+    {
+     "id": "fibre",
+     "start": 324.383,
+     "end": 329.887,
+     "cap": "**Ray:** **Total internal reflection**. It's how we zig-zag down **optical fibres**, carrying your internet.",
+     "who": "ray"
+    },
+    {
+     "id": "thnet",
+     "start": 330.507,
+     "end": 334.816,
+     "cap": "**Ray:** So when your video buffers, it's not me. I am literally light. It's your Wi-Fi.",
+     "who": "ray"
+    }
+   ]
+  },
+  {
+   "id": "prism",
+   "title": "Seven colours in a trench coat",
+   "short": "Dispersion",
+   "card": true,
+   "start": 336.416,
+   "end": 417.556,
+   "lines": [
+    {
+     "id": "storm",
+     "start": 338.216,
+     "end": 341.821,
+     "cap": "**Narrator:** Four p.m. A thunderstorm. Very Singapore.",
+     "who": "narr"
+    },
+    {
+     "id": "flash",
+     "start": 342.441,
+     "end": 346.431,
+     "cap": "**Ray:** See the lightning? We always get there first. The thunder's still on its way.",
+     "who": "ray"
+    },
+    {
+     "id": "sound",
+     "start": 347.051,
+     "end": 350.528,
+     "cap": "**Narrator:** Light is about a **million times faster** than sound.",
+     "who": "narr"
+    },
+    {
+     "id": "crystal",
+     "start": 350.848,
+     "end": 355.456,
+     "cap": "**Narrator:** After the rain, sunlight hits a glass **prism** in Grandma's window.",
+     "who": "narr"
+    },
+    {
+     "id": "secret",
+     "start": 356.076,
+     "end": 358.401,
+     "cap": "**Ray:** Okay. Time you knew. I'm not one colour.",
+     "who": "ray"
+    },
+    {
+     "id": "coat",
+     "start": 359.221,
+     "end": 363.808,
+     "cap": "**Ray:** **White light** is a **mixture** of colours. I'm basically seven colours in a trench coat.",
+     "who": "ray"
+    },
+    {
+     "id": "spread",
+     "start": 364.928,
+     "end": 370.347,
+     "cap": "**Narrator:** The prism refracts each colour by a slightly different amount, so the colours **spread out**.",
+     "who": "narr"
+    },
+    {
+     "id": "violet",
+     "start": 370.667,
+     "end": 373.12,
+     "cap": "**Violet:** Wheee! Hi! Violet! I bend the **most**!",
+     "who": "violet"
+    },
+    {
+     "id": "red",
+     "start": 373.74,
+     "end": 377.964,
+     "cap": "**Narrator:** Red bends the **least**. Red is very relaxed about everything.",
+     "who": "narr"
+    },
+    {
+     "id": "order",
+     "start": 378.784,
+     "end": 385.995,
+     "cap": "**Narrator:** Out comes the **visible spectrum**: red, orange, yellow, green, blue, indigo, violet. This is **dispersion**.",
+     "who": "narr"
+    },
+    {
+     "id": "richard",
+     "start": 386.315,
+     "end": 390.581,
+     "cap": "**Narrator:** To remember the order: **Richard Of York Gave Battle In Vain**.",
+     "who": "narr"
+    },
+    {
+     "id": "indigo",
+     "start": 390.901,
+     "end": 395.701,
+     "cap": "**Indigo:** Hi. Indigo. Between blue and violet. Some people can't tell me apart from blue.",
+     "who": "indigo"
+    },
+    {
+     "id": "feelings",
+     "start": 396.421,
+     "end": 399.515,
+     "cap": "**Indigo:** I'm a real colour. I have feelings. Mostly blue ones.",
+     "who": "indigo"
+    },
+    {
+     "id": "made",
+     "start": 400.635,
+     "end": 402.448,
+     "cap": "**Kavya:** So the prism **made** the rainbow?",
+     "who": "kavya"
+    },
+    {
+     "id": "nomade",
+     "start": 403.568,
+     "end": 408.283,
+     "cap": "**Ray:** No. The prism doesn't **add** any colour. We were in there all along. It just **separates** us.",
+     "who": "ray"
+    },
+    {
+     "id": "rainbow",
+     "start": 409.003,
+     "end": 416.256,
+     "cap": "**Narrator:** Raindrops act like millions of tiny prisms. That's a **rainbow**. You only see one with the Sun **behind** you.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "filter",
+   "title": "Not on the list",
+   "short": "Colour & filters",
+   "card": true,
+   "start": 417.556,
+   "end": 502.852,
+   "lines": [
+    {
+     "id": "hall",
+     "start": 419.356,
+     "end": 423.345,
+     "cap": "**Narrator:** Six p.m. Drama club rehearsal, in the school hall.",
+     "who": "narr"
+    },
+    {
+     "id": "tree",
+     "start": 423.865,
+     "end": 426.959,
+     "cap": "**Kavya:** I'm Tree Number Three. I have no lines. This is fine.",
+     "who": "kavya"
+    },
+    {
+     "id": "apple",
+     "start": 427.879,
+     "end": 433.98,
+     "cap": "**Narrator:** White light hits a red prop apple. It **reflects** red light and **absorbs** all the other colours.",
+     "who": "narr"
+    },
+    {
+     "id": "noglow",
+     "start": 434.3,
+     "end": 438.972,
+     "cap": "**Ray:** Only red reaches your eye. The apple doesn't glow, and it doesn't turn the light red.",
+     "who": "ray"
+    },
+    {
+     "id": "whiteblack",
+     "start": 439.292,
+     "end": 444.476,
+     "cap": "**Narrator:** A **white** object reflects **all** the colours. A **black** object absorbs them all.",
+     "who": "narr"
+    },
+    {
+     "id": "rosie",
+     "start": 445.096,
+     "end": 449.363,
+     "cap": "**Rosie:** Name's Rosie. **Red filter**. I work the spotlight. Let me check the list.",
+     "who": "rosie"
+    },
+    {
+     "id": "list",
+     "start": 449.983,
+     "end": 452.649,
+     "cap": "**Rosie:** Red? You're on the list. Green? Blue? Not on the list.",
+     "who": "rosie"
+    },
+    {
+     "id": "filter",
+     "start": 453.469,
+     "end": 459.72,
+     "cap": "**Narrator:** A **filter** **transmits** its own colour and **absorbs** the others. Remember: **a filter is selfish**.",
+     "who": "narr"
+    },
+    {
+     "id": "throsie",
+     "start": 460.04,
+     "end": 461.96,
+     "cap": "**Rosie:** Selfish? I prefer exclusive.",
+     "who": "rosie"
+    },
+    {
+     "id": "green",
+     "start": 462.88,
+     "end": 468.149,
+     "cap": "**Narrator:** Under Rosie's red light, Kavya's green leaves have no green light to reflect.",
+     "who": "narr"
+    },
+    {
+     "id": "black",
+     "start": 468.469,
+     "end": 471.435,
+     "cap": "**Kavya:** Why are my leaves black? I'm a tree. Trees are green.",
+     "who": "kavya"
+    },
+    {
+     "id": "notlist",
+     "start": 472.155,
+     "end": 473.499,
+     "cap": "**Rosie:** Green? Not on the list.",
+     "who": "rosie"
+    },
+    {
+     "id": "primary",
+     "start": 474.619,
+     "end": 479.184,
+     "cap": "**Narrator:** Next: red, green and blue spotlights, the **primary colours of light**.",
+     "who": "narr"
+    },
+    {
+     "id": "mix",
+     "start": 479.504,
+     "end": 486.309,
+     "cap": "**Narrator:** **Red + green = yellow. Green + blue = cyan. Red + blue = magenta.** All three make **white**.",
+     "who": "narr"
+    },
+    {
+     "id": "hiagain",
+     "start": 487.029,
+     "end": 489.867,
+     "cap": "**Ray:** All three together? That's white. That's me. Hi again.",
+     "who": "ray"
+    },
+    {
+     "id": "screen",
+     "start": 490.687,
+     "end": 495.913,
+     "cap": "**Narrator:** Phone screens use tiny **red, green and blue** dots. No yellow dots at all.",
+     "who": "narr"
+    },
+    {
+     "id": "paint",
+     "start": 496.233,
+     "end": 501.652,
+     "cap": "**Narrator:** **Paints** are different: they **absorb** light, so mixing them makes darker, muddier colours.",
+     "who": "narr"
+    }
+   ]
+  },
+  {
+   "id": "eye",
+   "title": "Final destination: the eye",
+   "short": "The eye",
+   "card": true,
+   "start": 502.852,
+   "end": 580.024,
+   "lines": [
+    {
+     "id": "night",
+     "start": 504.652,
+     "end": 511.223,
+     "cap": "**Narrator:** Ten p.m. Kavya is reading in bed. Ray makes his last delivery: straight into her eye.",
+     "who": "narr"
+    },
+    {
+     "id": "cornea",
+     "start": 511.843,
+     "end": 516.131,
+     "cap": "**Ray:** First, the **cornea**, the clear window at the front. It does **most** of the bending.",
+     "who": "ray"
+    },
+    {
+     "id": "pupil",
+     "start": 516.451,
+     "end": 520.12,
+     "cap": "**Ray:** Then the **pupil**. It's not really a part. It's a hole. I go through the hole.",
+     "who": "ray"
+    },
+    {
+     "id": "iris",
+     "start": 520.84,
+     "end": 527.261,
+     "cap": "**Narrator:** The **iris**, a coloured ring of muscle, makes the pupil **smaller** in bright light, **wider** in dim light.",
+     "who": "narr"
+    },
+    {
+     "id": "lens",
+     "start": 527.581,
+     "end": 532.723,
+     "cap": "**Ray:** Next, the **lens**. It fine-tunes the focus. It's squishy. Like Dennis, if Dennis did yoga.",
+     "who": "ray"
+    },
+    {
+     "id": "near",
+     "start": 533.543,
+     "end": 540.327,
+     "cap": "**Narrator:** To focus on her book, the **ciliary muscles** contract. The lens gets **fatter**, and bends light **more**.",
+     "who": "narr"
+    },
+    {
+     "id": "far",
+     "start": 540.647,
+     "end": 547.836,
+     "cap": "**Narrator:** For the clock across the room, they relax. The **suspensory ligaments** pull the lens **thinner**. This is **accommodation**.",
+     "who": "narr"
+    },
+    {
+     "id": "retina",
+     "start": 548.456,
+     "end": 552.595,
+     "cap": "**Ray:** Last stop, the **retina**, at the back. The picture lands here. Upside down.",
+     "who": "ray"
+    },
+    {
+     "id": "upside",
+     "start": 553.315,
+     "end": 556.557,
+     "cap": "**Kavya:** Upside down? I've been seeing upside down my whole life?",
+     "who": "kavya"
+    },
+    {
+     "id": "brain",
+     "start": 557.477,
+     "end": 565.243,
+     "cap": "**Narrator:** The image is **real** and **inverted**. The **optic nerve** carries signals to the **brain**, which sees it the right way up.",
+     "who": "narr"
+    },
+    {
+     "id": "thbrain",
+     "start": 565.563,
+     "end": 572.005,
+     "cap": "**Ray:** Twelve years of upside-down pictures. Her brain quietly fixes every one. Nobody tips the brain either.",
+     "who": "ray"
+    },
+    {
+     "id": "lightsout",
+     "start": 572.925,
+     "end": 576.019,
+     "cap": "**Narrator:** Ten fifteen. Kavya switches off the light.",
+     "who": "narr"
+    },
+    {
+     "id": "shift",
+     "start": 576.639,
+     "end": 578.324,
+     "cap": "**Ray:** Shift over. See you at seven.",
+     "who": "ray"
+    }
+   ]
+  },
+  {
+   "id": "traps",
+   "title": "The cast saves you some marks",
+   "short": "Exam traps",
+   "card": true,
+   "start": 580.024,
+   "end": 635.32,
+   "lines": [
+    {
+     "id": "intro",
+     "start": 581.824,
+     "end": 585.579,
+     "cap": "**Narrator:** Before the credits, the cast would like to save you some marks.",
+     "who": "narr"
+    },
+    {
+     "id": "t1",
+     "start": 586.199,
+     "end": 590.273,
+     "cap": "**Norman:** One. Measure every angle from the **normal**. Never from the surface. Never.",
+     "who": "norman"
+    },
+    {
+     "id": "t2",
+     "start": 590.893,
+     "end": 595.011,
+     "cap": "**Mirabel:** Two. A plane mirror image is **virtual**, not real. It hurts me to say it.",
+     "who": "mirabel"
+    },
+    {
+     "id": "t3",
+     "start": 595.631,
+     "end": 601.924,
+     "cap": "**Dennis:** Three. Light bends towards the normal **only** when it slows down, going into a **denser** medium.",
+     "who": "dennis"
+    },
+    {
+     "id": "t4",
+     "start": 602.544,
+     "end": 606.768,
+     "cap": "**Violet:** Four! **Violet** bends the most! **Red** bends the least! Not the other way round!",
+     "who": "violet"
+    },
+    {
+     "id": "t5",
+     "start": 607.388,
+     "end": 611.932,
+     "cap": "**Ray:** Five. A prism doesn't **add** colour. It only **separates** the colours already there.",
+     "who": "ray"
+    },
+    {
+     "id": "t6",
+     "start": 612.552,
+     "end": 617.864,
+     "cap": "**Rosie:** Six. A red apple doesn't turn light red. It **reflects** red and **absorbs** the rest.",
+     "who": "rosie"
+    },
+    {
+     "id": "t7",
+     "start": 618.484,
+     "end": 622.132,
+     "cap": "**Kavya:** Seven. Your eyes don't send anything out. They only **receive** light.",
+     "who": "kavya"
+    },
+    {
+     "id": "return",
+     "start": 622.852,
+     "end": 624.665,
+     "cap": "**Narrator:** Light Work will return.",
+     "who": "narr"
+    },
+    {
+     "id": "anyone",
+     "start": 625.985,
+     "end": 628.161,
+     "cap": "**Indigo:** Did anyone notice I was here?",
+     "who": "indigo"
+    },
+    {
+     "id": "course",
+     "start": 629.081,
+     "end": 630.319,
+     "cap": "**Ray:** Course we did, Blue.",
+     "who": "ray"
+    },
+    {
+     "id": "indigo",
+     "start": 631.639,
+     "end": 632.62,
+     "cap": "**Indigo:** ...Indigo.",
+     "who": "indigo"
+    }
+   ]
+  }
+ ],
+ "total": 635.32
+}
