@@ -691,6 +691,60 @@ export const ASTRA_VIDEOS: Record<string, AstraVideo> = {
         "duration": 204.44
       }
     ]
+  },
+  "forces": {
+    "poster": "/reallife-videos-astra/forces.jpg",
+    "durationSeconds": 635.04,
+    "chapters": [
+      {
+        "title": "Invisible pushes with visible consequences",
+        "start": 0
+      },
+      {
+        "title": "The force arrows belong to one object",
+        "start": 79.72
+      },
+      {
+        "title": "A trip to the Moon, not a new mass",
+        "start": 182.88
+      },
+      {
+        "title": "Friction can help you move",
+        "start": 277.28
+      },
+      {
+        "title": "A graph is a journey, not a hill",
+        "start": 370.56
+      },
+      {
+        "title": "Springs: two limits, not one",
+        "start": 454.56
+      },
+      {
+        "title": "Turning and concentrating forces",
+        "start": 529.4
+      }
+    ],
+    "parts": [
+      {
+        "src": "/reallife-videos-astra/forces-part-00.mp4",
+        "captions": "/reallife-videos-astra/forces-part-00.vtt",
+        "start": 0.0,
+        "duration": 280.08
+      },
+      {
+        "src": "/reallife-videos-astra/forces-part-01.mp4",
+        "captions": "/reallife-videos-astra/forces-part-01.vtt",
+        "start": 280.08,
+        "duration": 280.0
+      },
+      {
+        "src": "/reallife-videos-astra/forces-part-02.mp4",
+        "captions": "/reallife-videos-astra/forces-part-02.vtt",
+        "start": 560.08,
+        "duration": 74.96
+      }
+    ]
   }
 };
 export function formatVideoTime(seconds: number): string {
