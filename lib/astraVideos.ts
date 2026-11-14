@@ -305,6 +305,60 @@ export const ASTRA_VIDEOS: Record<string, AstraVideo> = {
         "duration": 258.04
       }
     ]
+  },
+  "elements-compounds-mixtures": {
+    "poster": "/reallife-videos-astra/elements-compounds-mixtures.jpg",
+    "durationSeconds": 793.36,
+    "chapters": [
+      {
+        "title": "The mystery tray: same, bonded or mixed?",
+        "start": 0
+      },
+      {
+        "title": "Small letters and small numbers with big consequences",
+        "start": 110.76
+      },
+      {
+        "title": "New properties, familiar ingredients",
+        "start": 224.44
+      },
+      {
+        "title": "Pure in chemistry, not pure advertising",
+        "start": 334.52
+      },
+      {
+        "title": "The disappearing solute that did not disappear",
+        "start": 432.68
+      },
+      {
+        "title": "Rescue the sand, save the salt, collect the water",
+        "start": 552.36
+      },
+      {
+        "title": "Ink detectives and the final separation challenge",
+        "start": 667.92
+      }
+    ],
+    "parts": [
+      {
+        "src": "/reallife-videos-astra/elements-compounds-mixtures-part-00.mp4",
+        "captions": "/reallife-videos-astra/elements-compounds-mixtures-part-00.vtt",
+        "start": 0.0,
+        "duration": 280.08
+      },
+      {
+        "src": "/reallife-videos-astra/elements-compounds-mixtures-part-01.mp4",
+        "captions": "/reallife-videos-astra/elements-compounds-mixtures-part-01.vtt",
+        "start": 280.08,
+        "duration": 280.0
+      },
+      {
+        "src": "/reallife-videos-astra/elements-compounds-mixtures-part-02.mp4",
+        "captions": "/reallife-videos-astra/elements-compounds-mixtures-part-02.vtt",
+        "start": 560.08,
+        "duration": 233.28
+      }
+    ]
   }
 };
 export function formatVideoTime(seconds: number): string {
