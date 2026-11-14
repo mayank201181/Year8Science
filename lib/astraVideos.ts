@@ -251,6 +251,60 @@ export const ASTRA_VIDEOS: Record<string, AstraVideo> = {
         "duration": 54.72
       }
     ]
+  },
+  "periodic-table": {
+    "poster": "/reallife-videos-astra/periodic-table.jpg",
+    "durationSeconds": 818.12,
+    "chapters": [
+      {
+        "title": "The classroom with a secret seating plan",
+        "start": 0
+      },
+      {
+        "title": "The atom identity badge",
+        "start": 112.4
+      },
+      {
+        "title": "Groups go down, periods go across",
+        "start": 250.0
+      },
+      {
+        "title": "The metal staircase and its exceptions",
+        "start": 364.68
+      },
+      {
+        "title": "One outer electron: the alkali-metal family",
+        "start": 460.64
+      },
+      {
+        "title": "Seven outer electrons: a different trend",
+        "start": 576.44
+      },
+      {
+        "title": "Stable shells, clever predictions and the final challenge",
+        "start": 682.96
+      }
+    ],
+    "parts": [
+      {
+        "src": "/reallife-videos-astra/periodic-table-part-00.mp4",
+        "captions": "/reallife-videos-astra/periodic-table-part-00.vtt",
+        "start": 0.0,
+        "duration": 280.08
+      },
+      {
+        "src": "/reallife-videos-astra/periodic-table-part-01.mp4",
+        "captions": "/reallife-videos-astra/periodic-table-part-01.vtt",
+        "start": 280.08,
+        "duration": 280.0
+      },
+      {
+        "src": "/reallife-videos-astra/periodic-table-part-02.mp4",
+        "captions": "/reallife-videos-astra/periodic-table-part-02.vtt",
+        "start": 560.08,
+        "duration": 258.04
+      }
+    ]
   }
 };
 export function formatVideoTime(seconds: number): string {
