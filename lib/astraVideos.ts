@@ -359,6 +359,60 @@ export const ASTRA_VIDEOS: Record<string, AstraVideo> = {
         "duration": 233.28
       }
     ]
+  },
+  "chemical-reactions": {
+    "poster": "/reallife-videos-astra/chemical-reactions.jpg",
+    "durationSeconds": 769.96,
+    "chapters": [
+      {
+        "title": "A change is not always a reaction",
+        "start": 0
+      },
+      {
+        "title": "Reactants on the left, products on the right",
+        "start": 111.12
+      },
+      {
+        "title": "The atoms do not vanish",
+        "start": 219.0
+      },
+      {
+        "title": "Balancing without changing the substances",
+        "start": 317.08
+      },
+      {
+        "title": "Reaction families: spot the pattern",
+        "start": 414.6
+      },
+      {
+        "title": "Where the energy goes, and why flames can mislead",
+        "start": 519.32
+      },
+      {
+        "title": "Make it faster, not magically larger",
+        "start": 627.8
+      }
+    ],
+    "parts": [
+      {
+        "src": "/reallife-videos-astra/chemical-reactions-part-00.mp4",
+        "captions": "/reallife-videos-astra/chemical-reactions-part-00.vtt",
+        "start": 0.0,
+        "duration": 280.08
+      },
+      {
+        "src": "/reallife-videos-astra/chemical-reactions-part-01.mp4",
+        "captions": "/reallife-videos-astra/chemical-reactions-part-01.vtt",
+        "start": 280.08,
+        "duration": 280.0
+      },
+      {
+        "src": "/reallife-videos-astra/chemical-reactions-part-02.mp4",
+        "captions": "/reallife-videos-astra/chemical-reactions-part-02.vtt",
+        "start": 560.08,
+        "duration": 209.88
+      }
+    ]
   }
 };
 export function formatVideoTime(seconds: number): string {
