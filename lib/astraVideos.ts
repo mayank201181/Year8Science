@@ -521,6 +521,64 @@ export const ASTRA_VIDEOS: Record<string, AstraVideo> = {
         "duration": 131.24
       }
     ]
+  },
+  "light": {
+    "poster": "/reallife-videos-astra/light.jpg",
+    "durationSeconds": 725.96,
+    "chapters": [
+      {
+        "title": "Can your eyes send a searchlight?",
+        "start": 0
+      },
+      {
+        "title": "Shadows and the material mystery",
+        "start": 64.68
+      },
+      {
+        "title": "The reflection mark trap",
+        "start": 136.04
+      },
+      {
+        "title": "The straw that only looks broken",
+        "start": 246.16
+      },
+      {
+        "title": "White light and the colour courtroom",
+        "start": 338.12
+      },
+      {
+        "title": "The eye has two different controls",
+        "start": 455.84
+      },
+      {
+        "title": "The fibre that guides the message",
+        "start": 568.48
+      },
+      {
+        "title": "The rapid-fire optical rescue",
+        "start": 648.16
+      }
+    ],
+    "parts": [
+      {
+        "src": "/reallife-videos-astra/light-part-00.mp4",
+        "captions": "/reallife-videos-astra/light-part-00.vtt",
+        "start": 0.0,
+        "duration": 280.08
+      },
+      {
+        "src": "/reallife-videos-astra/light-part-01.mp4",
+        "captions": "/reallife-videos-astra/light-part-01.vtt",
+        "start": 280.08,
+        "duration": 280.0
+      },
+      {
+        "src": "/reallife-videos-astra/light-part-02.mp4",
+        "captions": "/reallife-videos-astra/light-part-02.vtt",
+        "start": 560.08,
+        "duration": 165.88
+      }
+    ]
   }
 };
 export function formatVideoTime(seconds: number): string {
