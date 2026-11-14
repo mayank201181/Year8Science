@@ -1,0 +1,323 @@
+WEBVTT
+
+00:00:00.273 --> 00:00:02.800
+Use the property the
+evidence actually shows
+
+00:00:03.174 --> 00:00:07.396
+A microphone converts sound into an
+electrical signal, and an oscilloscope
+
+00:00:07.431 --> 00:00:09.181
+displays voltage against time.
+
+00:00:09.591 --> 00:00:12.964
+Is that wavy line the actual
+path followed by air particles?
+
+00:00:13.775 --> 00:00:14.080
+No.
+
+00:00:14.580 --> 00:00:17.422
+It is a graph of the
+microphone signal over time.
+
+00:00:18.413 --> 00:00:21.683
+The air sound wave is longitudinal
+even if the screen line
+
+00:00:21.687 --> 00:00:23.261
+looks like a transverse wave.
+
+00:00:24.072 --> 00:00:24.738
+Excellent.
+
+00:00:25.142 --> 00:00:27.601
+Compare traces only after
+checking the settings.
+
+00:00:27.860 --> 00:00:31.687
+With the same gain, a larger signal
+amplitude generally indicates a
+
+00:00:31.687 --> 00:00:33.275
+stronger sound at the microphone.
+
+00:00:33.711 --> 00:00:38.296
+With the same timescale, more cycles
+across the screen means higher frequency.
+
+00:00:39.049 --> 00:00:42.859
+If someone changes the oscilloscope's
+gain or time base, apparent
+
+00:00:42.864 --> 00:00:45.881
+height or spacing might change
+without the sound changing.
+
+00:00:46.685 --> 00:00:47.417
+Precisely.
+
+00:00:47.831 --> 00:00:51.921
+Horizontal separation between equivalent
+points on a time trace is the period,
+
+00:00:52.231 --> 00:00:54.316
+the time for one complete cycle.
+
+00:00:54.781 --> 00:00:55.913
+It is not wavelength.
+
+00:00:56.154 --> 00:00:58.599
+Wavelength is a distance
+measured in space.
+
+00:00:59.386 --> 00:01:02.936
+So a trace with four cycles in
+one-hundredth of a second has
+
+00:01:02.938 --> 00:01:08.050
+frequency four divided by zero
+point zero one, four hundred hertz.
+
+00:01:08.686 --> 00:01:09.218
+Correct.
+
+00:01:09.471 --> 00:01:13.069
+Its period is zero point
+zero zero two five seconds.
+
+00:01:13.401 --> 00:01:15.519
+Frequency and period are reciprocals.
+
+00:01:15.767 --> 00:01:19.544
+Frequency equals one divided
+by period, and period equals
+
+00:01:19.547 --> 00:01:21.154
+one divided by frequency.
+
+00:01:21.898 --> 00:01:23.063
+Milliseconds.
+
+00:01:23.730 --> 00:01:28.085
+I must convert them into seconds before
+using a formula that expects seconds.
+
+00:01:28.541 --> 00:01:31.648
+Two point five milliseconds
+is not two point five seconds.
+
+00:01:32.431 --> 00:01:33.272
+Exactly.
+
+00:01:33.712 --> 00:01:37.659
+A thousand-fold error would make this
+teacher drop her imaginary microphone.
+
+00:01:38.130 --> 00:01:42.606
+Check the axis units before calculating,
+and count complete cycles rather than
+
+00:01:42.618 --> 00:01:44.525
+individual peaks without intervals.
+
+00:01:44.956 --> 00:01:47.583
+Why do we see lightning
+before hearing thunder?
+
+00:01:48.405 --> 00:01:50.796
+Light travels vastly faster than sound.
+
+00:01:51.243 --> 00:01:54.089
+Sound in ordinary air is
+roughly three hundred and forty
+
+00:01:54.090 --> 00:01:57.320
+meters per second, depending on
+conditions such as temperature.
+
+00:01:58.098 --> 00:01:58.493
+Good.
+
+00:01:58.849 --> 00:02:02.142
+Representative speeds are about
+fifteen hundred meters per second
+
+00:02:02.142 --> 00:02:04.785
+in water and five thousand in steel.
+
+00:02:05.174 --> 00:02:09.399
+Many solids carry sound faster than
+liquids or gases, but this is not a
+
+00:02:09.399 --> 00:02:11.524
+universal ranking for every material.
+
+00:02:12.323 --> 00:02:15.274
+Is the only explanation that
+particles are closer together?
+
+00:02:16.031 --> 00:02:16.403
+No.
+
+00:02:16.939 --> 00:02:21.568
+Both stiffness and density matter, and
+solids can carry different wave types.
+
+00:02:21.966 --> 00:02:24.790
+Particle spacing alone is
+not enough to predict speed.
+
+00:02:25.142 --> 00:02:28.389
+For our examples, the material's
+elastic response lets the
+
+00:02:28.389 --> 00:02:29.955
+disturbance travel faster.
+
+00:02:30.719 --> 00:02:33.814
+Wavelength is the distance between
+equivalent neighboring points,
+
+00:02:34.017 --> 00:02:35.780
+such as consecutive compressions.
+
+00:02:36.379 --> 00:02:40.696
+The wave equation is speed equals
+frequency times wavelength.
+
+00:02:41.177 --> 00:02:45.284
+At unchanged speed, what happens to
+wavelength when frequency doubles?
+
+00:02:45.976 --> 00:02:46.783
+It halves.
+
+00:02:47.433 --> 00:02:51.922
+A higher frequency does not automatically
+mean sound travels faster through
+
+00:02:51.923 --> 00:02:53.918
+the same ordinary air conditions.
+
+00:02:54.655 --> 00:02:55.249
+Correct.
+
+00:02:55.644 --> 00:02:59.963
+Try a sound traveling at three hundred and
+forty meters per second with a frequency
+
+00:02:59.969 --> 00:03:01.865
+of one hundred and seventy hertz.
+
+00:03:02.226 --> 00:03:03.435
+Find its wavelength.
+
+00:03:04.296 --> 00:03:08.409
+Speed divided by frequency, three
+hundred and forty divided by one
+
+00:03:08.409 --> 00:03:10.455
+hundred and seventy gives two meters.
+
+00:03:10.842 --> 00:03:13.751
+I include meters because
+wavelength is a distance.
+
+00:03:14.458 --> 00:03:17.846
+A three-second flash to thunder
+delay gives a rough distance of
+
+00:03:17.846 --> 00:03:21.617
+one kilometer, but never stay
+outside to collect storm timings.
+
+00:03:22.138 --> 00:03:25.721
+Hearing thunder is a reason to
+seek proper shelter, not start
+
+00:03:25.722 --> 00:03:27.310
+a science challenge outdoors.
+
+00:03:28.080 --> 00:03:31.459
+The estimate is physics
+practice, not a safety guarantee.
+
+00:03:32.027 --> 00:03:36.479
+A complicated storm also is not a
+neat single source at one exact point
+
+00:03:36.968 --> 00:03:39.263
+Trace the sound's journey through your ear
+
+00:03:40.067 --> 00:03:42.746
+The pinna helps collect
+sound into the ear canal.
+
+00:03:43.147 --> 00:03:45.130
+Sound makes the eardrum vibrate.
+
+00:03:45.526 --> 00:03:49.874
+Tiny middle ear bones transfer the
+vibration towards the fluid-filled cochlea
+
+00:03:50.673 --> 00:03:51.444
+Exactly.
+
+00:03:51.737 --> 00:03:55.467
+Sensitive cells in the cochlea
+respond, producing signals carried
+
+00:03:55.467 --> 00:03:57.321
+along the auditory nerve to the brain.
+
+00:03:57.764 --> 00:04:01.067
+You experience sound through
+that whole system, not just
+
+00:04:01.068 --> 00:04:02.465
+through the visible outer ear
+
+00:04:03.274 --> 00:04:08.125
+And loud sounds can damage those delicate
+structures, sometimes permanently
+
+00:04:08.754 --> 00:04:09.334
+Yes.
+
+00:04:09.725 --> 00:04:12.801
+Risk depends on sound
+level and exposure time.
+
+00:04:13.239 --> 00:04:16.902
+Keep listening levels comfortable,
+take breaks, and use suitable
+
+00:04:16.902 --> 00:04:18.888
+hearing protection in noisy settings.
+
+00:04:19.400 --> 00:04:22.492
+Do not turn up audio to test
+the limit of your hearing
+
+00:04:23.209 --> 00:04:26.985
+The often quoted human range is
+about twenty hertz to twenty thousand
+
+00:04:26.994 --> 00:04:31.262
+hertz, but people vary, and the
+upper limit commonly falls with age
+
+00:04:31.996 --> 00:04:32.562
+Correct.
+
+00:04:32.840 --> 00:04:35.004
+Infrasound is below twenty hertz.
+
+00:04:35.221 --> 00:04:37.442
+Ultrasound is above twenty thousand.
+
+00:04:37.836 --> 00:04:40.000
+They are still mechanical sound
+waves, even though those frequencies

@@ -579,6 +579,60 @@ export const ASTRA_VIDEOS: Record<string, AstraVideo> = {
         "duration": 165.88
       }
     ]
+  },
+  "sound": {
+    "poster": "/reallife-videos-astra/sound.jpg",
+    "durationSeconds": 693.84,
+    "chapters": [
+      {
+        "title": "The silent guitar mystery",
+        "start": 0
+      },
+      {
+        "title": "The particles do not commute",
+        "start": 81.32
+      },
+      {
+        "title": "Two controls, four possible sounds",
+        "start": 188.64
+      },
+      {
+        "title": "Read the screen, not a picture of air",
+        "start": 282.96
+      },
+      {
+        "title": "The race between thunder and light",
+        "start": 384.72
+      },
+      {
+        "title": "Your ear's tiny translation service",
+        "start": 496.64
+      },
+      {
+        "title": "The echo has to come home",
+        "start": 583.0
+      }
+    ],
+    "parts": [
+      {
+        "src": "/reallife-videos-astra/sound-part-00.mp4",
+        "captions": "/reallife-videos-astra/sound-part-00.vtt",
+        "start": 0.0,
+        "duration": 280.08
+      },
+      {
+        "src": "/reallife-videos-astra/sound-part-01.mp4",
+        "captions": "/reallife-videos-astra/sound-part-01.vtt",
+        "start": 280.08,
+        "duration": 280.0
+      },
+      {
+        "src": "/reallife-videos-astra/sound-part-02.mp4",
+        "captions": "/reallife-videos-astra/sound-part-02.vtt",
+        "start": 560.08,
+        "duration": 133.76
+      }
+    ]
   }
 };
 export function formatVideoTime(seconds: number): string {
