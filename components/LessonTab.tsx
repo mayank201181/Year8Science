@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import type { Topic } from "@/lib/types";
 import { getExtras } from "@/lib/extras";
 import { useStore } from "@/lib/store";
+import { AstraVideoPlayer } from "./AstraVideoPlayer";
 
 /** Stars for finishing each chapter of an animated lesson, and for finishing it all. */
 const CHAPTER_STARS = 1;
@@ -297,6 +298,7 @@ export function LessonTab({ topic }: { topic: Topic }) {
   const watched = chapters.filter((id) => hasAward(lessonChapterKey(topic.id, id))).length;
   return (
     <div className="space-y-4">
+      <AstraVideoPlayer key={topic.id} topicId={topic.id} title={topic.title} />
       <TopicCompanions key={topic.id} topic={topic} />
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border-l-4 border-emerald-400 bg-emerald-50 p-4">
         <div className="min-w-0 flex-1">

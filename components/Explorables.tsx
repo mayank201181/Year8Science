@@ -4,7 +4,7 @@
 // guide. Each is registered under a key; a topic's extras map a guide-section id
 // to one of these keys. All are self-contained (no network, no deps).
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 function Frame({ title, children, caption }: { title: string; children: React.ReactNode; caption: string }) {
   return (

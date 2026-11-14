@@ -1,9 +1,11 @@
-const { test } = require('node:test');
-const assert = require('node:assert/strict');
-const { readFileSync, existsSync } = require('node:fs');
-const path = require('node:path');
-const vm = require('node:vm');
-const ts = require('typescript');
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync, existsSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+import vm from 'node:vm';
+import ts from 'typescript';
 
 const ROOT = path.join(__dirname, '..');
 const modules = new Map();
@@ -12,15 +14,15 @@ function load(file) {
   const source = ts.transpileModule(readFileSync(file, 'utf8'), {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
   }).outputText;
-  const module = { exports: {} };
-  modules.set(file, module);
+  const loadedModule = { exports: {} };
+  modules.set(file, loadedModule);
   const require = name => {
     const base = name.startsWith('@/') ? path.join(ROOT, name.slice(2)) : path.resolve(path.dirname(file), name);
     for (const ext of ['.ts', '.tsx', '/index.ts']) if (existsSync(base + ext)) return load(base + ext);
     throw Error(`Unexpected test dependency ${name}`);
   };
-  vm.runInNewContext(source, { exports: module.exports, module, require }, { filename: file });
-  return module.exports;
+  vm.runInNewContext(source, { exports: loadedModule.exports, module: loadedModule, require }, { filename: file });
+  return loadedModule.exports;
 }
 const { optionOrder } = load(path.join(ROOT, 'lib/optionOrder.ts'));
 const { ALL_TOPICS } = load(path.join(ROOT, 'lib/topics/index.ts'));

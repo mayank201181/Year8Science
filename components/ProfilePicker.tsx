@@ -64,7 +64,7 @@ export function ProfilePicker() {
     <div className="grid min-h-screen place-items-center bg-gradient-to-br from-indigo-50 via-white to-emerald-50 px-4">
       <div className="w-full max-w-lg text-center">
         <div className="text-4xl">🔬</div>
-        <h1 className="mt-2 text-2xl font-extrabold text-slate-900">Who's studying?</h1>
+        <h1 className="mt-2 text-2xl font-extrabold text-slate-900">Who&apos;s studying?</h1>
         <p className="mt-1 text-sm text-slate-500">Pick your name to load your own progress.</p>
 
         {!formOpen ? (
@@ -143,7 +143,7 @@ export function ProfilePicker() {
                   </button>
                 ) : (
                   <div className="rounded-xl bg-rose-50 p-3 text-sm">
-                    <p className="text-rose-700">Delete this profile and all its progress? This can't be undone.</p>
+                    <p className="text-rose-700">Delete this profile and all its progress? This can&apos;t be undone.</p>
                     <div className="mt-2 flex gap-2">
                       <button type="button" onClick={remove} disabled={busy} className="rounded-lg bg-rose-600 px-3 py-1.5 font-semibold text-white hover:bg-rose-700 disabled:opacity-60">
                         Yes, delete

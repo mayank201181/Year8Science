@@ -1,14 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
+
+const subscribeToSupport = () => () => {};
+const getSpeechSupport = () => "speechSynthesis" in window;
+const getServerSpeechSupport = () => true;
 
 // Reads text aloud using the browser's built-in speech synthesis. No network.
 export function ListenButton({ getText, label = "Listen" }: { getText: () => string; label?: string }) {
   const [speaking, setSpeaking] = useState(false);
-  const [supported, setSupported] = useState(true);
+  const supported = useSyncExternalStore(subscribeToSupport, getSpeechSupport, getServerSpeechSupport);
 
   useEffect(() => {
-    setSupported(typeof window !== "undefined" && "speechSynthesis" in window);
     return () => {
       if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
     };

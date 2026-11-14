@@ -87,7 +87,7 @@ export default function Home() {
       <section className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wide text-emerald-700">🎯 Today's goal</span>
+            <span className="text-xs font-bold uppercase tracking-wide text-emerald-700">🎯 Today&apos;s goal</span>
             <select
               value={goalMinutes}
               onChange={(e) => setGoalMinutes(Number(e.target.value))}

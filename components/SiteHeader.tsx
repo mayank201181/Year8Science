@@ -115,6 +115,11 @@ export function SiteHeader() {
           )}
         </div>
       </div>
+      <nav aria-label="Video collections" className="border-t border-slate-100 px-4 py-2">
+        <div className="mx-auto max-w-6xl">
+          <Link href="/reallife-videos-astra" className="inline-flex min-h-10 items-center rounded-full bg-sky-100 px-4 py-2 text-sm font-bold text-sky-900 hover:bg-sky-200">🎥 Real-life Videos Astra</Link>
+        </div>
+      </nav>
     </header>
   );
 }

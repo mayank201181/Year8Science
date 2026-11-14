@@ -1,9 +1,11 @@
-const { test } = require('node:test');
-const assert = require('node:assert/strict');
-const { readFileSync } = require('node:fs');
-const path = require('node:path');
-const vm = require('node:vm');
-const ts = require('typescript');
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+import vm from 'node:vm';
+import ts from 'typescript';
 
 function load(relative) {
   const source = ts.transpileModule(readFileSync(path.join(__dirname, '..', relative), 'utf8'), {

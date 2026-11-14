@@ -77,7 +77,7 @@ export function TopicView({ topic }: { topic: Topic }) {
       </Link>
 
       {/* tabs */}
-      <div className="sticky top-[57px] z-30 -mx-4 mt-5 border-b border-slate-200 bg-[var(--background)]/95 px-4 backdrop-blur">
+      <div className="sticky top-[114px] z-30 -mx-4 mt-5 border-b border-slate-200 bg-[var(--background)]/95 px-4 backdrop-blur">
         <div className="flex gap-1 overflow-x-auto">
           {tabs.map((t) => (
             <button

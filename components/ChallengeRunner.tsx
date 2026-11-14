@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useEffectEvent, useRef, useState } from "react";
 import type { MCQ, Topic } from "@/lib/types";
 import { topicMcqPool } from "@/lib/questionIndex";
 import { optionOrder } from "@/lib/optionOrder";
@@ -20,9 +20,12 @@ function pickRandom(pool: MCQ[], n: number): MCQ[] {
 }
 
 export function ChallengeRunner({ topic }: { topic: Topic }) {
+  return <ChallengeRound key={topic.id} topic={topic} />;
+}
+
+function ChallengeRound({ topic }: { topic: Topic }) {
   const { setChallengeBest, award, recordResult, challengeBest } = useStore();
-  const [seed, setSeed] = useState(0);
-  const questions = useMemo(() => pickRandom(topicMcqPool(topic.id), ROUND), [topic.id, seed]);
+  const [questions, setQuestions] = useState(() => pickRandom(topicMcqPool(topic.id), ROUND));
   const [phase, setPhase] = useState<"intro" | "play" | "done">("intro");
   const [idx, setIdx] = useState(0);
   const [correct, setCorrect] = useState(0);
@@ -31,15 +34,32 @@ export function ChallengeRunner({ topic }: { topic: Topic }) {
   // The timer and the last answer can both try to finish a round; only the first counts.
   const finished = useRef(false);
 
+  const finish = useCallback((finalCorrect?: number) => {
+    if (finished.current) return;
+    finished.current = true;
+    const c = finalCorrect ?? correct;
+    const score = Math.round((c / questions.length) * 100);
+    setChallengeBest(topic.id, score);
+    // Effort stars once per topic per day, so rapid-fire guessing can't farm them.
+    award(`challenge-done:${topic.id}:${new Date().toISOString().slice(0, 10)}`, 5);
+    if (score === 100) award(`challenge-perfect:${topic.id}`, 15);
+    else if (score >= 80) award(`challenge-pass:${topic.id}`, 8);
+    setPhase("done");
+  }, [correct, questions.length, setChallengeBest, topic.id, award]);
+
+  const finishFromTimer = useEffectEvent(() => finish());
+
   useEffect(() => {
     if (phase !== "play") return;
-    if (time <= 0) {
-      finish();
-      return;
-    }
-    const t = setTimeout(() => setTime((s) => s - 1), 1000);
+    const t = setTimeout(() => {
+      if (time <= 1) {
+        setTime(0);
+        finishFromTimer();
+      } else {
+        setTime((s) => s - 1);
+      }
+    }, 1000);
     return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase, time]);
 
   const best = challengeBest[topic.id] ?? 0;
@@ -68,18 +88,6 @@ export function ChallengeRunner({ topic }: { topic: Topic }) {
     }, 700);
   }
 
-  function finish(finalCorrect?: number) {
-    if (finished.current) return;
-    finished.current = true;
-    const c = finalCorrect ?? correct;
-    const score = Math.round((c / questions.length) * 100);
-    setChallengeBest(topic.id, score);
-    // Effort stars once per topic per day, so rapid-fire guessing can't farm them.
-    award(`challenge-done:${topic.id}:${new Date().toISOString().slice(0, 10)}`, 5);
-    if (score === 100) award(`challenge-perfect:${topic.id}`, 15);
-    else if (score >= 80) award(`challenge-pass:${topic.id}`, 8);
-    setPhase("done");
-  }
 
   if (phase === "intro") {
     return (
@@ -110,7 +118,7 @@ export function ChallengeRunner({ topic }: { topic: Topic }) {
           <p className="mt-3 text-sm text-slate-500">Score 80% or more to unlock the topic certificate.</p>
         )}
         <div className="mt-5 flex justify-center gap-3">
-          <button onClick={() => { setSeed((s) => s + 1); start(); }} className="rounded-xl border border-slate-200 bg-white px-4 py-2 font-semibold text-slate-600 hover:bg-slate-50">Try again</button>
+          <button onClick={() => { setQuestions(pickRandom(topicMcqPool(topic.id), ROUND)); start(); }} className="rounded-xl border border-slate-200 bg-white px-4 py-2 font-semibold text-slate-600 hover:bg-slate-50">Try again</button>
           <Link href={`/topic/${topic.id}`} className="rounded-xl border border-slate-200 bg-white px-4 py-2 font-semibold text-slate-600 hover:bg-slate-50">Back to topic</Link>
         </div>
       </Card>

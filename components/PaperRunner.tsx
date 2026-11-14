@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { MCQ, QA } from "@/lib/types";
 import { useStore, type AttemptState } from "@/lib/store";
@@ -23,14 +23,19 @@ type Props = {
 );
 
 export function PaperRunner(props: Props) {
-  const { storageKey, title, topicId, guideHref, kind, questions } = props;
-  const { getAttempt, saveAttempt, award, recordResult } = useStore();
+  // A different paper starts a distinct attempt and transient question state.
+  return <PaperAttempt key={`${props.storageKey}:${props.kind}`} {...props} />;
+}
 
-  const [index, setIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, number | string>>({});
-  const [scores, setScores] = useState<Record<string, number>>({});
-  const [completed, setCompleted] = useState(false);
-  const [hydrated, setHydrated] = useState(false);
+function PaperAttempt(props: Props) {
+  const { storageKey, title, guideHref, kind, questions } = props;
+  const { attempts, saveAttempt, award, recordResult } = useStore();
+  const [initialAttempt] = useState(() => attempts[storageKey]);
+
+  const [index, setIndex] = useState(() => Math.max(0, Math.min(initialAttempt?.index ?? 0, questions.length - 1)));
+  const [answers, setAnswers] = useState<Record<string, number | string>>(() => initialAttempt?.answers ?? {});
+  const [scores, setScores] = useState<Record<string, number>>(() => initialAttempt?.scores ?? {});
+  const [completed, setCompleted] = useState(initialAttempt?.completed ?? false);
 
   // Per-question transient UI state (not persisted).
   const [selected, setSelected] = useState<number | null>(null); // current MCQ choice
@@ -40,25 +45,6 @@ export function PaperRunner(props: Props) {
   const [showSummary, setShowSummary] = useState(false);
   const [selfMarks, setSelfMarks] = useState<boolean[]>([]);
   const claimedResults = useRef(new Set<string>());
-
-  // ---- hydrate saved attempt ----
-  useEffect(() => {
-    claimedResults.current.clear();
-    const saved = getAttempt(storageKey);
-    if (saved) {
-      setIndex(Math.min(saved.index, questions.length - 1));
-      setAnswers(saved.answers);
-      setScores(saved.scores);
-      setCompleted(saved.completed);
-    } else {
-      setIndex(0);
-      setAnswers({});
-      setScores({});
-      setCompleted(false);
-    }
-    setHydrated(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [storageKey]);
 
   // ---- persist on change ----
   const persist = useCallback(
@@ -77,23 +63,20 @@ export function PaperRunner(props: Props) {
 
   const q = questions[index];
 
-  // When the visible question changes, restore its committed state.
-  useEffect(() => {
-    if (!q) return;
-    const committed = answers[q.id];
+  // Restore committed state before rendering a different question or result.
+  // Updating this component's state in a guarded render avoids an extra effect
+  // render with the previous question's draft/selection visible.
+  const committed = q ? answers[q.id] : undefined;
+  const score = q ? scores[q.id] : undefined;
+  const [visible, setVisible] = useState<{ id?: string; committed?: number | string; score?: number }>({});
+  if (q && (visible.id !== q.id || visible.committed !== committed || visible.score !== score)) {
+    setVisible({ id: q.id, committed, score });
     setShowHint(false);
     setSelfMarks(kind === "qa" ? (q as QA).markScheme.map(() => false) : []);
-    if (kind === "mcq") {
-      setSelected(typeof committed === "number" ? committed : null);
-      setChecked(typeof committed === "number");
-      setDraft("");
-    } else {
-      setDraft(typeof committed === "string" ? committed : "");
-      setChecked(typeof committed === "string");
-      setSelected(null);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index, hydrated, storageKey, answers, scores, kind, q?.id]);
+    setSelected(kind === "mcq" && typeof committed === "number" ? committed : null);
+    setDraft(kind === "qa" && typeof committed === "string" ? committed : "");
+    setChecked(kind === "mcq" ? typeof committed === "number" : typeof committed === "string");
+  }
 
   const go = (i: number) => {
     if (i < 0 || i >= questions.length) return;
