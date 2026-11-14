@@ -467,6 +467,60 @@ export const ASTRA_VIDEOS: Record<string, AstraVideo> = {
         "duration": 204.84
       }
     ]
+  },
+  "heat": {
+    "poster": "/reallife-videos-astra/heat.jpg",
+    "durationSeconds": 691.32,
+    "chapters": [
+      {
+        "title": "The temperature trap",
+        "start": 0
+      },
+      {
+        "title": "A particle dance, not growing atoms",
+        "start": 103.52
+      },
+      {
+        "title": "Conduction: the neighbours pass energy",
+        "start": 192.44
+      },
+      {
+        "title": "Convection: follow the moving fluid",
+        "start": 291.48
+      },
+      {
+        "title": "Radiation crosses the empty stage",
+        "start": 380.32
+      },
+      {
+        "title": "The insulation detective",
+        "start": 473.36
+      },
+      {
+        "title": "Expansion and evaporation: the final rescue",
+        "start": 562.32
+      }
+    ],
+    "parts": [
+      {
+        "src": "/reallife-videos-astra/heat-part-00.mp4",
+        "captions": "/reallife-videos-astra/heat-part-00.vtt",
+        "start": 0.0,
+        "duration": 280.08
+      },
+      {
+        "src": "/reallife-videos-astra/heat-part-01.mp4",
+        "captions": "/reallife-videos-astra/heat-part-01.vtt",
+        "start": 280.08,
+        "duration": 280.0
+      },
+      {
+        "src": "/reallife-videos-astra/heat-part-02.mp4",
+        "captions": "/reallife-videos-astra/heat-part-02.vtt",
+        "start": 560.08,
+        "duration": 131.24
+      }
+    ]
   }
 };
 export function formatVideoTime(seconds: number): string {
