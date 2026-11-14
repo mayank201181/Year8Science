@@ -1,0 +1,249 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:00.873
+leave their brightness similar, but
+a real supply may sag or overload.
+
+00:00:01.667 --> 00:00:04.580
+So parallel does not mean
+unlimited free bulbs.
+
+00:00:04.957 --> 00:00:08.473
+More branches can draw greater
+total current, which matters
+
+00:00:08.476 --> 00:00:09.872
+for the supply and wires.
+
+00:00:10.570 --> 00:00:11.362
+Exactly.
+
+00:00:11.698 --> 00:00:15.468
+Household wiring uses parallel
+branches, but our practical work
+
+00:00:15.469 --> 00:00:19.657
+stays with supervised low-voltage
+circuits, never mains electricity
+
+00:00:20.038 --> 00:00:23.558
+Resistance describes how strongly
+a component opposes current for
+
+00:00:23.559 --> 00:00:24.967
+a given potential difference.
+
+00:00:25.291 --> 00:00:26.600
+It is measured in ohms.
+
+00:00:26.863 --> 00:00:30.516
+Using voltage equals current
+times resistance, find current
+
+00:00:30.525 --> 00:00:32.282
+through six ohms at three volts.
+
+00:00:33.092 --> 00:00:35.873
+Current equals voltage
+divided by resistance.
+
+00:00:36.437 --> 00:00:39.158
+Three divided by six gives 0.5
+
+00:00:39.167 --> 00:00:39.654
+amps.
+
+00:00:40.089 --> 00:00:43.299
+At the same voltage, more
+resistance means less current.
+
+00:00:43.942 --> 00:00:44.501
+Correct.
+
+00:00:44.928 --> 00:00:48.834
+For an ordinary ohmic resistor
+at constant temperature, voltage
+
+00:00:48.857 --> 00:00:50.326
+and current are proportional.
+
+00:00:50.969 --> 00:00:55.441
+A filament lamp changes temperature and
+resistance, so not every component keeps
+
+00:00:55.442 --> 00:00:57.660
+the same resistance as voltage changes.
+
+00:00:58.447 --> 00:01:01.839
+For wires of the same material
+and temperature, greater length
+
+00:01:01.871 --> 00:01:03.193
+means greater resistance.
+
+00:01:03.574 --> 00:01:06.157
+A larger cross-sectional area means lower
+
+00:01:06.157 --> 00:01:06.877
+resistance.
+
+00:01:07.647 --> 00:01:08.442
+Exactly.
+
+00:01:08.782 --> 00:01:12.128
+Changing material or temperature
+can alter the comparison.
+
+00:01:12.502 --> 00:01:16.279
+A variable resistor lets us
+adjust resistance, and in a simple
+
+00:01:16.287 --> 00:01:19.692
+series circuit, it can change a
+lamp's current and brightness.
+
+00:01:20.485 --> 00:01:24.015
+But I should not claim every modern
+light dimmer works by wasting
+
+00:01:24.026 --> 00:01:25.741
+energy in a variable resistor.
+
+00:01:26.512 --> 00:01:28.505
+Electronic controls can work differently.
+
+00:01:29.275 --> 00:01:29.968
+Excellent.
+
+00:01:30.423 --> 00:01:33.922
+We use a model to understand a
+principle without pretending every
+
+00:01:33.922 --> 00:01:36.069
+appliance contains the same circuit
+
+00:01:36.443 --> 00:01:39.784
+Rubbing suitable materials can
+transfer electrons between them.
+
+00:01:40.404 --> 00:01:44.125
+What charge does an object gain
+when it receives extra electrons?
+
+00:01:44.882 --> 00:01:45.911
+Negative charge.
+
+00:01:46.344 --> 00:01:49.265
+The object losing electrons
+becomes positively charged.
+
+00:01:49.564 --> 00:01:50.795
+We transfer charge.
+
+00:01:51.039 --> 00:01:53.515
+We do not create extra
+electrons from nothing.
+
+00:01:54.283 --> 00:01:54.854
+Correct.
+
+00:01:55.265 --> 00:01:59.439
+In this simple solid material
+example, electrons move between
+
+00:01:59.441 --> 00:02:03.464
+surfaces while positive atomic
+nuclei remain bound in the material.
+
+00:02:04.008 --> 00:02:06.936
+This is not a universal claim
+that positive charge can
+
+00:02:06.938 --> 00:02:08.481
+never move in any substance.
+
+00:02:09.336 --> 00:02:14.956
+Like electric charges repel and unlike
+charges attract, but a charged balloon
+
+00:02:14.958 --> 00:02:19.789
+can attract neutral paper too without the
+paper starting with a net opposite charge.
+
+00:02:20.522 --> 00:02:21.054
+Yes.
+
+00:02:21.322 --> 00:02:25.646
+Charge redistribution or polarization
+brings opposite charge relatively
+
+00:02:25.647 --> 00:02:27.481
+nearer, producing attraction.
+
+00:02:27.965 --> 00:02:31.648
+Electric charge and magnetic poles
+have some similar rules, but they
+
+00:02:31.648 --> 00:02:33.249
+are different physical properties.
+
+00:02:34.036 --> 00:02:37.103
+Earthing allows charge to flow
+between an object and earth,
+
+00:02:37.344 --> 00:02:38.895
+helping remove an imbalance.
+
+00:02:39.293 --> 00:02:43.386
+Depending on the initial charge,
+electrons may leave or enter the object.
+
+00:02:44.154 --> 00:02:44.985
+Exactly.
+
+00:02:45.384 --> 00:02:49.037
+Lightning is a large electrical
+discharge within clouds or
+
+00:02:49.046 --> 00:02:50.585
+between clouds and ground.
+
+00:02:50.847 --> 00:02:54.618
+Static sparks can ignite flammable
+vapors, which is why professional
+
+00:02:54.620 --> 00:02:57.636
+bonding and earthing procedures
+matter during fuel handling.
+
+00:02:58.395 --> 00:02:59.469
+Final checklist.
+
+00:02:59.904 --> 00:03:02.647
+Current is not used up,
+voltage is energy per
+
+00:03:02.651 --> 00:03:06.276
+charge, ammeters go in series,
+and voltmeters in parallel.
+
+00:03:06.699 --> 00:03:10.383
+Like poles repel, and not every
+metal is strongly magnetic.
+
+00:03:11.103 --> 00:03:11.695
+Beautiful.
+
+00:03:12.105 --> 00:03:16.458
+Follow the arrows, identify the complete
+paths, keep quantities and units
+
+00:03:16.463 --> 00:03:18.522
+separate, and explain the evidence.
+
+00:03:19.058 --> 00:03:22.284
+Our teacher can save her dramatic
+tears for a circuit diagram
+
+00:03:22.284 --> 00:03:24.257
+drawn without any junction labels

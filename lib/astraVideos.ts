@@ -633,6 +633,64 @@ export const ASTRA_VIDEOS: Record<string, AstraVideo> = {
         "duration": 133.76
       }
     ]
+  },
+  "magnetism-electricity": {
+    "poster": "/reallife-videos-astra/magnetism-electricity.jpg",
+    "durationSeconds": 764.52,
+    "chapters": [
+      {
+        "title": "The magnet that refuses to be half a magnet",
+        "start": 0
+      },
+      {
+        "title": "The invisible map around us",
+        "start": 83.48
+      },
+      {
+        "title": "Switchable magnet power",
+        "start": 172.48
+      },
+      {
+        "title": "Charge goes round, energy is transferred",
+        "start": 280.08
+      },
+      {
+        "title": "Reading the circuit map",
+        "start": 381.68
+      },
+      {
+        "title": "One route or several routes?",
+        "start": 469.96
+      },
+      {
+        "title": "Resistance: keep the comparison fair",
+        "start": 579.8
+      },
+      {
+        "title": "The balloon is charged, not magnetic",
+        "start": 656.24
+      }
+    ],
+    "parts": [
+      {
+        "src": "/reallife-videos-astra/magnetism-electricity-part-00.mp4",
+        "captions": "/reallife-videos-astra/magnetism-electricity-part-00.vtt",
+        "start": 0.0,
+        "duration": 280.08
+      },
+      {
+        "src": "/reallife-videos-astra/magnetism-electricity-part-01.mp4",
+        "captions": "/reallife-videos-astra/magnetism-electricity-part-01.vtt",
+        "start": 280.08,
+        "duration": 280.0
+      },
+      {
+        "src": "/reallife-videos-astra/magnetism-electricity-part-02.mp4",
+        "captions": "/reallife-videos-astra/magnetism-electricity-part-02.vtt",
+        "start": 560.08,
+        "duration": 204.44
+      }
+    ]
   }
 };
 export function formatVideoTime(seconds: number): string {

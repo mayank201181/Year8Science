@@ -1,0 +1,324 @@
+WEBVTT
+
+00:00:00.127 --> 00:00:01.579
+What is electric current?
+
+00:00:02.480 --> 00:00:04.477
+The rate of flow of electric charge.
+
+00:00:04.890 --> 00:00:07.150
+It is measured in amperes or amps.
+
+00:00:07.583 --> 00:00:10.895
+In our simple cell circuit,
+a complete conducting path is
+
+00:00:10.895 --> 00:00:12.546
+needed for a sustained current.
+
+00:00:13.318 --> 00:00:14.110
+Exactly.
+
+00:00:14.418 --> 00:00:18.960
+The cell supplies energy, not a fresh
+set of electrons that vanish in the lamp.
+
+00:00:19.528 --> 00:00:22.336
+Charge carriers are already
+present in the conductors.
+
+00:00:22.857 --> 00:00:25.841
+When the circuit changes,
+electrical effects propagate
+
+00:00:25.844 --> 00:00:28.352
+rapidly but not infinitely fast.
+
+00:00:29.114 --> 00:00:31.264
+So current is not used up by the bulb.
+
+00:00:31.658 --> 00:00:35.356
+Energy is transferred there, for
+example, to light and heating.
+
+00:00:36.171 --> 00:00:36.716
+Correct.
+
+00:00:37.049 --> 00:00:39.412
+Copper is a good electrical conductor.
+
+00:00:39.632 --> 00:00:43.460
+Plastic insulation resists current
+under normal operating conditions.
+
+00:00:43.774 --> 00:00:46.428
+Graphite conducts too,
+despite not being a metal.
+
+00:00:46.875 --> 00:00:50.438
+Wet materials and damaged insulation
+change the safety picture.
+
+00:00:51.245 --> 00:00:55.751
+Conventional current travels from positive
+to negative through the external circuit.
+
+00:00:56.170 --> 00:01:00.452
+Electron drift in a metal is in the
+opposite direction, negative to positive.
+
+00:01:01.227 --> 00:01:01.620
+Good.
+
+00:01:01.962 --> 00:01:03.428
+Keep those labels separate.
+
+00:01:03.827 --> 00:01:07.637
+Conventional current is a direction
+convention, not a claim that
+
+00:01:07.646 --> 00:01:09.423
+electrons have positive charge.
+
+00:01:09.881 --> 00:01:13.588
+Other conducting materials can have
+other kinds of moving charge carriers.
+
+00:01:14.386 --> 00:01:16.797
+Is voltage just another word for energy?
+
+00:01:17.521 --> 00:01:17.896
+No.
+
+00:01:18.318 --> 00:01:22.961
+Potential difference is energy transferred
+per unit charge measured in volts.
+
+00:01:23.390 --> 00:01:25.987
+One volt means one joule per coulomb.
+
+00:01:26.434 --> 00:01:29.934
+The water pump analogy can help,
+but voltage is not literally a
+
+00:01:29.934 --> 00:01:32.130
+fluid pressure or the energy itself.
+
+00:01:32.911 --> 00:01:37.693
+Current in amps, voltage in volts,
+charge in coulombs, energy in joules.
+
+00:01:38.238 --> 00:01:41.523
+My imaginary exam mark is
+staying firmly in its seat.
+
+00:01:41.863 --> 00:01:45.542
+Circuit diagrams use standard symbols
+rather than realistic pictures.
+
+00:01:46.131 --> 00:01:49.448
+The long cell line is positive
+and the short line negative.
+
+00:01:50.021 --> 00:01:51.830
+Several cells can form a battery.
+
+00:01:52.281 --> 00:01:54.553
+The circle with a cross represents a lamp.
+
+00:01:55.360 --> 00:01:59.127
+A rectangle represents a resistor
+in our convention, with an arrow
+
+00:01:59.137 --> 00:02:00.522
+for an adjustable resistor.
+
+00:02:00.954 --> 00:02:03.054
+A circle with A is an ammeter.
+
+00:02:03.388 --> 00:02:04.768
+V is a voltmeter.
+
+00:02:05.152 --> 00:02:06.298
+M is a motor.
+
+00:02:07.130 --> 00:02:07.676
+Correct.
+
+00:02:07.997 --> 00:02:10.265
+A solid dot marks a connected junction.
+
+00:02:10.624 --> 00:02:13.994
+Crossing lines without a junction
+need clear drawing so nobody
+
+00:02:13.994 --> 00:02:15.567
+invents an accidental connection.
+
+00:02:16.045 --> 00:02:18.491
+Use the symbol set
+expected by your course.
+
+00:02:19.271 --> 00:02:21.823
+A diode mainly conducts in one direction.
+
+00:02:22.309 --> 00:02:26.500
+An LED is a light-emitting diode
+shown with outward light arrows.
+
+00:02:26.889 --> 00:02:29.990
+It needs correct polarity and
+suitable current limiting.
+
+00:02:30.755 --> 00:02:31.547
+Exactly.
+
+00:02:31.836 --> 00:02:35.348
+A fuse melts and opens a circuit
+if excessive current persists
+
+00:02:35.348 --> 00:02:36.757
+under its rated conditions.
+
+00:02:37.119 --> 00:02:40.724
+It is not a reusable switch or
+permission to exceed equipment ratings.
+
+00:02:41.126 --> 00:02:44.186
+Buzzers and motors also need
+suitable rated supplies.
+
+00:02:44.955 --> 00:02:47.147
+Where do the ammeter and voltmeter go?
+
+00:02:48.028 --> 00:02:51.707
+Ammeter in series, so the current
+being measured passes through it.
+
+00:02:52.095 --> 00:02:56.310
+Voltmeter in parallel across the component
+to measure its potential difference.
+
+00:02:57.110 --> 00:02:57.735
+Perfect.
+
+00:02:58.280 --> 00:03:02.043
+Never place an ammeter directly across
+a cell as if it were a voltmeter.
+
+00:03:02.470 --> 00:03:05.121
+Its low resistance can
+allow excessive current.
+
+00:03:05.473 --> 00:03:07.499
+An exam mix-up can lose marks.
+
+00:03:07.777 --> 00:03:09.820
+A real mix-up can damage equipment
+
+00:03:10.184 --> 00:03:14.481
+Two equal resistors are in series
+across a six-volt ideal supply.
+
+00:03:14.786 --> 00:03:17.344
+What can we say about current
+and potential difference?
+
+00:03:18.163 --> 00:03:20.639
+Current is the same
+everywhere in the single loop.
+
+00:03:21.077 --> 00:03:24.239
+Each resistor has three volts
+across it, and the potential
+
+00:03:24.240 --> 00:03:26.174
+differences add to six volts.
+
+00:03:27.072 --> 00:03:27.629
+Correct.
+
+00:03:28.177 --> 00:03:31.311
+Equal sharing requires
+equal relevant resistances.
+
+00:03:31.731 --> 00:03:35.377
+With unequal components, the
+voltage split need not be equal.
+
+00:03:35.924 --> 00:03:40.122
+Adding an ordinary lamp in series to
+a fixed supply generally increases
+
+00:03:40.122 --> 00:03:41.932
+resistance and reduces current.
+
+00:03:42.732 --> 00:03:46.754
+The lamps usually become dimmer, and
+an open break anywhere in that single
+
+00:03:46.755 --> 00:03:48.747
+path stops their sustained current.
+
+00:03:49.238 --> 00:03:52.739
+But current was not being gradually
+eaten by each lamp beforehand.
+
+00:03:53.498 --> 00:03:57.203
+Now connect separate branches
+across the same supply terminals.
+
+00:03:57.687 --> 00:04:00.127
+What is shared and what stays the same?
+
+00:04:00.986 --> 00:04:04.109
+Each branch has the same potential
+difference across its ends.
+
+00:04:04.519 --> 00:04:08.219
+Total current divides at the junction
+and equals the sum of branch currents.
+
+00:04:08.659 --> 00:04:10.676
+It does not necessarily split equally.
+
+00:04:11.396 --> 00:04:12.182
+Exactly.
+
+00:04:12.481 --> 00:04:14.764
+Suppose one branch takes 0.2
+
+00:04:14.767 --> 00:04:16.972
+amps and another takes 0.3
+
+00:04:16.972 --> 00:04:19.139
+amps, what does the supply deliver?
+
+00:04:19.967 --> 00:04:20.965
+0.5
+
+00:04:20.965 --> 00:04:21.409
+amps.
+
+00:04:21.934 --> 00:04:24.133
+Charge conservation is
+keeping the accounts.
+
+00:04:24.584 --> 00:04:27.769
+At the returning junction,
+those branch currents recombine.
+
+00:04:28.582 --> 00:04:28.950
+Good.
+
+00:04:29.263 --> 00:04:32.999
+If one branch opens, another
+intact branch can still work.
+
+00:04:33.694 --> 00:04:36.708
+Adding parallel lamps to a
+sufficiently steady supply can
+
+00:04:36.709 --> 00:04:40.000
+leave their brightness similar, but
+a real supply may sag or overload.
