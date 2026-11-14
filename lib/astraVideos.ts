@@ -745,6 +745,64 @@ export const ASTRA_VIDEOS: Record<string, AstraVideo> = {
         "duration": 74.96
       }
     ]
+  },
+  "energy": {
+    "poster": "/reallife-videos-astra/energy.jpg",
+    "durationSeconds": 786.96,
+    "chapters": [
+      {
+        "title": "The energy that refused to disappear",
+        "start": 0
+      },
+      {
+        "title": "Eight stores, not eight mysterious liquids",
+        "start": 72.36
+      },
+      {
+        "title": "Stores are where; pathways are how",
+        "start": 187.4
+      },
+      {
+        "title": "Follow the ball and the roller coaster",
+        "start": 279.76
+      },
+      {
+        "title": "Useful is a purpose, not a property",
+        "start": 375.96
+      },
+      {
+        "title": "The efficiency accountant",
+        "start": 455.56
+      },
+      {
+        "title": "Resources and the honest comparison",
+        "start": 576.84
+      },
+      {
+        "title": "Generators do not generate energy",
+        "start": 671.0
+      }
+    ],
+    "parts": [
+      {
+        "src": "/reallife-videos-astra/energy-part-00.mp4",
+        "captions": "/reallife-videos-astra/energy-part-00.vtt",
+        "start": 0.0,
+        "duration": 280.08
+      },
+      {
+        "src": "/reallife-videos-astra/energy-part-01.mp4",
+        "captions": "/reallife-videos-astra/energy-part-01.vtt",
+        "start": 280.08,
+        "duration": 280.0
+      },
+      {
+        "src": "/reallife-videos-astra/energy-part-02.mp4",
+        "captions": "/reallife-videos-astra/energy-part-02.vtt",
+        "start": 560.08,
+        "duration": 226.88
+      }
+    ]
   }
 };
 export function formatVideoTime(seconds: number): string {
