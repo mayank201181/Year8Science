@@ -131,6 +131,66 @@ export const ASTRA_VIDEOS: Record<string, AstraVideo> = {
         "duration": 16.12
       }
     ]
+  },
+  "breathing": {
+    "poster": "/reallife-videos-astra/breathing.jpg",
+    "durationSeconds": 892.68,
+    "chapters": [
+      {
+        "title": "The lungs are not a balloon pump",
+        "start": 0
+      },
+      {
+        "title": "The airway obstacle course",
+        "start": 114.24
+      },
+      {
+        "title": "Move the space, move the air",
+        "start": 228.92
+      },
+      {
+        "title": "The tiny crossing point",
+        "start": 363.0
+      },
+      {
+        "title": "Design the best gas exchanger",
+        "start": 484.64
+      },
+      {
+        "title": "What really comes out?",
+        "start": 595.88
+      },
+      {
+        "title": "Exercise, protection and the final challenge",
+        "start": 717.28
+      }
+    ],
+    "parts": [
+      {
+        "src": "/reallife-videos-astra/breathing-part-00.mp4",
+        "captions": "/reallife-videos-astra/breathing-part-00.vtt",
+        "start": 0.0,
+        "duration": 280.08
+      },
+      {
+        "src": "/reallife-videos-astra/breathing-part-01.mp4",
+        "captions": "/reallife-videos-astra/breathing-part-01.vtt",
+        "start": 280.08,
+        "duration": 280.0
+      },
+      {
+        "src": "/reallife-videos-astra/breathing-part-02.mp4",
+        "captions": "/reallife-videos-astra/breathing-part-02.vtt",
+        "start": 560.08,
+        "duration": 280.0
+      },
+      {
+        "src": "/reallife-videos-astra/breathing-part-03.mp4",
+        "captions": "/reallife-videos-astra/breathing-part-03.vtt",
+        "start": 840.08,
+        "duration": 52.6
+      }
+    ]
   }
 };
 export function formatVideoTime(seconds: number): string {
