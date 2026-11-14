@@ -191,6 +191,66 @@ export const ASTRA_VIDEOS: Record<string, AstraVideo> = {
         "duration": 52.6
       }
     ]
+  },
+  "digestion": {
+    "poster": "/reallife-videos-astra/digestion.jpg",
+    "durationSeconds": 894.8,
+    "chapters": [
+      {
+        "title": "The sandwich cannot enter your blood",
+        "start": 0
+      },
+      {
+        "title": "Missing ingredients and different needs",
+        "start": 124.0
+      },
+      {
+        "title": "The food-test detective",
+        "start": 220.16
+      },
+      {
+        "title": "Cutting pieces versus cutting molecules",
+        "start": 354.36
+      },
+      {
+        "title": "Enzymes, acid and the bile mistake",
+        "start": 483.56
+      },
+      {
+        "title": "Across the wall and into the body",
+        "start": 629.76
+      },
+      {
+        "title": "The exit interview and quiz",
+        "start": 756.36
+      }
+    ],
+    "parts": [
+      {
+        "src": "/reallife-videos-astra/digestion-part-00.mp4",
+        "captions": "/reallife-videos-astra/digestion-part-00.vtt",
+        "start": 0.0,
+        "duration": 280.08
+      },
+      {
+        "src": "/reallife-videos-astra/digestion-part-01.mp4",
+        "captions": "/reallife-videos-astra/digestion-part-01.vtt",
+        "start": 280.08,
+        "duration": 280.0
+      },
+      {
+        "src": "/reallife-videos-astra/digestion-part-02.mp4",
+        "captions": "/reallife-videos-astra/digestion-part-02.vtt",
+        "start": 560.08,
+        "duration": 280.0
+      },
+      {
+        "src": "/reallife-videos-astra/digestion-part-03.mp4",
+        "captions": "/reallife-videos-astra/digestion-part-03.vtt",
+        "start": 840.08,
+        "duration": 54.72
+      }
+    ]
   }
 };
 export function formatVideoTime(seconds: number): string {
