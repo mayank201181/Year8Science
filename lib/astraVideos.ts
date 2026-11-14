@@ -413,6 +413,60 @@ export const ASTRA_VIDEOS: Record<string, AstraVideo> = {
         "duration": 209.88
       }
     ]
+  },
+  "acids-metals": {
+    "poster": "/reallife-videos-astra/acids-metals.jpg",
+    "durationSeconds": 764.92,
+    "chapters": [
+      {
+        "title": "The acid detective does not taste the evidence",
+        "start": 0
+      },
+      {
+        "title": "A small pH number makes a large difference",
+        "start": 96.6
+      },
+      {
+        "title": "Strong is not the same as concentrated",
+        "start": 203.52
+      },
+      {
+        "title": "Neutralisation: the amounts matter",
+        "start": 288.08
+      },
+      {
+        "title": "Three gases, three different tests",
+        "start": 388.36
+      },
+      {
+        "title": "The reactivity ladder has conditions",
+        "start": 493.92
+      },
+      {
+        "title": "Displace, extract and grow the crystals",
+        "start": 611.84
+      }
+    ],
+    "parts": [
+      {
+        "src": "/reallife-videos-astra/acids-metals-part-00.mp4",
+        "captions": "/reallife-videos-astra/acids-metals-part-00.vtt",
+        "start": 0.0,
+        "duration": 280.08
+      },
+      {
+        "src": "/reallife-videos-astra/acids-metals-part-01.mp4",
+        "captions": "/reallife-videos-astra/acids-metals-part-01.vtt",
+        "start": 280.08,
+        "duration": 280.0
+      },
+      {
+        "src": "/reallife-videos-astra/acids-metals-part-02.mp4",
+        "captions": "/reallife-videos-astra/acids-metals-part-02.vtt",
+        "start": 560.08,
+        "duration": 204.84
+      }
+    ]
   }
 };
 export function formatVideoTime(seconds: number): string {
