@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useStore } from "@/lib/store";
 
 export function AuthGate() {
-  const { login, signup } = useStore();
+  const { login, signup, startGuest } = useStore();
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -74,6 +74,13 @@ export function AuthGate() {
             className="w-full rounded-xl bg-indigo-600 px-4 py-2.5 font-bold text-white hover:bg-indigo-700 disabled:opacity-60"
           >
             {busy ? "Please wait…" : mode === "login" ? "Sign in" : "Create account"}
+          </button>
+          <button
+            type="button"
+            onClick={startGuest}
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-100"
+          >
+            Continue without signing in →
           </button>
         </form>
 

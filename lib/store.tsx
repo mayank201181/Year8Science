@@ -98,6 +98,8 @@ interface StoreContextValue extends StoreData {
   signup: (username: string, password: string, pin: string) => Promise<{ ok: boolean; error?: string }>;
   login: (username: string, password: string) => Promise<{ ok: boolean; error?: string }>;
   logout: () => Promise<void>;
+  guest: boolean;
+  startGuest: () => void;
   createProfile: (name: string, emoji: string) => Promise<{ ok: boolean; error?: string }>;
   updateProfile: (profileId: string, name: string, emoji: string) => Promise<{ ok: boolean; error?: string }>;
   deleteProfile: (profileId: string) => Promise<{ ok: boolean; error?: string }>;
@@ -121,6 +123,8 @@ const StoreContext = createContext<StoreContextValue | null>(null);
 
 const cacheKey = (acc: string, prof: string) => `y8cache:${acc}:${prof}`;
 const lastProfileKey = (acc: string) => `y8last:${acc}`;
+const GUEST_ID = "guest";
+const GUEST_PROFILE: Profile = { id: GUEST_ID, name: "Guest", emoji: "🙂", createdAt: 0 };
 
 function currentTopicId(): string | undefined {
   if (typeof window === "undefined") return undefined;
@@ -133,6 +137,9 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const [account, setAccount] = useState<PublicAccount | null>(null);
   const [activeProfile, setActiveProfile] = useState<Profile | null>(null);
   const [data, setData] = useState<StoreData>(emptyProgress());
+  const [guest, setGuest] = useState(false);
+  const guestRef = useRef(false);
+  guestRef.current = guest;
 
   const dataRef = useRef(data);
   dataRef.current = data;
@@ -196,12 +203,33 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
           }
           setStatus("no-profile");
         } else {
-          setStatus("anon");
+          enterGuest();
         }
       } catch {
-        setStatus("anon");
+        enterGuest();
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function enterGuest() {
+    ++loadVersion.current;
+    let doc = emptyProgress();
+    try {
+      const raw = localStorage.getItem(cacheKey(GUEST_ID, GUEST_ID));
+      if (raw) doc = normalizeProgress(JSON.parse(raw));
+    } catch {}
+    doc = { ...doc, analytics: pushLog({ ...doc.analytics, sessionCount: doc.analytics.sessionCount + 1 }, "start") };
+    setGuest(true);
+    setAccount({ id: GUEST_ID, displayName: "Guest", profiles: [GUEST_PROFILE] });
+    setActiveProfile(GUEST_PROFILE);
+    setData(doc);
+    canSaveRef.current = true;
+    setStatus("ready");
+  }
+
+  const startGuest = useCallback(() => {
+    enterGuest();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -262,6 +290,10 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     const acc = accountRef.current.id;
     const pid = activeRef.current.id;
     const key = cacheKey(acc, pid);
+    if (guestRef.current) {
+      try { localStorage.setItem(key, JSON.stringify(data)); } catch {}
+      return;
+    }
     const revision = `${Date.now()}:${++saveRevision.current}`;
     try {
       localStorage.setItem(key, JSON.stringify(data));
@@ -299,6 +331,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const signup = useCallback(async (username: string, password: string, pin: string) => {
     const { ok, data } = await postJson("/api/auth/signup", "POST", { username, password, pin });
     if (!ok) return { ok: false, error: errorOf(data) };
+    setGuest(false);
     setAccount(data.account as PublicAccount);
     setStatus("no-profile");
     return { ok: true };
@@ -307,6 +340,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const login = useCallback(async (username: string, password: string) => {
     const { ok, data } = await postJson("/api/auth/login", "POST", { username, password });
     if (!ok) return { ok: false, error: errorOf(data) };
+    setGuest(false);
     setAccount(data.account as PublicAccount);
     setStatus("no-profile");
     return { ok: true };
@@ -315,9 +349,12 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const logout = useCallback(async () => {
     ++loadVersion.current;
     canSaveRef.current = false;
-    setStatus("loading");
-    await saver.current!.flush().catch(() => {});
-    await fetch("/api/auth/logout", { method: "POST" }).catch(() => {});
+    if (!guestRef.current) {
+      setStatus("loading");
+      await saver.current!.flush().catch(() => {});
+      await fetch("/api/auth/logout", { method: "POST" }).catch(() => {});
+    }
+    setGuest(false);
     setAccount(null);
     setActiveProfile(null);
     setData(emptyProgress());
@@ -500,6 +537,8 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       signup,
       login,
       logout,
+      guest,
+      startGuest,
       createProfile,
       updateProfile,
       deleteProfile,
@@ -517,7 +556,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       touchStreak,
       resetAll,
     }),
-    [data, status, account, activeProfile, signup, login, logout, createProfile, updateProfile, deleteProfile, selectProfile, switchProfile, award, hasAward, saveAttempt, getAttempt, markGuideRead, setLast, recordResult, setChallengeBest, setGoalMinutes, touchStreak, resetAll],
+    [data, status, account, activeProfile, signup, login, logout, guest, startGuest, createProfile, updateProfile, deleteProfile, selectProfile, switchProfile, award, hasAward, saveAttempt, getAttempt, markGuideRead, setLast, recordResult, setChallengeBest, setGoalMinutes, touchStreak, resetAll],
   );
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
