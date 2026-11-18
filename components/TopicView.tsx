@@ -9,14 +9,17 @@ import { getExtras } from "@/lib/extras";
 import { GuideView } from "./GuideView";
 import { InteractiveTab } from "./InteractiveTab";
 import { LessonTab } from "./LessonTab";
+import { ShortsHub } from "./ShortsHub";
+import { Suspense } from "react";
 import { LearnSmart } from "./LearnSmart";
 import { QuizTab } from "./QuizTab";
 import { QuestionBank } from "./QuestionBank";
 
-type Tab = "guide" | "watch" | "interactive" | "smart" | "quiz" | "papers";
+type Tab = "guide" | "watch" | "shorts" | "interactive" | "smart" | "quiz" | "papers";
 const TABS: { id: Tab; label: string; emoji: string }[] = [
   { id: "guide", label: "Guide", emoji: "📖" },
   { id: "watch", label: "Watch", emoji: "🎬" },
+  { id: "shorts", label: "Shorts", emoji: "📱" },
   { id: "interactive", label: "Interactive", emoji: "🧪" },
   { id: "smart", label: "Learn Smart", emoji: "🧠" },
   { id: "quiz", label: "Quick Quiz", emoji: "⚡" },
@@ -107,6 +110,7 @@ export function TopicView({ topic }: { topic: Topic }) {
           />
         )}
         {tab === "watch" && <LessonTab topic={topic} />}
+        {tab === "shorts" && <Suspense fallback={<p className="p-4 text-slate-500">Loading Shorts…</p>}><ShortsHub topicId={topic.id} onPractise={() => setTab("quiz")} /></Suspense>}
         {tab === "interactive" && <InteractiveTab topic={topic} />}
         {tab === "smart" && <LearnSmart topic={topic} />}
         {tab === "quiz" && <QuizTab topic={topic} />}

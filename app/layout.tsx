@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ProgressProvider } from "@/lib/store";
-import { SiteHeader } from "@/components/SiteHeader";
+import { SiteHeader, BottomNav } from "@/components/SiteHeader";
 import { Mascot } from "@/components/Mascot";
 import { AppGate } from "@/components/AppGate";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
@@ -30,11 +30,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ProgressProvider>
           <AppGate>
             <ErrorBoundary silent><SiteHeader /></ErrorBoundary>
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 pb-24">{children}</main>
             <ErrorBoundary silent><Mascot /></ErrorBoundary>
             <footer className="border-t border-slate-200 bg-white py-6 text-center text-sm text-slate-500">
               Year 8 Science Lab · Built for curious minds 🔬 · Progress syncs across devices.
             </footer>
+            <ErrorBoundary silent><BottomNav /></ErrorBoundary>
           </AppGate>
         </ProgressProvider>
         </ErrorBoundary>

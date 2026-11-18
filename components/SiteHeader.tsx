@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { rankFor, useStore } from "@/lib/store";
 
@@ -36,6 +37,7 @@ export function SiteHeader() {
           <Link href="/" className="rounded-lg px-3 py-1.5 hover:bg-slate-100">
             Topics
           </Link>
+          <Link href="/shorts" className="rounded-lg px-3 py-1.5 font-bold text-indigo-600 hover:bg-indigo-50">📱 Shorts</Link>
           <Link href="/exam" className="rounded-lg px-3 py-1.5 hover:bg-slate-100">
             Big Exam
           </Link>
@@ -125,5 +127,51 @@ export function SiteHeader() {
         </div>
       </nav>
     </header>
+  );
+}
+
+
+const BOTTOM_NAV = [
+  { href: "/", label: "Home", icon: "🏠", external: false },
+  { href: "/shorts", label: "Shorts", icon: "📱", external: false },
+  { href: "/lessons/claude-sitcom.html", label: "Sitcoms", icon: "🎬", external: true },
+  { href: "/season1/index.html", label: "TV", icon: "🍿", external: true },
+  { href: "/exam", label: "Exam", icon: "🏁", external: false },
+  { href: "/review", label: "Review", icon: "🔁", external: false },
+  { href: "/progress", label: "Progress", icon: "📈", external: false },
+] as const;
+
+export function BottomNav() {
+  const path = usePathname() ?? "/";
+  const { srs } = useStore();
+  const today = new Date().toISOString().slice(0, 10);
+  const missedCount = Object.values(srs).filter((s) => s.due <= today).length;
+  return (
+    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur print:hidden" aria-label="Bottom navigation">
+      <div className="mx-auto grid max-w-2xl grid-cols-7 px-1">
+        {BOTTOM_NAV.map((n) => {
+          const isActive = n.href === "/" ? path === "/" : !n.external && path.startsWith(n.href);
+          const cls = `relative flex flex-col items-center gap-0.5 py-2 text-[0.62rem] font-bold transition-colors sm:text-xs ${isActive ? "text-indigo-600" : "text-slate-500 hover:text-slate-900"}`;
+          const inner = (
+            <>
+              <span className="relative text-lg sm:text-xl" aria-hidden>
+                {n.icon}
+                {n.href === "/review" && missedCount > 0 && (
+                  <span className="absolute -right-2 -top-1 grid h-4 min-w-4 place-items-center rounded-full bg-rose-500 px-1 text-[9px] font-bold text-white">
+                    {missedCount > 99 ? "99+" : missedCount}
+                  </span>
+                )}
+              </span>
+              {n.label}
+            </>
+          );
+          return n.external ? (
+            <a key={n.href} href={n.href} target="_blank" rel="noopener noreferrer" className={cls}>{inner}</a>
+          ) : (
+            <Link key={n.href} href={n.href} className={cls} aria-current={isActive ? "page" : undefined}>{inner}</Link>
+          );
+        })}
+      </div>
+    </nav>
   );
 }
