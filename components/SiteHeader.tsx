@@ -38,6 +38,7 @@ export function SiteHeader() {
             Topics
           </Link>
           <Link href="/shorts" className="rounded-lg px-3 py-1.5 font-bold text-indigo-600 hover:bg-indigo-50">📱 Shorts</Link>
+          <Link href="/cram" className="rounded-lg px-3 py-1.5 font-bold text-rose-600 hover:bg-rose-50">🚨 Cram</Link>
           <Link href="/exam" className="rounded-lg px-3 py-1.5 hover:bg-slate-100">
             Big Exam
           </Link>
@@ -79,6 +80,7 @@ export function SiteHeader() {
               🔥 <span className="tabular-nums">{streak.count}</span>
             </span>
           )}
+          <Link href="/cram" className="flex items-center gap-1 rounded-full border border-rose-200 bg-rose-50 px-2.5 py-1.5 text-xs font-bold text-rose-700 sm:hidden" title="Custom Exam Cram Sheet">🚨 Cram</Link>
           <Link
             href="/progress"
             className="flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-sm font-semibold text-amber-700 hover:bg-amber-100"

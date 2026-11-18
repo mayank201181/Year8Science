@@ -10,18 +10,21 @@ import { GuideView } from "./GuideView";
 import { InteractiveTab } from "./InteractiveTab";
 import { LessonTab } from "./LessonTab";
 import { ShortsHub } from "./ShortsHub";
+import { CramSheet } from "./CramSheet";
+import { buildTopicCramPack } from "@/lib/cram";
 import { Suspense } from "react";
 import { LearnSmart } from "./LearnSmart";
 import { QuizTab } from "./QuizTab";
 import { QuestionBank } from "./QuestionBank";
 
-type Tab = "guide" | "watch" | "shorts" | "interactive" | "smart" | "quiz" | "papers";
+type Tab = "guide" | "watch" | "shorts" | "interactive" | "smart" | "cram" | "quiz" | "papers";
 const TABS: { id: Tab; label: string; emoji: string }[] = [
   { id: "guide", label: "Guide", emoji: "📖" },
   { id: "watch", label: "Watch", emoji: "🎬" },
   { id: "shorts", label: "Shorts", emoji: "📱" },
   { id: "interactive", label: "Interactive", emoji: "🧪" },
   { id: "smart", label: "Learn Smart", emoji: "🧠" },
+  { id: "cram", label: "Exam Cram", emoji: "🚨" },
   { id: "quiz", label: "Quick Quiz", emoji: "⚡" },
   { id: "papers", label: "Practice Papers", emoji: "📝" },
 ];
@@ -113,6 +116,7 @@ export function TopicView({ topic }: { topic: Topic }) {
         {tab === "shorts" && <Suspense fallback={<p className="p-4 text-slate-500">Loading Shorts…</p>}><ShortsHub topicId={topic.id} onPractise={() => setTab("quiz")} /></Suspense>}
         {tab === "interactive" && <InteractiveTab topic={topic} />}
         {tab === "smart" && <LearnSmart topic={topic} />}
+        {tab === "cram" && <Suspense fallback={<p className="p-4 text-slate-500">Loading Exam Cram…</p>}><CramSheet packs={[buildTopicCramPack(topic, String(topic.subject))]} singleTopicMode subjectLabel="Year 8 Science" onPractise={() => setTab("papers")} /></Suspense>}
         {tab === "quiz" && <QuizTab topic={topic} />}
         {tab === "papers" && (
           <QuestionBank
