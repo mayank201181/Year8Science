@@ -52,3 +52,10 @@ body {
 body.lesson-watching [data-mascot] {
   display: none;
 }
+
+/* y8-print-light-override */
+@media print {
+  body { background: #ffffff !important; color: #0f172a !important; }
+  main { padding-bottom: 0 !important; max-width: 100% !important; }
+  header, nav, footer { display: none !important; }
+}

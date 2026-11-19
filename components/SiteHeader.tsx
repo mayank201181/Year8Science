@@ -109,6 +109,8 @@ export function SiteHeader() {
                 <div className="absolute right-0 mt-2 w-48 overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-lg">
                   <a href="/season1/index.html" target="_blank" rel="noopener noreferrer" onClick={() => setMenu(false)} className="block px-4 py-2 text-sm font-bold text-rose-600 hover:bg-rose-50 sm:hidden">🍿 Gemini Sitcoms</a>
                   <a href="/lessons/claude-sitcom.html" target="_blank" rel="noopener noreferrer" onClick={() => setMenu(false)} className="block px-4 py-2 text-sm font-bold text-violet-700 hover:bg-violet-50 sm:hidden">🎬 Claude Sitcoms</a>
+                  <Link href="/shorts" onClick={() => setMenu(false)} className="block px-4 py-2 text-sm font-bold text-indigo-600 hover:bg-indigo-50 sm:hidden">📱 Concept Shorts</Link>
+                  <Link href="/cram" onClick={() => setMenu(false)} className="block px-4 py-2 text-sm font-bold text-rose-600 hover:bg-rose-50 sm:hidden">🚨 Exam Cram Sheet</Link>
                   <Link href="/progress" onClick={() => setMenu(false)} className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 sm:hidden">My Progress</Link>
                   {!guest && (
                     <>

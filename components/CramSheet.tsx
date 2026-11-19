@@ -88,11 +88,12 @@ export function CramSheet({
         .filter((id) => allIds.includes(id));
       if (fromUrl.length) return new Set(fromUrl);
     }
-    if (rawSaved) {
+    if (rawSaved !== "") {
       try {
         const parsed = JSON.parse(rawSaved) as string[];
-        const valid = parsed.filter((id) => allIds.includes(id));
-        if (valid.length) return new Set(valid);
+        if (Array.isArray(parsed)) {
+          return new Set(parsed.filter((id) => allIds.includes(id)));
+        }
       } catch {
         // ignore
       }
@@ -107,11 +108,8 @@ export function CramSheet({
 
   const toggleTopic = (id: string) => {
     const next = new Set(selectedIds);
-    if (next.has(id)) {
-      if (next.size > 1) next.delete(id);
-    } else {
-      next.add(id);
-    }
+    if (next.has(id)) next.delete(id);
+    else next.add(id);
     updateSelection(next);
   };
 
@@ -203,10 +201,10 @@ export function CramSheet({
                 </button>
                 <button
                   type="button"
-                  onClick={() => updateSelection(new Set([allIds[0]]))}
+                  onClick={() => updateSelection(new Set())}
                   className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-bold text-slate-700 hover:bg-indigo-50 hover:text-indigo-700"
                 >
-                  Clear to 1st
+                  Clear all
                 </button>
                 {strands.map((st) => (
                   <button
@@ -307,6 +305,13 @@ export function CramSheet({
         </div>
       )}
 
+      {visiblePacks.length === 0 ? (
+        <div className="rounded-3xl border border-slate-200 bg-white p-8 text-center text-slate-600 shadow-sm">
+          <div className="text-3xl" aria-hidden>📋</div>
+          <p className="mt-2 font-bold text-slate-900">No topics selected yet</p>
+          <p className="mt-1 text-sm">Tap any 1, 3, or 4 topic pills above to build your custom test cram sheet.</p>
+        </div>
+      ) : null}
       <div className="space-y-8">
         {visiblePacks.map((pack) => (
           <article key={pack.id} className="space-y-6 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
@@ -350,7 +355,7 @@ export function CramSheet({
 
             {(sectionFilter === "all" || sectionFilter === "mistakes") &&
             (pack.examMistakes.length > 0 || pack.questionTraps.length > 0) ? (
-              <section className="space-y-3">
+              <section className="space-y-3 break-inside-avoid">
                 <h3 className="flex items-center gap-2 text-base font-extrabold text-rose-700">
                   <span aria-hidden>⚠️</span> What Loses Marks in Exams (Avoid These Traps!)
                 </h3>
@@ -384,7 +389,7 @@ export function CramSheet({
             ) : null}
 
             {(sectionFilter === "all" || sectionFilter === "mustknow") && pack.mustKnow.length > 0 ? (
-              <section className="space-y-2.5">
+              <section className="space-y-2.5 break-inside-avoid">
                 <h3 className="flex items-center gap-2 text-base font-extrabold text-emerald-700">
                   <span aria-hidden>✅</span> What Examiners Award Marks For (&ldquo;Can You…?&rdquo;)
                 </h3>
@@ -411,7 +416,7 @@ export function CramSheet({
             ) : null}
 
             {(sectionFilter === "all" || sectionFilter === "myths") && pack.misconceptions.length > 0 ? (
-              <section className="space-y-2.5">
+              <section className="space-y-2.5 break-inside-avoid">
                 <h3 className="flex items-center gap-2 text-base font-extrabold text-slate-900">
                   <span aria-hidden>🕵️</span> Don&apos;t Write This → Write This Instead
                 </h3>
@@ -433,7 +438,7 @@ export function CramSheet({
             ) : null}
 
             {(sectionFilter === "all" || sectionFilter === "tricks") && pack.mnemonics.length > 0 ? (
-              <section className="space-y-2.5">
+              <section className="space-y-2.5 break-inside-avoid">
                 <h3 className="flex items-center gap-2 text-base font-extrabold text-slate-900">
                   <span aria-hidden>🧩</span> Exam Memory Tricks &amp; Mnemonics
                 </h3>
@@ -450,7 +455,7 @@ export function CramSheet({
             ) : null}
 
             {(sectionFilter === "all" || sectionFilter === "facts") && pack.keyFacts.length > 0 ? (
-              <section className="space-y-2.5">
+              <section className="space-y-2.5 break-inside-avoid">
                 <h3 className="flex items-center gap-2 text-base font-extrabold text-slate-900">
                   <span aria-hidden>📖</span> Must-Memorise Key Points
                 </h3>

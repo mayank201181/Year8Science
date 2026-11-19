@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { SHORTS, type ShortClip } from "@/lib/shorts";
 
 const STORAGE_KEY = "y8shorts:watched:v1";
+const SPEEDS = [1, 1.25, 1.5] as const;
 
 function subscribeWatched(cb: () => void): () => void {
   if (typeof window === "undefined") return () => {};
@@ -49,6 +50,14 @@ function fmtSec(sec: number): string {
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 }
 
+function findPartForGlobal(clip: ShortClip, globalSec: number): number {
+  if (!clip.parts?.length) return 0;
+  for (let i = clip.parts.length - 1; i >= 0; i--) {
+    if (globalSec >= clip.parts[i].start - 0.05) return i;
+  }
+  return 0;
+}
+
 interface LessonBridge {
   ready?: boolean;
   seek: (t: number) => void;
@@ -57,6 +66,14 @@ interface LessonBridge {
   now: () => number;
   audio?: HTMLAudioElement;
 }
+
+const ENGLISH_STAGE_CSS = `
+  html, body { margin: 0 !important; padding: 0 !important; overflow: hidden !important; background: #0f172a !important; width: 100% !important; height: 100% !important; }
+  .top, footer, .rotate-tip, .controls, .chapters, .sec-h, .tips, .transcript, .bigplay, .endcard, .caption, .player-note { display: none !important; }
+  .wrap { padding: 0 !important; margin: 0 !important; gap: 0 !important; max-width: none !important; width: 100% !important; height: 100% !important; }
+  .player, .screen, .stage-wrap { border: 0 !important; border-radius: 0 !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; width: 100% !important; height: 100% !important; background: #0f172a !important; }
+  #stage { width: 100% !important; height: 100% !important; display: block !important; }
+`;
 
 export function ShortsHub({
   topicId,
@@ -99,10 +116,14 @@ export function ShortsHub({
   const [selectedTopicFilter, setSelectedTopicFilter] = useState<string>("All");
   const [autoAdvance, setAutoAdvance] = useState<boolean>(true);
   const [selectedIdOverride, setSelectedIdOverride] = useState<string | null>(null);
-  const [partIdx, setPartIdx] = useState<number>(0);
+  const [partOverride, setPartOverride] = useState<{ clipId: string; idx: number } | null>(null);
   const [playing, setPlaying] = useState<boolean>(false);
+  const [muted, setMuted] = useState<boolean>(false);
+  const [speedIdx, setSpeedIdx] = useState<number>(0);
   const [relSec, setRelSec] = useState<number>(0);
-  const [activeCaption, setActiveCaption] = useState<string>("");
+  const [liveCaption, setLiveCaption] = useState<{ clipId: string; text: string } | null>(null);
+
+  const speed = SPEEDS[speedIdx];
 
   const pool = useMemo(() => {
     return basePool.filter((s) => {
@@ -128,6 +149,23 @@ export function ShortsHub({
     return pool.find((s) => s.id === activeId) ?? pool.find((s) => !watched[s.id]) ?? pool[0];
   }, [pool, basePool, activeId, watched]);
 
+  // Always derive the correct initial part index from current.startSec unless explicitly stepped across a part boundary!
+  const effectivePartIdx = useMemo(() => {
+    if (!current) return 0;
+    if (partOverride && partOverride.clipId === current.id) return partOverride.idx;
+    return findPartForGlobal(current, current.startSec);
+  }, [current, partOverride]);
+
+  const activePart = useMemo(() => {
+    if (!current) return null;
+    if (current.parts?.length) {
+      const idx = Math.max(0, Math.min(effectivePartIdx, current.parts.length - 1));
+      return current.parts[idx];
+    }
+    if (current.src) return { src: current.src, start: 0, duration: 99999 };
+    return null;
+  }, [current, effectivePartIdx]);
+
   const curIdx = current ? pool.findIndex((s) => s.id === current.id) : -1;
   const prevClip = curIdx > 0 ? pool[curIdx - 1] : undefined;
   const nextClip = curIdx >= 0 && curIdx + 1 < pool.length ? pool[curIdx + 1] : undefined;
@@ -135,50 +173,71 @@ export function ShortsHub({
   const videoRef = useRef<HTMLVideoElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const autoPlayRef = useRef<boolean>(false);
-  const targetGlobalTimeRef = useRef<number>(0);
+  const targetGlobalTimeRef = useRef<{ clipId: string; t: number } | null>(null);
+  const seekingClipRef = useRef<string | null>(null);
   const touchStartY = useRef<number | null>(null);
-
-  const findPartForGlobal = useCallback((clip: ShortClip, globalSec: number): number => {
-    if (!clip.parts?.length) return 0;
-    for (let i = clip.parts.length - 1; i >= 0; i--) {
-      if (globalSec >= clip.parts[i].start - 0.05) return i;
-    }
-    return 0;
-  }, []);
 
   const selectClip = useCallback(
     (clip: ShortClip, shouldPlay: boolean) => {
       autoPlayRef.current = shouldPlay;
-      targetGlobalTimeRef.current = clip.startSec;
+      seekingClipRef.current = clip.id;
+      targetGlobalTimeRef.current = { clipId: clip.id, t: clip.startSec };
+      const nextP = findPartForGlobal(clip, clip.startSec);
       setSelectedIdOverride(clip.id);
-      setPartIdx(findPartForGlobal(clip, clip.startSec));
+      setPartOverride({ clipId: clip.id, idx: nextP });
       setRelSec(0);
-      setActiveCaption(clip.captions[0]?.text ?? clip.summary);
+      setLiveCaption({ clipId: clip.id, text: clip.captions[0]?.text ?? clip.summary });
+
+      // Direct-gesture seek & play when staying on the same MP4 file (iPad Safari safe!)
+      const v = videoRef.current;
+      const nextSrc = clip.parts?.length ? clip.parts[nextP]?.src : clip.src;
+      if (v && activePart && nextSrc === activePart.src && v.readyState >= 1) {
+        const localT = Math.max(0, clip.startSec - (clip.parts?.length ? clip.parts[nextP].start : 0));
+        try {
+          v.currentTime = localT;
+        } catch {
+          // ignore
+        }
+        if (shouldPlay) {
+          void v.play().catch(() => {});
+        }
+      }
+
       if (!topicId) {
         router.replace(`/shorts?s=${clip.id}`, { scroll: false });
       }
     },
-    [router, topicId, findPartForGlobal]
+    [router, topicId, activePart]
   );
 
-  // Resolve current MP4 part src + local offset for Science multi-part videos
-  const activePart = useMemo(() => {
-    if (!current) return null;
-    if (current.parts?.length) {
-      const idx = Math.min(partIdx, current.parts.length - 1);
-      return current.parts[idx];
+  // Apply mute & speed to either video or English iframe audio
+  useEffect(() => {
+    const v = videoRef.current;
+    if (v) {
+      v.muted = muted;
+      v.playbackRate = speed;
     }
-    if (current.src) return { src: current.src, start: 0, duration: 99999 };
-    return null;
-  }, [current, partIdx]);
+    const win = iframeRef.current?.contentWindow as (Window & { __lesson?: LessonBridge }) | null;
+    if (win?.__lesson?.audio) {
+      win.__lesson.audio.muted = muted;
+      win.__lesson.audio.playbackRate = speed;
+    }
+  }, [muted, speed, activePart?.src, current?.id]);
 
-  // Seek video on clip or part change
+  // Seek video cleanly on clip or part change
   useEffect(() => {
     const v = videoRef.current;
     if (!v || !current || !activePart) return;
-    const desiredGlobal = Math.max(current.startSec, targetGlobalTimeRef.current || current.startSec);
+    seekingClipRef.current = current.id;
+    const desiredGlobal =
+      targetGlobalTimeRef.current && targetGlobalTimeRef.current.clipId === current.id
+        ? Math.max(current.startSec, targetGlobalTimeRef.current.t)
+        : current.startSec;
     const localTarget = Math.max(0, desiredGlobal - activePart.start);
+
     const onLoaded = () => {
+      v.muted = muted;
+      v.playbackRate = speed;
       try {
         v.currentTime = localTarget;
       } catch {
@@ -194,7 +253,7 @@ export function ShortsHub({
       v.addEventListener("loadedmetadata", onLoaded, { once: true });
       return () => v.removeEventListener("loadedmetadata", onLoaded);
     }
-  }, [current, activePart]);
+  }, [current, activePart, muted, speed]);
 
   // Poll English embedded HTML5 stage when embedHref is active
   useEffect(() => {
@@ -203,9 +262,20 @@ export function ShortsHub({
       const win = iframeRef.current?.contentWindow as (Window & { __lesson?: LessonBridge }) | null;
       const br = win?.__lesson;
       if (!br?.ready) return;
+      if (br.audio) {
+        br.audio.muted = muted;
+        br.audio.playbackRate = speed;
+      }
       const t = br.now();
       const isPlaying = br.audio ? !br.audio.paused : false;
       setPlaying(isPlaying);
+      if (seekingClipRef.current === current.id) {
+        if (t >= current.startSec - 1.0 && t < current.endSec - 0.5) {
+          seekingClipRef.current = null;
+        } else {
+          return;
+        }
+      }
       if (isPlaying) {
         const elapsed = Math.max(0, t - current.startSec);
         setRelSec(Math.min(current.durationSec, elapsed));
@@ -213,7 +283,7 @@ export function ShortsHub({
         for (const c of current.captions) {
           if (t + 0.15 >= c.t) cap = c.text;
         }
-        if (cap) setActiveCaption(cap);
+        if (cap) setLiveCaption({ clipId: current.id, text: cap });
         if (elapsed >= Math.min(10, current.durationSec * 0.6)) markShortWatched(current.id);
         if (t >= current.endSec - 0.12) {
           markShortWatched(current.id);
@@ -221,13 +291,15 @@ export function ShortsHub({
           if (autoAdvance && nextClip) {
             selectClip(nextClip, true);
           } else {
+            seekingClipRef.current = current.id;
             br.seek(current.startSec);
+            setRelSec(0);
           }
         }
       }
     }, 200);
     return () => window.clearInterval(iv);
-  }, [current, autoAdvance, nextClip, selectClip]);
+  }, [current, autoAdvance, nextClip, selectClip, muted, speed]);
 
   // Keyboard Up/Down navigation
   useEffect(() => {
@@ -257,11 +329,14 @@ export function ShortsHub({
       if (!br?.ready) return;
       if (br.audio && !br.audio.paused) {
         br.pause();
+        autoPlayRef.current = false;
         setPlaying(false);
       } else {
         if (br.now() < current.startSec - 0.5 || br.now() >= current.endSec - 0.2) {
+          seekingClipRef.current = current.id;
           br.seek(current.startSec);
         }
+        autoPlayRef.current = true;
         br.play();
         setPlaying(true);
       }
@@ -273,10 +348,11 @@ export function ShortsHub({
       const gNow = activePart.start + v.currentTime;
       if (gNow < current.startSec - 0.5 || gNow >= current.endSec - 0.2) {
         const p0 = findPartForGlobal(current, current.startSec);
-        targetGlobalTimeRef.current = current.startSec;
-        if (p0 !== partIdx) {
+        targetGlobalTimeRef.current = { clipId: current.id, t: current.startSec };
+        seekingClipRef.current = current.id;
+        if (p0 !== effectivePartIdx) {
           autoPlayRef.current = true;
-          setPartIdx(p0);
+          setPartOverride({ clipId: current.id, idx: p0 });
           return;
         }
         v.currentTime = Math.max(0, current.startSec - activePart.start);
@@ -289,10 +365,53 @@ export function ShortsHub({
     }
   };
 
+  const replayClip = () => {
+    setRelSec(0);
+    seekingClipRef.current = current.id;
+    autoPlayRef.current = true;
+    if (current.embedHref) {
+      const win = iframeRef.current?.contentWindow as (Window & { __lesson?: LessonBridge }) | null;
+      if (win?.__lesson?.ready) {
+        win.__lesson.seek(current.startSec);
+        win.__lesson.play();
+        setPlaying(true);
+      }
+      return;
+    }
+    const p0 = findPartForGlobal(current, current.startSec);
+    targetGlobalTimeRef.current = { clipId: current.id, t: current.startSec };
+    if (p0 !== effectivePartIdx) {
+      setPartOverride({ clipId: current.id, idx: p0 });
+    } else if (videoRef.current && activePart) {
+      videoRef.current.currentTime = Math.max(0, current.startSec - activePart.start);
+      void videoRef.current.play().catch(() => {});
+    }
+  };
+
+  const handleSeeked = () => {
+    const v = videoRef.current;
+    if (!v || !activePart) return;
+    const gTime = activePart.start + v.currentTime;
+    if (seekingClipRef.current === current.id) {
+      if (gTime >= current.startSec - 1.5 && gTime < current.endSec) {
+        seekingClipRef.current = null;
+      }
+    }
+  };
+
   const handleTimeUpdate = () => {
     const v = videoRef.current;
     if (!v || !activePart) return;
     const gTime = activePart.start + v.currentTime;
+
+    if (v.seeking || seekingClipRef.current === current.id) {
+      if (gTime >= current.startSec - 1.0 && gTime < current.endSec - 0.5) {
+        seekingClipRef.current = null;
+      } else {
+        return;
+      }
+    }
+
     const elapsed = Math.max(0, gTime - current.startSec);
     setRelSec(Math.min(current.durationSec, elapsed));
 
@@ -300,7 +419,7 @@ export function ShortsHub({
     for (const c of current.captions) {
       if (gTime + 0.15 >= c.t) cap = c.who ? `${c.who}: ${c.text}` : c.text;
     }
-    if (cap) setActiveCaption(cap);
+    if (cap) setLiveCaption({ clipId: current.id, text: cap });
 
     if (elapsed >= Math.min(10, current.durationSec * 0.6)) {
       markShortWatched(current.id);
@@ -313,18 +432,27 @@ export function ShortsHub({
       } else {
         v.pause();
         const p0 = findPartForGlobal(current, current.startSec);
-        targetGlobalTimeRef.current = current.startSec;
-        setPartIdx(p0);
-        if (p0 === partIdx) v.currentTime = Math.max(0, current.startSec - activePart.start);
+        targetGlobalTimeRef.current = { clipId: current.id, t: current.startSec };
+        seekingClipRef.current = current.id;
+        setRelSec(0);
+        if (p0 !== effectivePartIdx) {
+          setPartOverride({ clipId: current.id, idx: p0 });
+        } else {
+          v.currentTime = Math.max(0, current.startSec - activePart.start);
+        }
       }
       return;
     }
 
-    // Advance seamlessly across Science multi-part MP4 boundary if needed
-    if (current.parts && partIdx + 1 < current.parts.length && v.currentTime >= activePart.duration - 0.15) {
-      targetGlobalTimeRef.current = current.parts[partIdx + 1].start;
-      autoPlayRef.current = true;
-      setPartIdx(partIdx + 1);
+    // Advance seamlessly across Science multi-part MP4 boundary
+    if (current.parts && effectivePartIdx + 1 < current.parts.length && v.currentTime >= activePart.duration - 0.2) {
+      const nextPart = current.parts[effectivePartIdx + 1];
+      if (nextPart.start < current.endSec - 0.2) {
+        targetGlobalTimeRef.current = { clipId: current.id, t: nextPart.start };
+        seekingClipRef.current = current.id;
+        autoPlayRef.current = true;
+        setPartOverride({ clipId: current.id, idx: effectivePartIdx + 1 });
+      }
     }
   };
 
@@ -341,6 +469,7 @@ export function ShortsHub({
 
   const watchedCount = basePool.filter((s) => watched[s.id]).length;
   const pct = current.durationSec > 0 ? Math.min(100, (relSec / current.durationSec) * 100) : 0;
+  const shownCaption = liveCaption?.clipId === current.id ? liveCaption.text : current.summary;
 
   return (
     <div className={topicId ? "space-y-5 pb-6" : "mx-auto max-w-6xl space-y-6 px-4 py-6 pb-28"}>
@@ -458,9 +587,27 @@ export function ShortsHub({
                 <span className="truncate">
                   {current.topicIcon} {current.strand} · {current.topicShort}
                 </span>
-                <span className="shrink-0 rounded-full bg-white/15 px-2 py-0.5 text-white">
-                  {current.index}/{current.totalInTopic}
-                </span>
+                <div className="flex shrink-0 items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => setSpeedIdx((i) => (i + 1) % SPEEDS.length)}
+                    className="rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-extrabold text-white hover:bg-white/25"
+                    title="Change playback speed"
+                  >
+                    {speed}×
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setMuted((m) => !m)}
+                    className="rounded-full bg-white/15 px-2 py-0.5 text-[10px] text-white hover:bg-white/25"
+                    aria-label={muted ? "Unmute" : "Mute"}
+                  >
+                    {muted ? "🔇" : "🔊"}
+                  </button>
+                  <span className="rounded-full bg-white/15 px-2 py-0.5 text-white">
+                    {current.index}/{current.totalInTopic}
+                  </span>
+                </div>
               </div>
               <h2 className="mt-1.5 line-clamp-2 text-lg font-black leading-snug text-white">
                 {current.title}
@@ -469,23 +616,43 @@ export function ShortsHub({
 
             <div className="relative my-auto w-full bg-black">
               {current.embedHref ? (
-                <iframe
-                  key={current.id}
-                  ref={iframeRef}
-                  src={current.embedHref}
-                  title={current.title}
-                  onLoad={() => {
-                    if (!autoPlayRef.current) return;
-                    window.setTimeout(() => {
-                      const win = iframeRef.current?.contentWindow as (Window & { __lesson?: LessonBridge }) | null;
-                      if (win?.__lesson?.ready) {
-                        win.__lesson.seek(current.startSec);
-                        win.__lesson.play();
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-950">
+                  <iframe
+                    key={current.id}
+                    ref={iframeRef}
+                    src={current.embedHref}
+                    title={current.title}
+                    scrolling="no"
+                    onLoad={() => {
+                      const doc = iframeRef.current?.contentDocument;
+                      if (doc && !doc.getElementById("y8-shorts-embed-style")) {
+                        const style = doc.createElement("style");
+                        style.id = "y8-shorts-embed-style";
+                        style.textContent = ENGLISH_STAGE_CSS;
+                        doc.head?.appendChild(style);
                       }
-                    }, 350);
-                  }}
-                  className="aspect-video w-full border-0 bg-slate-950"
-                />
+                      window.setTimeout(() => {
+                        const win = iframeRef.current?.contentWindow as (Window & { __lesson?: LessonBridge }) | null;
+                        if (win?.__lesson?.ready) {
+                          seekingClipRef.current = current.id;
+                          win.__lesson.seek(current.startSec);
+                          if (autoPlayRef.current) win.__lesson.play();
+                        }
+                      }, 300);
+                    }}
+                    className="h-full w-full border-0 bg-slate-950"
+                  />
+                  {!playing ? (
+                    <button
+                      type="button"
+                      onClick={togglePlay}
+                      aria-label="Play Short"
+                      className="absolute inset-0 m-auto flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-2xl text-slate-950 shadow-lg transition hover:scale-105"
+                    >
+                      ▶
+                    </button>
+                  ) : null}
+                </div>
               ) : activePart ? (
                 <>
                   <video
@@ -498,11 +665,16 @@ export function ShortsHub({
                     onClick={togglePlay}
                     onPlay={() => setPlaying(true)}
                     onPause={() => setPlaying(false)}
+                    onSeeked={handleSeeked}
                     onEnded={() => {
-                      if (current.parts && partIdx + 1 < current.parts.length) {
-                        targetGlobalTimeRef.current = current.parts[partIdx + 1].start;
-                        autoPlayRef.current = true;
-                        setPartIdx(partIdx + 1);
+                      if (current.parts && effectivePartIdx + 1 < current.parts.length) {
+                        const nextPart = current.parts[effectivePartIdx + 1];
+                        if (nextPart.start < current.endSec - 0.2) {
+                          targetGlobalTimeRef.current = { clipId: current.id, t: nextPart.start };
+                          seekingClipRef.current = current.id;
+                          autoPlayRef.current = true;
+                          setPartOverride({ clipId: current.id, idx: effectivePartIdx + 1 });
+                        }
                       }
                     }}
                     onTimeUpdate={handleTimeUpdate}
@@ -525,9 +697,9 @@ export function ShortsHub({
             <div className="z-10 space-y-2.5 bg-gradient-to-t from-slate-950 via-slate-950/95 to-transparent px-4 pt-2 pb-4">
               <div className="rounded-xl bg-white/10 px-3 py-2 text-xs leading-relaxed text-slate-100 backdrop-blur">
                 <div className="mb-0.5 text-[10px] font-extrabold uppercase tracking-wider text-amber-300">
-                  {activeCaption ? "Live Caption" : "Key Takeaway"}
+                  {liveCaption?.clipId === current.id ? "Live Caption" : "Key Takeaway"}
                 </div>
-                <p className="line-clamp-3 font-medium">{activeCaption || current.summary}</p>
+                <p className="line-clamp-3 font-medium">{shownCaption}</p>
               </div>
 
               <div>
@@ -537,15 +709,16 @@ export function ShortsHub({
                     const rect = e.currentTarget.getBoundingClientRect();
                     const k = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
                     const gTarget = current.startSec + k * current.durationSec;
+                    seekingClipRef.current = current.id;
                     if (current.embedHref) {
                       const win = iframeRef.current?.contentWindow as (Window & { __lesson?: LessonBridge }) | null;
                       win?.__lesson?.seek(gTarget);
                       return;
                     }
                     const pTarget = findPartForGlobal(current, gTarget);
-                    targetGlobalTimeRef.current = gTarget;
-                    if (pTarget !== partIdx) {
-                      setPartIdx(pTarget);
+                    targetGlobalTimeRef.current = { clipId: current.id, t: gTarget };
+                    if (pTarget !== effectivePartIdx) {
+                      setPartOverride({ clipId: current.id, idx: pTarget });
                     } else if (videoRef.current && activePart) {
                       videoRef.current.currentTime = Math.max(0, gTarget - activePart.start);
                     }
@@ -564,14 +737,23 @@ export function ShortsHub({
                   type="button"
                   disabled={!prevClip}
                   onClick={() => prevClip && selectClip(prevClip, true)}
-                  className="rounded-xl bg-white/15 px-3 py-2 text-xs font-extrabold text-white enabled:hover:bg-white/25 disabled:opacity-35"
+                  className="rounded-xl bg-white/15 px-2.5 py-2 text-xs font-extrabold text-white enabled:hover:bg-white/25 disabled:opacity-35"
                 >
                   ↑ Prev
                 </button>
                 <button
                   type="button"
+                  onClick={replayClip}
+                  aria-label="Replay Short"
+                  className="rounded-xl bg-white/15 px-2.5 py-2 text-xs font-extrabold text-white hover:bg-white/25"
+                  title="Replay from start"
+                >
+                  ↺
+                </button>
+                <button
+                  type="button"
                   onClick={togglePlay}
-                  className="rounded-xl bg-sky-500 px-4 py-2 text-xs font-extrabold text-slate-950 hover:bg-sky-400"
+                  className="rounded-xl bg-sky-500 px-3.5 py-2 text-xs font-extrabold text-slate-950 hover:bg-sky-400"
                 >
                   {playing ? "⏸ Pause" : "▶ Play"}
                 </button>
@@ -579,7 +761,7 @@ export function ShortsHub({
                   type="button"
                   disabled={!nextClip}
                   onClick={() => nextClip && selectClip(nextClip, true)}
-                  className="rounded-xl bg-white/15 px-3 py-2 text-xs font-extrabold text-white enabled:hover:bg-white/25 disabled:opacity-35"
+                  className="rounded-xl bg-white/15 px-2.5 py-2 text-xs font-extrabold text-white enabled:hover:bg-white/25 disabled:opacity-35"
                 >
                   ↓ Next
                 </button>
@@ -587,14 +769,14 @@ export function ShortsHub({
                   <button
                     type="button"
                     onClick={onPractise}
-                    className="rounded-xl bg-emerald-500 px-3 py-2 text-xs font-extrabold text-slate-950 hover:bg-emerald-400"
+                    className="rounded-xl bg-emerald-500 px-2.5 py-2 text-xs font-extrabold text-slate-950 hover:bg-emerald-400"
                   >
                     ⚡ Quiz
                   </button>
                 ) : (
                   <Link
                     href={`/topic/${current.topicId}?tab=quiz`}
-                    className="rounded-xl bg-emerald-500 px-3 py-2 text-xs font-extrabold text-slate-950 hover:bg-emerald-400"
+                    className="rounded-xl bg-emerald-500 px-2.5 py-2 text-xs font-extrabold text-slate-950 hover:bg-emerald-400"
                   >
                     ⚡ Quiz
                   </Link>

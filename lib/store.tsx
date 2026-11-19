@@ -209,7 +209,6 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
         enterGuest();
       }
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function enterGuest() {
@@ -230,7 +229,6 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
 
   const startGuest = useCallback(() => {
     enterGuest();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Unexpected failures while loading show the retry screen rather than crashing.
@@ -370,7 +368,6 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     const accId = accountRef.current?.id;
     if (accId) await selectLoaded(accId, prof);
     return { ok: true };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const updateProfile = useCallback(async (profileId: string, name: string, emoji: string) => {
@@ -399,7 +396,6 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
     const acc = accountRef.current;
     const prof = acc?.profiles.find((p) => p.id === profileId);
     if (acc && prof) await selectLoaded(acc.id, prof);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const switchProfile = useCallback(() => {
